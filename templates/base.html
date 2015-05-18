@@ -1,0 +1,125 @@
+{% load staticfiles %}
+
+<!--
+    This is the 'base' template, never loaded
+    
+    # 'home', 'user_home', 'search' extend this
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href={% static 'css/base_styler.css' %} media="all" rel="stylesheet" type="text/css" />
+    {% block css %}{% endblock %}
+    <script type="text/javascript" src={% static 'js/jquery-2.1.1.js' %}></script>
+    {% block js %}{% endblock %}
+    <title>{% block title %}IndustryLogger{% endblock %}</title>
+</head>
+
+<body>
+    <iframe id="notify_frame" class="outer_frame" src="" name="notify_frame"></iframe>
+    <div id="wrapper"></div>
+    <div class="container">
+        <header class='header_top'>
+        {% block header %}
+            <a href="{% url 'home' %}"><h1 class='ilog'>IndustryLogger</h1></a>
+        {% endblock %}
+        {% if not hide_search %}
+            <form id="search" action="{% url 'search' %}">
+                <input type="text" id="search-text" name="q" placeholder="Search" required>
+                <input type="submit" id="search-button" value="Go">
+            </form>
+        {% endif %}
+        </header>
+
+        <nav class='nav_top'>
+            <ul class="ul_top">
+            {% block menu_links %}
+            {% endblock %}
+            </ul>
+        </nav>
+
+        <section class='content'>
+            <nav class='nav_content'>
+                <ul class="ul_content">
+                {% block menu_content_links %}
+                {% endblock %}
+                </ul>
+            </nav>
+            {% block content %}
+            {% endblock %}
+        </section>
+
+        <hr class='hr_line' />
+
+        <footer class='footer_bottom'>
+            {% block footer %}
+            {% endblock %}
+            <p id="brandline"><i>version 0.01; under beta testing from <strong>12 Apr 2015</strong></i></p>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        $('.aja').click(function(){
+            var $this = $(this);
+            var url = $(this).data('link');
+            $('#mid_content').load(url);
+            console.log(url);
+        });
+        $(setDimensions);
+        $(window).resize(setDimensions);
+        function setDimensions () {
+            var window_width = $(window).width();
+            var window_height = $(window).height();
+            var footer_height = $('.footer_bottom').outerHeight(true);
+            var header_height = $('.header_top').outerHeight(true);
+
+            $('.container').css({'min-height':window_height});
+        }
+
+        $(function(){
+            $('.uls_home input, .uls_home select').attr({'required':'required'});
+        });
+
+        $('.framer').click(function(){
+            var target = $(this).attr('target');
+            var frame = $("iframe[name="+target+"]");
+            var f_class = frame.attr('class');
+            console.log(f_class);
+            if (f_class == 'outer_frame'){
+                $('#notify_frame').css({'z-index':'999'});
+                $('#notify_frame').animate({'width':'58%','height':'60%','top':'90px','left':'18%'});
+                $('#wrapper').css({'z-index':'900'});
+                $('#wrapper').animate({'opacity':'0.5'});
+                $('.close, #wrapper').click(function(){
+                    $('#notify_frame').animate({'width':'0%','height':'0%','left':'50%'},cascade);
+                    $('#wrapper').animate({'opacity':'0'},cascade);
+                    function cascade(){
+                        $(this).css({'z-index':'-100'});
+                    };
+                });
+            }
+            else if (f_class == 'inner_frame'){
+                $('.profile_box').hide(1);
+                $('#edit_frame').css({'z-index':'999'});
+                $('#edit_frame').animate({'min-height':'400px'});
+            }
+        });
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61433891-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript" src={% static 'js/frames.js' %}></script>
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>
