@@ -8,13 +8,14 @@ from industryo.unique_slug import unique_slugify
 class Question(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, null=True)
     question = models.TextField(max_length=5000)
     votes = models.IntegerField(default=0)
     time = models.TimeField(auto_now_add=True)
     answered = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tags, through='QuestionTags')
     images = models.ManyToManyField(Images)
+    admin_score = models.IntegerField(default=1)
 
     class Meta:
         verbose_name = 'Question'
@@ -37,9 +38,10 @@ class Question(models.Model):
 
     def get_unanswered(self):
         all_unanswered = Question.objects.filter(answered=False)[:20]
+        return all_unanswered
 
     def get_tagged(self, tag):
-        all
+        all_tagged = Question.objects.filter()
 
 
 

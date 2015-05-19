@@ -7,8 +7,9 @@ from django.db.models.signals import post_save
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User)
-    workplace = models.ManyToManyField(Workplace, through='UserWorkplace')
+    user = models.OneToOneField(User)
+    # workplace = models.ManyToManyField(Workplace, through='UserWorkplace')
+    primary_workplace = models.ForeignKey(Workplace, null=True)
     GenderChoices = (('M', 'Male'), ('F', 'Female'),)
     gender = models.CharField(max_length=1, choices=GenderChoices, null=True)
     job_position = models.CharField(max_length=255, null=True)

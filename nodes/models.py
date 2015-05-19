@@ -19,7 +19,7 @@ class Images(models.Model):
                                           options={'quality': 60})
     caption = models.CharField(max_length=255)
     time = models.TimeField(auto_now_add=True)
-    slug = models.SlugField(max_length=20)
+    slug = models.SlugField(max_length=20, null=True)
     user = models.ForeignKey(User)
 
     def __str__(self):
