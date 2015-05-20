@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate, logout
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
-from nodes.models import Node
+from nodes.models import *
 from userprofile.models import UserProfile
+from tags.models import Tags
 
 
 def home(request):
@@ -17,9 +18,12 @@ def home(request):
         profile = UserProfile.objects.get(user=user)
         workplace = profile.primary_workplace
         job_position = profile.job_position
-        # t = workplace.workplace_type
+        t = workplace.workplace_type
+        q = Tags.objects.get(tag=t)
 
-        # related_node = Node.objects.filter(user_workplace_workplace_type=workplace.workplace_type)
+        related = ArticleTags.objects.filter(tag=t)
+
+        # related_node = Node.objects.filter(user.profile.workplace.workplace_type=t)
 
         return render(request, 'home.html', locals())
     else:

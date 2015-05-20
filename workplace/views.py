@@ -39,8 +39,10 @@ def set_workplace(request):
             userprofile.job_position = job_position
             userprofile.save()
 
+            t = userprofile.primary_workplace.workplace_type
+
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
-            node = Node(user=User.objects.get(pk=3), post=welcome)
+            node = Node(user=User.objects.get(pk=3), post=welcome, tags=t)
             node.save()
             return redirect('/')
     else:
