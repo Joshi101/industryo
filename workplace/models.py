@@ -1,6 +1,6 @@
 from django.db import models
-# from industryo.unique_slug import unique_slugify
-from django.template.defaultfilters import slugify
+from industryo.unique_slug import unique_slugify
+# from django.template.defaultfilters import slugify
 
 
 class Segment(models.Model):
@@ -16,7 +16,9 @@ class Segment(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug
-            self.slug = slugify(self.name).__str__()
+            slug_str = self.name
+            unique_slugify(self, slug_str)
+            # self.slug = slugify(self.get_full_name()).__str__()
             super(Segment, self).save(*args, **kwargs)
 
 
@@ -32,7 +34,9 @@ class Material(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug
-            self.slug = slugify(self.name).__str__()
+            slug_str = self.name
+            unique_slugify(self, slug_str)
+            # self.slug = slugify(self.get_full_name()).__str__()
             super(Material, self).save(*args, **kwargs)
 
 
@@ -56,6 +60,16 @@ class Workplace(models.Model):
 
     class Meta:
         db_table = 'Workplace'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.id:                  # Newly created object, so set slug
+            slug_str = self.name
+            unique_slugify(self, slug_str)
+            # self.slug = slugify(self.get_full_name()).__str__()
+            super(Workplace, self).save(*args, **kwargs)
 
 
 class SegmentTags(models.Model):

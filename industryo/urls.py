@@ -11,4 +11,8 @@ urlpatterns = patterns('',
     url(r'^$', 'home.views.home', name='home'),
     url(r'^search/$', 'home.views.home', name='search'),
     url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': 'login'}, name='logout'),
+    url(r'^workplace/register/$', 'workplace.views.workplace_register', name='register'),
+    url(r'^set/$', 'workplace.views.set_workplace', name='set'),
+    url(r'^create_tag/$', 'tags.views.create_tag', name='search'),
+
 )
