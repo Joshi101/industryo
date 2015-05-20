@@ -50,6 +50,9 @@
     {% block content %}
     {% endblock %}
     <script type="text/javascript">
+        //
+        console.log($(window).height());
+        $('body').css({'min-height':$(window).height()})
         // this script handles the action when a 'fake_a' class is clicked
         $('.fake_a').click(function(){
             var $this = $(this)

@@ -11,6 +11,8 @@
 	height: 100%;
 }
 
+
+
 .page-header{
 	background: rgba(255,255,255,0.85);
 }
@@ -57,8 +59,14 @@
 
 
 footer{
-	position: relative;
+	position: absolute;
 	border-top:1px solid #ddd;
 	margin-top: 50px;
 	bottom: 0px;
+}
+
+/*login*/
+.sign{
+	max-width: 400px;
+	margin: auto;
 }
