@@ -1,0 +1,64 @@
+.fake_a{
+	cursor:pointer;
+}
+
+#back{
+	background: url(back4.jpg) no-repeat center center;
+	background-size: contain;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+
+.page-header{
+	background: rgba(255,255,255,0.85);
+}
+
+#top_search{
+	margin: 10px 0px 0px;
+}
+
+#home_intro{
+	margin: 30px 0px;
+	background: rgba(255,255,255,0.85);
+}
+
+.top_h1{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.home_h2{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.home_sign{
+	display: block;
+	margin: auto;
+}
+
+.stylish{
+	margin: 10px 0px;
+	background: rgba(55,55,55,1);
+	color: #eee;
+}
+
+.stylish:hover{
+	background: #eee;
+	color: rgb(55,55,55);
+}
+
+.signup{
+	margin: auto;
+	max-width: 400px;
+}
+
+
+footer{
+	position: relative;
+	border-top:1px solid #ddd;
+	margin-top: 50px;
+	bottom: 0px;
+}

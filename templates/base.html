@@ -2,104 +2,97 @@
 
 <!--
     This is the 'base' template, never loaded
-    
-    # 'home', 'user_home', 'search' extend this
 -->
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <link href={% static 'css/base_styler.css' %} media="all" rel="stylesheet" type="text/css" />
-    {% block css %}{% endblock %}
-    <script type="text/javascript" src={% static 'js/jquery-2.1.1.js' %}></script>
-    {% block js %}{% endblock %}
-    <title>{% block title %}IndustryLogger{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content={% block keywords %}"Industry, Network, Grid, Professional, Revolutionary"{% endblock %}>
+    <meta name="description" content={% block description %}"A modern and revolutionary networking solution for Industrial Networking"{% endblock %}>
+    <meta name="author" content={% block author %}"SP & Tiwari"{% endblock %}>
+
+    <title>Industryio - {% block title %}the massive industrial Grid{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href={% static 'bootstrap/css/bootstrap.css' %}>
+    <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
+    <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.js' %}></script>
+    <!-- custom files -->
+    <link rel="stylesheet" type="text/css" href={% static 'css/un-bootstrap.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'css/my.css' %}>
+    <script>
+        // this script activates the tooltips
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </head>
 
 <body>
-    <iframe id="notify_frame" class="outer_frame" src="" name="notify_frame"></iframe>
-    <div id="wrapper"></div>
-    <div class="container">
-        <header class='header_top'>
-        {% block header %}
-            <a href="{% url 'home' %}"><h1 class='ilog'>IndustryLogger</h1></a>
-        {% endblock %}
-        
-        </header>
 
-        <nav class='nav_top'>
-            <ul class="ul_top">
-            {% block menu_links %}
-            {% endblock %}
-            </ul>
-        </nav>
+    {% block back %}
+    <div id="back"></div>
+    {% endblock %}
+    {% block top %}
+    <div class="row page-header">
+        <div class="col-sm-6" >
+            <h1 class="top_h1">Industry Logger</h1>
+        </div>
+        <div class="col-sm-6">
+            <form role="form" id="top_search">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="q" placeholder="Search the industrial grid . . .">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+            </form>
+        </div>
 
-        <section class='content'>
-            <nav class='nav_content'>
-                <ul class="ul_content">
-                {% block menu_content_links %}
-                {% endblock %}
-                </ul>
-            </nav>
-            {% block content %}
-            {% endblock %}
-        </section>
-
-        <hr class='hr_line' />
-
-        <footer class='footer_bottom'>
-            {% block footer %}
-            {% endblock %}
-            <p id="brandline"><i>version 0.01; under beta testing from <strong>12 Apr 2015</strong></i></p>
-        </footer>
     </div>
-
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
     <script type="text/javascript">
-        $('.aja').click(function(){
-            var $this = $(this);
-            var url = $(this).data('link');
-            $('#mid_content').load(url);
-            console.log(url);
+        // this script handles the action when a 'fake_a' class is clicked
+        $('.fake_a').click(function(){
+            var $this = $(this)
+            ,   href = $this.data('href')
+            ,   hide_slide = $this.parents('.slide')
+            ,   show_slide = hide_slide.siblings();
         });
-        $(setDimensions);
-        $(window).resize(setDimensions);
-        function setDimensions () {
-            var window_width = $(window).width();
-            var window_height = $(window).height();
-            var footer_height = $('.footer_bottom').outerHeight(true);
-            var header_height = $('.header_top').outerHeight(true);
+        
+        // a dummy list
+        var list = ["tata steel", "tata consultancy services", "honda", "industriyo"];
 
-            $('.container').css({'min-height':window_height});
-        }
-
-        $(function(){
-            $('.uls_home input, .uls_home select').attr({'required':'required'});
+        // dynamic select function
+        $('.d_input').keyup(function(event){
+            var $this = $(this)
+            ,   list_display = [];
+            var query = $this.val();
+            var query_final = query.toLowerCase();
+            console.log(query_final);
+            if(query_final != ''){
+                for(i = 0; i < list.length; i++){
+                    var match = list[i].match(query_final);
+                    if (match){
+                        list_display.push(list[i]);
+                    }
+                }
+            }
+            console.log(list_display.valueOf());
+            var list_html = [];
+            for(i = 0; i < list_display.length; i++){
+                list_html += ("<li><a href=''>"+list_display[i]+"</a></li>");
+            }
+            $("#industries").html(list_html);
         });
 
-        $('.framer').click(function(){
-            var target = $(this).attr('target');
-            var frame = $("iframe[name="+target+"]");
-            var f_class = frame.attr('class');
-            console.log(f_class);
-            if (f_class == 'outer_frame'){
-                $('#notify_frame').css({'z-index':'999'});
-                $('#notify_frame').animate({'width':'58%','height':'60%','top':'90px','left':'18%'});
-                $('#wrapper').css({'z-index':'900'});
-                $('#wrapper').animate({'opacity':'0.5'});
-                $('.close, #wrapper').click(function(){
-                    $('#notify_frame').animate({'width':'0%','height':'0%','left':'50%'},cascade);
-                    $('#wrapper').animate({'opacity':'0'},cascade);
-                    function cascade(){
-                        $(this).css({'z-index':'-100'});
-                    };
-                });
-            }
-            else if (f_class == 'inner_frame'){
-                $('.profile_box').hide(1);
-                $('#edit_frame').css({'z-index':'999'});
-                $('#edit_frame').animate({'min-height':'400px'});
-            }
+        // displaying the dynamically formed list
+        $(".d_input").focus(function(){
+            $("#industries").css({'display':'block'});
+        });
+        // hiding the dynamically formed list
+        $(".d_input").blur(function(){
+            $("#industries").css({'display':'none'});
         });
     </script>
     <script>
@@ -110,11 +103,6 @@
 
       ga('create', 'UA-61433891-1', 'auto');
       ga('send', 'pageview');
-
     </script>
-    <script type="text/javascript" src={% static 'js/frames.js' %}></script>
-    {% block scripts %}
-    {% endblock %}
-
 </body>
 </html>

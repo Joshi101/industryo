@@ -13,12 +13,14 @@ def home(request):
         # name = user.username
         workplace = request.user.userprofile.primary_workplace
         text = "this is the landing page of this website for now"
+
         profile = UserProfile.objects.get(user=user)
         workplace = profile.primary_workplace
         job_position = profile.job_position
         # t = workplace.workplace_type
 
         # related_node = Node.objects.filter(user_workplace_workplace_type=workplace.workplace_type)
+
         return render(request, 'home.html', locals())
     else:
         text = "this is the landing page of this website for now"
