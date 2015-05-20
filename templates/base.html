@@ -25,12 +25,7 @@
         {% block header %}
             <a href="{% url 'home' %}"><h1 class='ilog'>IndustryLogger</h1></a>
         {% endblock %}
-        {% if not hide_search %}
-            <form id="search" action="{% url 'search' %}">
-                <input type="text" id="search-text" name="q" placeholder="Search" required>
-                <input type="submit" id="search-button" value="Go">
-            </form>
-        {% endif %}
+        
         </header>
 
         <nav class='nav_top'>
