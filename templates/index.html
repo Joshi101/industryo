@@ -1,3 +1,137 @@
-Home page
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Industry, Network, Grid, Professional, Revolutionary">
+	<meta name="description" content="A modern and revolutionary networking solution for Industrial Networking">
+	<meta name="author" content="SP & Tiwari">
+	<title>Welcome to the Grid</title>
+	<link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.css">
+	<script type="text/javascript" src="static/js/jquery-2.1.4.js"></script>
+	<script type="text/javascript" src="static/bootstrap/js/bootstrap.js"></script>
+	<!-- custom files -->
+	<link rel="stylesheet" type="text/css" href="static/css/un-bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="static/css/my.css">
+	<script>
+		// this script activates the tooltips
+		$(document).ready(function(){
+		    $('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
+</head>
 
-{{text}}
+<body>
+	<!-- 'fake_a' class makes the div look like an 'a' tag
+	,	'data-href' attribute selects the id of the form that has to be displayed -->
+	<div id="back"></div>
+	<div class="row page-header">
+		<div class="col-sm-6" >
+			<h1>Industry Logger</h1>
+		</div>
+		<div class="col-sm-6">
+			<form role="form" id="top_search">
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" name="q" placeholder="Search the industrial grid . . .">
+					<span class="glyphicon glyphicon-search form-control-feedback"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<!-- 'home_intro' id modifies styles for the into text on home page -->
+		<article id="home_intro" class="text-justify">
+			<p>Industryo is a platform especially designed for Industries and the Industrialists as an open online community to connect with each other and with their concerned players of the market. Here you get a chance to create & Maintain your company's profile and a network of yourself and your Enterprise. It is a platform where you can discuss common problems, list your products and promote your enterprise and its free to use.</p>
+		</article>
+		<!-- 'slide_container' class adds styles for the box containing links to various signin and signup options -->
+		<div class="slide_container">
+			<!-- 'slide' class styles each slide -->
+			<div class="row slide">
+				<div class="col-sm-5 home_list_group">
+					<!-- 'home_h2' class modifies styles for headings of 'home_list_group' -->
+					<h2 class="text-center home_h2">Join your workplace</h2>
+					<div class="list-group">
+						<!-- 'stylish' class modifies styles for tags linking to different options of signin and signup -->
+						<div class="list-group-item text-center stylish fake_a" data-href="lsi">Large Scale Industry</div>
+						<div class="list-group-item text-center stylish fake_a" data-href="sme">Small & Medium Scale Enterprise</div>
+						<div class="list-group-item text-center stylish fake_a" data-href="team">An SAE team</div>
+					</div>
+					<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
+						New User? Sign up with ease
+						<span class="glyphicon glyphicon-question-sign"></span>
+					</h4>
+				</div>
+				<div class="col-sm-5 home_list_group">
+					<h2 class="text-center home_h2">Existing User</h2>
+					<div class="list-group">
+						<a href=""><div class="list-group-item text-center stylish">Login with email</div></a>
+						<a href=""><div class="list-group-item text-center stylish">Login with Facebook</div></a>
+						<a href=""><div class="list-group-item text-center stylish">Login with Google+</div></a>
+					</div>
+					<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">Sign in
+						<span class="glyphicon glyphicon-question-sign"></span></h4>
+				</div>
+			</div>
+			<div class="row slide signup">
+				<h3>Select your workplace</h3>
+				<form role="form">
+					<input type="text" class="form-control d_input" data-list="industries">
+					<div class="dropdown">
+  						<button id='search_dropdown' class="dropdown-toggle hide" type="button" data-toggle="dropdown"></button>
+  						<ul id="industries" class="dropdown-menu">
+  						</ul>
+					</div>
+				</form>
+				<h4>Link up with one of your existing third party account</h4>
+				<h4>Or create a new industryo account</h4>
+			</div>
+		</div>
+
+		<footer><h4>Give your precious feedback</h4></footer>
+	</div>
+
+	<script type="text/javascript">
+		// this script handles the action when a 'fake_a' class is clicked
+	    $('.fake_a').click(function(){
+	    	var $this = $(this)
+	    	,	href = $this.data('href')
+	    	,	hide_slide = $this.parents('.slide')
+	    	,	show_slide = hide_slide.siblings();
+	    });
+		
+		// a dummy list
+		var list = ["tata steel", "tata consultancy services", "honda", "industriyo"];
+
+		// dynamic select function
+		$('.d_input').keyup(function(event){
+			var $this = $(this)
+			,	list_display = [];
+			var query = $this.val();
+			var query_final = query.toLowerCase();
+			console.log(query_final);
+			if(query_final != ''){
+				for(i = 0; i < list.length; i++){
+					var match = list[i].match(query_final);
+					if (match){
+						list_display.push(list[i]);
+					}
+				}
+			}
+			console.log(list_display.valueOf());
+			var list_html = [];
+			for(i = 0; i < list_display.length; i++){
+				list_html += ("<li><a href=''>"+list_display[i]+"</a></li>");
+			}
+			$("#industries").html(list_html);
+		});
+
+		// displaying the dynamically formed list
+		$(".d_input").focus(function(){
+			$("#industries").css({'display':'block'});
+		});
+		// hiding the dynamically formed list
+		$(".d_input").blur(function(){
+			$("#industries").css({'display':'none'});
+		});
+	</script>
+</body>
+</html>
