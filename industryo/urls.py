@@ -17,5 +17,7 @@ urlpatterns = patterns('',
     url(r'^ask/$', 'forum.views.ask', name='ask'),
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
     url(r'^searchtag/$', 'tags.views.search_tag', name='searchtag'),
+    url(r'^question/(?P<slug>[^/]+)/$', 'forum.views.get_question', name='question'),
+    url(r'^forum/', include('forum.urls', namespace='forum')),
 
 )
