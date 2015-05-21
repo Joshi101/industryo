@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from forum.models import *
 from tags.models import Tags
 from forum.forms import AskForm
@@ -25,31 +25,54 @@ def ask(request):
         return render(request, 'forum/ask.html', {'form': form})
 
 
-def ques_comment(request, id):
+def get_question(request, slug):
+    q = Question.objects.get(slug=slug)
+    comments = QuestionComment.objects.filter(question=q.id)
+    answers = Answer.objects.filter(question=q.id)
+
+    return render(request, 'forum/quest.html', locals())
+
+
+def ques_comment(request):
+    # slug = request.POST['slug']
     if request.method == 'POST':
         user = request.user
         comment = request.POST['comment']
+        id = request.POST['id']
+        slug = request.POST['slug']
         question = Question.objects.get(id=id)
         comment = QuestionComment(question=question, user=user, comment=comment)
         comment.save()
+        return HttpResponseRedirect('/forum/'+slug)
 
 
-def reply(request, id):
+def reply(request):
     if request.method == 'POST':
         answer = request.POST['answer']
         user = request.user
+        id = request.POST['id']
+        slug = request.POST['slug']
         question = Question.objects.get(id=id)
         answer = Answer(answer=answer, user=user, question=question)
         answer.save()
+        return HttpResponseRedirect('/forum/'+slug)
+    else:
+        print('problem hai')
 
 
-def ans_comment(request, id):
+
+def ans_comment(request):
     if request.method == 'POST':
         comment = request.POST['comment']
+        id = request.POST['id']
         answer = Answer.objects.get(id=id)
         user = request.user
+        slug = request.POST['slug']
         comment = AnswerComment(answer=answer, comment=comment, user=user)
         comment.save()
+        return HttpResponseRedirect('/forum/'+slug)
+    else:
+        print('problem hai')
 
 
 def tag(request):
