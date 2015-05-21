@@ -20,6 +20,18 @@
 			</div>
 		</div>
 	</div>
+	<div class="row slide signup">
+		<h3>Select your workplace</h3>
+		<form role="form">
+			<div class="industries"></div>
+			<input type="text" class="form-control d_input" data-list="industries">
+			<div class="dropdown">
+				<button id='search_dropdown' class="dropdown-toggle hide" type="button" data-toggle="dropdown"></button>
+				<ul id="industries" class="dropdown-menu">
+				</ul>
+			</div>
+		</form>
+	</div>
 	{% else %}
 	<div class="slide_container">
 		<div class="row ">
@@ -44,13 +56,6 @@
 		</div>
 	</div>
 	{% endif %}
-	{{text}}
-{{name}}
-{{user}}
-{{t}}
-
-{{workplace}} {{job_position}}
 	<footer><h4>Give your precious feedback</h4></footer>
 </div>
 {% endblock %}
-

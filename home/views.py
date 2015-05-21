@@ -18,10 +18,10 @@ def home(request):
         profile = UserProfile.objects.get(user=user)
         workplace = profile.primary_workplace
         job_position = profile.job_position
-        t = workplace.workplace_type
-        q = Tags.objects.get(tag=t)
+        #t = workplace.workplace_type
+        #q = Tags.objects.get(tag=t)
 
-        related = ArticleTags.objects.filter(tag=t)
+        #related = ArticleTags.objects.filter(tag=t)
 
         # related_node = Node.objects.filter(user.profile.workplace.workplace_type=t)
 
