@@ -2,12 +2,20 @@ from django.db import models
 from industryo.unique_slug import unique_slugify
 
 
+class TagManager(models.Manager):
+    def get_queryset(self):
+        return super(TagManager, self).get_queryset().all().order_by('-number')
+
+
+
 class Tags(models.Model):
     tag = models.CharField(max_length=20)
     slug = models.SlugField(max_length=20)
     description = models.CharField(max_length=255, null=True, blank=True)
     number = models.IntegerField(default=0)
     # type = models.CharField(max_length=1, choices=---)
+
+    popular = models.Manager()
 
     def __str__(self):
         return self.tag

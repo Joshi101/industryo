@@ -90,7 +90,7 @@
                 // or any other URL that isn't scheme relative or absolute i.e relative.
                 !(/^(\/\/|http:|https:).*/.test(url));
         }
-                 
+
         $.ajaxSetup({
             beforeSend: function(xhr, settings) {
                 if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -104,63 +104,72 @@
     </script>
     <script type="text/javascript">
         //
-        console.log($(window).height());
+        console.log('window height is '+$(window).height());
         $('body').css({'min-height':$(window).height()})
-        // this script handles the action when a 'fake_a' class is clicked
-        $('.fake_a').click(function(){
-            var $this = $(this)
-            ,   href = $this.data('href')
-            ,   hide_slide = $this.parents('.slide')
-            ,   show_slide = hide_slide.siblings();
-        });
-        
-        // a dummy list
-        var list = ["tata steel", "tata consultancy services", "honda", "industriyo"];
 
         // dynamic select function
         $('.d_input').keyup(function(event){
-            var $this = $(this)
-            ,   list_display = [];
-            var query = $this.val();
-            var query_final = query.toLowerCase();
-            console.log(query_final);
-            if(query_final != ''){
-                for(i = 0; i < list.length; i++){
-                    var match = list[i].match(query_final);
-                    if (match){
-                        list_display.push(list[i]);
-                    }
+            var $this = $(this);
+            var query = $this.val()
+            ,   search = "search" + $this.data('search');
+            console.log(query);
+            $.ajax({
+                url : search,
+                type : "GET",
+                data : { the_query : query},
+
+                success: function(result){
+                    $this.next().find(".d_list").html(result);
+                },
+
+                error : function(xhr,errmsg,err) {
+                    $this.next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
                 }
-            }
-            console.log(list_display.valueOf());
-            var list_html = [];
-            for(i = 0; i < list_display.length; i++){
-                list_html += ("<li><a href='#' class='tag_multiple'>"+list_display[i]+"</a></li>");
-            }
-            $("#industries").html(list_html);
+            });
         });
-
-        $("#industries").on('click', '.tag_single', function(){
+        /*
+        $(".d_list").on('click', '.tag_single', function(){
             var value = $(this).text();
-            console.log(value);
-            $('.industries').text(value);
-        });
+            console.log('click hua');
+            $('.d_results').text(value);
+        });*/
 
-        $("#industries").on('click', '.tag_multiple', function(){
-            var value = $(this).text();
-            console.log(value);
-            var pre_value = $('.industries').text();
-            $('.industries').text(pre_value+', '+value);
+        $(".d_list").on('click', 'a', function(){
+            var $this = $(this);
+            var value = $this.text()
+            ,   $sabke_papa = $this.closest('.d_search');
+            var r_type = $sabke_papa.data('results');
+            if(r_type == 'single'){
+                $("<div class='d_result_s'>"+value+"</div>").replaceAll($sabke_papa.children('input'));
+            }
+            else if(r_type == 'multiple'){
+                var $d_results = $sabke_papa.children('.d_results');
+                var pre_value = $d_results.text();
+                $d_results.text(pre_value+', '+value);
+            }
+            $sabke_papa.find('.d_list').css({'display':'none'});
         });
 
         // displaying the dynamically formed list
         $(".d_input").focus(function(){
-            $("#industries").css({'display':'block'});
+            $(this).next().find('.d_list').css({'display':'block'});
         });
-        /* hiding the dynamically formed list
+        $(".d_list").hover(function(){
+            $(this).css({'display':'block'});
+            $(".d_input").off('blur');
+            console.log('ab blur nhi hoga');
+        },function(){
+            //  $(this).css({'display':'none'});
+            console.log('hovr hata');
+            $(".d_input").blur(function(){
+            $(this).next().find('.d_list').css({'display':'none'});
+            console.log('blur hua');
+        });
+        });
         $(".d_input").blur(function(){
-            $("#industries").css({'display':'none'});
-        });*/
+            $(this).next().find('.d_list').css({'display':'none'});
+            console.log('blur hua');
+        });
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -21,14 +21,25 @@
 		</div>
 	</div>
 	<div class="row slide signup">
-		<h3>Select your workplace</h3>
+		<h3>Try tagging</h3>
 		<form role="form">
-			<div class="industries"></div>
-			<input type="text" class="form-control d_input" data-list="industries">
-			<div class="dropdown">
-				<button id='search_dropdown' class="dropdown-toggle hide" type="button" data-toggle="dropdown"></button>
-				<ul id="industries" class="dropdown-menu">
-				</ul>
+			<h4>Single tagging</h4>
+			<div class="d_search" data-results="single">
+				<input type="text" class="form-control d_input" data-search='tag'>
+				<div class="dropdown">
+					<ul class="dropdown-menu d_list">
+						<li><a href='#' class='tag_multiple'>check</a></li>
+					</ul>
+				</div>
+			</div>
+			<h4>Multiple tagging</h4>
+			<div class="d_search" data-results="multiple">
+				<div class="d_results"></div>
+				<input type="text" class="form-control d_input" data-search='tag'>
+				<div class="dropdown">
+					<ul class="dropdown-menu d_list">
+					</ul>
+				</div>
 			</div>
 		</form>
 	</div>
