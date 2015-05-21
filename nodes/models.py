@@ -50,7 +50,7 @@ class Node(models.Model):
     node_type = (('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard'))
     category = models.CharField(max_length=1, choices=node_type, default='F')
     title = models.TextField(max_length=255, null=True, blank=True, db_index=True)
-    post = models.TextField()
+    post = models.TextField(max_length=5000)
     slug = models.SlugField(max_length=255, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('self', null=True, blank=True)
