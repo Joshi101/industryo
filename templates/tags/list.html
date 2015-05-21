@@ -12,11 +12,16 @@
             <a href="/home"><li class="link">Home</li></a>
         </ul>
     </nav>
-{% endblock %}
 
+			
+{% endblock %}
 {% block content %}
-	{% for p in questions %}
-		<li>{{p}}</li>
+	<form id="search" action="{% url 'searchtag' %}">
+        <input type="text" id="search-text" name="tag" placeholder="Searchquestion" required>
+        <input type="submit" id="search-button" value="Go">
+    </form>
+{{term}}
+	{% for ob in o %}
+		<li>{{ob}}</li>
 	{% endfor %}
-	
 {% endblock %}

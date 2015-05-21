@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^create_tag/$', 'tags.views.create_tag', name='search'),
     url(r'^ask/$', 'forum.views.ask', name='ask'),
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
+    url(r'^searchtag/$', 'tags.views.search_tag', name='searchtag'),
 
 )
