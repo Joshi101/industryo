@@ -19,9 +19,9 @@ def home(request):
         workplace = profile.primary_workplace
         job_position = profile.job_position
         t = workplace.workplace_type
-        q = Tags.objects.get(tag=t)
+        # q = Tags.objects.get(tag=t)
 
-        related = ArticleTags.objects.filter(tag=t)
+        # related = ArticleTags.objects.filter(tag=t)
 
         # related_node = Node.objects.filter(user.profile.workplace.workplace_type=t)
 
@@ -45,6 +45,7 @@ def content(request):
     workplace = request.user.userprofile.workplace
     type = workplace.workplace_type
     related_node = Node.objects.filter(user_workplace_workplace_type=type)
+
 
 
 #

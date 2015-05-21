@@ -48,6 +48,10 @@
 {{name}}
 {{user}}
 {{t}}
+			<form id="search" action="{% url 'q_tag' %}">
+                <input type="text" id="search-text" name="tag" placeholder="Searchquestion" required>
+                <input type="submit" id="search-button" value="Go">
+            </form>
 
 {{workplace}} {{job_position}}
 	<footer><h4>Give your precious feedback</h4></footer>

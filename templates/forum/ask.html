@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
+{% endblock %}
+
+{% block header %}
+	<h1><span class="ilog">i-Log</span></h1>
+    <nav class="nav_top">
+        <ul class="ul_top">
+            <a href="/home"><li class="link">Home</li></a>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block content %}
+	<section id="content_enterprise_product">
+		<header class="header_form">
+			<h2>You.., fill me up...</h2>
+		</header>
+		<form enctype="multipart/form-data" action="" method="POST" role="form" >
+			<ul>
+				{{ form.as_ul }}
+				{% csrf_token %}
+				{{ form.errors }} and {{ form.non_field_errors }}
+				<li><input type="submit" value="submit" class="button_submit"></li>
+			</ul>
+		</form>
+	</section>
+{% endblock %}

@@ -43,6 +43,16 @@ class Question(models.Model):
     def get_tagged(self, tag):
         all_tagged = Question.objects.filter()
 
+    def create_tags(self, tags):
+        tags = tags.strip()
+        tag_list = tags.split(' ')
+        for tag in tag_list:
+            print(tag)
+            t, created = Tags.objects.get_or_create(tag=tag)
+            QuestionTags.objects.create(tags=t, question=self)
+
+
+
 
 
 class QuestionComment(models.Model):

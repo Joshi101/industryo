@@ -1,28 +1,28 @@
 from django.shortcuts import render
 from forum.models import *
 from tags.models import Tags
+from forum.forms import AskForm
 
 
 def ask(request):
 
-    if request.method == "POST":
-        question = request.POST['question']
-        title = request.POST['title']
-        user = request.user
-        question = Question(question=question, title=title, user=user)
-        question.save()
+    form = AskForm(request.POST)
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("form invalid")
+            return render(request, 'forum/ask.html', {'form': form})
+        else:
+            question = form.cleaned_data.get('question')
+            title = form.cleaned_data.get('title')
+            user = request.user
+            question = Question(question=question, title=title, user=user)
+            question.save()
+            tags = form.cleaned_data.get('tags')
+            question.create_tags(tags)
 
-        tags = request.POST['POST']
-        for tag in tags:
-            tag, created = Tags.objects.get_or_create(tag=tag)
-
-            if created:
-                tag.save()
-                return tag
-
-        question.tags = tags
-
-        return render(request, question)
+            return render(request, question)
+    else:
+        return render(request, 'forum/ask.html', {'form': form})
 
 
 def ques_comment(request, id):
@@ -62,3 +62,21 @@ def tag(request):
         tag = Tags.objects.get(tag=t)
         return tag
 # Create your views here.
+
+
+def question_tagged(request):
+    questions = None
+
+    tag = request.GET['tag']
+    tags = tag.strip()
+    tag_list = tags.split(' ')
+    for ta in tag_list:
+
+        t = Tags.objects.get(tag=ta)
+        q = Question.objects.filter(tags=t.id)
+        if questions is None:
+            questions = q
+        else:
+            questions = questions | q
+
+    return render(request, 'forum/questions.html', locals())

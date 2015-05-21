@@ -14,5 +14,7 @@ urlpatterns = patterns('',
     url(r'^workplace/register/$', 'workplace.views.workplace_register', name='register'),
     url(r'^set/$', 'workplace.views.set_workplace', name='set'),
     url(r'^create_tag/$', 'tags.views.create_tag', name='search'),
+    url(r'^ask/$', 'forum.views.ask', name='ask'),
+    url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
 
 )
