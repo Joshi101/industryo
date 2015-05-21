@@ -18,7 +18,7 @@ def create_tag(request):
                 t.number = 99
 
             t.save()
-            
+
             return render(request, 'tags/create.html', {'form': form})
     else:
         return render(request, 'tags/create.html', {'form': CreateTagForm()})
