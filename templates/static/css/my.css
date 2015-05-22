@@ -1,3 +1,7 @@
+textarea{
+	resize: none;
+}
+
 .fake_a{
 	cursor:pointer;
 }
@@ -52,11 +56,20 @@
 	color: rgb(55,55,55);
 }
 
-.signup{
+.w_400{
 	margin: auto;
 	max-width: 400px;
 }
 
+.dropdown-menu > li.no-select {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857;
+    color: #333;
+    white-space: nowrap;
+}
 
 footer{
 	position: absolute;
@@ -66,7 +79,3 @@ footer{
 }
 
 /*login*/
-.sign{
-	max-width: 400px;
-	margin: auto;
-}

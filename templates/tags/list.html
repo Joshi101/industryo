@@ -1,3 +1,9 @@
 {% for ob in o %}
-	<li><a href='#' class='tag_multiple'>{{ob}}</a></li>
+	<li><a href='#'>{{ob}}</a></li>
+{% empty %}
+	{% ifequal create "create" %}
+	<li><a href='#' class="create">Create now</a></li>
+	{% else %}
+	<li class="no-select">Sorry, no match found</li>
+	{% endifequal %}
 {% endfor %}

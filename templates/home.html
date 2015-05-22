@@ -13,35 +13,41 @@
 	</article>
 	<!-- 'slide_container' class adds styles for the box containing links to various signin and signup options -->
 	{% if user.is_authenticated %}
-	<div class="slide_container">
-		<div class="row slide">
-			<div class="col-sm-12">
-				<h3>Welcome {{user}}</h3>
-			</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h3>Welcome {{user}}</h3>
 		</div>
 	</div>
-	<div class="row slide signup">
-		<h3>Try tagging</h3>
-		<form role="form">
-			<h4>Single tagging</h4>
-			<div class="d_search" data-results="single">
-				<input type="text" class="form-control d_input" data-search='tag'>
-				<div class="dropdown">
-					<ul class="dropdown-menu d_list">
-						<li><a href='#' class='tag_multiple'>check</a></li>
-					</ul>
-				</div>
+	</div>
+	<div class="w_400">
+		<ul class="nav nav-pills nav-stacked">
+	    	<li><a href="{% url 'ask' %}"><h4>Go ahead.. ask questions here!</h4></a></li>
+	    	<li><a data-toggle="pill" href="#taggers"><h4>Or simply practice tagging</h4></a></li>
+  		</ul>
+  		<div class="tab-content">
+	  		<div id="q" class="tab-pane fade"></div>
+	  		<div id="taggers" class="tab-pane fade">
+				<form role="form">
+					<h4>Single tagging</h4>
+					<div class="d_search" data-results="single">
+						<input type="text" class="form-control d_input" data-search='tag'>
+						<div class="dropdown">
+							<ul class="dropdown-menu d_list">
+							</ul>
+						</div>
+					</div>
+					<h4>Multiple tagging</h4>
+					<div class="d_search" data-results="multiple">
+						<div class="d_results"></div>
+						<input type="text" class="form-control d_input" data-search='tag' data-create='create'>
+						<div class="dropdown">
+							<ul class="dropdown-menu d_list">
+							</ul>
+						</div>
+					</div>
+				</form>
 			</div>
-			<h4>Multiple tagging</h4>
-			<div class="d_search" data-results="multiple">
-				<div class="d_results"></div>
-				<input type="text" class="form-control d_input" data-search='tag'>
-				<div class="dropdown">
-					<ul class="dropdown-menu d_list">
-					</ul>
-				</div>
-			</div>
-		</form>
+		</div>
 	</div>
 	{% else %}
 	<div class="slide_container">
@@ -67,16 +73,6 @@
 		</div>
 	</div>
 	{% endif %}
-{{text}}
-{{name}}
-{{user}}
-{{t}}
-			<form id="search" action="{% url 'q_tag' %}">
-                <input type="text" id="search-text" name="tag" placeholder="Searchquestion" required>
-                <input type="submit" id="search-button" value="Go">
-            </form>
-
-{{workplace}} {{job_position}}
 	<footer><h4>Give your precious feedback</h4></footer>
 </div>
 {% endblock %}

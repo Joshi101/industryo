@@ -27,11 +27,12 @@ def create_tag(request):
 def search_tag(request):
     if request.method == 'GET':
         t = request.GET['the_query']
+        create = request.GET['the_create']
         # term = request.GET(tag)
         o = Tags.popular.filter(tag__icontains=t)
         # o = Tags.popular.get(name=t)
 
-        return render(request, 'tags/list.html', locals())
+        return render(request, 'tags/list.html', {'o': o, 'create':create})
     else:
         return render(request, 'tags/list.html')
 

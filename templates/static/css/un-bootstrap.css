@@ -2,3 +2,16 @@
 	margin: 0px 0px 5px;
 	padding-bottom: 0px;
 }
+
+.alert{
+	padding: 6px;
+	margin-bottom: 10px;
+}
+
+.alert_tag{
+	display: inline-block;
+}
+
+.alert_tag > .close{
+	margin-left: 2px;
+}
