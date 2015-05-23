@@ -61,7 +61,6 @@ def reply(request):
         print('problem hai')
 
 
-
 def ans_comment(request):
     if request.method == 'POST':
         comment = request.POST['comment']

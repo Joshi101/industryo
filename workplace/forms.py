@@ -1,5 +1,5 @@
 from django import forms
-from workplace.models import Workplace
+from workplace.models import Workplace, Segment
 from userprofile.models import UserProfile
 
 
@@ -27,3 +27,28 @@ class SetWorkplaceForm(forms.ModelForm):
         model = UserProfile
         exclude = ['user', 'gender', 'points', 'experience', 'image', 'image_thumbnail']
         fields = ['primary_workplace', 'job_position']
+
+
+class SetTeamTypeForm(forms.ModelForm):
+    segments = forms.ModelMultipleChoiceField(queryset=Segment.objects.filter(workplace_type='C'))
+
+    class Meta:
+        model = Workplace
+        exclude = ['name', 'workplace_type', 'materials', 'slug', 'verified']
+        fields = ['segments']
+
+
+class SetSegmentForm(forms.ModelForm):
+    segments = forms.ModelMultipleChoiceField(queryset=Segment.objects.exclude(workplace_type='C'))
+
+    class Meta:
+        model = Workplace
+        exclude = ['name', 'workplace_type', 'materials', 'slug', 'verified']
+        fields = ['segments']
+
+
+
+
+
+
+

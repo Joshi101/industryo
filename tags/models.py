@@ -8,6 +8,8 @@ class Tags(models.Model):
     number = models.IntegerField(default=0)
     # type = models.CharField(max_length=1, choices=---)
 
+    # popular = models.Manager()
+
     def __str__(self):
         return self.tag
 

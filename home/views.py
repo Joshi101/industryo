@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, render_to_response, RequestContext
 from django.contrib.auth import authenticate, logout
-
+from django.db.models import F
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from nodes.models import *
@@ -18,17 +18,12 @@ def home(request):
         profile = UserProfile.objects.get(user=user)
         workplace = profile.primary_workplace
         job_position = profile.job_position
-        # t = workplace.workplace_type
-        # q = Tags.objects.get(tag=t)
+        t = workplace.workplace_type
 
-        # related = ArticleTags.objects.filter(tag=t)
-
-        # related_node = Node.objects.filter(user.profile.workplace.workplace_type=t)
+        related_node = Node.objects.filter(user__userprofile__primary_workplace__workplace_type=t)
 
         return render(request, 'home.html', locals())
     else:
-        text = "this is the landing page of this website for now"
-
         return render(request, 'home.html', locals())
 
 

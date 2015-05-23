@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
+{% endblock %}
+
+{% block header %}
+	<h1><span class="ilog">i-Log</span></h1>
+    <nav class="nav_top">
+        <ul class="ul_top">
+            <a href="/home"><li class="link">Home</li></a>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block content %}
+	{{o}}
+	{{profile}}
+	{{profile.area}}
+	{{profile.address}}
+	{{profile.points}}
+	{{profile.institution}}
+	{{profile.about}}
+{% endblock %}
