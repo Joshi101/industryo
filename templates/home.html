@@ -48,6 +48,9 @@
 {{name}}
 {{user}}
 {{t}}
+{% for a in related_node %}
+	<li>{{a}}</li>
+{% endfor %}
 			<form id="search" action="{% url 'q_tag' %}">
                 <input type="text" id="search-text" name="tag" placeholder="Searchquestion" required>
                 <input type="submit" id="search-button" value="Go">

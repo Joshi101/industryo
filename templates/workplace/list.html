@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
+{% endblock %}
+
+{% block header %}
+	<h1><span class="ilog">i-Log</span></h1>
+    <nav class="nav_top">
+        <ul class="ul_top">
+            <a href="/home"><li class="link">Home</li></a>
+        </ul>
+    </nav>
+
+			
+{% endblock %}
+{% block content %}
+	<form id="search" action="{% url 'workplace:search_workplace' %}">
+        <input type="text" id="search-text" name="workplace" placeholder="search workplace" required>
+        <input type="submit" id="search-button" value="Go">
+    </form>
+
+	{% for ob in o %}
+		<li>{{ob}}</li>
+	{% endfor %}
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from workplace.forms import WorkplaceForm, SetWorkplaceForm
+from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
+from workplaceprofile.models import WorkplaceProfile
 from nodes.models import *
 from userprofile.models import *
 
@@ -42,11 +43,64 @@ def set_workplace(request):
             t = userprofile.primary_workplace.workplace_type
 
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
-            node = Node(user=User.objects.get(pk=3), post=welcome, tags=t)
+            node = Node(user=User.objects.get(pk=3), post=welcome)   #, tags=t
             node.save()
             return redirect('/')
     else:
         return render(request, 'userprofile/set.html', {'form': SetWorkplaceForm()})
+
+
+def search_workplace(request):                  # for searching the workplace
+    if 'workplace' in request.GET:
+        w = request.GET['workplace']
+        o = Workplace.objects.filter(name__icontains=w)
+        return render(request, 'workplace/list.html', locals())
+    else:
+        return render(request, 'workplace/list.html')
+
+
+def workplace_profile(request, slug):
+    o = Workplace.objects.get(slug=slug)
+    profile = WorkplaceProfile.objects.get(workplace=o.id)
+    return render(request, 'workplace_profile/profile.html', locals())
+
+
+def set_segment(request):
+    type = request.user.userprofile.primary_workplace.workplace_type
+    if type=='C':
+        form = SetTeamTypeForm(request.POST)
+        if request.method == 'POST':
+
+            if not form.is_valid():
+                print("form invalid")
+                return render(request, 'workplace/set_segment.html', {'form': form})
+            else:
+                segments = form.cleaned_data.get('segments')
+                workplace = request.user.userprofile.primary_workplace
+                for segment in segments:
+                    SegmentTags.objects.get_or_create(segment=segment, workplace=workplace)
+            return render(request, 'workplace/set_segment.html', {'form': form})
+        else:
+            return render(request, 'workplace/set_segment.html', {'form': form})
+    else:
+        form = SetSegmentForm(request.POST)
+        if request.method == 'POST':
+            if not form.is_valid():
+                print("form invalid")
+                return render(request, 'workplace/set_segment.html', {'form': form})
+            else:
+                segments = form.cleaned_data.get('segments')
+                workplace = request.user.userprofile.primary_workplace
+                for segment in segments:
+                    SegmentTags.objects.get_or_create(segment=segment, workplace=workplace)
+            return render(request, 'workplace/set_segment.html', {'form': form})
+        else:
+            return render(request, 'workplace/set_segment.html', {'form': form})
+
+
+
+
+
 
         
 

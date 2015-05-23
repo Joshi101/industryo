@@ -27,9 +27,7 @@ def create_tag(request):
 def search_tag(request):
     if 'tag' in request.GET:
         t = request.GET['tag']
-        # term = request.GET(tag)
-        o = Tags.popular.filter(tag__icontains=t)
-        # o = Tags.popular.get(name=t)
+        o = Tags.objects.filter(tag__icontains=t)
 
         return render(request, 'tags/list.html', locals())
     else:

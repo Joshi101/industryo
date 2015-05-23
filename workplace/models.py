@@ -22,24 +22,6 @@ class Segment(models.Model):
             super(Segment, self).save(*args, **kwargs)
 
 
-class Material(models.Model):
-    name = models.CharField(max_length=20)
-    slug = models.CharField(max_length=20)
-
-    class Meta:
-        db_table = 'Material'
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.id:                  # Newly created object, so set slug
-            slug_str = self.name
-            unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
-            super(Material, self).save(*args, **kwargs)
-
-
 class Workplace(models.Model):
     name = models.CharField(max_length=255)
     LargeScaleIndustry = 'A'
@@ -54,7 +36,6 @@ class Workplace(models.Model):
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
     segments = models.ManyToManyField(Segment, through='SegmentTags')
-    materials = models.ManyToManyField(Material, through='MaterialTags')
     verified = models.BooleanField(default=False)
     slug = models.SlugField(max_length=255)
 
@@ -80,11 +61,6 @@ class SegmentTags(models.Model):
     class Meta:
         db_table = 'SegmentTags'
 
-
-class MaterialTags(models.Model):
-    workplace = models.ForeignKey(Workplace)
-    material = models.ForeignKey(Material)
-    status = models.BooleanField(default=True)
 
 
 

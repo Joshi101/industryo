@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
-
+    'debug_toolbar',
     'nodes',
     'workplace',
     'workplaceprofile',
@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'industryo_db1',
+        'NAME': 'industryo_db2', # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
