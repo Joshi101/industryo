@@ -20,7 +20,7 @@ def bootstrap_inline(element):
 
 
 @register.filter
-def bootstrap_horizontal(element, label_cols='col-sm-2 col-lg-2'):
+def bootstrap_horizontal(element, label_cols='col-sm-4 col-lg-4'):
 
     markup_classes = {'label': label_cols, 'value': '', 'single_value': ''}
 

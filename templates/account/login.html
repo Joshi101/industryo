@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account %}
+{% load bootstrap %}
 
 {% block title %}{% trans "Sign In" %}{% endblock %}
 
@@ -10,29 +11,34 @@
   <div class="row">
     <a href={% url 'home' %} class="col-sm-2 btn btn-primary">Back to home</a>
   </div>
-  <div class="w_400 text-center">
+  <div class="w_400">
     <h2 class="text-center">{% trans "Sign In" %}</h1>
-    <p>
+    <h3>
       {% blocktrans %}
       with your indutryo account
       {% endblocktrans %}
-    </p>
-    <form class="login" method="POST" action="{% url 'account_login' %}">
+    </h3>
+    <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|bootstrap_horizontal }}
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-      <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+      <div class="form-group">
+        <a class="button secondaryAction col-sm-8 col-sm-offset-4" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-8 col-sm-offset-4 text-center">
+          <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign in" %}</button>
+        </div>
+      </div>
     </form>
     {% if socialaccount.providers %}
-    <br>
-    <p>
+    <h3>
       {% blocktrans %}
       or using your existing third party account
       {% endblocktrans %}
-    </p>
+    </h3>
     <div class="socialaccount_ballot">
       <ul class="socialaccount_providers list-group">
         {% include "socialaccount/snippets/provider_list.html" with process="login" %}
