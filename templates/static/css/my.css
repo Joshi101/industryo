@@ -1,3 +1,7 @@
+textarea{
+	resize: none;
+}
+
 .fake_a{
 	cursor:pointer;
 }
@@ -10,6 +14,8 @@
 	width: 100%;
 	height: 100%;
 }
+
+
 
 .page-header{
 	background: rgba(255,255,255,0.85);
@@ -50,15 +56,26 @@
 	color: rgb(55,55,55);
 }
 
-.signup{
+.w_400{
 	margin: auto;
-	max-width: 400px;
+	max-width: 500px;
 }
 
+.dropdown-menu > li.no-select {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857;
+    color: #333;
+    white-space: nowrap;
+}
 
 footer{
-	position: relative;
+	position: absolute;
 	border-top:1px solid #ddd;
 	margin-top: 50px;
 	bottom: 0px;
 }
+
+/*login*/

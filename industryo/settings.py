@@ -42,7 +42,12 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    
+    'bootstrapform',
+    'bootstrap3',
+    'crispy_forms',
     'debug_toolbar',
+
     'nodes',
     'workplace',
     'workplaceprofile',

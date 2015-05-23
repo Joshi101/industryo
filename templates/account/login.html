@@ -2,90 +2,56 @@
 
 {% load i18n %}
 {% load account %}
+{% load bootstrap %}
 
 {% block title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="slide_container">
-    <!-- 'slide' class styles each slide -->
-    <div class="row slide">
-      <div class="col-sm-5 home_list_group">
-        <!-- 'home_h2' class modifies styles for headings of 'home_list_group' -->
-        <h2 class="text-center home_h2">Join your workplace</h2>
-        <div class="list-group">
-          <!-- 'stylish' class modifies styles for tags linking to different options of signin and signup -->
-          <div class="list-group-item text-center stylish fake_a" data-href="lsi">Large Scale Industry</div>
-          <div class="list-group-item text-center stylish fake_a" data-href="sme">Small & Medium Scale Enterprise</div>
-          <div class="list-group-item text-center stylish fake_a" data-href="team">An SAE team</div>
-        </div>
-        <h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
-          New User? Sign up with ease
-          <span class="glyphicon glyphicon-question-sign"></span>
-        </h4>
-      </div>
-      <div class="col-sm-5 home_list_group">
-        <h2 class="text-center home_h2">Existing User</h2>
-        <div class="list-group">
-          <a href=""><div class="list-group-item text-center stylish">Login with email</div></a>
-          <a href=""><div class="list-group-item text-center stylish">Login with Facebook</div></a>
-          <a href=""><div class="list-group-item text-center stylish">Login with Google</div></a>
-        </div>
-        <h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">Sign in
-          <span class="glyphicon glyphicon-question-sign"></span></h4>
-      </div>
-    </div>
-    <div class="row slide signup">
-      <h3>Select your workplace</h3>
-      <form role="form">
-        <input type="text" class="form-control d_input" data-list="industries">
-        <div class="dropdown">
-            <button id='search_dropdown' class="dropdown-toggle hide" type="button" data-toggle="dropdown"></button>
-            <ul id="industries" class="dropdown-menu">
-            </ul>
-        </div>
-      </form>
-      <h4>Link up with one of your existing third party account</h4>
-
-      <h4>Or create a new industryo account</h4>
-    </div>
+  <div class="row">
+    <a href={% url 'home' %} class="col-sm-2 btn btn-primary">Back to home</a>
   </div>
-  <footer><h4>Give your precious feedback</h4></footer>
-</div>
-<div class="container">
-  <h1>{% trans "Sign In" %}</h1>
-
-  {% if socialaccount.providers %}
-  <p>{% blocktrans with site.name as site_name %}Please sign in with one
-  of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-  for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-  <div class="socialaccount_ballot">
-
-    <ul class="socialaccount_providers">
-      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-    </ul>
-
-    <div class="login-or">{% trans 'or' %}</div>
-
-  </div>
-
-  {% include "socialaccount/snippets/login_extra.html" %}
-
-  {% else %}
-  <p>{% blocktrans %}If you have not created an account yet, then please
-  <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-  {% endif %}
-
-  <form class="login" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  <div class="w_400">
+    <h2 class="text-center">{% trans "Sign In" %}</h1>
+    <h3>
+      {% blocktrans %}
+      with your indutryo account
+      {% endblocktrans %}
+    </h3>
+    <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form|bootstrap_horizontal }}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <div class="form-group">
+        <a class="button secondaryAction col-sm-8 col-sm-offset-4" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-8 col-sm-offset-4 text-center">
+          <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign in" %}</button>
+        </div>
+      </div>
+    </form>
+    {% if socialaccount.providers %}
+    <h3>
+      {% blocktrans %}
+      or using your existing third party account
+      {% endblocktrans %}
+    </h3>
+    <div class="socialaccount_ballot">
+      <ul class="socialaccount_providers list-group">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% else %}
     {% endif %}
-    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-    <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-  </form>
+    <p>
+      {% blocktrans %}
+      If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
+      {% endblocktrans %}
+    </p>
+  </div>
 </div>
 {% endblock %}
-  

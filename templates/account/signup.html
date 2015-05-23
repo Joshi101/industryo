@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load account %}
+{% load bootstrap %}
+
+{% block title %}{% trans "Create Account" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <a href={% url 'home' %} class="col-sm-2 btn btn-primary">Back to home</a>
+  </div>
+  <div class="w_400">
+    <h2>{% trans "Easy Sign Up" %}</h2>
+    <h3>
+      {% blocktrans %}
+      Create an industriyo account
+      {% endblocktrans %}
+    </h3>
+    <form class="form-horizontal" method="POST" action="{% url 'account_login' %}" role='form'>
+      {% csrf_token %}
+      {{ form|bootstrap_horizontal }}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <div class="form-group">
+        <div class="col-sm-8 col-sm-offset-4 text-center">
+          <button class="primaryAction btn btn-primary" type="submit">{% trans "Register" %}</button>
+        </div>
+      </div>
+    </form>
+    {% if socialaccount.providers %}
+    <h3>
+      {% blocktrans %}
+      Or link with your existing third party account
+      {% endblocktrans %}
+    </h3>
+    <div class="socialaccount_ballot">
+      <ul class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+  

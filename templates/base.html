@@ -29,14 +29,13 @@
 </head>
 
 <body>
-
     {% block back %}
     <div id="back"></div>
     {% endblock %}
     {% block top %}
     <div class="row page-header">
         <div class="col-sm-6" >
-            <h1 class="top_h1">Industry Logger</h1>
+            <a href="{% url 'home' %}"><h1 class="top_h1">Industry Logger</h1></a>
         </div>
         <div class="col-sm-6">
             <form role="form" id="top_search">
@@ -52,47 +51,165 @@
     {% block content %}
     {% endblock %}
     <script type="text/javascript">
-        // this script handles the action when a 'fake_a' class is clicked
-        $('.fake_a').click(function(){
-            var $this = $(this)
-            ,   href = $this.data('href')
-            ,   hide_slide = $this.parents('.slide')
-            ,   show_slide = hide_slide.siblings();
-        });
-        
-        // a dummy list
-        var list = ["tata steel", "tata consultancy services", "honda", "industriyo"];
-
-        // dynamic select function
-        $('.d_input').keyup(function(event){
-            var $this = $(this)
-            ,   list_display = [];
-            var query = $this.val();
-            var query_final = query.toLowerCase();
-            console.log(query_final);
-            if(query_final != ''){
-                for(i = 0; i < list.length; i++){
-                    var match = list[i].match(query_final);
-                    if (match){
-                        list_display.push(list[i]);
+        // This function gets cookie with a given name
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
                     }
                 }
             }
-            console.log(list_display.valueOf());
-            var list_html = [];
-            for(i = 0; i < list_display.length; i++){
-                list_html += ("<li><a href=''>"+list_display[i]+"</a></li>");
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+         
+        /*
+        The functions below will create a header with csrftoken
+        */
+         
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        function sameOrigin(url) {
+            // test that a given url is a same-origin URL
+            // url could be relative or scheme relative or absolute
+            var host = document.location.host; // host + port
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            // Allow absolute or scheme relative URLs to same origin
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                    // Send the token to same-origin, relative URLs only.
+                    // Send the token only if the method warrants CSRF protection
+                    // Using the CSRFToken value acquired earlier
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
             }
-            $("#industries").html(list_html);
+        });
+    </script>
+    <script type="text/javascript">
+        //
+        console.log('window height is '+$(window).height());
+        $('body').css({'min-height':$(window).height()});
+
+        // convert rendered form inputs that require tagging
+        $taggable_input = $('form .taggable');
+        if($taggable_input.length){
+            var name = $taggable_input.attr('name');
+            $taggable_input.removeClass('taggable').addClass('d_input');
+            if($taggable_input.data('results'))
+                var results = '"multiple"><div class="d_results"></div>';
+            else
+                var results = '"single"';
+            var old_input = $taggable_input.clone().wrap('<p>').parent().html();
+            var hidden_input = '<input type="hidden" name="' + name + '_tagged" value="">';
+            var new_input = '<div class="d_search" data-results='+ results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
+            $taggable_input.replaceWith(new_input);
+        }
+
+        // dynamic select function
+        $('.d_input').keyup(function(event){
+            var $this = $(this);
+            var query = $this.val()
+            ,   search = "/search" + $this.data('search')
+            ,   create = $this.data('create');
+            console.log(query, search)
+            if(!create)
+                create = '';
+            $.ajax({
+                url : search,
+                type : "GET",
+                data : { the_query : query, the_create : create},
+
+                success: function(result){
+                    $this.next().next().find(".d_list").html(result);
+                    console.log(result);
+                },
+
+                error : function(xhr,errmsg,err) {
+                    $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                }
+            });
+            if(query != '')
+                $(this).next().next().find('.d_list').css({'display':'block'});
+        });
+
+        $(".d_list").on('click', 'a', function(){
+            aj_search($(this));
+            function aj_search ($this){
+                //var $this = $(this);
+                var $sabke_papa = $this.closest('.d_search');
+                if($this.attr('class') != 'create'){
+                    var value = $this.text();
+                    console.log('list wala');
+                }
+                else{
+                    var value = $sabke_papa.children('input').val();
+                    console.log('input wala');
+                }
+                var r_type = $sabke_papa.data('results');
+                console.log($sabke_papa.attr('class'));
+                if(r_type == 'single'){
+                    $sabke_papa.children('input').before('<div class="alert"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>').addClass('hide').next().val(value);
+
+                    $sabke_papa.find('.close').on('click', function(){
+                        $(this).parent('.alert').alert('close');
+                        $sabke_papa.children('input').removeClass('hide').focus();
+                    });
+                }
+                else if(r_type == 'multiple'){
+                    var $d_results = $sabke_papa.children('.d_results');
+                    var pre_value = $d_results.html();
+                    $d_results.html(pre_value+'<div class="alert alert_tag"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>');
+                    var pre_value_snd = $sabke_papa.children('input').next().val();
+                    $sabke_papa.children('input').next().val(pre_value_snd + value + ',');
+                    $sabke_papa.find('.close').on('click', function(){
+                        $(this).parent('.alert_tag').alert('close');
+                        $sabke_papa.children('input').focus();
+                    });
+                }
+                $sabke_papa.find('.d_list').css({'display':'none'});
+            }
+        });
+        
+        $(".d_list").on('click', '.no-select', function(){
+            var $sabke_papa = $(this).closest('.d_search');
+            $sabke_papa.find('.d_list').css({'display':'none'});
         });
 
         // displaying the dynamically formed list
-        $(".d_input").focus(function(){
-            $("#industries").css({'display':'block'});
+        $(".d_list").hover(function(){
+            $(this).css({'display':'block'});
+            $(".d_input").off('blur');
+        },function(){
+            //  $(this).css({'display':'none'});
+            $(".d_input").blur(function(){
+            $(this).next().next().find('.d_list').css({'display':'none'});
         });
-        // hiding the dynamically formed list
+        });
+        $(".d_input").focus(function(){
+            var $this = $(this);
+            var query = $this.val()
+            if(query != '')
+                $this.next().next().find('.d_list').css({'display':'block'});
+        });
         $(".d_input").blur(function(){
-            $("#industries").css({'display':'none'});
+            $(this).next().next().find('.d_list').css({'display':'none'});
         });
     </script>
     <script>

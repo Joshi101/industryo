@@ -1,13 +1,6 @@
 from django.db import models
 from industryo.unique_slug import unique_slugify
 
-
-# class TagManager(models.Manager):
-#     def get_queryset(self):
-#         return super(TagManager, self).get_queryset().all().order_by('-number')
-
-
-
 class Tags(models.Model):
     tag = models.CharField(max_length=20)
     slug = models.SlugField(max_length=20)

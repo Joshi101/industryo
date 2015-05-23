@@ -17,10 +17,11 @@ def ask(request):
             user = request.user
             question = Question(question=question, title=title, user=user)
             question.save()
-            tags = form.cleaned_data.get('tags')
+            tags = form.cleaned_data.get('tags_tagged')
             question.create_tags(tags)
+            slug = question.slug
 
-            return render(request, question)
+            return HttpResponseRedirect('/forum/'+slug)
     else:
         return render(request, 'forum/ask.html', {'form': form})
 

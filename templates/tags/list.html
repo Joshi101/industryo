@@ -1,27 +1,9 @@
-{% extends "base.html" %}
-{% load staticfiles %}
-
-{% block css %}
-	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
-{% endblock %}
-
-{% block header %}
-	<h1><span class="ilog">i-Log</span></h1>
-    <nav class="nav_top">
-        <ul class="ul_top">
-            <a href="/home"><li class="link">Home</li></a>
-        </ul>
-    </nav>
-
-			
-{% endblock %}
-{% block content %}
-	<form id="search" action="{% url 'searchtag' %}">
-        <input type="text" id="search-text" name="tag" placeholder="Searchquestion" required>
-        <input type="submit" id="search-button" value="Go">
-    </form>
-{{term}}
-	{% for ob in o %}
-		<li>{{ob}}</li>
-	{% endfor %}
-{% endblock %}
+{% for ob in o %}
+	<li><a href='#'>{{ob}}</a></li>
+{% empty %}
+	{% ifequal create "create" %}
+	<li><a href='#' class="create">Create now</a></li>
+	{% else %}
+	<li class="no-select">Sorry, no match found</li>
+	{% endifequal %}
+{% endfor %}
