@@ -33,7 +33,8 @@ def set_workplace(request):
             return render(request, 'userprofile/set.html', {'form': form})
         else:
             user = request.user
-            primary_workplace = form.cleaned_data.get('primary_workplace')
+            workplace = form.cleaned_data.get('workplace')
+            primary_workplace = Workplace.objects.get(name=workplace)
             job_position = form.cleaned_data.get('job_position')
             userprofile = UserProfile.objects.get(user=user)
             userprofile.primary_workplace = primary_workplace

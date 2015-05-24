@@ -20,14 +20,14 @@ class WorkplaceForm(forms.ModelForm):
 
 
 class SetWorkplaceForm(forms.ModelForm):
-    primary_workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create', 'autocomplete':"off"}), required=True, max_length=255)
+    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create', 'autocomplete':"off"}), required=True, max_length=255)
 
-    job_position = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'position', 'data-results':'multiple', 'data-create':'create', 'autocomplete':"off"}))
+    job_position = forms.CharField(max_length=255)
 
     class Meta:
         model = UserProfile
-        exclude = ['user', 'gender', 'points', 'experience', 'image', 'image_thumbnail']
-        fields = ['primary_workplace', 'job_position']
+        exclude = ['user', 'gender', 'points', 'experience', 'image', 'image_thumbnail', 'primary_workplace']
+        fields = ['workplace', 'job_position']
 
 
 class SetTeamTypeForm(forms.ModelForm):

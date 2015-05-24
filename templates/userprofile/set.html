@@ -9,6 +9,7 @@
 	</header>
 	<form action="" method="POST" role="form">
 		{% csrf_token %}
+		
 		{{ form|bootstrap }}
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
