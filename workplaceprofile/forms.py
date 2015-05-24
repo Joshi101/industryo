@@ -1,5 +1,6 @@
 from django import forms
-from workplaceprofile.models import Events, WorkplaceProfile, Area, Institution
+from workplaceprofile.models import *
+from workplace.models import *
 
 
 class EditTeamForm(forms.ModelForm):
@@ -36,6 +37,34 @@ class EditSMEForm(forms.ModelForm):
         fields = ['city', 'assets', 'operations', 'materials', 'address', 'contact', 'about', 'capabilities', 'participation', 'materials', 'product_details']
 
 
+## class Edit LSI form
 
 
+class SetMaterialForm(forms.ModelForm):
+    materials = forms.CharField(max_length=50)
 
+    class Meta:
+        model = WorkplaceProfile
+        exclude = ['workplace', 'points', 'logo', 'area', 'institution', 'participation', 'assets', 'operations',
+                   'address', 'contact', 'about', 'capabilities', 'product_details']
+        fields = ['materials']
+
+
+class SetOperationForm(forms.ModelForm):
+    operations = forms.CharField(max_length=50)
+
+    class Meta:
+        model = WorkplaceProfile
+        exclude = ['workplace', 'points', 'logo', 'area', 'institution', 'participation', 'assets', 'materials',
+                   'address', 'contact', 'about', 'capabilities', 'product_details']
+        fields = ['operations']
+
+
+class SetAssetForm(forms.ModelForm):
+    assets = forms.CharField(max_length=50)
+
+    class Meta:
+        model = WorkplaceProfile
+        exclude = ['workplace', 'points', 'logo', 'area', 'institution', 'participation', 'materials', 'operations',
+                   'address', 'contact', 'about', 'capabilities', 'product_details']
+        fields = [ 'assets',]
