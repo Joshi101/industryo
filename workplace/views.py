@@ -18,7 +18,7 @@ def workplace_register(request):
             Workplace.objects.create(name=name, workplace_type=workplace_type)
 
             welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
-            node = Node(user=User.objects.get(pk=3), post=welcome)
+            node = Node(user=User.objects.get(pk=1), post=welcome)
             node.save()
             return redirect('/')
     else:
@@ -43,7 +43,7 @@ def set_workplace(request):
             t = userprofile.primary_workplace.workplace_type
 
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
-            node = Node(user=User.objects.get(pk=3), post=welcome)   #, tags=t
+            node = Node(user=User.objects.get(pk=1), post=welcome)   #, tags=t
             node.save()
             return redirect('/')
     else:

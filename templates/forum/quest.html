@@ -1,31 +1,15 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block css %}
-	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
-{% endblock %}
-
-{% block header %}
-	<h1><span class="ilog">i-Log</span></h1>
-    <nav class="nav_top">
-        <ul class="ul_top">
-            <a href="/home"><li class="link">Home</li></a>
-        </ul>
-    </nav>
-{% endblock %}
+{% block title %} {{q.title}} {% endblock title %}
 
 {% block content %}
-<h2>{{q.title}}</h2>
-{{q.question}}
-					<form class="form_comment" action="{% url 'forum:ques_comment' %}" method="POST">
-						<textarea class="input_comment" name="comment" placeholder="comment..." required></textarea>
-						<input type="hidden" name="id" value="{{ q.id }}">
-						<input type="hidden" name="slug" value="{{ q.slug }}">
-						<input class="div_button" type="submit" value="comment">
-						{% csrf_token %}
-					</form>
-					
-					<form class="form_comment" action="{% url 'forum:voteup' %}" method="GET">
+	<h2>{{q.title}}</h2>
+	<div class="panel">
+		<div class="panel-body">
+			<p contenteditable="true">{{q.question}}</p>
+			<p class="text-right">
+			<form class="form_comment" action="{% url 'forum:voteup' %}" method="GET">
 						<input type="hidden" name="qid" value="{{ q.id }}">
 						
 						<input class="div_button" type="submit" value="uvpote">
@@ -35,31 +19,51 @@
 						<input type="hidden" name="qid" value="{{ q.id }}">
 						
 						<input class="div_button" type="submit" value="downvote">
-						
-					</form>
-					{% for c in comments %}
-						<li>{{c.comment}}</li>
-					{% endfor %}
-					
-					<form class="form_comment" action="{% url 'forum:answer' %}" method="POST">
-						<textarea class="input_comment" name="answer" placeholder="Answer..." required></textarea>
-						<input type="hidden" name="id" value="{{ q.id }}">
-						<input type="hidden" name="slug" value="{{ q.slug }}">
-						<input class="div_button" type="submit" value="Reply">
-						{% csrf_token %}
-					</form>
-					{% for a in answers %}
-						<li>{{a.answer}}</li>
-							<form class="form_comment" action="{% url 'forum:ans_comment' %}" method="POST">
-							<textarea class="input_comment" name="comment" placeholder="comment..." required></textarea>
-							<input type="hidden" name="id" value="{{ a.id }}">
-							<input type="hidden" name="slug" value="{{ q.slug }}">
-							<input class="div_button" type="submit" value="comment">
-							{% csrf_token %}
 						</form>
-						
-						
-												
-					{% endfor %}
-
-{% endblock %}
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Comments</a>
+			</p>
+		    <div id="collapse1" class="collapse in row">
+		    	<ul>
+		    	{% for c in comments %}
+		    		<li><p>{{c.comment}}</p></li>
+		    	{% endfor %}
+		    	</ul>
+				<form class="comment_q" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
+					<div class="form-group col-sm-9 col-sm-offset-1">
+						<textarea class="form-control" name="comment" placeholder="comment..." required></textarea>
+					</div>
+					<div class="form-group col-sm-2">
+				        <button type="submit" class="btn btn-primary btn-sm form-control">comment</button>
+				    </div>
+					<input type="hidden" name="id" value="{{ q.id }}">
+					<input type="hidden" name="slug" value="{{ q.slug }}">
+					{% csrf_token %}
+				</form>
+		  	</div> 
+		</div>
+	</div>
+	<form class="" action="{% url 'forum:answer' %}" method="POST">
+		<input class="form-control" name="answer" placeholder="Answer..." required>
+		<input type="hidden" name="id" value="{{ q.id }}">
+		<input type="hidden" name="slug" value="{{ q.slug }}">
+		<input class="div_button" type="submit" value="Reply">
+		{% csrf_token %}
+	</form>
+	<ul>
+	{% for a in answers %}
+		<li>{{a.answer}}</li>
+			<form action="{% url 'forum:ans_comment' %}" method="POST">
+				<input class="form-control" name="comment" placeholder="comment..." required>
+				<input type="hidden" name="id" value="{{ a.id }}">
+				<input type="hidden" name="slug" value="{{ q.slug }}">
+				<input class="div_button" type="submit" value="comment">
+				{% csrf_token %}
+			</form>
+			<ul>
+			{% for c in a.answer.answercomments %}
+				<li>{{c.comment}}</li>
+			{% endfor %}
+			</ul>
+	{% endfor %}
+	</ul>
+{% endblock content %}

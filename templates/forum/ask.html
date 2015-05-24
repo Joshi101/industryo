@@ -4,15 +4,13 @@
 {% load bootstrap3 %}
 
 {% block content %}
-	<div class="container">
-		<form enctype="multipart/form-data" action="" method="POST" role="form" >
-			{% csrf_token %}
-			{{ form|bootstrap }}
-		    {% buttons %}
-		        <button type="submit" class="btn btn-primary">
-		            {% bootstrap_icon "star" %} Submit
-		        </button>
-		    {% endbuttons %}
-		</form>
-	</section>
+	<form enctype="multipart/form-data" action="" method="POST" role="form" >
+		{% csrf_token %}
+		{{ form|bootstrap }}
+	    {% buttons %}
+	        <button type="submit" class="btn btn-primary">
+	            {% bootstrap_icon "star" %} Submit
+	        </button>
+	    {% endbuttons %}
+	</form>
 {% endblock %}
