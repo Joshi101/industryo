@@ -23,7 +23,7 @@ def home(request):
 
             return render(request, 'home.html', locals())
         else:
-            return render(request, 'workplace_required.html', locals())
+            return redirect('/set/')
     else:
         return render(request, 'home.html', locals())
 

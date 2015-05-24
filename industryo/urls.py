@@ -26,5 +26,5 @@ urlpatterns = patterns('',
     url(r'^question/(?P<slug>[^/]+)/$', 'forum.views.get_question', name='question'),
     url(r'^forum/', include('forum.urls', namespace='forum')),
     url(r'^workplace/', include('workplace.urls', namespace='workplace')),
-
+    url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
 )
