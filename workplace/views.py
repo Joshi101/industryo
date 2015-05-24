@@ -39,7 +39,6 @@ def set_workplace(request):
             userprofile.primary_workplace = primary_workplace
             userprofile.job_position = job_position
             userprofile.save()
-
             t = userprofile.primary_workplace.workplace_type
 
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
@@ -48,7 +47,6 @@ def set_workplace(request):
             return redirect('/')
     else:
         return render(request, 'userprofile/set.html', {'form': SetWorkplaceForm()})
-
 
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
