@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 
-
-
-
 {% block content %}
 <!-- 'fake_a' class makes the div look like an 'a' tag
 ,	'data-href' attribute selects the id of the form that has to be displayed -->
-<div class="container">
 	<!-- 'home_intro' id modifies styles for the into text on home page -->
 	<article id="home_intro" class="text-justify">
 		<p>Industryo is a platform especially designed for Industries and the Industrialists as an open online community to connect with each other and with their concerned players of the market. Here you get a chance to create & Maintain your company's profile and a network of yourself and your Enterprise. It is a platform where you can discuss common problems, list your products and promote your enterprise and its free to use.</p>
@@ -15,9 +11,8 @@
 	{% if user.is_authenticated %}
 	<div class="row">
 		<div class="col-sm-12">
-			<h3>Welcome {{user}}</h3>
+			<h3>Welcome {{user}} of {{workplace}}</h3>
 		</div>
-	</div>
 	</div>
 	<div class="w_400">
 		<ul class="nav nav-pills nav-stacked">
@@ -73,6 +68,4 @@
 		</div>
 	</div>
 	{% endif %}
-	<footer><h4>Give your precious feedback</h4></footer>
-</div>
 {% endblock %}

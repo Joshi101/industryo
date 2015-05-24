@@ -45,7 +45,7 @@ class Question(models.Model):
 
     def create_tags(self, tags):
         tags = tags.strip()
-        tag_list = tags.split(' ')
+        tag_list = tags.split(',')
         for tag in tag_list:
             print(tag)
             t, created = Tags.objects.get_or_create(tag=tag)

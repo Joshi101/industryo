@@ -31,7 +31,7 @@
 <body>
     {% block back %}
     <div id="back"></div>
-    {% endblock %}
+    {% endblock back %}
     {% block top %}
     <div class="row page-header">
         <div class="col-sm-6" >
@@ -47,9 +47,29 @@
         </div>
 
     </div>
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
+    {% endblock top %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                {% block left %}
+                <form action="{% url 'logout' %}">
+                    <button type="submit" class="btn btn-failure">Log Out</button>
+                </form>
+                {% endblock left %}    
+            </div>
+            <div class="col-sm-6">      
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="col-sm-3">
+                {% block right %}
+                {% endblock right %}    
+            </div>
+        </div>
+    </div>
+    {% block foot %}
+    <footer><h4>Give your precious feedback</h4></footer>
+    {% endblock foot %}
     <script type="text/javascript">
         // This function gets cookie with a given name
         function getCookie(name) {
@@ -111,13 +131,14 @@
         $taggable_input = $('form .taggable');
         if($taggable_input.length){
             var name = $taggable_input.attr('name');
+            $taggable_input.attr('name','');
             $taggable_input.removeClass('taggable').addClass('d_input');
             if($taggable_input.data('results'))
                 var results = '"multiple"><div class="d_results"></div>';
             else
                 var results = '"single"';
             var old_input = $taggable_input.clone().wrap('<p>').parent().html();
-            var hidden_input = '<input type="hidden" name="' + name + '_tagged" value="">';
+            var hidden_input = '<input type="hidden" name="' + name + '" value="">';
             var new_input = '<div class="d_search" data-results='+ results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
             $taggable_input.replaceWith(new_input);
         }

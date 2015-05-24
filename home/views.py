@@ -11,18 +11,19 @@ from tags.models import Tags
 def home(request):
     if request.user.is_authenticated():
         user = request.user
-        # name = user.username
-        workplace = request.user.userprofile.primary_workplace
-        text = "this is the landing page of this website for now"
+        if request.user.userprofile.primary_workplace:
+            # name = user.username
+            workplace = request.user.userprofile.primary_workplace
+            profile = UserProfile.objects.get(user=user)
+            workplace = profile.primary_workplace
+            job_position = profile.job_position
+            t = workplace.workplace_type
 
-        profile = UserProfile.objects.get(user=user)
-        workplace = profile.primary_workplace
-        job_position = profile.job_position
-        t = workplace.workplace_type
+            related_node = Node.objects.filter(user__userprofile__primary_workplace__workplace_type=t)
 
-        related_node = Node.objects.filter(user__userprofile__primary_workplace__workplace_type=t)
-
-        return render(request, 'home.html', locals())
+            return render(request, 'home.html', locals())
+        else:
+            return render(request, 'workplace_required.html', locals())
     else:
         return render(request, 'home.html', locals())
 
