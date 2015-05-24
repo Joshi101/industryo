@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from workplace.models import Workplace
+from workplaceprofile.models import *
 from workplaceprofile.forms import *
 
 
@@ -74,7 +74,37 @@ def edit_workplace_profile(request):
             return render(request, 'workplace_profile/edit.html', {'form': form})
 
 
+def search_asset(request):
+    if 'the_query' in request.GET:
+        t = request.GET['the_query']
+        create = request.GET['the_create']
+        o = Asset.objects.filter(tag__icontains=t)[:6]
 
+        return render(request, 'workplace/list.html', {'o': o, 'create': create})
+    else:
+        return render(request, 'workplace/list.html')
+
+
+def search_operation(request):
+    if 'the_query' in request.GET:
+        t = request.GET['the_query']
+        create = request.GET['the_create']
+        o = Operation.objects.filter(tag__icontains=t)[:6]
+
+        return render(request, 'tags/list.html', {'o': o, 'create': create})
+    else:
+        return render(request, 'tags/list.html')
+
+
+def search_material(request):
+    if 'the_query' in request.GET:
+        t = request.GET['the_query']
+        create = request.GET['the_create']
+        o = Material.objects.filter(tag__icontains=t)[:6]
+
+        return render(request, 'tags/list.html', {'o': o, 'create': create})
+    else:
+        return render(request, 'tags/list.html')
 
 
 

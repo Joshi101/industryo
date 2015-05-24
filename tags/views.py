@@ -29,10 +29,10 @@ def search_tag(request):
         t = request.GET['the_query']
         create = request.GET['the_create']
         # term = request.GET(tag)
-        o = Tags.objects.filter(tag__icontains=t)
+        o = Tags.objects.filter(tag__icontains=t)[:6]
         # o = Tags.objects.get(name=t)
 
-        return render(request, 'tags/list.html', {'o': o, 'create':create})
+        return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
         return render(request, 'tags/list.html')
 
