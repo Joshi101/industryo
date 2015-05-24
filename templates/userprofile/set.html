@@ -1,19 +1,15 @@
 {% extends "base.html" %}
-{% load staticfiles %}
 
+{% load staticfiles %}
+{% load bootstrap %}
 
 {% block content %}
-	<section id="content_add_type" class="contents">
-		<header class="header_form">
-			<h2>Add a new type only if you cant fit in any of the existing type as 
-			it will reduce the probability of your company showing up in our advanced search feature</h2>
-		</header>
-		<form id="form_add_type" class="forms_home" action="/set/" method="POST" role="form">
-			<ul class="uls_home">
-				{{ form.as_ul }}
-				{% csrf_token %}
-				<li><input type="submit" value="submit" class="submit_main"></li>
-			</ul>
-		</form>
-	</section>
+	<header class="header_form">
+		<h2>search feature</h2>
+	</header>
+	<form action="" method="POST" role="form">
+		{% csrf_token %}
+		{{ form|bootstrap }}
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 {% endblock %}

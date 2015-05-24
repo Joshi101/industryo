@@ -9,7 +9,7 @@ class AskForm(forms.ModelForm):
       'data-results':'multiple', 'data-create':'create', 'autocomplete':"off"}),
                            max_length=255,
                            required=False,
-                           help_text='Use spaces to separate the tags, such as "asp.net mvc5 javascript"')
+                           help_text='Use , (comma) to separate the tags, such as "asp.net,mvc5,javascript"')
 
     class Meta:
         model = Question

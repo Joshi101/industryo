@@ -20,8 +20,9 @@ class WorkplaceForm(forms.ModelForm):
 
 
 class SetWorkplaceForm(forms.ModelForm):
-    primary_workplace = forms.ModelChoiceField(queryset=Workplace.objects.all(), required=True)
-    job_position = forms.CharField(max_length=255)
+    primary_workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create', 'autocomplete':"off"}), required=True, max_length=255)
+
+    job_position = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'position', 'data-results':'multiple', 'data-create':'create', 'autocomplete':"off"}))
 
     class Meta:
         model = UserProfile

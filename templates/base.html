@@ -128,20 +128,21 @@
         $('body').css({'min-height':$(window).height()});
 
         // convert rendered form inputs that require tagging
-        $taggable_input = $('form .taggable');
-        if($taggable_input.length){
+        $('form .taggable').each(function(){
+            console.log($(this).attr('id'));
+            $taggable_input = $(this);
             var name = $taggable_input.attr('name');
             $taggable_input.attr('name','');
             $taggable_input.removeClass('taggable').addClass('d_input');
-            if($taggable_input.data('results'))
+            if($taggable_input.data('results') == 'multiple')
                 var results = '"multiple"><div class="d_results"></div>';
-            else
-                var results = '"single"';
+            else if($taggable_input.data('results') == 'single')
+                var results = '"single">';
             var old_input = $taggable_input.clone().wrap('<p>').parent().html();
             var hidden_input = '<input type="hidden" name="' + name + '" value="">';
             var new_input = '<div class="d_search" data-results='+ results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
             $taggable_input.replaceWith(new_input);
-        }
+        });
 
         // dynamic select function
         $('.d_input').keyup(function(event){
@@ -159,11 +160,11 @@
 
                 success: function(result){
                     $this.next().next().find(".d_list").html(result);
-                    console.log(result);
                 },
 
                 error : function(xhr,errmsg,err) {
                     $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                    console.log(errmsg,err);
                 }
             });
             if(query != '')
@@ -186,7 +187,7 @@
                 var r_type = $sabke_papa.data('results');
                 console.log($sabke_papa.attr('class'));
                 if(r_type == 'single'){
-                    $sabke_papa.children('input').before('<div class="alert"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>').addClass('hide').next().val(value);
+                    $sabke_papa.children('input').first().before('<div class="alert"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>').addClass('hide').next().val(value);
 
                     $sabke_papa.find('.close').on('click', function(){
                         $(this).parent('.alert').alert('close');

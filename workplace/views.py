@@ -39,7 +39,6 @@ def set_workplace(request):
             userprofile.primary_workplace = primary_workplace
             userprofile.job_position = job_position
             userprofile.save()
-
             t = userprofile.primary_workplace.workplace_type
 
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
@@ -50,13 +49,17 @@ def set_workplace(request):
         return render(request, 'userprofile/set.html', {'form': SetWorkplaceForm()})
 
 
-def search_workplace(request):                  # for searching the workplace
-    if 'workplace' in request.GET:
-        w = request.GET['workplace']
+def search_workplace(request):
+    print('ureotwroeutpwirtr')                  # for searching the workplace
+    if request.method == 'GET':
+        w = request.GET['the_query']
+        print(w)
+        create = request.GET['the_create']
         o = Workplace.objects.filter(name__icontains=w)
-        return render(request, 'workplace/list.html', locals())
+        return render(request, 'tags/list.html', {'o': o, 'create':create})
     else:
-        return render(request, 'workplace/list.html')
+        print('fsouhghgo')
+        return render(request, 'tags/list.html')
 
 
 def workplace_profile(request, slug):
