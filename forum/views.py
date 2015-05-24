@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from forum.models import *
 from tags.models import Tags
 from forum.forms import AskForm
+from activities.models import *
 
 
 def ask(request):
@@ -17,8 +18,8 @@ def ask(request):
             user = request.user
             question = Question(question=question, title=title, user=user)
             question.save()
-            tags = form.cleaned_data.get('tags')
-            question.create_tags(tags)
+            tag = form.cleaned_data.get('tags')
+            question.create_tags(tag)
             slug = question.slug
 
             return HttpResponseRedirect('/forum/'+slug)
@@ -45,6 +46,74 @@ def ques_comment(request):
         comment = QuestionComment(question=question, user=user, comment=comment)
         comment.save()
         return HttpResponseRedirect('/forum/'+slug)
+
+
+def voteup(request):
+    if 'qid' in request.GET:
+        q = request.GET['qid']
+        question = Question.objects.get(id=q)
+        # a = request.GET['aid']
+        # answer = Answer.objects.get(id=a)
+        user = request.user
+
+        try:
+            vote = Activity.objects.get(user=user, question=question, activity='U')
+            # User.
+            vote.delete()
+            question.votes -= 1
+        except Exception:
+            vote = Activity.objects.create(user=user, question=question, activity='U')
+            vote.save()
+            question.votes += 1
+        return redirect('/')
+    elif 'aid' in request.GET:
+        a = request.GET['aid']
+        answer = Answer.objects.get(id=a)
+        user = request.user
+        try:
+            vote = Activity.objects.get(user=user, answer=answer, activity='U')
+            # User.
+            vote.delete()
+            answer.votes -= 1
+        except Exception:
+            vote = Activity.objects.create(user=user, answer=answer, activity='U')
+            vote.save()
+            answer.votes += 1
+        return redirect('/')
+
+
+def votedown(request):
+    if 'qid' in request.GET:
+        q = request.GET['qid']
+        question = Question.objects.get(id=q)
+        # a = request.GET['aid']
+        # answer = Answer.objects.get(id=a)
+        user = request.user
+
+        try:
+            vote = Activity.objects.get(user=user, question=question, activity='D')
+            # User.
+            vote.delete()
+            question.votes -= 1
+        except Exception:
+            vote = Activity.objects.create(user=user, question=question, activity='D')
+            vote.save()
+            question.votes += 1
+        return redirect('/')
+    elif 'aid' in request.GET:
+        a = request.GET['aid']
+        answer = Answer.objects.get(id=a)
+        user = request.user
+        try:
+            vote = Activity.objects.get(user=user, answer=answer, activity='D')
+            # User.
+            vote.delete()
+            answer.votes += 1
+        except Exception:
+            vote = Activity.objects.create(user=user, answer=answer, activity='D')
+            vote.save()
+            answer.votes -= 1
+        return redirect('/')
 
 
 def reply(request):
@@ -103,3 +172,13 @@ def question_tagged(request):
             questions = questions | q
 
     return render(request, 'forum/questions.html', locals())
+
+
+# def voteup(request):
+#     user = request.user
+
+
+
+
+
+

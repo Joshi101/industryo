@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'workplaceprofile',
     'userprofile',
     'forum',
+    'activities',
 
     'tags',
 )

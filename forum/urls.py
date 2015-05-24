@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^ques_comment/$', 'forum.views.ques_comment', name='ques_comment'),
     url(r'^ans_comment/$', 'forum.views.ans_comment', name='ans_comment'),
     url(r'^answer/$', 'forum.views.reply', name='answer'),
+    url(r'^voteup/$', 'forum.views.voteup', name='voteup'),
+    url(r'^votedown/$', 'forum.views.votedown', name='votedown'),
     url(r'^(?P<slug>[^/]+)/$', 'forum.views.get_question', name='question'),
+
 
 )
