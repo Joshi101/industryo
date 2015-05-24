@@ -111,13 +111,14 @@
         $taggable_input = $('form .taggable');
         if($taggable_input.length){
             var name = $taggable_input.attr('name');
+			$taggable_input.attr('name','');
             $taggable_input.removeClass('taggable').addClass('d_input');
             if($taggable_input.data('results'))
                 var results = '"multiple"><div class="d_results"></div>';
             else
                 var results = '"single"';
             var old_input = $taggable_input.clone().wrap('<p>').parent().html();
-            var hidden_input = '<input type="hidden" name="' + name + '_tagged" value="">';
+            var hidden_input = '<input type="hidden" name="' + name + '" value="">';
             var new_input = '<div class="d_search" data-results='+ results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
             $taggable_input.replaceWith(new_input);
         }

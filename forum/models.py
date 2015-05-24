@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from tags.models import Tags
 from nodes.models import Images
 from industryo.unique_slug import unique_slugify
+from activities.models import Activity
 
 
 class Question(models.Model):
@@ -43,13 +44,16 @@ class Question(models.Model):
     def get_tagged(self, tag):
         all_tagged = Question.objects.filter()
 
-    def create_tags(self, tags):
-        tags = tags.strip()
-        tag_list = tags.split(' ')
-        for tag in tag_list:
-            print(tag)
-            t, created = Tags.objects.get_or_create(tag=tag)
+    def create_tags(self, tag):
+        # tags = tags.strip()
+        tag_list = tag.split(',')
+        for ta in tag_list:
+            print(ta)
+            t, created = Tags.objects.get_or_create(tag=ta)
             QuestionTags.objects.create(tags=t, question=self)
+
+    # def calculate_votes(self):
+    #     Activity.objects.filter()
 
 
 

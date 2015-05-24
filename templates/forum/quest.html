@@ -24,6 +24,19 @@
 						<input class="div_button" type="submit" value="comment">
 						{% csrf_token %}
 					</form>
+					
+					<form class="form_comment" action="{% url 'forum:voteup' %}" method="GET">
+						<input type="hidden" name="qid" value="{{ q.id }}">
+						
+						<input class="div_button" type="submit" value="uvpote">
+						
+					</form>
+					<form class="form_comment" action="{% url 'forum:votedown' %}" method="GET">
+						<input type="hidden" name="qid" value="{{ q.id }}">
+						
+						<input class="div_button" type="submit" value="downvote">
+						
+					</form>
 					{% for c in comments %}
 						<li>{{c.comment}}</li>
 					{% endfor %}
