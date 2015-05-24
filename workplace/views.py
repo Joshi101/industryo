@@ -51,12 +51,13 @@ def set_workplace(request):
 
 
 def search_workplace(request):                  # for searching the workplace
-    if 'workplace' in request.GET:
-        w = request.GET['workplace']
+    if request.method == 'GET':
+        w = request.GET['the_query']
         o = Workplace.objects.filter(name__icontains=w)
-        return render(request, 'workplace/list.html', locals())
+        create = request.GET['the_create']
+        return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
-        return render(request, 'workplace/list.html')
+        return render(request, 'tags/list.html')
 
 
 def workplace_profile(request, slug):
@@ -96,6 +97,18 @@ def set_segment(request):
             return render(request, 'workplace/set_segment.html', {'form': form})
         else:
             return render(request, 'workplace/set_segment.html', {'form': form})
+
+
+def search_segment(request):
+    if request.method == 'GET':
+        t = request.GET['the_query']
+        create = request.GET['the_create']
+        o = Segment.objects.filter(tag__icontains=t)[:6]
+
+        return render(request, 'tags/list.html', {'o': o, 'create': create})
+    else:
+        return render(request, 'tags/list.html')
+
 
 
 
