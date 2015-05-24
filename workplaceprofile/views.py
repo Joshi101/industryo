@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from workplaceprofile.models import *
 from workplaceprofile.forms import *
 
@@ -107,6 +107,55 @@ def search_material(request):
         return render(request, 'tags/list.html')
 
 
+def set_materials(request):
+    form = SetMaterialForm(request.POST)
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("fuck")
+            return redirect('/')
+        else:
+            user = request.user
+            workplace = user.userprofile.primary_workplace
+            wp = WorkplaceProfile.objects.get(workplace=workplace)
+            materials = form.cleaned_data.get('materials')
+            wp.set_materials(materials)
+            return render(request, 'workplace/set_materials.html', {'form': form})
+    else:
+        return render(request, 'workplace/set_materials.html', {'form': form})
+
+
+def set_operations(request):
+    form = SetOperationForm(request.POST)
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("fuck")
+            return redirect('/')
+        else:
+            user = request.user
+            workplace = user.userprofile.primary_workplace
+            wp = WorkplaceProfile.objects.get(workplace=workplace)
+            operations = form.cleaned_data.get('operations')
+            wp.set_operations(operations)
+            return render(request, 'workplace/set_operations.html', {'form': form})
+    else:
+        return render(request, 'workplace/set_operations.html', {'form': form})
+
+
+def set_assets(request):
+    form = SetAssetForm(request.POST)
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("fuck")
+            return redirect('/')
+        else:
+            user = request.user
+            workplace = user.userprofile.primary_workplace
+            wp = WorkplaceProfile.objects.get(workplace=workplace)
+            assets = form.cleaned_data.get('assets')
+            wp.set_assets(assets)
+            return render(request, 'workplace/set_assets.html', {'form': form})
+    else:
+        return render(request, 'workplace/set_assets.html', {'form': form})
 
 
 # Create your views here.
