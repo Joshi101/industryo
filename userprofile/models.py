@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from workplace.models import Workplace
-from imagekit.models import ProcessedImageField, ImageSpecField
-from imagekit.processors import ResizeToFill
+from workplaceprofile.models import Operation
 from django.db.models.signals import post_save
 from allauth.socialaccount.models import SocialAccount
 import hashlib
@@ -21,6 +20,8 @@ class UserProfile(models.Model):
 
     follows = models.ManyToManyField('self', through='Relationship', related_name='related_to', symmetrical=False)
     profile_image = models.ForeignKey(Images, null=True, blank=True)
+
+    skills = models.ManyToManyField(Operation)
 
     def __str__(self):
         return self.user.get_full_name()
@@ -49,6 +50,15 @@ class UserProfile(models.Model):
             return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
 
         return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
+
+    def set_skills(self, skills):
+        skill_tags = skills.split(' ')
+        li = []
+        for m in skill_tags:
+
+            t, created = Operation.objects.get_or_create(name=m)
+            li.append(t)
+        self.skills = li
 
 
 def create_user_profile(sender, instance, created, **kwargs):

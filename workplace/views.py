@@ -50,6 +50,7 @@ def set_workplace(request):
     else:
         return render(request, 'userprofile/set.html', {'form': SetWorkplaceForm()})
 
+
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
@@ -111,6 +112,8 @@ def workplace_profile(request, slug):
     profile = WorkplaceProfile.objects.get(workplace=o.id)
     members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
     return render(request, 'workplace_profile/profile.html', locals())
+
+
 
 
 
