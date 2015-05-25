@@ -4,7 +4,7 @@ from userprofile.models import UserProfile
 
 
 class WorkplaceForm(forms.ModelForm):
-    name = forms.CharField(max_length=200)
+    name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder':'Enter the name of your Enterprise/Group'}))
     Workplace_Type = (
         ('A', 'Large Scale Industry'),
         ('B', 'Small & Medium Scale Enterprise'),
@@ -20,7 +20,7 @@ class WorkplaceForm(forms.ModelForm):
 
 
 class SetWorkplaceForm(forms.ModelForm):
-    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create', 'autocomplete':"off"}), required=True, max_length=255)
+    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create_new', 'autocomplete':"off", 'placeholder':'Search for your Workplace here ...'}), required=True, max_length=255)
 
     job_position = forms.CharField(max_length=255)
 
