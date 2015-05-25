@@ -29,13 +29,15 @@ def workplace_register(request):
 
 def set_workplace(request):
     form = SetWorkplaceForm(request.POST)
+    form_2 = WorkplaceForm(request.POST)
     if request.method == 'POST':
         if not form.is_valid():
             print("form invalid")
             return render(request, 'userprofile/set.html', {'form': form})
         else:
             user = request.user
-            primary_workplace = form.cleaned_data.get('primary_workplace')
+            workplace = form.cleaned_data.get('workplace')
+            primary_workplace = Workplace.objects.get(name=workplace)
             job_position = form.cleaned_data.get('job_position')
             userprofile = UserProfile.objects.get(user=user)
             userprofile.primary_workplace = primary_workplace
@@ -48,7 +50,7 @@ def set_workplace(request):
             node.save()
             return redirect('/')
     else:
-        return render(request, 'userprofile/set.html', {'form': SetWorkplaceForm()})
+        return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
 
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
