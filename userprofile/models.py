@@ -4,6 +4,9 @@ from workplace.models import Workplace
 from imagekit.models import ProcessedImageField, ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.db.models.signals import post_save
+from allauth.socialaccount.models import SocialAccount
+import hashlib
+from nodes.models import Images
 
 
 class UserProfile(models.Model):
@@ -17,14 +20,7 @@ class UserProfile(models.Model):
     points = models.IntegerField(default=0)
 
     follows = models.ManyToManyField('self', through='Relationship', related_name='related_to', symmetrical=False)
-    image = ProcessedImageField(upload_to='user/main',
-                                          processors=[ResizeToFill(1000, 1000)],
-                                          format='JPEG',
-                                          options={'quality': 60})
-    image_thumbnail = ProcessedImageField(upload_to='user/thumbnails',
-                                          processors=[ResizeToFill(100, 100)],
-                                          format='JPEG',
-                                          options={'quality': 60})
+    profile_image = models.ForeignKey(Images, null=True, blank=True)
 
     def __str__(self):
         return self.user.get_full_name()
@@ -45,6 +41,14 @@ class UserProfile(models.Model):
             return self.image_thumbnail
         else:
             return default
+
+    def profile_image_url(self):
+        fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
+
+        if len(fb_uid):
+            return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
+
+        return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
 
 def create_user_profile(sender, instance, created, **kwargs):

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from workplaceprofile.models import *
 from workplaceprofile.forms import *
+from nodes.models import *
 
 
 def edit_workplace_profile(request):
     w = request.user.userprofile.primary_workplace
     type = w.workplace_type
     if type == 'C':
-        form = EditTeamForm(request.POST)
+        form = EditTeamForm(request.POST, request.FILES)
         if request.method == 'POST':
             if not form.is_valid():
                 print("fuck")
@@ -19,6 +20,7 @@ def edit_workplace_profile(request):
                 about = form.cleaned_data.get('about')
                 institution_name = form.cleaned_data.get('institution_name')
                 parti = form.cleaned_data.get('participation')
+                logo = form.cleaned_data.get('logo')
 
                 area, created = Area.objects.get_or_create(name=city)
                 institution, created = Institution.objects.get_or_create(name=institution_name, area=area)
@@ -30,6 +32,10 @@ def edit_workplace_profile(request):
                 wp.about = about
                 wp.institution = institution   # get or create on models
                 wp.create_participation(parti)
+                user = request.user
+                wp.set_logo(image=logo, user=user)
+                # wp.set_logo(logo, user)
+
                 wp.save()
 
             return render(request, 'workplace_profile/edit.html', {'form': form})
@@ -156,6 +162,9 @@ def set_assets(request):
             return render(request, 'workplace/set_assets.html', {'form': form})
     else:
         return render(request, 'workplace/set_assets.html', {'form': form})
+
+
+# def workplace_profile():
 
 
 # Create your views here.

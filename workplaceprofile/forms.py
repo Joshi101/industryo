@@ -4,18 +4,19 @@ from workplace.models import *
 
 
 class EditTeamForm(forms.ModelForm):
-    city = forms.CharField(max_length=50)          ## later change it to queryset
+    city = forms.CharField(max_length=50, required=False)          ## later change it to queryset
     address = forms.CharField(max_length=255, required=False)
     contact = forms.CharField(max_length=255, required=False)
     about = forms.CharField(widget=forms.Textarea, max_length=5000, required=False)
-    institution_name = forms.CharField(max_length=50)        ## later change it to queryset
-    participation = forms.CharField(max_length=255)
+    institution_name = forms.CharField(max_length=50, required=False)        ## later change it to queryset
+    participation = forms.CharField(max_length=255, required=False)
+    logo = forms.ImageField(required=False)
 
     # def dude
 
     class Meta:
         model = WorkplaceProfile
-        exclude = ['workplace', 'points', 'logo', 'materials', 'area', 'institution', '']
+        exclude = ['workplace', 'points', 'materials', 'area', 'institution', '']
         fields = ['city', 'institution_name', 'address', 'contact', 'about', 'participation']
 
 

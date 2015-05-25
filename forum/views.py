@@ -157,25 +157,27 @@ def tag(request):
 
 
 def question_tagged(request):
-    questions = None
+    if 'tag' in request.GET:
+        questions = None
 
-    tag = request.GET['tag']
-    tags = tag.strip()
-    tag_list = tags.split(' ')
-    for ta in tag_list:
+        tag = request.GET['tag']
+        tags = tag.strip()
+        tag_list = tags.split(' ')
+        for ta in tag_list:
 
-        t = Tags.objects.get(tag=ta)
-        q = Question.objects.filter(tags=t.id)
-        if questions is None:
-            questions = q
-        else:
-            questions = questions | q
+            t = Tags.objects.get(tag=ta)
+            q = Question.objects.filter(tags=t.id)
+            if questions is None:
+                questions = q
+            else:
+                questions = questions | q
 
-    return render(request, 'forum/questions.html', locals())
+        return render(request, 'forum/questions.html', locals())
+    else:
+        return render(request, 'forum/questions.html')
 
 
-# def voteup(request):
-#     user = request.user
+
 
 
 

@@ -15,11 +15,13 @@ def workplace_register(request):
         else:
             name = form.cleaned_data.get('name')
             workplace_type = form.cleaned_data.get('workplace_type')
-            Workplace.objects.create(name=name, workplace_type=workplace_type)
+            t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
 
-            welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
-            node = Node(user=User.objects.get(pk=1), post=welcome)
-            node.save()
+            if created:
+
+                welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
+                node = Node(user=User.objects.get(pk=1), post=welcome)
+                node.save()
             return redirect('/')
     else:
         return render(request, 'workplace/register.html', {'form': WorkplaceForm()})
@@ -58,12 +60,6 @@ def search_workplace(request):                  # for searching the workplace
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
         return render(request, 'tags/list.html')
-
-
-def workplace_profile(request, slug):
-    o = Workplace.objects.get(slug=slug)
-    profile = WorkplaceProfile.objects.get(workplace=o.id)
-    return render(request, 'workplace_profile/profile.html', locals())
 
 
 def set_segment(request):
@@ -109,8 +105,14 @@ def search_segment(request):
     else:
         return render(request, 'tags/list.html')
 
+## best way to create workplace profile: send informations in different segments as different functions
 
 
+def workplace_profile(request, slug):
+    o = Workplace.objects.get(slug=slug)
+    profile = WorkplaceProfile.objects.get(workplace=o.id)
+    members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
+    return render(request, 'workplace_profile/profile.html', locals())
 
 
 

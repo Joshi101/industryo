@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block content %}
+	<header class="header_form">
+		<h2>search feature</h2>
+	</header>
+	{{name}}{{user}}
+	{{user.userprofile.primary_workplace}}
+	
+{% endblock %}
