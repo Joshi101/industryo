@@ -166,6 +166,20 @@ class WorkplaceProfile(models.Model):
             li.append(t)
         self.assets = li
 
+    # def calculate_points(self):
+    #
+    #
+    #
+    # def get_members(self):
+    #
+    def set_logo(self, image, user):
+        i = Images()
+        a = i.upload_image(image=image, user=user)
+
+        self.logo = a
+
+
+
 
 
 def create_workplace_profile(sender, instance, created, **kwargs):

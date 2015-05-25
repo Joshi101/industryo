@@ -9,11 +9,11 @@ from industryo.unique_slug import unique_slugify
 
 
 class Images(models.Model):
-    image = ProcessedImageField(upload_to='user/main',
+    image = ProcessedImageField(upload_to='main',
                                           processors=[ResizeToFill(1000, 1000)],
                                           format='JPEG',
                                           options={'quality': 60})
-    image_thumbnail = ProcessedImageField(upload_to='user/thumbnails',
+    image_thumbnail = ProcessedImageField(upload_to='thumbnails',
                                           processors=[ResizeToFill(100, 100)],
                                           format='JPEG',
                                           options={'quality': 60})
@@ -31,6 +31,10 @@ class Images(models.Model):
             unique_slugify(self, slug_str)
             # self.slug = slugify(self.get_full_name()).__str__()
             super(Images, self).save(*args, **kwargs)
+
+    def upload_image(self, image, user):
+        i = Images.objects.create(image=image, image_thumbnail=image, user=user, caption='asdf')
+        return i
 
 
 class FeedManager(models.Manager):

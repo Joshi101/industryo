@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
     
     'bootstrapform',
     'bootstrap3',
@@ -108,8 +109,12 @@ SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email', 'publish_actions'],
         'METHOD': 'js_sdk'  # instead of 'oauth2'
-    }
+
+    },
+    'google':{ 'SCOPE': ['profile', 'email'],
+          'AUTH_PARAMS': { 'access_type': 'online'}}
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
