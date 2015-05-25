@@ -4,12 +4,29 @@
 {% load bootstrap %}
 
 {% block content %}
-	<header class="header_form">
-		<h2>search feature</h2>
-	</header>
-	<form action="" method="POST" role="form">
-		{% csrf_token %}
-		{{ form|bootstrap }}
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
+	<div class="panel-group" id="accordion">
+	  <div class="panel panel-default">
+	    <div id="set_workplace" class="panel-collapse collapse in">
+	      <div class="panel-body">
+	      	<form action="" method="POST" role="form">
+						{% csrf_token %}
+						{{ form_set_workplace|bootstrap }}
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div id="create_workplace" class="panel-collapse collapse">
+	      <div class="panel-body">
+	      	<form action="{% url 'register' %}" method="POST" role="form">
+					{% csrf_token %}
+					{{ form_create_workplace|bootstrap }}
+					<button type="submit" class="btn btn-primary form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
+					<button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
+				</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 {% endblock %}

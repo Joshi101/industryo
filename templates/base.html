@@ -40,7 +40,7 @@
         <div class="col-sm-6">
             <form role="form" id="top_search">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" name="q" placeholder="Search the industrial grid . . .">
+                    <input type="text" class="form-control" name="q" placeholder="Try out the Advanced Lookup ...">
                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
             </form>
@@ -52,9 +52,11 @@
         <div class="row">
             <div class="col-sm-3">
                 {% block left %}
+                {% if user.is_authenticated %}
                 <form action="{% url 'logout' %}">
                     <button type="submit" class="btn btn-failure">Log Out</button>
                 </form>
+                {% endif %}
                 {% endblock left %}    
             </div>
             <div class="col-sm-6">      
@@ -150,7 +152,7 @@
             var query = $this.val()
             ,   search = "/search" + $this.data('search')
             ,   create = $this.data('create');
-            console.log(query, search)
+            console.log(query, search, create)
             if(!create)
                 create = '';
             $.ajax({
@@ -176,13 +178,23 @@
             function aj_search ($this){
                 //var $this = $(this);
                 var $sabke_papa = $this.closest('.d_search');
-                if($this.attr('class') != 'create'){
-                    var value = $this.text();
-                    console.log('list wala');
-                }
-                else{
+                if($this.attr('class') == 'create'){
                     var value = $sabke_papa.children('input').val();
                     console.log('input wala');
+                }
+                else if($this.attr('class').indexOf('create_new') >= 0){
+                    var create_now = 'create_' + $sabke_papa.children('input').first().data('search');
+                    console.log(create_now);
+                    $sabke_papa.find('.d_list').css({'display':'none'});
+                    $this.attr('href','#'+create_now);
+                    var collapse_parent = $this.closest('.panel-group').attr('id');
+                    $this.data('parent', '#'+collapse_parent);
+                    console.log($this.data('parent'))
+                    return 0;
+                }
+                else{
+                    var value = $this.text();
+                    console.log('list wala', $this.attr('class'));
                 }
                 var r_type = $sabke_papa.data('results');
                 console.log($sabke_papa.attr('class'));
@@ -226,13 +238,35 @@
         });
         $(".d_input").focus(function(){
             var $this = $(this);
-            var query = $this.val()
+            var query = $this.val();
             if(query != '')
                 $this.next().next().find('.d_list').css({'display':'block'});
         });
         $(".d_input").blur(function(){
             $(this).next().next().find('.d_list').css({'display':'none'});
         });
+
+        // function to submit form ajaxly
+        $(".form-ajax").on('click',function(event){
+            event.preventDefault();
+            var $this = $(this);
+            var $form = $this.closest('form');
+            console.log($form.serialize());
+            $.ajax({
+                url : $form.attr('action'),
+                type : "POST",
+                data : $form.serialize(),
+
+                success: function(result){
+                    console.log('olay');
+                },
+
+                error : function(xhr,errmsg,err) {
+                    $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                    console.log(errmsg,err);
+                }
+            });
+        })
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
