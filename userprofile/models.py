@@ -32,7 +32,8 @@ class UserProfile(models.Model):
         return self.user.get_full_name()
 
     def get_details(self):
-        detail = "%s|%s" % (self.user, self.primary_workplace)
+        detail = "%s | %s" % (self.user, self.primary_workplace)
+        return detail
 
     def profile_image_url(self):
         fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
@@ -51,7 +52,7 @@ class UserProfile(models.Model):
         li = []
         for m in skill_tags:
 
-            t, created = Tags.objects.get_or_create(name=m)
+            t, created = Tags.objects.get_or_create(tag=m)
             li.append(t)
         self.interests = li
 

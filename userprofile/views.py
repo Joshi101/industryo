@@ -5,8 +5,8 @@ from userprofile.forms import SetSkillsForm
 from nodes.forms import *
 
 
-def profile(request, slug):
-    user = User.objects.get(username=slug)
+def profile(request, username):
+    user = User.objects.get(username=username)
     name = user.get_full_name()
     userprofile = UserProfile.objects.get(user=user)
     profile_image_form = SetProfileImageForm()
@@ -25,7 +25,7 @@ def profile(request, slug):
 #
 #     return
 
-def set_skills(request):
+def set_interests(request):
     form = SetSkillsForm(request.POST)
     if request.method == 'POST':
         if not form.is_valid():
@@ -35,11 +35,11 @@ def set_skills(request):
             user = request.user
             up = user.userprofile
 
-            skills = form.cleaned_data.get('skills')
-            up.set_skills(skills)
-            return render(request, 'userprofile/set_skills.html', {'form': form})
+            interests = form.cleaned_data.get('skills')
+            up.set_interests(interests)
+            return redirect('/user/'+user.username)
     else:
-        return render(request, 'userprofile/set_skills.html', {'form': form})
+        return render(request, 'userprofile/set_interests.html', {'form': form})
 
 
 
