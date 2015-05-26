@@ -62,6 +62,7 @@ def set_logo(request):
             caption = form.cleaned_data.get('caption')
             i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
             wp.logo = i
+            wp.save()
         return redirect('/')
     else:
         return render(request, 'nodes/upload.html', {'form': form})
@@ -81,6 +82,7 @@ def set_profile_image(request):
             caption = form.cleaned_data.get('caption')
             i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
             userprofile.profile_image = i
+            userprofile.save()
         return redirect('/')
     else:
         return render(request, 'nodes/upload.html', {'form': form})

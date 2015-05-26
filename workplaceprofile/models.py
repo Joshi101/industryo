@@ -47,6 +47,7 @@ class WorkplaceProfile(models.Model):
     # SME
     capabilities = models.TextField(max_length=5000, null=True, blank=True)
     product_details = models.TextField(max_length=5000, null=True, blank=True)
+
     # LSI
 
     def __str__(self):
@@ -72,34 +73,7 @@ class WorkplaceProfile(models.Model):
             li.append(t)
         self.participation = li
 
-    # def set_materials(self, materials):
-    #     material_tags = materials.split(' ')
-    #     li = []
-    #     for m in material_tags:
-    #
-    #         t, created = Material.objects.get_or_create(name=m)
-    #         p, created = Tags.objects.get_or_create(tag=m)
-    #         li.append(t)
-    #     self.materials = li
-    #
-    # def set_operations(self, operations):
-    #     operation_tags = operations.split(' ')
-    #     li = []
-    #     for m in operation_tags:
-    #
-    #         t, created = Operation.objects.get_or_create(name=m)
-    #         p, created = Tags.objects.get_or_create(tag=m)
-    #         li.append(t)
-    #     self.Operation = li
-    #
-    # def set_assets(self, assets):
-    #     asset_tags = assets.split(' ')
-    #     li = []
-    #     for m in asset_tags:
-    #         t, created = Asset.objects.get_or_create(name=m)
-    #         p, created = Tags.objects.get_or_create(tag=m)
-    #         li.append(t)
-    #     self.assets = li
+
 
     def set_logo(self, image, user):
         i = Images()

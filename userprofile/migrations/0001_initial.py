@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('tags', '0001_initial'),
-        ('nodes', '0002_auto_20150526_1631'),
+        ('nodes', '0002_auto_20150526_1733'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('workplace', '0001_initial'),
     ]
@@ -18,15 +18,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
-                ('gender', models.CharField(choices=[('M', 'Male'), ('F', 'Female')], null=True, max_length=1)),
-                ('job_position', models.CharField(null=True, max_length=255)),
-                ('experience', models.TextField(blank=True, null=True, max_length=5000)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('gender', models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')], null=True)),
+                ('job_position', models.CharField(max_length=255, null=True)),
+                ('experience', models.TextField(max_length=5000, blank=True, null=True)),
                 ('points', models.IntegerField(default=0)),
                 ('approved', models.BooleanField(default=True)),
                 ('area', models.ForeignKey(blank=True, null=True, to='workplace.Area')),
                 ('interests', models.ManyToManyField(to='tags.Tags')),
-                ('primary_workplace', models.ForeignKey(null=True, to='workplace.Workplace')),
+                ('primary_workplace', models.ForeignKey(to='workplace.Workplace', null=True)),
                 ('profile_image', models.ForeignKey(blank=True, null=True, to='nodes.Images')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],

@@ -14,12 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Images',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('image', imagekit.models.fields.ProcessedImageField(upload_to='main')),
                 ('image_thumbnail', imagekit.models.fields.ProcessedImageField(upload_to='thumbnails')),
                 ('caption', models.CharField(max_length=255)),
                 ('time', models.TimeField(auto_now_add=True)),
-                ('slug', models.SlugField(null=True, max_length=20)),
+                ('slug', models.SlugField(max_length=20, null=True)),
             ],
             options={
             },
@@ -28,11 +28,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Node',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
-                ('category', models.CharField(choices=[('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard')], max_length=1, default='F')),
-                ('title', models.TextField(blank=True, null=True, max_length=255, db_index=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('category', models.CharField(max_length=1, default='F', choices=[('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard')])),
+                ('title', models.TextField(max_length=255, blank=True, db_index=True, null=True)),
                 ('post', models.TextField(max_length=10000)),
-                ('slug', models.SlugField(blank=True, null=True, max_length=255)),
+                ('slug', models.SlugField(max_length=255, blank=True, null=True)),
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('comments', models.IntegerField(default=0)),
                 ('likes', models.IntegerField(default=0)),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('score', models.FloatField(default=0)),
                 ('is_active', models.BooleanField(default=True)),
                 ('published', models.BooleanField(default=True)),
-                ('image', models.ForeignKey(null=True, to='nodes.Images')),
+                ('image', models.ForeignKey(to='nodes.Images', null=True)),
                 ('parent', models.ForeignKey(blank=True, null=True, to='nodes.Node')),
             ],
             options={

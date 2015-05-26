@@ -25,7 +25,7 @@ class Question(models.Model):
         ordering = ('-time',)
 
     def __str__(self):
-        return self.question
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug

@@ -1,6 +1,7 @@
 from django.db import models
 from industryo.unique_slug import unique_slugify
 from nodes.models import Images
+from tags.models import Tags
 
 
 class Segment(models.Model):
@@ -63,6 +64,8 @@ class Workplace(models.Model):
     slug = models.SlugField(max_length=255)
     area = models.ManyToManyField(Area)
 
+    tags = models.ManyToManyField(Tags)
+
     class Meta:
         db_table = 'Workplace'
 
@@ -76,6 +79,31 @@ class Workplace(models.Model):
             # self.slug = slugify(self.get_full_name()).__str__()
             super(Workplace, self).save(*args, **kwargs)
 
+    def set_materials(self, materials):
+        material_tags = materials.split(' ')
+        li = []
+        for m in material_tags:
+
+            t, created = Tags.objects.get_or_create(name=m)
+            li.append(t)
+        self.tags = li
+
+    def set_operations(self, operations):
+        operation_tags = operations.split(' ')
+        li = []
+        for m in operation_tags:
+
+            t, created = Tags.objects.get_or_create(name=m)
+            li.append(t)
+        self.tags = li
+
+    def set_assets(self, assets):
+        asset_tags = assets.split(' ')
+        li = []
+        for m in asset_tags:
+            t, created = Tags.objects.get_or_create(name=m)
+            li.append(t)
+        self.tags = li
 
 
 

@@ -15,11 +15,13 @@
     <title>Industryio - {% block title %}the massive industrial Grid{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href={% static 'bootstrap/css/bootstrap.css' %}>
-    <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
-    <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.js' %}></script>
     <!-- custom files -->
     <link rel="stylesheet" type="text/css" href={% static 'css/un-bootstrap.css' %}>
     <link rel="stylesheet" type="text/css" href={% static 'css/my.css' %}>
+
+    <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
+    <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.js' %}></script>
+    <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
     <script>
         // this script activates the tooltips
         $(document).ready(function(){
@@ -33,30 +35,49 @@
     <div id="back"></div>
     {% endblock back %}
     {% block top %}
-    <div class="row page-header">
-        <div class="col-sm-6" >
-            <a href="{% url 'home' %}"><h1 class="top_h1">Industry Logger</h1></a>
-        </div>
-        <div class="col-sm-6">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand">
+            <a class="no_a" href="/"><span class="glyphicon glyphicon-briefcase"></span> Industryo</a>
+          </div>
+          <div class="navbar-brand">
             <form role="form" id="top_search">
-                <div class="form-group has-feedback">
-                    <input type="text" class="form-control" name="q" placeholder="Try out the Advanced Lookup ...">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                </div>
+            <div class="has-feedback">
+                <input type="text" class="form-control" name="q" placeholder="Advanced Lookup ...">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
             </form>
+          </div>
         </div>
-
-    </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'user:profile' user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            {% endif %}
+            <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Q&A</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Network</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
     {% endblock top %}
-    <div class="container-fluid">
+    <div class="container-fluid container_first">
         <div class="row">
             <div class="col-sm-3">
                 {% block left %}
-                {% if user.is_authenticated %}
-                <form action="{% url 'logout' %}">
-                    <button type="submit" class="btn btn-failure">Log Out</button>
-                </form>
-                {% endif %}
                 {% endblock left %}    
             </div>
             <div class="col-sm-6">      

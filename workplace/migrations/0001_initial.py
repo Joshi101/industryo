@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Area',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('name', models.CharField(max_length=50)),
                 ('description', models.CharField(max_length=1000)),
-                ('industrial_area', models.CharField(blank=True, null=True, max_length=50)),
+                ('industrial_area', models.CharField(max_length=50, blank=True, null=True)),
                 ('slug', models.SlugField(blank=True, null=True)),
             ],
             options={
@@ -27,9 +27,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Segment',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('name', models.CharField(max_length=255)),
-                ('description', models.TextField(blank=True, null=True, max_length=1000)),
+                ('description', models.TextField(max_length=1000, blank=True, null=True)),
                 ('workplace_type', models.CharField(max_length=1)),
                 ('slug', models.SlugField(max_length=255)),
                 ('logo', models.ForeignKey(blank=True, null=True, to='nodes.Images')),
@@ -42,9 +42,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Workplace',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('name', models.CharField(max_length=255)),
-                ('workplace_type', models.CharField(choices=[('A', 'Large Scale Industry'), ('B', 'Small & Medium Scale Enterprise'), ('C', 'College Teams'), ('O', 'Others')], max_length=1)),
+                ('workplace_type', models.CharField(max_length=1, choices=[('A', 'Large Scale Industry'), ('B', 'Small & Medium Scale Enterprise'), ('C', 'College Teams'), ('O', 'Others')])),
                 ('verified', models.BooleanField(default=False)),
                 ('slug', models.SlugField(max_length=255)),
                 ('area', models.ManyToManyField(to='workplace.Area')),
