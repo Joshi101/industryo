@@ -23,13 +23,9 @@ class SetLogoForm(forms.ModelForm):
 
 
 class SetProfileImageForm(forms.ModelForm):
-    image = forms.ImageField(required=True)
-    caption = forms.CharField(max_length=255, required=False)
+    image = forms.ImageField(required=True,widget=forms.ClearableFileInput(attrs={'class':'cropit-image-input'}))
 
     class Meta:
         model = Images
         exclude = ['slug', 'user', 'image_thumbnail', 'time']
-        fields = ['image', 'caption']
-
-
-
+        fields = ['image']

@@ -3,11 +3,96 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
+{% block left %}
+<div class="text-center">
+	<div id="img_profile_box">
+		<img id="img_profile" class="thumbnail center-block" width="120" height="120" src="/images/{{ user.userprofile.get_profile_image }}">
+		<a id='img_upload' data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
+	</div>
+	<h4 class="profile_name">{{ name }}</h4>
+	<h4><small>working at</small></h4>
+	<h4 class="profile_name">{{ user.userprofile.primary_workplace }}</h4>
+</div>
+<div id="img_upload_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Change your profile picture</h4>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'nodes:set_profile_image' %}" role='form' method="post" enctype="multipart/form-data">
+        	{% csrf_token %}
+		      <div class="image-editor">
+		      	<span class='btn btn-default btn-file'>
+		        	Browse {{profile_image_form.image}}
+	        	</span>
+		        <div class="cropit-image-preview"></div>
+		        <div class="image-size-label">
+		          Resize image
+		        </div>
+		        <input type="range" class="cropit-image-zoom-input">
+		        <input type="hidden" name="image-data" class="hidden-image-data" />
+		        <button type="submit">Submit</button>
+		      </div>
+		    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	$('#img_profile_box').on({
+		mouseover: function(){
+			$('#img_upload').stop().animate({'height':'28px','top':'-49px','padding':'4px 0px'});
+			$('#img_upload').on('click',function(){
+				$('#img_upload').stop().animate({'height':'0px','top':'-20px','padding':'0px'});
+			});
+		},
+		mouseout: function(){
+			$('#img_upload').stop().animate({'height':'0px','top':'-20px','padding':'0px'});
+		}
+	});
+	$(function() {
+    $('.image-editor').cropit();
+
+    $('form').submit(function() {
+      // Move cropped image data to hidden input
+      var imageData = $('.image-editor').cropit('export');
+      $('.hidden-image-data').val(imageData);
+
+      // Print HTTP request params
+      var formValue = $(this).serialize();
+      console.log(formValue)
+    });
+  });
+</script>
+{% endblock left %}
+
 {% block content %}
-	<header class="header_form">
-		<h2>search feature</h2>
-	</header>
-	{{name}}{{user}}
-	{{user.userprofile.primary_workplace}}
-	
+	<dl class="dl-horizontal">
+		<dt>Name</dt><dd>{{name}}</dd><button class="btn btn-info btn-xs content_edit">Edit</button><button class="btn btn-info btn-xs content_edit_save">Save</button>
+		<dd></dd>
+		<dd>{{user.userprofile.gender}}</dd>
+		<dd>{{user.userprofile.job_position}}</dd>
+		<dd>{{user.userprofile.experience}}</dd>
+		<dd>{{user.userprofile.points}}</dd>
+		{% for interest in user.userprofile.interests.objects.all %}
+		<dd>{{interest}}</dd>
+		{% endfor %}
+		<dd>{{user.userprofile.area}}</dd>
+	</dl>
+	<script type="text/javascript">
+	$('.content_edit').on('click',function(event){
+		event.preventDefault();
+		$(this).prev().attr('contenteditable','true').css({'border':'1px solid #555'});
+	});
+	$('.content_edit_save').on('click',function(event){
+		event.preventDefault();
+		$(this).prev().attr('contenteditable','true').css({'border':'1px solid #555'});
+	})
+	</script>
 {% endblock %}

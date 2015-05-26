@@ -25,7 +25,7 @@ class Images(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug
-            slug_str = self.caption
+            slug_str = self.id
             unique_slugify(self, slug_str)
             # self.slug = slugify(self.get_full_name()).__str__()
             super(Images, self).save(*args, **kwargs)

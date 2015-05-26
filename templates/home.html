@@ -11,7 +11,7 @@
 	{% if user.is_authenticated %}
 	<div class="row">
 		<div class="col-sm-12">
-			<h3>Welcome {{user}} of {{workplace}}</h3>
+			<h3>Welcome {{user.get_full_name}} of {{workplace}}</h3>
 			{{re}}
 
 			{{request.user.userprofile}}
@@ -40,7 +40,6 @@
 			{{a.user.userprofile.get_details}}<li>{{a}}</li>
 		{% endfor %}
 
-	
 	<div class="w_400">
 		<ul class="nav nav-pills nav-stacked">
 	    	<li><a href="{% url 'ask' %}"><h4>Go ahead.. ask questions here!</h4></a></li>
