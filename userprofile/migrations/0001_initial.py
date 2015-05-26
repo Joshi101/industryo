@@ -2,73 +2,37 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import imagekit.models.fields
 from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('tags', '0001_initial'),
+        ('nodes', '0002_auto_20150526_1631'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('workplace', '__first__'),
+        ('workplace', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Relationship',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('status', models.CharField(choices=[('F', 'Following'), ('B', 'Blocked')], max_length=1)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-            ],
-            options={
-                'ordering': ('created',),
-                'verbose_name_plural': ('relationships',),
-                'verbose_name': ('relationship',),
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('gender', models.CharField(choices=[('M', 'Male'), ('F', 'Female')], null=True, max_length=1)),
                 ('job_position', models.CharField(null=True, max_length=255)),
-                ('experience', models.TextField(blank=True, null=True)),
+                ('experience', models.TextField(blank=True, null=True, max_length=5000)),
                 ('points', models.IntegerField(default=0)),
-                ('image', imagekit.models.fields.ProcessedImageField(upload_to='user/main')),
-                ('image_thumbnail', imagekit.models.fields.ProcessedImageField(upload_to='user/thumbnails')),
-                ('follows', models.ManyToManyField(related_name='related_to', to='userprofile.UserProfile', through='userprofile.Relationship')),
-                ('primary_workplace', models.ForeignKey(to='workplace.Workplace', null=True)),
+                ('approved', models.BooleanField(default=True)),
+                ('area', models.ForeignKey(blank=True, null=True, to='workplace.Area')),
+                ('interests', models.ManyToManyField(to='tags.Tags')),
+                ('primary_workplace', models.ForeignKey(null=True, to='workplace.Workplace')),
+                ('profile_image', models.ForeignKey(blank=True, null=True, to='nodes.Images')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
+                'db_table': 'userprofile',
             },
             bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='UserWorkplace',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('authenticated', models.BooleanField(default=False)),
-                ('date_joined', models.TimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(to='userprofile.UserProfile')),
-                ('workplace', models.ForeignKey(to='workplace.Workplace')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='relationship',
-            name='from_user',
-            field=models.ForeignKey(related_name='from_person', to='userprofile.UserProfile'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='relationship',
-            name='to_user',
-            field=models.ForeignKey(related_name='to_person', to='userprofile.UserProfile'),
-            preserve_default=True,
         ),
     ]

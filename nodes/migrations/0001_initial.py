@@ -3,36 +3,23 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import imagekit.models.fields
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tags', '__first__'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ArticleTags',
-            fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='Images',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('image', imagekit.models.fields.ProcessedImageField(upload_to='user/main')),
-                ('image_thumbnail', imagekit.models.fields.ProcessedImageField(upload_to='user/thumbnails')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('image', imagekit.models.fields.ProcessedImageField(upload_to='main')),
+                ('image_thumbnail', imagekit.models.fields.ProcessedImageField(upload_to='thumbnails')),
                 ('caption', models.CharField(max_length=255)),
                 ('time', models.TimeField(auto_now_add=True)),
-                ('slug', models.SlugField(max_length=20, null=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('slug', models.SlugField(null=True, max_length=20)),
             ],
             options={
             },
@@ -41,37 +28,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Node',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('category', models.CharField(choices=[('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard')], default='F', max_length=1)),
-                ('title', models.TextField(max_length=255, null=True, db_index=True, blank=True)),
-                ('post', models.TextField(max_length=5000)),
-                ('slug', models.SlugField(max_length=255, null=True, blank=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('category', models.CharField(choices=[('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard')], max_length=1, default='F')),
+                ('title', models.TextField(blank=True, null=True, max_length=255, db_index=True)),
+                ('post', models.TextField(max_length=10000)),
+                ('slug', models.SlugField(blank=True, null=True, max_length=255)),
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('comments', models.IntegerField(default=0)),
                 ('likes', models.IntegerField(default=0)),
                 ('admin_score', models.FloatField(default=1)),
                 ('score', models.FloatField(default=0)),
                 ('is_active', models.BooleanField(default=True)),
-                ('image', models.ForeignKey(to='nodes.Images', null=True)),
+                ('published', models.BooleanField(default=True)),
+                ('image', models.ForeignKey(null=True, to='nodes.Images')),
                 ('parent', models.ForeignKey(blank=True, null=True, to='nodes.Node')),
-                ('tags', models.ManyToManyField(to='tags.Tags', through='nodes.ArticleTags')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('-score', '-date'),
             },
             bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='articletags',
-            name='article',
-            field=models.ForeignKey(to='nodes.Node'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='articletags',
-            name='tag',
-            field=models.ForeignKey(to='tags.Tags'),
-            preserve_default=True,
         ),
     ]
