@@ -6,6 +6,27 @@ textarea{
 	cursor:pointer;
 }
 
+.no_a:hover{
+	text-decoration: none;
+}
+
+.indus_top{
+	font-size: 25px;
+	line-height: 34px;
+	margin: 10px 0px;
+}
+
+.navbar-brand > div{
+	display: block;
+	float: left;
+	padding: 0px 15px;
+}
+
+.container_first{
+	position: relative;
+	top: 60px;
+}
+
 #back{
 	background: url(back4.jpg) no-repeat center center;
 	background-size: contain;
@@ -22,7 +43,7 @@ textarea{
 }
 
 #top_search{
-	margin: 10px 0px 0px;
+	margin: -7px 0px 0px;
 }
 
 #home_intro{
