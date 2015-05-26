@@ -45,9 +45,13 @@ class UserProfile(models.Model):
 
     def get_profile_image(self):
         if self.profile_image:
+<<<<<<< HEAD
 
             return self.profile_image.image_thumbnail
 
+=======
+            return self.profile_image.image_thumbnail
+>>>>>>> arvind/master
 
     def set_interests(self, skills):
         skill_tags = skills.split(' ')
