@@ -16,6 +16,13 @@
 			<img width="50" height="50" src="{{ request.user.userprofile.profile_image_url }}"/>
 		</div>
 	</div>
+	{% block mid_content %}
+		<form id="form_feed" role="form" action="{% url 'nodes:post' %}" method="POST">
+			<textarea class="input_feed" form="form_feed" name="post" placeholder="Got something to discuss..?" required></textarea>
+			<input class="submit_feed" type="submit" value="Feed">
+			{% csrf_token %}
+		</form>
+	{% endblock %}
 	<div class="w_400">
 		<ul class="nav nav-pills nav-stacked">
 	    	<li><a href="{% url 'ask' %}"><h4>Go ahead.. ask questions here!</h4></a></li>

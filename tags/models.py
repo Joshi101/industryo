@@ -1,9 +1,12 @@
 from django.db import models
 from industryo.unique_slug import unique_slugify
 
+
 class Tags(models.Model):
-    tag = models.CharField(max_length=20)
-    slug = models.SlugField(max_length=20)
+    tag = models.CharField(max_length=50)
+    logo = models.ForeignKey('nodes.Images', null=True, blank=True)
+    slug = models.SlugField(max_length=50)
+    type = models.CharField(max_length=50, null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True)
     number = models.IntegerField(default=0)
     # type = models.CharField(max_length=1, choices=---)

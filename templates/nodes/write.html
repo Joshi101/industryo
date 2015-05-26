@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block css_2 %}
+  <link rel="stylesheet" type="text/css" href={% static 'css/message_styler.css' %}>
+  {% block css_3 %}
+  {% endblock %}
+{% endblock %}
+
+{% block menu_content_links %}
+{% endblock %}
+
+{% block content %}
+		<form id="form_feed" role="form" action="{% url 'nodes:write' %}" method="POST">
+			<input type="text" id="title" placeholder="Title.." name="title">
+			<input type="text" id="Body" placeholder="Body.." name="post">
+			<input type="text" id="tags" placeholder="Tags" name="tags">
+			<input class="submit_feed" type="submit" value="Publish">
+			{% csrf_token %}
+		</form>
+
+{% endblock %}

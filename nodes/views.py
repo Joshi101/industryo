@@ -1,11 +1,35 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from nodes.forms import *
-from nodes.models import Images
+from nodes.models import *
 from workplaceprofile.models import WorkplaceProfile
 
 
-# def set_logo(request):
-#     user = request.user
+def post(request):
+    if request.method == 'POST':
+        post = request.POST['post']
+        user = request.user
+
+        node = Node(post=post, user=user)
+        node.save()
+        return redirect('/')
+    else:
+        return redirect('/')
+
+
+def write(request):                 ## Write an article
+    if request.method == 'POST':
+        post = request.POST['post']
+        title = request.POST['title']
+        user = request.user
+        tags = request.POST['tags']
+
+        node = Node(post=post, title=title, category='A', user=user)
+        node.save()
+        node.set_tags(tags)
+        # return HttpResponseRedirect('/nodes/'+node.slug)
+        return redirect('/')
+    else:
+        return render(request, 'nodes/write.html', locals())
 
 
 def upload_image(request):

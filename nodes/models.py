@@ -1,20 +1,18 @@
 from django.db import models
-from django.utils.timezone import now
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
 from tags.models import Tags
-from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from industryo.unique_slug import unique_slugify
 
 
 class Images(models.Model):
     image = ProcessedImageField(upload_to='main',
-                                          processors=[ResizeToFill(1000, 1000)],
+                                          processors=[ResizeToFill(400, 400)],
                                           format='JPEG',
                                           options={'quality': 60})
     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-                                          processors=[ResizeToFill(100, 100)],
+                                          processors=[ResizeToFill(40, 40)],
                                           format='JPEG',
                                           options={'quality': 60})
     caption = models.CharField(max_length=255)
@@ -54,7 +52,7 @@ class Node(models.Model):
     node_type = (('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard'))
     category = models.CharField(max_length=1, choices=node_type, default='F')
     title = models.TextField(max_length=255, null=True, blank=True, db_index=True)
-    post = models.TextField(max_length=5000)
+    post = models.TextField(max_length=10000)
     slug = models.SlugField(max_length=255, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('self', null=True, blank=True)
@@ -63,8 +61,9 @@ class Node(models.Model):
     admin_score = models.FloatField(default=1)
     score = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)
-    tags = models.ManyToManyField(Tags, through='ArticleTags')
+    tags = models.ManyToManyField(Tags)
     image = models.ForeignKey(Images, null=True)
+    published = models.BooleanField(default=True)           ## articles as draft
 
     objects = models.Manager()
     feed = FeedManager()
@@ -108,10 +107,16 @@ class Node(models.Model):
 
         super(Node, self).save(*args, **kwargs)
 
+    def set_tags(self, tags):
+        article_tags = tags.split(' ')
+        li = []
+        for m in article_tags:
 
-class ArticleTags(models.Model):
-    article = models.ForeignKey(Node)
-    tag = models.ForeignKey(Tags)
+            t, created = Tags.objects.get_or_create(tag=m)
+            li.append(t)
+        self.tags = li
+
+
 
 
 # Create your models here.

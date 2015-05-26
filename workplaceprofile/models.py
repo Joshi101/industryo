@@ -1,82 +1,15 @@
 from django.db import models
-from workplace.models import Workplace
+from workplace.models import Workplace, Area
 from nodes.models import Images
 from django.db.models.signals import post_save
 from django.db.models import signals
 from industryo.unique_slug import unique_slugify
-
-
-class Material(models.Model):
-    name = models.CharField(max_length=20)
-    slug = models.CharField(max_length=20)
-
-    class Meta:
-        db_table = 'Material'
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.id:                  # Newly created object, so set slug
-            slug_str = self.name
-            unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
-            super(Material, self).save(*args, **kwargs)
-
-
-class Operation(models.Model):
-    name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        db_table = 'operation'
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.id:                  # Newly created object, so set slug
-            slug_str = self.name
-            unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
-            super(Operation, self).save(*args, **kwargs)
-
-
-class Asset(models.Model):
-    name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        db_table = 'Asset'
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.id:                  # Newly created object, so set slug
-            slug_str = self.name
-            unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
-            super(Asset, self).save(*args, **kwargs)
-
-
-class Area(models.Model):
-    name = models.CharField(max_length=50)
-    industrial_area = models.CharField(max_length=50, null=True, blank=True)
-
-    def __str__(self):
-        if not self.industrial_area:
-            return self.name
-        else:
-            name = "%s (%s)" % (self.name, self.industrial_area)
-            return name
+from tags.models import Tags
 
 
 class Events(models.Model):
     event = models.CharField(max_length=50)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     slug = models.SlugField(max_length=50)
 
     def __str__(self):
@@ -92,6 +25,8 @@ class Events(models.Model):
 
 class Institution(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=50, null=True, blank=True)
+
     area = models.ForeignKey(Area)
 
     def __str__(self):
@@ -100,7 +35,7 @@ class Institution(models.Model):
 
 class WorkplaceProfile(models.Model):
     workplace = models.ForeignKey(Workplace)
-    area = models.ForeignKey(Area,null=True)
+
     address = models.CharField(max_length=255)
     contact = models.CharField(max_length=255)
     about = models.TextField(null=True, blank=True)
@@ -110,10 +45,7 @@ class WorkplaceProfile(models.Model):
     institution = models.ForeignKey(Institution, null=True)
     participation = models.ManyToManyField(Events)
     # SME
-    materials = models.ManyToManyField(Material)
-    assets = models.ManyToManyField(Asset)
     capabilities = models.TextField(max_length=5000, null=True, blank=True)
-    Operation = models.ManyToManyField(Operation)                                ## capital O in next syncdb change to operations
     product_details = models.TextField(max_length=5000, null=True, blank=True)
     # LSI
 
@@ -136,42 +68,39 @@ class WorkplaceProfile(models.Model):
         for p in part:
 
             t, created = Events.objects.get_or_create(event=p)
+            p, created = Tags.objects.get_or_create(tag=p)
             li.append(t)
         self.participation = li
 
-    def set_materials(self, materials):
-        material_tags = materials.split(' ')
-        li = []
-        for m in material_tags:
-
-            t, created = Material.objects.get_or_create(name=m)
-            li.append(t)
-        self.materials = li
-
-    def set_operations(self, operations):
-        operation_tags = operations.split(' ')
-        li = []
-        for m in operation_tags:
-
-            t, created = Operation.objects.get_or_create(name=m)
-            li.append(t)
-        self.Operation = li
-
-    def set_assets(self, assets):
-        asset_tags = assets.split(' ')
-        li = []
-        for m in asset_tags:
-
-            t, created = Asset.objects.get_or_create(name=m)
-            li.append(t)
-        self.assets = li
-
-    # def calculate_points(self):
+    # def set_materials(self, materials):
+    #     material_tags = materials.split(' ')
+    #     li = []
+    #     for m in material_tags:
     #
+    #         t, created = Material.objects.get_or_create(name=m)
+    #         p, created = Tags.objects.get_or_create(tag=m)
+    #         li.append(t)
+    #     self.materials = li
     #
+    # def set_operations(self, operations):
+    #     operation_tags = operations.split(' ')
+    #     li = []
+    #     for m in operation_tags:
     #
-    # def get_members(self):
+    #         t, created = Operation.objects.get_or_create(name=m)
+    #         p, created = Tags.objects.get_or_create(tag=m)
+    #         li.append(t)
+    #     self.Operation = li
     #
+    # def set_assets(self, assets):
+    #     asset_tags = assets.split(' ')
+    #     li = []
+    #     for m in asset_tags:
+    #         t, created = Asset.objects.get_or_create(name=m)
+    #         p, created = Tags.objects.get_or_create(tag=m)
+    #         li.append(t)
+    #     self.assets = li
+
     def set_logo(self, image, user):
         i = Images()
         a = i.upload_image(image=image, user=user)

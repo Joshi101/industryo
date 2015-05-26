@@ -2,10 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django.utils.timezone
 from django.conf import settings
-
-UNIQUE_EMAIL = getattr(settings, 'ACCOUNT_UNIQUE_EMAIL', True)
+import django.utils.timezone
 
 
 class Migration(migrations.Migration):
@@ -18,10 +16,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EmailAddress',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('email', models.EmailField(unique=UNIQUE_EMAIL, max_length=75, verbose_name='e-mail address')),
-                ('verified', models.BooleanField(default=False, verbose_name='verified')),
-                ('primary', models.BooleanField(default=False, verbose_name='primary')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('email', models.EmailField(max_length=75, verbose_name='e-mail address', unique=True)),
+                ('verified', models.BooleanField(verbose_name='verified', default=False)),
+                ('primary', models.BooleanField(verbose_name='primary', default=False)),
                 ('user', models.ForeignKey(verbose_name='user', to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -33,10 +31,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EmailConfirmation',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='created')),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('created', models.DateTimeField(verbose_name='created', default=django.utils.timezone.now)),
                 ('sent', models.DateTimeField(null=True, verbose_name='sent')),
-                ('key', models.CharField(unique=True, max_length=64, verbose_name='key')),
+                ('key', models.CharField(max_length=64, verbose_name='key', unique=True)),
                 ('email_address', models.ForeignKey(verbose_name='e-mail address', to='account.EmailAddress')),
             ],
             options={
@@ -46,11 +44,3 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
     ]
-
-    if not UNIQUE_EMAIL:
-        operations += [
-            migrations.AlterUniqueTogether(
-                name='emailaddress',
-                unique_together=set([('user', 'email')]),
-            ),
-        ]

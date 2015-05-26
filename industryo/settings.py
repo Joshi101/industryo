@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'userprofile',
     'forum',
     'activities',
+    'products',
 
     'tags',
 )

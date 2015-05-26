@@ -9,12 +9,13 @@ from activities.models import Activity
 class Question(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, null=True)
-    question = models.TextField(max_length=5000)
+    slug = models.SlugField(max_length=255)
+    question = models.TextField(max_length=5000, null=True, blank=True)
     votes = models.IntegerField(default=0)
+    answers = models.IntegerField(default=0)
     time = models.TimeField(auto_now_add=True)
     answered = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tags, through='QuestionTags')
+    tags = models.ManyToManyField(Tags)
     images = models.ManyToManyField(Images)
     admin_score = models.IntegerField(default=1)
 
@@ -50,7 +51,7 @@ class Question(models.Model):
         for ta in tag_list:
             print(ta)
             t, created = Tags.objects.get_or_create(tag=ta)
-            QuestionTags.objects.create(tags=t, question=self)
+            # self.tags(tags=t, question=self)
 
     # def calculate_votes(self):
     #     Activity.objects.filter()
@@ -75,16 +76,11 @@ class QuestionComment(models.Model):
         return all_comment
 
 
-class QuestionTags(models.Model):
-    question = models.ForeignKey(Question)
-    tags = models.ForeignKey(Tags)
-
-
 class Answer(models.Model):
     user = models.ForeignKey(User)
     question = models.ForeignKey(Question)
     votes = models.IntegerField(default=0)
-    answer = models.TextField(max_length=5000)
+    answer = models.TextField(max_length=10000)
     # count = models.IntegerField()
     time = models.TimeField(auto_now_add=True)
     is_accepted = models.BooleanField(default=False)
@@ -101,7 +97,6 @@ class Answer(models.Model):
     def all_answer(self, qid):
         all_ans = Answer.objects.filter(question=qid)
         return all_ans
-
 
 
 class AnswerComment(models.Model):

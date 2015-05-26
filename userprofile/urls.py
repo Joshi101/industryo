@@ -6,6 +6,7 @@ urlpatterns = patterns('',
     # url(r'^accounts/', include('allauth.urls')),
     # url(r'^$', 'home.views.home', name='home'),
 
+    url(r'^set_skills/$', 'userprofile.views.set_skills', name='set_skills'),
     url(r'^(?P<slug>[^/]+)/$', 'userprofile.views.profile', name='profile'),
 
 

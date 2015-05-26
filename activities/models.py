@@ -11,6 +11,7 @@ class Activity(models.Model):
     LIKE = 'L'
     VoteUp = 'U'
     VoteDown = 'D'
+
     ACTIVITY_TYPES = (
         (LIKE, 'Like'),
         (VoteUp, 'VoteUp'),
@@ -18,11 +19,12 @@ class Activity(models.Model):
     )
     activity = models.CharField(max_length=1, choices=ACTIVITY_TYPES)
     date = models.DateTimeField(auto_now_add=True)
-    node = models.IntegerField(null=True, blank=True)
+    node = models.ForeignKey('nodes.Node', null=True, blank=True)
     question = models.ForeignKey('forum.Question', null=True, blank=True)
     answer = models.ForeignKey('forum.Answer', null=True, blank=True)
 
     class Meta:
+        db_table = 'activity'
         verbose_name = 'Activity'
         verbose_name_plural = 'Activities'
 
@@ -35,7 +37,7 @@ class Notification(models.Model):
     COMMENTED = 'C'
     ALSO_COMMENTED = 'S'
     # JOINED = 'J'
-    ALSO_JOINED = 'K'
+    ALSO_JOINED = 'J'
     EDITED = 'E'
     FOLLOWS = 'F'
     VotedUp = 'U'
