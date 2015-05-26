@@ -68,7 +68,7 @@ def set_logo(request):
 
 
 def set_profile_image(request):
-    form = SetLogoForm(request.POST, request.FILES)
+    form = SetProfileImageForm(request.POST, request.FILES)
     if request.method == 'POST':
         if not form.is_valid():
             print("fuck")
@@ -76,14 +76,13 @@ def set_profile_image(request):
         else:
             user = request.user
             userprofile = user.userprofile
-
             image = form.cleaned_data.get('image')
-            caption = form.cleaned_data.get('caption')
-            i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
+            i = Images.objects.create(image=image, user=user, caption='lalala', image_thumbnail=image)
             userprofile.profile_image = i
+            userprofile.save()
         return redirect('/')
     else:
-        return render(request, 'nodes/upload.html', {'form': form})
+        return redirect('/')
 
 
 # Create your views here.

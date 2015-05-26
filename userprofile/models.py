@@ -42,6 +42,10 @@ class UserProfile(models.Model):
 
         return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
+    def get_profile_image(self):
+        if self.profile_image:
+            return self.profile_image.image_thumbnail
+
     def set_interests(self, skills):
         skill_tags = skills.split(' ')
         li = []

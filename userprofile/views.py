@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from userprofile.models import UserProfile
 from userprofile.forms import SetSkillsForm
+from nodes.forms import *
 
 
 def profile(request, slug):
     user = User.objects.get(username=slug)
     name = user.get_full_name()
     userprofile = UserProfile.objects.get(user=user)
+    profile_image_form = SetProfileImageForm()
     return render(request, 'userprofile/profile.html', locals())
 
 
