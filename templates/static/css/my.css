@@ -8,18 +8,13 @@ textarea{
 
 .no_a:hover{
 	text-decoration: none;
+	color: #197;
 }
 
 .indus_top{
 	font-size: 25px;
 	line-height: 34px;
 	margin: 10px 0px;
-}
-
-.navbar-brand > div{
-	display: block;
-	float: left;
-	padding: 0px 15px;
 }
 
 .container_first{

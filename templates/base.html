@@ -44,27 +44,32 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a class="" href="/"><span class="glyphicon glyphicon-briefcase"></span> Industryo</a>
+            <a class="no_a" href="/"><span class="glyphicon glyphicon-briefcase"></span> Industryo</a>
           </div>
           <div class="navbar-brand">
             <form role="form" id="top_search">
             <div class="has-feedback">
-                <input type="text" class="form-control" name="q" placeholder="Try out the Advanced Lookup ...">
+                <input type="text" class="form-control" name="q" placeholder="Advanced Lookup ...">
                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
             </form>
           </div>
         </div>
-        <div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-              <li><a href="{% url 'profile:profile' user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Q&A</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Network</a></li>
-            </ul>
-          </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profile:profile' user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            {% endif %}
+            <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Q&A</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Network</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
@@ -73,11 +78,6 @@
         <div class="row">
             <div class="col-sm-3">
                 {% block left %}
-                {% if user.is_authenticated %}
-                <form action="{% url 'logout' %}">
-                    <button type="submit" class="btn btn-failure">Log Out</button>
-                </form>
-                {% endif %}
                 {% endblock left %}    
             </div>
             <div class="col-sm-6">      
