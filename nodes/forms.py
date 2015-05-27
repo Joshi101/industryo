@@ -23,7 +23,7 @@ class SetLogoForm(forms.ModelForm):
 
 
 class SetProfileImageForm(forms.ModelForm):
-    image = forms.ImageField(required=True,widget=forms.ClearableFileInput(attrs={'class':'cropit-image-input'}))
+    image = forms.ImageField(required=True,widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
 
     class Meta:
         model = Images

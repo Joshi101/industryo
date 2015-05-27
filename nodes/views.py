@@ -81,8 +81,9 @@ def set_profile_image(request):
             i = Images.objects.create(image=image, user=user, caption='lalala', image_thumbnail=image)
             userprofile.profile_image = i
             userprofile.save()
-        return redirect('/')
+        return redirect('/user/'+request.user.username)
     else:
+        print("fuck3")
         return redirect('/')
 
 

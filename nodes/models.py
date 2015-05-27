@@ -10,11 +10,11 @@ class Images(models.Model):
     image = ProcessedImageField(upload_to='main',
                                           processors=[ResizeToFill(400, 400)],
                                           format='JPEG',
-                                          options={'quality': 60})
+                                          options={'quality': 100})
     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-                                          processors=[ResizeToFill(40, 40)],
+                                          processors=[ResizeToFill(110, 110)],
                                           format='JPEG',
-                                          options={'quality': 60})
+                                          options={'quality': 100})
     caption = models.CharField(max_length=255)
     time = models.TimeField(auto_now_add=True)
     slug = models.SlugField(max_length=20, null=True)

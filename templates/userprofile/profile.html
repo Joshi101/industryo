@@ -6,12 +6,17 @@
 {% block left %}
 <div class="text-center">
 	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail center-block" width="120" height="120" src="/images/{{ user.userprofile.get_profile_image }}">
+		<img id="img_profile" class="thumbnail center-block" width="120" height="120" src="/images/
+			{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}
+			thumbnails/user_man.jpg{% endif %}">
 		<a id='img_upload' data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
 	</div>
-	<h4 class="profile_name">{{ name }}</h4>
-	<h4><small>working at</small></h4>
-	<h4 class="profile_name">{{ user.userprofile.primary_workplace }}</h4>
+	<div class="account">
+		<h4 class="acc_detail">{{ name }}</h4>
+		<h4 class="acc_detail"><small class='small_mid'>( {{ user.userprofile.job_position }} )</small></h4>
+		<h4 class="acc_detail"><a href="#" class="no_a">{{ user.userprofile.primary_workplace }}</a></h4>
+		<h5 class="acc_detail text-muted">{{user.userprofile.area}}</h5>
+	</div>
 </div>
 <div id="img_upload_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -19,24 +24,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Change your profile picture</h4>
+        <h4 class="modal-title">Change your profile picture <small>(it won't be cropped)</small></h4>
       </div>
       <div class="modal-body">
         <form action="{% url 'nodes:set_profile_image' %}" role='form' method="post" enctype="multipart/form-data">
         	{% csrf_token %}
-		      <div class="image-editor">
-		      	<span class='btn btn-default btn-file'>
+		      <div class="image-editor center-block">
+		      	<span class='btn btn-default btn-file center-block'>
 		        	Browse {{profile_image_form.image}}
 	        	</span>
 		        <div class="cropit-image-preview"></div>
-		        <div class="image-size-label">
+		        <div class="image-size-label text-center">
 		          Resize image
 		        </div>
 		        <input type="range" class="cropit-image-zoom-input">
-		        <input type="hidden" name="image-data" class="hidden-image-data" />
-		        <button type="submit">Submit</button>
+		        <div class="row">
+		        	<button type="submit" class="btn btn-info col-sm-10 col-sm-offset-1">Submit</button>
+	        	</div>
 		      </div>
 		    </form>
+		    <input type="hidden" name="image-data" class="hidden-image-data" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -58,41 +65,71 @@
 	});
 	$(function() {
     $('.image-editor').cropit();
-
     $('form').submit(function() {
       // Move cropped image data to hidden input
       var imageData = $('.image-editor').cropit('export');
       $('.hidden-image-data').val(imageData);
+      $('#id_image').val(imageData);
 
       // Print HTTP request params
       var formValue = $(this).serialize();
-      console.log(formValue)
     });
   });
 </script>
 {% endblock left %}
 
 {% block content %}
-	<dl class="dl-horizontal">
-		<dt>Name</dt><dd>{{name}}</dd><button class="btn btn-info btn-xs content_edit">Edit</button><button class="btn btn-info btn-xs content_edit_save">Save</button>
-		<dd></dd>
-		<dd>{{user.userprofile.gender}}</dd>
-		<dd>{{user.userprofile.job_position}}</dd>
-		<dd>{{user.userprofile.experience}}</dd>
-		<dd>{{user.userprofile.points}}</dd>
-		{% for interest in user.userprofile.interests.objects.all %}
-		<dd>{{interest}}</dd>
-		{% endfor %}
-		<dd>{{user.userprofile.area}}</dd>
-	</dl>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="text-muted head_details">
+				Personal Details
+				{% ifequal user request.user %}
+				<button class="btn btn-info btn-xs detail_edit pull-right" name="">Edit</button>
+				{% endifequal %}
+			</h3>
+		</div>
+		<div class="panel-body row detail">
+			<div class="col-sm-4 detail_title"><p><strong>Gender</strong></p></div>
+			<div class="col-sm-8 detail_body"><p>{{user.userprofile.gender}}</p></div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="text-muted head_details">
+				Professional Details
+				{% ifequal user request.user %}
+				<button class="btn btn-info btn-xs detail_edit pull-right" name="">Edit</button>
+				{% endifequal %}
+			</h3>
+		</div>
+		<div class="panel-body detail">
+			<div class="detail_title"><p><strong>Experience</strong></p></div>
+			<div class="detail_body"><p>{{user.userprofile.experience}}</p></div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="text-muted head_details">
+				Interests
+				{% ifequal user request.user %}
+				<button class="btn btn-info btn-xs detail_edit pull-right" name="">Edit</button>
+				{% endifequal %}
+			</h3>
+		</div>
+		<div class="panel-body detail">
+			<div class="detail_title"><p><strong>Experience</strong></p></div>
+			<div class="detail_body"><p>{{user.userprofile.experience}}</p></div>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
-	$('.content_edit').on('click',function(event){
-		event.preventDefault();
-		$(this).prev().attr('contenteditable','true').css({'border':'1px solid #555'});
+	$('.detail').on({
+		'mouseover':function(){
+			$(this).children('.detail_opt').removeClass('hide');
+		},
+		'mouseout':function(){
+			$(this).children('.detail_opt').addClass('hide');
+		}
 	});
-	$('.content_edit_save').on('click',function(event){
-		event.preventDefault();
-		$(this).prev().attr('contenteditable','true').css({'border':'1px solid #555'});
-	})
 	</script>
 {% endblock %}

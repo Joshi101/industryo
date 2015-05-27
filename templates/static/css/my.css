@@ -95,12 +95,22 @@ footer{
 }
 
 /*profile page*/
-.profile_name{
-	margin: 0px;
+.acc_detail{
+	margin: 5px 0px;
+	line-height: 20px;
+}
+
+.small_mid{
+	vertical-align: middle;
+}
+
+.head_details{
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 #img_profile_box{
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	height: 120px;
 	overflow: hidden;
 }
@@ -137,6 +147,15 @@ footer{
 .image-size-label {
     margin-top: 10px;
 }
+
+.image-editor{
+	width: 250px;
+}
+
+.cropit-image-zoom-input{
+	margin: 10px 0px;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
