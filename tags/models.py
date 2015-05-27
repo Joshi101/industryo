@@ -2,6 +2,8 @@ from django.db import models
 from industryo.unique_slug import unique_slugify
 
 
+# type of tags = assets, materials, operations, skills, area
+
 class Tags(models.Model):
     tag = models.CharField(max_length=50)
     logo = models.ForeignKey('nodes.Images', null=True, blank=True)

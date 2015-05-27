@@ -53,8 +53,48 @@ class Question(models.Model):
             t, created = Tags.objects.get_or_create(tag=ta)
             # self.tags(tags=t, question=self)
 
-    # def calculate_votes(self):
-    #     Activity.objects.filter()
+    def get_q_upvoters(self):
+        upvotes = Activity.objects.filter(question=self.pk, activity='U')
+        list = []
+        for upvote in upvotes:
+            list.append(upvote.user)
+        return list
+
+    def get_q_downvoters(self):
+        downvotes = Activity.objects.filter(question=self.pk, activity='D')
+        list = []
+        for downvote in downvotes:
+            list.append(downvote.user)
+        return list
+
+    def get_votes(self):
+        upvotes = Activity.objects.filter(question=self.pk, activity='U').count()
+        downvotes = Activity.objects.filter(question=self.pk, activity='D').count()
+        votes = upvotes-downvotes
+        self.votes=votes
+        self.save()
+        return votes
+
+    def get_summary(self, value):
+        summary_size = 50
+        if len(value) > summary_size:
+            return u'{0}...'.format(value[:summary_size])
+        else:
+            return value
+
+    def get_answer_preview(self):
+        answer = Answer.objects.filter(question=self.pk)[:1]
+        if answer:
+            for a in answer:
+                ans = a.answer
+                return ans
+
+        else:
+            return "no answers till now"
+        # ans = answer.answer
+        # # preview = self.get_summary(ans.answer)
+        # return ans
+
 
 
 

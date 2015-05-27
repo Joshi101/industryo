@@ -4,6 +4,7 @@ from tags.models import Tags
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from industryo.unique_slug import unique_slugify
+from activities.models import Activity
 
 
 class Images(models.Model):
@@ -116,7 +117,22 @@ class Node(models.Model):
             li.append(t)
         self.tags = li
 
+    def get_like_count(self):
+        likes = Activity.objects.filter(node=self.pk).count()
+        return likes
 
+    def get_likers(self):
+        likers = []
+        likes = Activity.objects.filter(node=self.pk)
+        for like in likes:
+            likers.append(like.user)
+        return likers
 
+    def comment(self, user, post):
+        feed_comment = Node(user=user, post=post, parent=self)
+        feed_comment.save()
+        self.comments = Node.objects.filter(parent=self).count()
+        self.save()
+        return feed_comment
 
 # Create your models here.

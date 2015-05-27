@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+	
+{% block content %}
+	<h3><a href="{% url 'user:profile' question.user.username %}">{{ question.user }}</a> <small>{{ question.date }}</small></h3>
+    <p>{{ question.title }}</p>
+	{% if not user in question.get_q_upvoters %}
+		a
+		<form class="" action="{% url 'forum:voteup' %}" method="GET">
+			<input type="hidden" name="qid" value="{{ q.id }}">	
+			<input class="div_button" type="submit" value="uvpote">
+		</form>
+	{% endif %}
+	<li>votes: {{question.get_votes}}</li>
+	{% if not user in question.get_q_downvoters %}
+		<form class="" action="{% url 'forum:votedown' %}" method="GET">
+			<input type="hidden" name="qid" value="{{ q.id }}">	
+			<input class="div_button" type="submit" value="downpote">
+		</form>
+	{% endif %}
+{% endblock %}
