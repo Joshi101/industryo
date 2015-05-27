@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from nodes.forms import *
 from nodes.models import *
 from workplaceprofile.models import WorkplaceProfile
+from activities.models import Activity, Notification
 
 
 def post(request):
@@ -84,6 +85,56 @@ def set_profile_image(request):
         return redirect('/')
     else:
         return redirect('/')
+
+
+def like(request):
+    if 'id' in request.GET:
+        q = request.GET['id']
+        node = Node.objects.get(id=q)
+        user = request.user
+
+        try:
+            lik = Activity.objects.get(user=user, node=node, activity='L')
+            # User.
+            lik.delete()
+
+        except Exception:
+            lik = Activity.objects.create(user=user, node=node, activity='L')
+            lik.save()
+
+        return redirect('/nodes/'+ str(node.pk))
+    else:
+        return redirect('/')
+
+
+def comment(request):
+    if request.method == 'POST':
+        node_id = request.POST['node']
+        node = Node.objects.get(pk=node_id)
+        post = request.POST['post']
+        post = post.strip()
+        if len(post) > 0:
+            post = post[:500]
+            user = request.user
+            node.comment(user=user, post=post)
+            # myuser.myuserprofile.notify_commented(node)
+            # myuser.myuserprofile.notify_also_commented(node)
+
+        return HttpResponseRedirect('/')
+    else:
+        node_id = request.GET.get('node')
+        node = Node.objects.get(pk=node_id)
+        return render(request, 'feeds/partial_feed_comments.html', {'node': node})
+
+
+def node(request, id):
+    node = Node.objects.get(id=id)
+    # if node:
+    #     print(name)
+    return render(request, 'nodes/one_node.html', {'node': node})
+
+
+
 
 
 # Create your views here.

@@ -121,8 +121,9 @@ def reply(request):
         answer = request.POST['answer']
         user = request.user
         id = request.POST['id']
-        slug = request.POST['slug']
+
         question = Question.objects.get(id=id)
+        slug = question.slug
         answer = Answer(answer=answer, user=user, question=question)
         answer.save()
         return HttpResponseRedirect('/forum/'+slug)

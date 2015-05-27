@@ -83,27 +83,44 @@ class Workplace(models.Model):
         material_tags = materials.split(' ')
         li = []
         for m in material_tags:
-
-            t, created = Tags.objects.get_or_create(name=m)
+            t, created = Tags.objects.get_or_create(name=m, type="materials")
             li.append(t)
         self.tags = li
 
     def set_operations(self, operations):
         operation_tags = operations.split(' ')
         li = []
-        for m in operation_tags:
+        st = []
+        for p in operation_tags:
 
-            t, created = Tags.objects.get_or_create(name=m)
+            t, created = Tags.objects.get_or_create(name=p)
+            m, created = Tags.objects.get_or_create(tag=p, type="operations")
             li.append(t)
-        self.tags = li
+            st.append(m)
+        self.area = li
+        self.tags = st
+
+    def set_area(self, area):
+        areas = area.split(' ')
+        li = []
+        st = []
+        for p in areas:
+
+            t, created = Area.objects.get_or_create(event=p)
+            m, created = Tags.objects.get_or_create(tag=p, type="area")
+            li.append(t)
+            st.append(m)
+        self.area = li
+        self.tags = st
 
     def set_assets(self, assets):
         asset_tags = assets.split(' ')
         li = []
-        for m in asset_tags:
-            t, created = Tags.objects.get_or_create(name=m)
+        for p in asset_tags:
+            t, created = Tags.objects.get_or_create(name=p, type="assets")            
             li.append(t)
         self.tags = li
+
 
 
 

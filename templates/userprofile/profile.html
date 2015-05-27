@@ -80,6 +80,7 @@
 		<dd>{{user.userprofile.job_position}}</dd>
 		<dd>{{user.userprofile.experience}}</dd>
 		<dd>{{user.userprofile.points}}</dd>
+		<dd>{{user.userprofile.get_interests}}</dd>
 		{% for interest in user.userprofile.interests.objects.all %}
 		<dd>{{interest}}</dd>
 		{% endfor %}

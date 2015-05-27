@@ -66,23 +66,20 @@ class WorkplaceProfile(models.Model):
 
         part = parti.split(' ')
         li = []
-        for p in part:
+        st = []
+        for m in part:
 
-            t, created = Events.objects.get_or_create(event=p)
-            p, created = Tags.objects.get_or_create(tag=p)
+            t, created = Events.objects.get_or_create(event=m)
+            p, created = Tags.objects.get_or_create(tag=m, type="event")
             li.append(t)
+            st.append(p)
         self.participation = li
-
-
 
     def set_logo(self, image, user):
         i = Images()
         a = i.upload_image(image=image, user=user)
 
         self.logo = a
-
-
-
 
 
 def create_workplace_profile(sender, instance, created, **kwargs):

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+	
+{% block content %}
+	<h3><a href="{% url 'user:profile' question.user.username %}">{{ question.user }}</a> <small>{{ question.date }}</small></h3>
+    <p>{{ question.title }}</p>
+	{% if not user in question.get_q_upvoters %}
+		
+		<form class="" action="{% url 'forum:voteup' %}" method="GET">
+			<input type="hidden" name="qid" value="{{ question.id }}">	
+			<input class="div_button" type="submit" value="uvpote">
+		</form>
+	{% endif %}
+	<li>votes: {{question.get_votes}}</li>
+	{% if not user in question.get_q_downvoters %}
+		<form class="" action="{% url 'forum:votedown' %}" method="GET">
+			<input type="hidden" name="qid" value="{{ question.id }}">	
+			<input class="div_button" type="submit" value="downpote">
+		</form>
+	{% endif %}
+	<form class="" action="{% url 'forum:answer' %}" method="POST">
+		<input class="form-control" name="answer" placeholder="Answer..." required>
+		<input type="hidden" name="id" value="{{ question.id }}">
+		<input type="hidden" name="slug" value="{{ q.slug }}">
+		<input class="div_button" type="submit" value="Reply">
+		{% csrf_token %}
+	</form>
+	
+		{{question.get_answer_preview}}
+	
+{% endblock %}
+

@@ -84,7 +84,7 @@ def search_asset(request):
     if 'the_query' in request.GET:
         t = request.GET['the_query']
         create = request.GET['the_create']
-        o = Asset.objects.filter(tag__icontains=t)[:6]
+        o = Tags.objects.filter(tag__icontains=t, type='assets')[:6]
 
         return render(request, 'workplace/list.html', {'o': o, 'create': create})
     else:
@@ -95,7 +95,7 @@ def search_operation(request):
     if 'the_query' in request.GET:
         t = request.GET['the_query']
         create = request.GET['the_create']
-        o = Operation.objects.filter(tag__icontains=t)[:6]
+        o = Tags.objects.filter(tag__icontains=t, type='operations')[:6]
 
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
@@ -106,7 +106,7 @@ def search_material(request):
     if 'the_query' in request.GET:
         t = request.GET['the_query']
         create = request.GET['the_create']
-        o = Material.objects.filter(tag__icontains=t)[:6]
+        o = Tags.objects.filter(tag__icontains=t, type="materials")[:6]
 
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
@@ -163,6 +163,22 @@ def set_assets(request):
     else:
         return render(request, 'workplace/set_assets.html', {'form': form})
 
+
+def set_area(request):
+    form = SetMaterialForm(request.POST)
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("fuck")
+            return redirect('/')
+        else:
+            user = request.user
+            workplace = user.userprofile.primary_workplace
+
+            area = form.cleaned_data.get('areas')
+            workplace.set_materials(area)
+            return render(request, 'workplace/set_materials.html')
+    else:
+        return render(request, 'workplace/set_materials.html', {'form': form})
 
 # def workplace_profile():
 

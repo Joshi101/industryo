@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+	
+{% block content %}
+	<h3><a href="{% url 'user:profile' node.user.username %}">{{ node.user }}</a> <small>{{ node.date }}</small></h3>
+    <p>{{ node.post }}</p>
+	<div class="interaction">
+      {% if user in node.get_likers %}
+        <form class="like" role="form" method="GET" action="{% url 'nodes:like' %}" >
+					
+			<input type="hidden" name="id" value="{{ node.pk }}">
+			<button>-</button>
+			<div class="like_no">{{ node.get_like_count }}</div>
+		</form>
+      {% else %}
+        <form class="like" role="form" method="GET" action="{% url 'nodes:like' %}" >
+					
+			<input type="hidden" name="id" value="{{ node.pk }}">
+			<button>+</button>
+			<div class="like_no">{{ node.get_like_count }}</div>
+		</form>
+      {% endif %}
+      <form class="form_comment" action="{% url 'nodes:comment' %}" method="POST">
+			<textarea class="input_comment" name="post" placeholder="post a reply..." required></textarea>
+			<input type="hidden" name="node" value="{{ node.pk }}">
+			<input class="div_button" type="submit" value="Reply">
+				{% csrf_token %}
+	  </form>
+    </div>
+{% endblock %}

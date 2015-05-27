@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     profile_image = models.ForeignKey(Images, null=True, blank=True)
 
     interests = models.ManyToManyField(Tags)
-    area = models.ForeignKey(Area, null=True, blank=True)
+    area = models.ForeignKey(Area, null=True, blank=True)       # maybe m2m
     approved = models.BooleanField(default=True)
 
     class Meta:
@@ -45,22 +45,27 @@ class UserProfile(models.Model):
 
     def get_profile_image(self):
         if self.profile_image:
-<<<<<<< HEAD
 
             return self.profile_image.image_thumbnail
-
-=======
-            return self.profile_image.image_thumbnail
->>>>>>> arvind/master
 
     def set_interests(self, skills):
         skill_tags = skills.split(' ')
         li = []
         for m in skill_tags:
 
-            t, created = Tags.objects.get_or_create(tag=m)
+            t, created = Tags.objects.get_or_create(tag=m, type='skills')
             li.append(t)
         self.interests = li
+
+    def get_interests(self):
+        if self.interests == 'transmission':
+            return self.get_details()
+
+    def set_area(self, area):
+        t, created = Area.objects.get_or_create(name=area)
+        p, created = Tags.objects.get_or_create(tag=area, type="area")
+        self.area = t
+        self.interests = p
 
 
 def create_user_profile(sender, instance, created, **kwargs):
