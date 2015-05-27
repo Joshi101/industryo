@@ -117,10 +117,21 @@
 			</h3>
 		</div>
 		<div class="panel-body detail">
-			<div class="detail_title"><p><strong>Experience</strong></p></div>
-			<div class="detail_body"><p>{{user.userprofile.experience}}</p></div>
+			<div class="detail_title"><p><strong>Interests</strong></p></div>
+			<div class="detail_body"><p>{% for interest in interests %}
+											<li>{{interest.tag}}: {{interest.description}}</li>
+										{% endfor %}
+											
+			
+			</p></div>
 		</div>
 	</div>
+	{% for question in questions %}
+		{% include 'forum/one_question.html' with node=node %}
+	{% endfor %}
+	{% for node in feeds %}
+		{% include 'nodes/one_node.html' with node=node %}
+	{% endfor %}
 	<script type="text/javascript">
 	$('.detail').on({
 		'mouseover':function(){

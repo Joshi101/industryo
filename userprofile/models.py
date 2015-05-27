@@ -64,7 +64,8 @@ class UserProfile(models.Model):
         self.interests = p
 
     def get_interests(self):
-        return self.interests.all()
+        interests = self.interests.all()
+        return interests
 
 
 def create_user_profile(sender, instance, created, **kwargs):
