@@ -1,0 +1,19 @@
+{% for ob in tags %}
+	<li><a href='#' class="">{{ob}}</a></li>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if tags.has_previous %}
+            <a href="?page={{ tags.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ tags.number }} of {{ tags.paginator.num_pages }}.
+        </span>
+
+        {% if tags.has_next %}
+            <a href="?page={{ tags.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>

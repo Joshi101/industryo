@@ -4,6 +4,8 @@ from userprofile.models import UserProfile
 from userprofile.forms import EditProfileForm, SetSkillsForm
 from nodes.forms import *
 from workplace.models import Area
+from forum.models import Question, Answer
+from nodes.models import Node
 
 
 def profile(request, username):
@@ -11,6 +13,12 @@ def profile(request, username):
     name = user.get_full_name()
     userprofile = UserProfile.objects.get(user=user)
     profile_image_form = SetProfileImageForm()
+
+    questions = Question.objects.filter(user=user)
+    answers = Answer.objects.filter(user=user)
+    feeds = Node.feed.filter(user=user)
+    articles = Node.article.filter(user=user)
+    interests = userprofile.get_interests()
     return render(request, 'userprofile/profile.html', locals())
 
 
@@ -81,8 +89,10 @@ def set_area(request):
     else:
         return render(request, 'userprofile/set_interests.html', {'form': form})
 
-
-
+#
+# def get_my_question(request):
+#     user = request.user
+#     questions = Question.objects.filter(user=user)
 
 
 

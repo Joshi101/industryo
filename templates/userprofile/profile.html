@@ -111,6 +111,12 @@
 			</div>
 		</div>
 	</div>
+	{% for question in questions %}
+		{% include 'forum/one_question.html' with node=node %}
+	{% endfor %}
+	{% for node in feeds %}
+		{% include 'nodes/one_node.html' with node=node %}
+	{% endfor %}
 	<script type="text/javascript">
 	$('.detail').on({
 		'mouseover':function(){

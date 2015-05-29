@@ -57,15 +57,15 @@ class UserProfile(models.Model):
             li.append(t)
         self.interests = li
 
-    def get_interests(self):
-        if self.interests == 'transmission':
-            return self.get_details()
-
     def set_area(self, area):
         t, created = Area.objects.get_or_create(name=area)
         p, created = Tags.objects.get_or_create(tag=area, type="area")
         self.area = t
         self.interests = p
+
+    def get_interests(self):
+        interests = self.interests.all()
+        return interests
 
 
 def create_user_profile(sender, instance, created, **kwargs):
