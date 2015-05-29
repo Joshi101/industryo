@@ -21,10 +21,11 @@
 		</form>
       {% endif %}
       <form class="form_comment" action="{% url 'nodes:comment' %}" method="POST">
-			<textarea class="input_comment" name="post" placeholder="post a reply..." required></textarea>
+			<textarea class="input_comment" name="post" placeholder="comment..." required></textarea>
 			<input type="hidden" name="node" value="{{ node.pk }}">
 			<input class="div_button" type="submit" value="Reply">
 				{% csrf_token %}
 	  </form>
     </div>
+	{{node.get_last_comment}}
 {% endblock %}

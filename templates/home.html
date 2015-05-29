@@ -28,18 +28,29 @@
 		</form>
 	{% endblock %}
 	
-		{% for node in related_node %}
-			{% include 'nodes/one_node.html' with node=node %}
-			
+		{% for a in result_list %}
+		  {% if a.post %}
+			{% include 'nodes/one_node.html' with node=a %}
+		  {% elif a.time %}
+		    {% include 'forum/one_question.html' with question=a %}
+		  {% endif %}
+		  
 		{% endfor %}	
-		
-		{% for question in content3 %}
-			{% include 'forum/one_question.html' with question=question %}
-		{% endfor %}	
-		
-		{% for question in content4 %}
-			{% include 'forum/one_question.html' with question=question %}
-		{% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if result_list.has_previous %}
+            <a href="?page={{ result_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ result_list.number }} of {{ result_list.paginator.num_pages }}.
+        </span>
+
+        {% if result_list.has_next %}
+            <a href="?page={{ result_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 
 	<div class="w_400">
 		<ul class="nav nav-pills nav-stacked">

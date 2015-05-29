@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'industryo_db', # last was db
+        'NAME': 'industryo_db', # last was db2
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
