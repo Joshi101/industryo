@@ -134,5 +134,10 @@ class Node(models.Model):
         self.comments = Node.objects.filter(parent=self).count()
         self.save()
         return feed_comment
+    
+    def get_last_comment(self):
+        comments = Node.objects.filter(parent=self.pk)[:1]
+        for comment in comments:
+            return comment
 
 # Create your models here.

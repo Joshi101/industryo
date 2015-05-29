@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from nodes.forms import *
 from nodes.models import *
 from workplaceprofile.models import WorkplaceProfile
 from activities.models import Activity, Notification
-
+import json
 
 def post(request):
     if request.method == 'POST':
@@ -93,18 +93,24 @@ def like(request):
         q = request.GET['id']
         node = Node.objects.get(id=q)
         user = request.user
-
+        response = {}
+        r_data = {}
+        r_fields = []
         try:
             lik = Activity.objects.get(user=user, node=node, activity='L')
-            # User.
             lik.delete()
-
+            r_data['like'] = 'Like'
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
-
-        return redirect('/nodes/'+ str(node.pk))
+            r_data['like'] = 'Unlike'
+        r_data['likes']=node.get_like_count()
+        r_fields = ['like','likes']
+        response['data'] = r_data
+        response['fields'] = r_fields
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
+        print('fuck')
         return redirect('/')
 
 

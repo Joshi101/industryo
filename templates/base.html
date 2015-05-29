@@ -65,16 +65,38 @@
             <li><a href="#"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Network</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right top_bar_info">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li class="">
+                <a id="ind_name" href="">
+                <span class="badge">500</span>
+                  {{user.userprofile.primary_workplace}}
+                </a>
+            </li>
+            <li id="I">
+              |
+            </li>
+            <li>
+                <a id="usr_name" href="{% url 'user:profile' user.username %}">
+                  {{user}} 
+                  <span class="badge">5</span>
+                </a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Account Settings</a></li>
+                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              </ul>
+            </li>
             {% endif %}
           </ul>
         </div>
       </div>
     </nav>
     {% endblock top %}
-    <div class="container-fluid container_first">
+    <div class="body">
+      <div class="container-fluid container_first">
         <div class="row">
             <div class="col-sm-3">
                 {% block left %}
@@ -89,10 +111,11 @@
                 {% endblock right %}    
             </div>
         </div>
-    </div>
+      </div>
     {% block foot %}
-    <footer><h4>Give your precious feedback</h4></footer>
+    <footer><h5>Your feedback helps us get better</h5></footer>
     {% endblock foot %}
+    </div>
     <script type="text/javascript">
         // This function gets cookie with a given name
         function getCookie(name) {
@@ -146,9 +169,19 @@
         });
     </script>
     <script type="text/javascript">
-        //
+
         console.log('window height is '+$(window).height());
+
+        // function to auto adjust top margin for the body
+        $(function(){
+          var top = $('.navbar-fixed-top').outerHeight(true);
+          $('.body').stop().animate({'top':top});
+        });
         $('body').css({'min-height':$(window).height()});
+        $(window).on('resize',function(){
+          var top = $('.navbar-fixed-top').outerHeight(true);
+          $('.body').stop().animate({'top':top});
+        });
 
         // convert rendered form inputs that require tagging
         $('form .taggable').each(function(){
@@ -275,11 +308,12 @@
             console.log($form.serialize());
             $.ajax({
                 url : $form.attr('action'),
-                type : "POST",
+                type : $form.attr('method'),
                 data : $form.serialize(),
 
-                success: function(result){
-                    console.log('olay');
+                success: function(response){
+                  for(i=0; i < response.fields.length; i++)
+                    $form.find('.'+response.fields[i]).text(response.data[response.fields[i]]);
                 },
 
                 error : function(xhr,errmsg,err) {

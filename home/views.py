@@ -17,7 +17,7 @@ def home(request):
             job_position = profile.job_position
             t = workplace.workplace_type
 
-            related_node = Node.objects.filter(user__userprofile__primary_workplace__workplace_type=t)
+            related_node = Node.feed.filter(user__userprofile__primary_workplace__workplace_type=t)
             # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
             # content1 = Node.objects.filter(user__workplace__workplace_type=t)
             # content2 = Question.objects.filter(tags=user.userprofile.interests)

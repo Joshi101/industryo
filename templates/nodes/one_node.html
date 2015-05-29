@@ -1,30 +1,52 @@
-{% extends 'base.html' %}
-
-	
-{% block content %}
-	<h3><a href="{% url 'user:profile' node.user.username %}">{{ node.user }}</a> <small>{{ node.date }}</small></h3>
-    <p>{{ node.post }}</p>
-	<div class="interaction">
-      {% if user in node.get_likers %}
-        <form class="like" role="form" method="GET" action="{% url 'nodes:like' %}" >
-					
+<div class="feed_box">
+	<div class="feed_box_heading">
+	<h5><strong>
+		<a href="{% url 'user:profile' node.user.username %}">{{ node.user.get_full_name }}</a> | <a href="">{{ node.user.userprofile.primary_workplace }}</a> <small class='pull-right'>{{ node.date }}</small>
+	</strong></h5>
+	</div>
+	<div class="feed_box_body">
+		<p>{{ node.post }}</p>
+		<form role="form" method="GET" action="{% url 'nodes:like' %}" >
 			<input type="hidden" name="id" value="{{ node.pk }}">
-			<button>-</button>
-			<div class="like_no">{{ node.get_like_count }}</div>
+			<div class="interaction_top">
+				<a class="form-ajax like" href="">
+					{% if user in node.get_likers %}
+					Unlike
+					{% else %}
+					Like
+		  		{% endif %}
+				</a>
+				<span class="glyphicon glyphicon-thumbs-up"></span>
+				<span class="likes"> {{ node.get_like_count }} </span>
+			</div>
 		</form>
-      {% else %}
-        <form class="like" role="form" method="GET" action="{% url 'nodes:like' %}" >
-					
-			<input type="hidden" name="id" value="{{ node.pk }}">
-			<button>+</button>
-			<div class="like_no">{{ node.get_like_count }}</div>
-		</form>
-      {% endif %}
-      <form class="form_comment" action="{% url 'nodes:comment' %}" method="POST">
-			<textarea class="input_comment" name="post" placeholder="post a reply..." required></textarea>
-			<input type="hidden" name="node" value="{{ node.pk }}">
-			<input class="div_button" type="submit" value="Reply">
+	</div>
+	<div class="comments">
+	{% if node.get_last_comment %}
+		<div class="comment">
+			<div class="row">
+				<div class="col-sm-offset-1 col-sm-11">
+					<h6>
+						<strong>
+							<a href="">{{ node.get_last_comment.user.get_full_name }}</a> | <a href="">{{ node.get_last_comment.user.userprofile.primary_workplace }}</a> <small class='pull-right'>{{ node.get_last_comment.date }}</small>
+						</strong>
+					</h6>
+					<p>{{node.get_last_comment}}</p>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+			<form class="form-horizontal comment" action="{% url 'nodes:comment' %}" method="POST">
+				<div class="form-group">
+					<div class="col-sm-9 col-sm-offset-1">
+						<input class="form-control" name="post" placeholder="post a reply..." required>
+						<input type="hidden" name="node" value="{{ node.pk }}">
+					</div>
+					<div class="col-sm-2">
+						<input class="btn btn-default btn-xs" type="submit" value="Reply">
+					</div>
+				</div>
 				{% csrf_token %}
-	  </form>
-    </div>
-{% endblock %}
+			</form>
+	</div>
+</div>

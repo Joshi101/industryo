@@ -3,36 +3,23 @@
 {% block content %}
 <!-- 'fake_a' class makes the div look like an 'a' tag
 ,	'data-href' attribute selects the id of the form that has to be displayed -->
-	<!-- 'home_intro' id modifies styles for the into text on home page -->
-	<article id="home_intro" class="text-justify">
-		<p>Industryo is a platform especially designed for Industries and the Industrialists as an open online community to connect with each other and with their concerned players of the market. Here you get a chance to create & Maintain your company's profile and a network of yourself and your Enterprise. It is a platform where you can discuss common problems, list your products and promote your enterprise and its free to use.</p>
-	</article>
 	<!-- 'slide_container' class adds styles for the box containing links to various signin and signup options -->
 	{% if user.is_authenticated %}
-	<div class="row">
-		<div class="col-sm-12">
-			<h3>Welcome {{user}} of {{workplace}}</h3>
-			{{re}}
-
-			{{request.user.userprofile}}
-		
-			
-		
+	<form id="form_feed" class="form-horizontal" role="form" action="{% url 'nodes:post' %}" method="POST">
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input class="form-control" form="form_feed" name="post" placeholder="Got something to discuss..?" required>
+			</div>
+			<div class="col-sm-2">
+				<input class="btn btn-default" type="submit" value="Feed">
+			</div>
 		</div>
-	</div>
-	{% block mid_content %}
-		<form id="form_feed" role="form" action="{% url 'nodes:post' %}" method="POST">
-			<textarea class="input_feed" form="form_feed" name="post" placeholder="Got something to discuss..?" required></textarea>
-			<input class="submit_feed" type="submit" value="Feed">
-			{% csrf_token %}
-		</form>
-	{% endblock %}
-	
+		{% csrf_token %}
+	</form>	
 		{% for node in related_node %}
 			{% include 'nodes/one_node.html' with node=node %}
-			
-		{% endfor %}	
-		
+		{% endfor %}
+
 		{% for question in content3 %}
 			{% include 'forum/one_question.html' with question=question %}
 		{% endfor %}	

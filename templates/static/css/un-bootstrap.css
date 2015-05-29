@@ -11,11 +11,3 @@
 	padding: 6px;
 	margin-bottom: 10px;
 }
-
-.alert_tag{
-	display: inline-block;
-}
-
-.alert_tag > .close{
-	margin-left: 2px;
-}
