@@ -40,8 +40,14 @@ def home(request):
                 result_list = paginator.page(1)
             except EmptyPage:
                 # If page is out of range (e.g. 9999), deliver last page of results.
+                return
                 result_list = paginator.page(paginator.num_pages)
-            return render(request, 'home.html', {'result_list': result_list})
+            if page:
+                print('fuck')
+                return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+            else:
+                print('big fuck')
+                return render(request, 'home.html', {'result_list': result_list})
         else:
             return redirect('/set/')
     else:

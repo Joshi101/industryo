@@ -16,28 +16,8 @@
 		</div>
 		{% csrf_token %}
 	</form>	
-	{% for a in result_list %}
-	  {% if a.post %}
-		{% include 'nodes/one_node.html' with node=a %}
-	  {% elif a.time %}
-	    {% include 'forum/one_question.html' with question=a %}
-	  {% endif %}
-	{% endfor %}	
-	<div class="pagination">
-	    <span class="step-links">
-	        {% if result_list.has_previous %}
-	            <a href="?page={{ result_list.previous_page_number }}">previous</a>
-	        {% endif %}
-
-	        <span class="current">
-	            Page {{ result_list.number }} of {{ result_list.paginator.num_pages }}.
-	        </span>
-
-	        {% if result_list.has_next %}
-	            <a href="?page={{ result_list.next_page_number }}">next</a>
-	        {% endif %}
-	    </span>
-	</div>
+	{% include 'nodes/five_nodes.html' with result_list=result_list %}
+	<div class="paginator" data-next_page="2"></div>
 
 	<div class="w_400">
 		<ul class="nav nav-pills nav-stacked">
@@ -93,4 +73,36 @@
 		</div>
 	</div>
 	{% endif %}
+	<script type="text/javascript">
+			var load = true;
+			$(window).scroll(function() {
+				if (!load)
+					return;
+				var $this = $(this)
+				,		$pg = $('.paginator');
+				var a = $this.scrollTop();
+				var b = $this.outerHeight();
+				var c = $pg.offset().top;
+				var nxt = $pg.data('next_page');
+				if(Math.abs(a+b-c) < 20){
+					load = false;
+					$.ajax({
+	          url : window.location,
+	          type : "GET",
+	          data : { page: nxt},
+
+	          success: function(response){
+	          	nxt++;
+	            $pg.data('next_page',nxt);
+	            $pg.before(response);
+							load = true;
+	          },
+
+	          error : function(xhr,errmsg,err) {
+	              console.log(errmsg,err);
+	          }
+	      	});
+				}
+			});
+	</script>
 {% endblock %}
