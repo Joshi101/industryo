@@ -1,7 +1,6 @@
-<h5>Page {{result_list.number}}
 {% for a in result_list %}
   {% if a.post %}
-	{% include 'nodes/one_node.html' with node=a %}
+		{% include 'nodes/one_node.html' with node=a %}
   {% elif a.time %}
     {% include 'forum/one_question.html' with question=a %}
   {% endif %}

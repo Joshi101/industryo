@@ -51,31 +51,6 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-	$('#img_profile_box').on({
-		mouseover: function(){
-			$('#img_upload').stop().animate({'height':'28px','top':'-49px','padding':'4px 0px'});
-			$('#img_upload').on('click',function(){
-				$('#img_upload').stop().animate({'height':'0px','top':'-20px','padding':'0px'});
-			});
-		},
-		mouseout: function(){
-			$('#img_upload').stop().animate({'height':'0px','top':'-20px','padding':'0px'});
-		}
-	});
-	$(function() {
-    $('.image-editor').cropit();
-    $('form').submit(function() {
-      // Move cropped image data to hidden input
-      var imageData = $('.image-editor').cropit('export');
-      $('.hidden-image-data').val(imageData);
-      $('#id_image').val(imageData);
-
-      // Print HTTP request params
-      var formValue = $(this).serialize();
-    });
-  });
-</script>
 {% endblock left %}
 
 {% block content %}

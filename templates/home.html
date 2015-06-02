@@ -1,108 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- 'fake_a' class makes the div look like an 'a' tag
-,	'data-href' attribute selects the id of the form that has to be displayed -->
-	<!-- 'slide_container' class adds styles for the box containing links to various signin and signup options -->
-	{% if user.is_authenticated %}
-	<form id="form_feed" class="form-horizontal" role="form" action="{% url 'nodes:post' %}" method="POST">
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input class="form-control" form="form_feed" name="post" placeholder="Got something to discuss..?" required>
-			</div>
-			<div class="col-sm-2">
-				<input class="btn btn-default" type="submit" value="Feed">
-			</div>
+{% if user.is_authenticated %}
+<form id="form_feed" class="form-horizontal" role="form" action="{% url 'nodes:post' %}" method="POST">
+	<div class="form-group">
+		<div class="col-sm-10">
+			<textarea rows="1" class="form-control" name="post" placeholder="Got something to discuss..?" required></textarea>
 		</div>
-		{% csrf_token %}
-	</form>	
+		<div class="col-sm-2">
+			<input class="btn btn-default" type="submit" value="Feed">
+		</div>
+	</div>
+	{% csrf_token %}
+</form>
+<div class="ajax_andar">
 	{% include 'nodes/five_nodes.html' with result_list=result_list %}
 	<div class="paginator" data-next_page="2"></div>
-
-	<div class="w_400">
-		<ul class="nav nav-pills nav-stacked">
-	    	<li><a href="{% url 'ask' %}"><h4>Go ahead.. ask questions here!</h4></a></li>
-	    	<li><a data-toggle="pill" href="#taggers"><h4>Or simply practice tagging</h4></a></li>
-  		</ul>
-  		<div class="tab-content">
-	  		<div id="q" class="tab-pane fade"></div>
-	  		<div id="taggers" class="tab-pane fade">
-				<form role="form">
-					<h4>Single tagging</h4>
-					<div class="d_search" data-results="single">
-						<input type="text" class="form-control d_input" data-search='tag'>
-						<div class="dropdown">
-							<ul class="dropdown-menu d_list">
-							</ul>
-						</div>
-					</div>
-					<h4>Multiple tagging</h4>
-					<div class="d_search" data-results="multiple">
-						<div class="d_results"></div>
-						<input type="text" class="form-control d_input" data-search='tag' data-create='create'>
-						<div class="dropdown">
-							<ul class="dropdown-menu d_list">
-							</ul>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
+</div>
+{% else %}
+<div class="row">
+	<div class="col-sm-6">
+		<h2 class="text-center home_h2"></h2>
+		<a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg home_sign">
+			<h2 class="home_h2">Sign Up</h2>
+		</a>
+		<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
+			<span class="glyphicon glyphicon-question-sign"></span>
+		</h4>
 	</div>
-	{% else %}
-	<div class="slide_container">
-		<div class="row">
-			<div class="col-sm-6">
-				<h2 class="text-center home_h2"></h2>
-				<a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg home_sign">
-					<h2 class="home_h2">Sign Up</h2>
-				</a>
-				<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
-					<span class="glyphicon glyphicon-question-sign"></span>
-				</h4>
-			</div>
-			<div class="col-sm-6">
-				<h2 class="text-center home_h2"></h2>
-				<a href="{% url 'account_login' %}" class="btn btn-success btn-lg home_sign">
-					<h2 class="home_h2">Sign In</h2>
-				</a>
-				<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">
-					<span class="glyphicon glyphicon-question-sign"></span>
-				</h4>
-			</div>
-		</div>
+	<div class="col-sm-6">
+		<h2 class="text-center home_h2"></h2>
+		<a href="{% url 'account_login' %}" class="btn btn-success btn-lg home_sign">
+			<h2 class="home_h2">Sign In</h2>
+		</a>
+		<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">
+			<span class="glyphicon glyphicon-question-sign"></span>
+		</h4>
 	</div>
-	{% endif %}
-	<script type="text/javascript">
-			var load = true;
-			$(window).scroll(function() {
-				if (!load)
-					return;
-				var $this = $(this)
-				,		$pg = $('.paginator');
-				var a = $this.scrollTop();
-				var b = $this.outerHeight();
-				var c = $pg.offset().top;
-				var nxt = $pg.data('next_page');
-				if(Math.abs(a+b-c) < 20){
-					load = false;
-					$.ajax({
-	          url : window.location,
-	          type : "GET",
-	          data : { page: nxt},
-
-	          success: function(response){
-	          	nxt++;
-	            $pg.data('next_page',nxt);
-	            $pg.before(response);
-							load = true;
-	          },
-
-	          error : function(xhr,errmsg,err) {
-	              console.log(errmsg,err);
-	          }
-	      	});
-				}
-			});
-	</script>
-{% endblock %}
+</div>
+{% endif %}
+{% endblock content %}
