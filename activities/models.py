@@ -37,6 +37,8 @@ class Notification(models.Model):
     COMMENTED = 'C'
     ALSO_COMMENTED = 'S'
     # JOINED = 'J'
+    # Answewred
+    # approved
     ALSO_JOINED = 'J'
     EDITED = 'E'
     FOLLOWS = 'F'
@@ -60,8 +62,10 @@ class Notification(models.Model):
     _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your enterprise'
     _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile'
     _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now'
-    _VotedUp_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/feeds/{2}/">{3}</a>'
-    _VotedDown_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/feeds/{2}/">{3}</a>'
+    _VotedUpQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your question: <a href="/feeds/{2}/">{3}</a>'
+    _VotedDownQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your question: <a href="/feeds/{2}/">{3}</a>'
+    _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/feeds/{2}/">{3}</a>'
+    _VotedDownA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your answer: <a href="/feeds/{2}/">{3}</a>'
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')
     date = models.DateTimeField(auto_now_add=True)
@@ -121,19 +125,36 @@ class Notification(models.Model):
                 escape(self.from_user.get_full_name()),
                 )
         if self.notification_type == 'U':
-            return self._VotedUp_TEMPLATE.format(
-                escape(self.from_user.username),
-                escape(self.from_user.first_name),
-                self.node.pk,
-                escape(self.get_summary(self.node.post))
-                )
+            if self.question:
+                return self._VotedUpQ_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.first_name),
+                    self.question.pk,
+                    escape(self.get_summary(self.question.title))
+                    )
+            else:
+                return self._VotedUpA_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.first_name),
+                    self.answer.question.pk,
+                    escape(self.get_summary(self.answer))
+                    )
+
         if self.notification_type == 'D':
-            return self._VotedDown_TEMPLATE.format(
-                escape(self.from_user.username),
-                escape(self.from_user.first_name),
-                self.node.pk,
-                escape(self.get_summary(self.node.post))
-                )
+            if self.question:
+                return self._VotedDownQ_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.first_name),
+                    self.question.pk,
+                    escape(self.get_summary(self.question.title))
+                    )
+            else:
+                return self._VotedDownA_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.first_name),
+                    self.answer.question.pk,
+                    escape(self.get_summary(self.answer))
+                    )
 
         else:
             return "Oops! something went wrong."

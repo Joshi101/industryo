@@ -58,12 +58,13 @@ def voteup(request):
 
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
-            # User.
             vote.delete()
+            user.userprofile.unotify_q_upvoted(question)
             question.votes -= 1
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
+            user.userprofile.notify_q_upvoted(question)
             question.votes += 1
         return redirect('/')
     elif 'aid' in request.GET:
@@ -74,10 +75,12 @@ def voteup(request):
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             # User.
             vote.delete()
+            user.userprofile.unotify_a_upvoted(answer)
             answer.votes -= 1
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
+            user.userprofile.notify_a_upvoted(answer)
             answer.votes += 1
         return redirect('/')
 
@@ -94,10 +97,12 @@ def votedown(request):
             vote = Activity.objects.get(user=user, question=question, activity='D')
             # User.
             vote.delete()
+            user.userprofile.unotify_q_downvoted(question)
             question.votes -= 1
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
+            user.userprofile.notify_q_downvoted(question)
             question.votes += 1
         return redirect('/')
     elif 'aid' in request.GET:
@@ -108,10 +113,12 @@ def votedown(request):
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
             # User.
             vote.delete()
+            user.userprofile.unotify_a_downvoted(answer)
             answer.votes += 1
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
+            user.userprofile.notify_a_downvoted(answer)
             answer.votes -= 1
         return redirect('/')
 

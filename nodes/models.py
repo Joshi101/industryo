@@ -5,6 +5,8 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from industryo.unique_slug import unique_slugify
 from activities.models import Activity
+from django.utils.timezone import now
+
 
 
 class Images(models.Model):
@@ -140,9 +142,17 @@ class Node(models.Model):
         for comment in comments:
             return comment
 
-    def get_last_comment(self):
-        comments = Node.objects.filter(parent=self.pk)[:1]
-        for comment in comments:
-            return comment
+    def get_score(self):
+        p = self.likes+self.comments    # popularity
+        t = (now()-self.date).total_seconds()/3600  # age_in_hrs
+        # last_activity =
+        n = self.admin_score
+        score = (p/pow((t+1), 1.2))*n
+        self.score = score
+        return score
+
+
+
+
 
 # Create your models here.
