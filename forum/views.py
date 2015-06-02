@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from forum.models import *
 from tags.models import Tags
 from forum.forms import AskForm
 from activities.models import *
-
+import json
 
 def ask(request):
 
@@ -52,36 +52,64 @@ def voteup(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
-        # a = request.GET['aid']
-        # answer = Answer.objects.get(id=a)
         user = request.user
-
+        response = {}
+        r_data = {}
+        r_fields = []
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
-            # User.
             vote.delete()
             question.votes -= 1
+            question.save()
+            r_data['upvote'] = 'Upvote'
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
             question.votes += 1
-        return redirect('/')
+            question.save()
+            r_data['upvote'] = 'Unupvote'
+        r_data['votes']=question.votes
+        r_fields = ['upvote','votes']
+        response['data'] = r_data
+        response['fields'] = r_fields
+        print(response)
+        return HttpResponse(json.dumps(response), content_type="application/json")
     elif 'aid' in request.GET:
         a = request.GET['aid']
         answer = Answer.objects.get(id=a)
         user = request.user
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
-            # User.
             vote.delete()
             answer.votes -= 1
+            r_data['upvote'] = 'Upvote'
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
             answer.votes += 1
-        return redirect('/')
+            r_data['upvote'] = 'Unupvote'
+        r_data['votes']=answer.get_votes()
+        r_fields = ['upvote','votes']
+        response['data'] = r_data
+        response['fields'] = r_fields
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
+'''def vote():
+    if 'qid' in request.GET:
+        q = request.GET['qid']
+        qa = Question.objects.get(id=q)
+        status = True
+    elif 'aid' in request.GET:
+        a = request.GET['aid']
+        qa = Answer.objects.get(id=a)
+        status = True
+    if not status:
+        return ('/')
+    try:
+        vote = Activity.objects.get(user=user, question=question, activity='D')
 
+    return HttpResponse(json.dumps(response), content_type="application/json")
+'''
 def votedown(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
@@ -89,17 +117,21 @@ def votedown(request):
         # a = request.GET['aid']
         # answer = Answer.objects.get(id=a)
         user = request.user
-
         try:
             vote = Activity.objects.get(user=user, question=question, activity='D')
-            # User.
             vote.delete()
             question.votes -= 1
+            r_data['downvote'] = 'Downvote'
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
             question.votes += 1
-        return redirect('/')
+            r_data['downvote'] = 'Undownpvote'
+        r_data['votes']=question.get_votes()
+        r_fields = ['downvote','votes']
+        response['data'] = r_data
+        response['fields'] = r_fields
+        return HttpResponse(json.dumps(response), content_type="application/json")
     elif 'aid' in request.GET:
         a = request.GET['aid']
         answer = Answer.objects.get(id=a)
@@ -109,11 +141,17 @@ def votedown(request):
             # User.
             vote.delete()
             answer.votes += 1
+            r_data['downvote'] = 'Downvote'
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
             answer.votes -= 1
-        return redirect('/')
+            r_data['downvote'] = 'Undownvote'
+        r_data['votes']=answer.get_votes()
+        r_fields = ['downvote','votes']
+        response['data'] = r_data
+        response['fields'] = r_fields
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 def reply(request):
