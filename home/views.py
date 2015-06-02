@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, render_to_response, RequestContext
 from nodes.models import *
 from userprofile.models import UserProfile
+from workplaceprofile.models import WorkplaceProfile
 from tags.models import Tags
 from forum.models import Question, Answer
 from django.db.models import Q
@@ -16,7 +17,8 @@ def home(request):
             # name = user.username
             workplace = request.user.userprofile.primary_workplace
             profile = UserProfile.objects.get(user=user)
-            workplace = profile.primary_workplace
+            workplace_profile = WorkplaceProfile.objects.get(workplace=workplace)
+            #workplace = profile.primary_workplace
             job_position = profile.job_position
             t = workplace.workplace_type
 
@@ -43,11 +45,9 @@ def home(request):
                 return
                 result_list = paginator.page(paginator.num_pages)
             if page:
-                print('fuck')
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                print('big fuck')
-                return render(request, 'home.html', {'result_list': result_list})
+                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'workplace_profile':workplace_profile})
         else:
             return redirect('/set/')
     else:
@@ -57,7 +57,6 @@ def home(request):
 def search(request):
     if 'q' in request.GET:
         return redirect('/search/')
-
     else:
         return render(request, 'search/search.html')
 
@@ -79,7 +78,3 @@ def search(request):
 #
 # def set_workplace(request):
 #     if request.method == 'POST':
-
-
-
-
