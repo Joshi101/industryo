@@ -94,23 +94,24 @@ def like(request):
         node = Node.objects.get(id=q)
         user = request.user
         response = {}
-        r_data = {}
+        r_data = {}             # json dictionary
         r_fields = []
         try:
             lik = Activity.objects.get(user=user, node=node, activity='L')
             lik.delete()
+            user.userprofile.unotify_liked(node)
             r_data['like'] = 'Like'
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
+            user.userprofile.notify_liked(node)
             r_data['like'] = 'Unlike'
-        r_data['likes']=node.get_like_count()
-        r_fields = ['like','likes']
+        r_data['likes'] = node.get_like_count()
+        r_fields = ['like', 'likes']
         response['data'] = r_data
         response['fields'] = r_fields
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        print('fuck')
         return redirect('/')
 
 
@@ -124,9 +125,8 @@ def comment(request):
             post = post[:500]
             user = request.user
             node.comment(user=user, post=post)
-            # myuser.myuserprofile.notify_commented(node)
-            # myuser.myuserprofile.notify_also_commented(node)
-
+            user.userprofile.notify_commented(node)
+            user.userprofile.notify_also_commented(node)
         return HttpResponseRedirect('/')
     else:
         node_id = request.GET.get('node')

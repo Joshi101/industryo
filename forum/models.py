@@ -18,6 +18,9 @@ class Question(models.Model):
     tags = models.ManyToManyField(Tags)
     images = models.ManyToManyField(Images)
     admin_score = models.IntegerField(default=1)
+    # score
+    # last active
+
 
     class Meta:
         verbose_name = 'Question'

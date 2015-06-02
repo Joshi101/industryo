@@ -1,3 +1,7 @@
 {% for n in unread %}
-	<li>{{n}}</li>
+	<li>{{n|safe}}</li>
+{% endfor %}
+------------------------
+{% for m in read %}
+	<li>{{m|safe}}</li>
 {% endfor %}

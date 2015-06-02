@@ -7,6 +7,7 @@ from allauth.socialaccount.models import SocialAccount
 import hashlib
 from nodes.models import Images
 from tags.models import Tags
+from activities.models import Notification
 
 
 class UserProfile(models.Model):
@@ -17,7 +18,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, choices=GenderChoices, null=True)
     job_position = models.CharField(max_length=255, null=True)
     experience = models.TextField(max_length=5000, blank=True, null=True)
-    points = models.IntegerField(default=0)
+    points = models.IntegerField(default=100)
 
     profile_image = models.ForeignKey(Images, null=True, blank=True)
 
@@ -66,6 +67,138 @@ class UserProfile(models.Model):
     def get_interests(self):
         interests = self.interests.all()
         return interests
+
+    def notify_liked(self, node):
+        if self.user != node.user:
+            self.points +=5
+            Notification(notification_type=Notification.LIKED,
+                         from_user=self.user,
+                         to_user=node.user,
+                         node=node).save()
+
+    def unotify_liked(self, node):
+        if self.user != node.user:
+            self.points -=5
+            Notification.objects.filter(notification_type=Notification.LIKED,
+                                        from_user=self.user,
+                                        to_user=node.user,
+                                        node=node).delete()
+
+    def notify_commented(self, node):
+        if self.user != node.user:
+            Notification(notification_type=Notification.COMMENTED,
+                         from_user=self.user,
+                         to_user=node.user,
+                         node=node).save()
+
+    def notify_also_commented(self, node):
+        comments = node.get_comments()
+        users = []
+        for comment in comments:
+            if comment.user != self.user and comment.user != node.user:
+                users.append(comment.user.pk)
+        users = list(set(users))
+        for user in users:
+            Notification(notification_type=Notification.ALSO_COMMENTED,
+                         from_user=self.user,
+                         to_user=User(id=user),
+                         node=node).save()
+
+    def notify_q_upvoted(self, question):
+        if self.user != question.user:
+            self.points +=5
+            self.save()
+            Notification(notification_type=Notification.VotedUp,
+                         from_user=self.user,
+                         to_user=question.user,
+                         question=question).save()
+
+    def notify_q_downvoted(self, question):
+        if self.user != question.user:
+            self.points -=5
+            self.save()
+            Notification(notification_type=Notification.VotedDown,
+                         from_user=self.user,
+                         to_user=question.user,
+                         question=question).save()
+
+    def notify_a_upvoted(self, answer):
+        if self.user != answer.user:
+            self.points +=5
+            self.save()
+            Notification(notification_type=Notification.VotedUp,
+                         from_user=self.user,
+                         to_user=answer.user,
+                         answer=answer).save()
+
+    def notify_a_downvoted(self, answer):
+        if self.user != answer.user:
+            self.points -=5
+            self.save()
+            Notification(notification_type=Notification.VotedDown,
+                         from_user=self.user,
+                         to_user=answer.user,
+                         question=answer).save()
+
+    def unotify_q_upvoted(self, question):
+        if self.user != question.user:
+            self.points -=5
+            self.save()
+            Notification.objects.get(notification_type=Notification.VotedUp,
+                                     from_user=self.user,
+                                     to_user=question.user,
+                                     question=question).delete()
+
+    def unotify_q_downvoted(self, question):
+        if self.user != question.user:
+            self.points +=5
+            self.save()
+            Notification.objects.get(notification_type=Notification.VotedDown,
+                                     from_user=self.user,
+                                     to_user=question.user,
+                                     question=question).delete()
+
+    def unotify_a_upvoted(self, answer):
+        if self.user != answer.user:
+            self.points -=5
+            self.save()
+            Notification.objects.get(notification_type=Notification.VotedUp,
+                                     from_user=self.user,
+                                     to_user=answer.user,
+                                     answer=answer).delete()
+
+    def unotify_a_downvoted(self, answer):
+        if self.user != answer.user:
+            self.points +=5
+            self.save()
+            Notification.objects.get(notification_type=Notification.VotedDown,
+                                     from_user=self.user,
+                                     to_user=answer.user,
+                                     question=answer).delete()
+
+    def notify_joined(self, enterprise, node):
+        users = User.objects.filter(enterprise=enterprise)
+
+        for user in users:
+            Notification(notification_type=Notification.ALSO_JOINED,
+                         from_user=self.user,
+                         to_user=user,
+                         node=node).save()
+
+    # def notify_followed(self, user, node):
+    #     Notification(notification_type=Notification.FOLLOWS,
+    #                  from_user=self.user,
+    #                  to_user=user,
+    #                  node=node).save()
+
+    # def notify_edited(self, workplace, node):
+    #     users = User.objects.filter(enterprise=enterprise)
+    #
+    #     for user in users:
+    #         Notification(notification_type=Notification.EDITED,
+    #                      from_user=self.user,
+    #                      to_user=user,
+    #                      node=node).save()
 
 
 def create_user_profile(sender, instance, created, **kwargs):

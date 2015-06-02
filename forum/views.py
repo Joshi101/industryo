@@ -59,12 +59,14 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
+            user.userprofile.unotify_q_upvoted(question)
             question.votes -= 1
             question.save()
             r_data['upvote'] = 'Upvote'
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
+            user.userprofile.notify_q_upvoted(question)
             question.votes += 1
             question.save()
             r_data['upvote'] = 'Unupvote'
@@ -81,11 +83,13 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             vote.delete()
+            user.userprofile.unotify_a_upvoted(answer)
             answer.votes -= 1
             r_data['upvote'] = 'Upvote'
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
+            user.userprofile.notify_a_upvoted(answer)
             answer.votes += 1
             r_data['upvote'] = 'Unupvote'
         r_data['votes']=answer.get_votes()
@@ -120,11 +124,13 @@ def votedown(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='D')
             vote.delete()
+            user.userprofile.unotify_q_downvoted(question)
             question.votes -= 1
             r_data['downvote'] = 'Downvote'
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
+            user.userprofile.notify_q_downvoted(question)
             question.votes += 1
             r_data['downvote'] = 'Undownpvote'
         r_data['votes']=question.get_votes()
@@ -140,11 +146,13 @@ def votedown(request):
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
             # User.
             vote.delete()
+            user.userprofile.unotify_a_downvoted(answer)
             answer.votes += 1
             r_data['downvote'] = 'Downvote'
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
+            user.userprofile.notify_a_downvoted(answer)
             answer.votes -= 1
             r_data['downvote'] = 'Undownvote'
         r_data['votes']=answer.get_votes()

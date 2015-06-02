@@ -6,6 +6,7 @@ from nodes.forms import *
 from workplace.models import Area
 from forum.models import Question, Answer
 from nodes.models import Node
+from django.contrib.auth.decorators import login_required
 
 
 def profile(request, username):
@@ -46,15 +47,23 @@ def edit(request):
             })
         return render(request, 'userprofile/edit.html', {'form': form})
 
-
+# @login_required
 def set_interests(request):
+    print("fucks")
     form = SetSkillsForm(request.POST)
     if request.method == 'POST':
+        print("fuck")
+
         if not form.is_valid():
-            print("fuck")
+            print("fucking")
             return redirect('/')
         else:
+            print("fucki")
+
             user = request.user
+            print("fuckin")
+            print(user)
+
             up = user.userprofile
 
             interests = form.cleaned_data.get('skills')
