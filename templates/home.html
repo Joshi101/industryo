@@ -1,42 +1,76 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<form id="form_feed" class="form-horizontal" role="form" action="{% url 'nodes:post' %}" method="POST">
+<form id="form_feed" class="form-horizontal" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
 	<div class="form-group">
-		<div class="col-sm-10">
-			<textarea rows="1" class="form-control" name="post" placeholder="Got something to discuss..?" required></textarea>
+		<div class="col-sm-1">
+			<img id="img_feed" class="thumb_small" width="34" height="34" src="/images/
+			{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}
+			thumbnails/user_man.jpg{% endif %}">
 		</div>
-		<div class="col-sm-2">
-			<input class="btn btn-default" type="submit" value="Feed">
+		<div class="col-sm-11">
+			<div class="input-group">
+				<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Got something to discuss..?" required></textarea>
+				<span class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+        	{{feed_img_form.image}}
+      	</span>
+      	<input type="hidden" value="123" name="123">
+			</div>
 		</div>
 	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-1 col-sm-11">
+			<div class="img_pre hide">
+				<div class="alert">
+					<a href="#" class="close">&times;</a>
+					<img width="56" height="56" src="" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+  	<div class="textarea_bottom col-sm-offset-1 col-sm-11 hide">
+  		<span class='btn btn-default btn-file fake_btn' data-btn='#id_image'>
+      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+    	</span>
+  		<button class='btn btn-default btn-file pull-right'>
+      	<span class="glyphicon glyphicon-bullhorn"></span> Post
+    	</button>
+  	</div>
+  </div>
 	{% csrf_token %}
 </form>
+<script type="text/javascript">
+	$('.fake_btn').click(function(){
+		var btn = $(this).data('btn');
+		$(btn).trigger('click');
+	});
+	$('.img_pre_in input').change(function(){
+		var preview = $(this).closest('form').find('.img_pre img');
+	  var file    = this.files[0];
+	  var fd = new FormData($('#form_feed')[0]);
+	  fd.append('file',file);
+	  console.log(fd,$('#form_feed').serialize())
+	  var reader  = new FileReader();
+	  reader.onloadend = function () {
+	    preview.attr('src', reader.result);
+	  }
+	  if (file) {
+	    reader.readAsDataURL(file);
+	    preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
+	  } else {
+	    preview.attr('src', "");
+	  }
+	  $(this).closest('form').find('textarea').trigger('focus');
+	});
+	$('.img_pre').on('click','.close',function(){
+		var img_in = $(this).closest('form').find('.img_pre_in');
+		img_in.val('');
+		console.log($(this).closest('form').find('input'));
+	})
+</script>
 <div class="ajax_andar">
 	{% include 'nodes/five_nodes.html' with result_list=result_list %}
 	<div class="paginator" data-next_page="2"></div>
 </div>
-{% else %}
-<div class="row">
-	<div class="col-sm-6">
-		<h2 class="text-center home_h2"></h2>
-		<a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg home_sign">
-			<h2 class="home_h2">Sign Up</h2>
-		</a>
-		<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
-			<span class="glyphicon glyphicon-question-sign"></span>
-		</h4>
-	</div>
-	<div class="col-sm-6">
-		<h2 class="text-center home_h2"></h2>
-		<a href="{% url 'account_login' %}" class="btn btn-success btn-lg home_sign">
-			<h2 class="home_h2">Sign In</h2>
-		</a>
-		<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">
-			<span class="glyphicon glyphicon-question-sign"></span>
-		</h4>
-	</div>
-</div>
-{% endif %}
 {% endblock content %}

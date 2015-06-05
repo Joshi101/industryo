@@ -6,13 +6,14 @@ from activities.models import Activity, Notification
 import json
 
 def post(request):
+    form = UploadImageForm(request.POST['form'], request.FILES)
+    print(form)
     if request.method == 'POST':
         post = request.POST['post']
         user = request.user
-
         node = Node(post=post, user=user)
         node.save()
-        return redirect('/')
+        return render(request, 'nodes/five_nodes.html', {'result_list': node})
     else:
         return redirect('/')
 

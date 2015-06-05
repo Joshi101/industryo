@@ -11,3 +11,8 @@
 	padding: 6px;
 	margin-bottom: 10px;
 }
+
+.input-group-addon{
+	top: 0px;
+	background-color: inherit;
+}

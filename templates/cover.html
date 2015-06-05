@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid row">
+	<div class="col-sm-7">
+		<div class="row">
+			<div class="col-sm-6">
+				<h2 class="text-center home_h2"></h2>
+				<a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg home_sign">
+					<h2 class="home_h2">Sign Up</h2>
+				</a>
+				<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
+					<span class="glyphicon glyphicon-question-sign"></span>
+				</h4>
+			</div>
+			<div class="col-sm-6">
+				<h2 class="text-center home_h2"></h2>
+				<a href="{% url 'account_login' %}" class="btn btn-success btn-lg home_sign">
+					<h2 class="home_h2">Sign In</h2>
+				</a>
+				<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">
+					<span class="glyphicon glyphicon-question-sign"></span>
+				</h4>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}

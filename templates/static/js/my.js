@@ -18,8 +18,7 @@ var csrftoken = getCookie('csrftoken');
  
 /*
 The functions below will create a header with csrftoken
-*/
- 
+*/ 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -49,37 +48,38 @@ $.ajaxSetup({
     }
 });
 
+
 // custom written
 
-console.log('window height is '+$(window).height());
-
 // function to auto adjust top margin for the body
-$(function(){
+
+function body_slide () {
   var top = $('.navbar-fixed-top').outerHeight(true);
-  $('.body').stop().animate({'top':top});
-});
-$('body').css({'min-height':$(window).height()});
-$(window).on('resize',function(){
-  var top = $('.navbar-fixed-top').outerHeight(true);
-  $('.body').stop().animate({'top':top});
-});
+  $('.body').stop().animate({'top':top});  
+}
+
+$(body_slide);
+$(window).on('resize', body_slide);
 
 // convert rendered form inputs that require tagging
-$('form .taggable').each(function(){
-    console.log($(this).attr('id'));
-    $taggable_input = $(this);
-    var name = $taggable_input.attr('name');
-    $taggable_input.attr('name','');
-    $taggable_input.removeClass('taggable').addClass('d_input');
-    if($taggable_input.data('results') == 'multiple')
-        var results = '"multiple"><div class="d_results"></div>';
-    else if($taggable_input.data('results') == 'single')
-        var results = '"single">';
-    var old_input = $taggable_input.clone().wrap('<p>').parent().html();
+function convert_to_taggable(){
+    var $this = $(this);
+    var name = $this.attr('name')
+    ,   result = $this.data('results');
+    $this.attr('name','');
+    $this.removeClass('taggable').addClass('d_input');
+    if (result == 'multiple')
+        var d_results = '"multiple"><div class="d_results"></div>';
+    else if(result == 'single')
+        var d_results = '"single">';
+    var old_input = $this.clone().wrap('<p>')
+        .parent().html();
     var hidden_input = '<input type="hidden" name="' + name + '" value="">';
-    var new_input = '<div class="d_search" data-results='+ results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
-    $taggable_input.replaceWith(new_input);
-});
+    var new_input = '<div class="d_search" data-results='+ d_results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
+    $this.replaceWith(new_input);
+}
+
+$('form .taggable').each(convert_to_taggable);
 
 // dynamic select function
 $('.d_input').keyup(function(event){
@@ -87,44 +87,57 @@ $('.d_input').keyup(function(event){
     var query = $this.val()
     ,   search = "/search" + $this.data('search')
     ,   create = $this.data('create');
-    console.log(query, search, create)
     if(!create)
         create = '';
+    console.log(query, search, create);
     $.ajax({
         url : search,
         type : "GET",
         data : { the_query : query, the_create : create},
-
         success: function(result){
-            $this.next().next().find(".d_list").html(result);
+            $this.nextAll('.dropdown')
+                .children(".d_list").html(result);
+            var $create_a = $this.nextAll('.dropdown')
+                .find(".create_new");
+            var create_now = 'create_' + $this.data('search');
+            console.log(create_now);
+            $create_a.attr('href','#'+create_now);
+            var collapse_parent = $create_a.closest('.panel-group').attr('id');
+            $create_a.data('parent', '#'+collapse_parent);
+            console.log($create_a.data('parent'));
         },
-
         error : function(xhr,errmsg,err) {
-            $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+            $this.nextAll('.dropdown')
+                .children(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
             console.log(errmsg,err);
         }
     });
     if(query != '')
-        $(this).next().next().find('.d_list').css({'display':'block'});
+        $(this).nextAll('.dropdown')
+            .children('.d_list').css({'display':'block'});
+});
+
+$('.body').on('load','.create_new',function(){
+    var $this = $(this);
+    var $sabke_papa = $this.closest('.d_search');
+    var create_now = 'create_' + $sabke_papa.children('input').first().data('search');
+    console.log(create_now);
+    $this.attr('href','#'+create_now);
+    var collapse_parent = $this.closest('.panel-group').attr('id');
+    $this.data('parent', '#'+collapse_parent);
+    console.log($this.data('parent'));
 });
 
 $(".d_list").on('click', 'a', function(){
     aj_search($(this));
     function aj_search ($this){
-        //var $this = $(this);
         var $sabke_papa = $this.closest('.d_search');
         if($this.attr('class') == 'create'){
             var value = $sabke_papa.children('input').val();
             console.log('input wala');
         }
         else if($this.attr('class').indexOf('create_new') >= 0){
-            var create_now = 'create_' + $sabke_papa.children('input').first().data('search');
-            console.log(create_now);
             $sabke_papa.find('.d_list').css({'display':'none'});
-            $this.attr('href','#'+create_now);
-            var collapse_parent = $this.closest('.panel-group').attr('id');
-            $this.data('parent', '#'+collapse_parent);
-            console.log($this.data('parent'))
             return 0;
         }
         else{
@@ -262,4 +275,37 @@ $('form').submit(function() {
   // Print HTTP request params
   var formValue = $(this).serialize();
 });
+});
+
+// function for main feeder
+$('#form_feed').on('focus','textarea',function(){
+    var $this = $(this);
+    $this.attr('rows','3');
+    $this.removeClass('seamless_l');
+    $this.parent().find('.input-group-addon').hide();
+    $this.closest('form').find('.textarea_bottom').removeClass('hide');
+    autosize.update($this);
+});
+$('#form_feed textarea').on('blur', function(){
+    var $this = $(this);
+    $this.attr('rows','1');
+    $this.addClass('seamless_l');
+    $this.closest('form').find('.textarea_bottom').addClass('hide');
+    autosize.update($this);
+    $this.parent().find('.input-group-addon').show();
+});
+$('#form_feed .btn, .img_pre').on({
+    mouseover: function(){
+        $('#form_feed textarea').off('blur');
+    },
+    mouseout: function(){
+        $('#form_feed textarea').on('blur', function(){
+            var $this = $(this);
+            $this.attr('rows','1');
+            $this.addClass('seamless_l');
+            $this.closest('form').find('.textarea_bottom').addClass('hide');
+            autosize.update($this);
+            $this.parent().find('.input-group-addon').show();
+        });
+    }
 });

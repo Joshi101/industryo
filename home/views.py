@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, render_to_response, RequestContext
 from nodes.models import Node
+from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
 from workplaceprofile.models import WorkplaceProfile
 from tags.models import Tags
@@ -15,11 +16,11 @@ def home(request):
         user = request.user
         if request.user.userprofile.primary_workplace:
             # name = user.username
-            workplace_profile = WorkplaceProfile.objects.get(workplace=workplace)
             #workplace = profile.primary_workplace
             profile = UserProfile.objects.get(user=user)
             #select_related('primary_workplace__workplace_type')
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
+            workplace_profile = WorkplaceProfile.objects.get(workplace=workplace)
             job_position = profile.job_position
             t = workplace.workplace_type
 
@@ -48,11 +49,11 @@ def home(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'workplace_profile':workplace_profile})
+                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'workplace_profile':workplace_profile, 'feed_img_form':UploadImageForm()})
         else:
             return redirect('/set/')
     else:
-        return render(request, 'home.html')
+        return render(request, 'cover.html')
 
 
 def search(request):

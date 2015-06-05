@@ -16,8 +16,8 @@ pre{
 
 #back{
 	background: url() no-repeat center center;
-	background-size: contain;
-	position: absolute;
+	background-size: cover;
+	position: fixed;
 	z-index: -1;
 	width: 100%;
 	height: 100%;
@@ -62,13 +62,74 @@ pre{
 	margin-bottom: 40px;
 }
 
+#form_feed textarea{
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+#form_feed > .form-group{
+	margin-bottom: 0px;
+}
+
+#form_feed .img_pre .alert{
+	position: relative;
+	display: inline-block;
+	margin-bottom: 0px;
+	height: 58px;
+	padding: 0px;
+	width: 72px;
+	margin: 3px 5px;
+}
+
+#form_feed .img_pre img{
+	border: 3px solid #fff;
+}
+
+#form_feed .img_pre .alert .close{
+	position: relative;
+	top: -5px;
+	font-size: 18px;
+}
+
+.show_pre{
+	border: 1px solid #9D9D9D;
+	border-top: 0px;
+	background-color: rgba(0,0,0,0.075);
+}
+
+#form_feed .textarea_bottom .btn{
+	border-radius: 0px;
+	border-top: 0px;
+	border-color: #9d9d9d;
+	z-index: 2;
+}
+
+#form_feed .input-group{
+	width: 100%;
+}
+
+.input-group .seamless_l{
+	border-right: 0px;
+	box-shadow: 1px 0px 1px rgba(0,0,0,0.075) inset;
+}
+
+.input-group .seamless_r{
+	z-index: 2;
+	box-shadow: -1px 0px 1px rgba(0,0,0,0.075) inset;
+}
+
 
 /* nodes (feed box) */
 
+.thumb_small{
+	border: 1px solid #ccc;
+}
+
 .feed_box{
 	margin: 15px 0px;
-	box-shadow: 0px 0px 2px #ddd;
+	box-shadow: 0px -1px 3px 1px #fff;
 	padding: 5px;
+	background: rgba(255,255,255,0.9);
 }
 
 .feed_box_heading{

@@ -94,21 +94,23 @@
   </nav>
   {% endblock top %}
   <div class="body">
+    {% block body %}
     <div class="container-fluid">
       <div class="row">
-          <div class="col-sm-3">
-            {% block left %}
-            {% endblock left %}    
-          </div>
-          <div class="col-sm-6">      
-            {% block content %}
-            {% endblock content %}
-          </div>
-          <div class="col-sm-3">
-            {% block right %}
-            {% endblock right %}    
-          </div>
+        <div class="col-sm-3">
+          {% block left %}
+          {% endblock left %}    
+        </div>
+        <div class="col-sm-6">      
+          {% block content %}
+          {% endblock content %}
+        </div>
+        <div class="col-sm-3">
+          {% block right %}
+          {% endblock right %}    
+        </div>
       </div>
+      {% endblock body %}
     </div>
     {% block foot %}
     <footer>
