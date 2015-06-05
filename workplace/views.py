@@ -31,7 +31,6 @@ def set_workplace(request):
     form_2 = WorkplaceForm(request.POST)
     if request.method == 'POST':
         if not form.is_valid():
-            print("form invalid")
             return render(request, 'userprofile/set.html', {'form_set_workplace': form,'form_create_workplace':form_2})
         else:
             user = request.user
@@ -47,7 +46,10 @@ def set_workplace(request):
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
             node = Node(user=User.objects.get(pk=1), post=welcome)   #, tags=t
             node.save()
-            return redirect('/')
+            if user.first_name:
+                return redirect('/')
+            else:
+                return redirect('/details/')
     else:
         return render(request, 'userprofile/set.html', {'form_set_workplace': WorkplaceForm(), 'form_create_workplace': SetWorkplaceForm()})
 
@@ -108,13 +110,86 @@ def search_workplace(request):                  # for searching the workplace
 ## best way to create workplace profile: send informations in different segments as different functions
 
 
-# def workplace_profile(request, slug):
-#     o = Workplace.objects.get(slug=slug)
-#     profile = WorkplaceProfile.objects.get(workplace=o.id)
-#     members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
-#     return render(request, 'workplace_profile/profile.html', locals())
+def workplace_profile(request, slug):
+    o = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
+    return render(request, 'workplace_profile/profile.html', locals())
 
 
+def edit_workplace_profile(request):
+    w = request.user.userprofile.primary_workplace
+    type = w.workplace_type
+    if type == 'C':
+        form = EditTeamForm(request.POST, request.FILES)
+        if request.method == 'POST':
+            if not form.is_valid():
+                print("fuck")
+                return render(request, 'workplace/set_segment.html', {'form': form})
+            else:
+                city = form.cleaned_data.get('city')
+                address = form.cleaned_data.get('address')
+                contact = form.cleaned_data.get('contact')
+                about = form.cleaned_data.get('about')
+                institution_name = form.cleaned_data.get('institution_name')
+                parti = form.cleaned_data.get('participation')
+                logo = form.cleaned_data.get('logo')
+
+                area, created = Area.objects.get_or_create(name=city)
+                institution, created = Institution.objects.get_or_create(name=institution_name, area=area)
+
+                wp = WorkplaceProfile.objects.get(workplace=w)
+                wp.area = area   # get or create models
+                wp.address = address
+                wp.contact = contact
+                wp.about = about
+                wp.institution = institution   # get or create on models
+                wp.create_participation(parti)
+                user = request.user
+                wp.set_logo(image=logo, user=user)
+                # wp.set_logo(logo, user)
+
+                wp.save()
+
+            return render(request, 'workplace_profile/edit.html', {'form': form})
+        else:
+            return render(request, 'workplace_profile/edit.html', {'form': form})
+
+    elif type == 'B':
+        form = EditSMEForm(request.POST)
+        if request.method == 'POST':
+            if not form.is_valid():
+                print("fuck")
+                return render(request, 'workplace/set_segment.html', {'form': form})
+            else:
+                city = form.cleaned_data.get('city')
+                address = form.cleaned_data.get('address')
+                contact = form.cleaned_data.get('contact')
+                about = form.cleaned_data.get('about')
+                materials = form.cleaned_data.get('materials')
+                assets = form.cleaned_data.get('assets')
+                operations = form.cleaned_data.get('operations')
+                product_details = form.cleaned_data.get('product_details')
+                capabilities = form.cleaned_data.get('capabilities')
+
+                area, created = Area.objects.get_or_create(name=city)
+
+                wp = WorkplaceProfile.objects.get(workplace=w)
+                wp.area = area
+                wp.address = address
+                wp.contact = contact
+                wp.about = about
+                wp.product_details = product_details
+                wp.capabilities = capabilities
+
+                wp.set_materials(materials)
+                wp.set_assets(assets)
+                wp.set_operations(operations)
+
+                wp.save()
+
+            return render(request, 'workplace_profile/edit.html', {'form': form})
+        else:
+            return render(request, 'workplace_profile/edit.html', {'form': form})
 
 
 

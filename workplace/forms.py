@@ -49,6 +49,21 @@ class SetSegmentForm(forms.ModelForm):
         fields = ['segments']
 
 
+class EditTeamForm(forms.ModelForm):
+    city = forms.CharField(max_length=50, required=False)          ## later change it to queryset
+    address = forms.CharField(max_length=255, required=False)
+    contact = forms.CharField(max_length=255, required=False)
+    about = forms.CharField(widget=forms.Textarea, max_length=5000, required=False)
+    institution_name = forms.CharField(max_length=50, required=False)        ## later change it to queryset
+    participation = forms.CharField(max_length=255, required=False)
+    logo = forms.ImageField(required=False)
+
+    # def dude
+
+    class Meta:
+        model = Workplace
+        exclude = ['workplace', 'points', 'materials', 'area', 'institution', '']
+        fields = ['city', 'institution_name', 'address', 'contact', 'about', 'participation']
 
 
 

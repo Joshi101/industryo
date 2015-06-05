@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': 'home'}, name='logout'),
     url(r'^workplace/register/$', 'workplace.views.workplace_register', name='register'),
     url(r'^set/$', 'workplace.views.set_workplace', name='set'),
+    url(r'^details/$', 'userprofile.views.set_details', name='details'),
+
     url(r'^create_tag/$', 'tags.views.create_tag', name='search'),
     url(r'^ask/$', 'forum.views.ask', name='ask'),
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),

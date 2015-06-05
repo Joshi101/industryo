@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block content %}
+	<section id="content_add_type" class="contents">
+		
+		<form id="form_add_type" class="forms_home" action="/details/" method="POST" role="form">
+			<ul class="uls_home">
+				{{ form.as_ul }}
+				{% csrf_token %}
+				<li><input type="submit" value="submit" class="submit_main"></li>
+			</ul>
+		</form>
+	</section>
+{% endblock %}
