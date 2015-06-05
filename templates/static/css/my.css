@@ -66,12 +66,6 @@ pre{
 	list-style: none;
 }
 
-#cover .socialaccount_provider{
-	display: block;
-	width: 246px;
-	height: 54px;
-}
-
 #cover .socialaccount_providers.list-group{
 	margin-bottom: 0px;
 }
@@ -85,8 +79,8 @@ pre{
 
 #signup{
 	margin-right: 7%;
-	min-width: 390px;
-	max-width: 420px;
+	min-width: 300px;
+	max-width: 350px;
 }
 
 #login{
@@ -94,7 +88,7 @@ pre{
 	margin-left: 10%;
 }
 
-#login .form-group label{
+#cover .form-group label{
 	display: none;
 }
 
@@ -109,6 +103,12 @@ pre{
 #cover .form-group-sm .checkbox{
 	min-height: 20px;
 	padding: 0px;
+}
+
+/* userprofile/set.html */
+
+.message{
+	margin-top: 20px;
 }
 
 /* home.html */

@@ -4,7 +4,7 @@
 {% load bootstrap %}
 
 {% block content %}
-	<div class="panel-group ajax_andar" id="accordion">
+	<div class="panel-group ajax_andar ajax_papa" id="accordion">
 	  <div class="panel panel-default">
 	    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
 	      <div class="panel-body">
@@ -13,6 +13,8 @@
 						{{ form_set_workplace|bootstrap }}
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
+					<div class="message">
+					</div>
 	      </div>
 	    </div>
 	  </div>

@@ -87,6 +87,7 @@ $('.d_input').keyup(function(event){
     var query = $this.val()
     ,   search = "/search" + $this.data('search')
     ,   create = $this.data('create');
+    $this.next().val(query);
     if(!create)
         create = '';
     console.log(query, search, create);
@@ -117,17 +118,6 @@ $('.d_input').keyup(function(event){
             .children('.d_list').css({'display':'block'});
 });
 
-$('.body').on('load','.create_new',function(){
-    var $this = $(this);
-    var $sabke_papa = $this.closest('.d_search');
-    var create_now = 'create_' + $sabke_papa.children('input').first().data('search');
-    console.log(create_now);
-    $this.attr('href','#'+create_now);
-    var collapse_parent = $this.closest('.panel-group').attr('id');
-    $this.data('parent', '#'+collapse_parent);
-    console.log($this.data('parent'));
-});
-
 $(".d_list").on('click', 'a', function(){
     aj_search($(this));
     function aj_search ($this){
@@ -138,6 +128,10 @@ $(".d_list").on('click', 'a', function(){
         }
         else if($this.attr('class').indexOf('create_new') >= 0){
             $sabke_papa.find('.d_list').css({'display':'none'});
+            var value = $sabke_papa.children('input').val();
+            var target = $this.attr('href');
+            console.log(target,value);
+            $(target).find('input[type=text]').first().val(value);
             return 0;
         }
         else{
@@ -208,8 +202,21 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
         data : $form.serialize(),
 
         success: function(response){
-          for(i=0; i < response.fields.length; i++)
-            $papa.find('.'+response.fields[i]).text(response.data[response.fields[i]]);
+          if (response.fields){
+            for(i=0; i < response.fields.length; i++){
+                $papa.find('.'+response.fields[i]).text(response.data[response.fields[i]]);
+            }
+          }
+          if (response.inputs){
+            for(i=0; i < response.inputs.length; i++){
+                $papa.find('#'+response.inputs[i]).val(response.value[response.inputs[i]]);
+            }
+          }
+          if (response.elements){
+            for(i=0; i < response.elements.length; i++){
+                $papa.find('.'+response.elements[i]).html(response.html[response.elements[i]]);
+            }
+          }
         },
 
         error : function(xhr,errmsg,err) {

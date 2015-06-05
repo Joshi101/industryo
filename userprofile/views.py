@@ -28,13 +28,10 @@ def set_details(request):
     user = request.user
     if request.method == 'POST':
         if not form.is_valid():
-            print("fuck")
-            return render(request, 'userprofile/edit.html', {'form': form})
+            return render(request, 'userprofile/details.html', {'form': form})
         else:
-
             first_name = form.cleaned_data.get('first_name')
             last_name = form.cleaned_data.get('last_name')
-
             user.first_name = first_name
             user.last_name = last_name
             user.save()

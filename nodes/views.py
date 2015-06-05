@@ -6,7 +6,7 @@ import json
 
 
 def post(request):
-    form = UploadImageForm(request.POST['form'], request.FILES)
+    form = UploadImageForm(request.POST, request.FILES)
     print(form)
     if request.method == 'POST':
         post = request.POST['post']

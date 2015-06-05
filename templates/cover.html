@@ -3,7 +3,7 @@
 {% load bootstrap %}
 
 {% block body %}
-<div id="cover" class="container row">
+<div id="cover" class="container-fluid row">
 	<div class="col-sm-5">
 		<div id="login" class="text-left">
 			<h3>Sign In</h3>
@@ -27,7 +27,7 @@
 	      </div>
 	      <div class="form-group">
 	        <div class="col-sm-8 text-center">
-	          <button class="primaryAction btn btn-sm btn-default" type="submit">Sign in</button>
+	          <button class="primaryAction btn btn-default" type="submit">Sign in</button>
 	        </div>
 	      </div>
 	    </form>
@@ -37,17 +37,16 @@
 		<h2>-or-</h2>
 	</div>
 	<div class="col-sm-5">
-		<div id="signup" class="text-right center-block">
-	    <h3>Sign Up</h3>
-	    <h4>Create an industriyo account</h4>
+		<div id="signup" class="text-right pull-right">
+	    <h3>Create an industriyo account</h3>
 	    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
 	      {{ form_signup|bootstrap_horizontal }}
 	      {% if redirect_field_value %}
 	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
 	      {% endif %}
 	      <div class="form-group">
-	        <div class="col-sm-8 col-sm-offset-4 text-center">
-	          <button class="primaryAction btn btn-primary" type="submit">Register</button>
+	        <div class="col-sm-offset-1 col-sm-11 text-center">
+	          <button class="primaryAction btn btn-default" type="submit">Register</button>
 	        </div>
 	      </div>
 	      {% csrf_token %}
@@ -58,5 +57,6 @@
 <script type="text/javascript">
 	$('.form-group').addClass('form-group-sm');
 	$('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
+	$('#signup').find('input').parent().removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-11 sol-lg-11');
 </script>
 {% endblock body %}
