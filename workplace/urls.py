@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # url(r'^set_materials/$', 'workplaceprofile.views.set_materials', name='set_materials'),
     # url(r'^set_operations/$', 'workplaceprofile.views.set_operations', name='set_operations'),
     # url(r'^set_assets/$', 'workplaceprofile.views.set_assets', name='set_assets'),
-    # url(r'^edit/$', 'workplaceprofile.views.edit_workplace_profile', name='edit'),
+    url(r'^edit/$', 'workplace.views.edit_workplace_profile', name='edit'),
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
 
 )

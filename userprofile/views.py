@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from userprofile.models import UserProfile
-from userprofile.forms import EditProfileForm, SetSkillsForm
+from userprofile.forms import EditProfileForm, SetSkillsForm, UserDetailsForm
 from nodes.forms import *
 from forum.models import Question, Answer
 from nodes.models import Node
@@ -21,6 +21,30 @@ def profile(request, username):
     articles = Node.article.filter(user=user)
     interests = userprofile.get_interests()
     return render(request, 'userprofile/profile.html', locals())
+
+
+def set_details(request):
+    form = UserDetailsForm(request.POST)
+    user = request.user
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("fuck")
+            return render(request, 'userprofile/edit.html', {'form': form})
+        else:
+
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            return redirect('/')
+    else:
+        form = UserDetailsForm(instance=user, initial={
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            })
+        return render(request, 'userprofile/details.html', {'form': form})
 
 
 def edit(request):
