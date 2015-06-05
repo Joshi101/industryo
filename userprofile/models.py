@@ -37,18 +37,18 @@ class UserProfile(models.Model):
         detail = "%s | %s" % (self.user, self.primary_workplace)
         return detail
 
-    def profile_image_url(self):
-        fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
-
-        if len(fb_uid):
-            return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
-
-        return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
+    # def profile_image_url(self):
+    #     fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
+    #
+    #     if len(fb_uid):
+    #         return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
+    #
+    #     return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.jpg'
         if self.profile_image:
-            image_url = '/images/'+self.profile_image.image_thumbnail
+            image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
             try:
@@ -59,24 +59,28 @@ class UserProfile(models.Model):
             except Exception:
                 return default_image
 
-    def set_interests(self, skills):
-        skill_tags = skills.split(' ')
-        li = []
-        for m in skill_tags:
-
-            t, created = Tags.objects.get_or_create(tag=m, type='skills')
-            li.append(t)
-        self.interests = li
-
-    def set_area(self, area):
-        t, created = Area.objects.get_or_create(name=area)
-        p, created = Tags.objects.get_or_create(tag=area, type="area")
-        self.area = t
-        self.interests = p
+    def set_interests(self, interests):
+        interests_tags = interests.split(', ')
+        for m in interests_tags:
+            t, created = Tags.objects.get_or_create(tag=m)
+            self.interests.add(t)
 
     def get_interests(self):
+        # page_user = User.objects.get(id=id)
+
         interests = self.interests.all()
         return interests
+
+    def set_skills(self, skills):
+        skills_tags = skills.split(', ')
+        for m in skills_tags:
+
+            t, created = Tags.objects.get_or_create(tag=m, type='O')
+            self.interests.add(t)
+
+    def set_area(self, area):
+        t, created = Tags.objects.get_or_create(tag=area, type="C")
+        self.interests = t
 
     def notify_liked(self, node):
         if self.user != node.user:

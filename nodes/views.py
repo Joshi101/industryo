@@ -80,7 +80,7 @@ def set_profile_image(request):
             user = request.user
             userprofile = user.userprofile
             image = form.cleaned_data.get('image')
-            i = Images.objects.create(image=image, user=user, caption='lalala', image_thumbnail=image)
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
             userprofile.profile_image = i
             userprofile.save()
         return redirect('/user/'+request.user.username)

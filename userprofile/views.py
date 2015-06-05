@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from userprofile.models import UserProfile
-from userprofile.forms import EditProfileForm, SetSkillsForm, UserDetailsForm
+from userprofile.forms import EditProfileForm, SetInterestsForm, UserDetailsForm
 from nodes.forms import *
 from forum.models import Question, Answer
 from nodes.models import Node
@@ -71,30 +71,26 @@ def edit(request):
             })
         return render(request, 'userprofile/edit.html', {'form': form})
 
-# @login_required
+@login_required
 def set_interests(request):
-    print("fucks")
-    form = SetSkillsForm(request.POST)
+    form = SetInterestsForm(request.POST)
     if request.method == 'POST':
-        print("fuck")
-
         if not form.is_valid():
-            print("fucking")
             return redirect('/')
         else:
-            print("fucki")
-
             user = request.user
-            print("fuckin")
-            print(user)
-
             up = user.userprofile
-
             interests = form.cleaned_data.get('skills')
             up.set_interests(interests)
             return redirect('/user/'+user.username)
     else:
         return render(request, 'userprofile/set_interests.html', {'form': form})
+
+
+def get_interests(request):
+    page_user = User.objects.get(id=id)
+    interests = page_user.userprofile.interests.all()
+    return interests
 
 
 def search_area(request):
@@ -108,24 +104,23 @@ def search_area(request):
         return render(request, 'tags/list.html')
 
 
-def set_area(request):
-    form = SetSkillsForm(request.POST)
-    if request.method == 'POST':
-        if not form.is_valid():
-            return redirect('/')
-        else:
-            user = request.user
-            up = user.userprofile
-            area = form.cleaned_data.get('area')
-            up.set_area(area)
-            return redirect('/user/'+user.username)
-    else:
-        return render(request, 'userprofile/set_interests.html', {'form': form})
+# def set_area(request):
+#     form = SetSkillsForm(request.POST)
+#     if request.method == 'POST':
+#         if not form.is_valid():
+#             return redirect('/')
+#         else:
+#             user = request.user
+#             up = user.userprofile
+#             area = form.cleaned_data.get('area')
+#             up.set_area(area)
+#             return redirect('/user/'+user.username)
+#     else:
+#         return render(request, 'userprofile/set_interests.html', {'form': form})
 
-#
-# def get_my_question(request):
-#     user = request.user
-#     questions = Question.objects.filter(user=user)
+
+# def set_profile_image(request):
+
 
 
 
