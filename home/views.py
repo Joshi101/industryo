@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect, render_to_response, RequestContext
 from nodes.models import Node
 from userprofile.models import UserProfile
-from workplaceprofile.models import WorkplaceProfile
-from tags.models import Tags
-from forum.models import Question, Answer
-from django.db.models import Q
+from forum.models import Question
 from itertools import chain
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from operator import attrgetter
+# from operator import attrgetter
 
 
 def home(request):
@@ -15,24 +12,22 @@ def home(request):
         user = request.user
         if request.user.userprofile.primary_workplace:
             # name = user.username
-            workplace_profile = WorkplaceProfile.objects.get(workplace=workplace)
-            #workplace = profile.primary_workplace
-            profile = UserProfile.objects.get(user=user)
-            #select_related('primary_workplace__workplace_type')
+            profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+            workplace = profile.primary_workplace
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
             job_position = profile.job_position
             t = workplace.workplace_type
 
-            related_node = Node.feed.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
+            related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
             # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
             # content1 = Node.objects.filter(user__workplace__workplace_type=t)
             # content2 = Question.objects.filter(tags=user.userprofile.interests)
-            content3 = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
+            content3 = Question.objects.all()            # filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             content4 = Question.objects.filter(answer__question__user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
-            # content5 = Question.objects.filter(tags=workplace.tags)
-            all_result_list = list(
-                chain(related_node, content3, content4),)
-                # key=attrgetter('date_created'))
+            # content5 = Answer.objects.filter(question__)
+            all_result_list = sorted(
+                chain(related_node, content3, content4),
+                key=lambda instance: instance.score)
             paginator = Paginator(all_result_list, 5)
             page = request.GET.get('page')
 
@@ -48,7 +43,7 @@ def home(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'workplace_profile':workplace_profile})
+                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace})        # , 'workplace_profile':workplace_profile
         else:
             return redirect('/set/')
     else:

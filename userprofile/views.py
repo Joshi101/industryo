@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from userprofile.models import UserProfile
 from userprofile.forms import EditProfileForm, SetSkillsForm
 from nodes.forms import *
-from workplace.models import Area
 from forum.models import Question, Answer
 from nodes.models import Node
 from django.contrib.auth.decorators import login_required
+from tags.models import Tags
 
 
 def profile(request, username):
@@ -77,7 +77,7 @@ def search_area(request):
     if 'the_query' in request.GET:
         t = request.GET['the_query']
         create = request.GET['the_create']
-        o = Area.objects.filter(tag__icontains=t)[:6]
+        o = Tags.objects.filter(type='A')[:6]
 
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:

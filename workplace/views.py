@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
-from workplaceprofile.models import WorkplaceProfile
 from nodes.models import *
 from userprofile.models import *
 
@@ -62,58 +61,58 @@ def search_workplace(request):                  # for searching the workplace
     else:
         return render(request, 'tags/list.html')
 
-
-def set_segment(request):
-    type = request.user.userprofile.primary_workplace.workplace_type
-    if type=='C':
-        form = SetTeamTypeForm(request.POST)
-        if request.method == 'POST':
-
-            if not form.is_valid():
-                print("form invalid")
-                return render(request, 'workplace/set_segment.html', {'form': form})
-            else:
-                segments = form.cleaned_data.get('segments')
-                workplace = request.user.userprofile.primary_workplace
-                for segment in segments:
-                    SegmentTags.objects.get_or_create(segment=segment, workplace=workplace)
-            return render(request, 'workplace/set_segment.html', {'form': form})
-        else:
-            return render(request, 'workplace/set_segment.html', {'form': form})
-    else:
-        form = SetSegmentForm(request.POST)
-        if request.method == 'POST':
-            if not form.is_valid():
-                print("form invalid")
-                return render(request, 'workplace/set_segment.html', {'form': form})
-            else:
-                segments = form.cleaned_data.get('segments')
-                workplace = request.user.userprofile.primary_workplace
-                for segment in segments:
-                    SegmentTags.objects.get_or_create(segment=segment, workplace=workplace)
-            return render(request, 'workplace/set_segment.html', {'form': form})
-        else:
-            return render(request, 'workplace/set_segment.html', {'form': form})
-
-
-def search_segment(request):
-    if request.method == 'GET':
-        t = request.GET['the_query']
-        create = request.GET['the_create']
-        o = Segment.objects.filter(tag__icontains=t)[:6]
-
-        return render(request, 'tags/list.html', {'o': o, 'create': create})
-    else:
-        return render(request, 'tags/list.html')
+#
+# def set_segment(request):
+#     type = request.user.userprofile.primary_workplace.workplace_type
+#     if type=='C':
+#         form = SetTeamTypeForm(request.POST)
+#         if request.method == 'POST':
+#
+#             if not form.is_valid():
+#                 print("form invalid")
+#                 return render(request, 'workplace/set_segment.html', {'form': form})
+#             else:
+#                 segments = form.cleaned_data.get('segments')
+#                 workplace = request.user.userprofile.primary_workplace
+#                 for segment in segments:
+#                     SegmentTags.objects.get_or_create(segment=segment, workplace=workplace)
+#             return render(request, 'workplace/set_segment.html', {'form': form})
+#         else:
+#             return render(request, 'workplace/set_segment.html', {'form': form})
+#     else:
+#         form = SetSegmentForm(request.POST)
+#         if request.method == 'POST':
+#             if not form.is_valid():
+#                 print("form invalid")
+#                 return render(request, 'workplace/set_segment.html', {'form': form})
+#             else:
+#                 segments = form.cleaned_data.get('segments')
+#                 workplace = request.user.userprofile.primary_workplace
+#                 for segment in segments:
+#                     SegmentTags.objects.get_or_create(segment=segment, workplace=workplace)
+#             return render(request, 'workplace/set_segment.html', {'form': form})
+#         else:
+#             return render(request, 'workplace/set_segment.html', {'form': form})
+#
+#
+# def search_segment(request):
+#     if request.method == 'GET':
+#         t = request.GET['the_query']
+#         create = request.GET['the_create']
+#         o = Segment.objects.filter(tag__icontains=t)[:6]
+#
+#         return render(request, 'tags/list.html', {'o': o, 'create': create})
+#     else:
+#         return render(request, 'tags/list.html')
 
 ## best way to create workplace profile: send informations in different segments as different functions
 
 
-def workplace_profile(request, slug):
-    o = Workplace.objects.get(slug=slug)
-    profile = WorkplaceProfile.objects.get(workplace=o.id)
-    members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
-    return render(request, 'workplace_profile/profile.html', locals())
+# def workplace_profile(request, slug):
+#     o = Workplace.objects.get(slug=slug)
+#     profile = WorkplaceProfile.objects.get(workplace=o.id)
+#     members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
+#     return render(request, 'workplace_profile/profile.html', locals())
 
 
 

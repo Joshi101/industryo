@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,render_to_response
+from django.shortcuts import render, redirect, render_to_response
 from tags.forms import CreateTagForm
 from tags.models import Tags
 from forum.models import Question

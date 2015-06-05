@@ -4,13 +4,13 @@ from tags.models import Tags
 from forum.forms import AskForm
 from activities.models import *
 import json
+from nodes.models import Comments
+
 
 def ask(request):
-
     form = AskForm(request.POST)
     if request.method == 'POST':
         if not form.is_valid():
-            print("form invalid")
             return render(request, 'forum/ask.html', {'form': form})
         else:
             question = form.cleaned_data.get('question')
@@ -29,49 +29,51 @@ def ask(request):
 
 def get_question(request, slug):
     q = Question.objects.get(slug=slug)
-    comments = QuestionComment.objects.filter(question=q.id)
+    comments = Comments.objects.filter(question=q.id)
     answers = Answer.objects.filter(question=q.id)
 
     return render(request, 'forum/quest.html', locals())
 
 
 def ques_comment(request):
-    # slug = request.POST['slug']
     if request.method == 'POST':
         user = request.user
         comment = request.POST['comment']
         id = request.POST['id']
         slug = request.POST['slug']
         question = Question.objects.get(id=id)
-        comment = QuestionComment(question=question, user=user, comment=comment)
+        comment = Comments(question=question, user=user, comment=comment)
         comment.save()
         return HttpResponseRedirect('/forum/'+slug)
 
 
 def voteup(request):
+    response = {}
+    r_data = {}
+    r_fields = []
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
         user = request.user
-        response = {}
-        r_data = {}
-        r_fields = []
+        # response = {}
+        # r_data = {}
+        # r_fields = []
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
             user.userprofile.unotify_q_upvoted(question)
             question.votes -= 1
-            question.save()
+            # question.votes.save()
             r_data['upvote'] = 'Upvote'
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
             user.userprofile.notify_q_upvoted(question)
-            question.votes += 1
-            question.save()
+            # question.votes += 1
+            question.votes.save()
             r_data['upvote'] = 'Unupvote'
-        r_data['votes']=question.votes
-        r_fields = ['upvote','votes']
+        r_data['votes'] = question.votes
+        r_fields = ['upvote', 'votes']
         response['data'] = r_data
         response['fields'] = r_fields
         print(response)
@@ -80,6 +82,7 @@ def voteup(request):
         a = request.GET['aid']
         answer = Answer.objects.get(id=a)
         user = request.user
+        r_data = {}
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             vote.delete()
@@ -93,7 +96,7 @@ def voteup(request):
             answer.votes += 1
             r_data['upvote'] = 'Unupvote'
         r_data['votes']=answer.get_votes()
-        r_fields = ['upvote','votes']
+        r_fields = ['upvote', 'votes']
         response['data'] = r_data
         response['fields'] = r_fields
         return HttpResponse(json.dumps(response), content_type="application/json")
@@ -114,7 +117,12 @@ def voteup(request):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 '''
+
+
 def votedown(request):
+    response = {}
+    r_data = {}
+    r_fields = []
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
@@ -134,7 +142,7 @@ def votedown(request):
             question.votes += 1
             r_data['downvote'] = 'Undownpvote'
         r_data['votes']=question.get_votes()
-        r_fields = ['downvote','votes']
+        r_fields = ['downvote', 'votes']
         response['data'] = r_data
         response['fields'] = r_fields
         return HttpResponse(json.dumps(response), content_type="application/json")
@@ -156,7 +164,7 @@ def votedown(request):
             answer.votes -= 1
             r_data['downvote'] = 'Undownvote'
         r_data['votes']=answer.get_votes()
-        r_fields = ['downvote','votes']
+        r_fields = ['downvote', 'votes']
         response['data'] = r_data
         response['fields'] = r_fields
         return HttpResponse(json.dumps(response), content_type="application/json")
@@ -184,14 +192,14 @@ def ans_comment(request):
         answer = Answer.objects.get(id=id)
         user = request.user
         slug = request.POST['slug']
-        comment = AnswerComment(answer=answer, comment=comment, user=user)
-        comment.save()
+        c = Comments(answer=answer, comment=comment, user=user)
+        c.save()
         return HttpResponseRedirect('/forum/'+slug)
     else:
         print('problem hai')
 
 
-def tag(request):
+def tag(request):           # this for what
     if request.method == 'POST':
         t = request.POST['tag']
         tag, created = Tags.objects.get_or_create(tag=t)
@@ -224,10 +232,9 @@ def question_tagged(request):
         return render(request, 'forum/questions.html')
 
 
-
-
-
-
+def questions(request):
+    questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
+    return render(request, 'forum/questions.html', locals())
 
 
 

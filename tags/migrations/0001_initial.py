@@ -14,13 +14,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tags',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('tag', models.CharField(max_length=50)),
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
+                ('tag', models.CharField(db_index=True, max_length=50)),
+                ('type', models.CharField(null=True, blank=True, max_length=1)),
                 ('slug', models.SlugField()),
-                ('type', models.CharField(max_length=50, blank=True, null=True)),
-                ('description', models.CharField(max_length=255, blank=True, null=True)),
-                ('number', models.IntegerField(default=0)),
-                ('logo', models.ForeignKey(blank=True, null=True, to='nodes.Images')),
+                ('description', models.CharField(null=True, blank=True, max_length=500)),
+                ('count', models.IntegerField(default=1)),
+                ('is_active', models.BooleanField(default=True)),
+                ('logo', models.ForeignKey(null=True, blank=True, to='nodes.Images')),
             ],
             options={
             },

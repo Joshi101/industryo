@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # url(r'^accounts/', include('allauth.urls')),
     # url(r'^$', 'home.views.home', name='home'),
 
+    url(r'^$', 'forum.views.questions', name='questions'),
     url(r'^ques_comment/$', 'forum.views.ques_comment', name='ques_comment'),
     url(r'^ans_comment/$', 'forum.views.ans_comment', name='ans_comment'),
     url(r'^answer/$', 'forum.views.reply', name='answer'),

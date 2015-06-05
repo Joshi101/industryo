@@ -1,7 +1,7 @@
 {% for a in result_list %}
-  {% if a.post %}
+  {% if a.node_type %}
 		{% include 'nodes/one_node.html' with node=a %}
-  {% elif a.time %}
+  {% else %}
     {% include 'forum/one_question.html' with question=a %}
   {% endif %}
 {% endfor %}

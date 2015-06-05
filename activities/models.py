@@ -1,8 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from userprofile.models import UserProfile
-# from enterprise.models import Enterprise
-# from nodes.models import Node
 from django.utils.html import escape
 
 
@@ -36,12 +33,12 @@ class Notification(models.Model):
     LIKED = 'L'
     COMMENTED = 'C'
     ALSO_COMMENTED = 'S'
-    # JOINED = 'J'
-    # Answewred
+    JOINED = 'J'
+    ANSWERED = 'A'
     # approved
     ALSO_JOINED = 'J'
     EDITED = 'E'
-    FOLLOWS = 'F'
+    # FOLLOWS = 'F'
     VotedUp = 'U'
     VotedDown = 'D'
 
@@ -51,21 +48,25 @@ class Notification(models.Model):
         (ALSO_COMMENTED, 'Also commented'),
         (ALSO_JOINED, 'Also joined'),
         (EDITED, 'Edited'),
-        (FOLLOWS, 'Follows'),
+        # (FOLLOWS, 'Follows'),
         (VotedUp, 'VotedUp'),
         (VotedDown, 'VotedDown'),
+        (ANSWERED, 'Answered'),
+        (JOINED, 'Joined'),
     )
     _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/feeds/{2}/">{3}</a>'
     _COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/feeds/{2}/">{3}</a>'
     _ALSO_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the post: <a href="/feeds/{2}/">{3}</a>'
-    # _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise'
-    _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your enterprise'
+    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise'
+    _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace'
     _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile'
     _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now'
     _VotedUpQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your question: <a href="/feeds/{2}/">{3}</a>'
     _VotedDownQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your question: <a href="/feeds/{2}/">{3}</a>'
     _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/feeds/{2}/">{3}</a>'
     _VotedDownA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your answer: <a href="/feeds/{2}/">{3}</a>'
+    _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to your question: <a href="/feeds/{2}/">{3}</a>'
+
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')
     date = models.DateTimeField(auto_now_add=True)
@@ -155,12 +156,19 @@ class Notification(models.Model):
                     self.answer.question.pk,
                     escape(self.get_summary(self.answer))
                     )
+        elif self.notification_type == 'A':
+            return self._ANSWERED_TEMPLATE.format(
+                escape(self.from_user.username),
+                escape(self.from_user.get_full_name()),
+                self.question.pk,
+                escape(self.get_summary(self.question.title))
+                )
 
         else:
             return "Oops! something went wrong."
 
     def get_summary(self, value):
-        summary_size = 50
+        summary_size = 75
         if len(value) > summary_size:
             return u'{0}...'.format(value[:summary_size])
         else:

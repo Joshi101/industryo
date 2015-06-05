@@ -1,5 +1,4 @@
 from django import forms
-from workplaceprofile.models import *
 from userprofile.models import UserProfile
 
 
