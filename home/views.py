@@ -13,14 +13,8 @@ def home(request):
         user = request.user
         if request.user.userprofile.primary_workplace:
             # name = user.username
-<<<<<<< HEAD
-            #workplace = profile.primary_workplace
-            profile = UserProfile.objects.get(user=user)
-            #select_related('primary_workplace__workplace_type')
-=======
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
             workplace = profile.primary_workplace
->>>>>>> sprksh/master
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
             workplace_profile = WorkplaceProfile.objects.get(workplace=workplace)
             job_position = profile.job_position
