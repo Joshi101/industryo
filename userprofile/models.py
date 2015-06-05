@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from workplace.models import Area
-from workplaceprofile.models import Workplace
+# from workplace.models import Area
+from workplace.models import Workplace
 from django.db.models.signals import post_save
 from allauth.socialaccount.models import SocialAccount
 import hashlib
-from nodes.models import Images
+# from nodes.models import Images
 from tags.models import Tags
 from activities.models import Notification
 
@@ -14,16 +14,17 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     primary_workplace = models.ForeignKey(Workplace, null=True)
+
     GenderChoices = (('M', 'Male'), ('F', 'Female'),)
     gender = models.CharField(max_length=1, choices=GenderChoices, null=True)
     job_position = models.CharField(max_length=255, null=True)
     experience = models.TextField(max_length=5000, blank=True, null=True)
     points = models.IntegerField(default=100)
 
-    profile_image = models.ForeignKey(Images, null=True, blank=True)
+    profile_image = models.ForeignKey('nodes.Images', null=True, blank=True)
 
     interests = models.ManyToManyField(Tags)
-    area = models.ForeignKey(Area, null=True, blank=True)       # maybe m2m
+    # area = models.ForeignKey('Area', null=True, blank=True)       # maybe m2m
     approved = models.BooleanField(default=True)
 
     class Meta:
@@ -46,8 +47,12 @@ class UserProfile(models.Model):
 
     def get_profile_image(self):
         if self.profile_image:
-
             return self.profile_image.image_thumbnail
+        else:
+            fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
+            if len(fb_uid):
+                return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
+            return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
     def set_interests(self, skills):
         skill_tags = skills.split(' ')

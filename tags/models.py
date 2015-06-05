@@ -5,13 +5,16 @@ from industryo.unique_slug import unique_slugify
 # type of tags = assets, materials, operations, skills, area
 
 class Tags(models.Model):
-    tag = models.CharField(max_length=50)
+    tag = models.CharField(max_length=50, db_index=True)
+    tag_types = (('S', 'Segment'), ('C', 'City'), ('E', 'Event'), ('I', 'IndustrialArea'), ('D', 'ProductCategory'),
+                 ('A', 'Asset'), ('O', 'Operation'), ('M', 'Material'), ('P', 'ParentInstitution'),)
+    type = models.CharField(max_length=1, null=True, blank=True)
     logo = models.ForeignKey('nodes.Images', null=True, blank=True)
     slug = models.SlugField(max_length=50)
-    type = models.CharField(max_length=50, null=True, blank=True)
-    description = models.CharField(max_length=255, null=True, blank=True)
-    number = models.IntegerField(default=0)
-    # type = models.CharField(max_length=1, choices=---)
+    description = models.CharField(max_length=500, null=True, blank=True)
+    count = models.IntegerField(default=1)
+    is_active = models.BooleanField(default=True)
+    # related_tags = models.ManyToManyField('self', null=True, blank=True) make provision for showing similar tags
 
     # popular = models.Manager()
 

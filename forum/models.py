@@ -4,28 +4,30 @@ from tags.models import Tags
 from nodes.models import Images
 from industryo.unique_slug import unique_slugify
 from activities.models import Activity
+# from userprofile.models import UserProfile
 
 
 class Question(models.Model):
     user = models.ForeignKey(User)
+    anonymous = models.BooleanField(default=False)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
     question = models.TextField(max_length=5000, null=True, blank=True)
     votes = models.IntegerField(default=0)
     answers = models.IntegerField(default=0)
-    time = models.TimeField(auto_now_add=True)
+    date = models.TimeField(auto_now_add=True)          # time changed to date
     answered = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tags)
     images = models.ManyToManyField(Images)
     admin_score = models.IntegerField(default=1)
-    # score
-    # last active
-
+    score = models.FloatField(default=0)            # score added and two more below
+    is_active = models.BooleanField(default=True)
+    last_active = models.TimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Question'
         verbose_name_plural = 'Questions'
-        ordering = ('-time',)
+        ordering = ('-date',)
 
     def __str__(self):
         return self.title
@@ -75,7 +77,8 @@ class Question(models.Model):
         downvotes = Activity.objects.filter(question=self.pk, activity='D').count()
         votes = upvotes-downvotes
         self.votes=votes
-        self.save()
+        # self.save()
+        print(votes)
         return votes
 
     def get_summary(self, value):
@@ -99,40 +102,24 @@ class Question(models.Model):
         # return ans
 
 
-
-
-
-
-class QuestionComment(models.Model):
-    question = models.ForeignKey(Question)
-    comment = models.TextField(max_length=500)
-    user = models.ForeignKey(User)
-    time = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Question Comment"
-        verbose_name_plural = "Question Comments"
-        ordering = ("time",)
-
-    def all_ques_comment(self, qid):
-        all_comment = QuestionComment.objects.filter(question=qid)
-        return all_comment
-
-
 class Answer(models.Model):
     user = models.ForeignKey(User)
+    anonymous = models.BooleanField(default=False)
     question = models.ForeignKey(Question)
     votes = models.IntegerField(default=0)
+    comments_count = models.IntegerField(default=0)
     answer = models.TextField(max_length=10000)
-    # count = models.IntegerField()
-    time = models.TimeField(auto_now_add=True)
-    is_accepted = models.BooleanField(default=False)
+    date = models.TimeField(auto_now_add=True)
+    score = models.FloatField(default=0)
+    admin_score = models.IntegerField(default=1)
+    last_active = models.TimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
     images = models.ManyToManyField(Images)
 
     class Meta:
         verbose_name = 'Answer'
         verbose_name_plural = 'Answers'
-        ordering = ('-is_accepted', '-votes', 'time',)
+        ordering = ('-votes', 'date',)
 
     def __str__(self):
         return self.answer
@@ -141,21 +128,6 @@ class Answer(models.Model):
         all_ans = Answer.objects.filter(question=qid)
         return all_ans
 
-
-class AnswerComment(models.Model):
-    answer = models.ForeignKey(Answer)
-    comment = models.TextField(max_length=500)
-    user = models.ForeignKey(User)
-    time = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Answer Comment"
-        verbose_name_plural = "Answer Comments"
-        ordering = ("time",)
-
-    def all_ans_comment(self, aid):
-        all_comment = AnswerComment.objects.filter(answer=aid)
-        return all_comment
 
 
 

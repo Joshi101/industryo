@@ -7,48 +7,29 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('tags', '0001_initial'),
         ('nodes', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Area',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('name', models.CharField(max_length=50)),
-                ('description', models.CharField(max_length=1000)),
-                ('industrial_area', models.CharField(max_length=50, blank=True, null=True)),
-                ('slug', models.SlugField(blank=True, null=True)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Segment',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('name', models.CharField(max_length=255)),
-                ('description', models.TextField(max_length=1000, blank=True, null=True)),
-                ('workplace_type', models.CharField(max_length=1)),
-                ('slug', models.SlugField(max_length=255)),
-                ('logo', models.ForeignKey(blank=True, null=True, to='nodes.Images')),
-            ],
-            options={
-                'db_table': 'Segment',
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='Workplace',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
-                ('workplace_type', models.CharField(max_length=1, choices=[('A', 'Large Scale Industry'), ('B', 'Small & Medium Scale Enterprise'), ('C', 'College Teams'), ('O', 'Others')])),
+                ('workplace_type', models.CharField(choices=[('A', 'Large Scale Industry'), ('B', 'Small & Medium Scale Enterprise'), ('C', 'College Teams'), ('O', 'Others')], max_length=1)),
                 ('verified', models.BooleanField(default=False)),
                 ('slug', models.SlugField(max_length=255)),
-                ('area', models.ManyToManyField(to='workplace.Area')),
-                ('segments', models.ManyToManyField(to='workplace.Segment')),
+                ('address', models.CharField(max_length=255)),
+                ('contact', models.CharField(max_length=255)),
+                ('about', models.TextField(null=True, blank=True)),
+                ('points', models.IntegerField(default=0)),
+                ('capabilities', models.TextField(null=True, blank=True, max_length=5000)),
+                ('product_details', models.TextField(null=True, blank=True, max_length=5000)),
+                ('institution', models.ForeignKey(related_name='institution', to='tags.Tags')),
+                ('logo', models.ForeignKey(null=True, to='nodes.Images')),
+                ('segments', models.ManyToManyField(related_name='segments', to='tags.Tags')),
+                ('tags', models.ManyToManyField(to='tags.Tags')),
             ],
             options={
                 'db_table': 'Workplace',

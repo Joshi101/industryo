@@ -2,14 +2,16 @@ from django.db import models
 from nodes.models import Images
 from tags.models import Tags
 from industryo.unique_slug import unique_slugify
+from workplace.models import Workplace
 
 
 class Products(models.Model):
     product = models.CharField(max_length=50)
+    producer = models.ForeignKey(Workplace)
     slug = models.SlugField(max_length=50)
     image = models.ForeignKey(Images, null=True, blank=True)
     tags = models.ManyToManyField(Tags)
-    description = models.TextField(max_length=5000, null=True, blank=True)
+    description = models.TextField(max_length=1000, null=True, blank=True)
 
     class Meta:
         db_table = 'Products'

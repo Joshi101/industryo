@@ -13,29 +13,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Activity',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('activity', models.CharField(max_length=1, choices=[('L', 'Like'), ('U', 'VoteUp'), ('D', 'VoteDown')])),
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
+                ('activity', models.CharField(choices=[('L', 'Like'), ('U', 'VoteUp'), ('D', 'VoteDown')], max_length=1)),
                 ('date', models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name_plural': 'Activities',
-                'verbose_name': 'Activity',
                 'db_table': 'activity',
+                'verbose_name': 'Activity',
+                'verbose_name_plural': 'Activities',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Notification',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
                 ('date', models.DateTimeField(auto_now_add=True)),
-                ('notification_type', models.CharField(max_length=1, choices=[('L', 'Liked'), ('C', 'Commented'), ('S', 'Also commented'), ('J', 'Also joined'), ('E', 'Edited'), ('F', 'Follows'), ('U', 'VotedUp'), ('D', 'VotedDown')])),
+                ('notification_type', models.CharField(choices=[('L', 'Liked'), ('C', 'Commented'), ('S', 'Also commented'), ('J', 'Also joined'), ('E', 'Edited'), ('U', 'VotedUp'), ('D', 'VotedDown'), ('A', 'Answered'), ('J', 'Joined')], max_length=1)),
                 ('is_read', models.BooleanField(default=False)),
             ],
             options={
-                'verbose_name_plural': 'Notifications',
-                'verbose_name': 'Notification',
                 'ordering': ('-date',),
+                'verbose_name': 'Notification',
+                'verbose_name_plural': 'Notifications',
             },
             bases=(models.Model,),
         ),

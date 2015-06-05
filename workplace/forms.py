@@ -1,5 +1,6 @@
 from django import forms
-from workplace.models import Workplace, Segment
+from workplace.models import Workplace
+from tags.models import Tags
 from userprofile.models import UserProfile
 
 
@@ -31,7 +32,7 @@ class SetWorkplaceForm(forms.ModelForm):
 
 
 class SetTeamTypeForm(forms.ModelForm):
-    segments = forms.ModelMultipleChoiceField(queryset=Segment.objects.filter(workplace_type='C'))
+    segments = forms.ModelMultipleChoiceField(queryset=Tags.objects.filter(type='S'))
 
     class Meta:
         model = Workplace
@@ -40,7 +41,7 @@ class SetTeamTypeForm(forms.ModelForm):
 
 
 class SetSegmentForm(forms.ModelForm):
-    segments = forms.ModelMultipleChoiceField(queryset=Segment.objects.exclude(workplace_type='C'))
+    segments = forms.ModelMultipleChoiceField(queryset=Tags.objects.exclude(type='C'))
 
     class Meta:
         model = Workplace

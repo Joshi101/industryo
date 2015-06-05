@@ -51,7 +51,7 @@ INSTALLED_APPS = (
 
     'nodes',
     'workplace',
-    'workplaceprofile',
+    # 'workplaceprofile',
     'userprofile',
     'forum',
     'activities',
@@ -63,7 +63,7 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'industryo_db', # last was db2
+        'NAME': 'corelogs_db',  # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

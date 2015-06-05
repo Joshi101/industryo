@@ -12,14 +12,23 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Comments',
+            fields=[
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
+                ('comment', models.TextField(max_length=1000)),
+                ('date', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Images',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
                 ('image', imagekit.models.fields.ProcessedImageField(upload_to='main')),
                 ('image_thumbnail', imagekit.models.fields.ProcessedImageField(upload_to='thumbnails')),
-                ('caption', models.CharField(max_length=255)),
                 ('time', models.TimeField(auto_now_add=True)),
-                ('slug', models.SlugField(max_length=20, null=True)),
             ],
             options={
             },
@@ -28,20 +37,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Node',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('category', models.CharField(max_length=1, default='F', choices=[('F', 'Feed'), ('A', 'Article'), ('C', 'Comment'), ('D', 'Dashboard')])),
-                ('title', models.TextField(max_length=255, blank=True, db_index=True, null=True)),
+                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
+                ('anonymous', models.BooleanField(default=False)),
+                ('w_type', models.CharField(max_length=1)),
+                ('category', models.CharField(default='F', choices=[('F', 'Feed'), ('A', 'Article'), ('D', 'Dashboard')], max_length=1)),
+                ('title', models.TextField(null=True, blank=True, max_length=255)),
                 ('post', models.TextField(max_length=10000)),
-                ('slug', models.SlugField(max_length=255, blank=True, null=True)),
+                ('slug', models.SlugField(null=True, blank=True, max_length=255)),
                 ('date', models.DateTimeField(auto_now_add=True)),
-                ('comments', models.IntegerField(default=0)),
+                ('last_active', models.TimeField(auto_now=True)),
+                ('comments_count', models.IntegerField(default=0)),
                 ('likes', models.IntegerField(default=0)),
                 ('admin_score', models.FloatField(default=1)),
                 ('score', models.FloatField(default=0)),
                 ('is_active', models.BooleanField(default=True)),
-                ('published', models.BooleanField(default=True)),
-                ('image', models.ForeignKey(to='nodes.Images', null=True)),
-                ('parent', models.ForeignKey(blank=True, null=True, to='nodes.Node')),
+                ('image', models.ForeignKey(null=True, to='nodes.Images')),
             ],
             options={
                 'ordering': ('-score', '-date'),

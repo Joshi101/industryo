@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from nodes.forms import *
 from nodes.models import *
-from workplaceprofile.models import WorkplaceProfile
 from activities.models import Activity, Notification
 import json
+
 
 def post(request):
     form = UploadImageForm(request.POST['form'], request.FILES)
@@ -11,7 +11,8 @@ def post(request):
     if request.method == 'POST':
         post = request.POST['post']
         user = request.user
-        node = Node(post=post, user=user)
+        type = user.userprofile.primary_workplace.workplace_type
+        node = Node(post=post, user=user, w_type=type)
         node.save()
         return render(request, 'nodes/five_nodes.html', {'result_list': node})
     else:
@@ -59,12 +60,12 @@ def set_logo(request):
         else:
             user = request.user
             workplace = user.userprofile.primary_workplace
-            wp = WorkplaceProfile.objects.get(workplace=workplace)
+
             image = form.cleaned_data.get('image')
             caption = form.cleaned_data.get('caption')
             i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
-            wp.logo = i
-            wp.save()
+            workplace.logo = i
+            workplace.save()
         return redirect('/')
     else:
         return render(request, 'nodes/upload.html', {'form': form})
@@ -119,15 +120,11 @@ def like(request):
 def comment(request):
     if request.method == 'POST':
         node_id = request.POST['node']
+        user = request.user
         node = Node.objects.get(pk=node_id)
         post = request.POST['post']
-        post = post.strip()
-        if len(post) > 0:
-            post = post[:500]
-            user = request.user
-            node.comment(user=user, post=post)
-            user.userprofile.notify_commented(node)
-            user.userprofile.notify_also_commented(node)
+        c = Comments(user=user, node=node, comment=post)
+        c.save()
         return HttpResponseRedirect('/')
     else:
         node_id = request.GET.get('node')
