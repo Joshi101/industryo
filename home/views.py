@@ -4,6 +4,9 @@ from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
 from forum.models import Question
 from itertools import chain
+from allauth.account.forms import AddEmailForm, ChangePasswordForm
+from allauth.account.forms import LoginForm, ResetPasswordKeyForm
+from allauth.account.forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # from operator import attrgetter
 
@@ -14,9 +17,7 @@ def home(request):
         if request.user.userprofile.primary_workplace:
             # name = user.username
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
-            workplace = profile.primary_workplace
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
-            workplace_profile = WorkplaceProfile.objects.get(workplace=workplace)
             job_position = profile.job_position
             t = workplace.workplace_type
 
@@ -49,7 +50,7 @@ def home(request):
         else:
             return redirect('/set/')
     else:
-        return render(request, 'cover.html')
+        return render(request, 'cover.html',{'form_signup':SignupForm(), 'form_login':LoginForm()})
 
 
 def search(request):

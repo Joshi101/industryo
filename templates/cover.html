@@ -1,28 +1,62 @@
 {% extends 'base.html' %}
+{% load account %}
+{% load bootstrap %}
 
 {% block body %}
-<div class="container-fluid row">
-	<div class="col-sm-7">
-		<div class="row">
-			<div class="col-sm-6">
-				<h2 class="text-center home_h2"></h2>
-				<a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg home_sign">
-					<h2 class="home_h2">Sign Up</h2>
-				</a>
-				<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select the type of firm you work for ...a few details later, you are a member of the network">
-					<span class="glyphicon glyphicon-question-sign"></span>
-				</h4>
-			</div>
-			<div class="col-sm-6">
-				<h2 class="text-center home_h2"></h2>
-				<a href="{% url 'account_login' %}" class="btn btn-success btn-lg home_sign">
-					<h2 class="home_h2">Sign In</h2>
-				</a>
-				<h4 class="text-center" data-toggle="tooltip" data-placement="bottom" title="Select your preffered method of login">
-					<span class="glyphicon glyphicon-question-sign"></span>
-				</h4>
-			</div>
-		</div>
+<div id="cover" class="container row">
+	<div class="col-sm-5">
+		<div id="login" class="text-left">
+			<h3>Sign In</h3>
+	    {% if socialaccount.providers %}
+	    <div class="socialaccount_ballot">
+	      <ul class="socialaccount_providers list-group">
+	        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+	      </ul>
+	    </div>
+	    {% include "socialaccount/snippets/login_extra.html" %}
+	    {% endif %}
+			<h4>IndustryO account</h4>
+			<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+	      {% csrf_token %}
+	      {{ form_login|bootstrap_horizontal }}
+	      {% if redirect_field_value %}
+	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+	      {% endif %}
+	      <div class="form-group">
+	        <a class="button secondaryAction col-sm-8" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+	      </div>
+	      <div class="form-group">
+	        <div class="col-sm-8 text-center">
+	          <button class="primaryAction btn btn-sm btn-default" type="submit">Sign in</button>
+	        </div>
+	      </div>
+	    </form>
+    </div>
+	</div>
+	<div class="col-sm-2 text-center">
+		<h2>-or-</h2>
+	</div>
+	<div class="col-sm-5">
+		<div id="signup" class="text-right center-block">
+	    <h3>Sign Up</h3>
+	    <h4>Create an industriyo account</h4>
+	    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
+	      {{ form_signup|bootstrap_horizontal }}
+	      {% if redirect_field_value %}
+	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
+	      {% endif %}
+	      <div class="form-group">
+	        <div class="col-sm-8 col-sm-offset-4 text-center">
+	          <button class="primaryAction btn btn-primary" type="submit">Register</button>
+	        </div>
+	      </div>
+	      {% csrf_token %}
+	    </form>
+    </div>
 	</div>
 </div>
+<script type="text/javascript">
+	$('.form-group').addClass('form-group-sm');
+	$('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
+</script>
 {% endblock body %}

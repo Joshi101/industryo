@@ -56,6 +56,61 @@ pre{
 	font-size: 13px;
 }
 
+/* cover.html */
+
+#cover .form-group-sm{
+	margin-bottom: 15px;
+}
+
+#cover li{
+	list-style: none;
+}
+
+#cover .socialaccount_provider{
+	display: block;
+	width: 246px;
+	height: 54px;
+}
+
+#cover .socialaccount_providers.list-group{
+	margin-bottom: 0px;
+}
+
+#cover .form-group-sm .form-control {
+	height: 29px;
+	padding: 0px 15px;
+	border-radius: 2px;
+	box-shadow: 0px 0px 2px rgba(10,90,70,0.5) inset;
+}
+
+#signup{
+	margin-right: 7%;
+	min-width: 390px;
+	max-width: 420px;
+}
+
+#login{
+	max-width: 350px;
+	margin-left: 10%;
+}
+
+#login .form-group label{
+	display: none;
+}
+
+#login .checkbox label{
+	display: initial;
+}
+
+.form-horizontal .form-group-sm .control-label {
+	padding-top: 5px;
+}
+
+#cover .form-group-sm .checkbox{
+	min-height: 20px;
+	padding: 0px;
+}
+
 /* home.html */
 
 #form_feed{
@@ -286,7 +341,6 @@ pre{
 
 footer{
 	position: relative;
-	border-top:1px solid #ddd;
 	top: 50px;
 	bottom: 0px;
 }
