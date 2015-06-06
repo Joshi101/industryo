@@ -3,7 +3,7 @@ from userprofile.models import UserProfile
 from django.contrib.auth.models import User
 
 
-class SetSkillsForm(forms.ModelForm):
+class SetInterestsForm(forms.ModelForm):
     skills = forms.CharField(max_length=255)
 
     class Meta:

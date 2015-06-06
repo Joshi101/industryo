@@ -92,6 +92,10 @@
 	{% for node in feeds %}
 		{% include 'nodes/one_node.html' with node=node %}
 	{% endfor %}
+	{% for interest in user.userprofile.get_interests %}
+		{{ interest.tag }}
+	{% endfor %}
+	{{user.userprofile.get_interests}}
 	<script type="text/javascript">
 	$('.detail').on({
 		'mouseover':function(){
