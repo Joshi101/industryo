@@ -14,7 +14,7 @@ def post(request):
         type = user.userprofile.primary_workplace.workplace_type
         node = Node(post=post, user=user, w_type=type)
         node.save()
-        return render(request, 'nodes/five_nodes.html', {'result_list': node})
+        return render(request, 'nodes/five_nodes.html', {'result_list': node, 'single':'true'})
     else:
         return redirect('/')
 
@@ -81,7 +81,7 @@ def set_profile_image(request):
             user = request.user
             userprofile = user.userprofile
             image = form.cleaned_data.get('image')
-            i = Images.objects.create(image=image, user=user, caption='lalala', image_thumbnail=image)
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
             userprofile.profile_image = i
             userprofile.save()
         return redirect('/user/'+request.user.username)

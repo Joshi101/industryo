@@ -48,7 +48,7 @@ class UserProfile(models.Model):
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.jpg'
         if self.profile_image:
-            image_url = '/images/'+self.profile_image.image_thumbnail
+            image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
             try:
