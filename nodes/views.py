@@ -6,14 +6,15 @@ import json
 
 
 def post(request):
+    form = UploadImageForm(request.POST, request.FILES)
+    print(form)
     if request.method == 'POST':
         post = request.POST['post']
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
-
         node = Node(post=post, user=user, w_type=type)
         node.save()
-        return redirect('/')
+        return render(request, 'nodes/five_nodes.html', {'result_list': node, 'single':'true'})
     else:
         return redirect('/')
 
@@ -136,9 +137,6 @@ def node(request, id):
     # if node:
     #     print(name)
     return render(request, 'nodes/one_node.html', {'node': node})
-
-
-
 
 
 # Create your views here.

@@ -49,6 +49,8 @@ coverage.xml
 
 # Django stuff:
 *.log
+migrations
+images
 
 # Sphinx documentation
 docs/_build/
@@ -58,3 +60,4 @@ target/
 *.pyc
 migrations/
 images/
+

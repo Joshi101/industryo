@@ -10,19 +10,44 @@
 			{% comment %}
 			{% if not user in question.get_q_upvoters %}	
 			{% endcomment %}
-			<form role='form' action="{% url 'forum:voteup' %}" method="GET">
+			<form role='form' action="{% url 'forum:vote' %}" method="GET">
 				<input type="hidden" name="qid" value="{{ question.id }}">
+				<input type="hidden" name="direction" value="U">
 				<span class="glyphicon glyphicon-hand-up"></span>
-				<a class="form-ajax upvote" href="">Upvote</a>
+				<a class="form-ajax upvote" href="">
+					{% for a in question.get_q_upvoters %}
+						{{a}}
+					{% endfor %}
+					<span class="voteup">
+						{% if not user in question.get_q_upvoters %}
+						Vote
+						{% else %}
+						Cancel
+						{% endif %}
+					</span>
+					Up
+				</a>
 			</form>	
 			
-			<form action="{% url 'forum:votedown' %}" method="GET">
+			<form action="{% url 'forum:vote' %}" method="GET">
 				<input type="hidden" name="qid" value="{{ question.id }}">
+				<input type="hidden" name="direction" value="D">
 				<span class="glyphicon glyphicon-hand-down"></span>
-				<a class="form-ajax downvote" href="">Downvote</a>
+				<a class="form-ajax downvote" href="">
+					{% for a in question.get_q_downvoters %}
+						{{a}}
+					{% endfor %}
+					<span class="vote">
+						{% if not user in question.get_q_downvoters %}
+						Vote
+						{% else %}
+						Cancel
+						{% endif %}
+					</span>
+					Down
+				</a>
 			</form>
-			
-			<span class="pull-right votes">votes: {{question.get_votes}}</span>
+			<span class="pull-right votes">votes: {{question.votes}}</span>
 		</div>
 	</div>
 	<div class="comments">

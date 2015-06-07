@@ -101,23 +101,72 @@ def voteup(request):
         response['fields'] = r_fields
         return HttpResponse(json.dumps(response), content_type="application/json")
 
-'''def vote():
+def vote(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
         qa = Question.objects.get(id=q)
         status = True
+        q = True
     elif 'aid' in request.GET:
         a = request.GET['aid']
         qa = Answer.objects.get(id=a)
         status = True
+        q = False
     if not status:
         return ('/')
+    d = request.GET['direction']
+    print(qa,d,qa.votes)
+    if d == 'D':
+        value = -1
+    elif d == 'U':
+        value = 1
+    user = request.user
+    response = {}
+    r_data = {}
+    r_fields = []
     try:
-        vote = Activity.objects.get(user=user, question=question, activity='D')
-
+        if q:
+            vote = Activity.objects.get(user=user, question=qa, activity=d)
+        else:
+            vote = Activity.objects.get(user=user, answer=qa, activity=d)
+        print(vote)
+        vote.delete()
+        if value:
+            user.userprofile.unotify_q_upvoted(qa)
+        else:
+            user.userprofile.unotify_q_downvoted(qa)
+        print(qa.votes)
+        qa.votes -= value
+        qa.save()
+        print(qa.votes)
+        q = request.GET['qid']
+        qa2 = Question.objects.get(id=q)
+        print(qa2.votes)
+        r_data['vote'] = 'Vote'
+    except Exception:
+        if q:
+            vote = Activity.objects.create(user=user, question=qa, activity=d)
+            vote.save()
+        else:
+            vote = Activity.objects.create(user=user, answer=qa, activity=d)
+            vote.save()
+        print(vote.question)
+        vote.save()
+        if value:
+            user.userprofile.notify_q_upvoted(qa)
+        else:
+            user.userprofile.notify_q_downvoted(qa)
+        print(qa.votes)
+        qa.votes += value
+        qa.save()
+        print(qa.votes)
+        r_data['vote'] = 'Cancel'
+    r_data['votes'] = qa.votes
+    response['data'] = r_data
+    r_fields = ['vote','votes']
+    response['fields'] = r_fields
+    print(response)
     return HttpResponse(json.dumps(response), content_type="application/json")
-'''
-
 
 def votedown(request):
     response = {}

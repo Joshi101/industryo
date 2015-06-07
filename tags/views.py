@@ -38,6 +38,14 @@ def search_tag(request):
     else:
         return render(request, 'tags/list.html')
 
+def search_interests(request):                  # for searching the workplace
+    if request.method == 'GET':
+        n = request.GET['the_query']
+        o = Tags.objects.filter(tag__icontains=n)[:6]
+        create = request.GET['the_create']
+        return render(request, 'tags/list.html', {'o': o, 'create': create})
+    else:
+        return render(request, 'tags/list.html')
 
 def get_tag(request, slug):
     tag = Tags.objects.get(slug=slug)

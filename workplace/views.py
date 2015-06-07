@@ -1,29 +1,43 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.template.loader import render_to_string
 from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
 from nodes.models import *
 from userprofile.models import *
+import json
 
 
 def workplace_register(request):
     form = WorkplaceForm(request.POST)
     if request.method == 'POST':
+        response = {}
+        r_value = {}
+        r_inputs = []
+        r_html = {}
+        r_elements = []
         if not form.is_valid():
-            print("form invalid")
-            return render(request, 'workplace/register.html', {'form': form})
+            #do some error handling
+            return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             name = form.cleaned_data.get('name')
             workplace_type = form.cleaned_data.get('workplace_type')
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
-
             if created:
-
                 welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
                 node = Node(user=User.objects.get(pk=1), post=welcome)
                 node.save()
-            return redirect('/')
+                r_elements = ['message']
+                r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name':name})
+            r_inputs = ['id_workplace']
+            r_value['id_workplace'] = name
+            response['html'] = r_html
+            response['elements'] = r_elements
+            response['value'] = r_value
+            response['inputs'] = r_inputs
+            print(response)
+            return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        return render(request, 'workplace/register.html', {'form': WorkplaceForm()})
+        return redirect('/set/')
 
 
 def set_workplace(request):
@@ -51,7 +65,7 @@ def set_workplace(request):
             else:
                 return redirect('/details/')
     else:
-        return render(request, 'userprofile/set.html', {'form_set_workplace': WorkplaceForm(), 'form_create_workplace': SetWorkplaceForm()})
+        return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
 
 
 def search_workplace(request):                  # for searching the workplace

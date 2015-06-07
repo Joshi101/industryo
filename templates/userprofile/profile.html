@@ -54,50 +54,81 @@
 {% endblock left %}
 
 {% block content %}
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="text-muted detail_head">
-				Experience
-				{% ifequal user request.user %}
-				<button class="btn btn-info btn-xs detail_edit pull-right" name="">Edit</button>
-				{% endifequal %}
-			</h3>
-		</div>
-		<div class="panel-body">
-			<div class="detail_body">{{user.userprofile.experience}}</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="text-muted detail_head">
-				Interests
-				{% ifequal user request.user %}
-				<button class="btn btn-info btn-xs detail_edit pull-right" name="">Add</button>
-				{% endifequal %}
-			</h3>
-		</div>
-		<div class="panel-body">
-			<div class="detail_body">
-				<div class="alert alert_tag_box">
-					<a href="#" class="close">&times;</a>
-					<div class="tag_box_title">Interest 1</div>
-					<div class="tag_box_body">Details of interest as long as it goes.. line 1... line 2... so on... so on... so on... so on... so on... so on... so on... so on... so on... so on... so on...</div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#about">About</a></li>
+    <li><a data-toggle="tab" href="#questions">Questions</a></li>
+    <li><a data-toggle="tab" href="#answers">Answers</a></li>
+    <li><a data-toggle="tab" href="#articles">Articles</a></li>
+    <li><a data-toggle="tab" href="#feeds">Feeds</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="about" class="tab-pane fade in active">
+      <div class="panel panel-default ajax_andar ajax_papa">
+				<div class="panel-heading">
+					<h3 class="text-muted detail_head">
+						Experience
+						{% ifequal user request.user %}
+						<form id="experience" class="pull-right" action="{% url 'user:set_experience' %}" method="POST">
+							<button data-content="experience" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+						</form>
+						{% endifequal %}
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="detail_body content_experience">{{user.userprofile.experience}}</div>
+					<textarea name="experience" form="experience" rows="3" class="form-control edit_experience hide"></textarea>
+					</form>
 				</div>
 			</div>
-		</div>
-	</div>
-	{% for question in questions %}
-		{% include 'forum/one_question.html' with node=node %}
-	{% endfor %}
-	{% for node in feeds %}
-		{% include 'nodes/one_node.html' with node=node %}
-	{% endfor %}
-	
-	{% for interest in user.userprofile.get_interests %}
-		{{ interest.tag }}
-	{% endfor %}
-	
-	{{user.userprofile.get_interests}}
+
+			<div class="panel panel-default ajax_andar ajax_papa">
+				<div class="panel-heading">
+					<h3 class="text-muted detail_head">
+						Interests
+						{% ifequal user request.user %}
+						<button data-content="interest" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
+						{% endifequal %}
+					</h3>
+					<form class="edit_interest hide" action="{% url 'user:set_interests' %}" method="POST" role="form">
+		      	{% csrf_token %}
+						<div class="d_search instant" data-results="instant">
+							<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ...">
+							<input type="hidden" name="interest" class="instant_i">
+							<button type="submit" class="form-ajax hide"></button>
+							<div class="dropdown">
+								<ul class="dropdown-menu d_list">
+								</ul>
+							</div>
+							<div class="d_results"></div>
+						</div>
+					</form>
+				</div>
+				<div class="panel-body">
+					<div class="detail_body">
+						{% for interest in user.userprofile.get_interests %}
+							{% include 'snippets/one_interest.html' with interest=interest %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+    </div>
+    <div id="questions" class="tab-pane fade">
+  		{% for question in questions %}
+				{% include 'forum/one_question.html' with node=node %}
+			{% endfor %}    
+    </div>
+    <div id="answers" class="tab-pane fade">
+    </div>
+    <div id="articles" class="tab-pane fade">
+    </div>
+    <div id="feeds" class="tab-pane fade">
+    	{% for node in feeds %}
+				{% include 'nodes/one_node.html' with node=node %}
+			{% endfor %}
+    </div>
+  </div>
+
 	<script type="text/javascript">
 	$('.detail').on({
 		'mouseover':function(){
@@ -105,6 +136,51 @@
 		},
 		'mouseout':function(){
 			$(this).children('.detail_opt').addClass('hide');
+		}
+	});
+
+	$('.detail_add').on('click',function(event){
+		event.preventDefault();
+		var $this = $(this)
+		var save = $this.data('save');
+		var	content = $this.data('content');
+		var $forms = $('.edit_' + content);
+		if (save == 'save'){
+			$this.text('Add').data('save','');
+			$forms.each(function(){
+				$(this).addClass('hide');
+			});
+		}
+		else {
+			$this.text('Done').data('save','save');
+			$forms.each(function(){
+				$(this).removeClass('hide');
+			});
+		}
+	});
+
+	$('.detail_edit').on('click',function(event){
+		event.preventDefault();
+		var $this = $(this)
+		var content = $this.data('content');
+		var $content = $('.content_' + content);
+		var save = $this.data('save');
+		if (save == 'save'){
+			console.log($('#experience').serialize())
+			$content.each(function(){
+				var value = $(this).next().val();
+				$(this).text(value).removeClass('hide')
+					.next().addClass('hide');
+			});
+			$this.text('Edit').data('save','').removeClass('form-ajax');
+		}
+		else {
+			$content.each(function(){
+				var value = $(this).text();
+				$(this).addClass('hide')
+					.next().val(value).removeClass('hide');
+			});
+			$this.text('Save').data('save','save').addClass('form-ajax');
 		}
 	});
 	</script>

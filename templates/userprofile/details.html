@@ -1,16 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load bootstrap %}
 
 
 {% block content %}
-	<section id="content_add_type" class="contents">
-		
-		<form id="form_add_type" class="forms_home" action="/details/" method="POST" role="form">
-			<ul class="uls_home">
-				{{ form.as_ul }}
-				{% csrf_token %}
-				<li><input type="submit" value="submit" class="submit_main"></li>
-			</ul>
-		</form>
-	</section>
+<div class="content-block">
+	<h3 class="text-center">Just the least of personal detail</h3>
+	<form id="form_add_type" class="forms_home" action="/details/" method="POST" role="form">
+		{{ form|bootstrap }}
+		{% csrf_token %}
+		<input type="submit" value="submit" class="submit_main btn btn-primary">
+	</form>
+</div>
 {% endblock %}

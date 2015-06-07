@@ -16,8 +16,8 @@ pre{
 
 #back{
 	background: url() no-repeat center center;
-	background-size: contain;
-	position: absolute;
+	background-size: cover;
+	position: fixed;
 	z-index: -1;
 	width: 100%;
 	height: 100%;
@@ -56,19 +56,149 @@ pre{
 	font-size: 13px;
 }
 
+/* cover.html */
+
+#cover .form-group-sm{
+	margin-bottom: 15px;
+}
+
+#cover li{
+	list-style: none;
+}
+
+#cover .socialaccount_providers.list-group{
+	margin-bottom: 0px;
+}
+
+#cover .form-group-sm .form-control {
+	height: 29px;
+	padding: 0px 15px;
+	border-radius: 2px;
+	box-shadow: 0px 0px 2px rgba(10,90,70,0.5) inset;
+}
+
+#signup{
+	margin-right: 7%;
+	min-width: 300px;
+	max-width: 350px;
+}
+
+#login{
+	max-width: 350px;
+	margin-left: 10%;
+}
+
+#cover .form-group label{
+	display: none;
+}
+
+#login .checkbox label{
+	display: initial;
+}
+
+.form-horizontal .form-group-sm .control-label {
+	padding-top: 5px;
+}
+
+#cover .form-group-sm .checkbox{
+	min-height: 20px;
+	padding: 0px;
+}
+
+/* userprofile/set.html */
+
+.message{
+	margin-top: 20px;
+}
+
 /* home.html */
 
 #form_feed{
 	margin-bottom: 40px;
 }
 
+#form_feed textarea{
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+#form_feed > .form-group{
+	margin-bottom: 0px;
+}
+
+#form_feed .img_pre .alert{
+	position: relative;
+	display: inline-block;
+	margin-bottom: 0px;
+	height: 58px;
+	padding: 0px;
+	width: 72px;
+	margin: 3px 5px;
+}
+
+#form_feed .img_pre img{
+	border: 3px solid #fff;
+}
+
+#form_feed .img_pre .alert .close{
+	position: relative;
+	top: -5px;
+	font-size: 18px;
+}
+
+.show_pre{
+	border: 1px solid #9D9D9D;
+	border-top: 0px;
+	background-color: rgba(0,0,0,0.075);
+}
+
+#form_feed .textarea_bottom .btn{
+	border-radius: 0px;
+	border-top: 0px;
+	border-color: #9d9d9d;
+	z-index: 2;
+}
+
+#form_feed .input-group{
+	width: 100%;
+}
+
+.input-group .seamless_l{
+	border-right: 0px;
+	box-shadow: 1px 0px 1px rgba(0,0,0,0.075) inset;
+}
+
+.input-group .seamless_r{
+	z-index: 2;
+	box-shadow: -1px 0px 1px rgba(0,0,0,0.075) inset;
+}
+
+/* profile.html */
+
+.nav-tabs li a{
+	padding: 5px 10px;
+}
+
+.nav-tabs{
+	margin-bottom: 15px;
+}
+
+.panel-heading{
+	padding: 5px 15px;
+}
+
 
 /* nodes (feed box) */
 
+.thumb_small{
+	border: 1px solid #ccc;
+}
+
 .feed_box{
 	margin: 15px 0px;
-	box-shadow: 0px 0px 2px #ddd;
+	box-shadow: 0px -1px 3px 1px #fff;
 	padding: 5px;
+	background: rgba(255,255,255,0.9);
 }
 
 .feed_box_heading{
@@ -225,7 +355,6 @@ pre{
 
 footer{
 	position: relative;
-	border-top:1px solid #ddd;
 	top: 50px;
 	bottom: 0px;
 }

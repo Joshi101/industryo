@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect, render_to_response, RequestContext
 from nodes.models import Node
+from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
 from forum.models import Question
 from itertools import chain
+from allauth.account.forms import AddEmailForm, ChangePasswordForm
+from allauth.account.forms import LoginForm, ResetPasswordKeyForm
+from allauth.account.forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # from operator import attrgetter
 
@@ -13,7 +17,6 @@ def home(request):
         if request.user.userprofile.primary_workplace:
             # name = user.username
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
-            workplace = profile.primary_workplace
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
             job_position = profile.job_position
             t = workplace.workplace_type
@@ -43,11 +46,11 @@ def home(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace})        # , 'workplace_profile':workplace_profile
+                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'feed_img_form':UploadImageForm()})
         else:
             return redirect('/set/')
     else:
-        return render(request, 'home.html')
+        return render(request, 'cover.html',{'form_signup':SignupForm(), 'form_login':LoginForm()})
 
 
 def search(request):
