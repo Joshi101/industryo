@@ -71,7 +71,7 @@
         <ul class="nav navbar-nav navbar-right top_bar_info">
           {% if user.is_authenticated %}
           <li>
-            <a id="ind_name" href="#"><span class="badge">{{workplace_profile.points}}</span>{{workplace}}</a>
+            <a id="ind_name" href="#"><span class="badge">{{user.userprofile.primary_workplace.points}}</span>{{user.userprofile.primary_workplace}}</a>
           </li>
           <li>
             <a id="usr_name" href="{% url 'user:profile' user.username %}">{{user}} <span class="badge">{{user.userprofile.points}}</span></a>

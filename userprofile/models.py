@@ -60,7 +60,7 @@ class UserProfile(models.Model):
                 return default_image
 
     def set_interests(self, interests):
-        interests_tags = interests.split(', ')
+        interests_tags = interests.split(',')
         for m in interests_tags:
             t, created = Tags.objects.get_or_create(tag=m)
             self.interests.add(t)

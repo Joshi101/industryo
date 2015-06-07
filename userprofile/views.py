@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from userprofile.models import UserProfile
 from userprofile.forms import EditProfileForm, SetInterestsForm, UserDetailsForm
@@ -7,6 +8,7 @@ from forum.models import Question, Answer
 from nodes.models import Node
 from django.contrib.auth.decorators import login_required
 from tags.models import Tags
+import json
 
 
 def profile(request, username):
@@ -70,19 +72,44 @@ def edit(request):
 
 @login_required
 def set_interests(request):
-    form = SetInterestsForm(request.POST)
     if request.method == 'POST':
-        if not form.is_valid():
-            return redirect('/')
-        else:
-            user = request.user
-            up = user.userprofile
-            interests = form.cleaned_data.get('skills')
-            up.set_interests(interests)
-            return redirect('/user/'+user.username)
+        response = {}
+        r_html = {}
+        r_elements = []
+        user = request.user
+        up = user.userprofile
+        interests = request.POST.get('interest')
+        up.set_interests(interests)
+        new_interest = user.userprofile.interests.filter(tag=interests)
+        r_elements = ['detail_body']
+        for interest in new_interest:
+            r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest':interest})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        return render(request, 'userprofile/set_interests.html', {'form': form})
+        return redirect('/user/'+request.user.username)
 
+def delete_interest(request):
+    if request.method == 'GET':
+        delete = request.POST.get('delete')
+        print('ayaaaaaa',delete)
+        response = {}
+        #do domething here
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
+def set_experience(request):
+    if request.method == 'POST':
+        response = {}
+        user = request.user
+        up = user.userprofile
+        experience = request.POST.get('experience')
+        up.experience = experience
+        up.save()
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        return redirect('/user/'+request.user.username)
 
 def get_interests(request):
     page_user = User.objects.get(id=id)

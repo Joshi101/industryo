@@ -87,7 +87,6 @@ $('.d_input').keyup(function(event){
     var query = $this.val()
     ,   search = "/search" + $this.data('search')
     ,   create = $this.data('create');
-    $this.next().val(query);
     if(!create)
         create = '';
     console.log(query, search, create);
@@ -118,7 +117,8 @@ $('.d_input').keyup(function(event){
             .children('.d_list').css({'display':'block'});
 });
 
-$(".d_list").on('click', 'a', function(){
+$(".d_list").on('click', 'a', function(event){
+    event.preventDefault();
     aj_search($(this));
     function aj_search ($this){
         var $sabke_papa = $this.closest('.d_search');
@@ -140,7 +140,12 @@ $(".d_list").on('click', 'a', function(){
         }
         var r_type = $sabke_papa.data('results');
         console.log($sabke_papa.attr('class'));
-        if(r_type == 'single'){
+        if(r_type == 'instant'){
+            $sabke_papa.children('input[type=hidden]').val(value)
+                .next().trigger('click');
+            console.log('1');
+        }
+        else if(r_type == 'single'){
             $sabke_papa.children('input').first().before('<div class="alert"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>').addClass('hide').next().val(value);
 
             $sabke_papa.find('.close').on('click', function(){
@@ -175,17 +180,17 @@ $(".d_list").hover(function(){
 },function(){
     //  $(this).css({'display':'none'});
     $(".d_input").blur(function(){
-    $(this).next().next().find('.d_list').css({'display':'none'});
+    $(this).nextAll('.dropdown').find('.d_list').css({'display':'none'});
 });
 });
 $(".d_input").focus(function(){
     var $this = $(this);
     var query = $this.val();
     if(query != '')
-        $this.next().next().find('.d_list').css({'display':'block'});
+        $this.nextAll('.dropdown').find('.d_list').css({'display':'block'});
 });
 $(".d_input").blur(function(){
-    $(this).next().next().find('.d_list').css({'display':'none'});
+    $(this).nextAll('.dropdown').find('.d_list').css({'display':'none'});
 });
 
 // function to submit form ajaxly
@@ -213,8 +218,17 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
             }
           }
           if (response.elements){
-            for(i=0; i < response.elements.length; i++){
-                $papa.find('.'+response.elements[i]).html(response.html[response.elements[i]]);
+            if (response.prepend){
+            console.log('yaha')
+                for(i=0; i < response.elements.length; i++){
+                    $papa.find('.'+response.elements[i]).prepend(response.html[response.elements[i]]);
+                }
+            }
+            else{
+            console.log('yaha2')
+                for(i=0; i < response.elements.length; i++){
+                    $papa.find('.'+response.elements[i]).html(response.html[response.elements[i]]);
+                }
             }
           }
         },
@@ -315,4 +329,26 @@ $('#form_feed .btn, .img_pre').on({
             $this.parent().find('.input-group-addon').show();
         });
     }
+});
+
+$('.alert .delete').on('click',function(){
+    var $this = $(this);
+    var from = $this.data('delete');
+    var url = '/user/delete_' + from;
+    var del = $this.closest('.alert').children('.del_id').text();
+    console.log(del, url);
+    $.ajax({
+        url : url,
+        type : "GET",
+        data : { delete: del },
+
+        success: function(response){
+            console.log('deleted');
+            $this.parent().remove();
+        },
+
+        error : function(xhr,errmsg,err) {
+            console.log(errmsg,err);
+        }
+    });
 });

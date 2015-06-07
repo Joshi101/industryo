@@ -139,7 +139,4 @@ def node(request, id):
     return render(request, 'nodes/one_node.html', {'node': node})
 
 
-
-
-
 # Create your views here.
