@@ -1,0 +1,7 @@
+<div class="comment">
+	<div class="comment_heading">
+		{% include "snippets/joint_name.html" with user=comment.user %}
+		<small class='pull-right'>{{ comment.date }}</small>
+	</div>
+	<pre>{{comment}}</pre>
+</div>

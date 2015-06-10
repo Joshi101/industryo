@@ -58,6 +58,4 @@ docs/_build/
 # PyBuilder
 target/
 *.pyc
-migrations/
-images/
 

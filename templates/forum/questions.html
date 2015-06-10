@@ -1,22 +1,8 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-
-{% block css %}
-	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
-{% endblock %}
-
-{% block header %}
-	<h1><span class="ilog">i-Log</span></h1>
-    <nav class="nav_top">
-        <ul class="ul_top">
-            <a href="/home"><li class="link">Home</li></a>
-        </ul>
-    </nav>
-{% endblock %}
 
 {% block content %}
-	{% for p in questions %}
-		<li>{{p}}</li>
-	{% endfor %}
-	
+	<div class="ajax_andar feeds">
+		{% include 'nodes/five_nodes.html' with result_list=questions %}
+		<div class="paginator" data-next_page="2"></div>
+	</div>
 {% endblock %}

@@ -130,6 +130,7 @@ class Node(models.Model):
                 unique_slugify(self, slug_str)
 
         super(Node, self).save(*args, **kwargs)
+        return self.id
 
     def set_tags(self, tags):
         article_tags = tags.split(' ')
@@ -142,6 +143,8 @@ class Node(models.Model):
 
     def get_like_count(self):
         likes = Activity.objects.filter(node=self.pk).count()
+        self.likes = likes
+        self.save()
         return likes
 
     def get_likers(self):

@@ -50,7 +50,7 @@ def ques_comment(request):
 def voteup(request):
     response = {}
     r_data = {}
-    r_fields = []
+    # r_fields = []
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
@@ -61,22 +61,26 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
+            print("vote deletedd")
             user.userprofile.unotify_q_upvoted(question)
+            question.get_votes()
             question.votes -= 1
-            # question.votes.save()
+            question.votes.save()
             r_data['upvote'] = 'Upvote'
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
+            print("vote created")
             user.userprofile.notify_q_upvoted(question)
-            # question.votes += 1
+            question.get_votes()
+            question.votes += 1
             question.votes.save()
             r_data['upvote'] = 'Unupvote'
         r_data['votes'] = question.votes
         r_fields = ['upvote', 'votes']
         response['data'] = r_data
         response['fields'] = r_fields
-        print(response)
+        # print(response)
         return HttpResponse(json.dumps(response), content_type="application/json")
     elif 'aid' in request.GET:
         a = request.GET['aid']
@@ -101,7 +105,9 @@ def voteup(request):
         response['fields'] = r_fields
         return HttpResponse(json.dumps(response), content_type="application/json")
 
+
 def vote(request):
+    # status = False
     if 'qid' in request.GET:
         q = request.GET['qid']
         qa = Question.objects.get(id=q)
@@ -115,7 +121,7 @@ def vote(request):
     if not status:
         return ('/')
     d = request.GET['direction']
-    print(qa,d,qa.votes)
+    print(qa, d, qa.votes)
     if d == 'D':
         value = -1
     elif d == 'U':
@@ -283,6 +289,8 @@ def question_tagged(request):
 
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
+    for q in questions:
+        print(q.title, q.question)
     return render(request, 'forum/questions.html', locals())
 
 

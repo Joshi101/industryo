@@ -1,82 +1,35 @@
-<div class="feed_box">
+<div class="feed_box question">
 	<div class="feed_box_heading">
-		<h5>
-			<strong><a href="{% url 'user:profile' question.user.username %}">{{ question.user.get_full_name }}</a> | <a href="">{{ question.user.userprofile.primary_workplace }}</a> <small class='pull-right'>{{ question.time }}</small></strong>
-		</h5>
+			{% include "snippets/joint_name.html" with user=question.user %}
+			<small class='pull-right post_date'>{{ question.date }}</small>
 	</div>
-	<div class="feed_box_body ajax_papa">
-		<pre>{{ question.title }}</pre>
-		<div class="interaction_top">
-			{% comment %}
-			{% if not user in question.get_q_upvoters %}	
-			{% endcomment %}
+	<div class="row">
+		<div class="col-sm-1 text-center vote_box">
 			<form role='form' action="{% url 'forum:vote' %}" method="GET">
 				<input type="hidden" name="qid" value="{{ question.id }}">
 				<input type="hidden" name="direction" value="U">
-				<span class="glyphicon glyphicon-hand-up"></span>
 				<a class="form-ajax upvote" href="">
-					{% for a in question.get_q_upvoters %}
-						{{a}}
-					{% endfor %}
-					<span class="voteup">
-						{% if not user in question.get_q_upvoters %}
-						Vote
-						{% else %}
-						Cancel
-						{% endif %}
-					</span>
-					Up
+					<span class="glyphicon glyphicon-chevron-up"></span>
+				</a>
+				<span class="count votes">{{ question.get_votes }}</span>
+				<a class="form-ajax downvote" href="">
+					<span class="glyphicon glyphicon-chevron-down"></span>
 				</a>
 			</form>	
-			
-			<form action="{% url 'forum:vote' %}" method="GET">
-				<input type="hidden" name="qid" value="{{ question.id }}">
-				<input type="hidden" name="direction" value="D">
-				<span class="glyphicon glyphicon-hand-down"></span>
-				<a class="form-ajax downvote" href="">
-					{% for a in question.get_q_downvoters %}
-						{{a}}
-					{% endfor %}
-					<span class="vote">
-						{% if not user in question.get_q_downvoters %}
-						Vote
-						{% else %}
-						Cancel
-						{% endif %}
-					</span>
-					Down
-				</a>
-			</form>
-			<span class="pull-right votes">votes: {{question.votes}}</span>
 		</div>
-	</div>
-	<div class="comments">
-	{% if node.get_last_comment %}
-		<div class="comment">
-			<div class="row">
-				<div class="col-sm-offset-1 col-sm-11">
-					<h6>
-						<strong>
-							<a href="">{{ node.get_last_comment.user.get_full_name }}</a> | <a href="">{{ node.get_last_comment.user.userprofile.primary_workplace }}</a> <small class='pull-right'>{{ node.get_last_comment.date }}</small>
-						</strong>
-					</h6>
-					<pre>{{question.get_answer_preview}}</pre>
-				</div>
+		<div class="col-sm-11 ajax_papa">
+			<div class="feed_box_body">
+				<a href="{% url 'forum:question' question.slug %}">
+					<h5><pre class="q_title">{{ question.title }}</pre></h5>
+				</a>
+				{% if question.question %}
+				<pre class="q_summary">{{ question.question }}</pre>	
+				{% endif %}
+			</div>
+			<div class="interaction">
+				<a href="{% url 'forum:question' question.slug %}">151 Answers</a>
+				<button class="btn btn-default btn-xs pull-right">Write Answer</button>
 			</div>
 		</div>
-	{% endif %}
-			<form class="form-horizontal comment" action="{% url 'forum:answer' %}" method="POST">
-				<div class="form-group">
-					<div class="col-sm-9 col-sm-offset-1">
-						<textarea rows='1' class="form-control autoresize" name="answer" placeholder="post a reply..." required></textarea>
-						<input type="hidden" name="id" value="{{ question.id }}">
-						<input type="hidden" name="slug" value="{{ q.slug }}">
-					</div>
-					<div class="col-sm-2">
-						<input class="btn btn-default btn-xs" type="submit" value="Reply">
-					</div>
-				</div>
-				{% csrf_token %}
-			</form>
 	</div>
 </div>

@@ -34,7 +34,6 @@ def workplace_register(request):
             response['elements'] = r_elements
             response['value'] = r_value
             response['inputs'] = r_inputs
-            print(response)
             return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/set/')

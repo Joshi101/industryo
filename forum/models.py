@@ -15,7 +15,7 @@ class Question(models.Model):
     question = models.TextField(max_length=5000, null=True, blank=True)
     votes = models.IntegerField(default=0)
     answers = models.IntegerField(default=0)
-    date = models.TimeField(auto_now_add=True)          # time changed to date
+    date = models.DateTimeField(auto_now_add=True)          # date changed to datetime
     answered = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tags)
     images = models.ManyToManyField(Images)
@@ -72,13 +72,22 @@ class Question(models.Model):
             list.append(downvote.user)
         return list
 
-    def get_votes(self):
+    def get_q_votes(self):
         upvotes = Activity.objects.filter(question=self.pk, activity='U').count()
         downvotes = Activity.objects.filter(question=self.pk, activity='D').count()
         votes = upvotes-downvotes
-        self.votes=votes
-        # self.save()
-        print(votes)
+        self.votes = votes
+        self.save()
+        # print(votes)
+        return votes
+
+    def get_a_votes(self):
+        upvotes = Activity.objects.filter(answer=self.pk, activity='U').count()
+        downvotes = Activity.objects.filter(answer=self.pk, activity='D').count()
+        votes = upvotes-downvotes
+        self.votes = votes
+        self.save()
+        print("dfghjkldfghjk")
         return votes
 
     def get_summary(self, value):

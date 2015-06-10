@@ -1,3 +1,44 @@
+// bootstrap-wysiwyg
+
+$(function(){
+function initToolbarBootstrapBindings() {
+  var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
+        'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+        'Times New Roman', 'Verdana'],
+        fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+  $.each(fonts, function (idx, fontName) {
+      fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+  });
+  $('a[title]').tooltip({container:'body'});
+    $('.dropdown-menu input').click(function() {return false;})
+        .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+    .keydown('esc', function () {this.value='';$(this).change();});
+
+  $('[data-role=magic-overlay]').each(function () { 
+    var overlay = $(this), target = $(overlay.data('target')); 
+    overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+  });
+  if ("onwebkitspeechchange"  in document.createElement("input")) {
+    var editorOffset = $('#editor').offset();
+    $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+  } else {
+    $('#voiceBtn').hide();
+  }
+};
+function showErrorAlert (reason, detail) {
+    var msg='';
+    if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+    else {
+        console.log("error uploading file", reason, detail);
+    }
+    $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+     '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+};
+initToolbarBootstrapBindings();  
+$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+window.prettyPrint && prettyPrint();
+});
+
 // This function gets cookie with a given name
 function getCookie(name) {
     var cookieValue = null;
@@ -242,7 +283,15 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
 
 //home page
 var load = true;
+var timer = true;
+/*$(setInterval(function(){
+    timer = true;
+    console.log(timer);
+},300));*/ // works., implement after performance analysis
 $(window).scroll(function() {
+    //if (!timer)
+        //return;
+    //timer = false;
     if (!load)
         return;
     var $this = $(this)
@@ -251,7 +300,9 @@ $(window).scroll(function() {
     var b = $this.outerHeight();
     var c = $pg.offset().top;
     var nxt = $pg.data('next_page');
-    if((a+b-c) > 0){
+    console.log('scroll', load, a+b-c)
+    if((a+b-c) > -10){
+        console.log('Yeah')
         load = false;
         $.ajax({
           url : window.location,
@@ -351,4 +402,42 @@ $('.alert .delete').on('click',function(){
             console.log(errmsg,err);
         }
     });
+});
+
+$('.ajax_andar').on('click','.a_collapse',function(){
+    var col = $(this).nextAll('.collapse');
+    if(col.attr('class').indexOf('in') >= 0)
+        col.removeClass('in');
+    else
+        col.addClass('in');
+        col.find('textarea').first().focus();
+    console.log('olay')
+})
+
+$('.fake_btn').click(function(){
+    var btn = $(this).data('btn');
+    $(btn).trigger('click');
+});
+$('.img_pre_in input').change(function(){
+    var preview = $(this).closest('form').find('.img_pre img');
+  var file    = this.files[0];
+  var fd = new FormData($('#form_feed')[0]);
+  fd.append('file',file);
+  console.log(fd,$('#form_feed').serialize())
+  var reader  = new FileReader();
+  reader.onloadend = function () {
+    preview.attr('src', reader.result);
+  }
+  if (file) {
+    reader.readAsDataURL(file);
+    preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
+  } else {
+    preview.attr('src', "");
+  }
+  $(this).closest('form').find('textarea').trigger('focus');
+});
+$('.img_pre').on('click','.close',function(){
+    var img_in = $(this).closest('form').find('.img_pre_in');
+    img_in.val('');
+    console.log($(this).closest('form').find('input'));
 });

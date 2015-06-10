@@ -4,46 +4,70 @@
 {% block title %} {{q.title}} {% endblock title %}
 
 {% block content %}
-	<h2>{{q.title}}</h2>
-	<div class="panel">
-		<div class="panel-body">
-			<p contenteditable="true">{{q.question}}</p>
-			<p class="text-right">
-				<form class="" action="{% url 'forum:voteup' %}" method="GET">
-					<input type="hidden" name="qid" value="{{ q.id }}">	
-					<input class="div_button" type="submit" value="uvpote">
-				</form>
-				<form class="" action="{% url 'forum:votedown' %}" method="GET">
-					<input type="hidden" name="qid" value="{{ q.id }}">
-					<input class="div_button" type="submit" value="downvote">
-				</form>
-				<a data-toggle="collapse" href="#collapse1">Comments</a>
-			</p>
-		    <div id="collapse1" class="collapse in row">
-		    	<ul>
-		    	{% for c in comments %}
-		    		<li><p>{{c.comment}}</p></li>
-		    	{% endfor %}
-		    	</ul>
-				<form class="comment_q" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
-					<div class="form-group col-sm-9 col-sm-offset-1">
-						<textarea class="form-control" name="comment" placeholder="comment..." required></textarea>
+	<div id="question" class="feed_box">
+		<div class="feed_box_heading">
+			<h5>
+				{% include "snippets/joint_name.html" with user=q.user %}
+				<small class='pull-right post_date'>{{ q.date }}</small>
+			</h5>
+		</div>
+		<div>
+			<div class="row">
+				<div class="col-sm-1 text-center vote_box">
+					<form role='form' action="{% url 'forum:vote' %}" method="GET">
+						<input type="hidden" name="qid" value="{{ q.id }}">
+						<input type="hidden" name="direction" value="U">
+						<a class="form-ajax upvote" href="">
+							<span class="glyphicon glyphicon-arrow-up"></span>
+						</a>
+							<span class="votes">{{q.votes}}</span>
+						<a class="form-ajax downvote" href="">
+							<span class="glyphicon glyphicon-arrow-down"></span>
+						</a>
+					</form>	
+				</div>
+				<div class="col-sm-11 ajax_papa">
+					<div class="feed_box_body">
+						<a href="{% url 'forum:question' q.slug %}">
+							<h4><pre class="q_title">{{ q.title }}</pre></h4>
+						</a>
+						{% if q.question %}
+						<pre class="q_detail">{{ q.question }}</pre>	
+						{% endif %}
 					</div>
-					<div class="form-group col-sm-2">
-				        <button type="submit" class="btn btn-primary btn-sm form-control">comment</button>
-				    </div>
-					<input type="hidden" name="id" value="{{ q.id }}">
-					<input type="hidden" name="slug" value="{{ q.slug }}">
-					{% csrf_token %}
-				</form>
-		  	</div> 
+					<div class="interaction_top">
+		    	{% for c in comments %}
+		    		{% include "snippets/joint_name.html" with user=c.user %}
+	    			<pre class="comment">{{c.comment}}</pre>
+		    	{% endfor %}
+		    		<a data-toggle="collapse" href="#collapse1">Comment</a>
+				    <div id="collapse1" class="collapse in row">
+							<form class="comment_q col-sm-12" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
+									<div class="input-group">
+										<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
+										<span class="input-group-btn">
+											<button class='btn btn-default'>Comment</button>
+										</span>
+									</div>
+								<input type="hidden" name="id" value="{{ q.id }}">
+								<input type="hidden" name="slug" value="{{ q.slug }}">
+								{% csrf_token %}
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+
 	<form class="" action="{% url 'forum:answer' %}" method="POST">
-		<input class="form-control" name="answer" placeholder="Answer..." required>
+		{% include "snippets/richtext_toolbar.html" %}
+    <div id="editor">
+      Go ahead&hellip;
+    </div>
 		<input type="hidden" name="id" value="{{ q.id }}">
 		<input type="hidden" name="slug" value="{{ q.slug }}">
-		<input class="div_button" type="submit" value="Reply">
+		<input class="btn btn-primary" type="submit" value="Reply">
 		{% csrf_token %}
 	</form>
 	<ul>
