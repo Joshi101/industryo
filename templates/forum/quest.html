@@ -4,45 +4,36 @@
 {% block title %} {{q.title}} {% endblock title %}
 
 {% block content %}
-	<div id="question" class="feed_box">
+	<div id="question" class="feed_box ajax_andar">
 		<div class="feed_box_heading">
 			<h5>
 				{% include "snippets/joint_name.html" with user=q.user %}
 				<small class='pull-right post_date'>{{ q.date }}</small>
 			</h5>
 		</div>
-		<div>
-			<div class="row">
-				<div class="col-sm-1 text-center vote_box">
-					<form role='form' action="{% url 'forum:vote' %}" method="GET">
-						<input type="hidden" name="qid" value="{{ q.id }}">
-						<input type="hidden" name="direction" value="U">
-						<a class="form-ajax upvote" href="">
-							<span class="glyphicon glyphicon-arrow-up"></span>
-						</a>
-							<span class="votes">{{q.votes}}</span>
-						<a class="form-ajax downvote" href="">
-							<span class="glyphicon glyphicon-arrow-down"></span>
-						</a>
-					</form>	
+		<div class="row ajax_papa">
+			<div class="col-sm-1 text-center vote_box">
+				{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
+			</div>
+			<div class="col-sm-11 ajax_papa">
+				<div class="feed_box_body">
+					<h4><pre class="q_title">{{ q.title }}</pre></h4>
+					{% if q.question %}
+					<pre class="q_detail">{{ q.question }}</pre>	
+					{% endif %}
 				</div>
-				<div class="col-sm-11 ajax_papa">
-					<div class="feed_box_body">
-						<a href="{% url 'forum:question' q.slug %}">
-							<h4><pre class="q_title">{{ q.title }}</pre></h4>
-						</a>
-						{% if q.question %}
-						<pre class="q_detail">{{ q.question }}</pre>	
-						{% endif %}
-					</div>
-					<div class="interaction_top">
+				<div class="feed_box_extra">
+				{% if comments %}
+					<div class="comments">
 		    	{% for c in comments %}
-		    		{% include "snippets/joint_name.html" with user=c.user %}
-	    			<pre class="comment">{{c.comment}}</pre>
+						{% include "snippets/comment.html" with comment=c %}
 		    	{% endfor %}
-		    		<a data-toggle="collapse" href="#collapse1">Comment</a>
-				    <div id="collapse1" class="collapse in row">
-							<form class="comment_q col-sm-12" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
+					</div>
+				{% endif %}
+					<div class="interaction">
+		    		<a class="a_collapse">Comment</a>
+				    <div class="collapse row">
+							<form class="comment_form col-sm-12" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
 									<div class="input-group">
 										<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
 										<span class="input-group-btn">
