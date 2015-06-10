@@ -61,6 +61,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,10 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+
 )
 
 ROOT_URLCONF = 'industryo.urls'
@@ -85,7 +83,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'corelogs_db2',  # last was db
+        'NAME': 'corelogs_db',  # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -93,21 +91,17 @@ DATABASES = {
         'autocommit': True,
     }
 }
+
 # CACHES = {
 #     'default': {
-#         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1:11211',
+#         # 'TIMEOUT': 60,
+#         # 'OPTIONS': {
+#         #     'MAX_ENTRIES': 1000
+#         # }
 #     }
 # }
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        # 'TIMEOUT': 60,
-        # 'OPTIONS': {
-        #     'MAX_ENTRIES': 1000
-        # }
-    }
-}
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
