@@ -7,14 +7,14 @@
 		<div class="col-sm-1 text-center vote_box">
 			<form role="form" method="GET" action="{% url 'nodes:like' %}">
 				<input type="hidden" name="id" value="{{ node.pk }}">
-					<span class="count likes"> {{ node.get_like_count }} </span>
-					<a class="form-ajax like" href="">
-						{% if user in node.get_likers %}
-						<span class="glyphicon glyphicon-thumbs-down"></span>
-						{% else %}
-						<span class="glyphicon glyphicon-thumbs-up"></span>
-			  		{% endif %}
-					</a>
+				<span class="count likes">{{ node.get_like_count }}</span>
+				<a class="form-ajax like" href="">
+					{% if user in node.get_likers %}
+					<span class="glyphicon glyphicon-thumbs-down"></span>
+					{% else %}
+					<span class="glyphicon glyphicon-thumbs-up"></span>
+		  		{% endif %}
+				</a>
 			</form>
 		</div>
 		<div class="col-sm-11">
@@ -30,7 +30,7 @@
 				<div class="interaction">
 					<a class="a_collapse">Comment</a>
 			    <div class="collapse row">
-						<form class="col-sm-12 comment_form" role='form' action="{% url 'nodes:comment' %}" method="POST">
+						<form class="comment_form col-sm-12" role='form' action="{% url 'nodes:comment' %}" method="POST">
 							<div class="input-group">
 								<textarea rows="1" class="form-control" name="post" placeholder="comment..." required></textarea>
 								<span class="input-group-btn">

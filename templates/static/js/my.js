@@ -441,3 +441,10 @@ $('.img_pre').on('click','.close',function(){
     img_in.val('');
     console.log($(this).closest('form').find('input'));
 });
+
+$('.ajax_andar').on('click','.upvote, .downvote',function(){
+    $(this).css({'color':'#000'})
+    var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
+    var new_val = val+1+1;
+    console.log(new_val)
+});

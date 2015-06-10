@@ -31,7 +31,7 @@ def get_question(request, slug):
     q = Question.objects.get(slug=slug)
     comments = Comments.objects.filter(question=q.id)
     answers = Answer.objects.filter(question=q.id)
-
+    print(q.user,comments)
     return render(request, 'forum/quest.html', locals())
 
 
