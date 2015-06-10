@@ -283,6 +283,8 @@ def question_tagged(request):
 
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
+    for q in questions:
+        print(q.title, q.question)
     return render(request, 'forum/questions.html', locals())
 
 

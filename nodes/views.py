@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
+from django.template.loader import render_to_string
 from nodes.forms import *
 from nodes.models import *
 from activities.models import Activity, Notification
@@ -7,14 +8,23 @@ import json
 
 def post(request):
     form = UploadImageForm(request.POST, request.FILES)
-    print(form)
     if request.method == 'POST':
-        post = request.POST['post']
+        response = {}
+        r_html = {}
+        r_elements = []
+        post = request.POST.get('post')
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
         node = Node(post=post, user=user, w_type=type)
-        node.save()
-        return render(request, 'nodes/five_nodes.html', {'result_list': node, 'single':'true'})
+        id = node.save()
+        new_nodes = Node.feed.filter(id=id)
+        r_elements = ['feeds']
+        for new_node in new_nodes:
+            r_html['feeds'] = render_to_string('nodes/one_node.html', {'node':new_node})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/')
 

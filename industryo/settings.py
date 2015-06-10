@@ -69,9 +69,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.common.CommonMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'industryo.urls'
@@ -98,16 +98,16 @@ DATABASES = {
 #         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
 #     }
 # }
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+#CACHES = {
+#    'default': {
+        #'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        #'LOCATION': '127.0.0.1:11211',
         # 'TIMEOUT': 60,
         # 'OPTIONS': {
         #     'MAX_ENTRIES': 1000
         # }
-    }
-}
+    #}
+#}
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",

@@ -130,6 +130,7 @@ class Node(models.Model):
                 unique_slugify(self, slug_str)
 
         super(Node, self).save(*args, **kwargs)
+        return self.id
 
     def set_tags(self, tags):
         article_tags = tags.split(' ')

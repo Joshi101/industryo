@@ -1,11 +1,7 @@
-{% if single %}
-		{% include 'nodes/one_node.html' with node=result_list %}
-{% else %}
-	{% for a in result_list %}
-	  {% if a.node_type %}
-			{% include 'nodes/one_node.html' with node=a %}
-	  {% else %}
-	    {% include 'forum/one_question.html' with question=a %}
-  	{% endif %}
-	{% endfor %}
-{% endif %}
+{% for a in result_list %}
+  {% if a.node_type %}
+		{% include 'nodes/one_node.html' with node=a %}
+  {% else %}
+    {% include 'forum/one_question.html' with question=a %}
+	{% endif %}
+{% endfor %}

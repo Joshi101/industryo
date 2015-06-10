@@ -14,6 +14,7 @@
   <title>Industryio - {% block title %}the massive industrial Grid{% endblock %}</title>
 
   <link rel="stylesheet" type="text/css" href={% static 'bootstrap/css/bootstrap.css' %}>
+  <link rel="stylesheet" type="text/css" href={% static 'fontawesome/css/font-awesome.css' %}>
   <!-- custom files -->
   <link rel="stylesheet" type="text/css" href={% static 'css/un-bootstrap.css' %}>
   <link rel="stylesheet" type="text/css" href={% static 'css/my.css' %}>
@@ -23,6 +24,9 @@
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
   <script type="text/javascript" src={% static 'js/tinymce/tinymce.min.js' %}></script>
   <script type="text/javascript" src={% static 'js/autosize.js' %}></script>
+  <script type="text/javascript" src={% static 'js/bootstrap-wysiwyg.js' %}></script>
+  <script type="text/javascript" src={% static 'js/jquery.hotkeys.js' %}></script>
+
   <script>
     // this activates the tooltips
     $(document).ready(function(){
@@ -44,17 +48,17 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <div class="navbar-brand">
-          <a class="green_a" href="/">
-            <span class="glyphicon glyphicon-briefcase"></span> industryO
-          </a>
-        </div>
-        <div class="navbar-brand">
           <form action="" role="form" id="top_search">
             <div class="has-feedback">
               <input type="text" class="form-control" name="q" placeholder="Advanced Lookup ...">
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
           </form>
+        </div>
+        <div class="navbar-brand">
+          <a class="green_a" href="/">
+            <span class="glyphicon glyphicon-compressed"></span> CoreLogs
+          </a>
         </div>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
           <span class="icon-bar"></span>
@@ -64,12 +68,17 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Q&A</a></li>
+          <li><a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Network</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right top_bar_info">
           {% if user.is_authenticated %}
+          <li>
+            <a><span class="glyphicon glyphicon-bell"></span></a>
+          </li>
+          <li>
+            <a><span class="glyphicon glyphicon-comment"></span></a>
+          </li>
           <li>
             <a id="ind_name" href="#"><span class="badge">{{user.userprofile.primary_workplace.points}}</span>{{user.userprofile.primary_workplace}}</a>
           </li>
@@ -131,5 +140,6 @@
     autosize(document.querySelectorAll('textarea'));
   </script>
   <script type="text/javascript" src={% static 'js/my.js' %}></script>
+  <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
 </body>
 </html>
