@@ -15,12 +15,11 @@ def post(request):
         post = request.POST.get('post')
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
-        node = Node(post=post, user=user, w_type=type)
-        id = node.save()
-        new_nodes = Node.feed.filter(id=id)
+        node = Node.objects.create(post=post, user=user, w_type=type)
+        # id = node.save()
+        # new_nodes = Node.feed.filter(id=id)
         r_elements = ['feeds']
-        for new_node in new_nodes:
-            r_html['feeds'] = render_to_string('nodes/one_node.html', {'node':new_node})
+        r_html['feeds'] = render_to_string('nodes/one_node.html', {'node': node})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True

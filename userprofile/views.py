@@ -70,6 +70,7 @@ def edit(request):
             })
         return render(request, 'userprofile/edit.html', {'form': form})
 
+
 @login_required
 def set_interests(request):
     if request.method == 'POST':
@@ -80,16 +81,16 @@ def set_interests(request):
         up = user.userprofile
         interests = request.POST.get('interest')
         up.set_interests(interests)
-        new_interest = user.userprofile.interests.filter(tag=interests)
+        new_interest = user.userprofile.interests.get(tag=interests)
         r_elements = ['detail_body']
-        for interest in new_interest:
-            r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest':interest})
+        r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
+
 
 def delete_interest(request):
     if request.method == 'GET':
@@ -99,17 +100,23 @@ def delete_interest(request):
         #do domething here
         return HttpResponse(json.dumps(response), content_type="application/json")
 
+
 def set_experience(request):
     if request.method == 'POST':
+        print("DSSDF")
         response = {}
         user = request.user
         up = user.userprofile
         experience = request.POST.get('experience')
+        # print('post aaya')
         up.experience = experience
+        # print('save aaya')
         up.save()
+        # print('save ho gaya')
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
+
 
 def get_interests(request):
     page_user = User.objects.get(id=id)
