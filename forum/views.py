@@ -5,6 +5,7 @@ from forum.forms import AskForm
 from activities.models import *
 import json
 from nodes.models import Comments
+from django.db.models import Q
 
 
 def ask(request):
@@ -82,74 +83,6 @@ def voteup(request):
             answer.votes += 1
             answer.save()
         return HttpResponse()
-
-# def vote(request):
-#     # status = False
-#     if 'qid' in request.GET:
-#         q = request.GET['qid']
-#         qa = Question.objects.get(id=q)
-#         status = True
-#         q = True
-#     elif 'aid' in request.GET:
-#         a = request.GET['aid']
-#         qa = Answer.objects.get(id=a)
-#         status = True
-#         q = False
-#     if not status:
-#         return ('/')
-#     d = request.GET['direction']
-#     print(qa, d, qa.votes)
-#     if d == 'D':
-#         value = -1
-#     elif d == 'U':
-#         value = 1
-#     user = request.user
-#     response = {}
-#     r_data = {}
-#     r_fields = []
-#     try:
-#         if q:
-#             vote = Activity.objects.get(user=user, question=qa, activity=d)
-#         else:
-#             vote = Activity.objects.get(user=user, answer=qa, activity=d)
-#         print(vote)
-#         vote.delete()
-#         if value:
-#             user.userprofile.unotify_q_upvoted(qa)
-#         else:
-#             user.userprofile.unotify_q_downvoted(qa)
-#         print(qa.votes)
-#         qa.votes -= value
-#         qa.save()
-#         print(qa.votes)
-#         q = request.GET['qid']
-#         qa2 = Question.objects.get(id=q)
-#         print(qa2.votes)
-#         r_data['vote'] = 'Vote'
-#     except Exception:
-#         if q:
-#             vote = Activity.objects.create(user=user, question=qa, activity=d)
-#             vote.save()
-#         else:
-#             vote = Activity.objects.create(user=user, answer=qa, activity=d)
-#             vote.save()
-#         print(vote.question)
-#         vote.save()
-#         if value:
-#             user.userprofile.notify_q_upvoted(qa)
-#         else:
-#             user.userprofile.notify_q_downvoted(qa)
-#         print(qa.votes)
-#         qa.votes += value
-#         qa.save()
-#         print(qa.votes)
-#         r_data['vote'] = 'Cancel'
-#     r_data['votes'] = qa.votes
-#     response['data'] = r_data
-#     r_fields = ['vote','votes']
-#     response['fields'] = r_fields
-#     print(response)
-#     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 def votedown(request):
@@ -254,9 +187,36 @@ def question_tagged(request):
 
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
-    for q in questions:
-        print('1')
+
     return render(request, 'forum/questions.html', locals())
 
+
+def w_questions(request):           # for team
+    user = request.user
+    wt = user.userprofile.primary_workplace.workplace_type
+    questions = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=wt)
+
+    return render(request, 'forum/questions.html', locals())
+
+
+def s_questions(request):           # for segments
+    user = request.user
+    workplace = user.userprofile.primary_workplace
+    segments = workplace.segments.all()
+    questions = None
+    for segment in segments:
+        q = Question.objects.filter(Q(tags=segment) | Q(user__userprofile__primary_workplace__segments=segments))
+
+        if questions is None:
+            questions = q
+        else:
+            questions = questions & q
+
+    return render(request, 'forum/questions.html', locals())
+
+
+# def a_questions(request):           # for SME
+#     user = request.user
+#     area =
 
 

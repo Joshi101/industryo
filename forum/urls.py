@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'home.views.home', name='home'),
 
     url(r'^$', 'forum.views.questions', name='questions'),
+    url(r'^w/$', 'forum.views.w_questions', name='w_questions'),
+    url(r'^s/$', 'forum.views.s_questions', name='s_questions'),
+    url(r'^ask/$', 'forum.views.ask', name='ask'),
     url(r'^ques_comment/$', 'forum.views.ques_comment', name='ques_comment'),
     url(r'^ans_comment/$', 'forum.views.ans_comment', name='ans_comment'),
     url(r'^answer/$', 'forum.views.reply', name='answer'),
@@ -18,6 +21,7 @@ urlpatterns = patterns('',
     # url(r'^vote/$', 'forum.views.vote', name='vote'),
     url(r'^tagged/$', 'forum.views.question_tagged', name='tagged'),
     url(r'^votedown/$', 'forum.views.votedown', name='votedown'),
+    url(r'^searchtag/$', 'tags.views.search_tag', name='searchtag'),
     url(r'^(?P<slug>[^/]+)/$', 'forum.views.get_question', name='question'),
 
 
