@@ -1,15 +1,15 @@
 <form role='form' action="{% url 'forum:voteup' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="U">
-	<a class="form-ajax upvote" data-vote="false">
+	<a class="form-ajax upvote {% if request.user in q.get_q_upvoters %}done{% endif %}">
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</a>
 </form>
-<span class="votes">{{q.votes}}</span>
+<span class="count votes">{{q.votes}}</span>
 <form role='form' action="{% url 'forum:votedown' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="D">
-	<a class="form-ajax downvote" data-vote="false">
+	<a class="form-ajax downvote {% if request.user in q.get_q_downvoters %}done{% endif %}">
 		<span class="glyphicon glyphicon-chevron-down"></span>
 	</a>
 </form>

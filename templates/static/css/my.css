@@ -277,6 +277,12 @@ pre.q_detail{
 	overflow: hidden;
 }
 
+pre.a_detail{
+	padding: 7px;
+	max-height: 62px;
+	overflow: hidden;
+}
+
 .interaction{
 	padding: 0px 10px;
 	margin: 7px auto;
@@ -299,7 +305,7 @@ pre.q_detail{
 }
 
 .comments{
-	padding: 5px 10px;
+	padding: 0px;
 	background: rgba(222,222,222,0.25);
 }
 
@@ -318,6 +324,10 @@ pre.q_detail{
 }
 
 .comment_heading{
+}
+
+.comment{
+	padding: 5px 10px 0px;
 }
 
 .comment pre{
@@ -540,16 +550,17 @@ footer{
 }
 
 #editor {
-	height: 250px;
+	height: 200px;
 	background-color: white;
 	border-collapse: separate; 
 	border: 1px solid rgb(204, 204, 204); 
-	padding: 4px; 
+	padding: 4px;
 	box-sizing: content-box; 
 	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
 	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
-	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+	margin-bottom: 7px;
 	overflow: auto;
 	outline: none;
 }
@@ -573,6 +584,10 @@ div[data-role="editor-toolbar"] {
   user-select: none;
 }
 
-.dropdown-menu a {
-  cursor: pointer;
+.done span{
+	color: #000;
+}
+
+.btn-toolbar > .btn-group{
+	margin-bottom: 5px;
 }

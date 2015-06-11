@@ -105,37 +105,37 @@ def like(request):
         q = request.GET['id']
         node = Node.objects.get(id=q)
         user = request.user
-        response = {}
-        r_data = {}             # json dictionary
-        r_fields = []
         try:
             lik = Activity.objects.get(user=user, node=node, activity='L')
             lik.delete()
             user.userprofile.unotify_liked(node)
-            r_data['like'] = 'Like'
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
             user.userprofile.notify_liked(node)
-            r_data['like'] = 'Unlike'
-        r_data['likes'] = node.get_like_count()
-        r_fields = ['like', 'likes']
-        response['data'] = r_data
-        response['fields'] = r_fields
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        return HttpResponse()
     else:
         return redirect('/')
 
 
 def comment(request):
     if request.method == 'POST':
+        response = {}
+        r_html = {}
+        r_elements = []
         node_id = request.POST['node']
         user = request.user
         node = Node.objects.get(pk=node_id)
         post = request.POST['post']
         c = Comments(user=user, node=node, comment=post)
         c.save()
-        return HttpResponseRedirect('/')
+        r_elements = ['comments']
+        print(c.user)
+        r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         node_id = request.GET.get('node')
         node = Node.objects.get(pk=node_id)
