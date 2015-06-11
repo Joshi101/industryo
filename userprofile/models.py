@@ -126,6 +126,7 @@ class UserProfile(models.Model):
                          from_user=self.user,
                          to_user=question.user,
                          question=question).save()
+            print("noti created")
 
     def notify_q_downvoted(self, question):
         if self.user != question.user:
@@ -158,10 +159,13 @@ class UserProfile(models.Model):
         if self.user != question.user:
             self.points -=5
             self.save()
-            Notification.objects.get(notification_type=Notification.VotedUp,
+            n = Notification.objects.get(notification_type=Notification.VotedUp,
                                      from_user=self.user,
                                      to_user=question.user,
-                                     question=question).delete()
+                                     question=question)
+            print('notificahion hai')
+            n.delete()
+            print("noti deleted")
 
     def unotify_q_downvoted(self, question):
         if self.user != question.user:

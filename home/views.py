@@ -8,7 +8,7 @@ from allauth.account.forms import AddEmailForm, ChangePasswordForm
 from allauth.account.forms import LoginForm, ResetPasswordKeyForm
 from allauth.account.forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# from operator import attrgetter
+from operator import attrgetter
 
 
 def home(request):
@@ -30,7 +30,8 @@ def home(request):
             # content5 = Answer.objects.filter(question__)
             all_result_list = sorted(
                 chain(related_node, content3, content4),
-                key=lambda instance: instance.score)
+                key=attrgetter('date'), reverse=True)
+                # key=lambda instance: ('-instance.date'))
             paginator = Paginator(all_result_list, 5)
             page = request.GET.get('page')
 

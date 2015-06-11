@@ -31,7 +31,6 @@ def get_question(request, slug):
     q = Question.objects.get(slug=slug)
     comments = Comments.objects.filter(question=q.id)
     answers = Answer.objects.filter(question=q.id)
-    print(q.user,comments)
     return render(request, 'forum/quest.html', locals())
 
 
@@ -48,159 +47,129 @@ def ques_comment(request):
 
 
 def voteup(request):
-    response = {}
-    r_data = {}
-    # r_fields = []
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
+        print("question found")
         user = request.user
-        # response = {}
-        # r_data = {}
-        # r_fields = []
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
-            print("vote deletedd")
-            user.userprofile.unotify_q_upvoted(question)
-            question.get_votes()
-            question.votes -= 1
-            question.votes.save()
-            r_data['upvote'] = 'Upvote'
+            # user.userprofile.unotify_q_upvoted(question)
+            question.votes -=1
+            question.save()
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
-            print("vote created")
-            user.userprofile.notify_q_upvoted(question)
-            question.get_votes()
-            question.votes += 1
-            question.votes.save()
-            r_data['upvote'] = 'Unupvote'
-        r_data['votes'] = question.votes
-        r_fields = ['upvote', 'votes']
-        response['data'] = r_data
-        response['fields'] = r_fields
-        # print(response)
-        return HttpResponse(json.dumps(response), content_type="application/json")
+            # user.userprofile.notify_q_upvoted(question)
+            question.votes +=1
+            question.save()
+        return HttpResponse()
     elif 'aid' in request.GET:
         a = request.GET['aid']
         answer = Answer.objects.get(id=a)
         user = request.user
-        r_data = {}
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             vote.delete()
-            user.userprofile.unotify_a_upvoted(answer)
+            # user.userprofile.unotify_a_upvoted(answer)
             answer.votes -= 1
-            r_data['upvote'] = 'Upvote'
+            answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
-            user.userprofile.notify_a_upvoted(answer)
+            # user.userprofile.notify_a_upvoted(answer)
             answer.votes += 1
-            r_data['upvote'] = 'Unupvote'
-        r_data['votes']=answer.get_votes()
-        r_fields = ['upvote', 'votes']
-        response['data'] = r_data
-        response['fields'] = r_fields
-        return HttpResponse(json.dumps(response), content_type="application/json")
+            answer.save()
+        return HttpResponse()
 
+# def vote(request):
+#     # status = False
+#     if 'qid' in request.GET:
+#         q = request.GET['qid']
+#         qa = Question.objects.get(id=q)
+#         status = True
+#         q = True
+#     elif 'aid' in request.GET:
+#         a = request.GET['aid']
+#         qa = Answer.objects.get(id=a)
+#         status = True
+#         q = False
+#     if not status:
+#         return ('/')
+#     d = request.GET['direction']
+#     print(qa, d, qa.votes)
+#     if d == 'D':
+#         value = -1
+#     elif d == 'U':
+#         value = 1
+#     user = request.user
+#     response = {}
+#     r_data = {}
+#     r_fields = []
+#     try:
+#         if q:
+#             vote = Activity.objects.get(user=user, question=qa, activity=d)
+#         else:
+#             vote = Activity.objects.get(user=user, answer=qa, activity=d)
+#         print(vote)
+#         vote.delete()
+#         if value:
+#             user.userprofile.unotify_q_upvoted(qa)
+#         else:
+#             user.userprofile.unotify_q_downvoted(qa)
+#         print(qa.votes)
+#         qa.votes -= value
+#         qa.save()
+#         print(qa.votes)
+#         q = request.GET['qid']
+#         qa2 = Question.objects.get(id=q)
+#         print(qa2.votes)
+#         r_data['vote'] = 'Vote'
+#     except Exception:
+#         if q:
+#             vote = Activity.objects.create(user=user, question=qa, activity=d)
+#             vote.save()
+#         else:
+#             vote = Activity.objects.create(user=user, answer=qa, activity=d)
+#             vote.save()
+#         print(vote.question)
+#         vote.save()
+#         if value:
+#             user.userprofile.notify_q_upvoted(qa)
+#         else:
+#             user.userprofile.notify_q_downvoted(qa)
+#         print(qa.votes)
+#         qa.votes += value
+#         qa.save()
+#         print(qa.votes)
+#         r_data['vote'] = 'Cancel'
+#     r_data['votes'] = qa.votes
+#     response['data'] = r_data
+#     r_fields = ['vote','votes']
+#     response['fields'] = r_fields
+#     print(response)
+#     return HttpResponse(json.dumps(response), content_type="application/json")
 
-def vote(request):
-    # status = False
-    if 'qid' in request.GET:
-        q = request.GET['qid']
-        qa = Question.objects.get(id=q)
-        status = True
-        q = True
-    elif 'aid' in request.GET:
-        a = request.GET['aid']
-        qa = Answer.objects.get(id=a)
-        status = True
-        q = False
-    if not status:
-        return ('/')
-    d = request.GET['direction']
-    print(qa, d, qa.votes)
-    if d == 'D':
-        value = -1
-    elif d == 'U':
-        value = 1
-    user = request.user
-    response = {}
-    r_data = {}
-    r_fields = []
-    try:
-        if q:
-            vote = Activity.objects.get(user=user, question=qa, activity=d)
-        else:
-            vote = Activity.objects.get(user=user, answer=qa, activity=d)
-        print(vote)
-        vote.delete()
-        if value:
-            user.userprofile.unotify_q_upvoted(qa)
-        else:
-            user.userprofile.unotify_q_downvoted(qa)
-        print(qa.votes)
-        qa.votes -= value
-        qa.save()
-        print(qa.votes)
-        q = request.GET['qid']
-        qa2 = Question.objects.get(id=q)
-        print(qa2.votes)
-        r_data['vote'] = 'Vote'
-    except Exception:
-        if q:
-            vote = Activity.objects.create(user=user, question=qa, activity=d)
-            vote.save()
-        else:
-            vote = Activity.objects.create(user=user, answer=qa, activity=d)
-            vote.save()
-        print(vote.question)
-        vote.save()
-        if value:
-            user.userprofile.notify_q_upvoted(qa)
-        else:
-            user.userprofile.notify_q_downvoted(qa)
-        print(qa.votes)
-        qa.votes += value
-        qa.save()
-        print(qa.votes)
-        r_data['vote'] = 'Cancel'
-    r_data['votes'] = qa.votes
-    response['data'] = r_data
-    r_fields = ['vote','votes']
-    response['fields'] = r_fields
-    print(response)
-    return HttpResponse(json.dumps(response), content_type="application/json")
 
 def votedown(request):
-    response = {}
-    r_data = {}
-    r_fields = []
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
-        # a = request.GET['aid']
-        # answer = Answer.objects.get(id=a)
         user = request.user
         try:
             vote = Activity.objects.get(user=user, question=question, activity='D')
             vote.delete()
-            user.userprofile.unotify_q_downvoted(question)
+            # user.userprofile.unotify_q_downvoted(question)
             question.votes -= 1
-            r_data['downvote'] = 'Downvote'
+            question.save()
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
-            user.userprofile.notify_q_downvoted(question)
+            # user.userprofile.notify_q_downvoted(question)
             question.votes += 1
-            r_data['downvote'] = 'Undownpvote'
-        r_data['votes']=question.get_votes()
-        r_fields = ['downvote', 'votes']
-        response['data'] = r_data
-        response['fields'] = r_fields
-        return HttpResponse(json.dumps(response), content_type="application/json")
+            question.save()
+        return HttpResponse()
     elif 'aid' in request.GET:
         a = request.GET['aid']
         answer = Answer.objects.get(id=a)
@@ -209,20 +178,16 @@ def votedown(request):
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
             # User.
             vote.delete()
-            user.userprofile.unotify_a_downvoted(answer)
+            # user.userprofile.unotify_a_downvoted(answer)
             answer.votes += 1
-            r_data['downvote'] = 'Downvote'
+            answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
-            user.userprofile.notify_a_downvoted(answer)
+            # user.userprofile.notify_a_downvoted(answer)
             answer.votes -= 1
-            r_data['downvote'] = 'Undownvote'
-        r_data['votes']=answer.get_votes()
-        r_fields = ['downvote', 'votes']
-        response['data'] = r_data
-        response['fields'] = r_fields
-        return HttpResponse(json.dumps(response), content_type="application/json")
+            answer.save()
+        return HttpResponse()
 
 
 def reply(request):
@@ -290,7 +255,7 @@ def question_tagged(request):
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
     for q in questions:
-        print(q.title, q.question)
+        print('1')
     return render(request, 'forum/questions.html', locals())
 
 
