@@ -248,6 +248,7 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
         data : $form.serialize(),
 
         success: function(response){
+          $form.find('.form-control').val('');
           if (response.fields){
             for(i=0; i < response.fields.length; i++){
                 $papa.find('.'+response.fields[i]).text(response.data[response.fields[i]]);
@@ -260,13 +261,11 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
           }
           if (response.elements){
             if (response.prepend){
-            console.log('yaha')
                 for(i=0; i < response.elements.length; i++){
                     $papa.find('.'+response.elements[i]).prepend(response.html[response.elements[i]]);
                 }
             }
             else{
-            console.log('yaha2')
                 for(i=0; i < response.elements.length; i++){
                     $papa.find('.'+response.elements[i]).html(response.html[response.elements[i]]);
                 }
@@ -442,9 +441,59 @@ $('.img_pre').on('click','.close',function(){
     console.log($(this).closest('form').find('input'));
 });
 
-$('.ajax_andar').on('click','.upvote, .downvote',function(){
-    $(this).css({'color':'#000'})
+$('.ajax_andar').on('click','.upvote',function(){
+    $this = $(this);
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
-    var new_val = val+1+1;
-    console.log(new_val)
+    if ($this.attr('class').indexOf('done') >= 0){
+        $this.removeClass('done');
+        val -= 1;
+    }
+    else{
+        $this.addClass('done');
+        val += 1;
+    }
+    console.log(val)
+    $(this).closest('.ajax_papa').find('.votes').text(val);
+});
+
+$('.ajax_andar').on('click','.downvote',function(){
+    $this = $(this);
+    var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
+    if ($this.attr('class').indexOf('done') >= 0){
+        $this.removeClass('done');
+        val += 1;
+    }
+    else{
+        $this.addClass('done');
+        val -= 1;
+    }
+    console.log(val)
+    $(this).closest('.ajax_papa').find('.votes').text(val);
+});
+
+$('.ajax_andar').on('click','.like',function(){
+    $this = $(this);
+    var val = parseInt($(this).closest('.ajax_papa').find('.likes').text());
+    if ($this.attr('class').indexOf('done') >= 0){
+        $this.removeClass('done');
+        val -= 1;
+    }
+    else{
+        $this.addClass('done');
+        val += 1;
+    }
+    console.log(val)
+    $(this).closest('.ajax_papa').find('.likes').text(val);
+});
+
+$('.answer_form').submit(function(event){
+    event.preventDefault();
+    var $this = $(this);
+    var $editor = $this.find('#editor');
+    var content = $editor.html();
+    $editor.next().val(content);
+    $this.find('input [name=answer]').val(content);
+    console.log($this.find('.form-ajax').attr('class'));
+
+    $this.find('.form-ajax').trigger('click');
 });

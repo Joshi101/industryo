@@ -4,23 +4,8 @@
 			<small class='pull-right post_date'>{{ question.date }}</small>
 	</div>
 	<div class="row ajax_papa">
-		<div class="col-sm-1 text-center vote_box">
-			<form role='form' action="{% url 'forum:voteup' %}" method="GET">
-				<input type="hidden" name="qid" value="{{ question.id }}">
-				<input type="hidden" name="direction" value="U">
-				<a class="form-ajax upvote" href="">
-					<span class="glyphicon glyphicon-chevron-up"></span>
-				</a>
 
-			</form>
-			<span class="count votes">{{ question.votes }}</span>
-			<form role='form' action="{% url 'forum:votedown' %}" method="GET">
-				<input type="hidden" name="qid" value="{{ question.id }}">
-				<input type="hidden" name="direction" value="U">
-				<a class="form-ajax downvote" href="">
-					<span class="glyphicon glyphicon-chevron-down"></span>
-				</a>
-			</form>	
+		<div class="col-sm-1 text-center vote_box ajax_papa">
 		</div>
 		<div class="col-sm-11">
 			<div class="feed_box_body">

@@ -12,7 +12,7 @@
 			</h5>
 		</div>
 		<div class="row ajax_papa">
-			<div class="col-sm-1 text-center vote_box">
+			<div class="col-sm-1 text-center vote_box ajax_papa">
 				{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 			</div>
 			<div class="col-sm-11 ajax_papa">
@@ -23,13 +23,13 @@
 					{% endif %}
 				</div>
 				<div class="feed_box_extra">
-				{% if comments %}
 					<div class="comments">
-		    	{% for c in comments %}
-						{% include "snippets/comment.html" with comment=c %}
-		    	{% endfor %}
+					{% if comments %}
+			    	{% for c in comments %}
+							{% include "snippets/comment.html" with comment=c %}
+			    	{% endfor %}
+					{% endif %}
 					</div>
-				{% endif %}
 					<div class="interaction">
 		    		<a class="a_collapse">Comment</a>
 				    <div class="collapse row">
@@ -37,7 +37,7 @@
 									<div class="input-group">
 										<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
 										<span class="input-group-btn">
-											<button class='btn btn-default'>Comment</button>
+											<button class='btn btn-default form-ajax'>Comment</button>
 										</span>
 									</div>
 								<input type="hidden" name="id" value="{{ q.id }}">
@@ -50,32 +50,62 @@
 			</div>
 		</div>
 	</div>
-
-	<form class="" action="{% url 'forum:answer' %}" method="POST">
-		{% include "snippets/richtext_toolbar.html" %}
-    <div id="editor">
-      Go ahead&hellip;
-    </div>
-		<input type="hidden" name="id" value="{{ q.id }}">
-		<input type="hidden" name="slug" value="{{ q.slug }}">
-		<input class="btn btn-primary" type="submit" value="Reply">
-		{% csrf_token %}
+	<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST">
+		<a class="a_collapse">Write Answer</a>
+		<div class="collapse">
+			{% include "snippets/richtext_toolbar.html" %}
+	    <div id="editor">
+	      Go ahead&hellip;
+	    </div>
+			<input type="hidden" name="answer" value="">
+			<input type="hidden" name="id" value="{{ q.id }}">
+			<input type="hidden" name="slug" value="{{ q.slug }}">
+			<button class="btn btn-primary">Answer</button>
+			<a class="form-ajax hide"></a>
+			{% csrf_token %}
+		</div>
 	</form>
-	<ul>
 	{% for a in answers %}
-		<li>{{a.answer}}</li>
-			<form action="{% url 'forum:ans_comment' %}" method="POST">
-				<input class="form-control" name="comment" placeholder="comment..." required>
-				<input type="hidden" name="id" value="{{ a.id }}">
-				<input type="hidden" name="slug" value="{{ q.slug }}">
-				<input class="div_button" type="submit" value="comment">
-				{% csrf_token %}
-			</form>
-			<ul>
-			{% for c in a.answer.answercomments %}
-				<li>{{c.comment}}</li>
-			{% endfor %}
-			</ul>
+	<div class="feed_box answer ajax_andar">
+		<div class="feed_box_heading">
+				{% include "snippets/joint_name.html" with user=a.user %}
+				<small class='pull-right post_date'>{{ a.date }}</small>
+		</div>
+		<div class="row ajax_papa">
+			<div class="col-sm-1 text-center vote_box ajax_papa">
+				{% include "snippets/vote_box.html" with q_or_a='a' q=a %}
+			</div>
+			<div class="col-sm-11 ajax_papa">
+				<div class="feed_box_body">
+					<pre class="a_detail">{{ a.answer|safe }}</pre>
+				</div>
+				<div class="feed_box_extra">
+					<div class="comments">
+					{% if answer.answercomments %}
+			    	{% for c in answer.answercomments %}
+							{% include "snippets/comment.html" with comment=c %}
+			    	{% endfor %}
+					{% endif %}
+					</div>
+					<div class="interaction">
+		    		<a class="a_collapse">Comment</a>
+				    <div class="collapse row">
+							<form class="comment_form col-sm-12" role='form' action="{% url 'forum:ans_comment' %}" method="POST">
+									<div class="input-group">
+										<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
+										<span class="input-group-btn">
+											<button class='btn btn-default form-ajax'>Comment</button>
+										</span>
+									</div>
+								<input type="hidden" name="id" value="{{ a.id }}">
+								<input type="hidden" name="slug" value="{{ q.slug }}">
+								{% csrf_token %}
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	{% endfor %}
-	</ul>
 {% endblock content %}

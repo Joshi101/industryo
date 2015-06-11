@@ -4,31 +4,19 @@
 		<small class='pull-right'>{{ node.date }}</small>
 	</div>
 	<div class="row ajax_papa">
-		<div class="col-sm-1 text-center vote_box">
-			<form role="form" method="GET" action="{% url 'nodes:like' %}">
-				<input type="hidden" name="id" value="{{ node.pk }}">
-
-					<span class="count likes"> {{ node.likes }} </span>
-					<a class="form-ajax like" href="">
-						{% if user in node.get_likers %}
-						<span class="glyphicon glyphicon-thumbs-down"></span>
-						{% else %}
-						<span class="glyphicon glyphicon-thumbs-up"></span>
-			  		{% endif %}
-					</a>
-
-			</form>
+		<div class="col-sm-1 text-center vote_box ajax_papa">
+			{% include "snippets/like_box.html" with node=node %}
 		</div>
 		<div class="col-sm-11">
 			<div class="feed_box_body">
 				<pre>{{ node.post }}</pre>
 			</div>
 			<div class="feed_box_extra">
-				{% if node.get_last_comment %}
 				<div class="comments">
+				{% if node.get_last_comment %}
 					{% include "snippets/comment.html" with comment=node.get_last_comment %}
-				</div>
 				{% endif %}
+				</div>
 				<div class="interaction">
 					<a class="a_collapse">Comment</a>
 			    <div class="collapse row">
@@ -36,7 +24,7 @@
 							<div class="input-group">
 								<textarea rows="1" class="form-control" name="post" placeholder="comment..." required></textarea>
 								<span class="input-group-btn">
-									<button class='btn btn-default'>Comment</button>
+									<button class='btn btn-default form-ajax'>Comment</button>
 								</span>
 							</div>
 							<input type="hidden" name="node" value="{{ node.pk }}">
