@@ -3,6 +3,8 @@ from django.template.loader import render_to_string
 from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
 from nodes.models import *
+from forum.models import *
+from nodes.forms import *
 from userprofile.models import *
 import json
 
@@ -124,15 +126,20 @@ def search_workplace(request):                  # for searching the workplace
 
 
 def workplace_profile(request, slug):
-    o = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=o.id).order_by('-points')
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')
+    workplace_logo_form = SetLogoForm()
+    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
+    answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace)
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace)
+    articles = Node.article.filter(user__userprofile__primary_workplace=workplace)
     return render(request, 'workplace_profile/profile.html', locals())
 
 
 def edit_workplace_profile(request):
     w = request.user.userprofile.primary_workplace
     type = w.workplace_type
-    if type == 'C':
+    if type == 'A':
         form = EditTeamForm(request.POST, request.FILES)
         if request.method == 'POST':
             if not form.is_valid():

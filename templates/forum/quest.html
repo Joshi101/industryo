@@ -81,8 +81,8 @@
 				</div>
 				<div class="feed_box_extra">
 					<div class="comments">
-					{% if answer.answercomments %}
-			    	{% for c in answer.answercomments %}
+					{% if a.get_comments %}
+			    	{% for c in a.get_comments %}
 							{% include "snippets/comment.html" with comment=c %}
 			    	{% endfor %}
 					{% endif %}

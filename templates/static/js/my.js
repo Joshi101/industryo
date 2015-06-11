@@ -264,6 +264,7 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
                 for(i=0; i < response.elements.length; i++){
                     $papa.find('.'+response.elements[i]).prepend(response.html[response.elements[i]]);
                 }
+            console.log('yoho')
             }
             else{
                 for(i=0; i < response.elements.length; i++){
@@ -492,8 +493,68 @@ $('.answer_form').submit(function(event){
     var $editor = $this.find('#editor');
     var content = $editor.html();
     $editor.next().val(content);
-    $this.find('input [name=answer]').val(content);
-    console.log($this.find('.form-ajax').attr('class'));
-
     $this.find('.form-ajax').trigger('click');
 });
+
+$('.article_form button[type=button]').click(function(event){
+    event.preventDefault();
+    var $this = $(this).closest('form');
+    var $editor = $this.find('#editor');
+    var content = $editor.html();
+    $editor.next().val(content);
+    $this.submit();
+});
+
+$('.detail').on({
+        'mouseover':function(){
+            $(this).children('.detail_opt').removeClass('hide');
+        },
+        'mouseout':function(){
+            $(this).children('.detail_opt').addClass('hide');
+        }
+    });
+
+    $('.detail_add').on('click',function(event){
+        event.preventDefault();
+        var $this = $(this)
+        var save = $this.data('save');
+        var content = $this.data('content');
+        var $forms = $('.edit_' + content);
+        if (save == 'save'){
+            $this.text('Add').data('save','');
+            $forms.each(function(){
+                $(this).addClass('hide');
+            });
+        }
+        else {
+            $this.text('Done').data('save','save');
+            $forms.each(function(){
+                $(this).removeClass('hide');
+            });
+        }
+    });
+
+    $('.detail_edit').on('click',function(event){
+        event.preventDefault();
+        var $this = $(this)
+        var content = $this.data('content');
+        var $content = $('.content_' + content);
+        var save = $this.data('save');
+        if (save == 'save'){
+            console.log($('#experience').serialize())
+            $content.each(function(){
+                var value = $(this).next().val();
+                $(this).text(value).removeClass('hide')
+                    .next().addClass('hide');
+            });
+            $this.text('Edit').data('save','').addClass('form-ajax');
+        }
+        else {
+            $content.each(function(){
+                var value = $(this).text();
+                $(this).addClass('hide')
+                    .next().val(value).removeClass('hide');
+            });
+            $this.text('Save').data('save','save').removeClass('form-ajax');
+        }
+    });

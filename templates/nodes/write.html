@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-{% load i18n %}
-
-{% block css_2 %}
-  <link rel="stylesheet" type="text/css" href={% static 'css/message_styler.css' %}>
-  {% block css_3 %}
-  {% endblock %}
-{% endblock %}
-
-{% block menu_content_links %}
-{% endblock %}
 
 {% block content %}
-		<form id="form_feed" role="form" action="{% url 'nodes:write' %}" method="POST">
-			<input type="text" id="title" placeholder="Title.." name="title">
-			<input type="text" id="Body" placeholder="Body.." name="post">
-			<input type="text" id="tags" placeholder="Tags" name="tags">
-			<input class="submit_feed" type="submit" value="Publish">
-			{% csrf_token %}
-		</form>
-
+	<form class="article_form" role="form" action="{% url 'nodes:write' %}" method="POST">
+		<div class="form-group">
+			<input class="form-control" type="text" placeholder="Title.." name="title">
+		</div>
+		<div class="form-group">
+			{% include "snippets/richtext_toolbar.html" %}
+	    <div id="editor">
+	      Go ahead&hellip;
+	    </div>
+			<input class="form-control" type="hidden" placeholder="Body.." name="post">
+		</div>
+		<div class="form-group">
+			<input class="form-control" type="text" placeholder="Tags" name="tags">
+		</div>
+		<button type="button" class="btn btn-default">Publish</button>
+		{% csrf_token %}
+	</form>
 {% endblock %}

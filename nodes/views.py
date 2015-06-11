@@ -40,7 +40,7 @@ def write(request):                 ## Write an article
         node.save()
         node.set_tags(tags)
         # return HttpResponseRedirect('/nodes/'+node.slug)
-        return redirect('/')
+        return redirect('/nodes/articles')
     else:
         return render(request, 'nodes/write.html', locals())
 
@@ -72,7 +72,6 @@ def set_logo(request):
             workplace = user.userprofile.primary_workplace
 
             image = form.cleaned_data.get('image')
-            caption = form.cleaned_data.get('caption')
             i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
             workplace.logo = i
             workplace.save()
@@ -147,6 +146,10 @@ def node(request, id):
     # if node:
     #     print(name)
     return render(request, 'nodes/one_node.html', {'node': node})
+
+def articles(request):
+    atricles = Node.article.all()
+    return render(request, 'nodes/articles.html', locals())
 
 
 # Create your views here.

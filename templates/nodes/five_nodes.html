@@ -1,6 +1,8 @@
 {% for a in result_list %}
-  {% if a.node_type %}
+  {% if a.node_type == 'F' %}
 		{% include 'nodes/one_node.html' with node=a %}
+  {% elif a.node_type == 'A' %}
+		{% include 'nodes/one_article.html' with node=a %}
   {% else %}
     {% include 'forum/one_question.html' with question=a %}
 	{% endif %}

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<a href="{% url 'ask' %}">Ask Question</a>
+	<a href="{% url 'nodes:write' %}">Write Article</a>
 	<div class="ajax_andar feeds">
-		{% include 'nodes/five_nodes.html' with result_list=questions %}
+		{% include 'nodes/five_nodes.html' with result_list=articles %}
 		<div class="paginator" data-next_page="2"></div>
 	</div>
 {% endblock %}

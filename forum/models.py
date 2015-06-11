@@ -141,6 +141,7 @@ class Answer(models.Model):
 
     def get_comments(self):
         a_comments = Comments.objects.filter(answer=self.pk)
+        return a_comments
 
 
 

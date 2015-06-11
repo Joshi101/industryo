@@ -130,58 +130,6 @@
   </div>
 
 	<script type="text/javascript">
-	$('.detail').on({
-		'mouseover':function(){
-			$(this).children('.detail_opt').removeClass('hide');
-		},
-		'mouseout':function(){
-			$(this).children('.detail_opt').addClass('hide');
-		}
-	});
-
-	$('.detail_add').on('click',function(event){
-		event.preventDefault();
-		var $this = $(this)
-		var save = $this.data('save');
-		var	content = $this.data('content');
-		var $forms = $('.edit_' + content);
-		if (save == 'save'){
-			$this.text('Add').data('save','');
-			$forms.each(function(){
-				$(this).addClass('hide');
-			});
-		}
-		else {
-			$this.text('Done').data('save','save');
-			$forms.each(function(){
-				$(this).removeClass('hide');
-			});
-		}
-	});
-
-	$('.detail_edit').on('click',function(event){
-		event.preventDefault();
-		var $this = $(this)
-		var content = $this.data('content');
-		var $content = $('.content_' + content);
-		var save = $this.data('save');
-		if (save == 'save'){
-			console.log($('#experience').serialize())
-			$content.each(function(){
-				var value = $(this).next().val();
-				$(this).text(value).removeClass('hide')
-					.next().addClass('hide');
-			});
-			$this.text('Edit').data('save','').removeClass('form-ajax');
-		}
-		else {
-			$content.each(function(){
-				var value = $(this).text();
-				$(this).addClass('hide')
-					.next().val(value).removeClass('hide');
-			});
-			$this.text('Save').data('save','save').addClass('form-ajax');
-		}
-	});
+	
 	</script>
 {% endblock %}

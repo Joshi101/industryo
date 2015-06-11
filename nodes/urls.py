@@ -5,7 +5,7 @@ urlpatterns = patterns('',
 
     # url(r'^accounts/', include('allauth.urls')),
     # url(r'^$', 'home.views.home', name='home'),
-
+    url(r'^articles/$', 'nodes.views.articles', name='articles'),
     url(r'^like/$', 'nodes.views.like', name='like'),
     url(r'^comment/$', 'nodes.views.comment', name='comment'),
     url(r'^upload/$', 'nodes.views.upload_image', name='upload'),

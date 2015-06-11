@@ -114,7 +114,8 @@ class Node(models.Model):
 
     @staticmethod
     def get_articles():
-        return Node.article.all()
+        articles = Node.article.all()
+        return articles
 
     def save(self, *args, **kwargs):
         if not self.id:             # Newly created object, so set slug

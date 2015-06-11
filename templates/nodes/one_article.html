@@ -1,51 +1,39 @@
-<div class="feed_box article">
+<div class="feed_box feed">
 	<div class="feed_box_heading">
-			{% include "snippets/joint_name.html" with user=node.user %}
-			<small class='pull-right'>{{ node.date }}</small>
+		{% include "snippets/joint_name.html" with user=node.user %}
+		<small class='pull-right'>{{ node.date }}</small>
 	</div>
-	<div class="feed_box_body ajax_papa">
-		<pre>{{ node.post }}</pre>
-		<form role="form" method="GET" action="{% url 'nodes:like' %}">
-			<input type="hidden" name="id" value="{{ node.pk }}">
-			<div class="interaction_top">
-				<a class="form-ajax like" href="">
-					{% if user in node.get_likers %}
-					Unlike
-					{% else %}
-					Like
-		  		{% endif %}
-				</a>
-				<span class="glyphicon glyphicon-thumbs-up"></span>
-				<span class="likes"> {{ node.get_like_count }} </span>
+	<div class="row ajax_papa">
+		<div class="col-sm-1 text-center vote_box ajax_papa">
+			{% include "snippets/like_box.html" with node=node %}
+		</div>
+		<div class="col-sm-11">
+			<div class="feed_box_body">
+				<pre>{{ node.title }}</pre>
+				<pre>{{ node.post }}</pre>
 			</div>
-		</form>
-	</div>
-	<div class="comments">
-	{% if node.get_last_comment %}
-		<div class="comment">
-			<div class="row">
-				<div class="col-sm-offset-1 col-sm-11">
-					<h6>
-						<strong>
-							<a href="">{{ node.get_last_comment.user.get_full_name }}</a> | <a href="">{{ node.get_last_comment.user.userprofile.primary_workplace }}</a> <small class='pull-right'>{{ node.get_last_comment.date }}</small>
-						</strong>
-					</h6>
-					<pre>{{node.get_last_comment}}</pre>
+			<div class="feed_box_extra">
+				<div class="comments">
+				{% if node.get_last_comment %}
+					{% include "snippets/comment.html" with comment=node.get_last_comment %}
+				{% endif %}
+				</div>
+				<div class="interaction">
+					<a class="a_collapse">Comment</a>
+			    <div class="collapse row">
+						<form class="comment_form col-sm-12" role='form' action="{% url 'nodes:comment' %}" method="POST">
+							<div class="input-group">
+								<textarea rows="1" class="form-control" name="post" placeholder="comment..." required></textarea>
+								<span class="input-group-btn">
+									<button class='btn btn-default form-ajax'>Comment</button>
+								</span>
+							</div>
+							<input type="hidden" name="node" value="{{ node.pk }}">
+							{% csrf_token %}
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	{% endif %}
-			<form class="form-horizontal comment" action="{% url 'nodes:comment' %}" method="POST">
-				<div class="form-group">
-					<div class="col-sm-9 col-sm-offset-1">
-						<textarea rows='1' class="form-control autoresize" name="post" placeholder="post a reply..." required></textarea>
-						<input type="hidden" name="node" value="{{ node.pk }}">
-					</div>
-					<div class="col-sm-2">
-						<input class="btn btn-default btn-xs" type="submit" value="Reply">
-					</div>
-				</div>
-				{% csrf_token %}
-			</form>
 	</div>
 </div>
