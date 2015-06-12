@@ -221,7 +221,7 @@ def workplace_profile(request, slug):
     answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace)
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace)
     articles = Node.article.filter(user__userprofile__primary_workplace=workplace)
-    return render(request, 'workplace_profile/profile.html', locals())
+    return render(request, 'workplace/profile.html', locals())
 
 def edit_workplace_profile(request):
     w = request.user.userprofile.primary_workplace
@@ -303,16 +303,12 @@ def set_about(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        print("DSSDF")
         response = {}
-
         about = request.POST.get('about')
-        # print('post aaya')
         wp.about = about
-        # print('save aaya')
         wp.save()
-        # print('save ho gaya')
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        w = user.userprofile.primary_workplace
+        return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
 
@@ -344,7 +340,7 @@ def set_product_details(request):
 
         product_details = request.POST.get('product_details')
         # print('post aaya')
-        wp.about = product_details
+        wp.product_details = product_details
         # print('save aaya')
         wp.save()
         # print('save ho gaya')

@@ -541,9 +541,10 @@ $('.detail').on({
         var $content = $('.content_' + content);
         var save = $this.data('save');
         if (save == 'save'){
-            console.log($('#experience').serialize())
+            console.log($('#'+content).serialize())
             $content.each(function(){
                 var value = $(this).next().val();
+                console.log($(this).next().val())
                 $(this).text(value).removeClass('hide')
                     .next().addClass('hide');
             });
@@ -552,6 +553,7 @@ $('.detail').on({
         else {
             $content.each(function(){
                 var value = $(this).text();
+                console.log($(this).text())
                 $(this).addClass('hide')
                     .next().val(value).removeClass('hide');
             });

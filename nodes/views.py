@@ -71,7 +71,7 @@ def set_logo(request):
             workplace = user.userprofile.primary_workplace
 
             image = form.cleaned_data.get('image')
-            i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
             workplace.logo = i
             workplace.save()
         return redirect('/')

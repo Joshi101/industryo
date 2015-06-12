@@ -4,11 +4,8 @@
 {% load bootstrap %}
 
 {% block left %}
-<div class="">
 	<div id="img_profile_box">
-	  
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{ user.userprofile.get_profile_image}}"/>
-			
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
 	</div>
 	<div class="account">
@@ -17,40 +14,7 @@
 		<h4 class="acc_detail"><a href="#" class="no_a">{{ user.userprofile.primary_workplace }}</a></h4>
 		<h5 class="acc_detail text-muted">{{user.userprofile.area}}</h5>
 	</div>
-</div>
-<div id="img_upload_modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Change your profile picture <small>(it won't be cropped)</small></h4>
-      </div>
-      <div class="modal-body">
-        <form action="{% url 'nodes:set_profile_image' %}" role='form' method="post" enctype="multipart/form-data">
-        	{% csrf_token %}
-		      <div class="image-editor center-block">
-		      	<span class='btn btn-default btn-file center-block'>
-		        	Browse {{profile_image_form.image}}
-	        	</span>
-		        <div class="cropit-image-preview"></div>
-		        <div class="image-size-label text-center">
-		          Resize image
-		        </div>
-		        <input type="range" class="cropit-image-zoom-input">
-		        <div class="row">
-		        	<button type="submit" class="btn btn-info col-sm-10 col-sm-offset-1">Submit</button>
-	        	</div>
-		      </div>
-		    </form>
-		    <input type="hidden" name="image-data" class="hidden-image-data" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+	{% include "snippets/img_upload_modal.html" with url='nodes:set_profile_image' form=profile_image_form.image %}
 {% endblock left %}
 
 {% block content %}
@@ -78,7 +42,6 @@
 				<div class="panel-body">
 					<div class="detail_body content_experience">{{user.userprofile.experience}}</div>
 					<textarea name="experience" form="experience" rows="3" class="form-control edit_experience hide"></textarea>
-					</form>
 				</div>
 			</div>
 
@@ -128,8 +91,4 @@
 			{% endfor %}
     </div>
   </div>
-
-	<script type="text/javascript">
-	
-	</script>
 {% endblock %}

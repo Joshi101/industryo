@@ -1,6 +1,6 @@
 from django.db import models
 from industryo.unique_slug import unique_slugify
-# from nodes.models import Images
+from nodes.models import Images
 from tags.models import Tags
 
 
@@ -48,26 +48,26 @@ class Workplace(models.Model):
             slug_str = self.name
             unique_slugify(self, slug_str)
             # self.slug = slugify(self.get_full_name()).__str__()
-            super(Workplace, self).save(*args, **kwargs)
+        super(Workplace, self).save(*args, **kwargs)
 
     def set_materials(self, materials):
         t, created = Tags.objects.get_or_create(tag=materials, type='M')
-        self.tags = t
+        self.tags.add(t)
         return t
 
     def set_operations(self, operations):
         t, created = Tags.objects.get_or_create(tag=operations, type='O')
-        self.tags = t
+        self.tags.add(t)
         return t
 
     def set_industrial_area(self, industrial_area):
         t, created = Tags.objects.get_or_create(tag=industrial_area, type='I')
-        self.tags = t
+        self.tags.add(t)
         return t
 
     def set_assets(self, assets):
         t, created = Tags.objects.get_or_create(tag=assets, type='A')
-        self.tags = t
+        self.tags.add(t)
         return t
 
     def set_institution(self, institution):
@@ -78,22 +78,23 @@ class Workplace(models.Model):
 
     def set_city(self, city):
         t, created = Tags.objects.get_or_create(tag=city, type='C')
-        self.tags = t
+        self.tags.add(t)
         return t
 
     def set_events(self, events):
         t, created = Tags.objects.get_or_create(tag=events, type='E')
-        self.tags = t
+        self.tags.add(t)
         return t
 
 
-    # def set_logo(self, image, user):
-    #     i = Images()
-    #     a = i.upload_image(image=image, user=user)
-    #
-    #     self.logo = a
+    def set_logo(self, image, user):
+        i = Images()
+        a = i.upload_image(image=image, user=user)
+        self.logo = a
 
-
+    def get_city(self):
+        city = self.tags.filter(type='C')
+        return city
 
 
 
