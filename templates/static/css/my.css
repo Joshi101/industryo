@@ -187,6 +187,23 @@ pre{
 	margin-bottom: 15px;
 }
 
+.nav-pills{
+	padding: 5px 0px;
+	border-bottom: 1px solid #9d9d9d;
+	border-top: 1px solid #9d9d9d;
+	margin-bottom: 25px;
+}
+
+.nav-pills li{
+	float: right;
+	margin-right: 5px;
+}
+
+.nav-pills li a{
+	padding: 2px 15px;
+	border-radius: 0px;
+}
+
 .panel-heading{
 	padding: 5px 15px;
 }
