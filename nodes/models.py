@@ -176,7 +176,16 @@ class Node(models.Model):
         self.score = score
         return score
 
+    def add_image(self, image, user):
+        i = Images()
+        a = i.upload_image(image=image, user=user)
+        self.image = a
 
+
+    # def set_logo(self, image, user):
+    #     i = Images()
+    #     a = i.upload_image(image=image, user=user)
+    #     self.logo = a
 
 
 

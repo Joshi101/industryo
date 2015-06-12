@@ -16,6 +16,12 @@ def post(request):
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
         node = Node.objects.create(post=post, user=user, w_type=type)
+        try:
+            image = form.get_cleaned_data.get('image')
+
+            node.add_image(image, user)
+        except Exception:
+            pass
         r_elements = ['feeds']
         r_html['feeds'] = render_to_string('nodes/one_node.html', {'node': node})
         response['html'] = r_html
@@ -71,7 +77,7 @@ def set_logo(request):
             i = Images.objects.create(image=image, user=user, image_thumbnail=image)
             workplace.logo = i
             workplace.save()
-        return redirect('/'+workplace.slug)
+        return redirect('/workplace/'+workplace.slug)
     else:
         return render(request, 'nodes/upload.html', {'form': form})
 

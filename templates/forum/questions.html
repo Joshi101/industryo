@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<a href="{% url 'ask' %}">Ask Question</a>
+	<a href="{% url 'forum:ask' %}">Ask Question</a>
 	<div class="ajax_andar feeds">
 		{% include 'nodes/five_nodes.html' with result_list=questions %}
 		<div class="paginator" data-next_page="2"></div>

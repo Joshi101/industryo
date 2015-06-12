@@ -100,12 +100,6 @@ class Workplace(models.Model):
         city = self.tags.filter(type='C')
         return city
 
-    def set_logo(self, image, user):
-        i = Images()
-        a = self.upload_image(image=image, user=user)
-
-        self.logo = a
-
     def get_logo(self):
         default_image = '/images/thumbnails/workplace.jpg'
         if self.logo:
