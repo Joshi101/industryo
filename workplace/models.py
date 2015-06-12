@@ -55,6 +55,11 @@ class Workplace(models.Model):
         self.tags.add(t)
         return t
 
+    def set_segments(self, materials):
+        t, created = Tags.objects.get_or_create(tag=materials, type='S')
+        self.tags.add(t)
+        return t
+
     def set_operations(self, operations):
         t, created = Tags.objects.get_or_create(tag=operations, type='O')
         self.tags.add(t)
@@ -86,7 +91,6 @@ class Workplace(models.Model):
         self.tags.add(t)
         return t
 
-
     def set_logo(self, image, user):
         i = Images()
         a = i.upload_image(image=image, user=user)
@@ -95,6 +99,34 @@ class Workplace(models.Model):
     def get_city(self):
         city = self.tags.filter(type='C')
         return city
+
+    def set_logo(self, image, user):
+        i = Images()
+        a = self.upload_image(image=image, user=user)
+
+        self.logo = a
+
+    def get_logo(self):
+        default_image = '/images/thumbnails/workplace.jpg'
+        if self.logo:
+            image_url = '/images/'+str(self.logo.image_thumbnail)
+            return image_url
+        else:
+            return default_image
+
+    def get_tags(self):
+        operations = self.tags.filter(type='O')
+        assets = self.tags.filter(type='A')
+        industrial_area = self.tags.filter(type='I')
+        city = self.tags.filter(type='C')
+        materials = self.tags.filter(type='M')
+        segments = self.tags.filter(type='S')
+        events = self.tags.filter(type='E')
+        return locals()
+
+    def get_institution(self):
+        institution = self.institution
+        return institution
 
 
 

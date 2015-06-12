@@ -4,16 +4,16 @@
 {% load bootstrap %}
 
 {% block left %}
-<div id="img_profile_box">
-	<img id="img_profile" class="thumbnail" width="120" height="120" src="">
-	<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
-</div>
-<div class="account">
-	<h4 class="acc_detail">{{ workplace.name }}</h4>
-	<h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4>
-	<h5 class="acc_detail text-muted">{{workplace.address}}</h5>
-</div>
-{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
+	<div id="img_profile_box">
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="">
+		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
+	</div>
+	<div class="account">
+		<h4 class="acc_detail">{{ workplace.name }}</h4>
+		<h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4>
+		<h5 class="acc_detail text-muted">{{workplace.address}}</h5>
+	</div>
+	{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
 {% endblock left %}
 
 {% block content %}
@@ -30,7 +30,9 @@
   </ul>
 
   <div class="tab-content">
-    {% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
+  	<div id="about" class="tab-pane fade in active">
+    	{% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
+  	</div>
     <div id="questions" class="tab-pane fade">
   		{% for question in questions %}
 				{% include 'forum/one_question.html' with node=node %}
