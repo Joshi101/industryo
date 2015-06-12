@@ -62,19 +62,18 @@ def upload_image(request):
 
 def set_logo(request):
     form = SetLogoForm(request.POST, request.FILES)
+    user = request.user
+    workplace = user.userprofile.primary_workplace
     if request.method == 'POST':
         if not form.is_valid():
             print("fuck")
             return render(request, 'nodes/set_logo.html', {'form': form})
         else:
-            user = request.user
-            workplace = user.userprofile.primary_workplace
-
             image = form.cleaned_data.get('image')
-            i = Images.objects.create(image=image, user=user, caption=caption, image_thumbnail=image)
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
             workplace.logo = i
             workplace.save()
-        return redirect('/')
+        return redirect('/'+workplace.slug)
     else:
         return render(request, 'nodes/upload.html', {'form': form})
 

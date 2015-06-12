@@ -51,7 +51,6 @@ INSTALLED_APPS = (
 
     'nodes',
     'workplace',
-    # 'workplaceprofile',
     'userprofile',
     'forum',
     'activities',
