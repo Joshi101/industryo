@@ -4,12 +4,12 @@ from nodes.models import Images
 
 class UploadImageForm(forms.ModelForm):
     image = forms.ImageField(required=True)
-    caption = forms.CharField(max_length=255, required=False)
+    # caption = forms.CharField(max_length=255, required=False)
 
     class Meta:
         model = Images
         exclude = ['slug', 'user', 'image_thumbnail', 'time']
-        fields = ['image', 'caption']
+        fields = ['image']
 
 
 class SetLogoForm(forms.ModelForm):

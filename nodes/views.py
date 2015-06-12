@@ -16,8 +16,6 @@ def post(request):
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
         node = Node.objects.create(post=post, user=user, w_type=type)
-        # id = node.save()
-        # new_nodes = Node.feed.filter(id=id)
         r_elements = ['feeds']
         r_html['feeds'] = render_to_string('nodes/one_node.html', {'node': node})
         response['html'] = r_html
@@ -144,6 +142,7 @@ def node(request, id):
     # if node:
     #     print(name)
     return render(request, 'nodes/one_node.html', {'node': node})
+
 
 def articles(request):
     atricles = Node.article.all()
