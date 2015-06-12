@@ -1,7 +1,19 @@
-{% for n in unread %}
-	<li>{{n|safe}}</li>
-{% endfor %}
-------------------------
-{% for m in read %}
-	<li>{{m|safe}}</li>
-{% endfor %}
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+	<div class="notifications">
+		<h5>{% if unread %}{{unread.count}}{% else %}No{% endif %} New notifications</h5>
+		<ul class="unread">
+			{% for n in unread %}
+				<li><span class="glyphicon glyphicon-exclamation-sign"></span> <span class="notify">{{n|safe}}</span></li>
+			{% endfor %}
+		</ul>
+		<ul class="read">
+			{% for m in read %}
+				<li><span class="glyphicon glyphicon-ok-sign"></span> <span class="notify">{{m|safe}}</span></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock body %}

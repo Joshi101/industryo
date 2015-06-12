@@ -1,7 +1,7 @@
 {% for a in result_list %}
-  {% if a.node_type == 'F' %}
+  {% if a.category == 'F' %}
 		{% include 'nodes/one_node.html' with node=a %}
-  {% elif a.node_type == 'A' %}
+  {% elif a.category == 'A' %}
 		{% include 'nodes/one_article.html' with node=a %}
   {% else %}
     {% include 'forum/one_question.html' with question=a %}

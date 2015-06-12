@@ -560,3 +560,35 @@ $('.detail').on({
             $this.text('Save').data('save','save').removeClass('form-ajax');
         }
     });
+
+
+$('.hover_ajax').on({
+    click: function(){
+        var $this = $(this);
+        var active = $this.data('active');
+        var list = $this.find('.hover_box');
+        if (active == 'yes') {
+            list.css({'display':'block'});
+        };
+        var url = $this.data('url');
+        console.log(url)
+        $.ajax({
+            url : url,
+            type : 'GET',
+
+            success: function(response){
+                console.log(response)
+                for(i=0; i < response.elements.length; i++){
+                    $this.find('.hover_box').html(response.html[response.elements[i]]);
+                    console.log($('.hover_box').html())
+                }
+            },
+
+            error : function(xhr,errmsg,err) {
+                $this.nextAll('.dropdown').find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                console.log(errmsg,err);
+            }
+        });
+        list.css({'display':'block'});
+    }
+})

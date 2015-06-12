@@ -5,7 +5,7 @@
 
 {% block left %}
 	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{ user.userprofile.get_profile_image}}"/>
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{user.userprofile.get_profile_image}}"/>
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
 	</div>
 	<div class="account">
@@ -76,16 +76,16 @@
 				</div>
 			</div>
     </div>
-    <div id="questions" class="tab-pane fade">
+    <div id="questions" class="tab-pane fade ajax_andar ajax_papa">
   		{% for question in questions %}
 				{% include 'forum/one_question.html' with node=node %}
-			{% endfor %}    
+			{% endfor %}  
     </div>
-    <div id="answers" class="tab-pane fade">
+    <div id="answers" class="tab-pane fade ajax_andar ajax_papa">
     </div>
-    <div id="articles" class="tab-pane fade">
+    <div id="articles" class="tab-pane fade ajax_andar ajax_papa">
     </div>
-    <div id="feeds" class="tab-pane fade">
+    <div id="feeds" class="tab-pane fade ajax_andar ajax_papa">
     	{% for node in feeds %}
 				{% include 'nodes/one_node.html' with node=node %}
 			{% endfor %}

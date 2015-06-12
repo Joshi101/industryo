@@ -73,14 +73,21 @@
         </ul>
         <ul class="nav navbar-nav navbar-right top_bar_info">
           {% if user.is_authenticated %}
-          <li>
+          <li id="notifications" class="hover_ajax" data-url="/notify" data-active='no'>
             <a><span class="glyphicon glyphicon-bell"></span></a>
+            <span class="badge">{{count}}</span>
+            <div class="dropdown">
+              <div class="dropdown-menu hover_box">
+              </div>
+            </div>
           </li>
           <li>
             <a><span class="glyphicon glyphicon-comment"></span></a>
           </li>
           <li>
+          {% if user.userprofile.primary_workplace %}
             <a id="ind_name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}"><span class="badge">{{user.userprofile.primary_workplace.points}}</span>{{user.userprofile.primary_workplace}}</a>
+          {% endif %}
           </li>
           <li>
             <a id="usr_name" href="{% url 'user:profile' user.username %}">{{user}} <span class="badge">{{user.userprofile.points}}</span></a>
