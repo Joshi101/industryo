@@ -52,7 +52,7 @@ class Workplace(models.Model):
 
     def set_materials(self, materials):
         t, created = Tags.objects.get_or_create(tag=materials, type='M')
-        self.tags = t
+        self.tags.add(t)
         return t
 
     def set_segments(self, materials):
@@ -90,6 +90,15 @@ class Workplace(models.Model):
         t, created = Tags.objects.get_or_create(tag=events, type='E')
         self.tags.add(t)
         return t
+
+    def set_logo(self, image, user):
+        i = Images()
+        a = i.upload_image(image=image, user=user)
+        self.logo = a
+
+    def get_city(self):
+        city = self.tags.filter(type='C')
+        return city
 
     def set_logo(self, image, user):
         i = Images()

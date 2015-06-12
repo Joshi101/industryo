@@ -18,7 +18,8 @@ urlpatterns = patterns('',
     url(r'^set/$', 'workplace.views.set_workplace', name='set'),
     url(r'^details/$', 'userprofile.views.set_details', name='details'),
 
-    url(r'^create_tag/$', 'tags.views.create_tag', name='search'),
+    url(r'^create_tag/$', 'tags.views.create_tag', name='create_tag'),
+    url(r'^searchtag/$', 'tags.views.search_tag', name='search_tag'),
     # url(r'^ask/$', 'forum.views.ask', name='ask'),
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
 
