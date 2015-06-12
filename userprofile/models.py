@@ -53,9 +53,14 @@ class UserProfile(models.Model):
         else:
             try:
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
+                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='google')
                 if len(fb_uid):
-                    return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
-                return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
+                    return "http://graph.facebook.com/{}/picture?width=120&height=120".format(fb_uid[0].uid)
+                # return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
+                elif google_uid:
+                    # return google_uid.extra_data.picture
+                    return google_uid.extra_data['picture']
+
             except Exception:
                 return default_image
 
