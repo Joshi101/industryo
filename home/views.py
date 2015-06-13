@@ -10,6 +10,7 @@ from allauth.account.forms import ResetPasswordForm, SetPasswordForm, SignupForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from operator import attrgetter
 from activities.models import Notification
+# import tasks
 
 
 def home(request):
@@ -23,7 +24,8 @@ def home(request):
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
             job_position = profile.job_position
             t = workplace.workplace_type
-
+            # tasks.create_node()
+            # tasks.get_score()
             related_node = Node.feed.filter(w_type=t) #.select_related('user__userprofile')
             # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
             # content1 = Node.objects.filter(user__workplace__workplace_type=t)

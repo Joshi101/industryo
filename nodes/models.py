@@ -7,7 +7,7 @@ from industryo.unique_slug import unique_slugify
 from activities.models import Activity
 from django.utils.timezone import now
 # from userprofile.models import UserProfile
-#from background_task import background
+# from background_task import background
 
 
 
@@ -168,7 +168,7 @@ class Node(models.Model):
         for comment in comments:
             return comment
 
-    #@background(schedule=60)
+    # @background(schedule=60)
     def get_score(self):
         p = self.likes+self.comments    # popularity
         t = (now()-self.date).total_seconds()/3600  # age_in_hrs
@@ -190,8 +190,14 @@ class Node(models.Model):
     #     self.logo = a
 
     def get_image(self):
-        print('123')
-        image_url = '/images/'+str(self.image.image_thumbnail)
-        return image_url
+        if self.image:
+
+            image_url = '/images/'+str(self.image.image_thumbnail)
+            return image_url
+#
+# @background(schedule=5)
+# def create_node():
+#     user = User.objects.get(id=4)
+#     Node.objects.create(post='ye time created node hai', user=user, category='F')
 
 # Create your models here.

@@ -90,6 +90,7 @@ class UserProfile(models.Model):
     def notify_liked(self, node):
         if self.user != node.user:
             self.points +=5
+            self.save()
             Notification(notification_type=Notification.LIKED,
                          from_user=self.user,
                          to_user=node.user,
@@ -98,6 +99,7 @@ class UserProfile(models.Model):
     def unotify_liked(self, node):
         if self.user != node.user:
             self.points -=5
+            self.save()
             Notification.objects.filter(notification_type=Notification.LIKED,
                                         from_user=self.user,
                                         to_user=node.user,
@@ -164,10 +166,10 @@ class UserProfile(models.Model):
         if self.user != question.user:
             self.points -=5
             self.save()
-            n = Notification.objects.get(notification_type=Notification.VotedUp,
-                                     from_user=self.user,
-                                     to_user=question.user,
-                                     question=question)
+            n = Notification.objects.filter(notification_type=Notification.VotedUp,
+                                            from_user=self.user,
+                                            to_user=question.user,
+                                            question=question)
             print('notificahion hai')
             n.delete()
             print("noti deleted")
@@ -176,37 +178,43 @@ class UserProfile(models.Model):
         if self.user != question.user:
             self.points +=5
             self.save()
-            Notification.objects.get(notification_type=Notification.VotedDown,
-                                     from_user=self.user,
-                                     to_user=question.user,
-                                     question=question).delete()
+            Notification.objects.filter(notification_type=Notification.VotedDown,
+                                        from_user=self.user,
+                                        to_user=question.user,
+                                        question=question).delete()
 
     def unotify_a_upvoted(self, answer):
         if self.user != answer.user:
             self.points -=5
             self.save()
-            Notification.objects.get(notification_type=Notification.VotedUp,
-                                     from_user=self.user,
-                                     to_user=answer.user,
-                                     answer=answer).delete()
+            Notification.objects.filter(notification_type=Notification.VotedUp,
+                                        from_user=self.user,
+                                        to_user=answer.user,
+                                        answer=answer).delete()
 
     def unotify_a_downvoted(self, answer):
         if self.user != answer.user:
-            self.points +=5
+            self.points += 5
             self.save()
-            Notification.objects.get(notification_type=Notification.VotedDown,
-                                     from_user=self.user,
-                                     to_user=answer.user,
-                                     question=answer).delete()
+            Notification.objects.filter(notification_type=Notification.VotedDown,
+                                        from_user=self.user,
+                                        to_user=answer.user,
+                                        question=answer).delete()
 
-    def notify_joined(self, enterprise, node):
-        users = User.objects.filter(enterprise=enterprise)
+    def notify_joined(self, workplace, node):
+        users = User.objects.filter(primary_workplace=workplace)
 
         for user in users:
             Notification(notification_type=Notification.ALSO_JOINED,
                          from_user=self.user,
                          to_user=user,
                          node=node).save()
+
+    # def notify_commented(self, *args):
+        
+
+
+
 
     # def notify_followed(self, user, node):
     #     Notification(notification_type=Notification.FOLLOWS,

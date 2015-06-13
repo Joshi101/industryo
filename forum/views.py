@@ -56,13 +56,15 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
-            # user.userprofile.unotify_q_upvoted(question)
+            user.userprofile.unotify_q_upvoted(question)
+            print('notification deleted')
             question.votes -=1
             question.save()
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
-            # user.userprofile.notify_q_upvoted(question)
+            user.userprofile.notify_q_upvoted(question)
+            print('notification created')
             question.votes +=1
             question.save()
         return HttpResponse()
