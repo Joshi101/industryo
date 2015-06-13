@@ -281,6 +281,55 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
     });
 });
 
+$(".ajax_andar").on('click','.form-ajax-filed',function(event){
+    event.preventDefault();
+    console.log('file wala');
+    var $this = $(this);
+    var $papa = $this.closest('.ajax_papa');
+    var $form = $this.closest('form');
+    var formData = new FormData($form[0]);
+    $.ajax({
+        url : $form.attr('action'),
+        type : $form.attr('method'),
+        data : formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        success: function(response){
+          $form.find('.form-control').val('');
+          if (response.fields){
+            for(i=0; i < response.fields.length; i++){
+                $papa.find('.'+response.fields[i]).text(response.data[response.fields[i]]);
+            }
+          }
+          if (response.inputs){
+            for(i=0; i < response.inputs.length; i++){
+                $papa.find('#'+response.inputs[i]).val(response.value[response.inputs[i]]);
+            }
+          }
+          if (response.elements){
+            if (response.prepend){
+                for(i=0; i < response.elements.length; i++){
+                    $papa.find('.'+response.elements[i]).prepend(response.html[response.elements[i]]);
+                }
+            console.log('yoho')
+            }
+            else{
+                for(i=0; i < response.elements.length; i++){
+                    $papa.find('.'+response.elements[i]).html(response.html[response.elements[i]]);
+                }
+            }
+          }
+        },
+
+        error : function(xhr,errmsg,err) {
+            $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+            console.log(errmsg,err);
+        }
+    });
+});
+
 //home page
 var load = true;
 var timer = true;
@@ -420,25 +469,25 @@ $('.fake_btn').click(function(){
 });
 $('.img_pre_in input').change(function(){
     var preview = $(this).closest('form').find('.img_pre img');
-  var file    = this.files[0];
-  var fd = new FormData($('#form_feed')[0]);
-  fd.append('file',file);
-  console.log(fd,$('#form_feed').serialize())
-  var reader  = new FileReader();
-  reader.onloadend = function () {
-    preview.attr('src', reader.result);
-  }
-  if (file) {
-    reader.readAsDataURL(file);
-    preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
-  } else {
-    preview.attr('src', "");
-  }
-  $(this).closest('form').find('textarea').trigger('focus');
+    var file    = this.files[0];
+    var fd = new FormData($('#form_feed')[0]);
+    fd.append('file',file);
+    console.log(fd,$('#form_feed').serialize())
+    var reader  = new FileReader();
+    reader.onloadend = function () {
+        preview.attr('src', reader.result);
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+        preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
+    } else {
+        preview.attr('src', "");
+    }
+$(this).closest('form').find('textarea').trigger('focus');
 });
 $('.img_pre').on('click','.close',function(){
-    var img_in = $(this).closest('form').find('.img_pre_in');
-    img_in.val('');
+    $(this).closest('form').find('.img_pre').addClass('hide')
+        .find('img').attr('src','');
     console.log($(this).closest('form').find('input'));
 });
 
@@ -580,7 +629,9 @@ $('.hover_ajax').on({
                 console.log(response)
                 for(i=0; i < response.elements.length; i++){
                     $this.find('.hover_box').html(response.html[response.elements[i]]);
-                    console.log($('.hover_box').html())
+                    $('.body').on('click',function(){
+                        list.css({'display':'none'})
+                    })
                 }
             },
 

@@ -17,8 +17,7 @@ def post(request):
         type = user.userprofile.primary_workplace.workplace_type
         node = Node.objects.create(post=post, user=user, w_type=type)
         try:
-            image = form.get_cleaned_data.get('image')
-
+            image = request.FILES.get('image')
             node.add_image(image, user)
         except Exception:
             pass

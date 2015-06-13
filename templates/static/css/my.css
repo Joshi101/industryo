@@ -155,7 +155,7 @@ pre{
 	margin-bottom: 0px;
 	height: 58px;
 	padding: 0px;
-	width: 72px;
+	width: auto;
 	margin: 3px 5px;
 }
 
@@ -166,7 +166,9 @@ pre{
 #form_feed .img_pre .alert .close{
 	position: relative;
 	top: -5px;
+	left: 3px;
 	font-size: 18px;
+	color: #900;
 }
 
 .show_pre{

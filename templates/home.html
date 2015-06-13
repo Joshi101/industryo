@@ -11,7 +11,7 @@
 				<div class="input-group">
 					<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Got something to discuss..?" required></textarea>
 					<span class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-	        	{{feed_img_form.image}}
+					<input id="id_image" type="file" name="image">
 	      	</span>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 				<div class="img_pre hide">
 					<div class="alert">
 						<a href="#" class="close">&times;</a>
-						<img width="56" height="56" src="" alt="">
+						<img height="56" src="" alt="">
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 	  		<span class='btn btn-default btn-file fake_btn' data-btn='#id_image'>
 	      	<span class="glyphicon glyphicon-camera"></span> Add Photo
 	    	</span>
-	  		<button class='btn btn-default pull-right form-ajax'>
+	  		<button class='btn btn-default pull-right form-ajax-filed'>
 	      	<span class="glyphicon glyphicon-bullhorn"></span> Post
 	    	</button>
 	  	</div>
