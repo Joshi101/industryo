@@ -3,109 +3,123 @@
 
 {% block title %} {{q.title}} {% endblock title %}
 
-{% block content %}
-	<div id="question" class="feed_box ajax_andar">
-		<div class="feed_box_heading">
-			<h5>
-				{% include "snippets/joint_name.html" with user=q.user %}
-				<small class='pull-right post_date'>{{ q.date }}</small>
-			</h5>
-		</div>
-		<div class="row ajax_papa">
-			<div class="col-sm-1 text-center vote_box ajax_papa">
-				{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
-			</div>
-			<div class="col-sm-11 ajax_papa">
-				<div class="feed_box_body">
-					<h4><pre class="q_title">{{ q.title }}</pre></h4>
-					{% if q.question %}
-					<pre class="q_detail">{{ q.question }}</pre>	
-					{% endif %}
+{% block body %}
+	<div class="container">
+		<div class="col-sm-9">
+			<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST">
+				<a id="answer" class="a_collapse btn btn-info btn-lg">Write Answer</a>
+				<div class="collapse">
+					{% include "snippets/richtext_toolbar.html" %}
+			    <div id="editor">
+			    </div>
+					<input type="hidden" name="answer" value="">
+					<input type="hidden" name="id" value="{{ q.id }}">
+					<input type="hidden" name="slug" value="{{ q.slug }}">
+					<button class="btn btn-primary btn-md">Answer</button>
+					<a class="form-ajax hide"></a>
+					{% csrf_token %}
 				</div>
-				<div class="feed_box_extra">
-					<div class="comments">
-					{% if comments %}
-			    	{% for c in comments %}
-							{% include "snippets/comment.html" with comment=c %}
-			    	{% endfor %}
-					{% endif %}
+			</form>
+			<div id="question" class="feed_box ajax_andar">
+				<div class="feed_box_heading">
+					<h5>
+						{% include "snippets/joint_name.html" with user=q.user %}
+						<small class='pull-right post_date'>{{ q.date }}</small>
+					</h5>
+				</div>
+				<div class="row ajax_papa">
+					<div class="col-sm-1 text-center vote_box ajax_papa">
+						{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 					</div>
-					<div class="interaction">
-		    		<a class="a_collapse">Comment</a>
-				    <div class="collapse row">
-							<form class="comment_form col-sm-12" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
-									<div class="input-group">
-										<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
-										<span class="input-group-btn">
-											<button class='btn btn-default form-ajax'>Comment</button>
-										</span>
-									</div>
-								<input type="hidden" name="id" value="{{ q.id }}">
-								<input type="hidden" name="slug" value="{{ q.slug }}">
-								{% csrf_token %}
-							</form>
+					<div class="col-sm-11 ajax_papa">
+						<div class="feed_box_body">
+							<h4><pre class="q_title">{{ q.title }}</pre></h4>
+							{% if q.question %}
+							<pre class="q_detail">{{ q.question }}</pre>	
+							{% endif %}
+						</div>
+						<div class="feed_box_extra">
+							<div class="comments">
+							{% if comments %}
+					    	{% for c in comments %}
+									{% include "snippets/comment.html" with comment=c %}
+					    	{% endfor %}
+							{% endif %}
+							</div>
+							<div class="interaction">
+				    		<a class="a_collapse">Comment</a>
+						    <div class="collapse row">
+									<form class="comment_form col-sm-12" role='form' action="{% url 'forum:ques_comment' %}" method="POST">
+											<div class="input-group">
+												<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
+												<span class="input-group-btn">
+													<button class='btn btn-default form-ajax'>Comment</button>
+												</span>
+											</div>
+										<input type="hidden" name="id" value="{{ q.id }}">
+										<input type="hidden" name="slug" value="{{ q.slug }}">
+										{% csrf_token %}
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST">
-		<a class="a_collapse">Write Answer</a>
-		<div class="collapse">
-			{% include "snippets/richtext_toolbar.html" %}
-	    <div id="editor">
-	      Go ahead&hellip;
-	    </div>
-			<input type="hidden" name="answer" value="">
-			<input type="hidden" name="id" value="{{ q.id }}">
-			<input type="hidden" name="slug" value="{{ q.slug }}">
-			<button class="btn btn-primary">Answer</button>
-			<a class="form-ajax hide"></a>
-			{% csrf_token %}
-		</div>
-	</form>
-	{% for a in answers %}
-	<div class="feed_box answer ajax_andar">
-		<div class="feed_box_heading">
-				{% include "snippets/joint_name.html" with user=a.user %}
-				<small class='pull-right post_date'>{{ a.date }}</small>
-		</div>
-		<div class="row ajax_papa">
-			<div class="col-sm-1 text-center vote_box ajax_papa">
-				{% include "snippets/vote_box.html" with q_or_a='a' q=a %}
-			</div>
-			<div class="col-sm-11 ajax_papa">
-				<div class="feed_box_body">
-					<pre class="a_detail">{{ a.answer|safe }}</pre>
+			{% for a in answers %}
+			<div class="feed_box answer ajax_andar">
+				<div class="feed_box_heading">
+						{% include "snippets/joint_name.html" with user=a.user %}
+						<small class='pull-right post_date'>{{ a.date }}</small>
 				</div>
-				<div class="feed_box_extra">
-					<div class="comments">
-					{% if a.get_comments %}
-			    	{% for c in a.get_comments %}
-							{% include "snippets/comment.html" with comment=c %}
-			    	{% endfor %}
-					{% endif %}
+				<div class="row ajax_papa">
+					<div class="col-sm-1 text-center vote_box ajax_papa">
+						{% include "snippets/vote_box.html" with q_or_a='a' q=a %}
 					</div>
-					<div class="interaction">
-		    		<a class="a_collapse">Comment</a>
-				    <div class="collapse row">
-							<form class="comment_form col-sm-12" role='form' action="{% url 'forum:ans_comment' %}" method="POST">
-									<div class="input-group">
-										<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
-										<span class="input-group-btn">
-											<button class='btn btn-default form-ajax'>Comment</button>
-										</span>
-									</div>
-								<input type="hidden" name="id" value="{{ a.id }}">
-								<input type="hidden" name="slug" value="{{ q.slug }}">
-								{% csrf_token %}
-							</form>
+					<div class="col-sm-11 ajax_papa">
+						<div class="feed_box_body">
+							<pre class="a_detail">{{ a.answer|safe }}</pre>
+						</div>
+						<div class="feed_box_extra">
+							<div class="comments">
+							{% if a.get_comments %}
+					    	{% for c in a.get_comments %}
+									{% include "snippets/comment.html" with comment=c %}
+					    	{% endfor %}
+							{% endif %}
+							</div>
+							<div class="interaction">
+				    		<a class="a_collapse">Comment</a>
+						    <div class="collapse row">
+									<form class="comment_form col-sm-12" role='form' action="{% url 'forum:ans_comment' %}" method="POST">
+											<div class="input-group">
+												<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
+												<span class="input-group-btn">
+													<button class='btn btn-default form-ajax'>Comment</button>
+												</span>
+											</div>
+										<input type="hidden" name="id" value="{{ a.id }}">
+										<input type="hidden" name="slug" value="{{ q.slug }}">
+										{% csrf_token %}
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			{% endfor %}
 		</div>
 	</div>
-	{% endfor %}
-{% endblock content %}
+	<script type="text/javascript">
+		var cur_url = location.href;
+		console.log(cur_url)
+		if (cur_url.indexOf('?') >= 0){
+			var ans = cur_url.split("=");
+			console.log(ans)
+			if (ans[1] == 'true'){
+				$('#answer').trigger('click');
+			}
+		}
+	</script>
+{% endblock body %}

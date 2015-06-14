@@ -4,8 +4,14 @@
 
 {% block body %}
 <div id="cover" class="container-fluid row">
+	<style type="text/css">
+		#back{
+			background-color: rgba(55,55,55,0.1);
+		}
+	</style>
+	<div class="cover_back"></div>
 	<div class="col-sm-5">
-		<div id="login" class="text-left">
+		<div id="login" class="text-center">
 			<h3>Sign In</h3>
 	    {% if socialaccount.providers %}
 	    <div class="socialaccount_ballot">
@@ -15,7 +21,7 @@
 	    </div>
 	    {% include "socialaccount/snippets/login_extra.html" %}
 	    {% endif %}
-			<h4>IndustryO account</h4>
+			<h4>CoreLogs account</h4>
 			<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
 	      {% csrf_token %}
 	      {{ form_login|bootstrap_horizontal }}
@@ -34,7 +40,6 @@
     </div>
 	</div>
 	<div class="col-sm-2 text-center">
-		<h2>-or-</h2>
 	</div>
 	<div class="col-sm-5">
 		<div id="signup" class="text-right pull-right">
@@ -58,5 +63,6 @@
 	$('.form-group').addClass('form-group-sm');
 	$('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
 	$('#signup').find('input').parent().removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-11 sol-lg-11');
+	$('#login').find('.form-group').children('div').removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-10 sol-lg-10');
 </script>
 {% endblock body %}

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from tags.models import Tags
 from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFill, ResizeToCover, SmartResize
 from industryo.unique_slug import unique_slugify
 from activities.models import Activity
 from django.utils.timezone import now
@@ -13,11 +13,11 @@ from django.utils.timezone import now
 
 class Images(models.Model):
     image = ProcessedImageField(upload_to='main',
-                                          processors=[ResizeToFill(400, 400)],
+                                          processors=[ResizeToCover(400, 400)],
                                           format='JPEG',
                                           options={'quality': 100})
     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-                                          processors=[ResizeToFill(110, 110)],
+                                          processors=[SmartResize(110, 110)],
                                           format='JPEG',
                                           options={'quality': 100})
     # caption = models.CharField(max_length=255)
@@ -168,7 +168,13 @@ class Node(models.Model):
         for comment in comments:
             return comment
 
-    # @background(schedule=60)
+    def get_image(self):
+        if self.image:
+            image_url = '/images/' + str(self.image.image)
+            return image_url
+        else:
+            return '/images/main/user.jpg'
+
     def get_score(self):
         p = self.likes+self.comments    # popularity
         t = (now()-self.date).total_seconds()/3600  # age_in_hrs
@@ -183,21 +189,11 @@ class Node(models.Model):
         a = i.upload_image(image=image, user=user)
         self.image = a
 
-
-    # def set_logo(self, image, user):
-    #     i = Images()
-    #     a = i.upload_image(image=image, user=user)
-    #     self.logo = a
-
-    def get_image(self):
-        if self.image:
-
-            image_url = '/images/'+str(self.image.image_thumbnail)
-            return image_url
+    # def get_image(self):
+    #     if self.image:
+    #
+    #         image_url = '/images/'+str(self.image.image_thumbnail)
+    #         return image_url
 #
-# @background(schedule=5)
-# def create_node():
-#     user = User.objects.get(id=4)
-#     Node.objects.create(post='ye time created node hai', user=user, category='F')
 
 # Create your models here.

@@ -3,39 +3,39 @@
 		{% include "snippets/joint_name.html" with user=node.user %}
 		<small class='pull-right'>{{ node.date }}</small>
 	</div>
-	<div class="row ajax_papa">
-		<div class="col-sm-1 text-center vote_box ajax_papa">
+	<div class="ajax_papa">
+		<div class="text-center vote_box ajax_papa">
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
-		<div class="col-sm-11">
-			<div class="feed_box_body">
-			  {% if node.image %}
-				<figure>
-					<img src="{{node.get_image}}">
-				</figure>
-			  {% endif %}
-				<pre>{{ node.post }}</pre>
+
+		<div class="feed_box_body">
+			<pre>{{ node.post }}</pre>
+		{% if node.image %}
+			<figure>
+				<img src="{{node.get_image}}">
+			</figure>
+		{% endif %}
+		</div>
+		<div class="feed_box_extra">
+			<div class="comments">
+			{% if node.get_last_comment %}
+				{% include "snippets/comment.html" with comment=node.get_last_comment %}
+			{% endif %}
+
 			</div>
-			<div class="feed_box_extra">
-				<div class="comments">
-				{% if node.get_last_comment %}
-					{% include "snippets/comment.html" with comment=node.get_last_comment %}
-				{% endif %}
-				</div>
-				<div class="interaction">
-					<a class="a_collapse">Comment</a>
-			    <div class="collapse row">
-						<form class="comment_form col-sm-12" role='form' action="{% url 'nodes:comment' %}" method="POST">
-							<div class="input-group">
-								<textarea rows="1" class="form-control" name="post" placeholder="comment..." required></textarea>
-								<span class="input-group-btn">
-									<button class='btn btn-default form-ajax'>Comment</button>
-								</span>
-							</div>
-							<input type="hidden" name="node" value="{{ node.pk }}">
-							{% csrf_token %}
-						</form>
-					</div>
+			<div class="interaction">
+				<a class="a_collapse text-muted">Write Comment</a>
+		    <div class="collapse row">
+					<form class="comment_form col-sm-12" role='form' action="{% url 'nodes:comment' %}" method="POST">
+						<div class="input-group">
+							<textarea rows="1" class="form-control" name="post" placeholder="comment..." required></textarea>
+							<span class="input-group-btn">
+								<button class='btn btn-default form-ajax'>Comment</button>
+							</span>
+						</div>
+						<input type="hidden" name="node" value="{{ node.pk }}">
+						{% csrf_token %}
+					</form>
 				</div>
 			</div>
 		</div>
