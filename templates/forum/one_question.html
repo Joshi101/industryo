@@ -17,7 +17,7 @@
 		</div>
 		<div class="feed_box_extra">
 			<div class="interaction">
-				<a href="{% url 'forum:question' question.slug %}">151 Answers</a>
+				<a href="{% url 'forum:question' question.slug %}">{{question.get_answer_count}} Answer</a>
 				<a class="btn btn-default btn-xs pull-right" href="{% url 'forum:question' question.slug %}?answer=true">Write Answer</a>
 			</div>
 		</div>

@@ -82,6 +82,13 @@ class Question(models.Model):
         self.save()
         return votes
 
+    def get_answer_count(self):
+        c = Answer.objects.filter(question=self).count()
+        return c
+
+    def get_comment_count(self):
+        c = Comments.objects.filter(question=self.pk)
+        return c
 
     def get_summary(self, value):
         summary_size = 50
@@ -96,7 +103,6 @@ class Question(models.Model):
             for a in answer:
                 ans = a.answer
                 return ans
-
         else:
             return "no answers till now"
         # ans = answer.answer
@@ -142,6 +148,10 @@ class Answer(models.Model):
     def get_comments(self):
         a_comments = Comments.objects.filter(answer=self.pk)
         return a_comments
+
+    def get_comment_count(self):
+        c = Comments.objects.filter(answer=self.pk)
+        return c
 
 
 

@@ -29,10 +29,10 @@ def home(request):
             # content1 = Node.objects.filter(user__workplace__workplace_type=t)
             # content2 = Question.objects.filter(tags=user.userprofile.interests)
             content3 = Question.objects.all()            # filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
-            content4 = Question.objects.filter(answer__question__user__userprofile__primary_workplace__workplace_type=t) #.select_related('user__userprofile')
+            # content4 = Question.objects.filter(answer__question__user__userprofile__primary_workplace__workplace_type=t) #.select_related('user__userprofile')
             # content5 = Answer.objects.filter(question__)
             all_result_list = sorted(
-                chain(related_node, content3, content4),
+                chain(related_node, content3),
                 key=attrgetter('date'), reverse=True)
                 # key=lambda instance: ('-instance.date'))
             paginator = Paginator(all_result_list, 5)

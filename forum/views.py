@@ -7,6 +7,7 @@ import json
 from nodes.models import Comments
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -191,8 +192,22 @@ def question_tagged(request):
 @login_required
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
-
-    return render(request, 'forum/questions.html', locals())
+    paginator = Paginator(questions, 5)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+            # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+    else:
+        return render(request, 'home.html', {'result_list': result_list})
+    # return render(request, 'forum/questions.html', locals())
 
 
 def w_questions(request):           # for team
