@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from workplace.models import Area
 from workplace.models import Workplace
 from django.db.models.signals import post_save
 from allauth.socialaccount.models import SocialAccount
@@ -46,23 +45,27 @@ class UserProfile(models.Model):
     #     return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
     def get_profile_image(self):
-        default_image = '/images/thumbnails/user.jpg'
+        default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:
             image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
             try:
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
-                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='google')
+                # google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
                 if len(fb_uid):
                     return "http://graph.facebook.com/{}/picture?width=120&height=120".format(fb_uid[0].uid)
-                # return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
-                elif google_uid:
-                    # return google_uid.extra_data.picture
-                    return google_uid.extra_data['picture']
+                return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
             except Exception:
+                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
+                if google_uid:
+                    #return google_uid.extra_data.picture
+                    return google_uid.extra_data['picture']
+
+            except:
                 return default_image
+
 
     def set_interests(self, interests):
         interests_tags = interests.split(',')

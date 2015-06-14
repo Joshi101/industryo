@@ -6,8 +6,10 @@ from activities.models import *
 import json
 from nodes.models import Comments
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def ask(request):
     form = AskForm(request.POST)
     if request.method == 'POST':
@@ -34,7 +36,7 @@ def get_question(request, slug):
     answers = Answer.objects.filter(question=q.id)
     return render(request, 'forum/quest.html', locals())
 
-
+@login_required
 def ques_comment(request):
     if request.method == 'POST':
         user = request.user
@@ -46,7 +48,7 @@ def ques_comment(request):
         comment.save()
         return HttpResponseRedirect('/forum/'+slug)
 
-
+@login_required
 def voteup(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
@@ -86,7 +88,7 @@ def voteup(request):
             answer.save()
         return HttpResponse()
 
-
+@login_required
 def votedown(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
@@ -124,7 +126,7 @@ def votedown(request):
             answer.save()
         return HttpResponse()
 
-
+@login_required
 def reply(request):
     if request.method == 'POST':
         answer = request.POST['answer']
@@ -139,7 +141,7 @@ def reply(request):
     else:
         print('problem hai')
 
-
+@login_required
 def ans_comment(request):
     if request.method == 'POST':
         comment = request.POST['comment']
@@ -186,7 +188,7 @@ def question_tagged(request):
     else:
         return render(request, 'forum/questions.html')
 
-
+@login_required
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
 
