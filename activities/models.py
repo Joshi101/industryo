@@ -54,9 +54,9 @@ class Notification(models.Model):
         (ANSWERED, 'Answered'),
         (JOINED, 'Joined'),
     )
-    _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/feeds/{2}/">{3}</a>'
-    _COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/feeds/{2}/">{3}</a>'
-    _ALSO_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the post: <a href="/feeds/{2}/">{3}</a>'
+    _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/nodes/{2}/">{3}</a>'
+    _COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/nodes/{2}/">{3}</a>'
+    _ALSO_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the post: <a href="/nodes/{2}/">{3}</a>'
     _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise'
     _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace'
     _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile'
@@ -130,14 +130,14 @@ class Notification(models.Model):
                 return self._VotedUpQ_TEMPLATE.format(
                     escape(self.from_user.username),
                     escape(self.from_user.first_name),
-                    self.question.pk,
+                    self.question.slug,
                     escape(self.get_summary(self.question.title))
                     )
             else:
                 return self._VotedUpA_TEMPLATE.format(
                     escape(self.from_user.username),
                     escape(self.from_user.first_name),
-                    self.answer.question.pk,
+                    self.answer.question.slug,
                     escape(self.get_summary(self.answer))
                     )
 
@@ -146,21 +146,21 @@ class Notification(models.Model):
                 return self._VotedDownQ_TEMPLATE.format(
                     escape(self.from_user.username),
                     escape(self.from_user.first_name),
-                    self.question.pk,
+                    self.question.slug,
                     escape(self.get_summary(self.question.title))
                     )
             else:
                 return self._VotedDownA_TEMPLATE.format(
                     escape(self.from_user.username),
                     escape(self.from_user.first_name),
-                    self.answer.question.pk,
+                    self.answer.question.slug,
                     escape(self.get_summary(self.answer))
                     )
         elif self.notification_type == 'A':
             return self._ANSWERED_TEMPLATE.format(
                 escape(self.from_user.username),
                 escape(self.from_user.get_full_name()),
-                self.question.pk,
+                self.question.slug,
                 escape(self.get_summary(self.question.title))
                 )
 

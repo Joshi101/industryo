@@ -1,4 +1,4 @@
-a:focus{
+a:focus, .btn:focus{
 	outline: 0;
 }
 
@@ -77,6 +77,16 @@ pre{
 
 /* cover.html */
 
+#cover .cover_back{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -5;
+	background: url(cl_blur.png) no-repeat;
+	background-size: contain;
+	background-position: center center;
+}
+
 #cover .form-group-sm{
 	margin-bottom: 15px;
 }
@@ -85,8 +95,12 @@ pre{
 	list-style: none;
 }
 
+#cover form{
+	margin: 0px;
+}
+
 #cover .socialaccount_providers.list-group{
-	margin-bottom: 0px;
+	margin-bottom: 51px;
 }
 
 #cover .form-group-sm .form-control {
@@ -97,15 +111,37 @@ pre{
 }
 
 #signup{
+	margin-top: 50px;
+	background-color: #fff;
+	box-shadow: 0px 0px 4px #179;
+	padding: 15px;
 	margin-right: 7%;
 	min-width: 300px;
 	max-width: 350px;
 }
 
+#signup h3{
+	margin-top: 0px;
+	margin-bottom: 25px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+}
+
 #login{
+	background-color: #fff;
+	box-shadow: 0px 0px 4px #197;
+	padding: 15px;
 	max-width: 350px;
 	margin-left: 10%;
 }
+
+#login h3{
+	margin-top: 0px;
+	margin-bottom: 25px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+}
+
 
 #cover .form-group label{
 	display: none;
@@ -133,7 +169,6 @@ pre{
 /* home.html */
 
 .thumb_small{
-	border: 1px solid #ccc;
 }
 
 #form_feed{
@@ -188,6 +223,15 @@ pre{
 	width: 100%;
 }
 
+#form_feed .input-group-addon{
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+#form_feed .input-group-addon:first-of-type{
+	padding: 0px;
+}
+
 .input-group .seamless_l{
 	border-right: 0px;
 	box-shadow: 1px 0px 1px rgba(0,0,0,0.075) inset;
@@ -236,7 +280,6 @@ pre{
 
 .feed .feed_box_body{
 	margin-top: 5px;
-	margin-bottom: 5px;
 }
 
 .feed_box{
@@ -258,6 +301,26 @@ pre{
 .feed_box_body{
 	font-size: 12px;
 	padding: 0px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+.feed_box_extra{
+	margin-left: 40px;
+}
+
+.feed_box_body figure{
+	margin-top: 10px;
+	padding: 0px 15px;
+}
+
+.feed_box_body img{
+	width: 70%;
+	margin: auto;
+	max-height: 500px;
+	display: block;
+	border: 1px solid rgba(55,55,55,0.3);
+	box-shadow: 0px 0px 5px rgba(55,55,55,0.3);
 }
 
 .feed_box_body h5{
@@ -269,7 +332,7 @@ pre{
 }
 
 .feed_box_body > pre{
-	padding: 4px 10px;
+	padding: 5px 10px;
 	margin-bottom: 0px;
 	word-wrap: break-word;
 }
@@ -279,7 +342,8 @@ pre{
 }
 
 .vote_box{
-	padding: 5px 0px;
+	padding: 5px 10px;
+	float: left;
 }
 
 .vote_box span{
@@ -319,13 +383,14 @@ pre.q_detail{
 
 pre.a_detail{
 	padding: 7px;
-	max-height: 62px;
+	/*max-height: 262px;*/
 	overflow: hidden;
 }
 
 .interaction{
-	padding: 0px 10px;
-	margin: 7px auto;
+	padding: 5px 10px;
+	margin: 1px auto;
+	background: rgba(222,222,222,0.25);
 }
 
 .interaction .collapse{

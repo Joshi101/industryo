@@ -257,6 +257,12 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
           if (response.inputs){
             for(i=0; i < response.inputs.length; i++){
                 $papa.find('#'+response.inputs[i]).val(response.value[response.inputs[i]]);
+                var cl = $papa.find('#'+response.inputs[i]).attr('class');
+                if(cl.indexOf('d_input') >= 0){
+                    console.log('OKAY')
+                    $papa.find('#'+response.inputs[i]).before('<div class="alert"><a href="#" class="close">&times;</a><strong>'+response.value[response.inputs[i]]+'</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
+
+                }
             }
           }
           if (response.elements){
@@ -321,6 +327,7 @@ $(".ajax_andar").on('click','.form-ajax-filed',function(event){
                 }
             }
           }
+          $form.find('.close').trigger('click');
         },
 
         error : function(xhr,errmsg,err) {
@@ -618,7 +625,9 @@ $('.hover_ajax').on({
         var list = $this.find('.hover_box');
         if (active == 'yes') {
             list.css({'display':'block'});
+            return;
         };
+        $this.data('active','yes');
         var url = $this.data('url');
         console.log(url)
         $.ajax({
@@ -630,7 +639,9 @@ $('.hover_ajax').on({
                 for(i=0; i < response.elements.length; i++){
                     $this.find('.hover_box').html(response.html[response.elements[i]]);
                     $('.body').on('click',function(){
-                        list.css({'display':'none'})
+                        list.css({'display':'none'});
+                        $this.data('active','no');
+                        count_notifications();
                     })
                 }
             },
@@ -643,3 +654,23 @@ $('.hover_ajax').on({
         list.css({'display':'block'});
     }
 })
+
+$(document).ready(function(){
+    //fetches notifications
+    count_notifications();
+});
+
+function count_notifications(){
+    $.ajax({
+        url:count_url,
+        type: 'GET',
+
+        success: function(response){
+            if(response.count)
+                $('#notifications .badge').text(response.count);
+        },
+        error : function(xhr,errmsg,err) {
+            console.log(errmsg,err);
+        }
+    });
+}

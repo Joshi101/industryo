@@ -22,11 +22,11 @@
 	    <div id="create_workplace" class="panel-collapse collapse">
 	      <div class="panel-body">
 	      	<form action="{% url 'register' %}" method="POST" role="form">
-					{% csrf_token %}
-					{{ form_create_workplace|bootstrap }}
-					<button type="submit" class="btn btn-primary form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
-					<button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
-				</form>
+						{% csrf_token %}
+						{{ form_create_workplace|bootstrap }}
+						<button type="submit" class="btn btn-primary form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
+						<button type="button" class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
+					</form>
 	      </div>
 	    </div>
 	  </div>

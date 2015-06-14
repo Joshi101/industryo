@@ -15,6 +15,17 @@ def notifications(request):
         notification.save()
     return render(request, 'activities/notifications.html', {'read': read, 'unread': unread})
 
+def count_notify(request):
+    if request.method == 'GET':
+        response = {}
+        user = request.user
+        print('yoyo')
+        unread_all = Notification.objects.filter(to_user=user, is_read=False)
+        c = unread_all.count()
+        response['count'] = c
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
+
 def notify(request):
     if request.method == 'GET':
         response = {}

@@ -2,40 +2,30 @@
 
 {% block content %}
 <div id="home" class="ajax_papa">
-	<form id="form_feed" class="form-horizontal ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
-		<div class="form-group">
-			<div class="col-sm-1">
-				<img id="img_feed" class="thumb_small" width="34" height="34" src="{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}/images/thumbnails/user_man.jpg{% endif %}">
-			</div>
-			<div class="col-sm-11">
-				<div class="input-group">
-					<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Got something to discuss..?" required></textarea>
-					<span class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-					<input id="id_image" type="file" name="image">
-	      	</span>
-				</div>
+	<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
+		<div class="input-group">
+			<span class="input-group-addon">
+				<img id="img_feed" class="thumb_small" width="32" height="32" src="{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}/images/thumbnails/user_man.jpg{% endif %}">
+			</span>
+			<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Got something to discuss..?" required></textarea>
+			<span class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+			<input id="id_image" type="file" name="image">
+    	</span>
+		</div>
+		<div class="img_pre hide">
+			<div class="alert">
+				<a href="#" class="close">&times;</a>
+				<img height="56" src="" alt="">
 			</div>
 		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-1 col-sm-11">
-				<div class="img_pre hide">
-					<div class="alert">
-						<a href="#" class="close">&times;</a>
-						<img height="56" src="" alt="">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-	  	<div class="textarea_bottom col-sm-offset-1 col-sm-11 hide">
-	  		<span class='btn btn-default btn-file fake_btn' data-btn='#id_image'>
-	      	<span class="glyphicon glyphicon-camera"></span> Add Photo
-	    	</span>
-	  		<button class='btn btn-default pull-right form-ajax-filed'>
-	      	<span class="glyphicon glyphicon-bullhorn"></span> Post
-	    	</button>
-	  	</div>
-	  </div>
+  	<div class="textarea_bottom hide">
+  		<span class='btn btn-default btn-file fake_btn' data-btn='#id_image'>
+      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+    	</span>
+  		<button class='btn btn-default pull-right form-ajax-filed'>
+      	<span class="glyphicon glyphicon-bullhorn"></span> Post
+    	</button>
+  	</div>
 		{% csrf_token %}
 	</form>
 	<div class="ajax_andar feeds">

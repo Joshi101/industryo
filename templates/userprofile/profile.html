@@ -6,7 +6,9 @@
 {% block left %}
 	<div id="img_profile_box">
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{user.userprofile.get_profile_image}}"/>
+		{% if user == request.user %}
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
+		{% endif %}
 	</div>
 	<div class="account">
 		<h4 class="acc_detail">{{ name }}</h4>

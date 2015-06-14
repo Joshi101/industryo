@@ -42,11 +42,10 @@ def workplace_register(request):
 
 
 def set_workplace(request):
-    form = SetWorkplaceForm(request.POST)
-    form_2 = WorkplaceForm(request.POST)
     if request.method == 'POST':
+        form = SetWorkplaceForm(request.POST)
         if not form.is_valid():
-            return render(request, 'userprofile/set.html', {'form_set_workplace': form,'form_create_workplace':form_2})
+            return render(request, 'userprofile/set.html', {'form_set_workplace': form,'form_create_workplace':WorkplaceForm()})
         else:
             user = request.user
             workplace = form.cleaned_data.get('workplace')

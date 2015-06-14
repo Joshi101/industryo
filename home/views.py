@@ -16,8 +16,6 @@ def home(request):
     if request.user.is_authenticated():
         user = request.user
         if request.user.userprofile.primary_workplace:
-            unread_all = Notification.objects.filter(to_user=user, is_read=False)
-            c = unread_all.count()
             # name = user.username
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
             workplace = profile.primary_workplace       # .select_related('workplaceprofile')
@@ -50,7 +48,7 @@ def home(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'feed_img_form':UploadImageForm(), 'count':c})
+                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'feed_img_form':UploadImageForm()})
         else:
             return redirect('/set/')
     else:
