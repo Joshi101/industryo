@@ -76,4 +76,13 @@ def get_all_tags(request):
     # return render(request, 'tags/list1.html', locals())
 
 
+def search_n_tags(request):
+    tag = request.GET['tag']
+    type = request.GET['type']
+    o = Tags.objects.filter(type=type, tag__icontains=tag)
+    create = request.GET['the_create']
+
+    return render(request, 'tags/list.html', {'o': o, 'create': create})
+
+
 # Create your views here.

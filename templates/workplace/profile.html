@@ -32,6 +32,10 @@
   	</div>
   	<div id="about" class="tab-pane fade">
   		{% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
+		{% for member in members %}
+			{{member}}
+			{{member.get_profile_image}}
+		{% endfor %}
   	</div>
     <div id="capabilities" class="tab-pane fade"></div>
     <div id="members" class="tab-pane fade">
