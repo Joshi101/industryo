@@ -7,7 +7,7 @@ from industryo.unique_slug import unique_slugify
 from activities.models import Activity
 from django.utils.timezone import now
 # from userprofile.models import UserProfile
-#from background_task import background
+# from background_task import background
 
 
 
@@ -26,7 +26,7 @@ class Images(models.Model):
     user = models.ForeignKey(User)
 
     def __str__(self):
-        return self.caption
+        return str(self.pk)
     #
     # def save(self, *args, **kwargs):
     #     if not self.id:                  # Newly created object, so set slug
@@ -170,12 +170,11 @@ class Node(models.Model):
 
     def get_image(self):
         if self.image:
+            # print(str(self.image))
             image_url = '/images/' + str(self.image.image)
             return image_url
-        else:
-            return '/images/main/user.jpg'
 
-    #@background(schedule=60)
+
     def get_score(self):
         p = self.likes+self.comments    # popularity
         t = (now()-self.date).total_seconds()/3600  # age_in_hrs
@@ -189,5 +188,12 @@ class Node(models.Model):
         i = Images()
         a = i.upload_image(image=image, user=user)
         self.image = a
+
+    # def get_image(self):
+    #     if self.image:
+    #
+    #         image_url = '/images/'+str(self.image.image_thumbnail)
+    #         return image_url
+#
 
 # Create your models here.

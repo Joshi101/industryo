@@ -7,9 +7,10 @@
 		<div class="text-center vote_box ajax_papa">
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
+
 		<div class="feed_box_body">
 			<pre>{{ node.post }}</pre>
-		{% if node.image %}
+		{% if node.get_image %}
 			<figure>
 				<img src="{{node.get_image}}">
 			</figure>
@@ -20,6 +21,7 @@
 			{% if node.get_last_comment %}
 				{% include "snippets/comment.html" with comment=node.get_last_comment %}
 			{% endif %}
+
 			</div>
 			<div class="interaction">
 				<a class="a_collapse text-muted">Write Comment</a>

@@ -82,6 +82,13 @@ class Question(models.Model):
         self.save()
         return votes
 
+    def get_answer_count(self):
+        c = Answer.objects.filter(question=self).count()
+        return c
+
+    def get_comment_count(self):
+        c = Comments.objects.filter(question=self.pk)
+        return c
 
     def get_summary(self, value):
         summary_size = 50
@@ -96,7 +103,6 @@ class Question(models.Model):
             for a in answer:
                 ans = a.answer
                 return ans
-
         else:
             return "no answers till now"
         # ans = answer.answer
@@ -143,7 +149,23 @@ class Answer(models.Model):
         a_comments = Comments.objects.filter(answer=self.pk)
         return a_comments
 
+    def get_comment_count(self):
+        c = Comments.objects.filter(answer=self.pk)
+        return c
 
+    def get_a_upvoters(self):
+        upvotes = Activity.objects.filter(answer=self.pk, activity='U')
+        list = []
+        for upvote in upvotes:
+            list.append(upvote.user)
+        return list
+
+    def get_a_downvoters(self):
+        downvotes = Activity.objects.filter(answer=self.pk, activity='D')
+        list = []
+        for downvote in downvotes:
+            list.append(downvote.user)
+        return list
 
 
 

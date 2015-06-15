@@ -4,8 +4,9 @@ from nodes.forms import *
 from nodes.models import *
 from activities.models import Activity, Notification
 import json
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def post(request):
     form = UploadImageForm(request.POST, request.FILES)
     if request.method == 'POST':
@@ -16,11 +17,10 @@ def post(request):
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
         node = Node.objects.create(post=post, user=user, w_type=type)
-        try:
-            image = request.FILES.get('image')
+        image = request.FILES.get('image', None)
+        if image:
             node.add_image(image, user)
-        except Exception:
-            pass
+
         r_elements = ['feeds']
         r_html['feeds'] = render_to_string('nodes/one_node.html', {'node': node})
         response['html'] = r_html
@@ -30,7 +30,7 @@ def post(request):
     else:
         return redirect('/')
 
-
+@login_required
 def write(request):                 ## Write an article
     if request.method == 'POST':
         post = request.POST['post']
@@ -46,7 +46,7 @@ def write(request):                 ## Write an article
     else:
         return render(request, 'nodes/write.html', locals())
 
-
+@login_required
 def upload_image(request):
     form = UploadImageForm(request.POST, request.FILES)
     if request.method == 'POST':
@@ -62,7 +62,7 @@ def upload_image(request):
     else:
         return render(request, 'nodes/upload.html', {'form': form})
 
-
+@login_required
 def set_logo(request):
     form = SetLogoForm(request.POST, request.FILES)
     user = request.user
@@ -80,7 +80,7 @@ def set_logo(request):
     else:
         return render(request, 'nodes/upload.html', {'form': form})
 
-
+@login_required
 def set_profile_image(request):
     form = SetProfileImageForm(request.POST, request.FILES)
     if request.method == 'POST':
@@ -99,25 +99,29 @@ def set_profile_image(request):
         print("fuck3")
         return redirect('/')
 
-
+@login_required
 def like(request):
     if 'id' in request.GET:
         q = request.GET['id']
         node = Node.objects.get(id=q)
         user = request.user
+        print('11110')
         try:
             lik = Activity.objects.get(user=user, node=node, activity='L')
             lik.delete()
             user.userprofile.unotify_liked(node)
+            print('11111')
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
+            print('11119')
             user.userprofile.notify_liked(node)
+            print('11112')
         return HttpResponse()
     else:
         return redirect('/')
 
-
+@login_required
 def comment(request):
     if request.method == 'POST':
         response = {}
@@ -129,6 +133,7 @@ def comment(request):
         post = request.POST['post']
         c = Comments(user=user, node=node, comment=post)
         c.save()
+        user.userprofile.notify_n_commented(node)
         r_elements = ['comments']
         print(c.user)
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from workplace.models import Area
 from workplace.models import Workplace
 from django.db.models.signals import post_save
 from allauth.socialaccount.models import SocialAccount
@@ -46,23 +45,27 @@ class UserProfile(models.Model):
     #     return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
     def get_profile_image(self):
-        default_image = '/images/thumbnails/user.jpg'
+        default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:
             image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
             try:
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
-                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='google')
+                # google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
                 if len(fb_uid):
                     return "http://graph.facebook.com/{}/picture?width=120&height=120".format(fb_uid[0].uid)
-                # return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
-                elif google_uid:
-                    # return google_uid.extra_data.picture
-                    return google_uid.extra_data['picture']
+                return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
             except Exception:
+                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
+                if google_uid:
+                    #return google_uid.extra_data.picture
+                    return google_uid.extra_data['picture']
+
+            except:
                 return default_image
+
 
     def set_interests(self, interests):
         interests_tags = interests.split(',')
@@ -87,28 +90,46 @@ class UserProfile(models.Model):
         t, created = Tags.objects.get_or_create(tag=area, type="C")
         self.interests = t
 
-    def notify_liked(self, node):
+    def notify_liked(self, node):           # working
         if self.user != node.user:
-            self.points +=5
+            notified_user = node.user.userprofile
+            notified_user.points += 5
+            notified_user.save()
             Notification(notification_type=Notification.LIKED,
                          from_user=self.user,
                          to_user=node.user,
                          node=node).save()
 
-    def unotify_liked(self, node):
+    def unotify_liked(self, node):           # working
         if self.user != node.user:
-            self.points -=5
+            notified_user = node.user.userprofile
+            notified_user.points -= 5
+            notified_user.save()
             Notification.objects.filter(notification_type=Notification.LIKED,
                                         from_user=self.user,
                                         to_user=node.user,
                                         node=node).delete()
 
-    def notify_commented(self, node):
+    def notify_q_commented(self, question):           # working
+        if self.user != question.user:
+            Notification(notification_type=Notification.COMMENTED,
+                         from_user=self.user,
+                         to_user=question.user,
+                         question=question).save()
+
+    def notify_a_commented(self, answer):           # working
+        if self.user != answer.user:
+            Notification(notification_type=Notification.COMMENTED,
+                         from_user=self.user,
+                         to_user=answer.user,
+                         answer=answer).save()
+
+    def notify_n_commented(self, node):           # working
         if self.user != node.user:
             Notification(notification_type=Notification.COMMENTED,
                          from_user=self.user,
                          to_user=node.user,
-                         node=node).save()
+                         answer=node).save()
 
     def notify_also_commented(self, node):
         comments = node.get_comments()
@@ -123,84 +144,92 @@ class UserProfile(models.Model):
                          to_user=User(id=user),
                          node=node).save()
 
-    def notify_q_upvoted(self, question):
+    def notify_q_upvoted(self, question):           # working
         if self.user != question.user:
-            self.points +=5
-            self.save()
+            notified_user = question.user.userprofile
+            notified_user.points += 5
+            notified_user.save()
             Notification(notification_type=Notification.VotedUp,
                          from_user=self.user,
                          to_user=question.user,
                          question=question).save()
             print("noti created")
 
-    def notify_q_downvoted(self, question):
+    def notify_q_downvoted(self, question):           # working
         if self.user != question.user:
-            self.points -=5
-            self.save()
+            notified_user = question.user.userprofile
+            notified_user.points -= 5
+            notified_user.save()
             Notification(notification_type=Notification.VotedDown,
                          from_user=self.user,
                          to_user=question.user,
                          question=question).save()
 
-    def notify_a_upvoted(self, answer):
+    def notify_a_upvoted(self, answer):           # working
         if self.user != answer.user:
-            self.points +=5
-            self.save()
+            notified_user = answer.user.userprofile
+            notified_user.points += 5
+            notified_user.save()
             Notification(notification_type=Notification.VotedUp,
                          from_user=self.user,
                          to_user=answer.user,
                          answer=answer).save()
 
-    def notify_a_downvoted(self, answer):
+    def notify_a_downvoted(self, answer):           # working
         if self.user != answer.user:
-            self.points -=5
-            self.save()
+            notified_user = answer.user.userprofile
+            notified_user.points -= 5
+            notified_user.save()
             Notification(notification_type=Notification.VotedDown,
                          from_user=self.user,
                          to_user=answer.user,
-                         question=answer).save()
+                         answer=answer).save()
 
-    def unotify_q_upvoted(self, question):
+    def unotify_q_upvoted(self, question):           # working
         if self.user != question.user:
-            self.points -=5
-            self.save()
-            n = Notification.objects.get(notification_type=Notification.VotedUp,
-                                     from_user=self.user,
-                                     to_user=question.user,
-                                     question=question)
+            notified_user = question.user.userprofile
+            notified_user.points -= 5
+            notified_user.save()
+            n = Notification.objects.filter(notification_type=Notification.VotedUp,
+                                            from_user=self.user,
+                                            to_user=question.user,
+                                            question=question)
             print('notificahion hai')
             n.delete()
             print("noti deleted")
 
     def unotify_q_downvoted(self, question):
-        if self.user != question.user:
-            self.points +=5
-            self.save()
-            Notification.objects.get(notification_type=Notification.VotedDown,
-                                     from_user=self.user,
-                                     to_user=question.user,
-                                     question=question).delete()
+        if self.user != question.user:           # working
+            notified_user = question.user.userprofile
+            notified_user.points += 5
+            notified_user.save()
+            Notification.objects.filter(notification_type=Notification.VotedDown,
+                                        from_user=self.user,
+                                        to_user=question.user,
+                                        question=question).delete()
 
-    def unotify_a_upvoted(self, answer):
+    def unotify_a_upvoted(self, answer):           # working
         if self.user != answer.user:
-            self.points -=5
-            self.save()
-            Notification.objects.get(notification_type=Notification.VotedUp,
-                                     from_user=self.user,
-                                     to_user=answer.user,
-                                     answer=answer).delete()
+            notified_user = answer.user.userprofile
+            notified_user.points -= 5
+            notified_user.save()
+            Notification.objects.filter(notification_type=Notification.VotedUp,
+                                        from_user=self.user,
+                                        to_user=answer.user,
+                                        answer=answer).delete()
 
-    def unotify_a_downvoted(self, answer):
+    def unotify_a_downvoted(self, answer):           # working
         if self.user != answer.user:
-            self.points +=5
-            self.save()
-            Notification.objects.get(notification_type=Notification.VotedDown,
-                                     from_user=self.user,
-                                     to_user=answer.user,
-                                     question=answer).delete()
+            notified_user = answer.user.userprofile
+            notified_user.points += 5
+            notified_user.save()
+            Notification.objects.filter(notification_type=Notification.VotedDown,
+                                        from_user=self.user,
+                                        to_user=answer.user,
+                                        answer=answer).delete()
 
-    def notify_joined(self, enterprise, node):
-        users = User.objects.filter(enterprise=enterprise)
+    def notify_joined(self, workplace, node):
+        users = User.objects.filter(primary_workplace=workplace)
 
         for user in users:
             Notification(notification_type=Notification.ALSO_JOINED,
@@ -208,11 +237,12 @@ class UserProfile(models.Model):
                          to_user=user,
                          node=node).save()
 
-    # def notify_followed(self, user, node):
-    #     Notification(notification_type=Notification.FOLLOWS,
-    #                  from_user=self.user,
-    #                  to_user=user,
-    #                  node=node).save()
+    def notify_answered(self, question):           # working
+        if self.user != question.user:
+            Notification(notification_type=Notification.ANSWERED,
+                         from_user=self.user,
+                         to_user=question.user,
+                         question=question).save()
 
     # def notify_edited(self, workplace, node):
     #     users = User.objects.filter(enterprise=enterprise)

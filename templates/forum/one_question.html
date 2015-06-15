@@ -18,7 +18,7 @@
 		<div class="feed_box_extra">
 			<div class="interaction">
 				<form class="to_quest" action="{% url 'forum:question' question.slug %}" method="GET">
-					<a class="pull-left">Answers<input type="hidden" name="answers" value="no"></a>
+					<a class="pull-left">{{question.get_answer_count}} Answers<input type="hidden" name="answers" value="no"></a>
 					<a class="btn btn-success btn-xs">Write Answer
 					<input type="hidden" name="write" value="no"></a>
 				</form>

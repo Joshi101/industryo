@@ -7,8 +7,11 @@ from activities.models import *
 import json
 from nodes.models import Comments
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
+@login_required
 def ask(request):
     form = AskForm(request.POST)
     if request.method == 'POST':
@@ -39,7 +42,7 @@ def get_question(request, slug):
     print(show_ans,write_ans)
     return render(request, 'forum/quest.html', locals())
 
-
+@login_required
 def ques_comment(request):
     if request.method == 'POST':
         user = request.user
@@ -49,9 +52,10 @@ def ques_comment(request):
         question = Question.objects.get(id=id)
         comment = Comments(question=question, user=user, comment=comment)
         comment.save()
+        user.userprofile.notify_q_commented(question=question)
         return HttpResponseRedirect('/forum/'+slug)
 
-
+@login_required
 def voteup(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
@@ -61,13 +65,15 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
-            # user.userprofile.unotify_q_upvoted(question)
+            user.userprofile.unotify_q_upvoted(question)
+            print('notification deleted')
             question.votes -=1
             question.save()
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
-            # user.userprofile.notify_q_upvoted(question)
+            user.userprofile.notify_q_upvoted(question)
+            print('notification created')
             question.votes +=1
             question.save()
         return HttpResponse()
@@ -78,18 +84,18 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             vote.delete()
-            # user.userprofile.unotify_a_upvoted(answer)
+            user.userprofile.unotify_a_upvoted(answer)
             answer.votes -= 1
             answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
-            # user.userprofile.notify_a_upvoted(answer)
+            user.userprofile.notify_a_upvoted(answer)
             answer.votes += 1
             answer.save()
         return HttpResponse()
 
-
+@login_required
 def votedown(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
@@ -98,14 +104,14 @@ def votedown(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='D')
             vote.delete()
-            # user.userprofile.unotify_q_downvoted(question)
-            question.votes -= 1
+            user.userprofile.unotify_q_downvoted(question)
+            question.votes += 1
             question.save()
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
-            # user.userprofile.notify_q_downvoted(question)
-            question.votes += 1
+            user.userprofile.notify_q_downvoted(question)
+            question.votes -= 1
             question.save()
         return HttpResponse()
     elif 'aid' in request.GET:
@@ -114,20 +120,23 @@ def votedown(request):
         user = request.user
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
-            # User.
             vote.delete()
-            # user.userprofile.unotify_a_downvoted(answer)
+            print('123456')
+            user.userprofile.unotify_a_downvoted(answer)
+            print('123457')
             answer.votes += 1
             answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
-            # user.userprofile.notify_a_downvoted(answer)
+            print('123458')
+            user.userprofile.notify_a_downvoted(answer)
+            print('123459')
             answer.votes -= 1
             answer.save()
         return HttpResponse()
 
-
+@login_required
 def reply(request):
     if request.method == 'POST':
         response = {}
@@ -140,9 +149,9 @@ def reply(request):
         question = Question.objects.get(id=id)
         slug = question.slug
         answer = Answer.objects.create(answer=answer, user=user, question=question)
+        user.userprofile.notify_answered(question)
         r_elements = ['answers']
         r_html['answers'] = render_to_string('snippets/one_answer.html', {'q': question, 'a':answer})
-        print(r_html['answers'])
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
@@ -150,7 +159,7 @@ def reply(request):
     else:
         print('problem hai')
 
-
+@login_required
 def ans_comment(request):
     if request.method == 'POST':
         comment = request.POST['comment']
@@ -160,6 +169,7 @@ def ans_comment(request):
         slug = request.POST['slug']
         c = Comments(answer=answer, comment=comment, user=user)
         c.save()
+        user.userprofile.notify_a_commented(answer)
         return HttpResponseRedirect('/forum/'+slug)
     else:
         print('problem hai')
@@ -197,10 +207,25 @@ def question_tagged(request):
     else:
         return render(request, 'forum/questions.html')
 
-
+@login_required
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
-    return render(request, 'forum/questions.html', locals())
+    paginator = Paginator(questions, 5)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+            # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+    else:
+        # return render(request, 'home.html', {'result_list': result_list})
+        return render(request, 'forum/questions.html', {'result_list': result_list})
 
 
 def w_questions(request):           # for team

@@ -18,7 +18,7 @@ def profile(request, username):
     profile_image_form = SetProfileImageForm()
 
     questions = Question.objects.filter(user=user)
-    answers = Answer.objects.filter(user=user)
+    answers = Question.objects.filter(answer__question__user=user)
     feeds = Node.feed.filter(user=user)
     articles = Node.article.filter(user=user)
     interests = userprofile.get_interests()
@@ -94,10 +94,14 @@ def set_interests(request):
 
 def delete_interest(request):
     if request.method == 'GET':
-        delete = request.POST.get('delete')
-        print('ayaaaaaa',delete)
+        user = request.user
+        up = user.userprofile
+        delete = request.GET['delete']
+
         response = {}
-        #do domething here
+        Tags.objects.get(tag=delete)
+        up.interests.get(tag=delete).delete()
+
         return HttpResponse(json.dumps(response), content_type="application/json")
 
 
