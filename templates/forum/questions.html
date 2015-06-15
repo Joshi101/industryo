@@ -3,7 +3,7 @@
 {% block content %}
 	<a href="{% url 'forum:ask' %}">Ask Question</a>
 	<div class="ajax_andar feeds">
-		{% include 'nodes/five_nodes.html' with result_list=questions %}
+		{% include 'nodes/five_nodes.html' with result_list=result_list %}
 		<div class="paginator" data-next_page="2"></div>
 	</div>
 {% endblock %}

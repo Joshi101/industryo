@@ -24,7 +24,7 @@ def home(request):
             t = workplace.workplace_type
             # tasks.create_node()
             # tasks.get_score()
-            related_node = Node.feed.filter(w_type=t) #.select_related('user__userprofile')
+            related_node = Node.feed.all()     # (w_type=t) #.select_related('user__userprofile')
             # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
             # content1 = Node.objects.filter(user__workplace__workplace_type=t)
             # content2 = Question.objects.filter(tags=user.userprofile.interests)

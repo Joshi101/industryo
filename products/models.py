@@ -21,10 +21,15 @@ class Products(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug
-            slug_str = "%d%s" % (self.id, self.product)
+            slug_str = "%d-%s" % (self.id, self.product)
             unique_slugify(self, slug_str)
             # self.slug = slugify(self.get_full_name()).__str__()
-            super(Products, self).save(*args, **kwargs)
+        super(Products, self).save(*args, **kwargs)
+
+    def add_image(self, image, user):
+        i = Images()
+        a = i.upload_image(image=image, user=user)
+        self.image = a
 
 
 

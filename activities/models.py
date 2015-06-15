@@ -54,18 +54,20 @@ class Notification(models.Model):
         (ANSWERED, 'Answered'),
         (JOINED, 'Joined'),
     )
-    _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/nodes/{2}/">{3}</a>'
-    _COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/nodes/{2}/">{3}</a>'
+    _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/nodes/{2}/">{3}</a>'            # working
+    _COMMENTED_N_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/nodes/{2}/">{3}</a>'            # working
+    _COMMENTED_Q_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your question: <a href="/forum/{2}/">{3}</a>'            # working
+    _COMMENTED_A_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your answer: <a href="/forum/{2}/">{3}</a>'            # working
     _ALSO_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the post: <a href="/nodes/{2}/">{3}</a>'
-    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise'
-    _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace'
-    _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile'
-    _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now'
-    _VotedUpQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your question: <a href="/feeds/{2}/">{3}</a>'
-    _VotedDownQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your question: <a href="/feeds/{2}/">{3}</a>'
-    _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/feeds/{2}/">{3}</a>'
-    _VotedDownA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your answer: <a href="/feeds/{2}/">{3}</a>'
-    _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to your question: <a href="/feeds/{2}/">{3}</a>'
+    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise' #fuck
+    _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace' #fuck
+    _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile' #fuck
+    _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now' #fuck
+    _VotedUpQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your question: <a href="/forum/{2}/">{3}</a>'            # working
+    _VotedDownQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your question: <a href="/forum/{2}/">{3}</a>'            # working
+    _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/forum/{2}/">{3}</a>'            # working
+    _VotedDownA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your answer: <a href="/forum/{2}/">{3}</a>'            # working
+    _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to your question: <a href="/forum/{2}/">{3}</a>'            # working
 
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')
@@ -91,12 +93,27 @@ class Notification(models.Model):
                 escape(self.get_summary(self.node.post))
                 )
         elif self.notification_type == self.COMMENTED:
-            return self._COMMENTED_TEMPLATE.format(
-                escape(self.from_user.username),
-                escape(self.from_user.get_full_name()),
-                self.node.pk,
-                escape(self.get_summary(self.node.post))
-                )
+            if self.node:
+                return self._COMMENTED_N_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.get_full_name()),
+                    self.node.pk,
+                    escape(self.get_summary(self.node.post))
+                    )
+            elif self.question:
+                return self._COMMENTED_Q_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.get_full_name()),
+                    self.question.slug,
+                    escape(self.get_summary(self.question.title))
+                    )
+            elif self.answer:
+                return self._COMMENTED_A_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.get_full_name()),
+                    self.answer.question.slug,
+                    escape(self.get_summary(self.answer.answer))
+                    )
 
         elif self.notification_type == 'S':
             return self._ALSO_COMMENTED_TEMPLATE.format(
@@ -138,7 +155,7 @@ class Notification(models.Model):
                     escape(self.from_user.username),
                     escape(self.from_user.first_name),
                     self.answer.question.slug,
-                    escape(self.get_summary(self.answer))
+                    escape(self.get_summary(self.answer.answer))
                     )
 
         if self.notification_type == 'D':
@@ -154,7 +171,7 @@ class Notification(models.Model):
                     escape(self.from_user.username),
                     escape(self.from_user.first_name),
                     self.answer.question.slug,
-                    escape(self.get_summary(self.answer))
+                    escape(self.get_summary(self.answer.answer))
                     )
         elif self.notification_type == 'A':
             return self._ANSWERED_TEMPLATE.format(

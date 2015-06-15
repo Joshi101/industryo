@@ -153,7 +153,19 @@ class Answer(models.Model):
         c = Comments.objects.filter(answer=self.pk)
         return c
 
+    def get_a_upvoters(self):
+        upvotes = Activity.objects.filter(answer=self.pk, activity='U')
+        list = []
+        for upvote in upvotes:
+            list.append(upvote.user)
+        return list
 
+    def get_a_downvoters(self):
+        downvotes = Activity.objects.filter(answer=self.pk, activity='D')
+        list = []
+        for downvote in downvotes:
+            list.append(downvote.user)
+        return list
 
 
 

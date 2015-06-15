@@ -47,6 +47,7 @@ def ques_comment(request):
         question = Question.objects.get(id=id)
         comment = Comments(question=question, user=user, comment=comment)
         comment.save()
+        user.userprofile.notify_q_commented(question=question)
         return HttpResponseRedirect('/forum/'+slug)
 
 @login_required
@@ -78,13 +79,13 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             vote.delete()
-            # user.userprofile.unotify_a_upvoted(answer)
+            user.userprofile.unotify_a_upvoted(answer)
             answer.votes -= 1
             answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
-            # user.userprofile.notify_a_upvoted(answer)
+            user.userprofile.notify_a_upvoted(answer)
             answer.votes += 1
             answer.save()
         return HttpResponse()
@@ -98,14 +99,14 @@ def votedown(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='D')
             vote.delete()
-            # user.userprofile.unotify_q_downvoted(question)
-            question.votes -= 1
+            user.userprofile.unotify_q_downvoted(question)
+            question.votes += 1
             question.save()
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
-            # user.userprofile.notify_q_downvoted(question)
-            question.votes += 1
+            user.userprofile.notify_q_downvoted(question)
+            question.votes -= 1
             question.save()
         return HttpResponse()
     elif 'aid' in request.GET:
@@ -114,15 +115,18 @@ def votedown(request):
         user = request.user
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
-            # User.
             vote.delete()
-            # user.userprofile.unotify_a_downvoted(answer)
+            print('123456')
+            user.userprofile.unotify_a_downvoted(answer)
+            print('123457')
             answer.votes += 1
             answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
-            # user.userprofile.notify_a_downvoted(answer)
+            print('123458')
+            user.userprofile.notify_a_downvoted(answer)
+            print('123459')
             answer.votes -= 1
             answer.save()
         return HttpResponse()
@@ -138,6 +142,7 @@ def reply(request):
         slug = question.slug
         answer = Answer(answer=answer, user=user, question=question)
         answer.save()
+        user.userprofile.notify_answered(question)
         return HttpResponseRedirect('/forum/'+slug)
     else:
         print('problem hai')
@@ -152,6 +157,7 @@ def ans_comment(request):
         slug = request.POST['slug']
         c = Comments(answer=answer, comment=comment, user=user)
         c.save()
+        user.userprofile.notify_a_commented(answer)
         return HttpResponseRedirect('/forum/'+slug)
     else:
         print('problem hai')
@@ -206,8 +212,8 @@ def questions(request):
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
-        return render(request, 'home.html', {'result_list': result_list})
-    # return render(request, 'forum/questions.html', locals())
+        # return render(request, 'home.html', {'result_list': result_list})
+        return render(request, 'forum/questions.html', {'result_list': result_list})
 
 
 def w_questions(request):           # for team

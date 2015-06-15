@@ -122,13 +122,19 @@ def set_tags(request):
 
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     workplace_logo_form = SetLogoForm()
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
     answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace)
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace)
     articles = Node.article.filter(user__userprofile__primary_workplace=workplace)
     return render(request, 'workplace/profile.html', locals())
+
+
+def get_top_scorers(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk).order_by('-score')[:3]
+    return members
 
 
 @login_required
