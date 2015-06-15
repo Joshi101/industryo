@@ -125,37 +125,42 @@ $('form .taggable').each(convert_to_taggable);
 // dynamic select function
 $('.d_input').keyup(function(event){
     var $this = $(this);
-    var query = $this.val()
-    ,   search = "/search" + $this.data('search')
-    ,   create = $this.data('create');
-    if(!create)
-        create = '';
-    console.log(query, search, create);
-    $.ajax({
-        url : search,
-        type : "GET",
-        data : { the_query : query, the_create : create},
-        success: function(result){
-            $this.nextAll('.dropdown')
-                .children(".d_list").html(result);
-            var $create_a = $this.nextAll('.dropdown')
-                .find(".create_new");
-            var create_now = 'create_' + $this.data('search');
-            console.log(create_now);
-            $create_a.attr('href','#'+create_now);
-            var collapse_parent = $create_a.closest('.panel-group').attr('id');
-            $create_a.data('parent', '#'+collapse_parent);
-            console.log($create_a.data('parent'));
-        },
-        error : function(xhr,errmsg,err) {
-            $this.nextAll('.dropdown')
-                .children(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
-            console.log(errmsg,err);
-        }
-    });
-    if(query != '')
-        $(this).nextAll('.dropdown')
-            .children('.d_list').css({'display':'block'});
+    if(event.key == ','){
+        $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
+    }
+    else{
+        var query = $this.val()
+        ,   search = "/search" + $this.data('search')
+        ,   create = $this.data('create');
+        if(!create)
+            create = '';
+        console.log(query, search, create);
+        $.ajax({
+            url : search,
+            type : "GET",
+            data : { the_query : query, the_create : create},
+            success: function(result){
+                $this.nextAll('.dropdown')
+                    .children(".d_list").html(result);
+                var $create_a = $this.nextAll('.dropdown')
+                    .find(".create_new");
+                var create_now = 'create_' + $this.data('search');
+                console.log(create_now);
+                $create_a.attr('href','#'+create_now);
+                var collapse_parent = $create_a.closest('.panel-group').attr('id');
+                $create_a.data('parent', '#'+collapse_parent);
+                console.log($create_a.data('parent'));
+            },
+            error : function(xhr,errmsg,err) {
+                $this.nextAll('.dropdown')
+                    .children(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                console.log(errmsg,err);
+            }
+        });
+        if(query != '')
+            $(this).nextAll('.dropdown')
+                .children('.d_list').css({'display':'block'});
+    }
 });
 
 $(".d_list").on('click', 'a', function(event){
@@ -165,6 +170,9 @@ $(".d_list").on('click', 'a', function(event){
         var $sabke_papa = $this.closest('.d_search');
         if($this.attr('class') == 'create'){
             var value = $sabke_papa.children('input').val();
+            if (value[value.length - 1] == ','){
+                value = value.substring(0, value.length - 1);
+            }
             console.log('input wala');
         }
         else if($this.attr('class').indexOf('create_new') >= 0){
@@ -461,13 +469,18 @@ $('.alert .delete').on('click',function(){
 });
 
 $('.ajax_andar').on('click','.a_collapse',function(){
-    var col = $(this).nextAll('.collapse');
+    var $this = $(this);
+    var col = $this.siblings('.collapse');
+    var text = $this.text();
+    var alt = $this.data('alternate');
     if(col.attr('class').indexOf('in') >= 0)
         col.removeClass('in');
-    else
+    else {
         col.addClass('in');
         col.find('textarea').first().focus();
-    console.log('olay')
+    }
+    $this.text(alt);
+    $this.data('alternate',text);
 })
 
 $('.fake_btn').click(function(){
@@ -674,3 +687,10 @@ function count_notifications(){
         }
     });
 }
+
+$('.to_quest').on('click','a',function(){
+    var $this = $(this);
+    $this.closest('.to_quest').find('input').val('no');
+    $this.children('input').val('true');
+    $this.parent('form').submit();
+})

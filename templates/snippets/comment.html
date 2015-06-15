@@ -1,7 +1,6 @@
 <div class="comment">
 	<div class="comment_heading">
-		{% include "snippets/joint_name.html" with user=comment.user %}
-		<small class='pull-right'>{{ comment.date }}</small>
+		<small class='pull-right'></small>
 	</div>
-	<pre>{{comment}}</pre>
+	<p>{{comment}} --{% include "snippets/joint_name.html" with user=comment.user %}<span class="text-muted">{{comment.date}}</span></p>
 </div>

@@ -1,5 +1,5 @@
 <span class="joint_name">
 	<a class="name_user {% ifequal user.username request.user.username %}same{% endifequal %}" href="{% url 'user:profile' user.username %}">{{ user.get_full_name }}</a>
-	<span class="glyphicon glyphicon-flash"></span>
+	<span class="line"><b>|</b></span>
 	<a class="name_workplace {% ifequal user.userprofile.primary_workplace.slug request.user.userprofile.primary_workplace.slug %}same{% endifequal %}" href="">{{ user.userprofile.primary_workplace }}</a>
 </span>

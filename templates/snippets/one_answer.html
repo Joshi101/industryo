@@ -1,0 +1,31 @@
+<div class="feed_box answer ajax_andar">
+	<div class="feed_box_heading">
+			{% include "snippets/joint_name.html" with user=a.user %}
+			<small class='pull-right post_date'>{{ a.date }}</small>
+	</div>
+	<div class="row ajax_papa">
+		<div class="col-sm-1 text-center vote_box ajax_papa">
+			{% include "snippets/vote_box.html" with q_or_a='a' q=a %}
+		</div>
+		<div class="col-sm-11 ajax_papa">
+			<div class="feed_box_body">
+				<div class="a_detail">{{ a.answer|safe }}</div>
+			</div>
+			<div class="feed_box_extra">
+				<div class="comments">
+				{% if a.get_comments %}
+		    	{% for c in a.get_comments %}
+						{% include "snippets/comment.html" with comment=c %}
+		    	{% endfor %}
+				{% endif %}
+				</div>
+				<div class="interaction">
+	    		<a class="a_collapse">Comment</a>
+			    <div class="collapse row">
+						{% include "snippets/comment_form.html" with q_or_a='a' q=q a=a %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

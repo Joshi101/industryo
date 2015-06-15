@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
+from django.template.loader import render_to_string
 from forum.models import *
 from tags.models import Tags
 from forum.forms import AskForm
@@ -32,6 +33,10 @@ def get_question(request, slug):
     q = Question.objects.get(slug=slug)
     comments = Comments.objects.filter(question=q.id)
     answers = Answer.objects.filter(question=q.id)
+    print('aya')
+    show_ans = request.GET.get('answers',None)
+    write_ans = request.GET.get('write',None)
+    print(show_ans,write_ans)
     return render(request, 'forum/quest.html', locals())
 
 
@@ -125,15 +130,23 @@ def votedown(request):
 
 def reply(request):
     if request.method == 'POST':
+        response = {}
+        r_html = {}
+        r_elements = []
         answer = request.POST['answer']
         user = request.user
         id = request.POST['id']
 
         question = Question.objects.get(id=id)
         slug = question.slug
-        answer = Answer(answer=answer, user=user, question=question)
-        answer.save()
-        return HttpResponseRedirect('/forum/'+slug)
+        answer = Answer.objects.create(answer=answer, user=user, question=question)
+        r_elements = ['answers']
+        r_html['answers'] = render_to_string('snippets/one_answer.html', {'q': question, 'a':answer})
+        print(r_html['answers'])
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         print('problem hai')
 
@@ -187,7 +200,6 @@ def question_tagged(request):
 
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
-
     return render(request, 'forum/questions.html', locals())
 
 

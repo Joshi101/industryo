@@ -9,7 +9,7 @@
 		</div>
 		<div class="feed_box_body">
 			<a href="{% url 'forum:question' question.slug %}">
-				<h5><pre class="q_title">{{ question.title }}</pre></h5>
+				<h5 class="q_title">{{ question.title }}</h5>
 			</a>
 			{% if question.question %}
 			<pre class="q_summary">{{ question.question }}</pre>	
@@ -17,8 +17,11 @@
 		</div>
 		<div class="feed_box_extra">
 			<div class="interaction">
-				<a href="{% url 'forum:question' question.slug %}">151 Answers</a>
-				<a class="btn btn-default btn-xs pull-right" href="{% url 'forum:question' question.slug %}?answer=true">Write Answer</a>
+				<form class="to_quest" action="{% url 'forum:question' question.slug %}" method="GET">
+					<a class="pull-left">Answers<input type="hidden" name="answers" value="no"></a>
+					<a class="btn btn-success btn-xs">Write Answer
+					<input type="hidden" name="write" value="no"></a>
+				</form>
 			</div>
 		</div>
 	</div>

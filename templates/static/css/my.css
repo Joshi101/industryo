@@ -306,7 +306,8 @@ pre{
 }
 
 .feed_box_extra{
-	margin-left: 40px;
+	border-top: 1px dashed #ddd;
+	margin-left: 20%;
 }
 
 .feed_box_body figure{
@@ -323,16 +324,12 @@ pre{
 	box-shadow: 0px 0px 5px rgba(55,55,55,0.3);
 }
 
-.feed_box_body h5{
-	margin-bottom: 0px;
-}
-
 .feed_box_body h4{
 	margin-bottom: 0px;
 }
 
 .feed_box_body > pre{
-	padding: 5px 10px;
+	padding: 7px 10px;
 	margin-bottom: 0px;
 	word-wrap: break-word;
 }
@@ -342,7 +339,7 @@ pre{
 }
 
 .vote_box{
-	padding: 5px 10px;
+	padding: 4px 10px;
 	float: left;
 }
 
@@ -367,12 +364,15 @@ pre{
 
 .q_title{
 	color: #000;
+	padding: 9px 0px 5px;;
+	margin-left: 25px;
+	margin-top: 0px;
 	margin-bottom: 0px;
-	padding: 3px 7px;
 }
 
 pre.q_summary{
-	padding-left: 15px;
+	padding-left: 20px;
+	color: #555;
 }
 
 pre.q_detail{
@@ -381,14 +381,16 @@ pre.q_detail{
 	overflow: hidden;
 }
 
-pre.a_detail{
+.a_detail{
+	font-size: 13px;
 	padding: 7px;
 	/*max-height: 262px;*/
 	overflow: hidden;
 }
 
 .interaction{
-	padding: 5px 10px;
+	text-align: right;
+	padding: 7px 10px;
 	margin: 1px auto;
 	background: rgba(222,222,222,0.25);
 }
@@ -401,28 +403,31 @@ pre.a_detail{
 	margin-bottom: 5px;
 }
 
-.interaction a{
-	margin-right: 5px;
-}
 
 .interaction .btn{
 	border-radius: 0px;
+	line-height: 16px;
 }
 
 .comments{
 	padding: 0px;
-	background: rgba(222,222,222,0.25);
+}
+
+.comment .joint_name{
+	padding: 2px 3px;
+	margin: 0px 5px;
+	background: rgba(222,222,222,0.85);
 }
 
 .comment_form .form-control{
-	height: 25px;
-	padding: 3px 5px;
+	height: 30px;
+	padding: 5px 10px;
 	font-size: 12px;
 	border-radius: 0px;
 }
 
 .comment_form .btn{
-	height: 25px;
+	height: 30px;
 	padding: 3px 5px;
 	font-size: 12px;
 	border-radius: 0px;
@@ -432,7 +437,7 @@ pre.a_detail{
 }
 
 .comment{
-	padding: 5px 10px 0px;
+	padding-top: 5px;
 }
 
 .comment pre{
@@ -446,18 +451,38 @@ pre.a_detail{
 	margin-bottom: 0px;
 }
 
+.joint_name .line{
+	position: relative;
+	font-size: 1.2em;
+	bottom: 1px;
+}
+
 /**/
 .post_date{
 	line-height: 17px;
 }
 
 /**/
+
+#answers{
+	margin-top: 75px;
+}
+
+#answers > h2{
+	border-bottom: 2px solid #197;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 #question .interaction{
 	text-align: right;
 }
 
-#question .comment{
-	
+#question .q_detail{
+	margin-left: 25px;
+	color: #555;
 }
 
 /**/
@@ -475,6 +500,8 @@ pre.a_detail{
 	height: 70px;
 	overflow: hidden;
 	background: rgba(111,111,111,0.2);
+	margin-left: 1px;
+	margin-right: 1px;
 }
 
 .tag_box_title{
@@ -695,6 +722,10 @@ div[data-role="editor-toolbar"] {
 
 .btn-toolbar > .btn-group{
 	margin-bottom: 5px;
+}
+
+.btn-toolbar{
+	margin-top: 5px;
 }
 
 /* notifications.html */

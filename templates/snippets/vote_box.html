@@ -1,7 +1,7 @@
 <form role='form' action="{% url 'forum:voteup' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="U">
-	<a title="Vote Up" data-placement="left" class="form-ajax upvote {% if request.user in q.get_q_upvoters %}done{% endif %}">
+	<a title="Vote Up" data-placement="left" class="form-ajax upvote {% if q_or_a == 'q' %}{% if request.user in q.get_q_upvoters %}done{% endif %}{% else %}{% if request.user in q.get_a_upvoters %}done{% endif %}{% endif %}">
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</a>
 </form>
@@ -9,7 +9,7 @@
 <form role='form' action="{% url 'forum:votedown' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="D">
-	<a title="Vote Up" data-placement="left" class="form-ajax downvote {% if request.user in q.get_q_downvoters %}done{% endif %}">
+	<a title="Vote Up" data-placement="left" class="form-ajax downvote {% if q_or_a == 'q' %}{% if request.user in q.get_q_downvoters %}done{% endif %}{% else %}{% if request.user in q.get_a_downvoters %}done{% endif %}{% endif %}">
 		<span class="glyphicon glyphicon-chevron-down"></span>
 	</a>
 </form>

@@ -42,3 +42,7 @@
 	border-left-color: #222;
 	top:1px;
 }
+
+.btn{
+	border-radius: 5px;
+}
