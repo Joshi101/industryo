@@ -21,6 +21,8 @@
 {% block content %}
   <ul class="nav nav-pills">
     <li><a data-toggle="pill" href="#products">Products</a></li>
+    <li><a data-toggle="pill" href="#members">Members</a></li>
+    <li><a data-toggle="pill" href="#capabilities">Capabilities</a></li>
     <li><a data-toggle="pill" href="#about">About</a></li>
     <li class="active"><a data-toggle="pill" href="#dashboard">Dashboard</a></li>
   </ul>
@@ -31,6 +33,16 @@
   	<div id="about" class="tab-pane fade">
   		{% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
   	</div>
+    <div id="capabilities" class="tab-pane fade"></div>
+    <div id="members" class="tab-pane fade">
+      {% for member in members %}
+        <img src="{{member.get_profile_image}}" alt="{{member}}">
+      {% endfor %}
+    </div>
   	<div id="products" class="tab-pane fade"></div>
   </div>
 {% endblock %}
+
+{% block right %}
+  
+{% endblock right %}

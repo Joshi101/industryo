@@ -47,9 +47,11 @@ class UserProfile(models.Model):
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:
+            print('here')
             image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
+            print('else')
             try:
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
                 # google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
@@ -57,13 +59,16 @@ class UserProfile(models.Model):
                     return "http://graph.facebook.com/{}/picture?width=120&height=120".format(fb_uid[0].uid)
                 return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
-            except Exception:
-                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
-                if google_uid:
-                    #return google_uid.extra_data.picture
-                    return google_uid.extra_data['picture']
+            # except Exception:
+            #     print('ex')
+            #     google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
+            #     print('ex5')
+            #     if google_uid:
+            #         #return google_uid.extra_data.picture
+            #         return google_uid.extra_data['picture']
 
             except:
+                print('ex125')
                 return default_image
 
 
