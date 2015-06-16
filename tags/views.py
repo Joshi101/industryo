@@ -28,12 +28,11 @@ def create_tag(request):
 
 def search_tag(request):
     if request.method == 'GET':
-        t = request.GET['the_query']
+        tag = request.GET['the_query']
         create = request.GET['the_create']
-        # term = request.GET(tag)
         print('yoyoyo')
-        o = Tags.objects.filter(tag__icontains=t)[:6]
-        # o = Tags.objects.get(name=t)
+        type = request.GET['the_type']
+        o = Tags.objects.filter(type=type, tag__icontains=tag)
 
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
@@ -77,11 +76,11 @@ def get_all_tags(request):
 
 
 def search_n_tags(request):
-    tag = request.GET['tag']
-    type = request.GET['type']
+    print('ax')
+    tag = request.GET['the_query']
+    type = request.GET['the_type']
     o = Tags.objects.filter(type=type, tag__icontains=tag)
     create = request.GET['the_create']
-
     return render(request, 'tags/list.html', {'o': o, 'create': create})
 
 

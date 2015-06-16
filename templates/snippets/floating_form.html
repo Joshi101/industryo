@@ -1,9 +1,10 @@
-<form class="floating" action="{% url 'user:set_interests' %}" method="POST" role="form">
+<form class="floating" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
 	{% csrf_token %}
 	<div class="d_search instant" data-results="instant">
-		<input class="form-control d_input" data-search="ntags" data-create="create" data-results="multiple" placeholder="Search here ...">
+		<input class="form-control d_input" data-search="tags" data-create="create" data-results="multiple" placeholder="Search here ...">
 		<input type="hidden" name="operation" class="instant_i">
-		<button type="submit" class="form-ajax hide"></button>
+		<input type="hidden" name="type" value="M">
+		<button type="submit" class="form-ajax-2 hide"></button>
 		<div class="dropdown">
 			<ul class="dropdown-menu d_list">
 			</ul>

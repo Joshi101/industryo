@@ -88,27 +88,23 @@ def set_tags(request):
         r_elements = []
         user = request.user
         wp = user.userprofile.primary_workplace
-        assets = request.POST.get('asset')
-        operations = request.POST.get('operation')
-        materials = request.POST.get('material')
-        industrial_area = request.POST.get('industrial_area')
-        city = request.POST.get('city')
-        institution = request.POST.get('institution')
-        events = request.POST.get('event')
-        if assets:
-            t = wp.set_assets(assets)
-        if materials:
-            t = wp.set_materials(materials)
-        if operations:
-            t = wp.set_operations(operations)
-        if industrial_area:
-            t = wp.set_industrial_area(industrial_area)
-        if city:
-            t = wp.set_city(city)
-        if institution:
-            t = wp.set_institution(institution)
-        if events:
-            t = wp.set_events(events)
+        type = request.POST.get('type')
+        value = request.POST.get('value')
+        print(value,type)
+        if type == 'A':
+            t = wp.set_assets(value)
+        if type == 'M':
+            t = wp.set_materials(value)
+        if type == 'O':
+            t = wp.set_operations(value)
+        if type == 'I':
+            t = wp.set_industrial_area(value)
+        if type == 'C':
+            t = wp.set_city(value)
+        if type == 'P':
+            t = wp.set_institution(value)
+        if type == 'E':
+            t = wp.set_events(value)
         new_interest = t
         r_elements = ['detail_body']
         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})

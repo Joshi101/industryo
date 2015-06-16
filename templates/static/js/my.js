@@ -135,25 +135,30 @@ $('.d_input').keyup(function(event){
         if(!create)
             create = '';
         console.log(query, search, create);
+        var type = $this.siblings('input[name=type]').val();
+        if(!type)
+            type = '';
         $.ajax({
             url : search,
             type : "GET",
-            data : { the_query : query, the_create : create},
+            data : { the_query : query, the_create : create, the_type: type},
             success: function(result){
                 $this.nextAll('.dropdown')
                     .children(".d_list").html(result);
-                var $create_a = $this.nextAll('.dropdown')
-                    .find(".create_new");
-                var create_now = 'create_' + $this.data('search');
-                console.log(create_now);
-                $create_a.attr('href','#'+create_now);
-                var collapse_parent = $create_a.closest('.panel-group').attr('id');
-                $create_a.data('parent', '#'+collapse_parent);
-                console.log($create_a.data('parent'));
+                if (create == 'create_new'){
+                    var $create_a = $this.nextAll('.dropdown')
+                        .find(".create_new");
+                    var create_now = 'create_' + $this.data('search');
+                    console.log(create_now);
+                    $create_a.attr('href','#'+create_now);
+                    var collapse_parent = $create_a.closest('.panel-group').attr('id');
+                    $create_a.data('parent', '#'+collapse_parent);
+                    console.log($create_a.data('parent'));
+                }
             },
             error : function(xhr,errmsg,err) {
                 $this.nextAll('.dropdown')
-                    .children(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                    .children(".d_list").html("<li class='list-group-item-warning'><a>Sorry, unable to fetch results. Try later.</a></li>");
                 console.log(errmsg,err);
             }
         });
@@ -168,19 +173,20 @@ $(".d_list").on('click', 'a', function(event){
     aj_search($(this));
     function aj_search ($this){
         var $sabke_papa = $this.closest('.d_search');
-        if($this.attr('class') == 'create'){
+        if ($this.attr('class') == 'create'){
             var value = $sabke_papa.children('input').val();
             if (value[value.length - 1] == ','){
                 value = value.substring(0, value.length - 1);
             }
             console.log('input wala');
         }
-        else if($this.attr('class').indexOf('create_new') >= 0){
+        else if ($this.attr('class').indexOf('create_new') >= 0){
             $sabke_papa.find('.d_list').css({'display':'none'});
             var value = $sabke_papa.children('input').val();
             var target = $this.attr('href');
             console.log(target,value);
             $(target).find('input[type=text]').first().val(value);
+            console.log('naya form');
             return 0;
         }
         else{
@@ -190,12 +196,12 @@ $(".d_list").on('click', 'a', function(event){
         var r_type = $sabke_papa.data('results');
         console.log($sabke_papa.attr('class'));
         if(r_type == 'instant'){
-            $sabke_papa.children('input[type=hidden]').val(value)
-                .next().trigger('click');
+            $sabke_papa.children('input[name=value]').val(value)
+                .nextAll('.form-ajax').trigger('click');
             console.log('1');
         }
         else if(r_type == 'single'){
-            $sabke_papa.children('input').first().before('<div class="alert"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>').addClass('hide').next().val(value);
+            $sabke_papa.children('input').first().before('<div class="alert"><a class="close">&times;</a><strong>'+value+'</strong></div>').addClass('hide').next().val(value);
 
             $sabke_papa.find('.close').on('click', function(){
                 $(this).parent('.alert').alert('close');
