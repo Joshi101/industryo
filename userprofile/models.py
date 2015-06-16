@@ -45,12 +45,14 @@ class UserProfile(models.Model):
     #     return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
     def get_profile_image(self):
+        print('kya hai bhai4')
         default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:
             image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
             try:
+                print('kya hai bhai3')
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
                 # google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
                 if len(fb_uid):
@@ -58,13 +60,17 @@ class UserProfile(models.Model):
                 return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
             except Exception:
-                google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
-                if google_uid:
-                    #return google_uid.extra_data.picture
-                    return google_uid.extra_data['picture']
+                try:
 
-            except:
-                return default_image
+                    print('kya hai bhai2')
+                    google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
+                    if google_uid:
+                        #return google_uid.extra_data.picture
+                        return google_uid.extra_data['picture']
+
+                except Exception:
+                    print('kya hai bhai')
+                    return default_image
 
 
     def set_interests(self, interests):
@@ -253,6 +259,14 @@ class UserProfile(models.Model):
     #                      to_user=user,
     #                      node=node).save()
 
+    def get_workplace_points(self):
+        members = UserProfile.objects.filter(primary_workplace=self.primary_workplace)
+        points = 0
+        for member in members:
+            points += member.points
+        self.primary_workplace.points = points
+        self.primary_workplace.save()
+        return points
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
