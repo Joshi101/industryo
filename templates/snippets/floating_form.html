@@ -1,14 +1,24 @@
-<form class="floating" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
-	{% csrf_token %}
-	<div class="d_search instant" data-results="instant">
-		<input class="form-control d_input" data-search="tags" data-create="create" data-results="multiple" placeholder="Search here ...">
-		<input type="hidden" name="operation" class="instant_i">
-		<input type="hidden" name="type" value="M">
-		<button type="submit" class="form-ajax-2 hide"></button>
-		<div class="dropdown">
-			<ul class="dropdown-menu d_list">
-			</ul>
-		</div>
-		<div class="d_results"></div>
-	</div>
-</form>
+<div class="ajax_andar ajax_papa">
+      <h4 class="text-muted detail_head">
+        Add {{tag}}
+      </h4>
+      <form class="edit_{{tag}}" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
+        {% csrf_token %}
+        <div class="d_search instant" data-results="instant">
+          <input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for {{tag}}s here ...">
+          <input type="hidden" name="value" class="instant_i">
+          <input type="hidden" name="type" value="{{type}}">
+          <button type="submit" class="form-ajax hide"></button>
+          <div class="dropdown">
+            <ul class="dropdown-menu d_list">
+            </ul>
+          </div>
+          <div class="d_results"></div>
+        </div>
+      </form>
+      <!-- <div class="detail_body"> #}
+        {% for interest in user.userprofile.get_interests %}
+          {% include 'snippets/one_interest.html' with interest=interest %}
+        {% endfor %}
+      </div> -->
+  </div>

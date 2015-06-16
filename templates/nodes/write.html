@@ -3,19 +3,20 @@
 {% block content %}
 	<form class="article_form" role="form" action="{% url 'nodes:write' %}" method="POST">
 		<div class="form-group">
-			<input class="form-control" type="text" placeholder="Title.." name="title">
+			<strong><input class="form-control" type="text" placeholder="Title.." name="title"></strong>
 		</div>
 		<div class="form-group">
 			{% include "snippets/richtext_toolbar.html" %}
+			<h5>Body</h5>
 	    <div id="editor">
-	      Go ahead&hellip;
 	    </div>
-			<input class="form-control" type="hidden" placeholder="Body.." name="post">
+			<input class="form-control" type="hidden" name="post">
 		</div>
 		<div class="form-group">
 			<input class="form-control" type="text" placeholder="Tags" name="tags">
 		</div>
-		<button type="button" class="btn btn-default">Publish</button>
+		<button type="submit" class="btn btn-default">Publish</button>
+		<button type="submit" class="btn btn-default">Save as Draft</button>
 		{% csrf_token %}
 	</form>
 {% endblock %}

@@ -37,11 +37,11 @@ def write(request):                 ## Write an article
         title = request.POST['title']
         user = request.user
         tags = request.POST['tags']
-
+        print(post,user,title)
         node = Node(post=post, title=title, category='A', user=user)
+        print('iche')
         node.save()
         node.set_tags(tags)
-        # return HttpResponseRedirect('/nodes/'+node.slug)
         return redirect('/nodes/articles')
     else:
         return render(request, 'nodes/write.html', locals())
@@ -155,8 +155,9 @@ def node(request, id):
 
 
 def articles(request):
-    atricles = Node.article.all()
-    return render(request, 'nodes/articles.html', locals())
+    print('here')
+    atricles = Node.objects.filter(category='A')
+    return render(request, 'nodes/articles.html', {'articles':articles})
 
 
 # Create your views here.

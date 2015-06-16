@@ -1,8 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<a href="{% url 'nodes:write' %}">Write Article</a>
+	<div class="panel panel-success bg-info">
+		<div class="panel-body">
+			<p class="text-justify text-muted">"Twenty years from now, you will be more disappointed by the things that you didn't do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover." -- You read this today because someone wrote it someday..</p>
+			<a class="pull-right" href="{% url 'nodes:write' %}">Write your own Article</a>
+		</div>
+	</div>
 	<div class="ajax_andar feeds">
+	{% if articles %}
+		print
+	{% endif %}
+		{% for ar in articles %}
+			{{ar}}
+		{% endfor %}
 		{% include 'nodes/five_nodes.html' with result_list=articles %}
 		<div class="paginator" data-next_page="2"></div>
 	</div>

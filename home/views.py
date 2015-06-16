@@ -22,7 +22,7 @@ def home(request):
             t = workplace.workplace_type
             if t == 'A':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
-                question = Question.objects.filter(user__userprofile__primary_workplace__type=t).select_related('user__userprofile')
+                question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             elif t == 'B':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
                 question = Question.objects.all().select_related('user__userprofile')

@@ -143,6 +143,7 @@ $('.d_input').keyup(function(event){
             type : "GET",
             data : { the_query : query, the_create : create, the_type: type},
             success: function(result){
+                // console.log(result)
                 $this.nextAll('.dropdown')
                     .children(".d_list").html(result);
                 if (create == 'create_new'){
@@ -216,8 +217,9 @@ $(".d_list").on('click', 'a', function(event){
             $sabke_papa.children('input').next().val(pre_value_snd + value + ',');
             $sabke_papa.find('.close').on('click', function(){
                 $(this).parent('.alert_tag').alert('close');
-                $sabke_papa.children('input').focus();
+                $sabke_papa.children('input').focus();   
             });
+            $sabke_papa.children('input').val('');
         }
         $sabke_papa.find('.d_list').css({'display':'none'});
     }
@@ -571,7 +573,7 @@ $('.answer_form').submit(function(event){
     $this.find('.form-ajax').trigger('click');
 });
 
-$('.article_form button[type=button]').click(function(event){
+$('.article_form button:submit').click(function(event){
     event.preventDefault();
     var $this = $(this).closest('form');
     var $editor = $this.find('#editor');
