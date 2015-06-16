@@ -19,6 +19,9 @@
 {% endblock left %}
 
 {% block content %}
+<!--   <div class="row">
+  <div class="col-">
+</div> -->
   <ul class="nav nav-pills">
     <li><a data-toggle="pill" href="#products">Products</a></li>
     <li><a data-toggle="pill" href="#members">Members</a></li>
@@ -44,35 +47,9 @@
 {% endblock %}
 
 {% block right %}
-  <div class="panel panel-default ajax_andar ajax_papa">
-    <div class="panel-heading">
-      <h3 class="text-muted detail_head">
-        Interests
-        {% ifequal user request.user %}
-        <button data-content="interest" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
-        {% endifequal %}
-      </h3>
-      <form class="edit_interest hide" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
-        {% csrf_token %}
-        <div class="d_search instant" data-results="instant">
-          <input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ...">
-          <input type="hidden" name="value" class="instant_i">
-          <input type="hidden" name="type" value="M">
-          <button type="submit" class="form-ajax hide"></button>
-          <div class="dropdown">
-            <ul class="dropdown-menu d_list">
-            </ul>
-          </div>
-          <div class="d_results"></div>
-        </div>
-      </form>
-    </div>
-    <div class="panel-body">
-      <div class="detail_body">
-        {% for interest in user.userprofile.get_interests %}
-          {% include 'snippets/one_interest.html' with interest=interest %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+  {% ifequal user request.user %}
+    {% include "snippets/floating_form.html" with tag="material" type="M" %}
+    {% include "snippets/floating_form.html" with tag="operation" type="O" %}
+    {% include "snippets/floating_form.html" with tag="asset" type="A" %}
+  {% endifequal %}
 {% endblock right %}

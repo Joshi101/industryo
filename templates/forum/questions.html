@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<a href="{% url 'forum:ask' %}">Ask Question</a>
+	<div class="panel panel-success bg-info">
+		<div class="panel-body">
+			<p class="text-justify text-muted">Take the attitude of a student,<i> never be too big to ask questions, never know too much to learn something new</i>.</p>
+			<a class="pull-right" href="{% url 'forum:ask' %}">Ask a Question now</a>
+		</div>
+	</div>
 	<div class="ajax_andar feeds">
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}
 		<div class="paginator" data-next_page="2"></div>
