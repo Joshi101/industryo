@@ -84,7 +84,7 @@
           </li>
           <li>
           {% if user.userprofile.primary_workplace %}
-            <a id="ind_name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}"><span class="badge">{{user.userprofile.primary_workplace.points}}</span>{{user.userprofile.primary_workplace}}</a>
+            <a id="ind_name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}"><span class="badge">{{user.userprofile.get_workplace_points}}</span>{{user.userprofile.primary_workplace}}</a>
           {% endif %}
           </li>
           <li>

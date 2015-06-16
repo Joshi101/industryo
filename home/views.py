@@ -17,24 +17,22 @@ def home(request):
     if request.user.is_authenticated():
         user = request.user
         if request.user.userprofile.primary_workplace:
-            # name = user.username
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
-            workplace = profile.primary_workplace       # .select_related('workplaceprofile')
-            job_position = profile.job_position
+            workplace = profile.primary_workplace
             t = workplace.workplace_type
-            # tasks.create_node()
-            # tasks.get_score()
-            related_node = Node.feed.all()     # (w_type=t) #.select_related('user__userprofile')
-            # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
-            # content1 = Node.objects.filter(user__workplace__workplace_type=t)
-            # content2 = Question.objects.filter(tags=user.userprofile.interests)
-            content3 = Question.objects.all()            # filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
-            # content4 = Question.objects.filter(answer__question__user__userprofile__primary_workplace__workplace_type=t) #.select_related('user__userprofile')
-            # content5 = Answer.objects.filter(question__)
+            if t == 'A':
+                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                question = Question.objects.filter(user__userprofile__primary_workplace__type=t).select_related('user__userprofile')
+            elif t == 'B':
+                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                question = Question.objects.all().select_related('user__userprofile')
+            elif t == 'C':
+                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                question = Question.objects.all().select_related('user__userprofile')
+
             all_result_list = sorted(
-                chain(related_node, content3),
+                chain(related_node, question),
                 key=attrgetter('date'), reverse=True)
-                # key=lambda instance: ('-instance.date'))
             paginator = Paginator(all_result_list, 5)
             page = request.GET.get('page')
 
@@ -63,22 +61,3 @@ def search(request):
     else:
         return render(request, 'search/search.html')
 
-
-# def content(request):
-#     user = request.user
-#     workplace = request.user.userprofile.workplace
-#     type = workplace.workplace_type
-#     questions = Question.objects.filter(Q(user__workplace__workplace_type=type)|Q(tags=user.userprofile.interests)
-# |Q(user__userprofile__workplace=workplace)|Q(tags=workplace.tags))
-#     content1 = Node.objects.filter(user__workplace__workplace_type=type)
-#     content2 = Question.objects.filter(tags=user.userprofile.interests)
-#     content3 = Question.objects.filter(user__userprofile__workplace=workplace)
-#     content4 = Question.objects.filter(question__user__userprofile__workplace=workplace)
-#     content5 = Question.objects.filter(tags=workplace.tags)
-
-
-#|Q(tags=workplace.tags)
-
-#
-# def set_workplace(request):
-#     if request.method == 'POST':
