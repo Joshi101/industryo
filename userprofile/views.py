@@ -79,7 +79,10 @@ def set_interests(request):
         r_elements = []
         user = request.user
         up = user.userprofile
-        interests = request.POST.get('interest')
+        interests = request.POST.get('value')
+        if type == 'All':
+            up.set_interests(interests)
+        print(interests)
         up.set_interests(interests)
         new_interest = user.userprofile.interests.get(tag=interests)
         r_elements = ['detail_body']

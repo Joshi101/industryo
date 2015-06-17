@@ -24,6 +24,7 @@ def ask(request):
             question = Question(question=question, title=title, user=user)
             question.save()
             tag = form.cleaned_data.get('tags')
+            print(tag)
             question.create_tags(tag)
             slug = question.slug
 

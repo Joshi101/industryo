@@ -155,8 +155,7 @@ def node(request, id):
 
 
 def articles(request):
-    print('here')
-    atricles = Node.objects.filter(category='A')
+    articles = Node.article.all()
     return render(request, 'nodes/articles.html', {'articles':articles})
 
 

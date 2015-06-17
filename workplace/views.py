@@ -7,6 +7,7 @@ from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
 from userprofile.models import User, UserProfile
 import json
+from django.core import serializers
 from django.contrib.auth.decorators import login_required
 
 
@@ -87,9 +88,11 @@ def set_tags(request):
         r_html = {}
         r_elements = []
         user = request.user
+        up = user.userprofile
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('value')
+        print(type,value)
         print(value,type)
         if type == 'A':
             t = wp.set_assets(value)
@@ -128,9 +131,13 @@ def workplace_profile(request, slug):
 
 
 def get_top_scorers(request, slug):
+    print ('alpha')
     workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk).order_by('-score')[:3]
-    return members
+    print (workplace)
+    members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')[:3]
+    for m in members:
+        print(m.get_details())
+    return render(request, 'snippets/people_list.html', {'people':members})
 
 
 @login_required
