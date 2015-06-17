@@ -52,13 +52,13 @@ class Question(models.Model):
     def get_tagged(self, tag):
         all_tagged = Question.objects.filter()
 
-    def create_tags(self, tag):
-        # tags = tags.strip()
-        tag_list = tag.split(',')
-        for ta in tag_list:
-            print(ta)
-            t, created = Tags.objects.get_or_create(tag=ta)
-            # self.tags(tags=t, question=self)
+    def set_tags(self, tags):
+        question_tags = tags.split(' ')
+        li = []
+        for m in question_tags:
+            t, created = Tags.objects.get_or_create(tag=m)
+            li.append(t)
+        self.tags = li
 
     def get_q_upvoters(self):
         upvotes = Activity.objects.filter(question=self.pk, activity='U')

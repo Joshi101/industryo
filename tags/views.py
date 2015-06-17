@@ -37,6 +37,7 @@ def search_tag(request):
     else:
         return render(request, 'tags/list.html')
 
+
 def search_interests(request):                  # for searching the workplace
     if request.method == 'GET':
         n = request.GET['the_query']
@@ -46,14 +47,16 @@ def search_interests(request):                  # for searching the workplace
     else:
         return render(request, 'tags/list.html')
 
+
 def get_tag(request, slug):
     tag = Tags.objects.get(slug=slug)
+    questions = Question.objects.filter(tags=tag)
+    workplaces = Workplace.objects.filter(tags=tag)
+    articles = Node.article.filter(tags=tag)
     if tag:
-
-        questions = Question.objects.filter(tags=tag)
-        workplaces = Workplace.objects.filter(tags=tag)
-        articles = Node.article.filter(tags=tag)
-
+        print('tag')
+    if questions:
+        print('question')
     return render(request, 'tags/tag.html', locals())
 
 
@@ -81,6 +84,18 @@ def search_n_tags(request):
     o = Tags.objects.filter(type=type, tag__icontains=tag)
     create = request.GET['the_create']
     return render(request, 'tags/list.html', {'o': o, 'create': create})
+
+
+def describe_tag(request):          # edit description
+    if request.method == 'POST':
+        id = request.POST['id']
+        tag = Tags.objects.get(id=id)
+        description = request.POST['description']
+        tag.description = description
+        tag.save()
+        return redirect('/tags/'+tag.slug)
+    else:
+        return redirect('/')
 
 
 # Create your views here.

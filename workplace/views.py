@@ -90,7 +90,7 @@ def set_tags(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('value')
-        print(value,type)
+        print(value, type)
         if type == 'A':
             t = wp.set_assets(value)
         if type == 'M':
@@ -119,6 +119,7 @@ def set_tags(request):
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
     workplace_logo_form = SetLogoForm()
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
     answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace)

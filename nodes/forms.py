@@ -1,5 +1,6 @@
 from django import forms
 from nodes.models import Images
+from tags.models import Tags
 
 
 class UploadImageForm(forms.ModelForm):
@@ -28,3 +29,16 @@ class SetProfileImageForm(forms.ModelForm):
         model = Images
         exclude = ['slug', 'user', 'image_thumbnail', 'time']
         fields = ['image']
+
+
+class SetTagLogoForm(forms.ModelForm):
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'cropit-image-input'}))
+
+    class Meta:
+        model = Tags
+        exclude = ['slug', 'tag', 'description', 'count', 'is_active', 'type']
+        fields = ['logo']
+
+
+
+

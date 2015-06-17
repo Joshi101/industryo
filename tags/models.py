@@ -28,6 +28,14 @@ class Tags(models.Model):
             # self.slug = slugify(self.get_full_name()).__str__()
             super(Tags, self).save(*args, **kwargs)
 
+    def get_logo(self):
+        default_image = 'images/tags/tag.JPG'
+        if self.logo:
+            image_url = '/images/'+str(self.profile_image.image_thumbnail)
+            return image_url
+        else:
+            return default_image
+
 
 
 

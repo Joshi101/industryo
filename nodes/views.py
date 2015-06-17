@@ -5,6 +5,7 @@ from nodes.models import *
 from activities.models import Activity, Notification
 import json
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def post(request):
@@ -37,14 +38,28 @@ def write(request):                 ## Write an article
         title = request.POST['title']
         user = request.user
         tags = request.POST['tags']
-        print(post,user,title)
-        node = Node(post=post, title=title, category='A', user=user)
-        print('iche')
+        anonymous = request.POST['anonymous']
+        draft = request.POST['draft']
+        if anonymous:
+            node = Node(post=post, title=title, category='A', user=user, anonymous=True)
+        elif draft:
+            node = Node(post=post, title=title, category='A', user=user, is_active=False)
+        else:
+            node = Node(post=post, title=title, category='A', user=user)
         node.save()
         node.set_tags(tags)
         return redirect('/nodes/articles')
     else:
         return render(request, 'nodes/write.html', locals())
+
+
+def remove_anonymity(request):
+    id = request.GET['id']
+    article = Node.objects.get(id=id)
+    article.is_active = True
+    article.save()
+    return redirect('/nodes/'+article.slug)
+
 
 @login_required
 def upload_image(request):
@@ -77,6 +92,26 @@ def set_logo(request):
             workplace.logo = i
             workplace.save()
         return redirect('/workplace/'+workplace.slug)
+    else:
+        return render(request, 'nodes/upload.html', {'form': form})
+
+@login_required
+def set_tag_logo(request, slug):
+    form = SetTagLogoForm(request.POST, request.FILES)
+    user = request.user
+    tag = Tags.objects.get(slug=slug)
+
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("fuck")
+            return render(request, 'nodes/set_logo.html', {'form': form})
+        else:
+            image = form.cleaned_data.get('image')
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
+
+            tag.logo = i
+            tag.save()
+        return redirect('/tags/'+tag.slug)
     else:
         return render(request, 'nodes/upload.html', {'form': form})
 
@@ -155,9 +190,21 @@ def node(request, id):
 
 
 def articles(request):
-    print('here')
-    atricles = Node.objects.filter(category='A')
-    return render(request, 'nodes/articles.html', {'articles':articles})
+    articles = Node.article.all()
+
+    paginator = Paginator(articles, 5)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+
+    return render(request, 'nodes/articles.html', {'articles': result_list})
 
 
 # Create your views here.

@@ -138,10 +138,10 @@ class Node(models.Model):
         article_tags = tags.split(' ')
         li = []
         for m in article_tags:
-
             t, created = Tags.objects.get_or_create(tag=m)
             li.append(t)
         self.tags = li
+
 
     def get_like_count(self):
         likes = Activity.objects.filter(node=self.pk).count()
