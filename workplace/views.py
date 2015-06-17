@@ -123,10 +123,10 @@ def workplace_profile(request, slug):
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
-    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
-    answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace)
-    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace)
-    articles = Node.article.filter(user__userprofile__primary_workplace=workplace)
+    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     return render(request, 'workplace/profile.html', locals())
 
 
