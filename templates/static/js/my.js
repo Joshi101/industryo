@@ -206,19 +206,19 @@ $(".d_list").on('click', 'a', function(event){
 
             $sabke_papa.find('.close').on('click', function(){
                 $(this).parent('.alert').alert('close');
-                $sabke_papa.children('input').removeClass('hide').focus();
+                $sabke_papa.children('input').first().removeClass('hide').focus();
             });
         }
         else if(r_type == 'multiple'){
             var $d_results = $sabke_papa.children('.d_results');
             var pre_value = $d_results.html();
             $d_results.html(pre_value+'<div class="alert alert_tag"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>');
-            var pre_value_snd = $sabke_papa.children('input').next().val();
-            $sabke_papa.children('input').next().val(pre_value_snd + value + ',');
-            console.log($sabke_papa.children('input').next().val());
+            var pre_value_snd = $sabke_papa.children('input').first().next().val();
+            $sabke_papa.children('input').first().next().val(pre_value_snd + value + ',');
+            console.log($sabke_papa.children('input').first().next().val());
             $sabke_papa.find('.close').on('click', function(){
                 $(this).parent('.alert_tag').alert('close');
-                $sabke_papa.children('input').focus();   
+                $sabke_papa.children('input').first().focus();   
             });
             //$sabke_papa.children('input').val('');
         }

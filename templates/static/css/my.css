@@ -855,5 +855,8 @@ div[data-role="editor-toolbar"] {
 }
 
 #right{
-	padding: 2.5%;
+	padding: 0% 3%;
+}
+
+.floating_form:first-of-type{
 }
