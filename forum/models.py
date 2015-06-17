@@ -109,6 +109,10 @@ class Question(models.Model):
         # # preview = self.get_summary(ans.answer)
         # return ans
 
+    def get_tags(self):
+        tags = self.tags.all()
+        return tags
+
 
 class Answer(models.Model):
     user = models.ForeignKey(User)
@@ -142,7 +146,6 @@ class Answer(models.Model):
         votes = upvotes-downvotes
         self.votes = votes
         self.save()
-        print("dfghjkldfghjk")
         return votes
 
     def get_comments(self):

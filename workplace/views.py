@@ -131,12 +131,8 @@ def workplace_profile(request, slug):
 
 
 def get_top_scorers(request, slug):
-    print ('alpha')
     workplace = Workplace.objects.get(slug=slug)
-    print (workplace)
     members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')[:3]
-    for m in members:
-        print(m.get_details())
     return render(request, 'snippets/people_list.html', {'people':members})
 
 
@@ -159,15 +155,11 @@ def set_capabilities(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        print("DSSDF")
         response = {}
 
         capabilities = request.POST.get('capabilities')
-        # print('post aaya')
         wp.about = capabilities
-        # print('save aaya')
         wp.save()
-        # print('save ho gaya')
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/workplace/'+wp.slug)
@@ -177,15 +169,11 @@ def set_product_details(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        print("DSSDF")
         response = {}
 
         product_details = request.POST.get('product_details')
-        # print('post aaya')
         wp.product_details = product_details
-        # print('save aaya')
         wp.save()
-        # print('save ho gaya')
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/workplace/'+wp.slug)

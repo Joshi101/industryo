@@ -39,10 +39,9 @@ def get_question(request, slug):
     q = Question.objects.get(slug=slug)
     comments = Comments.objects.filter(question=q.id)
     answers = Answer.objects.filter(question=q.id)
-    print('aya')
-    show_ans = request.GET.get('answers',None)
-    write_ans = request.GET.get('write',None)
-    print(show_ans,write_ans)
+    show_ans = request.GET.get('answers', None)
+    write_ans = request.GET.get('write', None)
+    tags = q.tags.all()
     return render(request, 'forum/quest.html', locals())
 
 @login_required

@@ -22,6 +22,9 @@
 						{% if q.question %}
 						<pre class="q_detail">{{ q.question }}</pre>	
 						{% endif %}
+						{% for tag in tags %}
+							{{tag}}
+						{% endfor %}
 					</div>
 					<div class="feed_box_extra">
 						<div class="comments">

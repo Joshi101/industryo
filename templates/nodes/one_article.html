@@ -10,6 +10,11 @@
 		<div class="feed_box_body">
 			<h4>{{ node.title }}</h4>
 			<pre>{{ node.post|safe }}</pre>
+			{% if node.get_tags %}
+			{% for t in node.get_tags %}
+				{{t.tag}}
+			{% endfor %}
+			{% endif %}
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">

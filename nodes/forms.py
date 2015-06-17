@@ -32,12 +32,12 @@ class SetProfileImageForm(forms.ModelForm):
 
 
 class SetTagLogoForm(forms.ModelForm):
-    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'cropit-image-input'}))
+    image = forms.ImageField(required=True,widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
 
     class Meta:
-        model = Tags
-        exclude = ['slug', 'tag', 'description', 'count', 'is_active', 'type']
-        fields = ['logo']
+        model = Images
+        exclude = ['slug', 'user', 'image_thumbnail', 'time']
+        fields = ['image']
 
 
 
