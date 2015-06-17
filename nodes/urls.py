@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^write/$', 'nodes.views.write', name='write'),
     url(r'^set_logo/$', 'nodes.views.set_logo', name='set_logo'),
     url(r'^set_profile_image/$', 'nodes.views.set_profile_image', name='set_profile_image'),
+    url(r'^set_tag_logo/(?P<slug>[^/]+)/$', 'nodes.views.set_tag_logo', name='set_tag_logo'),
     url(r'^(?P<id>[^/]+)/$', 'nodes.views.node', name='node'),
 
 )

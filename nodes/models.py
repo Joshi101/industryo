@@ -27,13 +27,6 @@ class Images(models.Model):
 
     def __str__(self):
         return str(self.pk)
-    #
-    # def save(self, *args, **kwargs):
-    #     if not self.id:                  # Newly created object, so set slug
-    #         slug_str = self.id
-    #         unique_slugify(self, slug_str)
-    #         # self.slug = slugify(self.get_full_name()).__str__()
-    #         super(Images, self).save(*args, **kwargs)
 
     def upload_image(self, image, user):
         i = Images.objects.create(image=image, image_thumbnail=image, user=user)
@@ -67,7 +60,6 @@ class Comments(models.Model):
         comments = Comments.objects.filter(node=self).select_related('user__userprofile__primary_workplace')[:1]
         for comment in comments:
             return comment
-
 
 
 class Node(models.Model):
@@ -138,8 +130,9 @@ class Node(models.Model):
         article_tags = tags.split(' ')
         li = []
         for m in article_tags:
-
             t, created = Tags.objects.get_or_create(tag=m)
+            t.count +=1
+            t.save()
             li.append(t)
         self.tags = li
 
@@ -174,7 +167,6 @@ class Node(models.Model):
             image_url = '/images/' + str(self.image.image)
             return image_url
 
-
     def get_score(self):
         p = self.likes+self.comments    # popularity
         t = (now()-self.date).total_seconds()/3600  # age_in_hrs
@@ -188,6 +180,10 @@ class Node(models.Model):
         i = Images()
         a = i.upload_image(image=image, user=user)
         self.image = a
+
+    def get_tags(self):
+        tags = self.tags.all()
+        return tags
 
     # def get_image(self):
     #     if self.image:

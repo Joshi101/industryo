@@ -126,10 +126,11 @@ $('form .taggable').each(convert_to_taggable);
 $('.d_input').keyup(function(event){
     var $this = $(this);
     if(event.key == ','){
-        console.log('lklk')
         $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
     }
     else{
+	
+		console.log('loipu')
         var query = $this.val()
         ,   search = "/search" + $this.data('search')
         ,   create = $this.data('create');

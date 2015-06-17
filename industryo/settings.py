@@ -26,7 +26,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -47,8 +46,8 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3',
     'crispy_forms',
-    'debug_toolbar',
     # 'background_task',
+    'debug_toolbar',
 
     'nodes',
     'workplace',
@@ -56,12 +55,10 @@ INSTALLED_APPS = (
     'forum',
     'activities',
     'products',
-
     'tags',
 )
 
 MIDDLEWARE_CLASSES = (
-    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,8 +122,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'js_sdk'  # instead of 'oauth2'
 
     },
-    'google':{ 'SCOPE': ['profile', 'email'],
-          'AUTH_PARAMS': { 'access_type': 'online'}}
+    'google': {'SCOPE': ['profile', 'email'],
+               'AUTH_PARAMS': {'access_type': 'online'}}
 }
 
 

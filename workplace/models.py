@@ -54,42 +54,58 @@ class Workplace(models.Model):
     def set_materials(self, materials):
         t, created = Tags.objects.get_or_create(tag=materials, type='M')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_segments(self, materials):
         t, created = Tags.objects.get_or_create(tag=materials, type='S')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_operations(self, operations):
         t, created = Tags.objects.get_or_create(tag=operations, type='O')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_industrial_area(self, industrial_area):
         t, created = Tags.objects.get_or_create(tag=industrial_area, type='I')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_assets(self, assets):
         t, created = Tags.objects.get_or_create(tag=assets, type='A')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_institution(self, institution):
         t, created = Tags.objects.get_or_create(tag=institution, type='I')
         self.tags = t
         self.institution = t
+        t.count +=1
+        t.save()
         return t
 
     def set_city(self, city):
         t, created = Tags.objects.get_or_create(tag=city, type='C')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_events(self, events):
         t, created = Tags.objects.get_or_create(tag=events, type='E')
         self.tags.add(t)
+        t.count +=1
+        t.save()
         return t
 
     def set_logo(self, image, user):
@@ -123,6 +139,10 @@ class Workplace(models.Model):
         institution = self.institution
         return institution
 
+    # def get_top_scorers(request):
+    # workplace = Workplace.objects.get(slug=slug)
+    # members = UserProfile.objects.filter(primary_workplace=workplace.pk).order_by('-score')[:3]
+    # return members
 
 
 

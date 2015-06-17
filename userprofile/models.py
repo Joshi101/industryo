@@ -36,42 +36,25 @@ class UserProfile(models.Model):
         detail = "%s | %s" % (self.user, self.primary_workplace)
         return detail
 
-    # def profile_image_url(self):
-    #     fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
-    #
-    #     if len(fb_uid):
-    #         return "http://graph.facebook.com/{}/picture?width=40&height=40".format(fb_uid[0].uid)
-    #
-    #     return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
-
     def get_profile_image(self):
-        print('kya hai bhai4')
         default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:
-            print('here')
             image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
         else:
-            print('else')
             try:
-                print('kya hai bhai3')
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
-                # google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
                 if len(fb_uid):
                     return "http://graph.facebook.com/{}/picture?width=120&height=120".format(fb_uid[0].uid)
                 return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
             except Exception:
                 try:
-
-                    print('kya hai bhai2')
                     google_uid = SocialAccount.objects.get(user_id=self.user.id, provider='Google')
                     if google_uid:
-                        #return google_uid.extra_data.picture
                         return google_uid.extra_data['picture']
 
                 except Exception:
-                    print('kya hai bhai')
                     return default_image
 
 
@@ -79,6 +62,8 @@ class UserProfile(models.Model):
         interests_tags = interests.split(',')
         for m in interests_tags:
             t, created = Tags.objects.get_or_create(tag=m)
+            t.count += 1
+            t.save()
             self.interests.add(t)
 
     def get_interests(self):
@@ -92,11 +77,15 @@ class UserProfile(models.Model):
         for m in skills_tags:
 
             t, created = Tags.objects.get_or_create(tag=m, type='O')
+            t.count +=1
+            t.save()
             self.interests.add(t)
 
     def set_area(self, area):
         t, created = Tags.objects.get_or_create(tag=area, type="C")
         self.interests = t
+        t.count +=1
+        t.save()
 
     def notify_liked(self, node):           # working
         if self.user != node.user:

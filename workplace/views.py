@@ -92,8 +92,7 @@ def set_tags(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('value')
-        print(type,value)
-        print(value,type)
+
         if type == 'A':
             t = wp.set_assets(value)
         if type == 'M':
@@ -122,21 +121,18 @@ def set_tags(request):
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
     workplace_logo_form = SetLogoForm()
-    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace)
-    answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace)
-    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace)
-    articles = Node.article.filter(user__userprofile__primary_workplace=workplace)
+    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     return render(request, 'workplace/profile.html', locals())
 
 
 def get_top_scorers(request, slug):
-    print ('alpha')
     workplace = Workplace.objects.get(slug=slug)
-    print (workplace)
     members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')[:3]
-    for m in members:
-        print(m.get_details())
     return render(request, 'snippets/people_list.html', {'people':members})
 
 
@@ -159,15 +155,11 @@ def set_capabilities(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        print("DSSDF")
         response = {}
 
         capabilities = request.POST.get('capabilities')
-        # print('post aaya')
         wp.about = capabilities
-        # print('save aaya')
         wp.save()
-        # print('save ho gaya')
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/workplace/'+wp.slug)
@@ -177,15 +169,11 @@ def set_product_details(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        print("DSSDF")
         response = {}
 
         product_details = request.POST.get('product_details')
-        # print('post aaya')
         wp.product_details = product_details
-        # print('save aaya')
         wp.save()
-        # print('save ho gaya')
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/workplace/'+wp.slug)

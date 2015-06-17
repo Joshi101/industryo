@@ -23,9 +23,11 @@ def ask(request):
             user = request.user
             question = Question(question=question, title=title, user=user)
             question.save()
-            tag = form.cleaned_data.get('tags')
-            print(tag)
-            question.create_tags(tag)
+
+            tags = form.cleaned_data.get('tags')
+            print(tags)
+            question.set_tags(tags)
+
             slug = question.slug
 
             return HttpResponseRedirect('/forum/'+slug)
@@ -37,10 +39,9 @@ def get_question(request, slug):
     q = Question.objects.get(slug=slug)
     comments = Comments.objects.filter(question=q.id)
     answers = Answer.objects.filter(question=q.id)
-    print('aya')
-    show_ans = request.GET.get('answers',None)
-    write_ans = request.GET.get('write',None)
-    print(show_ans,write_ans)
+    show_ans = request.GET.get('answers', None)
+    write_ans = request.GET.get('write', None)
+    tags = q.tags.all()
     return render(request, 'forum/quest.html', locals())
 
 @login_required

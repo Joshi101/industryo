@@ -5,6 +5,7 @@ from nodes.models import *
 from activities.models import Activity, Notification
 import json
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def post(request):
@@ -33,25 +34,38 @@ def post(request):
 @login_required
 def write(request):                 ## Write an article
     if request.method == 'POST':
-        post = request.POST['post']
-        title = request.POST['title']
+        post = request.POST.get('post')
+        title = request.POST.get('title')
         user = request.user
         tags = request.POST['tags']
-        print(post,user,title)
-        node = Node(post=post, title=title, category='A', user=user)
-        print('iche')
+        anonymous = request.POST.get('anonymous')
+        draft = request.POST.get('draft')
+        if anonymous:
+            node = Node(post=post, title=title, category='A', user=user, anonymous=True)
+        elif draft:
+            node = Node(post=post, title=title, category='A', user=user, is_active=False)
+        else:
+            node = Node(post=post, title=title, category='A', user=user)
         node.save()
         node.set_tags(tags)
         return redirect('/nodes/articles')
     else:
         return render(request, 'nodes/write.html', locals())
 
+
+def remove_anonymity(request):
+    id = request.GET['id']
+    article = Node.objects.get(id=id)
+    article.is_active = True
+    article.save()
+    return redirect('/nodes/'+article.slug)
+
+
 @login_required
 def upload_image(request):
     form = UploadImageForm(request.POST, request.FILES)
     if request.method == 'POST':
         if not form.is_valid():
-            print("fuck")
             return render(request, 'nodes/upload.html', {'form': form})
         else:
             user = request.user
@@ -69,7 +83,6 @@ def set_logo(request):
     workplace = user.userprofile.primary_workplace
     if request.method == 'POST':
         if not form.is_valid():
-            print("fuck")
             return render(request, 'nodes/set_logo.html', {'form': form})
         else:
             image = form.cleaned_data.get('image')
@@ -81,11 +94,31 @@ def set_logo(request):
         return render(request, 'nodes/upload.html', {'form': form})
 
 @login_required
+def set_tag_logo(request, slug):
+    print("trescanot")
+    form = SetTagLogoForm(request.POST, request.FILES)
+    user = request.user
+    tag = Tags.objects.get(slug=slug)
+    if request.method == 'POST':
+        if not form.is_valid():
+            print("trescanot")
+            return redirect('/') # render(request, 'nodes/upload.html', {'form': form})
+        else:
+            print("trescaaaaaaaaa")
+            image = form.cleaned_data.get('image')
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
+            print('oooooiimaaa')
+            tag.logo = i
+            tag.save()
+            return redirect('/tags/'+tag.slug)
+    else:
+        return render(request, 'nodes/set_logo.html', {'form': form})
+
+@login_required
 def set_profile_image(request):
     form = SetProfileImageForm(request.POST, request.FILES)
     if request.method == 'POST':
         if not form.is_valid():
-            print("fuck")
             return render(request, 'nodes/set_logo.html', {'form': form})
         else:
             user = request.user
@@ -96,7 +129,6 @@ def set_profile_image(request):
             userprofile.save()
         return redirect('/user/'+request.user.username)
     else:
-        print("fuck3")
         return redirect('/')
 
 @login_required
@@ -105,18 +137,14 @@ def like(request):
         q = request.GET['id']
         node = Node.objects.get(id=q)
         user = request.user
-        print('11110')
         try:
             lik = Activity.objects.get(user=user, node=node, activity='L')
             lik.delete()
             user.userprofile.unotify_liked(node)
-            print('11111')
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
-            print('11119')
             user.userprofile.notify_liked(node)
-            print('11112')
         return HttpResponse()
     else:
         return redirect('/')
@@ -135,7 +163,6 @@ def comment(request):
         c.save()
         user.userprofile.notify_n_commented(node)
         r_elements = ['comments']
-        print(c.user)
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html
         response['elements'] = r_elements
@@ -149,14 +176,27 @@ def comment(request):
 
 def node(request, id):
     node = Node.objects.get(id=id)
-    # if node:
-    #     print(name)
+
     return render(request, 'nodes/one_node.html', {'node': node})
 
 
 def articles(request):
-    articles = Node.article.all()
-    return render(request, 'nodes/articles.html', {'articles':articles})
+    articles = Node.article.all()           # here we can use prefetch_related to get tags
+
+    paginator = Paginator(articles, 5)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+
+    return render(request, 'nodes/articles.html', {'articles': result_list})
+
 
 
 # Create your views here.

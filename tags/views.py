@@ -11,14 +11,13 @@ def create_tag(request):
     form = CreateTagForm(request.POST)
     if request.method == 'POST':
         if not form.is_valid():
-            print("form invalid")
             return render(request, 'tags/create.html', {'form': form})
         else:
             tag = form.cleaned_data.get('tag')
             description = form.cleaned_data.get('description')
 
             t, created = Tags.objects.get_or_create(tag=tag, description=description)
-            t.number += 1
+            t.count += 1
             t.save()
 
             return render(request, 'tags/create.html', {'form': form})
@@ -35,10 +34,10 @@ def search_tag(request):
             o = Tags.objects.filter(tag__icontains=tag)
         else:
             o = Tags.objects.filter(type=type, tag__icontains=tag)
-        print('okay')
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
         return render(request, 'tags/list.html')
+
 
 def search_interests(request):                  # for searching the workplace
     if request.method == 'GET':
@@ -49,13 +48,12 @@ def search_interests(request):                  # for searching the workplace
     else:
         return render(request, 'tags/list.html')
 
+
 def get_tag(request, slug):
     tag = Tags.objects.get(slug=slug)
-    if tag:
-
-        questions = Question.objects.filter(tags=tag)
-        workplaces = Workplace.objects.filter(tags=tag)
-        articles = Node.article.filter(tags=tag)
+    questions = Question.objects.filter(tags=tag)
+    workplaces = Workplace.objects.filter(tags=tag)
+    articles = Node.article.filter(tags=tag)
 
     return render(request, 'tags/tag.html', locals())
 
@@ -78,12 +76,23 @@ def get_all_tags(request):
 
 
 def search_n_tags(request):
-    print('ax')
     tag = request.GET['the_query']
     type = request.GET['the_type']
     o = Tags.objects.filter(type=type, tag__icontains=tag)
     create = request.GET['the_create']
     return render(request, 'tags/list.html', {'o': o, 'create': create})
+
+
+def describe_tag(request, slug):          # edit description
+    if request.method == 'POST':
+        # id = request.POST['id']
+        tag = Tags.objects.get(slug=slug)
+        description = request.POST['description']
+        tag.description = description
+        tag.save()
+        return redirect('/tags/'+tag.slug)
+    else:
+        return render_to_response('tags/describe.html')
 
 
 # Create your views here.

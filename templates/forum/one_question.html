@@ -14,6 +14,9 @@
 			{% if question.question %}
 			<pre class="q_summary">{{ question.question }}</pre>	
 			{% endif %}
+			{% for tag in question.get_tags%}
+				{{tag}}
+			{% endfor %}
 		</div>
 		<div class="feed_box_extra">
 			<div class="interaction">

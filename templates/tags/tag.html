@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block left %}
+	<li>Tag: {{tag}}</li>
+	<li>type: {{tag.type}}</li>
+	<li>Description: {{tag.description}}</li>
+	<div id="img_profile_box">
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{tag.get_logo}}">
+    </div>
+	
+{% endblock left %}
+
+{% block content %}
+Questions:
+	{% for question in questions %}
+		{{question}}
+	{% endfor %}
+	Articles:
+	{% for article in articles %}
+		{{article}}
+	{% endfor %}
+	
+{% endblock %}
