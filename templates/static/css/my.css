@@ -821,3 +821,39 @@ div[data-role="editor-toolbar"] {
 	padding-left: 5px;
 	display:inline-block;
 }
+
+#workplace_info{
+	margin-bottom: 51px;
+	margin-top: 5px;
+	padding-bottom: 1px;
+}
+
+#workplace_info div:first-child{
+	box-shadow: -2px 2px 2px rgba(16,144,112,0.81);
+	min-height: 110px;
+}
+
+#workplace_info div:last-child{
+	//border-left: 1px solid rgba(16,144,112,0.5);
+	padding-bottom: 4px;
+	//box-shadow: -1px -1px 1px rgba(16,144,112,0.5);
+}
+
+#top_members{
+	list-style: none;
+}
+
+.side_head{
+	border-bottom: 1px solid #9d9d9d;
+	padding: 3px 5px;
+}
+
+#top_members img{
+	width: 15%; 
+	border: 1px solid #333;
+	margin-right: 5%;
+}
+
+#right{
+	padding: 2.5%;
+}

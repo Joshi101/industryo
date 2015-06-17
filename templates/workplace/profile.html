@@ -11,17 +11,24 @@
     {% endif %}
   </div>
 	<div class="account">
-		<h4 class="acc_detail">{{ workplace.name }}</h4>
-		<h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4>
-		<h5 class="acc_detail text-muted">{{workplace.address}}</h5>
+		<!-- <h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4> -->
+		<!-- <h5 class="acc_detail text-muted">{{workplace.address}}</h5> -->
 	</div>
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
 {% endblock left %}
 
 {% block content %}
-<!--   <div class="row">
-  <div class="col-">
-</div> -->
+  <div id="workplace_info" class="row">
+    <div class="col-sm-7">
+      <h4 class=" text-uppercase">{{ workplace.name }}</h4>
+      <h4 class="text-muted"><small><i>National Institute of Technology, Jamshedpur</i></small></h4>
+      <h4 class="text-muted"><small><b><i>BAJA SAE, BAJA STUDENT</i></b></small></h4>
+    </div>
+    <div class="col-sm-offset-1 col-sm-4">
+      <h5><span class="label label-default">{{workplace.points}} points</span></h5>
+      <h5><span class="label label-success">151 members</span></h5>
+    </div>
+  </div>
   <ul class="nav nav-pills">
     <li><a data-toggle="pill" href="#products">Products</a></li>
     <li><a data-toggle="pill" href="#members">Members</a></li>
@@ -47,9 +54,34 @@
 {% endblock %}
 
 {% block right %}
+  <div>
+    <h5 class="side_head">Most Active Members</h5>
+    <ul id="top_members">
+    </ul>
+  </div>
+  {% comment %}
   {% ifequal user request.user %}
     {% include "snippets/floating_form.html" with tag="material" type="M" %}
     {% include "snippets/floating_form.html" with tag="operation" type="O" %}
     {% include "snippets/floating_form.html" with tag="asset" type="A" %}
   {% endifequal %}
+  {% endcomment %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      get_top_scorers();
+    });
+    function get_top_scorers(){
+      $.ajax({
+        url: "{% url "workplace:get_top_scorers" workplace.slug %}",
+        type: 'GET',
+
+        success: function(response){
+            $('#top_members').html(response);
+        },
+        error : function(xhr,errmsg,err) {
+            console.log(errmsg,err);
+        }
+      });
+    }
+  </script>
 {% endblock right %}

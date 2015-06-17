@@ -8,8 +8,8 @@
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
 		<div class="feed_box_body">
-			<pre>{{ node.title }}</pre>
-			<pre>{{ node.post }}</pre>
+			<h4>{{ node.title }}</h4>
+			<pre>{{ node.post|safe }}</pre>
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">

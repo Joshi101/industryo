@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^set_capabilities/$', 'workplace.views.set_capabilities', name='set_capabilities'),
     url(r'^set_product_details/$', 'workplace.views.set_product_details', name='set_product_details'),
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
+    url(r'^get_top_scorers/(?P<slug>[^/]+)/$', 'workplace.views.get_top_scorers', name='get_top_scorers'),
 
 )

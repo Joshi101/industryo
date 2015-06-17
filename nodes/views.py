@@ -207,4 +207,5 @@ def articles(request):
     return render(request, 'nodes/articles.html', {'articles': result_list})
 
 
+
 # Create your views here.

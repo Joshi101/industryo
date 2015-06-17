@@ -111,15 +111,15 @@
     {% block body %}
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 col-lg-3">
+        <div class="col-sm-3 col-md-2 col-lg-2">
           {% block left %}
           {% endblock left %}    
         </div>
-        <div class="col-sm-9 col-md-7 col-lg-6">
+        <div class="col-sm-9 col-md-7 col-lg-7">
           {% block content %}
           {% endblock content %}
         </div>
-        <div class="col-sm-0 col-md-3 col-lg-3">
+        <div id="right" class="col-sm-0 col-md-3 col-lg-3">
           {% block right %}
           {% endblock right %}    
         </div>

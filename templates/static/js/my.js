@@ -134,16 +134,16 @@ $('.d_input').keyup(function(event){
         ,   create = $this.data('create');
         if(!create)
             create = '';
-        console.log(query, search, create);
         var type = $this.siblings('input[name=type]').val();
         if(!type)
             type = '';
+        console.log(query, search, create, type);
         $.ajax({
             url : search,
             type : "GET",
             data : { the_query : query, the_create : create, the_type: type},
             success: function(result){
-                // console.log(result)
+                console.log(result)
                 $this.nextAll('.dropdown')
                     .children(".d_list").html(result);
                 if (create == 'create_new'){
@@ -215,11 +215,12 @@ $(".d_list").on('click', 'a', function(event){
             $d_results.html(pre_value+'<div class="alert alert_tag"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>');
             var pre_value_snd = $sabke_papa.children('input').next().val();
             $sabke_papa.children('input').next().val(pre_value_snd + value + ',');
+            console.log($sabke_papa.children('input').next().val());
             $sabke_papa.find('.close').on('click', function(){
                 $(this).parent('.alert_tag').alert('close');
                 $sabke_papa.children('input').focus();   
             });
-            $sabke_papa.children('input').val('');
+            //$sabke_papa.children('input').val('');
         }
         $sabke_papa.find('.d_list').css({'display':'none'});
     }
@@ -679,6 +680,7 @@ $('.hover_ajax').on({
 $(document).ready(function(){
     //fetches notifications
     count_notifications();
+
 });
 
 function count_notifications(){

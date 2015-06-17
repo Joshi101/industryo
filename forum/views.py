@@ -23,8 +23,11 @@ def ask(request):
             user = request.user
             question = Question(question=question, title=title, user=user)
             question.save()
+
             tags = form.cleaned_data.get('tags')
+            print(tags)
             question.set_tags(tags)
+
             slug = question.slug
 
             return HttpResponseRedirect('/forum/'+slug)

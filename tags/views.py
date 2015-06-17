@@ -31,7 +31,10 @@ def search_tag(request):
         tag = request.GET['the_query']
         create = request.GET['the_create']
         type = request.GET['the_type']
-        o = Tags.objects.filter(type=type, tag__icontains=tag)
+        if type == 'All':
+            o = Tags.objects.filter(tag__icontains=tag)
+        else:
+            o = Tags.objects.filter(type=type, tag__icontains=tag)
         print('okay')
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
