@@ -126,6 +126,7 @@ $('form .taggable').each(convert_to_taggable);
 $('.d_input').keyup(function(event){
     var $this = $(this);
     if(event.key == ','){
+        console.log('lklk')
         $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
     }
     else{
@@ -143,7 +144,6 @@ $('.d_input').keyup(function(event){
             type : "GET",
             data : { the_query : query, the_create : create, the_type: type},
             success: function(result){
-                console.log(result)
                 $this.nextAll('.dropdown')
                     .children(".d_list").html(result);
                 if (create == 'create_new'){
