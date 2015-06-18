@@ -26,7 +26,7 @@
     </div>
     <div class="col-sm-offset-1 col-sm-4">
       <h5><span class="label label-default">{{workplace.points}} points</span></h5>
-      <h5><span class="label label-success">151 members</span></h5>
+      <h5><span class="label label-success">{{ member_count }} members</span></h5>
     </div>
   </div>
   <ul class="nav nav-pills">
@@ -58,7 +58,7 @@
 {% block right %}
   <div class="floating_form">
     <h5 class="side_head">Most Active Members</h5>
-    <ul id="top_members">
+    <ul id="top_members" class="ppl_list">
     </ul>
   </div>
   {% comment %}

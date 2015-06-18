@@ -126,8 +126,8 @@ $('form .taggable').each(convert_to_taggable);
 $('.d_input').keyup(function(event){
     var $this = $(this);
     if(event.key == ','){
-		console.log('lllll')
         $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
+        $this.val('');
     }
     else{
 	
@@ -576,13 +576,13 @@ $('.answer_form').submit(function(event){
     $this.find('.form-ajax').trigger('click');
 });
 
-$('.article_form button:submit').click(function(event){
-    event.preventDefault();
+$('.article_form button[type="button"]').click(function(event){  
     var $this = $(this).closest('form');
     var $editor = $this.find('#editor');
     var content = $editor.html();
     $editor.next().val(content);
-    $this.submit();
+    console.log('k')
+    $this.find('button[type="submit"]').trigger('click');
 });
 
 $('.detail').on({
@@ -621,7 +621,7 @@ $('.detail').on({
         var $content = $('.content_' + content);
         var save = $this.data('save');
         if (save == 'save'){
-            console.log($('#'+content).serialize())
+            console.log($('#'+content).serialize());
             $content.each(function(){
                 var value = $(this).next().val();
                 console.log($(this).next().val())
@@ -633,7 +633,7 @@ $('.detail').on({
         else {
             $content.each(function(){
                 var value = $(this).text();
-                console.log($(this).text())
+                console.log(value)
                 $(this).addClass('hide')
                     .next().val(value).removeClass('hide');
             });

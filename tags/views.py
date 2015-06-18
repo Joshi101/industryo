@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, HttpResponse
 from tags.forms import CreateTagForm
 from tags.models import Tags
 from forum.models import Question
 from workplace.models import Workplace
 from nodes.models import Node
+from nodes.forms import SetTagLogoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -54,6 +55,7 @@ def get_tag(request, slug):
     questions = Question.objects.filter(tags=tag)
     workplaces = Workplace.objects.filter(tags=tag)
     articles = Node.article.filter(tags=tag)
+    tag_logo_form = SetTagLogoForm()
 
     return render(request, 'tags/tag.html', locals())
 
@@ -85,14 +87,15 @@ def search_n_tags(request):
 
 def describe_tag(request, slug):          # edit description
     if request.method == 'POST':
+        print('tagu')
         # id = request.POST['id']
         tag = Tags.objects.get(slug=slug)
         description = request.POST['description']
         tag.description = description
         tag.save()
-        return redirect('/tags/'+tag.slug)
+        return HttpResponse()
     else:
-        return render_to_response('tags/describe.html')
+        return redirect('/tags/'+tag.slug)
 
 
 # Create your views here.

@@ -4,23 +4,50 @@
 {% load bootstrap %}
 
 {% block left %}
-	<li>Tag: {{tag}}</li>
-	<li>type: {{tag.type}}</li>
-	<li>Description: {{tag.description}}</li>
 	<div id="img_profile_box">
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{tag.get_logo}}">
-    </div>
-	
+		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
+  </div>
+  {% include "snippets/img_upload_modal.html" with url='nodes:set_tag_logo' url_slug=tag.slug form=tag_logo_form.image %}
 {% endblock left %}
 
 {% block content %}
-Questions:
-	{% for question in questions %}
-		{{question}}
-	{% endfor %}
-	Articles:
-	{% for article in articles %}
-		{{article}}
-	{% endfor %}
-	
+	<div class="panel panel-success bg-info ajax_andar ajax_papa">
+		<form id="tag_desc" class="pull-right" action="{% url 'tags:describe_tag' tag.slug %}" method="POST">
+			<button data-content="tag_desc" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+		</form>
+		<div class="panel-body">
+			<div class="col-sm-7">
+	      <h4 class=" text-uppercase">{{ tag }}</h4>
+	      <h5 class="text-muted"><b><i>{{ tag.type }}</i></b></h5>
+	      <h5 class="text-muted content_tag_desc">{{ tag.description }}</h5>
+				<textarea name="description" form="tag_desc" rows="3" class="form-control edit_tag_desc hide"></textarea>
+	    </div>
+	    <div class="col-sm-offset-1 col-sm-4">
+	      <h5><span class="label label-default">{{workplace.points}} points</span></h5>
+	      <h5><span class="label label-success">151 members</span></h5>
+	    </div>
+		</div>
+	</div>
+
+	<ul class="nav nav-tabs">
+	  <li class="active"><a data-toggle="tab" href="#questions">Questions</a></li>
+	  <li><a data-toggle="tab" href="#answers">Answers</a></li>
+	  <li><a data-toggle="tab" href="#articles">Articles</a></li>
+	</ul>
+
+	<div class="tab-content">
+	  <div id="questions" class="tab-pane fade in active">
+			{% for question in questions %}
+				{% include 'forum/one_question.html' with node=question %}
+			{% endfor %}
+	  </div>
+	  <div id="answers" class="tab-pane fade">
+	  </div>
+	  <div id="articles" class="tab-pane fade">
+	  	{% for article in articles %}
+				{% include 'nodes/one_article.html' with node=article %}
+			{% endfor %}
+	  </div>
+	</div>
 {% endblock %}

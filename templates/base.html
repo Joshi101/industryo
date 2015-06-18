@@ -42,72 +42,9 @@
   <div id="back"></div>
   {% endblock back %}
   {% block top %}
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <div class="navbar-brand">
-          <form action="" role="form" id="top_search">
-            <div class="has-feedback">
-              <input type="text" class="form-control" name="q" placeholder="Advanced Lookup ...">
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-          </form>
-        </div>
-        <div class="navbar-brand">
-          <a class="green_a" href="/">
-            <span class="glyphicon glyphicon-compressed"></span> CoreLogs
-          </a>
-        </div>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li><a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a></li>
-          <li><a href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right top_bar_info">
-          {% if user.is_authenticated %}
-          <li id="notifications" class="hover_ajax" data-url="/notify" data-active='no'>
-            <a><span class="glyphicon glyphicon-bell"></span></a>
-            <span class="badge"></span>
-            <div class="dropdown">
-              <div class="dropdown-menu hover_box">
-              </div>
-            </div>
-          </li>
-          <li>
-            <a><span class="glyphicon glyphicon-comment"></span></a>
-          </li>
-          <li>
-          {% if user.userprofile.primary_workplace %}
-            <a id="ind_name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}"><span class="badge">{{user.userprofile.get_workplace_points}}</span>{{user.userprofile.primary_workplace}}</a>
-          {% endif %}
-          </li>
-          <li>
-            <a id="usr_name" href="{% url 'user:profile' user.username %}">{{user}} <span class="badge">{{user.userprofile.points}}</span></a>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="#"><span class="glyphicon glyphicon-cog"></span> Account Settings</a>
-              </li>
-              <li>
-                <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-              </li>
-            </ul>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
+    {% include "snippets/top_navigation.html" %}
   {% endblock top %}
-  <div class="body">
+  <div id="{% block page %}{% endblock page %}" class="body">
     {% block body %}
     <div class="container-fluid">
       <div class="row">
@@ -145,5 +82,5 @@
   ga('send', 'pageview');
 
 </script>
-
+</body>
 </html>

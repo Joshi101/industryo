@@ -1,3 +1,13 @@
 {% for p in people %}
+	<li>
+		<img src="{{p.get_profile_image}}">
+		<div class="ppl_info">
+			<b>{{p}}</b>
+			<br>
+			<span class="label label-info">{{ p.points }}</span>
+		</div>
+	</li>
+{% endfor %}
+{% for p in people_joint %}
 	<li><img src="{{p.get_profile_image}}"><b>{{p}} | {{p.primary_workplace}}</b></li>
 {% endfor %}
