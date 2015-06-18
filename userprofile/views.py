@@ -110,16 +110,12 @@ def delete_interest(request):
 
 def set_experience(request):
     if request.method == 'POST':
-        print("DSSDF")
         response = {}
         user = request.user
         up = user.userprofile
         experience = request.POST.get('experience')
-        # print('post aaya')
         up.experience = experience
-        # print('save aaya')
         up.save()
-        # print('save ho gaya')
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)

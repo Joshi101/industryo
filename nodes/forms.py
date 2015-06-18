@@ -23,7 +23,7 @@ class SetLogoForm(forms.ModelForm):
 
 
 class SetProfileImageForm(forms.ModelForm):
-    image = forms.ImageField(required=True,widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
 
     class Meta:
         model = Images
@@ -32,7 +32,16 @@ class SetProfileImageForm(forms.ModelForm):
 
 
 class SetTagLogoForm(forms.ModelForm):
-    image = forms.ImageField(required=True,widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
+
+    class Meta:
+        model = Images
+        exclude = ['slug', 'user', 'image_thumbnail', 'time']
+        fields = ['image']
+
+
+class SetProductImage(forms.ModelForm):
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'cropit-image-input'}))
 
     class Meta:
         model = Images

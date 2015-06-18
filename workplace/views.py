@@ -153,7 +153,6 @@ def workplace_answers(request, id):
     answers = Answer.objects.filter(question__user__userprofile__primary_workplace=workplace).select_related('user')
     paginator = Paginator(answers, 5)
     page = request.GET.get('page')
-
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -162,9 +161,7 @@ def workplace_answers(request, id):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         return
-
     return render(request, 'nodes/five_nodes.html', {'articles': result_list})
-
 
 
 def workplace_feeds(request, id):
@@ -172,7 +169,6 @@ def workplace_feeds(request, id):
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     paginator = Paginator(feeds, 5)
     page = request.GET.get('page')
-
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -181,9 +177,7 @@ def workplace_feeds(request, id):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         return
-
     return render(request, 'nodes/five_nodes.html', {'articles': result_list})
-
 
 
 def workplace_articles(request, id):
@@ -191,7 +185,6 @@ def workplace_articles(request, id):
     articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     paginator = Paginator(articles, 5)
     page = request.GET.get('page')
-
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -200,7 +193,6 @@ def workplace_articles(request, id):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         return
-
     return render(request, 'nodes/five_nodes.html', {'articles': result_list})
 
 
@@ -228,14 +220,11 @@ def set_about(request):
 def set_capabilities(request):
     user = request.user
     wp = user.userprofile.primary_workplace
-    print('bournvita')
     if request.method == 'POST':
-        print('bournvita')
         response = {}
         capabilities = request.POST.get('capabilities')
-        wp.about = capabilities
+        wp.capabilities = capabilities
         wp.save()
-        print('bournvita')
         return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
@@ -254,6 +243,17 @@ def set_product_details(request):
         return redirect('/workplace/'+wp.slug)
 
 
-        
+def delete_tag(request):
+    if request.method == 'GET':
+        user = request.user
+        wp = user.userprofile.primary_workplace
+        delete = request.GET['delete']
+
+        response = {}
+        Tags.objects.get(tag=delete)
+        wp.tags.get(tag=delete).delete()
+
+        return HttpResponse(json.dumps(response), content_type="application/json")
+# def delete_tags
 
 # Create your views here.

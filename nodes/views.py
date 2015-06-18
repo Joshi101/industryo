@@ -6,6 +6,7 @@ from activities.models import Activity, Notification
 import json
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from products.models import Products
 
 @login_required
 def post(request):
@@ -97,19 +98,15 @@ def set_logo(request):
 
 @login_required
 def set_tag_logo(request, slug):
-    print("trescanot")
     form = SetTagLogoForm(request.POST, request.FILES)
     user = request.user
     tag = Tags.objects.get(slug=slug)
     if request.method == 'POST':
         if not form.is_valid():
-            print("trescanot")
             return redirect('/tags/'+slug)
         else:
-            print("trescaaaaaaaaa")
             image = form.cleaned_data.get('image')
             i = Images.objects.create(image=image, user=user, image_thumbnail=image)
-            print('oooooiimaaa')
             tag.logo = i
             tag.save()
             return redirect('/tags/'+tag.slug)
@@ -132,6 +129,26 @@ def set_profile_image(request):
         return redirect('/user/'+request.user.username)
     else:
         return redirect('/')
+
+
+@login_required
+def set_product_image(request, slug):
+    form = UploadImageForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if not form.is_valid():
+            return render(request, 'nodes/set_logo.html', {'form': form})
+        else:
+            user = request.user
+            userprofile = user.userprofile
+            product = Products.objects.get(slug)
+            image = form.cleaned_data.get('image')
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
+            product.image = i
+            userprofile.save()
+        return redirect('/products/'+product.slug)
+    else:
+        return redirect('/')
+
 
 @login_required
 def like(request):
@@ -202,5 +219,11 @@ def articles(request):
         return render(request, 'nodes/articles.html', {'result_list': result_list})
 
 
+def delete_node(request):
+    id = request.GET.get('id')
+    node = Node.objects.get(id=id)
+    if request.user == node.user:
+        node.delete()
+    return redirect('/')
 
 # Create your views here.
