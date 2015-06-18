@@ -127,7 +127,7 @@ class Node(models.Model):
         return self.id
 
     def set_tags(self, tags):
-        article_tags = tags.split(' ')
+        article_tags = tags.split(',')
         li = []
         for m in article_tags:
             t, created = Tags.objects.get_or_create(tag=m)

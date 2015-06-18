@@ -44,7 +44,7 @@
   {% block top %}
     {% include "snippets/top_navigation.html" %}
   {% endblock top %}
-  <div class="body">
+  <div id="{% block page %}{% endblock page %}" class="body">
     {% block body %}
     <div class="container-fluid">
       <div class="row">

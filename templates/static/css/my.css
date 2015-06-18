@@ -1,4 +1,4 @@
-a:focus, .btn:focus{
+a:focus, .btn:focus, input[type="file"]:focus, input[type="radio"]:focus, .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
 	outline: 0;
 }
 
@@ -42,17 +42,18 @@ pre{
 }
 
 .top_bar_info .badge{
-	border-radius: 3px;
-	padding: 0px 5px;
+	font-size: 10px;
+	border-radius: 5px;
+	padding: 0px 5px 1px;
 	margin: auto 4px;
-	line-height: 16px;
+	line-height: 14px;
 	position: relative;
 	bottom: 1px;
 }
 
 #ind_name{
 	padding-right: 5px;
-	border-right: 1px dashed #9d9d9d;
+	border-right: 2px solid #9d9d9d;
 }
 
 #usr_name{
@@ -301,7 +302,7 @@ pre{
 .feed_box_body{
 	font-size: 12px;
 	padding: 0px;
-	margin-left: 20px;
+	margin-left: 45px;
 	margin-bottom: 10px;
 }
 
@@ -364,18 +365,36 @@ pre{
 
 .q_title{
 	color: #000;
-	padding: 9px 0px 5px;;
-	margin-left: 25px;
+	padding: 9px 0px 5px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
 
-pre.q_summary{
-	padding-left: 20px;
+.q_summary{
+	padding-left: 10px;
 	color: #555;
 }
 
-pre.q_detail{
+.tags{
+	padding: 5px 0pc;
+}
+
+.tags a:hover{
+	text-decoration: none;
+}
+
+.tags .label{
+	font-size: 10px;
+	height: 13px;
+	padding: 1px 5px 2px;
+}
+
+.tags a:hover > .label{
+	background-color: #38A0BE;
+	font-size: 90%;
+}
+
+.q_detail{
 	padding: 10px;
 	max-height: 62px;
 	overflow: hidden;
@@ -481,7 +500,7 @@ pre.q_detail{
 }
 
 #question .q_detail{
-	margin-left: 25px;
+	margin-left: 10px;
 	color: #555;
 }
 
@@ -829,7 +848,7 @@ div[data-role="editor-toolbar"] {
 }
 
 #workplace_info div:first-child{
-	box-shadow: -2px 2px 2px rgba(16,144,112,0.81);
+	box-shadow: -2px 2px 1px rgba(0,50,0,0.31);
 	min-height: 110px;
 }
 
@@ -848,11 +867,14 @@ div[data-role="editor-toolbar"] {
 	padding: 3px 5px;
 }
 
-#top_members img{
-	width: 15%; 
+.ppl_list img{
+	float: left;
+	width: 40px; 
 	border: 1px solid #333;
 	margin-right: 5%;
 }
+
+#top_members 
 
 #right{
 	padding: 0% 3%;

@@ -12,11 +12,15 @@
 				<h5 class="q_title">{{ question.title }}</h5>
 			</a>
 			{% if question.question %}
-			<pre class="q_summary">{{ question.question }}</pre>	
+			<p class="q_summary">{{ question.question }}</p>
 			{% endif %}
-			{% for tag in question.get_tags%}
-				{{tag}}
-			{% endfor %}
+			{% if question.get_tags %}
+			<div class="tags">
+				{% for tag in question.get_tags %}
+					<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+				{% endfor %}
+			</div>
+			{% endif %}
 		</div>
 		<div class="feed_box_extra">
 			<div class="interaction">

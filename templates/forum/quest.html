@@ -20,11 +20,15 @@
 					<div class="ajax_papa feed_box_body">
 						<h4><pre class="q_title">{{ q.title }}</pre></h4>
 						{% if q.question %}
-						<pre class="q_detail">{{ q.question }}</pre>	
+						<p class="q_detail">{{ q.question }}</p>
 						{% endif %}
-						{% for tag in tags %}
-							{{tag}}
-						{% endfor %}
+						{% if q.get_tags %}
+						<div class="tags">
+							{% for tag in q.get_tags %}
+								<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+							{% endfor %}
+						</div>
+						{% endif %}
 					</div>
 					<div class="feed_box_extra">
 						<div class="comments">
@@ -62,6 +66,8 @@
 				<div class="answers">
 				{% for a in answers %}
 					{% include "snippets/one_answer.html" with a=a q=q %}
+				{% empty %}
+					<h3 class="text-center text-muted">This question has not recieved any answers till now.</h3>
 				{% endfor %}
 				</div>
 			</div>

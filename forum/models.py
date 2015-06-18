@@ -53,7 +53,7 @@ class Question(models.Model):
         all_tagged = Question.objects.filter()
 
     def set_tags(self, tags):
-        question_tags = tags.split(' ')
+        question_tags = tags.split(',')
         li = []
         for m in question_tags:
             t, created = Tags.objects.get_or_create(tag=m)

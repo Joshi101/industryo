@@ -102,7 +102,7 @@ def set_tag_logo(request, slug):
     if request.method == 'POST':
         if not form.is_valid():
             print("trescanot")
-            return redirect('/') # render(request, 'nodes/upload.html', {'form': form})
+            return redirect('/tags/'+slug)
         else:
             print("trescaaaaaaaaa")
             image = form.cleaned_data.get('image')
@@ -176,8 +176,7 @@ def comment(request):
 
 def node(request, id):
     node = Node.objects.get(id=id)
-
-    return render(request, 'nodes/one_node.html', {'node': node})
+    return render(request, 'nodes/node.html', {'node': node})
 
 
 def articles(request):
@@ -194,8 +193,11 @@ def articles(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         return
-
-    return render(request, 'nodes/articles.html', {'articles': result_list})
+    if page:
+        return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+    else:
+        # return render(request, 'home.html', {'result_list': result_list})
+        return render(request, 'nodes/articles.html', {'result_list': result_list})
 
 
 

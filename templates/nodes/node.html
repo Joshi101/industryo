@@ -1,31 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
 <div class="feed_box feed">
 	<div class="feed_box_heading">
 		{% include "snippets/joint_name.html" with user=node.user %}
-		<small class='pull-right'>{{ node.date }}</small>
+		<small class='pull-right text-muted'>{{ node.date }}</small>
 	</div>
 	<div class="ajax_papa">
 		<div class="text-center vote_box ajax_papa">
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
 		<div class="feed_box_body">
-			<h4>{{ node.title }}</h4>
-			<pre>{{ node.post|safe }}</pre>
-			{% if node.get_tags %}
-			<div class="tags">
-				{% for tag in node.get_tags %}
-					<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
-				{% endfor %}
-			</div>
-			{% endif %}
+			<pre>{{ node.post }}</pre>
+		{% if node.get_image %}
+			<figure>
+				<img src="{{node.get_image}}">
+			</figure>
+		{% endif %}
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">
 			{% if node.get_last_comment %}
 				{% include "snippets/comment.html" with comment=node.get_last_comment %}
 			{% endif %}
+
 			</div>
 			<div class="interaction">
-				<a class="a_collapse">Comment</a>
+				<a class="a_collapse text-muted">Write Comment</a>
 		    <div class="collapse row">
 					<form class="comment_form col-sm-12" role='form' action="{% url 'nodes:comment' %}" method="POST">
 						<div class="input-group">
@@ -42,3 +43,4 @@
 		</div>
 	</div>
 </div>
+{% endblock content %}
