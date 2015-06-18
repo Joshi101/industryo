@@ -9,6 +9,7 @@ from userprofile.models import User, UserProfile
 import json
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -21,7 +22,6 @@ def workplace_register(request):
         r_html = {}
         r_elements = []
         if not form.is_valid():
-            #do some error handling
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             name = form.cleaned_data.get('name')
@@ -124,16 +124,90 @@ def workplace_profile(request, slug):
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    answers = Answer.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    # articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     return render(request, 'workplace/profile.html', locals())
+
+
+def workplace_questions(request, id):
+    workplace = Workplace.objects.get(id=id)
+    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    paginator = Paginator(questions, 5)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+
+    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
+
+
+def workplace_answers(request, id):
+    workplace = Workplace.objects.get(id=id)
+    answers = Answer.objects.filter(question__user__userprofile__primary_workplace=workplace).select_related('user')
+    paginator = Paginator(answers, 5)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+
+    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
+
+
+
+def workplace_feeds(request, id):
+    workplace = Workplace.objects.get(id=id)
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    paginator = Paginator(feeds, 5)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+
+    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
+
+
+
+def workplace_articles(request, id):
+    workplace = Workplace.objects.get(id=id)
+    articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    paginator = Paginator(articles, 5)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+
+    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
 
 
 def get_top_scorers(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')[:3]
-    return render(request, 'snippets/people_list.html', {'people':members})
+    return render(request, 'snippets/people_list.html', {'people': members})
 
 
 @login_required
@@ -154,32 +228,31 @@ def set_about(request):
 def set_capabilities(request):
     user = request.user
     wp = user.userprofile.primary_workplace
+    print('bournvita')
     if request.method == 'POST':
+        print('bournvita')
         response = {}
-
         capabilities = request.POST.get('capabilities')
         wp.about = capabilities
         wp.save()
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        print('bournvita')
+        return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
 
-
+@login_required
 def set_product_details(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
         response = {}
-
         product_details = request.POST.get('product_details')
         wp.product_details = product_details
         wp.save()
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
 
-# def set_logo(request):
-#     if request.method == 'POST':
 
         
 

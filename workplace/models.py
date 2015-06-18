@@ -139,10 +139,6 @@ class Workplace(models.Model):
         institution = self.institution
         return institution
 
-    # def get_top_scorers(request):
-    # workplace = Workplace.objects.get(slug=slug)
-    # members = UserProfile.objects.filter(primary_workplace=workplace.pk).order_by('-score')[:3]
-    # return members
 
 
 

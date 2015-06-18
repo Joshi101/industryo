@@ -1,0 +1,46 @@
+<div class="panel panel-default ajax_andar ajax_papa">
+	<div class="panel-heading">
+		<h3 class="text-muted detail_head">
+			About
+			{% if request.user.userprofile in members %}
+			<form id="about_w" class="pull-right" action="{% url 'workplace:set_about' %}" method="POST">
+				<button data-content="about_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+			</form>
+			{% endif %}
+		</h3>
+	</div>
+	<div class="panel-body">
+		<pre class="detail_body content_about_w">{{about_w}}</pre>
+		<textarea name="about" form="about_w" rows="3" class="form-control edit_about_w hide"></textarea>
+	</div>
+</div>
+<div class="panel panel-default ajax_andar ajax_papa">
+	<div class="panel-heading">
+		<h3 class="text-muted detail_head">
+			Area
+			{% if request.user.userprofile in members %}
+			<button data-content="city" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
+			{% endif %}
+		</h3>
+		<form class="edit_city hide" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
+    	{% csrf_token %}
+			<div class="d_search instant" data-results="instant">
+				<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ...">
+				<input type="hidden" name="city" class="instant_i">
+				<button type="submit" class="form-ajax hide"></button>
+				<div class="dropdown">
+					<ul class="dropdown-menu d_list">
+					</ul>
+				</div>
+				<div class="d_results"></div>
+			</div>
+		</form>
+	</div>
+	<div class="panel-body">
+		<div class="detail_body">
+			{% for city in cities %}
+				{% include 'snippets/one_interest.html' with interest=city %}
+			{% endfor %}
+		</div>
+	</div>
+</div>

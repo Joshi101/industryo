@@ -10,7 +10,6 @@ from django.utils.timezone import now
 # from background_task import background
 
 
-
 class Images(models.Model):
     image = ProcessedImageField(upload_to='main',
                                           processors=[ResizeToCover(400, 400)],
@@ -185,11 +184,16 @@ class Node(models.Model):
         tags = self.tags.all()
         return tags
 
-    # def get_image(self):
-    #     if self.image:
-    #
-    #         image_url = '/images/'+str(self.image.image_thumbnail)
-    #         return image_url
-#
+    def get_all_comments(self):
+        comments = Comments.objects.filter(node=self).select_related('user__userprofile__primary_workplace')
+        return comments
+
+    def get_summary(self):
+        summary_size = 1000
+        value = self.post
+        if len(value) > summary_size:
+            return u'{0}...'.format(value[:summary_size])
+        else:
+            return value
 
 # Create your models here.

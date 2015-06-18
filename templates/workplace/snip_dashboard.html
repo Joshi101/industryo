@@ -12,11 +12,17 @@
 		{% endfor %}
   </div>
   <div id="answers" class="tab-pane fade">
+		{% for question in answers %}
+			{% include 'forum/one_question.html' with node=node %}
+		{% endfor %}
   </div>
   <div id="articles" class="tab-pane fade">
+		{% for article in articles %}
+			{% include 'nodes/one_article.html' with article=article %}
+		{% endfor %}
   </div>
   <div id="feeds" class="tab-pane fade">
-  	{% for node in feeds %}
+		{% for node in feeds %}
 			{% include 'nodes/one_node.html' with node=node %}
 		{% endfor %}
   </div>
