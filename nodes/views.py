@@ -219,7 +219,7 @@ def articles(request):
         return render(request, 'nodes/articles.html', {'result_list': result_list})
 
 
-def delete_node(request):
+def delete(request):
     id = request.GET.get('id')
     node = Node.objects.get(id=id)
     if request.user == node.user:

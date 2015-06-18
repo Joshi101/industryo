@@ -85,17 +85,17 @@ def search_n_tags(request):
     return render(request, 'tags/list.html', {'o': o, 'create': create})
 
 
-def describe_tag(request, slug):          # edit description
+def describe_tag(request):          # edit description
     if request.method == 'POST':
         print('tagu')
-        # id = request.POST['id']
-        tag = Tags.objects.get(slug=slug)
+        id = request.POST.get('id')
+        tag = Tags.objects.get(id=id)
         description = request.POST['description']
         tag.description = description
         tag.save()
         return HttpResponse()
     else:
-        return redirect('/tags/'+tag.slug)
+        return redirect('/tags/')
 
 
 # Create your views here.
