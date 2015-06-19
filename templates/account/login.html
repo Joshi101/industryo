@@ -8,12 +8,16 @@
 
 {% block content %}
   <div class="w_400">
-    <h2 class="text-center">{% trans "Sign In" %}</h1>
-    <h3>
-      {% blocktrans %}
-      with your indutryo account
-      {% endblocktrans %}
-    </h3>
+    <h2 class="text-center">Sign In</h1>
+    {% if socialaccount.providers %}
+    <div class="socialaccount_ballot">
+      <ul class="socialaccount_providers list-group">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% endif %}
+    <h4 class="text-center">With your CoreLogs account</h4>
     <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
       {{ form|bootstrap_horizontal }}
@@ -29,24 +33,8 @@
         </div>
       </div>
     </form>
-    {% if socialaccount.providers %}
-    <h3>
-      {% blocktrans %}
-      or using your existing third party account
-      {% endblocktrans %}
-    </h3>
-    <div class="socialaccount_ballot">
-      <ul class="socialaccount_providers list-group">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
-    </div>
-    {% include "socialaccount/snippets/login_extra.html" %}
-    {% else %}
-    {% endif %}
     <p>
-      {% blocktrans %}
       If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
-      {% endblocktrans %}
     </p>
   </div>
 {% endblock %}

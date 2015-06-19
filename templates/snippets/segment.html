@@ -1,0 +1,8 @@
+{% for segment in workplace.get_tags.segments %}
+	{{segment}}
+	{% if not forloop.last %}
+		,
+	{% endif %}
+{% empty %}
+	Add segment
+{% endfor %}

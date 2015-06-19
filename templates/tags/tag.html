@@ -14,7 +14,7 @@
 {% block content %}
 	<div class="panel panel-success bg-info ajax_andar ajax_papa">
 		<form id="tag_desc" class="pull-right" action="{% url 'tags:describe_tag' tag.slug %}" method="POST">
-			<button data-content="tag_desc" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+			<button data-content="tag_desc" data-save='' class="btn btn-default btn-xs detail_edit pull-right little_edit" name="">Edit</button>
 		</form>
 		<div class="panel-body">
 			<div class="col-sm-7">
@@ -24,8 +24,7 @@
 				<textarea name="description" form="tag_desc" rows="3" class="form-control edit_tag_desc hide"></textarea>
 	    </div>
 	    <div class="col-sm-offset-1 col-sm-4">
-	      <h5><span class="label label-default">{{workplace.points}} points</span></h5>
-	      <h5><span class="label label-success">151 members</span></h5>
+	      <h5><span class="label label-success">{{ tag.count }} Instances</span></h5>
 	    </div>
 		</div>
 	</div>

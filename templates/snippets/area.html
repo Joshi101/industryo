@@ -1,0 +1,25 @@
+{% if workplace.workplace_type == 'A' %}
+	{% for city in workplace.get_tags.city %}
+		<span>
+			{{city}}
+			{% if not forloop.last %}, {% endif %}
+		</span>
+	{% empty %}
+		<span>Add a city</span>
+	{% endfor %}
+{% elif workplace.workplace_type == 'B' %}
+	{% for area in workplace.get_tags.industrial_area %}
+		<span>
+			{{area}}
+			{% if not forloop.last %}, {% endif %}
+		</span>
+	{% empty %}
+		<span>Add an industrial area</span>
+	{% endfor %}
+{% elif workplace.workplace_type == 'C' %}
+	{% if workplace.institution %}
+		<span>{{workplace.institution}}</span>
+	{% else %}
+	<span>Add your institution</span>
+	{% endif %}
+{% endif %}

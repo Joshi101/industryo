@@ -460,7 +460,7 @@ $('#form_feed .btn, .img_pre').on({
 $('.alert .delete').on('click',function(){
     var $this = $(this);
     var from = $this.data('delete');
-    var url = '/user/delete_' + from;
+    var url = '/workplace/delete_tags';
     var del = $this.closest('.alert').children('.del_id').text();
     console.log(del, url);
     $.ajax({
@@ -621,7 +621,7 @@ $('.detail').on({
         var $content = $('.content_' + content);
         var save = $this.data('save');
         if (save == 'save'){
-            console.log($('#'+content).serialize());
+            console.log(('#'+content),$('#'+content).serialize());
             $content.each(function(){
                 var value = $(this).next().val();
                 console.log($(this).next().val())
@@ -633,7 +633,7 @@ $('.detail').on({
         else {
             $content.each(function(){
                 var value = $(this).text();
-                console.log(value)
+                console.log(value);
                 $(this).addClass('hide')
                     .next().val(value).removeClass('hide');
             });
@@ -705,4 +705,16 @@ $('.to_quest').on('click','a',function(){
     $this.closest('.to_quest').find('input').val('no');
     $this.children('input').val('true');
     $this.parent('form').submit();
-})
+});
+
+$('.little_edit').each(function(){
+    var $this= $(this);
+    var ed_panel = $this.closest('.panel');
+    ed_panel.on({'mouseenter':function(){
+        $(this).find('.little_edit').removeClass('hide');
+    },
+    'mouseleave':function(){
+        $(this).find('.little_edit').addClass('hide');
+    }
+    });
+});

@@ -17,7 +17,7 @@
 			{% if question.get_tags %}
 			<div class="tags">
 				{% for tag in question.get_tags %}
-					<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+					<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 				{% endfor %}
 			</div>
 			{% endif %}
