@@ -254,6 +254,23 @@ def s_questions(request):           # for segments
     return render(request, 'forum/questions.html', locals())
 
 
+def delete_question(request):
+    id = request.GET.get('id')
+    question = Question.objects.get(id=id)
+    if request.user == questions.user:
+        question.delete()
+    return redirect('/forum')
+
+
+def delete_answer(request):
+    id = request.GET.get('id')
+    answer = Answer.objects.get(id=id)
+    if request.user == answer.user:
+        answer.delete()
+    return redirect('/forum')
+
+
+
 # def a_questions(request):           # for SME
 #     user = request.user
 #     area =

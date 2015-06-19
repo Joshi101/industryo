@@ -1,6 +1,6 @@
 from django.db import models
-from nodes.models import Images
 from tags.models import Tags
+from nodes.models import Images
 from industryo.unique_slug import unique_slugify
 from workplace.models import Workplace
 
@@ -26,11 +26,27 @@ class Products(models.Model):
             # self.slug = slugify(self.get_full_name()).__str__()
         super(Products, self).save(*args, **kwargs)
 
-    def add_image(self, image, user):
-        i = Images()
-        a = i.upload_image(image=image, user=user)
-        self.image = a
+    def set_tags(self, tags):
+        product_tags = tags.split(',')
+        li = []
+        for p in product_tags:
+            t, created = Tags.objects.get_or_create(tag=p, type='D')
+            t.count += 1
+            t.save()
+            li.append(t)
+        self.tags = li
 
+    def get_tags(self):
+        tags = self.tags.all()
+        return tags
+
+    def get_image(self):
+        default_image = '/images/thumbnails/workplace.jpg'
+        if self.image:
+            image_url = '/images/'+str(self.image.image_thumbnail)
+            return image_url
+        else:
+            return default_image
 
 
 

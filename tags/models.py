@@ -36,7 +36,25 @@ class Tags(models.Model):
         else:
             return default_image
 
-
+    def get_type(self):
+        if self.type == 'A':
+            return "Asset"
+        elif self.type == 'C':
+            return "City"
+        elif self.type == 'E':
+            return "Event"
+        elif self.type == 'I':
+            return "Industrial Area"
+        elif self.type == 'D':
+            return "Product Category"
+        elif self.type == 'O':
+            return "Operation"
+        elif self.type == 'M':
+            return "Material"
+        elif self.type == 'P':
+            return "Institution"
+        else:
+            return "Not specified, Please specify"
 
 
 
