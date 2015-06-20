@@ -460,7 +460,7 @@ $('#form_feed .btn, .img_pre').on({
 $('.alert .delete').on('click',function(){
     var $this = $(this);
     var from = $this.data('delete');
-    var url = '/workplace/delete_tags';
+    var url = '/workplace/delete_tag';
     var del = $this.closest('.alert').children('.del_id').text();
     console.log(del, url);
     $.ajax({
@@ -526,11 +526,11 @@ $('.ajax_andar').on('click','.upvote',function(){
     $this = $(this);
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
     if ($this.attr('class').indexOf('done') >= 0){
-        $this.removeClass('done');
+        $this.removeClass('done').tooltip('hide').attr('data-original-title','Vote Up').tooltip('fixTitle');
         val -= 1;
     }
     else{
-        $this.addClass('done');
+        $this.addClass('done').tooltip('hide').attr('data-original-title','Cancel Vote').tooltip('fixTitle');
         val += 1;
     }
     console.log(val)
@@ -541,14 +541,14 @@ $('.ajax_andar').on('click','.downvote',function(){
     $this = $(this);
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
     if ($this.attr('class').indexOf('done') >= 0){
-        $this.removeClass('done');
+        $this.removeClass('done').tooltip('hide').attr('data-original-title','Vote Down').tooltip('fixTitle');
         val += 1;
     }
     else{
-        $this.addClass('done');
+        $this.addClass('done').tooltip('hide').attr('data-original-title','Cancel Vote').tooltip('fixTitle');
         val -= 1;
     }
-    console.log(val)
+    console.log($this.data('original-title'))
     $(this).closest('.ajax_papa').find('.votes').text(val);
 });
 

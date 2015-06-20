@@ -1,46 +1,50 @@
-<div class="panel panel-default ajax_andar ajax_papa">
-	<div class="panel-heading">
-		<h3 class="text-muted detail_head">
-			About
-			{% if request.user.userprofile in members %}
-			<form id="about_w" class="pull-right" action="{% url 'workplace:set_about' %}" method="POST">
-				<button data-content="about_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
-			</form>
-			{% endif %}
-		</h3>
-	</div>
-	<div class="panel-body">
-		<pre class="detail_body content_about_w">{{about_w}}</pre>
-		<textarea name="about" form="about_w" rows="3" class="form-control edit_about_w hide"></textarea>
-	</div>
-</div>
-<div class="panel panel-default ajax_andar ajax_papa">
-	<div class="panel-heading">
-		<h3 class="text-muted detail_head">
-			Area
-			{% if request.user.userprofile in members %}
-			<button data-content="city" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
-			{% endif %}
-		</h3>
-		<form class="edit_city hide" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
-    	{% csrf_token %}
-			<div class="d_search instant" data-results="instant">
-				<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ...">
-				<input type="hidden" name="city" class="instant_i">
-				<button type="submit" class="form-ajax hide"></button>
-				<div class="dropdown">
-					<ul class="dropdown-menu d_list">
-					</ul>
-				</div>
-				<div class="d_results"></div>
-			</div>
-		</form>
-	</div>
-	<div class="panel-body">
-		<div class="detail_body">
-			{% for city in cities %}
-				{% include 'snippets/one_interest.html' with interest=city %}
+<ul id="products_list" class="row products_list">
+{% for product in products %}
+	<li class="product col-sm-4">
+		<img src="{{product.get_profile_image}}">
+		<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
+		<div class="product_tags tags">
+			{% for tag in product.get_tags %}
+				<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 			{% endfor %}
 		</div>
+		<div class="product_desc">{{ product.description }}</div>
+	</li>
+{% endfor %}
+</ul>
+
+<h3 class="text-muted detail_head">
+	{% if request.user.userprofile in members %}
+	<button data-content="{{ category }}" data-save='' class="btn btn-success btn-xs detail_add" name="">Add Products</button>
+	{% endif %}
+</h3>
+<form class="edit_{{category}} hide" action="{% url 'products:add_product' %}" method="POST" role="form">
+	{% csrf_token %}
+	<div class="form-group">
+		<label class="control-label">Name of product</label>
+		<input class="form-control" name="product">
 	</div>
-</div>
+	<div class="form-group">
+		<label class="control-label">Description of the product</label>
+		<textarea class="form-control" rows="3" name="description"></textarea>
+	</div>
+	<div class="form-group">
+    <label class="control-label" for="id_tags">Tags</label>
+		<div class="d_search" data-results="multiple">
+			<div class="d_results"></div>
+			<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ..." maxlength="255">
+			<input type="hidden" name="tags" value="" autocomplete="off">
+			<input type="hidden" name="type" value="All">
+			<div class="dropdown">
+				<ul class="dropdown-menu d_list">
+				</ul>
+			</div>
+		</div>
+	  <p class="help-block">
+      Use , (comma) to separate the tags, such as "asp.net,mvc5,javascript"
+    </p>
+	</div>
+	<div class="form-group">
+		<button class="btn btn-primary form-ajax">Submit</button>
+	</div>
+</form>

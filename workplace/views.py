@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
 from nodes.models import Node
+from products.models import Products
 from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
 from userprofile.models import User, UserProfile
@@ -129,6 +130,14 @@ def workplace_profile(request, slug):
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     return render(request, 'workplace/profile.html', locals())
+
+def workplace_products(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    products = Products.objects.filter(producer=workplace.pk)
+    return render(request, 'workplace/products.html', locals())
 
 
 def workplace_questions(request, id):

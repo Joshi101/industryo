@@ -4,17 +4,17 @@
 {% load bootstrap %}
 
 {% block left %}
-	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}">
+  <div id="img_profile_box">
+    <img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}">
     {% if user == request.user %}
     <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
     {% endif %}
   </div>
-	<div class="account">
-		<!-- <h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4> -->
-		<!-- <h5 class="acc_detail text-muted">{{workplace.address}}</h5> -->
-	</div>
-	{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
+  <div class="account">
+    <!-- <h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4> -->
+    <!-- <h5 class="acc_detail text-muted">{{workplace.address}}</h5> -->
+  </div>
+  {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
 {% endblock left %}
 
 {% block content %}
@@ -30,26 +30,16 @@
     </div>
   </div>
   <ul class="nav nav-pills">
-    <li><a href="{% url "workplace:products" workplace.slug %}">Products</a></li>
-    <li><a data-toggle="pill" href="#members">Members</a></li>
-    <li><a data-toggle="pill" href="#capabilities">Capabilities</a></li>
-    <li><a data-toggle="pill" href="#about">About</a></li>
-    <li class="active"><a data-toggle="pill" href="#dashboard">Dashboard</a></li>
+    <li class="active"><a href="{% url "workplace:products" workplace.slug %}">Products</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Members</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Capabilities</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">About</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
   </ul>
   <div class="tab-content">
-  	<div id="dashboard" class="tab-pane fade in active">
-		  {% include "workplace/snip_dashboard.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
-  	</div>
-  	<div id="about" class="tab-pane fade">
-  		{% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
-  	</div>
-    <div id="capabilities" class="tab-pane fade">
-		{% include "workplace/snip_capabilities.html" with members=members capabilities=workplace.capabilities ops=workplace.get_tags.operations materials=workplace.get_tags.materials assets=workplace.get_tags.assets %}
-	</div>
-    <div id="members" class="tab-pane fade">
-      {% include "workplace/snip_members.html" with members=members %}
+    <div id="products" class="tab-pane fade in active">
+      {% include "workplace/snip_products.html" with products=products %}
     </div>
-  	<div id="products" class="tab-pane fade"></div>
   </div>
 {% endblock %}
 

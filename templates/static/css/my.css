@@ -937,6 +937,41 @@ div[data-role="editor-toolbar"] {
 	color: #666;
 }
 
+#products_list{
+	padding-left: 7px;
+}
+
+.product{
+	height: 97px;
+	margin-bottom: 20px;
+	width: 50%;
+	float:left;
+	list-style: none;
+	overflow: hidden;
+}
+
+.product img{
+	width: 95px;
+	border: 1px solid #ccc;
+	float: left;
+	margin-right: 7px;
+}
+
+.product > div{
+}
+
+.product_name{
+	font-weight: bold;
+	color: #333;
+	line-height: 25px;
+}
+
+.product_desc{
+	line-height: 17px;
+	color: #666;
+}
+
+
 .little_edit{
 	border-radius: 0px;
 	border-top-right-radius: 3px;
@@ -965,4 +1000,8 @@ textarea.replacer{
 	border-bottom-left-radius: 2px;
 	font-size: 12px;
 	padding: 2px 15px;
+}
+
+.info p:last-child{
+	margin-bottom: 0px;
 }
