@@ -109,6 +109,8 @@ def set_tags(request):
             t = wp.set_institution(value)
         if type == 'E':
             t = wp.set_events(value)
+        if type == 'S':
+            t = wp.set_segments(value)
         new_interest = wp.tags.get(tag=value)
         r_elements = ['detail_body']
         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
