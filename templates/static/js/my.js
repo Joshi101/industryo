@@ -795,27 +795,34 @@ function checkValidity(){
                     }
                 }
             }
-            else {
+            if (!allowed || (allowedy == allowed)) {
+                console.log('yahi na')
                 var allowedy = allowed;
                 //check for allowed tags
                 if (content[pos+1] == 'b' || content[pos+1] == 'i' || content[pos+1] == 'u' || content[pos+1] == 'a'){
                     //might be a recognised tag
+                    console.log('lvl 1 a')
                     if (content[pos+2] == '>' || content[pos+2] == ' '){
                         //confirmed a/b/i/u
+                        console.log('lvl 2 a')
                         allowed++;
                         if (content[pos+1] == 'a')
                             var att = 'href';
                     }
                     else if (content[pos+2] == 'r' || content[pos+2] == 'm'){
                         //might be 'br'/'img'
+                        console.log('lvl 2 b')
                         if (content[pos+3] == '>' || content[pos+3] == ' '){
                             //confirmed br
+                            console.log('lvl 3 a')
                             allowed++;
                         }
                         else if (content[pos+3] == 'g'){
                             //might be 'img'
+                            console.log('lvl 3 b')
                             if (content[pos+4] == '>' || content[pos+4] == ' '){
                                 //confirmed img
+                                console.log('lvl 4 a')
                                 allowed++;
                                 var att = 'src';
                             }
