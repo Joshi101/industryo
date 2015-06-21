@@ -290,6 +290,7 @@ $(".ajax_andar").on('click','.form-ajax',function(event){
             if (response.prepend){
                 for(i=0; i < response.elements.length; i++){
                     $papa.find('.'+response.elements[i]).prepend(response.html[response.elements[i]]);
+                    console.log(response.elements[i], response.html[response.elements[i]]);
                 }
             console.log('yoho')
             }
@@ -606,15 +607,23 @@ $('.detail').on({
         var $this = $(this)
         var save = $this.data('save');
         var content = $this.data('content');
+        var taggy = $this.data('taggy');
         var $forms = $('.edit_' + content);
         if (save == 'save'){
             $this.text('Add').data('save','');
+            if (taggy == 'yes'){
+                console.log($this.prev().text())
+                $this.siblings('span').removeClass('hide').siblings('.tag_short').addClass('hide').children('.close');
+            }
             $forms.each(function(){
                 $(this).addClass('hide');
             });
         }
         else {
             $this.text('Done').data('save','save');
+            if (taggy == 'yes'){
+                $this.siblings('span').addClass('hide').siblings('.tag_short').removeClass('hide').children('.close');
+            }
             $forms.each(function(){
                 $(this).removeClass('hide');
             });
@@ -728,7 +737,14 @@ $('.little_edit').each(function(){
 
 $('#workplace_info').on({
     'mouseenter': function(){
-        $(this).find('.detail_add').removeClass('hide')
+        $(this).find('.detail_add').each(function(){
+            $(this).removeClass('hide');
+        });
+    },
+    'mouseleave': function(){
+        $(this).find('.detail_add').each(function(){
+            $(this).addClass('hide');
+        });
     }
 })
 
@@ -761,7 +777,7 @@ function checkValidity(){
                     //check if its the closing tag of allowed (except 'img')
                     if (content[pos+2] == 'b' || content[pos+2] == 'i' || content[pos+2] == 'u' || content[pos+2] == 'a'){
                         //might be a recognised tag
-                        if (content[pos+3] == '>' || content[pos+2] == ' '){
+                        if (content[pos+3] == '>'){
                             //confirmed a/b/i/u
                             allowed--;
                             console.log('allowed ka closing')
@@ -792,7 +808,7 @@ function checkValidity(){
                     }
                     else if (content[pos+2] == 'r' || content[pos+2] == 'm'){
                         //might be 'br'/'img'
-                        if (content[pos+2] == '>' || content[pos+2] == ' '){
+                        if (content[pos+3] == '>' || content[pos+3] == ' '){
                             //confirmed br
                             allowed++;
                         }
@@ -808,6 +824,7 @@ function checkValidity(){
                 }
             }
             if (allowedy == allowed) {
+                console.log(pos,end)
                 var part1 = content.slice(0,pos);
                 //console.log(part1);
                 var part2 = content.slice(end+1,content.length);

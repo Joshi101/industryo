@@ -21,17 +21,11 @@
   <div id="workplace_info" class="row">
     <div class="col-sm-7">
       <h4 class=" text-uppercase">{{ workplace.name }}</h4>
-      <h4 class="text-muted">
-        <small><i>{% include "snippets/area.html" with workplace=workplace %}</i></small>
-        {% if user in members %}
-          {% include "workplace/set_tags_head.html" with head='Materials' category='area' type='M' %}
-        {% endif %}
-        </h4>
-      <h4 class="text-muted">
-        <small><b><i>{% include "snippets/segment.html" with workplace=workplace %}</i></b></small>
-        {% if user in members %}
-          {% include "workplace/set_tags_head.html" with head='Materials' category='segment' type='M' %}
-        {% endif %}
+      <h4 class="text-muted ajax_andar ajax_papa">
+        <small><i class="tag_container">{% include "snippets/area.html" with workplace=workplace %}</i></small>
+      </h4>
+      <h4 class="text-muted ajax_andar ajax_papa">
+        <small><b><i class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</i></b></small>
       </h4>
     </div>
     <div class="col-sm-offset-1 col-sm-4">
@@ -54,8 +48,8 @@
   		{% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
   	</div>
     <div id="capabilities" class="tab-pane fade">
-		{% include "workplace/snip_capabilities.html" with members=members capabilities=workplace.capabilities ops=workplace.get_tags.operations materials=workplace.get_tags.materials assets=workplace.get_tags.assets %}
-	</div>
+      {% include "workplace/snip_capabilities.html" with members=members capabilities=workplace.capabilities ops=workplace.get_tags.operations materials=workplace.get_tags.materials assets=workplace.get_tags.assets %}
+    </div>
     <div id="members" class="tab-pane fade">
       {% include "workplace/snip_members.html" with members=members %}
     </div>

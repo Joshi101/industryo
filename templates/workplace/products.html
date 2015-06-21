@@ -37,7 +37,7 @@
     <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
   </ul>
   <div class="tab-content">
-    <div id="products" class="tab-pane fade in active">
+    <div id="products" class="tab-pane fade in active ajax_papa ajax_andar">
       {% include "workplace/snip_products.html" with products=products %}
     </div>
   </div>

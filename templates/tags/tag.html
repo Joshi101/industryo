@@ -15,6 +15,7 @@
 	<div class="panel panel-success bg-info ajax_andar ajax_papa">
 		<form id="tag_desc" class="pull-right" action="{% url 'tags:describe_tag' %}" method="POST">
 			<button data-content="tag_desc" data-save='' class="btn btn-default btn-xs detail_edit pull-right little_edit" name="">Edit</button>
+      <input type="hidden" value="{{ tag.id }}" name="id">
 		</form>
 		<div class="panel-body">
 			<div class="col-sm-7">
