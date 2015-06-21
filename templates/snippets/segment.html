@@ -1,8 +1,12 @@
 {% for segment in workplace.get_tags.segments %}
-	{{segment}}
+	<span>{{segment}}</span>
 	{% if not forloop.last %}
 		,
 	{% endif %}
+	{% include "snippets/tag_short.html" with tag=segment %}
 {% empty %}
 	Add segment
 {% endfor %}
+{% if user.userprofile in members %}
+  {% include "workplace/set_tags_head.html" with category='segment' type='S' %}
+{% endif %}

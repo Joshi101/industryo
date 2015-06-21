@@ -1,0 +1,7 @@
+<span {% if ajax %}class="hide"{% endif %}>
+	{{tag}}{% if not forloop.last %}, {% endif %}
+</span>
+<div class="tag_short {% if not ajax %}hide{% endif %}">
+	<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+	<a title="Remove" class="close delete" data-delete="interest" aria-label="close">&times;</a>
+</div>

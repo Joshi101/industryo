@@ -23,6 +23,7 @@ def add_product(request):
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
+        print(response)
         return HttpResponse(json.dumps(response), content_type="application/json")
 
 

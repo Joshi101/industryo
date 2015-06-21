@@ -1013,3 +1013,37 @@ textarea.replacer{
 .info p:last-child{
 	margin-bottom: 0px;
 }
+
+.d_edit{
+	margin-top: 10px
+}
+
+.tag_short a:hover{
+	text-decoration: none;
+	opacity: 0.75;
+}
+
+.tag_short{
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.tag_short .label{
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.tag_short .close{
+	position: relative;
+	bottom: 1px;
+	line-height: 13px;
+	font-size: 12px;
+	color: #000;
+	//background-color: #5BC0DE;
+	opacity: 1;
+	padding: 2px 4px 3px;
+}
+
+.tag_short .close:hover{
+	color: #5BC0DE;
+}

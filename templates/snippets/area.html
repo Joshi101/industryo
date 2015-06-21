@@ -1,25 +1,35 @@
 {% if workplace.workplace_type == 'A' %}
 	{% for city in workplace.get_tags.city %}
 		<span>
-			{{city}}
-			{% if not forloop.last %}, {% endif %}
+			{{city}}{% if not forloop.last %}, {% endif %}
 		</span>
+		{% include "snippets/tag_short.html" with tag=city %}
 	{% empty %}
 		<span>Add a city</span>
 	{% endfor %}
+	{% if user.userprofile in members %}
+    {% include "workplace/set_tags_head.html" with category='city' type='C' %}
+  {% endif %}
 {% elif workplace.workplace_type == 'B' %}
 	{% for area in workplace.get_tags.industrial_area %}
 		<span>
-			{{area}}
-			{% if not forloop.last %}, {% endif %}
+			{{area}}{% if not forloop.last %}, {% endif %}
 		</span>
+		{% include "snippets/tag_short.html" with tag=area %}
 	{% empty %}
 		<span>Add an industrial area</span>
 	{% endfor %}
+	{% if user.userprofile in members %}
+    {% include "workplace/set_tags_head.html" with category='ind_area' type='I' %}
+  {% endif %}
 {% elif workplace.workplace_type == 'C' %}
 	{% if workplace.institution %}
 		<span>{{workplace.institution}}</span>
+		{% include "snippets/tag_short.html" with tag=institution %}
 	{% else %}
 	<span>Add your institution</span>
 	{% endif %}
+	{% if user.userprofile in members %}
+    {% include "workplace/set_tags_head.html" with category='inst' type='P' %}
+  {% endif %}
 {% endif %}
