@@ -216,7 +216,9 @@ $(".d_list").on('click', 'a', function(event){
             var pre_value = $d_results.html();
             $d_results.html(pre_value+'<div class="alert alert_tag"><a href="#" class="close">&times;</a><strong>'+value+'</strong></div>');
             var pre_value_snd = $sabke_papa.children('input').first().next().val();
-            $sabke_papa.children('input').first().next().val(pre_value_snd + value + ',');
+            if (pre_value_snd != '')
+                pre_value_snd += ','
+            $sabke_papa.children('input').first().next().val(pre_value_snd + value);
             console.log($sabke_papa.children('input').first().next().val());
             $sabke_papa.find('.close').on('click', function(){
                 $(this).parent('.alert_tag').alert('close');
@@ -556,11 +558,11 @@ $('.ajax_andar').on('click','.like',function(){
     $this = $(this);
     var val = parseInt($(this).closest('.ajax_papa').find('.likes').text());
     if ($this.attr('class').indexOf('done') >= 0){
-        $this.removeClass('done');
+        $this.removeClass('done').tooltip('hide').attr('data-original-title','Like').tooltip('fixTitle');
         val -= 1;
     }
     else{
-        $this.addClass('done');
+        $this.addClass('done').tooltip('hide').attr('data-original-title','Unlike').tooltip('fixTitle');
         val += 1;
     }
     console.log(val)
@@ -570,14 +572,19 @@ $('.ajax_andar').on('click','.like',function(){
 $('.answer_form').submit(function(event){
     event.preventDefault();
     var $this = $(this);
+    checkValidity();
     var $editor = $this.find('#editor');
     var content = $editor.html();
     $editor.next().val(content);
     $this.find('.form-ajax').trigger('click');
 });
 
-$('.article_form button[type="button"]').click(function(event){  
+$('.article_form button[type="button"]').click(function(event){
+    if ($(this).attr('class').indexOf('check_btn') >= 0){
+        $(this).next().val('true');
+    }
     var $this = $(this).closest('form');
+    checkValidity();
     var $editor = $this.find('#editor');
     var content = $editor.html();
     $editor.next().val(content);
@@ -717,4 +724,138 @@ $('.little_edit').each(function(){
         $(this).find('.little_edit').addClass('hide');
     }
     });
+});
+
+$('#workplace_info').on({
+    'mouseenter': function(){
+        $(this).find('.detail_add').removeClass('hide')
+    }
+})
+
+function checkValidity(){
+    console.log('checking')
+    var editor = $("#editor");
+    var content = editor.html();
+    console.log(content);
+    var check = true
+    ,   pos = -1
+    ,   allow_pos = []
+    ,   allowed = 0
+    ,   att = false;
+    var i=0;
+    while(i <= content.length){
+        var text = content[i];
+        if (text == '<'){
+            //i may is indexing the start of an opening or a closing tag
+            pos = i;
+            //the portion of string not yet checked
+            var unchecked = content.slice(pos,content.length)
+            var nxt = unchecked.search(">");
+            var end = pos + nxt;
+            //pos indexes the opening of tag
+            //end indexes closing of tag
+            if (allowed){
+                var allowedy = allowed;
+                //check wether its a closing tag
+                if(content[pos+1] == '/'){
+                    //check if its the closing tag of allowed (except 'img')
+                    if (content[pos+2] == 'b' || content[pos+2] == 'i' || content[pos+2] == 'u' || content[pos+2] == 'a'){
+                        //might be a recognised tag
+                        if (content[pos+3] == '>' || content[pos+2] == ' '){
+                            //confirmed a/b/i/u
+                            allowed--;
+                            console.log('allowed ka closing')
+                            if (content[pos+2] == 'a')
+                                var att = 'href';
+                        }
+                        else if (content[pos+3] == 'r'){
+                            //might be 'br'
+                            if (content[pos+4] == '>' || content[pos+4] == ' '){
+                                //confirmed br
+                                allowed--;
+                                console.log('allowed ka closing')
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                var allowedy = allowed;
+                //check for allowed tags
+                if (content[pos+1] == 'b' || content[pos+1] == 'i' || content[pos+1] == 'u' || content[pos+1] == 'a'){
+                    //might be a recognised tag
+                    if (content[pos+2] == '>' || content[pos+2] == ' '){
+                        //confirmed a/b/i/u
+                        allowed++;
+                        if (content[pos+1] == 'a')
+                            var att = 'href';
+                    }
+                    else if (content[pos+2] == 'r' || content[pos+2] == 'm'){
+                        //might be 'br'/'img'
+                        if (content[pos+2] == '>' || content[pos+2] == ' '){
+                            //confirmed br
+                            allowed++;
+                        }
+                        else if (content[pos+3] == 'g'){
+                            //might be 'img'
+                            if (content[pos+4] == '>' || content[pos+4] == ' '){
+                                //confirmed img
+                                allowed++;
+                                var att = 'src';
+                            }
+                        }
+                    }
+                }
+            }
+            if (allowedy == allowed) {
+                var part1 = content.slice(0,pos);
+                //console.log(part1);
+                var part2 = content.slice(end+1,content.length);
+                //console.log(part2);
+                content = part1 + part2;
+                i--;
+            }
+            else {
+                allow_pos[allowed] = pos;
+                console.log(allowed,allow_pos[allowed]);
+            }
+        }
+        i++;
+    }
+    console.log(content, allowed);
+    editor.html(content);
+    while (allowed) {
+        console.log('ego adha aa giya');
+        pos = allow_pos[allowed-1];
+        var nxt = unchecked.search(">");
+        var end = pos + nxt;
+        var part1 = content.slice(0,pos);
+        //console.log(part1);
+        var part2 = content.slice(end+1,content.length);
+        //console.log(part2);
+        content = part1 + part2;
+        allowed--;
+    }
+}
+
+$('#editor').on({
+    'focus': function(){
+        if ($(this).attr('class') == 'empty'){
+            $(this).html('').removeClass('empty');
+            //setInterval(checkValidity, 5000);
+        }
+        //checkValidity();
+    },
+    'keyup': function(event){
+        if (event.key == 'v'){
+            checkValidity();
+        }
+    },
+    'blur': function(){
+        console.log('blured')
+        if ($(this).html() == ''){
+            $(this).html('<div class="text-muted">The Awesome Body goes here ...</div>').addClass('empty');
+        }
+        //checkValidity();
+    }
 });

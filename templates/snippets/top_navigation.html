@@ -27,7 +27,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right top_bar_info">
         {% if user.is_authenticated %}
-        <li id="notifications" class="hover_ajax" data-url="/notify" data-active='no'>
+        <li title="Notifications" data-toggle="tooltip" data-placement="bottom" id="notifications" class="hover_ajax" data-url="/notify" data-active='no'>
           <a><span class="glyphicon glyphicon-bell"></span></a>
           <span class="badge"></span>
           <div class="dropdown">
@@ -38,20 +38,20 @@
         <li>
           <a><span class="glyphicon glyphicon-comment"></span></a>
         </li>
-        <li>
+        <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
         {% if user.userprofile.primary_workplace %}
           <a id="ind_name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}"><span class="badge">{{user.userprofile.get_workplace_points}}</span>{{user.userprofile.primary_workplace}}</a>
         {% endif %}
         </li>
-        <li>
+        <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
           <a id="usr_name" href="{% url 'user:profile' user.username %}">{{user}} <span class="badge">{{user.userprofile.points}}</span></a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li>
+            <!-- <li>
               <a href="#"><span class="glyphicon glyphicon-cog"></span> Account Settings</a>
-            </li>
+            </li> -->
             <li>
               <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
             </li>

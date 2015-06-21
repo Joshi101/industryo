@@ -41,11 +41,11 @@ def write(request):                 ## Write an article
         tags = request.POST['tags']
         anonymous = request.POST.get('anonymous')
         draft = request.POST.get('draft')
-        if anonymous & draft:
+        if anonymous=='true' and draft=='true':
             node = Node(post=post, title=title, category='A', user=user, anonymous=True, is_active=False)
-        elif draft:
+        elif draft=='true':
             node = Node(post=post, title=title, category='A', user=user, is_active=False)
-        elif anonymous:
+        elif anonymous=='true':
             node = Node(post=post, title=title, category='A', user=user, anonymous=True)
         else:
             node = Node(post=post, title=title, category='A', user=user)

@@ -21,8 +21,18 @@
   <div id="workplace_info" class="row">
     <div class="col-sm-7">
       <h4 class=" text-uppercase">{{ workplace.name }}</h4>
-      <h4 class="text-muted"><small><i>{% include "snippets/area.html" with workplace=workplace %}</i></small></h4>
-      <h4 class="text-muted"><small><b><i>{% include "snippets/segment.html" with workplace=workplace %}</i></b></small></h4>
+      <h4 class="text-muted">
+        <small><i>{% include "snippets/area.html" with workplace=workplace %}</i></small>
+        {% if user in members %}
+          {% include "workplace/set_tags_head.html" with head='Materials' category='area' type='M' %}
+        {% endif %}
+        </h4>
+      <h4 class="text-muted">
+        <small><b><i>{% include "snippets/segment.html" with workplace=workplace %}</i></b></small>
+        {% if user in members %}
+          {% include "workplace/set_tags_head.html" with head='Materials' category='segment' type='M' %}
+        {% endif %}
+      </h4>
     </div>
     <div class="col-sm-offset-1 col-sm-4">
       <h5><span class="label label-default">{{workplace.points}} points</span></h5>

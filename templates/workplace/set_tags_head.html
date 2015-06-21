@@ -1,0 +1,17 @@
+{% if request.user.userprofile in members %}
+	<button data-content="{{ category }}" data-save='' class="btn btn-default btn-xs detail_add pull-right hide" name="">Add</button>
+{% endif %}
+<form class="edit_{{category}} hide" action="{% url 'workplace:set_tags' %}" method="POST" role="form">
+	{% csrf_token %}
+	<div class="d_search instant" data-results="instant">
+		<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your {{ head }} here ...">
+		<input type="hidden" name="value" class="instant_i">
+		<input type="hidden" name="type" value="{{ type }}">
+		<button type="submit" class="form-ajax hide"></button>
+		<div class="dropdown">
+			<ul class="dropdown-menu d_list">
+			</ul>
+		</div>
+		<div class="d_results"></div>
+	</div>
+</form>

@@ -39,7 +39,7 @@
 	bottom:2px;
 }
 .tooltip.bottom .tooltip-arrow{
-	border-left-color: #222;
+	border-bottom-color: #222;
 	top:2px;
 }
 
