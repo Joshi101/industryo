@@ -3,20 +3,18 @@
 {% block content %}
 	<form class="article_form" role="form" action="{% url 'nodes:write' %}" method="POST">
 		<div class="form-group">
-			<strong><input class="form-control" type="text" placeholder="Title.." name="title" required></strong>
+			<strong><input class="form-control" type="text" placeholder="The Spectacular Title comes here ..." name="title" required></strong>
 		</div>
 		<div class="form-group">
 			{% include "snippets/richtext_toolbar.html" %}
-			<h5>Body</h5>
-	    <div id="editor">
-	    </div>
+	    <div id="editor" class="empty"><div class="text-muted">The Awesome Body goes here ...</div></div>
 			<input class="form-control" type="hidden" name="post">
 		</div>
 		<div class="form-group">
       <label class="control-label" for="id_tags">Tags</label>
 			<div class="d_search" data-results="multiple">
 				<div class="d_results"></div>
-				<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ..." maxlength="255" required>
+				<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ..." maxlength="255">
 				<input type="hidden" name="tags" value="" autocomplete="off" required>
 				<input type="hidden" name="type" value="All">
 				<div class="dropdown">

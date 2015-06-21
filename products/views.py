@@ -1,9 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.template.loader import render_to_string
 from products.models import Products
+import json
 
 
 def add_product(request):
     if request.method == 'POST':
+        response = {}
+        r_value = {}
+        r_inputs = []
+        r_html = {}
+        r_elements = []
         product = request.POST.get('product')
         description = request.POST.get('description')
         tags = request.POST.get('tags')
@@ -11,9 +18,12 @@ def add_product(request):
         workplace = request.user.userprofile.primary_workplace
         p = Products.objects.create(product=product, producer=workplace, description=description)
         p.set_tags(tags)
-        return redirect('/products/'+p.slug)
-    else:
-        return redirect('/workplace/add_products')
+        r_elements = ['products_list']
+        r_html['products_list'] = render_to_string('workplace/one_product.html', {'product': p})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 def product(request, slug):
@@ -23,7 +33,7 @@ def product(request, slug):
     return render(request, 'nodes/articles.html', locals())
 
 
-def delete_product(request):
+def delete(request):
     id = request.GET.get('id')
     product = Products.objects.get(id=id)
     if request.user.userprofile.primary_workplace == product.producer:

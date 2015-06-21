@@ -1,6 +1,6 @@
 <div class="feed_box feed">
 	<div class="feed_box_heading">
-		{% include "snippets/joint_name.html" with user=node.user %}
+		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
 		<small class='pull-right'>{{ node.date }}</small>
 	</div>
 	<div class="ajax_papa">

@@ -1,6 +1,6 @@
 <div class="feed_box question">
 	<div class="feed_box_heading">
-			{% include "snippets/joint_name.html" with user=question.user %}
+			{% include "snippets/joint_name.html" with user=question.user anony=question.anonymous %}
 			<small class='pull-right post_date'>{{ question.date }}</small>
 	</div>
 	<div class="ajax_papa">
@@ -17,7 +17,7 @@
 			{% if question.get_tags %}
 			<div class="tags">
 				{% for tag in question.get_tags %}
-					<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+					<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 				{% endfor %}
 			</div>
 			{% endif %}

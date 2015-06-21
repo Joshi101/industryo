@@ -26,13 +26,13 @@
       <span class="glyphicon glyphicon-italic"></span>
     </a>
     <a class="btn btn-default" data-edit="strikethrough" title="Strikethrough">
-      <span class="glyphicon glyphicon-strikethrough"><strike>S</strike></span>
+      <span class="glyphicon glyphicon-strikethrough"><strike><b style="font-size:15px;">S</b></strike></span>
     </a>
     <a class="btn btn-default" data-edit="underline" title="Underline (Ctrl/Cmd+U)">
-      <span class="glyphicon glyphicon-underline"><u>U</u></span>
+      <span class="glyphicon glyphicon-underline"><u><b style="font-size:15px;">U</b></u></span>
     </a>
   </div>
-  <div class="btn-group">
+  <!-- <div class="btn-group">
     <a class="btn btn-default" data-edit="insertunorderedlist" title="Bullet list">
       <span class="glyphicon glyphicon-list-ul"></span>
     </a>
@@ -59,7 +59,7 @@
     <a class="btn btn-default" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)">
       <span class="glyphicon glyphicon-align-justify"></span>
     </a>
-  </div>
+  </div> -->
   <div class="btn-group">
     <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Hyperlink">
       <span class="glyphicon glyphicon-link"></span>
@@ -68,6 +68,8 @@
 	    <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
 	    <button class="btn btn-default" type="button">Add</button>
     </div>
+  </div>
+  <div class="btn-group">
     <a class="btn btn-default" data-edit="unlink" title="Remove Hyperlink">
       <span class="glyphicon glyphicon-remove-sign"></span>
     </a>
@@ -75,8 +77,8 @@
   <div class="btn-group">
     <a class="btn btn-default" title="Insert picture (or just drag & drop)" id="pictureBtn">
       <span class="glyphicon glyphicon-picture"></span>
+    <input class="btn" type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
     </a>
-    <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
   </div>
   <!--
   <div class="btn-group">

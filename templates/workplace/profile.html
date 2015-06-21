@@ -21,8 +21,18 @@
   <div id="workplace_info" class="row">
     <div class="col-sm-7">
       <h4 class=" text-uppercase">{{ workplace.name }}</h4>
-      <h4 class="text-muted"><small><i>National Institute of Technology, Jamshedpur</i></small></h4>
-      <h4 class="text-muted"><small><b><i>BAJA SAE, BAJA STUDENT</i></b></small></h4>
+      <h4 class="text-muted">
+        <small><i>{% include "snippets/area.html" with workplace=workplace %}</i></small>
+        {% if user in members %}
+          {% include "workplace/set_tags_head.html" with head='Materials' category='area' type='M' %}
+        {% endif %}
+        </h4>
+      <h4 class="text-muted">
+        <small><b><i>{% include "snippets/segment.html" with workplace=workplace %}</i></b></small>
+        {% if user in members %}
+          {% include "workplace/set_tags_head.html" with head='Materials' category='segment' type='M' %}
+        {% endif %}
+      </h4>
     </div>
     <div class="col-sm-offset-1 col-sm-4">
       <h5><span class="label label-default">{{workplace.points}} points</span></h5>
@@ -30,7 +40,7 @@
     </div>
   </div>
   <ul class="nav nav-pills">
-    <li><a data-toggle="pill" href="#products">Products</a></li>
+    <li><a href="{% url "workplace:products" workplace.slug %}">Products</a></li>
     <li><a data-toggle="pill" href="#members">Members</a></li>
     <li><a data-toggle="pill" href="#capabilities">Capabilities</a></li>
     <li><a data-toggle="pill" href="#about">About</a></li>
@@ -38,18 +48,16 @@
   </ul>
   <div class="tab-content">
   	<div id="dashboard" class="tab-pane fade in active">
-		  {% include "workplace/snip_dashboard.html" with questions=questions answers=answers feeds=feeds articles=articles %}
+		  {% include "workplace/snip_dashboard.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
   	</div>
   	<div id="about" class="tab-pane fade">
   		{% include "workplace/snip_about.html" with members=members about_w=workplace.about cities=workplace.get_city %}
   	</div>
     <div id="capabilities" class="tab-pane fade">
-		{% include "workplace/snip_capabilities.html" with members=members capabilities=workplace.capabilities cities=workplace.get_city %}
+		{% include "workplace/snip_capabilities.html" with members=members capabilities=workplace.capabilities ops=workplace.get_tags.operations materials=workplace.get_tags.materials assets=workplace.get_tags.assets %}
 	</div>
     <div id="members" class="tab-pane fade">
-      {% for member in members %}
-        <img src="{{member.get_profile_image}}" alt="{{member}}">
-      {% endfor %}
+      {% include "workplace/snip_members.html" with members=members %}
     </div>
   	<div id="products" class="tab-pane fade"></div>
   </div>

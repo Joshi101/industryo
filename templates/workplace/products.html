@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block left %}
+  <div id="img_profile_box">
+    <img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}">
+    {% if user == request.user %}
+    <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
+    {% endif %}
+  </div>
+  <div class="account">
+    <!-- <h4 class="acc_detail"><small class='small_mid'>( {% include "snippets/workplace_type.html" with type=workplace.workplace_type %} )</small></h4> -->
+    <!-- <h5 class="acc_detail text-muted">{{workplace.address}}</h5> -->
+  </div>
+  {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
+{% endblock left %}
+
+{% block content %}
+  <div id="workplace_info" class="row">
+    <div class="col-sm-7">
+      <h4 class=" text-uppercase">{{ workplace.name }}</h4>
+      <h4 class="text-muted"><small><i>{% include "snippets/area.html" with workplace=workplace %}</i></small></h4>
+      <h4 class="text-muted"><small><b><i>{% include "snippets/segment.html" with workplace=workplace %}</i></b></small></h4>
+    </div>
+    <div class="col-sm-offset-1 col-sm-4">
+      <h5><span class="label label-default">{{workplace.points}} points</span></h5>
+      <h5><span class="label label-success">{{ member_count }} members</span></h5>
+    </div>
+  </div>
+  <ul class="nav nav-pills">
+    <li class="active"><a href="{% url "workplace:products" workplace.slug %}">Products</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Members</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Capabilities</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">About</a></li>
+    <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="products" class="tab-pane fade in active">
+      {% include "workplace/snip_products.html" with products=products %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block right %}
+  <div class="floating_form">
+    <h5 class="side_head">Most Active Members</h5>
+    <ul id="top_members" class="ppl_list">
+    </ul>
+  </div>
+  {% comment %}
+  {% ifequal user request.user %}
+    {% include "snippets/floating_form.html" with tag="material" type="M" %}
+    {% include "snippets/floating_form.html" with tag="operation" type="O" %}
+    {% include "snippets/floating_form.html" with tag="asset" type="A" %}
+  {% endifequal %}
+  {% endcomment %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      get_top_scorers();
+    });
+    function get_top_scorers(){
+      $.ajax({
+        url: "{% url "workplace:get_top_scorers" workplace.slug %}",
+        type: 'GET',
+
+        success: function(response){
+            $('#top_members').html(response);
+        },
+        error : function(xhr,errmsg,err) {
+            console.log(errmsg,err);
+        }
+      });
+    }
+  </script>
+{% endblock right %}

@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
 from nodes.models import Node
+from products.models import Products
 from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
 from userprofile.models import User, UserProfile
@@ -84,6 +85,7 @@ def search_workplace(request):                  # for searching the workplace
 @login_required
 def set_tags(request):
     if request.method == 'POST':
+        print('aa rha h')
         response = {}
         r_html = {}
         r_elements = []
@@ -107,7 +109,7 @@ def set_tags(request):
             t = wp.set_institution(value)
         if type == 'E':
             t = wp.set_events(value)
-        new_interest = t
+        new_interest = wp.tags.get(tag=value)
         r_elements = ['detail_body']
         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
         response['html'] = r_html
@@ -126,8 +128,16 @@ def workplace_profile(request, slug):
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    # articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
     return render(request, 'workplace/profile.html', locals())
+
+def workplace_products(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    products = Products.objects.filter(producer=workplace.pk)
+    return render(request, 'workplace/products.html', locals())
 
 
 def workplace_questions(request, id):
