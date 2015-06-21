@@ -242,7 +242,7 @@ def set_product_details(request):
     else:
         return redirect('/workplace/'+wp.slug)
 
-
+@login_required
 def delete_tag(request):
     if request.method == 'GET':
         user = request.user
@@ -255,5 +255,16 @@ def delete_tag(request):
 
         return HttpResponse(json.dumps(response), content_type="application/json")
 # def delete_tags
+
+
+def sitemap(request):
+    users = User.objects.all()
+    workplaces = Workplace.objects.all()
+    tags = Tags.objects.all()
+    questions = Question.objects.all()
+    articles = Node.article.all()
+    return render(request, 'workplace/sitemap.html', locals())
+
+
 
 # Create your views here.

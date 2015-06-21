@@ -41,9 +41,9 @@ def write(request):                 ## Write an article
         tags = request.POST['tags']
         anonymous = request.POST.get('anonymous')
         draft = request.POST.get('draft')
-        if anonymous & draft:
-            node = Node(post=post, title=title, category='A', user=user, anonymous=True, is_active=False)
-        elif draft:
+        # if anonymous & draft:
+        #     node = Node(post=post, title=title, category='A', user=user, anonymous=True, is_active=False)
+        if draft:
             node = Node(post=post, title=title, category='A', user=user, is_active=False)
         elif anonymous:
             node = Node(post=post, title=title, category='A', user=user, anonymous=True)
@@ -55,13 +55,24 @@ def write(request):                 ## Write an article
     else:
         return render(request, 'nodes/write.html', locals())
 
-
+@login_required
 def remove_anonymity(request):
     id = request.GET['id']
     article = Node.objects.get(id=id)
     article.is_active = True
+    article.anonymous = False
     article.save()
     return redirect('/nodes/'+article.slug)
+
+@login_required
+def publish(request):
+    id = request.GET['id']
+    article = Node.objects.get(id=id)
+    article.is_active = True
+    # article.anonymous = False
+    article.save()
+    return redirect('/nodes/'+article.slug)
+
 
 
 @login_required

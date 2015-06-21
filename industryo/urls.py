@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^create_tag/$', 'tags.views.create_tag', name='create_tag'),
     url(r'^searchtag/$', 'tags.views.search_tag', name='search_tag'),
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
-
+    url(r'^sitemap/$', 'workplace.views.sitemap', name='sitemap'),
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
 
     url(r'^forum/', include('forum.urls', namespace='forum')),
