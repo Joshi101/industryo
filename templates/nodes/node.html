@@ -15,7 +15,7 @@
 				<pre class="text-justify">{{ node.post }}</pre>
 			{% else %}
 				<h4 class="article_title">{{ node.title }}</h4>
-				<p class="article_body">{{ node.post|safe }}</p>
+				<div class="article_body">{{ node.post|safe }}</div>
 			{% endif %}
 		{% if node.get_image %}
 			<figure>
