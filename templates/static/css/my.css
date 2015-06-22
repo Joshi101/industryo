@@ -116,7 +116,7 @@ pre{
 	color: #eee;
 	box-shadow: 0px 0px 3px rgba(55,55,55,0.3) inset;
 	padding: 15px 30px;
-	font-family: 'Oxygen', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
 	margin-right: 7%;
 	min-width: 300px;
@@ -361,7 +361,49 @@ pre{
 }
 
 .feed_box_body h4{
-	margin-bottom: 0px;
+	//margin-bottom: 0px;
+}
+
+.article_title{
+	font-family: 'Tahoma';
+	font-size: 18px;
+	//background-color: rgba(0,0,0,0.1);
+	font-weight: 900;
+	padding: 5px 0px 7px;
+	margin-bottom: 10px;
+	border-bottom: 2px dotted #9d9d9d;
+}
+
+.article_body{
+	font-family: 'Open Sans';
+	text-align: justify;
+	font-size: 14px;
+}
+
+.q_title{
+	font-family: 'Calibri';
+	font-size: 18px;
+	font-weight: 700;
+	padding: 9px 0px 5px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+	border-bottom: 2px dotted #9d9d9d;
+}
+
+.q_body{
+	padding-left: 10px;
+	color: #555;
+	font-family: 'Open Sans';
+	text-align: justify;
+	font-size: 14px;
+}
+
+.q_summary{
+	padding-left: 10px;
+	color: #555;
+	font-family: 'Open Sans';
+	text-align: justify;
+	font-size: 14px;
 }
 
 .feed_box_body > pre{
@@ -398,18 +440,6 @@ pre{
 	margin-left: -1px;
 }
 
-.q_title{
-	color: #000;
-	padding: 9px 0px 5px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-
-.q_summary{
-	padding-left: 10px;
-	color: #555;
-}
-
 .tags{
 	padding: 5px 0pc;
 }
@@ -419,14 +449,14 @@ pre{
 }
 
 .tags .label{
-	font-size: 10px;
+	font-size: 11px;
 	height: 13px;
 	padding: 1px 5px 2px;
 }
 
 .tags a:hover > .label{
 	background-color: #38A0BE;
-	font-size: 90%;
+	font-size: 12px;
 }
 
 .q_detail{

@@ -1,4 +1,4 @@
-<div class="feed_box feed">
+<div class="feed_box article">
 	<div class="feed_box_heading">
 		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
 		<small class='pull-right'>{{ node.date }}</small>
@@ -8,12 +8,8 @@
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
 		<div class="feed_box_body">
-		<a href="{% url 'nodes:node' node.slug %}">
-			<h4>{{ node.title }}</h4>
-			<p>{{ node.get_summary|safe }}</p>
-
-			<p class="text-justify">{{ node.get_summary|safe }}</p>
-
+			<a href="{% url 'nodes:node' node.slug %}"><h4 class="article_title">{{ node.title }}</h4></a>
+			<p class="article_body">{{ node.get_summary|safe }}</p>
 			{% if node.get_tags %}
 			<div class="tags">
 				{% for tag in node.get_tags %}

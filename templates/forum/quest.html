@@ -18,9 +18,9 @@
 						{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 					</div>
 					<div class="ajax_papa feed_box_body">
-						<h4><pre class="q_title">{{ q.title }}</pre></h4>
+						<h4 class="q_title">{{ q.title }}</h4>
 						{% if q.question %}
-						<p class="q_detail">{{ q.question }}</p>
+						<p class="q_body">{{ q.question }}</p>
 						{% endif %}
 						{% if q.get_tags %}
 						<div class="tags">

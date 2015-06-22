@@ -11,7 +11,12 @@
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
 		<div class="feed_box_body">
-			<pre>{{ node.post }}</pre>
+			{% if node.category == 'F' %}
+				<pre class="text-justify">{{ node.post }}</pre>
+			{% else %}
+				<h4 class="article_title">{{ node.title }}</h4>
+				<p class="article_body">{{ node.post|safe }}</p>
+			{% endif %}
 		{% if node.get_image %}
 			<figure>
 				<img src="{{node.get_image}}">
