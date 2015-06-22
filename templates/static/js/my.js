@@ -694,7 +694,7 @@ function checkValidity(){
                 //check wether its a closing tag
                 if(content[pos+1] == '/'){
                     //check if its the closing tag of allowed (except 'img')
-                    if (content[pos+2] == 'b' || content[pos+2] == 'i' || content[pos+2] == 'u' || content[pos+2] == 'a'){
+                    if (content[pos+2] == 'b' || content[pos+2] == 'i' || content[pos+2] == 'u' || content[pos+2] == 'a' || content[pos+2] == 'l' || content[pos+2] == 'o'){
                         //might be a recognised tag
                         if (content[pos+3] == '>'){
                             //confirmed a/b/i/u
@@ -703,10 +703,10 @@ function checkValidity(){
                             if (content[pos+2] == 'a')
                                 var att = 'href';
                         }
-                        else if (content[pos+3] == 'r'){
-                            //might be 'br'
-                            if (content[pos+4] == '>' || content[pos+4] == ' '){
-                                //confirmed br
+                        else if (content[pos+3] == 'r' || content[pos+3] == 'l' || content[pos+3] == 'i'){
+                            //might be br/ul/ol/li
+                            if (content[pos+4] == '>'){
+                                //confirmed br/ul/ol/li
                                 allowed--;
                                 console.log('allowed ka closing')
                             }
@@ -718,9 +718,9 @@ function checkValidity(){
                 console.log('yahi na',content[pos],pos)
                 var allowedy = allowed;
                 //check for allowed tags
-                if (content[pos+1] == 'b' || content[pos+1] == 'i' || content[pos+1] == 'u' || content[pos+1] == 'a'){
+                if (content[pos+1] == 'b' || content[pos+1] == 'i' || content[pos+1] == 'u' || content[pos+1] == 'a' || content[pos+1] == 'l' || content[pos+2] == 'o'){
                     //might be a recognised tag
-                    console.log('lvl 1 a')
+                    console.log('lvl 1 a',content[pos+2])
                     if (content[pos+2] == '>' || content[pos+2] == ' '){
                         //confirmed a/b/i/u
                         console.log('lvl 2 a')
@@ -728,11 +728,11 @@ function checkValidity(){
                         if (content[pos+1] == 'a')
                             var att = 'href';
                     }
-                    else if (content[pos+2] == 'r' || content[pos+2] == 'm'){
-                        //might be 'br'/'img'
+                    else if (content[pos+2] == 'r' || content[pos+2] == 'm' || content[pos+2] == 'l' || content[pos+2] == 'i'){
+                        //might be 'br/ul/ol/li/img
                         console.log('lvl 2 b')
                         if (content[pos+3] == '>' || content[pos+3] == ' '){
-                            //confirmed br
+                            //confirmed br/ul/ol/li
                             console.log('lvl 3 a')
                             allowed++;
                         }
