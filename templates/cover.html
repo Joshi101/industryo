@@ -3,6 +3,9 @@
 {% load bootstrap %}
 
 {% block body %}
+<div id="cover_desc" class="container text-center">
+	<p>CoreLogs - A platform for the entire core segment of Engineering Industry</p>
+</div>
 <div id="cover" class="container-fluid row">
 	<style type="text/css">
 		#back{
@@ -29,7 +32,7 @@
 	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 	      {% endif %}
 	      <div class="form-group">
-	        <a class="button secondaryAction col-sm-8" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+	        <a class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
 	      </div>
 	      <div class="form-group">
 	        <div class="col-sm-8 text-center">

@@ -2,7 +2,7 @@
 	{% for city in workplace.get_tags.city %}
 		{% include "snippets/tag_short.html" with tag=city %}
 	{% empty %}
-		<span>Add a city</span>
+		<span class="none">Add a city</span>
 	{% endfor %}
 	{% if user.userprofile in members %}
     {% include "workplace/set_tags_head.html" with category='city' type='C' %}
@@ -11,17 +11,17 @@
 	{% for area in workplace.get_tags.industrial_area %}
 		{% include "snippets/tag_short.html" with tag=area %}
 	{% empty %}
-		<span>Add an industrial area</span>
+		<span class="none">Add an industrial area</span>
 	{% endfor %}
 	{% if user.userprofile in members %}
     {% include "workplace/set_tags_head.html" with category='ind_area' type='I' %}
   {% endif %}
 {% elif workplace.workplace_type == 'C' %}
-	{% if workplace.institution %}
-		{% include "snippets/tag_short.html" with tag=institution %}
-	{% else %}
-	<span>Add your institution</span>
-	{% endif %}
+	{% for inst in workplace.get_tags.institution %}
+		{% include "snippets/tag_short.html" with tag=inst %}
+	{% empty %}
+	<span class="none">Add your institution</span>
+	{% endfor %}
 	{% if user.userprofile in members %}
     {% include "workplace/set_tags_head.html" with category='inst' type='P' %}
   {% endif %}
