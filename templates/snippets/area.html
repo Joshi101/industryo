@@ -1,8 +1,5 @@
 {% if workplace.workplace_type == 'A' %}
 	{% for city in workplace.get_tags.city %}
-		<span>
-			{{city}}{% if not forloop.last %}, {% endif %}
-		</span>
 		{% include "snippets/tag_short.html" with tag=city %}
 	{% empty %}
 		<span>Add a city</span>
@@ -12,9 +9,6 @@
   {% endif %}
 {% elif workplace.workplace_type == 'B' %}
 	{% for area in workplace.get_tags.industrial_area %}
-		<span>
-			{{area}}{% if not forloop.last %}, {% endif %}
-		</span>
 		{% include "snippets/tag_short.html" with tag=area %}
 	{% empty %}
 		<span>Add an industrial area</span>
@@ -24,7 +18,6 @@
   {% endif %}
 {% elif workplace.workplace_type == 'C' %}
 	{% if workplace.institution %}
-		<span>{{workplace.institution}}</span>
 		{% include "snippets/tag_short.html" with tag=institution %}
 	{% else %}
 	<span>Add your institution</span>
