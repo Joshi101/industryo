@@ -283,6 +283,7 @@ var timer = true;
     timer = true;
     console.log(timer);
 },300));*/ // works., implement after performance analysis
+if ($('.paginator').length){
 $(window).scroll(function() {
     //if (!timer)
         //return;
@@ -318,6 +319,7 @@ $(window).scroll(function() {
         });
     }
 });
+}
 
 //profile page
 $('#img_profile_box').on({

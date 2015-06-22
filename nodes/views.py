@@ -206,8 +206,8 @@ def comment(request):
         return render(request, 'feeds/partial_feed_comments.html', {'node': node})
 
 
-def node(request, id):
-    node = Node.objects.get(id=id)
+def node(request, slug):
+    node = Node.objects.get(slug=slug)
     return render(request, 'nodes/node.html', {'node': node})
 
 
@@ -238,5 +238,12 @@ def delete(request):
     if request.user == node.user:
         node.delete()
     return redirect('/')
+
+
+def edit_node(request):
+    id = request.GET.get('id')
+    node = Node.objects.get(id=id)
+    return render(request, 'nodes/articles.html', locals())
+
 
 # Create your views here.
