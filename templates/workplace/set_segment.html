@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-
 {% block content %}
 	<section id="content_add_type" class="contents">
-		
 		<form id="form_add_type" class="forms_home" action="/workplace/set_segment/" method="POST" role="form">
 			<ul class="uls_home">
 				{{ form.as_ul }}

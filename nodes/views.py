@@ -52,8 +52,11 @@ def write(request):                 ## Write an article
         else:
             node = Node(post=post, title=title, category='A', user=user)
         node.save()
+        image = request.FILES.get('image', None)
+        if image:
+            node.add_image(image, user)
         node.set_tags(tags)
-        return redirect('/nodes/articles')
+        return redirect('/nodes/'+node.slug)
     else:
         return render(request, 'nodes/write.html', locals())
 

@@ -145,9 +145,13 @@ def set_tags_short(request):
         if type == 'C':
             t = wp.set_city(value)
         if type == 'P':
+            print('a')
             t = wp.set_institution(value)
+            print('b')
         if type == 'E':
             t = wp.set_events(value)
+        if type == 'S':
+            t = wp.set_segments(value)
         new_interest = wp.tags.get(tag=value)
         r_elements = ['tag_container']
         r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
@@ -169,13 +173,35 @@ def workplace_profile(request, slug):
     articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
     return render(request, 'workplace/profile.html', locals())
 
+def workplace_about(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    return render(request, 'workplace/prof_about.html', locals())
+
+def workplace_capabilities(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    return render(request, 'workplace/prof_capabilities.html', locals())
+
+def workplace_members(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    products = Products.objects.filter(producer=workplace.pk)
+    return render(request, 'workplace/prof_members.html', locals())
+
 def workplace_products(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
     products = Products.objects.filter(producer=workplace.pk)
-    return render(request, 'workplace/products.html', locals())
+    return render(request, 'workplace/prof_products.html', locals())
 
 
 def workplace_questions(request, id):

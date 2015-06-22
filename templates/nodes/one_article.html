@@ -11,6 +11,9 @@
 		<a href="{% url 'nodes:node' node.slug %}">
 			<h4>{{ node.title }}</h4>
 			<p>{{ node.get_summary|safe }}</p>
+
+			<p class="text-justify">{{ node.get_summary|safe }}</p>
+
 			{% if node.get_tags %}
 			<div class="tags">
 				{% for tag in node.get_tags %}

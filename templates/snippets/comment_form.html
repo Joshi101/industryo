@@ -1,4 +1,4 @@
-<form class="comment_form" role='form' action="{% if q_or_a == 'q' %}{% url 'forum:ques_comment' %}{% elif q_or_a == 'a' %}{% url 'forum:ques_comment' %}{% endif %}" method="POST">
+<form class="comment_form" role='form' action="{% if q_or_a == 'q' %}{% url 'forum:ques_comment' %}{% elif q_or_a == 'a' %}{% url 'forum:ans_comment' %}{% endif %}" method="POST">
 		<div class="input-group">
 			<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
 			<span class="input-group-btn">

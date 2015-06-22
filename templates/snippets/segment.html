@@ -1,8 +1,4 @@
 {% for segment in workplace.get_tags.segments %}
-	<span>{{segment}}</span>
-	{% if not forloop.last %}
-		,
-	{% endif %}
 	{% include "snippets/tag_short.html" with tag=segment %}
 {% empty %}
 	Add segment

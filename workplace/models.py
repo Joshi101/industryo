@@ -87,8 +87,8 @@ class Workplace(models.Model):
         return t
 
     def set_institution(self, institution):
-        t, created = Tags.objects.get_or_create(tag=institution, type='I')
-        self.tags = t
+        t, created = Tags.objects.get_or_create(tag=institution, type='P')
+        self.tags.add(t)
         self.institution = t
         t.count +=1
         t.save()
@@ -133,6 +133,7 @@ class Workplace(models.Model):
         materials = self.tags.filter(type='M')
         segments = self.tags.filter(type='S')
         events = self.tags.filter(type='E')
+        institution = self.tags.filter(type='P')
         return locals()
 
     def get_institution(self):

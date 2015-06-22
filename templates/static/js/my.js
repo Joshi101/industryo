@@ -689,8 +689,8 @@ function checkValidity(){
             var end = pos + nxt;
             //pos indexes the opening of tag
             //end indexes closing of tag
+            var allowedy = allowed;
             if (allowed){
-                var allowedy = allowed;
                 //check wether its a closing tag
                 if(content[pos+1] == '/'){
                     //check if its the closing tag of allowed (except 'img')
@@ -699,7 +699,7 @@ function checkValidity(){
                         if (content[pos+3] == '>'){
                             //confirmed a/b/i/u
                             allowed--;
-                            console.log('allowed ka closing')
+                            console.log('allowed ka closing',content[pos+2],pos,allowed,allowedy)
                             if (content[pos+2] == 'a')
                                 var att = 'href';
                         }
@@ -714,8 +714,8 @@ function checkValidity(){
                     }
                 }
             }
-            if (!allowed || (allowedy == allowed)) {
-                console.log('yahi na')
+            if (!allowedy || (allowedy == allowed)) {
+                console.log('yahi na',content[pos],pos)
                 var allowedy = allowed;
                 //check for allowed tags
                 if (content[pos+1] == 'b' || content[pos+1] == 'i' || content[pos+1] == 'u' || content[pos+1] == 'a'){
@@ -790,7 +790,7 @@ $('#editor').on({
         //checkValidity();
     },
     'keyup': function(event){
-        if (event.key == 'v'){
+        if (event.keyCode == 86){
             checkValidity();
         }
     },
@@ -802,3 +802,8 @@ $('#editor').on({
         //checkValidity();
     }
 });
+
+var nones = $('span.none');
+if (nones.siblings('span').length) {
+    nones.addClass('hide');
+};

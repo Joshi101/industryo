@@ -1,0 +1,15 @@
+{% extends "workplace/profile.html" %}
+
+{% block workplace_nav %}
+  <li><a href="{% url "workplace:products" workplace.slug %}">Products</a></li>
+  <li><a href="{% url "workplace:members" workplace.slug %}">Members</a></li>
+  <li class="active"><a href="{% url "workplace:capabilities" workplace.slug %}">Capabilities</a></li>
+  <li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
+  <li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+{% endblock workplace_nav %}
+
+{% block workplace_section %}
+	<div id="capabilities" class="tab-pane fade in active">
+    {% include "workplace/snip_capabilities.html" with members=members capabilities=workplace.capabilities ops=workplace.get_tags.operations materials=workplace.get_tags.materials assets=workplace.get_tags.assets %}
+  </div>
+{% endblock workplace_section %}
