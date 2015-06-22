@@ -378,6 +378,7 @@ pre{
 	font-family: 'Open Sans';
 	text-align: justify;
 	font-size: 14px;
+	margin-bottom: 15px;
 }
 
 .q_title{
@@ -396,6 +397,7 @@ pre{
 	font-family: 'Open Sans';
 	text-align: justify;
 	font-size: 14px;
+	margin-bottom: 25px;
 }
 
 .q_summary{
@@ -470,6 +472,10 @@ pre{
 	padding: 7px;
 	/*max-height: 262px;*/
 	overflow: hidden;
+	font-family: 'Open Sans';
+	text-align: justify;
+	font-size: 14px;
+	margin-bottom: 15px;
 }
 
 .interaction{
