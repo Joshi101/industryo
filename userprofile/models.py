@@ -123,6 +123,7 @@ class UserProfile(models.Model):
 
     def notify_n_commented(self, node):           # working
         if self.user != node.user:
+            print('ithhe')
             Notification(notification_type=Notification.COMMENTED,
                          from_user=self.user,
                          to_user=node.user,

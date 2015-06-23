@@ -118,8 +118,6 @@ pre{
 	padding: 15px 30px;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
-	margin-right: 7%;
-	min-width: 300px;
 	margin-bottom: 30px;
 }
 
@@ -128,8 +126,8 @@ pre{
 	color: #fff;
 	box-shadow: 0px 0px 2px rgba(71,164,71,1);
 	padding: 15px 30px;
-	margin-right: 10%;
-	min-width: 300px;
+	margin-right: 5%;
+	max-width: 400px;
 }
 
 #login{
@@ -137,7 +135,6 @@ pre{
 	box-shadow: 0px 0px 2px rgba(71,164,71,1);
 	padding: 15px;
 	max-width: 350px;
-	margin-left: 10%;
 	margin-bottom: 50px;
 }
 
@@ -327,6 +324,7 @@ pre{
 .feed_box_heading{
 	border-bottom: 1px solid #bbb;
 	padding-bottom: 2px;
+	overflow: hidden;
 }
 
 .feed_box > .row{
@@ -550,6 +548,7 @@ pre{
 /**/
 .post_date{
 	line-height: 17px;
+	float: right;
 }
 
 /**/
@@ -1106,4 +1105,10 @@ textarea.replacer{
 
 .tag_short .close:hover{
 	color: #5BC0DE;
+}
+
+#last_feed{
+	padding: 5px 5px 7px;
+	border-top: 2px solid #333;
+	border-bottom: 1px solid;
 }

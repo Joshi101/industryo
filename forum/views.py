@@ -50,15 +50,45 @@ def get_question(request, slug):
 @login_required
 def ques_comment(request):
     if request.method == 'POST':
+        response = {}
+        r_html = {}
+        r_elements = []
         user = request.user
         comment = request.POST['comment']
         id = request.POST['id']
-        slug = request.POST['slug']
         question = Question.objects.get(id=id)
         comment = Comments(question=question, user=user, comment=comment)
         comment.save()
         user.userprofile.notify_q_commented(question=question)
-        return HttpResponseRedirect('/forum/'+slug)
+        r_elements = ['comments']
+        r_html['comments'] = render_to_string('snippets/comment.html', {'comment':comment})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
+@login_required
+def ans_comment(request):
+    if request.method == 'POST':
+        response = {}
+        r_html = {}
+        r_elements = []
+        comment = request.POST['comment']
+        id = request.POST['id']
+        answer = Answer.objects.get(id=id)
+        user = request.user
+        c = Comments(answer=answer, comment=comment, user=user)
+        c.save()
+        user.userprofile.notify_a_commented(answer)
+        r_elements = ['comments']
+        r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        print('problem hai')
+
 
 @login_required
 def voteup(request):
@@ -167,22 +197,6 @@ def reply(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         print('problem hai')
-
-@login_required
-def ans_comment(request):
-    if request.method == 'POST':
-        comment = request.POST['comment']
-        id = request.POST['id']
-        answer = Answer.objects.get(id=id)
-        user = request.user
-        slug = request.POST['slug']
-        c = Comments(answer=answer, comment=comment, user=user)
-        c.save()
-        user.userprofile.notify_a_commented(answer)
-        return HttpResponseRedirect('/forum/'+slug)
-    else:
-        print('problem hai')
-
 
 def tag(request):           # this for what
     if request.method == 'POST':

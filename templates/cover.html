@@ -6,13 +6,12 @@
 <div id="cover_desc" class="container text-center">
 	<p>CoreLogs - A platform for the entire core segment of Engineering Industry</p>
 </div>
-<div id="cover" class="container-fluid row">
+<div id="cover" class="container-fluid">
 	<style type="text/css">
 		#back{
 			background-color: rgba(55,55,55,0.1);
 		}
 	</style>
-	<div class="cover_back"></div>
 	<div class="col-sm-5">
 		<div id="login" class="text-center">
 			<h3>Sign In</h3>
@@ -42,9 +41,7 @@
 	    </form>
     </div>
 	</div>
-	<div class="col-sm-2 text-center">
-	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-7">
 		<div id="signup" class="text-right pull-right">
 	    <h3>Create a Corelogs account</h3>
 	    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>

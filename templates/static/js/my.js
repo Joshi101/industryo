@@ -314,7 +314,7 @@ $(window).scroll(function() {
 
             error : function(xhr,errmsg,err) {
             console.log(errmsg,err);
-            $pg.before("<h4 class='text-center'>Can't load further content. Refresh the page.</h4>");
+            $pg.before("<h5 id='last_feed' class='text-center text-muted'>Looks like you've reached the beginning of your history at CoreLogs :)</h5>");
         }
         });
     }
@@ -497,6 +497,8 @@ $('.answer_form').submit(function(event){
     var content = $editor.html();
     $editor.next().val(content);
     $this.find('.form-ajax').trigger('click');
+    $editor.html('');
+    $('#write_answer').trigger('click');
 });
 
 $('.article_form button[type="button"]').click(function(event){

@@ -1,7 +1,7 @@
 <div class="feed_box answer ajax_andar">
 	<div class="feed_box_heading">
 			{% include "snippets/joint_name.html" with user=a.user %}
-			<small class='pull-right post_date'>{{ a.date }}</small>
+			<span class='post_date'><small>{{ a.date }}</small></span>
 	</div>
 	<div class="row ajax_papa">
 		<div class="col-sm-1 text-center vote_box ajax_papa">
@@ -22,7 +22,7 @@
 				<div class="interaction">
 	    		<a class="a_collapse">Comment</a>
 			    <div class="collapse">
-						{% include "snippets/comment_form.html" with q_or_a='a' q=q a=a %}
+						{% include "snippets/comment_form.html" with type='a' post=a %}
 					</div>
 				</div>
 			</div>

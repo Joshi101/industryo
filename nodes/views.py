@@ -190,13 +190,14 @@ def comment(request):
         response = {}
         r_html = {}
         r_elements = []
-        node_id = request.POST['node']
+        node_id = request.POST['id']
         user = request.user
         node = Node.objects.get(pk=node_id)
-        post = request.POST['post']
+        post = request.POST['comment']
         c = Comments(user=user, node=node, comment=post)
         c.save()
-        user.userprofile.notify_n_commented(node)
+        #user.userprofile.notify_n_commented(node)
+        print(c)
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html
