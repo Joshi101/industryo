@@ -9,7 +9,7 @@
 		</div>
 		<div class="feed_box_body">
 			<a href="{% url 'nodes:node' node.pk %}"><h4 class="article_title">{{ node.title }}</h4></a>
-			<p class="article_body">{{ node.get_summary|safe }}</p>
+			<div class="article_body">{{ node.get_summary|safe }}</div>
 			{% if node.get_tags %}
 			<div class="tags">
 				{% for tag in node.get_tags %}

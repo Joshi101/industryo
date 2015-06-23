@@ -17,7 +17,7 @@
 
 
 
-/* function to convert rendered form inputs that require tagging (wont be needed soon) */
+/* function to convert rendered form inputs that require tagging (remove soon) */
     function convert_to_taggable(){
         var $this = $(this);
         var name = $this.attr('name')
@@ -35,14 +35,15 @@
         $this.replaceWith(new_input);
     }
 
-/* convert each form with class 'taggable' */
+/* convert each form with class 'taggable' (remove soon) */
     $('form .taggable').each(convert_to_taggable);
 
 
-/* dynamic select function */
-$('.d_input').keyup(function(event){
+/* handling input for dynamiac search inputs */
+$('.d_input').keydown(function(event){
     var $this = $(this);
-    if(event.key == ','){
+    if(event.keyCode == '13'){
+        event.preventDefault();
         $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
         $this.val('');
     }

@@ -18,7 +18,10 @@
 						{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 					</div>
 					<div class="ajax_papa feed_box_body">
-						<h4 class="q_title">{{ q.title }}</h4>
+						<h4 class="q_title">
+							{{ q.title }}
+							<a class="edit_post pull-right" href="{% url 'forum:edit_ques' q.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
+						</h4>
 						{% if q.question %}
 						<p class="q_body">{{ q.question }}</p>
 						{% endif %}

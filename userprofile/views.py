@@ -12,15 +12,15 @@ import json
 
 
 def profile(request, username):
-    user = User.objects.get(username=username)
-    name = user.get_full_name()
-    userprofile = UserProfile.objects.get(user=user)
+    page_user = User.objects.get(username=username)
+    name = page_user.get_full_name()
+    userprofile = UserProfile.objects.get(user=page_user)
     profile_image_form = SetProfileImageForm()
 
-    questions = Question.objects.filter(user=user)
-    answers = Question.objects.filter(answer__question__user=user)
-    feeds = Node.feed.filter(user=user)
-    articles = Node.article.filter(user=user)
+    questions = Question.objects.filter(user=page_user)
+    answers = Question.objects.filter(answer__question__user=page_user)
+    feeds = Node.feed.filter(user=page_user)
+    articles = Node.article.filter(user=page_user)
     interests = userprofile.get_interests()
     return render(request, 'userprofile/profile.html', locals())
 

@@ -23,17 +23,25 @@ def ask(request):
             user = request.user
             question = Question(question=question, title=title, user=user)
             question.save()
-
             tags = form.cleaned_data.get('tags')
             print(tags)
             question.set_tags(tags)
-
             slug = question.slug
-
             return HttpResponseRedirect('/forum/'+slug)
     else:
         return render(request, 'forum/ask.html', {'form': form})
 
+def edit_ques(request, id):
+    q = Question.objects.get(id=id)
+    if request.method == 'POST':
+        q.question = request.POST['question']
+        q.title = request.POST['title']
+        q.save()
+        #tags = form.cleaned_data.get('tags')
+        #question.set_tags(tags)
+        slug = q.slug
+        return HttpResponseRedirect('/forum/'+slug)
+    return render(request, 'forum/edit_q.html', locals())
 
 def get_question(request, slug):
     q = Question.objects.get(slug=slug)
