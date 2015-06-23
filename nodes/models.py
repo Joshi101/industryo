@@ -194,7 +194,7 @@ class Node(models.Model):
         return comments
 
     def get_summary(self):
-        summary_size = 1000
+        summary_size = 500
         value = self.post
         if len(value) > summary_size:
             return u'{0}...'.format(value[:summary_size])

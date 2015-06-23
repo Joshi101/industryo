@@ -21,10 +21,13 @@ def ask(request):
             question = form.cleaned_data.get('question')
             title = form.cleaned_data.get('title')
             user = request.user
-            question = Question(question=question, title=title, user=user)
+            anonymous = request.POST.get('anonymous')
+            if anonymous:
+                question = Question(question=question, title=title, user=user, anonymous=True)
+            else:
+                question = Question(question=question, title=title, user=user)
             question.save()
             tags = form.cleaned_data.get('tags')
-            print(tags)
             question.set_tags(tags)
             slug = question.slug
             return HttpResponseRedirect('/forum/'+slug)
@@ -188,7 +191,11 @@ def reply(request):
 
         question = Question.objects.get(id=id)
         slug = question.slug
-        answer = Answer.objects.create(answer=answer, user=user, question=question)
+        anonymous = request.POST.get('anonymous')
+        if anonymous:
+            answer = Answer.objects.create(answer=answer, user=user, question=question, anonymous=True)
+        else:
+            answer = Answer.objects.create(answer=answer, user=user, question=question)
         user.userprofile.notify_answered(question)
         r_elements = ['answers']
         r_html['answers'] = render_to_string('snippets/one_answer.html', {'q': question, 'a':answer})

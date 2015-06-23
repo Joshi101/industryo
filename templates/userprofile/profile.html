@@ -90,7 +90,10 @@
 		{% endfor %}
     </div>
     <div id="articles" class="tab-pane fade ajax_andar ajax_papa">
-    </div>
+			{% for article in articles %}
+				{% include 'nodes/one_article.html' with node=article %}
+			{% endfor %}
+	</div>
     <div id="feeds" class="tab-pane fade ajax_andar ajax_papa">
     	{% for node in feeds %}
 				{% include 'nodes/one_node.html' with node=node %}

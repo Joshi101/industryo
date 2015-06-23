@@ -87,7 +87,6 @@ def search_n_tags(request):
 
 def describe_tag(request):          # edit description
     if request.method == 'POST':
-        print('tagu')
         id = request.POST.get('id')
         tag = Tags.objects.get(id=id)
         description = request.POST['description']

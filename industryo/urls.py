@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
     # Examples:
@@ -23,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^create_tag/$', 'tags.views.create_tag', name='create_tag'),
     url(r'^searchtag/$', 'tags.views.search_tag', name='search_tag'),
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
-
+    url(r'^sitemap/$', 'workplace.views.sitemap', name='sitemap'),
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
 
     url(r'^forum/', include('forum.urls', namespace='forum')),
@@ -32,5 +33,7 @@ urlpatterns = patterns('',
     url(r'^nodes/', include('nodes.urls', namespace='nodes')),
     url(r'^tags/', include('tags.urls', namespace='tags')),
     url(r'^products/', include('products.urls', namespace='products')),
+
+    url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

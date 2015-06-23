@@ -58,8 +58,8 @@ class Workplace(models.Model):
         t.save()
         return t
 
-    def set_segments(self, materials):
-        t, created = Tags.objects.get_or_create(tag=materials, type='S')
+    def set_segments(self, segments):
+        t, created = Tags.objects.get_or_create(tag=segments, type='S')
         self.tags.add(t)
         t.count +=1
         t.save()
@@ -118,7 +118,7 @@ class Workplace(models.Model):
         return city
 
     def get_logo(self):
-        default_image = '/images/thumbnails/workplace.jpg'
+        default_image = '/images/thumbnails/logo.JPG'
         if self.logo:
             image_url = '/images/'+str(self.logo.image_thumbnail)
             return image_url

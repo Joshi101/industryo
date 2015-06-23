@@ -109,6 +109,8 @@ def set_tags(request):
             t = wp.set_institution(value)
         if type == 'E':
             t = wp.set_events(value)
+        if type == 'S':
+            t = wp.set_segments(value)
         new_interest = wp.tags.get(tag=value)
         r_elements = ['detail_body']
         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
@@ -168,7 +170,7 @@ def workplace_profile(request, slug):
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
     return render(request, 'workplace/profile.html', locals())
 
 def workplace_about(request, slug):
@@ -314,24 +316,33 @@ def set_product_details(request):
     else:
         return redirect('/workplace/'+wp.slug)
 
-
+@login_required
 def delete_tag(request):
     if request.method == 'GET':
         user = request.user
         up = user.userprofile
         wp = user.userprofile.primary_workplace
         delete = request.GET['delete']
-
         response = {}
-        Tags.objects.get(tag=delete)
+        #Tags.objects.get(tag=delete)
         try:
             wp.tags.get(tag=delete).delete()
             print('nal')
         except:
             up.interests.get(tag=delete).delete()
             print('al')
-
         return HttpResponse(json.dumps(response), content_type="application/json")
 # def delete_tags
+
+
+def sitemap(request):
+    users = User.objects.all()
+    workplaces = Workplace.objects.all()
+    tags = Tags.objects.all()
+    questions = Question.objects.all()
+    articles = Node.article.all()
+    return render(request, 'workplace/sitemap.html', locals())
+
+
 
 # Create your views here.

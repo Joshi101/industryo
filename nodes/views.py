@@ -56,27 +56,43 @@ def write(request):                 ## Write an article
         tags = request.POST['tags']
         anonymous = request.POST.get('anonymous')
         draft = request.POST.get('draft')
-        if anonymous=='true' and draft=='true':
-            node = Node(post=post, title=title, category='A', user=user, anonymous=True, is_active=False)
-        elif draft=='true':
+
+        # if anonymous & draft:
+        #     node = Node(post=post, title=title, category='A', user=user, anonymous=True, is_active=False)
+        if draft:
+
             node = Node(post=post, title=title, category='A', user=user, is_active=False)
         elif anonymous=='true':
             node = Node(post=post, title=title, category='A', user=user, anonymous=True)
         else:
             node = Node(post=post, title=title, category='A', user=user)
         node.save()
+        image = request.FILES.get('image', None)
+        if image:
+            node.add_image(image, user)
         node.set_tags(tags)
-        return redirect('/nodes/articles')
+        return redirect('/nodes/'+node.slug)
     else:
         return render(request, 'nodes/write.html', locals())
 
-
+@login_required
 def remove_anonymity(request):
     id = request.GET['id']
     article = Node.objects.get(id=id)
     article.is_active = True
+    article.anonymous = False
     article.save()
     return redirect('/nodes/'+article.slug)
+
+@login_required
+def publish(request):
+    id = request.GET['id']
+    article = Node.objects.get(id=id)
+    article.is_active = True
+    # article.anonymous = False
+    article.save()
+    return redirect('/nodes/'+article.slug)
+
 
 
 @login_required
@@ -241,5 +257,12 @@ def delete(request):
     if request.user == node.user:
         node.delete()
     return redirect('/')
+
+
+def edit_node(request):
+    id = request.GET.get('id')
+    node = Node.objects.get(id=id)
+    return render(request, 'nodes/articles.html', locals())
+
 
 # Create your views here.

@@ -17,6 +17,7 @@ def profile(request, username):
     userprofile = UserProfile.objects.get(user=page_user)
     profile_image_form = SetProfileImageForm()
 
+
     questions = Question.objects.filter(user=page_user)
     answers = Question.objects.filter(answer__question__user=page_user)
     feeds = Node.feed.filter(user=page_user)
