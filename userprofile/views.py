@@ -20,7 +20,7 @@ def profile(request, username):
     questions = Question.objects.filter(user=user)
     answers = Question.objects.filter(answer__question__user=user)
     feeds = Node.feed.filter(user=user)
-    articles = Node.article.filter(user=user)
+    articles = Node.objects.filter(user=user, category='A')
     interests = userprofile.get_interests()
     return render(request, 'userprofile/profile.html', locals())
 

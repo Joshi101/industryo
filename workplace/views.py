@@ -324,7 +324,7 @@ def delete_tag(request):
         delete = request.GET['delete']
 
         response = {}
-        Tags.objects.get(tag=delete)
+        # Tags.objects.get(tag=delete)
         wp.tags.get(tag=delete).delete()
 
         return HttpResponse(json.dumps(response), content_type="application/json")
