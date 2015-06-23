@@ -1,11 +1,11 @@
-<form class="comment_form" role='form' action="{% if q_or_a == 'q' %}{% url 'forum:ques_comment' %}{% elif q_or_a == 'a' %}{% url 'forum:ans_comment' %}{% endif %}" method="POST">
+<form class="comment_form" role='form' action="{% if type == 'q' %}{% url 'forum:ques_comment' %}{% elif type == 'a' %}{% url 'forum:ans_comment' %}{% elif type == 'n' %}{% url 'nodes:comment' %}{% endif %}" method="POST">
 		<div class="input-group">
 			<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
 			<span class="input-group-btn">
 				<button class='btn btn-default form-ajax'>Comment</button>
 			</span>
 		</div>
-	<input type="hidden" name="id" value="{% if q_or_a == 'q' %}{{ q.id }}{% elif q_or_a == 'a' %}{{a.id}}{% endif %}">
-	<input type="hidden" name="slug" value="{{ q.slug }}">
+	<input type="hidden" name="id" value="{{ post.id }}">
+	<!-- <input type="hidden" name="slug" value="{{ q.slug }}"> -->
 	{% csrf_token %}
 </form>

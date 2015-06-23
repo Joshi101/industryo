@@ -27,16 +27,7 @@
 			<div class="interaction">
 				<a class="a_collapse">Comment</a>
 		    <div class="collapse row">
-					<form class="comment_form col-sm-12" role='form' action="{% url 'nodes:comment' %}" method="POST">
-						<div class="input-group">
-							<textarea rows="1" class="form-control" name="post" placeholder="comment..." required></textarea>
-							<span class="input-group-btn">
-								<button class='btn btn-default form-ajax'>Comment</button>
-							</span>
-						</div>
-						<input type="hidden" name="node" value="{{ node.pk }}">
-						{% csrf_token %}
-					</form>
+					{% include "snippets/comment_form.html" with type='n' post=node %}
 				</div>
 			</div>
 		</div>
