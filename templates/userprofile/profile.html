@@ -5,16 +5,16 @@
 
 {% block left %}
 	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{user.userprofile.get_profile_image}}"/>
-		{% if user == request.user %}
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{page_user.userprofile.get_profile_image}}"/>
+		{% if page_user == user %}
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
 		{% endif %}
 	</div>
 	<div class="account">
 		<h4 class="acc_detail">{{ name }}</h4>
-		<h4 class="acc_detail"><small class='small_mid'>( {{ user.userprofile.job_position }} )</small></h4>
-		<h4 class="acc_detail"><a href="#" class="no_a">{{ user.userprofile.primary_workplace }}</a></h4>
-		<h5 class="acc_detail text-muted">{{user.userprofile.area}}</h5>
+		<h4 class="acc_detail"><small class='small_mid'>( {{ page_user.userprofile.job_position }} )</small></h4>
+		<h4 class="acc_detail"><a href="#" class="no_a">{{ page_user.userprofile.primary_workplace }}</a></h4>
+		<h5 class="acc_detail text-muted">{{page_user.userprofile.area}}</h5>
 	</div>
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_profile_image' form=profile_image_form.image %}
 {% endblock left %}
@@ -42,7 +42,7 @@
 					</h3>
 				</div>
 				<div class="panel-body">
-					<div class="detail_body content_experience">{{user.userprofile.experience}}</div>
+					<div class="detail_body content_experience">{{page_user.userprofile.experience}}</div>
 					<textarea name="experience" form="experience" rows="3" class="form-control edit_experience hide"></textarea>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				<div class="panel-heading">
 					<h3 class="text-muted detail_head">
 						Interests
-						{% ifequal user request.user %}
+						{% ifequal page_user request.user %}
 						<button data-content="interest" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
 						{% endifequal %}
 					</h3>
@@ -72,7 +72,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="detail_body">
-						{% for interest in user.userprofile.get_interests %}
+						{% for interest in page_user.userprofile.get_interests %}
 							{% include 'snippets/one_interest.html' with interest=interest %}
 						{% endfor %}
 					</div>

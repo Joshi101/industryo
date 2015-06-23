@@ -32,6 +32,21 @@ def post(request):
     else:
         return redirect('/')
 
+def edit(request, id):
+    node = Node.objects.get(id=id)
+    if request.method == 'POST':
+        node.post = request.POST.get('post')
+        node.title = request.POST.get('title')
+        user = request.user
+        tags = request.POST['tags']
+        anonymous = request.POST.get('anonymous')
+        if anonymous=='true':
+            node.anonymous = True
+        node.save()
+        node.set_tags(tags)
+        return redirect('/nodes/articles')
+    return render(request, 'nodes/edit.html', locals())
+
 @login_required
 def write(request):                 ## Write an article
     if request.method == 'POST':
@@ -210,8 +225,8 @@ def comment(request):
         return render(request, 'feeds/partial_feed_comments.html', {'node': node})
 
 
-def node(request, slug):
-    node = Node.objects.get(slug=slug)
+def node(request, id):
+    node = Node.objects.get(id=id)
     return render(request, 'nodes/node.html', {'node': node})
 
 

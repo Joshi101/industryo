@@ -3,8 +3,8 @@
 {% block content %}
 <div class="feed_box feed ajax_andar">
 	<div class="feed_box_heading">
-		{% include "snippets/joint_name.html" with user=node.user %}
-		<small class='pull-right text-muted'>{{ node.date }}</small>
+		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
+		<span class='pull-right text-muted'><small>{{ node.date }}</small></span>
 	</div>
 	<div class="ajax_papa">
 		<div class="text-center vote_box ajax_papa">
@@ -14,8 +14,19 @@
 			{% if node.category == 'F' %}
 				<pre class="text-justify">{{ node.post }}</pre>
 			{% else %}
-				<h4 class="article_title">{{ node.title }}</h4>
+
+				<h4 class="article_title">
+					{{ node.title }}
+					<a class="edit_post pull-right" href="{% url 'nodes:edit' node.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
+				</h4>
 				<div class="article_body">{{ node.post|safe }}</div>
+				{% if node.get_tags %}
+				<div class="tags">
+					{% for tag in node.get_tags %}
+						<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+					{% endfor %}
+				</div>
+				{% endif %}
 			{% endif %}
 		{% if node.get_image %}
 			<figure>
