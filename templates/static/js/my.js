@@ -380,7 +380,7 @@ $('#form_feed .btn, .img_pre').on({
     }
 });
 
-$('.alert .delete').on('click',function(){
+$('.ajax_andar').on('click','.alert .delete',function(){
     var $this = $(this);
     var from = $this.data('delete');
     var url = '/workplace/delete_tag';
