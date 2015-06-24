@@ -225,8 +225,8 @@ def comment(request):
         return render(request, 'feeds/partial_feed_comments.html', {'node': node})
 
 
-def node(request, id):
-    node = Node.objects.get(id=id)
+def node(request, slug):
+    node = Node.objects.get(slug=slug)
     return render(request, 'nodes/node.html', {'node': node})
 
 
