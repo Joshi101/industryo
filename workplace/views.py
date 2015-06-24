@@ -320,13 +320,17 @@ def set_product_details(request):
 def delete_tag(request):
     if request.method == 'GET':
         user = request.user
+        up = user.userprofile
         wp = user.userprofile.primary_workplace
         delete = request.GET['delete']
-
         response = {}
-        # Tags.objects.get(tag=delete)
-        wp.tags.get(tag=delete).delete()
-
+        #Tags.objects.get(tag=delete)
+        try:
+            wp.tags.get(tag=delete).delete()
+            print('nal')
+        except:
+            up.interests.get(tag=delete).delete()
+            print('al')
         return HttpResponse(json.dumps(response), content_type="application/json")
 # def delete_tags
 

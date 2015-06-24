@@ -103,7 +103,7 @@ pre{
 	margin-bottom: 28px;
 }
 
-#cover .form-group-sm .form-control {
+#cover .form-group-sm .form-control{
 	height: 29px;
 	padding: 0px 15px;
 	border-radius: 2px;
@@ -124,7 +124,6 @@ pre{
 #signup{
 	background-color: rgba(255,255,255,0.5);
 	color: #fff;
-	box-shadow: 0px 0px 2px rgba(71,164,71,1);
 	padding: 15px 30px;
 	margin-right: 5%;
 	max-width: 400px;
@@ -132,7 +131,6 @@ pre{
 
 #login{
 	background-color: rgba(255,255,255,0.5);
-	box-shadow: 0px 0px 2px rgba(71,164,71,1);
 	padding: 15px;
 	max-width: 350px;
 	margin-bottom: 50px;
@@ -140,11 +138,11 @@ pre{
 
 
 #signup:hover{
-	box-shadow: 0px 0px 0px rgba(71,164,71,0.95);
+	box-shadow: 0px 0px 2px rgba(71,164,71,1);
 }
 
 #login:hover{
-	box-shadow: 0px 0px 0px rgba(71,164,71,0.95);
+	box-shadow: 0px 0px 2px rgba(71,164,71,1);
 }
 
 #signup h3, #login h3{
