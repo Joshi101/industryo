@@ -5,30 +5,28 @@
 
 {% block title %}Create Account{% endblock title %}
 
-{% block content %}
-  <div class="w_400">
-    <h2>Easy Sign Up</h2>
-    <h3>Create an industriyo account</h3>
-    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
-      {{ form|bootstrap_horizontal }}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-      {% endif %}
-      <div class="form-group">
-        <div class="col-sm-8 col-sm-offset-4 text-center">
-          <button class="primaryAction btn btn-primary" type="submit">Register</button>
+{% block body %}
+  <div id="cover" class="container">
+    <div id="signup" class="text-right pull-right">
+      <h3>Create a Corelogs account</h3>
+      <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
+        {{ form|bootstrap_horizontal }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
+        {% endif %}
+        <div class="form-group">
+          <div class="col-sm-offset-1 col-sm-11 text-center">
+            <button class="primaryAction btn btn-default" type="submit">Register</button>
+          </div>
         </div>
-      </div>
-      {% csrf_token %}
-    </form>
-    {% if socialaccount.providers %}
-    <h3>Or link with your existing third party account</h3>
-    <div class="socialaccount_ballot">
-      <ul class="socialaccount_providers">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
+        {% csrf_token %}
+      </form>
     </div>
-    {% include "socialaccount/snippets/login_extra.html" %}
-    {% endif %}
+  <script type="text/javascript">
+    $('.form-group').addClass('form-group-sm');
+    $('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
+    $('#signup').find('input').parent().removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-11 sol-lg-11');
+    $('#login').find('.form-group').children('div').removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-10 sol-lg-10');
+  </script>
   </div>
-{% endblock %}
+{% endblock body %}

@@ -6,35 +6,42 @@
 
 {% block title %}{% trans "Sign In" %}{% endblock %}
 
-{% block content %}
-  <div class="w_400">
-    <h2 class="text-center">Sign In</h1>
-    {% if socialaccount.providers %}
-    <div class="socialaccount_ballot">
-      <ul class="socialaccount_providers list-group">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
-    </div>
-    {% include "socialaccount/snippets/login_extra.html" %}
-    {% endif %}
-    <h4 class="text-center">With your CoreLogs account</h4>
-    <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      {{ form|bootstrap_horizontal }}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+{% block body %}
+  <div id="cover" class="container">
+    <div id="login" class="text-center center-block">
+      <h3>Sign In</h3>
+      {% if socialaccount.providers %}
+      <div class="socialaccount_ballot">
+        <ul class="socialaccount_providers list-group">
+          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+      </div>
+      {% include "socialaccount/snippets/login_extra.html" %}
       {% endif %}
-      <div class="form-group">
-        <a class="button secondaryAction col-sm-8 col-sm-offset-4" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-8 col-sm-offset-4 text-center">
-          <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign in" %}</button>
+      <h4>CoreLogs account</h4>
+      <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form|bootstrap_horizontal }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <div class="form-group">
+          <a class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
         </div>
-      </div>
-    </form>
-    <p>
-      If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
-    </p>
+        <div class="form-group">
+          <div class="col-sm-8 text-center">
+            <button class="primaryAction btn btn-default" type="submit">Sign in</button>
+          </div>
+        </div>
+      </form>
+      <p>
+        If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
+      </p>
+    </div>
   </div>
-{% endblock %}
+  <script type="text/javascript">
+    $('.form-group').addClass('form-group-sm');
+    $('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
+    $('#login').find('.form-group').children('div').removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-10 sol-lg-10');
+  </script>
+{% endblock body %}
