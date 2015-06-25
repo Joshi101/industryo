@@ -500,8 +500,8 @@ $('.answer_form button[type="button"]').click(function(event){
     var content = $editor.html();
     $editor.next().val(content);
     $this.find('.form-ajax').trigger('click');
-    $editor.html('');
     $('#write_answer').trigger('click');
+    $editor.html('');
 });
 
 $('.article_form button[type="button"]').click(function(event){

@@ -9,7 +9,7 @@
 			<div id="question" class="feed_box ajax_andar">
 				<div class="feed_box_heading">
 					<h5>
-						{% include "snippets/joint_name.html" with user=q.user %}
+						{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}
 						<small class='pull-right post_date'>{{ q.date }}</small>
 					</h5>
 				</div>
