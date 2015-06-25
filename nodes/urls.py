@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^set_profile_image/$', 'nodes.views.set_profile_image', name='set_profile_image'),
     url(r'^set_product_image/(?P<slug>[^/]+)/$', 'nodes.views.set_product_image', name='set_product_image'),
     url(r'^set_tag_logo/(?P<slug>[^/]+)/$', 'nodes.views.set_tag_logo', name='set_tag_logo'),
+
     url(r'^edit/(?P<id>[^/]+)/$', 'nodes.views.edit', name='edit'),
     url(r'^(?P<slug>[^/]+)/$', 'nodes.views.node', name='node'),
     

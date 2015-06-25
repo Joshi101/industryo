@@ -490,9 +490,11 @@ $('.ajax_andar').on('click','.like',function(){
     $(this).closest('.ajax_papa').find('.likes').text(val);
 });
 
-$('.answer_form').submit(function(event){
-    event.preventDefault();
-    var $this = $(this);
+$('.answer_form button[type="button"]').click(function(event){
+    if ($(this).attr('class').indexOf('check_btn') >= 0){
+        $(this).next().val('true');
+    }
+    var $this = $(this).closest('form');
     checkValidity();
     var $editor = $this.find('#editor');
     var content = $editor.html();
@@ -824,3 +826,57 @@ var nones = $('span.none');
 if (nones.siblings('span').length) {
     nones.addClass('hide');
 };
+
+$('.d_results').on('click','.alert_tag .close', function(){
+    $(this).parent('.alert_tag').alert('close');
+    //$(sabke_papa).children('input').first().focus();
+});
+
+$('.d_results').on('close.bs.alert','.alert_tag',function(){
+    console.log('check');
+    var all_val = $(this).closest('.d_search').find('input[name=tags]').val();
+    var this_val = $(this).find('strong').text();
+    var pos = all_val.search(this_val);
+    var pos_end = pos + this_val.length-1;
+    if (all_val[pos_end+1] == ','){
+        console.log(pos,pos_end);
+        pos_end += 1;
+        console.log(pos,pos_end);
+    }
+    else if (all_val[pos-1] == ','){
+        console.log(pos,pos_end);
+        pos -= 1;
+        console.log(pos,pos_end);
+    }
+    var part1 = all_val.slice(0,pos);
+    var part2 = all_val.slice(pos_end+1,all_val.length);
+    var all_val = $(this).closest('.d_search').find('input[name=tags]').val(part1+part2);
+    console.log(all_val,this_val,part1,part2);
+});
+
+$('.answers').on('click','.edit_ans',function(){
+    var editor = $('#editor');
+    var $this = $(this);
+    var id = $this.siblings('span').text();
+    var ans = $this.closest('.feed_box').find('.a_detail').html();
+    console.log('hello')
+    $('#write_answer').trigger('click');
+    editor.html(ans).focus();
+    var form = $('.answer_form')
+    form.find('input[name=aid]').val(id);
+    form.find('.new').addClass('hide');
+    form.find('.check_btn').removeClass('hide');
+    $this.closest('.feed_box').addClass('hide');
+});
+
+$('#write_answer').on('click',function(){
+    var mode = $(this).text();
+    var form = $('.answer_form')
+    if (mode == 'Cancel'){
+        form.reset();
+        $('#editor').html('');
+    }
+    //form.find('input[name=aid]').val('');
+    form.find('.new').removeClass('hide');
+    form.find('.check_btn').addClass('hide');
+})

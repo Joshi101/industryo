@@ -57,17 +57,20 @@
 			    </div>
 					<input type="hidden" name="answer" value="">
 					<input type="hidden" name="id" value="{{ q.id }}">
+					<input type="hidden" name="aid" value="" autocomplete="off">
 					<input type="hidden" name="slug" value="{{ q.slug }}">
 					<div class="checkbox">
 					  <label><input type="checkbox" name="anonymous" value="true">Post as Anynonymous</label>
 					</div>
-					<button class="btn btn-success btn-md pull-left">Submit Answer</button>
+					<button type="button" class="btn btn-success btn-md pull-left new">Submit Answer</button>
+					<button type="button" class="btn btn-success btn-md pull-left check_btn hide">Save Changes</button>
+					<input type="hidden" name="edit" value="">
 					<a class="form-ajax hide"></a>
 					{% csrf_token %}
 				</div>
 				<a id="write_answer" class="a_collapse btn btn-info btn-md pull-right" data-alternate="Cancel">Write Answer</a>
 			</form>
-			<div id="answers">
+			<div id="answers" class="ajax_andar">
 				<h2 class="text-muted">Answers</h2>
 				<div class="answers">
 				{% for a in answers %}
