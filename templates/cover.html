@@ -4,7 +4,7 @@
 
 {% block body %}
 <div id="cover_desc" class="container text-center">
-	<p>CoreLogs - A platform for the entire core segment of Engineering Industry</p>
+	<p>CoreLogs - A platform for the entire core segment of Engineering</p>
 </div>
 <div id="cover" class="container-fluid">
 	<style type="text/css">
@@ -23,7 +23,7 @@
 	    </div>
 	    {% include "socialaccount/snippets/login_extra.html" %}
 	    {% endif %}
-			<h4>CoreLogs account</h4>
+			<!-- <h4>CoreLogs account</h4> -->
 			<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
 	      {% csrf_token %}
 	      {{ form_login|bootstrap_horizontal }}
@@ -59,10 +59,23 @@
     </div>
 	</div>
 </div>
+<div id="cover_bottom" class="container text-center">
+	<div class="col-sm-4 cover_bottom_btn">
+		Engineers and Industries in Core Segment
+	</div>
+	<div class="col-sm-4 cover_bottom_btn">
+		Baja/Formula/Aerodesign Collegiate Teams
+	</div>
+	<div class="col-sm-4 cover_bottom_btn">
+		Small and Medium scale Enterprises
+	</div>
+</div>
 <script type="text/javascript">
 	$('.form-group').addClass('form-group-sm');
 	$('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
 	$('#signup').find('input').parent().removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-11 sol-lg-11');
 	$('#login').find('.form-group').children('div').removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-10 sol-lg-10');
+	var login_h = $('#login').outerHeight();
+	$('#signup').css({'height':login_h});
 </script>
 {% endblock body %}
