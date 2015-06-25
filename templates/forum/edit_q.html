@@ -17,9 +17,15 @@
 		<div class="form-group">
       <label class="control-label" for="id_tags">Tags</label>
 			<div class="d_search" data-results="multiple">
-				<div class="d_results"></div>
+				<div class="d_results">
+		      {% if q.get_tags %}
+						{% for tag in q.get_tags %}
+							<div class="alert alert_tag"><a class="close" aria-label="close">&times;</a><strong>{{tag}}</strong></div>
+						{% endfor %}
+					{% endif %}
+				</div>
 				<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ..." maxlength="255">
-				<input type="hidden" name="tags" value="" autocomplete="off">
+				<input type="hidden" name="tags" value="{% if q.get_tags %}{% for tag in q.get_tags %}{{tag}}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}" autocomplete="off">
 				<input type="hidden" name="type" value="All">
 				<div class="dropdown">
 					<ul class="dropdown-menu d_list">

@@ -12,6 +12,10 @@
 				<div class="a_detail">{{ a.answer|safe }}</div>
 			</div>
 			<div class="feed_box_extra">
+				<h4 class="text-right">
+					<span class="hide">{{ a.id }}</span>
+					<a class="edit_ans"><small><span class="glyphicon glyphicon-cog"></span>Edit</small></a>
+				</h4>
 				<div class="comments">
 				{% if a.get_comments %}
 		    	{% for c in a.get_comments %}

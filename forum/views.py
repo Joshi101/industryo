@@ -185,18 +185,28 @@ def reply(request):
         response = {}
         r_html = {}
         r_elements = []
-        answer = request.POST['answer']
+        ans = request.POST['answer']
         user = request.user
         id = request.POST['id']
-
         question = Question.objects.get(id=id)
         slug = question.slug
         anonymous = request.POST.get('anonymous')
-        if anonymous:
-            answer = Answer.objects.create(answer=answer, user=user, question=question, anonymous=True)
+        edit = request.POST.get('edit')
+        if edit == 'true':
+            aid = request.POST.get('aid')
+            answer = Answer.objects.get(id=aid)
+            answer.answer = ans
+            if anonymous:
+                answer.anonymous=True
+            else:
+                answer.anonymous=False
+            answer.save()
         else:
-            answer = Answer.objects.create(answer=answer, user=user, question=question)
-        user.userprofile.notify_answered(question)
+            if anonymous:
+                answer = Answer.objects.create(answer=ans, user=user, question=question, anonymous=True)
+            else:
+                answer = Answer.objects.create(answer=ans, user=user, question=question)
+            user.userprofile.notify_answered(question)
         r_elements = ['answers']
         r_html['answers'] = render_to_string('snippets/one_answer.html', {'q': question, 'a':answer})
         response['html'] = r_html
