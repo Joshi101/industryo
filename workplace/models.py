@@ -14,7 +14,7 @@ class Workplace(models.Model):
     Workplace_Type = (
         (LargeScaleIndustry, 'Large Scale Industry'),
         (SME, 'Small & Medium Scale Enterprise'),
-        (SAE_Team, 'College Teams'),
+        (SAE_Team, 'Collegiate Club'),
         (Others, 'Others')
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
