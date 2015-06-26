@@ -78,37 +78,41 @@ pre{
 
 /* cover.html */
 
-#cover .cover_back{
-	position: absolute;
+#cover_back{
+	position: fixed;
 	width: 100%;
 	height: 100%;
 	z-index: -5;
-	background-size: contain;
+	background: url(cover_drill.jpg);
+	background-size: cover;
 	background-position: center center;
-}
-
-#cover .form-group-sm{
-	margin-bottom: 15px;
 }
 
 #cover li{
 	list-style: none;
 }
 
-#cover form{
-	margin: 0px;
-}
-
 #cover .socialaccount_providers.list-group{
-	margin-bottom: 28px;
+	margin-bottom: 10px;
 }
 
-#cover .form-group-sm .form-control{
-	height: 29px;
+#cover input{
+	height: 40px;
 	padding: 0px 15px;
-	border-radius: 2px;
-	border-color: rgba(55,55,55,0.5);
-	box-shadow: 0px 0px 2px rgba(10,90,70,0.2) inset;
+	border-radius: 0px;
+	border: 0px;
+	border-bottom: 1px solid rgba(16,144,112,0.2);
+	box-shadow: 0px 0px 0px rgba(10,90,70,0.2) inset;
+	font-size: 15px;
+}
+
+#cover .btn{
+	margin-top: 15px;
+	border-radius: 0px;
+	height: 40px;
+	border: 0px;
+	display: block;
+	width: 100%;
 }
 
 #cover_desc{
@@ -139,24 +143,14 @@ pre{
 	border-right: 1px solid #fff;
 }
 
-#signup{
-	color: #fff;
-	padding: 15px 30px;
-	margin-right: 5%;
+.cover_form{
+	
 	max-width: 400px;
-}
-
-#login{
-	padding: 15px;
-	max-width: 350px;
 	margin-bottom: 50px;
 }
 
-
-#signup:hover{
-}
-
-#login:hover{
+.cover_form form{
+	padding: 0px 0px;
 }
 
 #signup h3, #login h3{
@@ -169,26 +163,19 @@ pre{
 	border-bottom: 1px solid #ccc;
 }
 
-#cover .form-group label{
-	display: none;
+#signup h3{
+	margin-right: -30px;
+	padding-right: 30px;
+	margin-left: -10px;
+	padding-left: 10px;
+	margin-bottom: 40px;
 }
 
-#login .checkbox label{
-	display: initial;
-}
-
-#login h4{
-	font-family: 'Open Sans';
-	margin-bottom: 20px;
-}
-
-.form-horizontal .form-group-sm .control-label {
-	padding-top: 5px;
-}
-
-#cover .form-group-sm .checkbox{
-	min-height: 20px;
-	padding: 0px;
+#login h3{
+	margin-right: -10px;
+	padding-right: 10px;
+	margin-left: -30px;
+	padding-left: 30px;
 }
 
 .socialaccount_providers{
@@ -197,11 +184,23 @@ pre{
 
 .socialaccount_providers img{
 	margin: auto;
+	margin-bottom: 10px;
 	display: block;
+	max-width: 100%;
+	height: 40px;
 }
 
 .socialaccount_providers img:hover{
-	width: 210px;
+	width: 95%;
+}
+
+#forgot_pass{
+	color: #fff;
+	display: block;
+	margin: 0px 15px;
+	padding: 2px;
+	background-color: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 40px rgba(0,0,0,0.5);
 }
 
 
@@ -1128,8 +1127,4 @@ textarea.replacer{
 
 h4 > .edit_post:hover{
 	text-decoration: none;
-}
-
-#login form div:nth-child(4){
-	display: none;
 }

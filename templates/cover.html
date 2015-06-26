@@ -2,9 +2,13 @@
 {% load account %}
 {% load bootstrap %}
 
+{% block back %}
+	<div id="cover_back"></div>
+{% endblock back %}
+
 {% block body %}
 <div id="cover_desc" class="container text-center">
-	<p>CoreLogs - A platform for the entire core segment of Engineering</p>
+	CoreLogs - A platform for the entire core segment of Engineering
 </div>
 <div id="cover" class="container-fluid">
 	<style type="text/css">
@@ -12,46 +16,51 @@
 			background-color: rgba(55,55,55,0.1);
 		}
 	</style>
-	<div class="col-sm-5">
-		<div id="login" class="text-center">
+	<div class="col-sm-6">
+		<div id="login" class="text-center pull-left cover_form">
 			<h3>Sign In</h3>
-	    {% if socialaccount.providers %}
-	    <div class="socialaccount_ballot">
-	      <ul class="socialaccount_providers list-group">
-	        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-	      </ul>
-	    </div>
-	    {% include "socialaccount/snippets/login_extra.html" %}
-	    {% endif %}
-			<!-- <h4>CoreLogs account</h4> -->
 			<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+		    {% if socialaccount.providers %}
+		    <div class="socialaccount_ballot">
+		      <ul class="socialaccount_providers list-group">
+		        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+		      </ul>
+		    </div>
+		    {% include "socialaccount/snippets/login_extra.html" %}
+		    {% endif %}
+				<!-- <h4>CoreLogs account</h4> -->
 	      {% csrf_token %}
-	      {{ form_login|bootstrap_horizontal }}
+    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
 	      {% if redirect_field_value %}
 	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 	      {% endif %}
 	      <div class="form-group">
-	        <a class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+	        <div class="col-sm-12 text-center">
+	          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
+	        </div>
 	      </div>
 	      <div class="form-group">
-	        <div class="col-sm-8 text-center">
-	          <button class="primaryAction btn btn-default" type="submit">Sign in</button>
-	        </div>
+	        <a id="forgot_pass" class="button secondaryAction text-center text-danger" href="{% url 'account_reset_password' %}">Forgot Password?</a>
 	      </div>
 	    </form>
     </div>
 	</div>
-	<div class="col-sm-7">
-		<div id="signup" class="text-right pull-right">
-	    <h3>Create a Corelogs account</h3>
+	<div class="col-sm-6">
+		<div id="signup" class="text-center pull-right cover_form">
+	    <h3>Create a new account</h3>
 	    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
-	      {{ form_signup|bootstrap_horizontal }}
+	    	{% csrf_token %}
+	      <input id="id_username" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+	      <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
+    		<input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
+    		<input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
 	      {% if redirect_field_value %}
 	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
 	      {% endif %}
 	      <div class="form-group">
-	        <div class="col-sm-offset-1 col-sm-11 text-center">
-	          <button class="primaryAction btn btn-default" type="submit">Register</button>
+	        <div class="col-sm-12 text-center">
+	          <button class="primaryAction btn btn-primary" type="submit">Register</button>
 	        </div>
 	      </div>
 	      {% csrf_token %}
@@ -71,11 +80,5 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$('.form-group').addClass('form-group-sm');
-	$('.checkbox').parent().removeClass('col-sm-offset-4 col-lg-offset-4');
-	$('#signup').find('input').parent().removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-11 sol-lg-11');
-	$('#login').find('.form-group').children('div').removeClass('col-sm-8 col-lg-8').addClass('col-sm-offset-1 col-lg-offset-1 col-sm-10 sol-lg-10');
-	var login_h = $('#login').outerHeight();
-	$('#signup').css({'height':login_h});
 </script>
 {% endblock body %}
