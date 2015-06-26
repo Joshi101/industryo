@@ -1,6 +1,6 @@
 <div class="feed_box answer">
 	<div class="feed_box_heading">
-			{% include "snippets/joint_name.html" with user=a.user %}
+			{% include "snippets/joint_name.html" with user=a.user anony=a.anonymous %}
 			<span class='post_date'><small>{{ a.date }}</small></span>
 	</div>
 	<div class="row ajax_papa">
