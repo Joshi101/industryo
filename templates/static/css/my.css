@@ -1,3 +1,7 @@
+body{
+	overflow-x: hidden;
+}
+
 a:focus, .btn:focus, input[type="file"]:focus, input[type="radio"]:focus, .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
 	outline: 0;
 }
@@ -72,20 +76,52 @@ pre{
 
 .body{
 	position: relative;
-	top: 61px;
+	top: 71px;
 	font-size: 13px;
 }
 
 /* cover.html */
 
-#cover_back{
+.cover_back{
 	position: fixed;
+	opacity: 0;
 	width: 100%;
 	height: 100%;
-	z-index: -5;
-	background: url(cover_drill.jpg);
+	display: none;
+	z-index: -11;
 	background-size: cover;
 	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+#cover_back_default{
+	background: url(cover_back_default.jpg);
+	display: block;
+	z-index: -10;
+	opacity: 1;
+}
+
+#cover_back_lsi{
+	//top: 100%;
+}
+
+#cover_back_team{
+	top: 100%;
+}
+
+#cover_back_sme{
+	top: 100%;
+}
+
+.cover_page{
+	position: relative;
+	height: 0px;
+	display: none;
+}
+
+#default{
+	height: auto;
+	display: block;
 }
 
 #cover li{
@@ -115,7 +151,8 @@ pre{
 	width: 100%;
 }
 
-#cover_desc{
+.cover_desc{
+	position: relative;
 	background-color: rgba(55,55,55,0.9);
 	color: #eee;
 	box-shadow: 0px 0px 3px rgba(55,55,55,0.3) inset;
@@ -123,6 +160,24 @@ pre{
 	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
 	margin-bottom: 30px;
+	overflow: hidden;
+}
+
+#lsi .cover_body, #team .cover_body, #sme .cover_body{
+	background-color: rgba(55,55,55,0.75);
+	color: #bbb;
+	padding: 10px;
+	overflow-x: hidden;
+}
+
+#cover_bottom_title{
+	font-family: 'Open Sans';
+	//background-color: rgba(55,55,55,0.9);
+	color: #000;
+	padding: 10px 15px;
+	margin: auto -15px;
+	margin-bottom: 0px;
+	border-bottom: 1px solid #ddd;
 }
 
 #cover_bottom{
@@ -132,19 +187,26 @@ pre{
 	padding: 10px 0px;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 15px;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 }
 
-#cover_bottom div:last-child{
-	border-left: 1px solid #fff;
+.cover_bottom_btn{
+	cursor: pointer;
 }
 
-#cover_bottom div:first-child{
+.cover_bottom_btn{
 	border-right: 1px solid #fff;
 }
 
-.cover_form{
+.cover_bottom_btn:last-of-type{
+	border-right: 0px;
+}
+
+.cover_bottom_btn:hover{
 	
+}
+
+.cover_form{	
 	max-width: 400px;
 	margin-bottom: 50px;
 }
@@ -154,18 +216,21 @@ pre{
 }
 
 #signup h3, #login h3{
+	position: relative;
 	font-family: 'Nova Flat', cursive;
 	font-style: bold;
-	color: #333;
+	color: #000;
 	margin-top: 0px;
 	margin-bottom: 25px;
 	padding-bottom: 5px;
+	padding-top: 5px;
 	border-bottom: 1px solid #ccc;
+	//background-color: rgba(255,255,255,0.15);
 }
 
 #signup h3{
-	margin-right: -30px;
-	padding-right: 30px;
+	margin-right: -200px;
+	padding-right: 200px;
 	margin-left: -10px;
 	padding-left: 10px;
 	margin-bottom: 40px;
@@ -174,8 +239,8 @@ pre{
 #login h3{
 	margin-right: -10px;
 	padding-right: 10px;
-	margin-left: -30px;
-	padding-left: 30px;
+	margin-left: -200px;
+	padding-left: 200px;
 }
 
 .socialaccount_providers{
@@ -195,14 +260,27 @@ pre{
 }
 
 #forgot_pass{
-	color: #fff;
 	display: block;
+	color: #000;
+	font-weight: bold;
 	margin: 0px 15px;
-	padding: 2px;
-	background-color: rgba(0,0,0,0.2);
-	box-shadow: 0px 0px 40px rgba(0,0,0,0.5);
+	border-radius: 0px;
+	padding: 2px 5px;
+	//border-radius: 15px;
+	//background-color: rgba(255,255,255,0.5);
+	//box-shadow: 0px 0px 10px rgba(0,0,0,0.75);
 }
 
+.default{
+	position: relative;
+}
+
+.default, .lsi, .team, .sme{
+	display: none;
+	opacity: 0;
+	overflow: hidden;
+	max-width: 100%;
+}
 
 /* userprofile/set.html */
 
@@ -677,8 +755,11 @@ a{
 }
 
 footer{
+	background-color: rgba(0,0,0,0.7);
+	padding: 20px;
 	position: relative;
-	top: 50px;
+	border-top: 1px solid #fff;
+	top: 91px;
 	bottom: 0px;
 }
 

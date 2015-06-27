@@ -419,13 +419,20 @@ $('.ajax_andar').on('click','.a_collapse',function(){
 
 $('.fake_btn').click(function(){
     var btn = $(this).data('btn');
+
     $(btn).trigger('click');
 });
-$('.img_pre_in input').change(function(){
-    var preview = $(this).closest('form').find('.img_pre img');
-    var file    = this.files[0];
+
+function send_img(){
+    var i = $(this).closest('form').find('.img_pre').data('index');
+    var img_pre = '<div class="alert"><a href="#" class="close">&times;</a><img height="56" src="" alt=""></div>';
+    var input = '<span title="Add Image" data-toggle="tooltip" data-placement="left" class="btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in"><input id="id_image_' + (i+1) + '" type="file" name="image' + (i+1) + '"></span>'
+    $(this).closest('form').find('.img_pre').append(img_pre);
+    var preview = $(this).closest('form').find('.img_pre img').eq(i);
+    console.log(i)
+    var file = this.files[0];
     var fd = new FormData($('#form_feed')[0]);
-    fd.append('file',file);
+    fd.append('file'+i,file);
     console.log(fd,$('#form_feed').serialize())
     var reader  = new FileReader();
     reader.onloadend = function () {
@@ -434,14 +441,22 @@ $('.img_pre_in input').change(function(){
     if (file) {
         reader.readAsDataURL(file);
         preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
+        $(this).closest('form').find('.img_pre').data('index',(i+1));
+        $(this).addClass('hide');
+        $(this).parent().addClass('hide').after(input);
+        $('#id_image_'+(i+1)).change(send_img);;
+        $(this).closest('form').find('.fake_btn').data('btn','#id_image_'+(i+1));
+        console.log($(this).closest('form').find('.img_pre').data('index'));
     } else {
         preview.attr('src', "");
     }
-$(this).closest('form').find('textarea').trigger('focus');
-});
+    $(this).closest('form').find('textarea').trigger('focus');
+}
+
+$('.img_pre_in input').change(send_img);
 $('.img_pre').on('click','.close',function(){
-    $(this).closest('form').find('.img_pre').addClass('hide')
-        .find('img').attr('src','');
+    $(this).closest('form').find('.alert').alert('close');
+    $(this).closest('form').find('.img_pre').addClass('hide');
     console.log($(this).closest('form').find('input'));
 });
 
@@ -791,7 +806,7 @@ $(document).ready(function()
 {
     var ctrlDown = false;
     var ctrlKey = 17, vKey = 86, cKey = 67;
-$(document).keydown(function(e)
+    $(document).keydown(function(e)
     {
         if (e.keyCode == ctrlKey) ctrlDown = true;
     }).keyup(function(e)
@@ -820,6 +835,8 @@ $('#editor').on({
         //checkValidity();
     }
 });
+
+
 });
 
 var nones = $('span.none');
@@ -879,4 +896,4 @@ $('#write_answer').on('click',function(){
     //form.find('input[name=aid]').val('');
     form.find('.new').removeClass('hide');
     form.find('.check_btn').addClass('hide');
-})
+});

@@ -3,82 +3,292 @@
 {% load bootstrap %}
 
 {% block back %}
-	<div id="cover_back"></div>
+	<div id="cover_back_default" class="cover_back"></div>
 {% endblock back %}
 
+{% block page %}cover{% endblock page %}
+
 {% block body %}
-<div id="cover_desc" class="container text-center">
-	CoreLogs - A platform for the entire core segment of Engineering
-</div>
-<div id="cover" class="container-fluid">
-	<style type="text/css">
-		#back{
-			background-color: rgba(55,55,55,0.1);
-		}
-	</style>
-	<div class="col-sm-6">
-		<div id="login" class="text-center pull-left cover_form">
-			<h3>Sign In</h3>
-			<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
-		    {% if socialaccount.providers %}
-		    <div class="socialaccount_ballot">
-		      <ul class="socialaccount_providers list-group">
-		        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-		      </ul>
-		    </div>
-		    {% include "socialaccount/snippets/login_extra.html" %}
-		    {% endif %}
-				<!-- <h4>CoreLogs account</h4> -->
-	      {% csrf_token %}
-    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
-	      {% if redirect_field_value %}
-	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-	      {% endif %}
-	      <div class="form-group">
-	        <div class="col-sm-12 text-center">
-	          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
-	        </div>
-	      </div>
-	      <div class="form-group">
-	        <a id="forgot_pass" class="button secondaryAction text-center text-danger" href="{% url 'account_reset_password' %}">Forgot Password?</a>
-	      </div>
-	    </form>
-    </div>
+<div id="default" class="cover_page">
+	<div class="container text-center cover_desc" data-move="top" data-extra="">
+		CoreLogs - A platform for the entire core segment of Engineering
 	</div>
-	<div class="col-sm-6">
-		<div id="signup" class="text-center pull-right cover_form">
-	    <h3>Create a new account</h3>
-	    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
-	    	{% csrf_token %}
-	      <input id="id_username" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-	      <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
-    		<input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
-    		<input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
-	      {% if redirect_field_value %}
-	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-	      {% endif %}
-	      <div class="form-group">
-	        <div class="col-sm-12 text-center">
-	          <button class="primaryAction btn btn-primary" type="submit">Register</button>
-	        </div>
-	      </div>
-	      {% csrf_token %}
-	    </form>
-    </div>
+	<div class="container cover_body">
+		<div class="col-sm-6" data-move="left">
+			<div id="login" class="text-center pull-left cover_form">
+				<h3><span>Sign In</span></h3>
+				<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+			    {% if socialaccount.providers %}
+			    <div class="socialaccount_ballot">
+			      <ul class="socialaccount_providers list-group">
+			        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+			      </ul>
+			    </div>
+			    {% include "socialaccount/snippets/login_extra.html" %}
+			    {% endif %}
+					<!-- <h4>CoreLogs account</h4> -->
+		      {% csrf_token %}
+	    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+	    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
+		      {% if redirect_field_value %}
+		      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+		      {% endif %}
+		      <div class="form-group">
+		        <div class="col-sm-12 text-center">
+		          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
+		        </div>
+		      </div>
+		      <div class="form-group">
+		        <a id="forgot_pass" class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+		      </div>
+		    </form>
+	    </div>
+		</div>
+		<div class="col-sm-6" data-move="right">
+			<div id="signup" class="text-center pull-right cover_form">
+		    <h3><span>Create a new account</span></h3>
+		    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
+		    	{% csrf_token %}
+		      <input id="id_username" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+		      <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
+	    		<input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
+	    		<input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
+		      {% if redirect_field_value %}
+		      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
+		      {% endif %}
+		      <div class="form-group">
+		        <div class="col-sm-12 text-center">
+		          <button class="primaryAction btn btn-primary" type="submit">Register</button>
+		        </div>
+		      </div>
+		      {% csrf_token %}
+		    </form>
+	    </div>
+		</div>
 	</div>
 </div>
-<div id="cover_bottom" class="container text-center">
-	<div class="col-sm-4 cover_bottom_btn">
-		Engineers and Industries in Core Segment
+<div id="lsi" class="cover_page">
+	<div class="container text-center cover_desc" data-move="top" data-extra="">
+		A place where you can interact with the big fishes ...
 	</div>
-	<div class="col-sm-4 cover_bottom_btn">
-		Baja/Formula/Aerodesign Collegiate Teams
+	<div class="container cover_body">
+		<div class="row">
+			<div class="col-sm-6">
+				
+			</div>
+			<div class="col-sm-6">
+				
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-4 cover_bottom_btn">
-		Small and Medium scale Enterprises
+</div>
+<div id="team" class="cover_page">
+	<div class="container text-center cover_desc" data-move="top" data-extra="">
+		A place every team has wished for. Find like-mindeds and feel the power of sharing ...
+	</div>
+	<div class="container cover_body">
+		<div class="row">
+			<div class="col-sm-6">
+				
+			</div>
+			<div class="col-sm-6">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div id="edu" class="cover_page">
+	<div class="container text-center cover_desc" data-move="top" data-extra="">
+		A place every team has wished for. Find like-mindeds and feel the power of sharing ...
+	</div>
+	<div class="container cover_body">
+		<div class="row">
+			<div class="col-sm-6">
+				
+			</div>
+			<div class="col-sm-6">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div id="sme" class="cover_page">
+	<div class="container text-center cover_desc" data-move="top" data-extra="">
+		A place where the voice of an SME can echo ..
+	</div>
+	<div class="container cover_body">
+		<div class="row">
+			<div class="col-sm-6">
+				
+			</div>
+			<div class="col-sm-6">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container text-center">
+	<h4 id="cover_bottom_title" data-show="">Curious about whats in there..?</h4>
+	<div id="cover_bottom" class="row">
+		<div data-show="default" class="hide"></div>
+		<div data-show="lsi" class="col-sm-3 cover_bottom_btn">
+			Engineers and Industries in Core Segment
+		</div>
+		<div data-show="edu" class="col-sm-3 cover_bottom_btn">
+			Educational Institutions
+		</div>
+		<div data-show="team" class="col-sm-3 cover_bottom_btn">
+			Baja/Formula/Aerodesign Collegiate Teams
+		</div>
+		<div data-show="sme" class="col-sm-3 cover_bottom_btn">
+			Small and Medium scale Enterprises
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
+	/* cover animations */
+	$(document).ready(function(){
+		// url for background image location
+		var image_url = 'static/css/';
+		// add background image 'div's
+		$('#cover_back_default').after('<div id="cover_back_lsi" class="cover_back"></div><div id="cover_back_team" class="cover_back"></div><div id="cover_back_sme" class="cover_back"></div>');
+		// set background properties
+		$('.cover_back').each(function(){
+			var id = $(this).attr('id');
+			console.log(id)
+			$(this).css({'background-image':'url('+image_url+id+'.jpg)', 'background-size':'cover', 'background-position':'center center', 'background-repeat': 'no-repeat'});
+		});
+
+		// set properties of papas
+
+		var cover_body_h = $('#default').outerHeight();
+		/*var desc_t = $('.cover_desc').offset().top;
+		var desc_h = $('.cover_desc').outerHeight();
+		var bottom_t = $('#cover_bottom_title').offset().top;
+		var avail_h = bottom_t - desc_t;
+		var cover_h = $('#cover_bottom_title').outerHeight();
+		console.log(desc_t, bottom_t);*/
+
+
+		// function when navigating away from default
+		function change_page(){
+			var $this = $(this);
+      console.log('here',showing);
+      var show = $this.data('show');
+      // check if its not already ative
+      if (show != showing){
+      	if (showing == 'default'){
+      		alive_awe(show);
+      	}
+      	else if (show == 'default'){
+      		alive_awe_rev(showing);
+      	}
+      	else
+        	alive(showing, show);
+        showing = show;
+      }
+      console.log(showing);
+      return 0;
+    }
+
+    function alive(showing, show){
+    	var target = $('#'+show);
+    	//var dir = target.data('move');
+    	var last = $('#'+showing);
+    	console.log(showing,show)
+    	last.find('.cover_desc').animate({'top':'-100px'},500,function(){
+    		last.find('.cover_body').animate({'opacity':'0'},300, 'linear', function(){
+					$('#cover_back_'+show).css({'display':'block','z-index':'-9'});
+					$('#cover_back_'+show).animate({'width':'100%','height':'100%','top':'0%','opacity':'1'});
+					target.css({'display':'block'});
+					target.find('.cover_desc').animate({'top':'0px'},500,function(){});
+					target.animate({'height':cover_body_h});
+					target.find('.cover_body').animate({'opacity':'1'});
+					last.animate({'height':'0px'},function(){
+						last.css({'display':'none'});
+					});
+    		});
+    	});
+    }
+
+    function alive_awe(show){
+    	var target = $('#'+show);
+    	//var dir = target.data('move');
+    	var last = $('#default');
+    	def_a_arr = ['.cover_desc', '#login h3', '#signup h3'];
+    	last.find('.cover_desc').animate({'top':'-100px'},500,function(){
+    		last.find('#login form').animate({'opacity':'0'},200, 'linear');
+    		last.find('#signup form').animate({'opacity':'0'},200, 'linear', function(){
+    			last.find('#login h3 span').animate({'opacity':'0'},300, 'linear');
+  				last.find('#signup h3 span').animate({'opacity':'0'},300, 'linear', function(){
+						last.find('#login h3').animate({'right':'1000px'},300, 'linear', function(){
+							last.find('#signup h3').animate({'left':'1000px'},300, 'linear', function(){
+								/*$('#cover_back_'+show).css({'display':'block','z-index':'-9'});
+								$('#cover_back_'+show).animate({'width':'100%','height':'100%','opacity':'1'});*/
+								target.css({'display':'block'});
+								target.animate({'height':cover_body_h});
+								last.animate({'height':0},function(){
+									last.css({'display':'none'});
+  								$('#cover_bottom_title').text('Back... Back.. Back.').css({'background-color':'#fff','cursor':'pointer'}).hover(function(){
+  									$(this).css({'background-color':'#aaa'})},
+  										function(){
+  									$(this).css({'background-color':'#fff'});
+  									});
+  								$('#cover_bottom_title').attr('data-show','default');
+  								$('#cover_bottom_title').on('click', change_page)
+  							});
+  						});
+  					});
+    			});
+    		});
+    	});
+    }
+
+    function alive_awe_rev(showing){
+    	var target = $('#default');
+    	//var dir = target.data('move');
+    	var last = $('#'+showing);
+    	last.find('.cover_desc').animate({'top':'-100px'},500,function(){
+    		last.find('.cover_body').animate({'opacity':'0'},300, 'linear', function(){
+					/*$('#cover_back_'+show).css({'display':'block','z-index':'-9'});
+					$('#cover_back_'+show).animate({'width':'100%','height':'100%','top':'0%','opacity':'1'});*/
+	    		last.animate({'height':'0px'},function(){
+						last.css({'display':'none'});
+					});
+					target.css({'display':'block'});
+					target.find('.cover_desc').animate({'top':'0px'},500,function(){});
+					target.animate({'height':cover_body_h}, function(){
+						target.find('.cover_body').animate({'opacity':'1'},function(){
+							target.find('#login h3').animate({'right':'0px'},300, 'linear', function(){
+								target.find('#signup h3').animate({'left':'0px'},300, 'linear', function(){
+									target.find('#login form').animate({'opacity':'1'},200, 'linear');
+    							target.find('#signup form').animate({'opacity':'1'},200, 'linear', function(){
+    								target.find('#login h3 span').animate({'opacity':'1'},300, 'linear');
+  									target.find('#signup h3 span').animate({'opacity':'1'},300, 'linear', function(){
+  										$('#cover_bottom_title').text('Curious about whats in there ..?').css({'background-color':'transparent','cursor':''}).off('mouseenter mouseleave');
+  										$('#cover_bottom_title').attr('data-show','');
+		  								$('#cover_bottom_title').off('click');
+			  						});
+									});
+    						});
+							});
+						});
+					});
+    		});
+    	});
+    }
+
+		var showing = 'default';
+
+		// action on bottom_btn events
+		$('.cover_bottom_btn').on('click', change_page);
+
+});
 </script>
 {% endblock body %}
+
+{% block foot %}
+	<footer class="container-fluid">
+		<a href="{% url 'sitemap' %}">Sitemap</a>
+	</footer>
+{% endblock foot %}
