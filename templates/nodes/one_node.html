@@ -10,11 +10,13 @@
 
 		<div class="feed_box_body">
 			<pre>{{ node.post }}</pre>
-		{% if node.get_image %}
+			{% comment %}
+				{% if node.get_image %}
 			<figure>
 				<img src="{{node.get_image}}">
 			</figure>
 		{% endif %}
+			{% endcomment %}
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">
