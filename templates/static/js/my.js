@@ -791,7 +791,7 @@ $(document).ready(function()
 {
     var ctrlDown = false;
     var ctrlKey = 17, vKey = 86, cKey = 67;
-$(document).keydown(function(e)
+    $(document).keydown(function(e)
     {
         if (e.keyCode == ctrlKey) ctrlDown = true;
     }).keyup(function(e)
@@ -820,6 +820,8 @@ $('#editor').on({
         //checkValidity();
     }
 });
+
+
 });
 
 var nones = $('span.none');
@@ -879,4 +881,4 @@ $('#write_answer').on('click',function(){
     //form.find('input[name=aid]').val('');
     form.find('.new').removeClass('hide');
     form.find('.check_btn').addClass('hide');
-})
+});

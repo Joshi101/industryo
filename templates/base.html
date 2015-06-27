@@ -41,9 +41,11 @@
 </head>
 
 <body>
-  {% block back %}
-  <div id="back"></div>
-  {% endblock back %}
+  <div>
+    {% block back %}
+    <div id="back"></div>
+    {% endblock back %}
+  </div>
   {% block top %}
     {% include "snippets/top_navigation.html" %}
   {% endblock top %}
@@ -67,9 +69,6 @@
       {% endblock body %}
     </div>
     {% block foot %}
-    <footer>
-      <h5></h5>
-    </footer>
     {% endblock foot %}
   </div>
 
