@@ -57,7 +57,6 @@ class UserProfile(models.Model):
                 except Exception:
                     return default_image
 
-
     def set_interests(self, interests):
         interests_tags = interests.split(',')
         for m in interests_tags:
@@ -123,7 +122,6 @@ class UserProfile(models.Model):
 
     def notify_n_commented(self, node):           # working
         if self.user != node.user:
-            print('ithhe')
             Notification(notification_type=Notification.COMMENTED,
                          from_user=self.user,
                          to_user=node.user,
@@ -192,9 +190,7 @@ class UserProfile(models.Model):
                                             from_user=self.user,
                                             to_user=question.user,
                                             question=question)
-            print('notificahion hai')
             n.delete()
-            print("noti deleted")
 
     def unotify_q_downvoted(self, question):
         if self.user != question.user:           # working

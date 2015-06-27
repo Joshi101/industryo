@@ -10,18 +10,17 @@ class Workplace(models.Model):
     LargeScaleIndustry = 'A'
     SME = 'B'
     SAE_Team = 'C'
-    Others = 'O'
+    Educational_Institution = 'O'
     Workplace_Type = (
         (LargeScaleIndustry, 'Large Scale Industry'),
         (SME, 'Small & Medium Scale Enterprise'),
-        (SAE_Team, 'College Teams'),
-        (Others, 'Others')
+        (SAE_Team, 'SAE Collegiate club'),
+        (Educational_Institution, 'Educational Institution')
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
 
     verified = models.BooleanField(default=False)
     slug = models.SlugField(max_length=255)
-    # area = models.ManyToManyField(Tags, related_name='area')
     address = models.CharField(max_length=255, null=True, blank=True)
     contact = models.CharField(max_length=255, null=True, blank=True)
     about = models.TextField(null=True, blank=True)
@@ -31,7 +30,6 @@ class Workplace(models.Model):
     segments = models.ManyToManyField(Tags, related_name='segments')
     # Team
     institution = models.ForeignKey(Tags, related_name='institution', null=True, blank=True)            # don't know why
-    # participation = models.ManyToManyField(Tags, related_name='participation')
     # SME
     capabilities = models.TextField(max_length=5000, null=True, blank=True)
     product_details = models.TextField(max_length=5000, null=True, blank=True)

@@ -19,11 +19,12 @@ class Question(models.Model):
     date = models.DateTimeField(auto_now_add=True)          # date changed to datetime
     answered = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tags)
-    images = models.ManyToManyField(Images)
     admin_score = models.IntegerField(default=1)
     score = models.FloatField(default=0)            # score added and two more below
     is_active = models.BooleanField(default=True)
     last_active = models.TimeField(auto_now=True)
+    images = models.ManyToManyField(Images, null=True)
+    category = models.BooleanField(default=0)           # 0 for general, 1 for technical
 
     class Meta:
         verbose_name = 'Question'
@@ -39,7 +40,6 @@ class Question(models.Model):
             unique_slugify(self, slug_str)
 
         super(Question, self).save(*args, **kwargs)
-
 
     def get_all_question(self):
         all_question = Question.objects.all()[:50]
@@ -126,7 +126,7 @@ class Answer(models.Model):
     admin_score = models.IntegerField(default=1)
     last_active = models.TimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    images = models.ManyToManyField(Images)
+    images = models.ManyToManyField(Images, null=True)
 
     class Meta:
         verbose_name = 'Answer'
