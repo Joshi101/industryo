@@ -19,9 +19,11 @@ def post(request):
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
         node = Node.objects.create(post=post, user=user, w_type=type)
-        image = request.FILES.get('image', None)
-        if image:
-            node.add_image(image, user)
+        image1 = request.FILES.get('image1', None)
+        if image1:
+            i = Images()
+            a = i.upload_image(image=image1, user=user)
+            node.images.add(image1, user)
 
         r_elements = ['feeds']
         r_html['feeds'] = render_to_string('nodes/one_node.html', {'node': node})
@@ -31,6 +33,7 @@ def post(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/')
+
 
 def edit(request, id):
     node = Node.objects.get(id=id)
