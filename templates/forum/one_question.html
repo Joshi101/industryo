@@ -13,6 +13,11 @@
 			</a>
 			{% if question.question %}
 			<p class="q_summary">{{ question.question }}</p>
+			{% for image in question.get_images %}
+			<figure>
+				<img src="/images/{{image.image}}">
+			</figure>
+			{% endfor %}
 			{% endif %}
 			{% if question.get_tags %}
 			<div class="tags">

@@ -345,5 +345,3 @@ def delete_answer(request):
 # def a_questions(request):           # for SME
 #     user = request.user
 #     area =
-
-

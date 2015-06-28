@@ -10,6 +10,11 @@
 		<div class="col-sm-11 ajax_papa">
 			<div class="feed_box_body">
 				<div class="a_detail">{{ a.answer|safe }}</div>
+				{% for image in question.get_images %}
+				<figure>
+					<img src="/images/{{image.image}}">
+				</figure>
+				{% endfor %}
 			</div>
 			<div class="feed_box_extra">
 				<h4 class="text-right">

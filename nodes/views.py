@@ -80,11 +80,12 @@ def write(request):                 ## Write an article
         else:
             node = Node(post=post, title=title, category='A', user=user)
         node.save()
-
+        print('abcd')
         image0 = request.FILES.get('image0', None)
         image1 = request.FILES.get('image1', None)
         image2 = request.FILES.get('image2', None)
         if image0:
+            print('mmm')
             i = Images()
             a = i.upload_image(image=image0, user=user)
             node.images.add(a)

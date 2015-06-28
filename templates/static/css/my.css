@@ -306,23 +306,21 @@ pre{
 	margin-bottom: 0px;
 }
 
-#form_feed .img_pre .alert{
+.img_pre .alert{
 	position: relative;
 	display: inline-block;
 	margin-bottom: 0px;
-	height: 58px;
 	padding: 0px;
-	width: auto;
 	margin: 3px 5px;
+	width: 31%;
+}
+
+#form_feed .img_pre .alert{
+	width: 24%;
 }
 
 #form_ask .img_pre .alert{
-	position: relative;
-	display: inline-block;
-	margin-bottom: 0px;
-	padding: 0px;
 	width: 31%;
-	margin: 3px 5px;
 }
 
 #form_feed .img_pre img{
@@ -339,12 +337,11 @@ pre{
 
 .show_pre{
 	border: 1px solid #9D9D9D;
-	border-top: 0px;
 	background-color: rgba(0,0,0,0.075);
 }
 
-#form_ask .show_pre {
-	border-top: 1px solid #9D9D9D;
+#form_feed .show_pre {
+	border-top: 0px;
 }
 
 #form_feed .textarea_bottom .btn{
