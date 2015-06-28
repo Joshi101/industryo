@@ -313,7 +313,8 @@ def question_tagged(request):
     else:
         return render(request, 'forum/questions.html')
 
-@login_required
+# @login_required
+
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
     paginator = Paginator(questions, 5)
@@ -382,6 +383,7 @@ def delete_question_image(request):
     question.images.remove(image)
     print(qid, pid)
     return 0
+
 
 
 # def a_questions(request):           # for SME

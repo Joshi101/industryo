@@ -18,11 +18,12 @@ urlpatterns = patterns('',
     url(r'^answers/$', 'workplace.views.workplace_answers', name='answers'),
     url(r'^feeds/$', 'workplace.views.workplace_feeds', name='feed'),
     url(r'^articles/$', 'workplace.views.workplace_articles', name='articles'),
-    url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
+    url(r'^side_panel/$', 'workplace.views.side_panel', name='side_panel'),
     url(r'^about/(?P<slug>[^/]+)/$', 'workplace.views.workplace_about', name='about'),
     url(r'^capabilities/(?P<slug>[^/]+)/$', 'workplace.views.workplace_capabilities', name='capabilities'),
     url(r'^members/(?P<slug>[^/]+)/$', 'workplace.views.workplace_members', name='members'),
     url(r'^products/(?P<slug>[^/]+)/$', 'workplace.views.workplace_products', name='products'),
     url(r'^get_top_scorers/(?P<slug>[^/]+)/$', 'workplace.views.get_top_scorers', name='get_top_scorers'),
+    url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
 
 )

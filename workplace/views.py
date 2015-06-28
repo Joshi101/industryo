@@ -75,7 +75,7 @@ def set_workplace(request):
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = Workplace.objects.filter(name__icontains=w)
+        o = Workplace.objects.filter(name__icontains=w)[:5]
         create = request.GET['the_create']
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
@@ -344,5 +344,10 @@ def sitemap(request):
     return render(request, 'workplace/sitemap.html', locals())
 
 
+def side_panel(request):
+    # user = request.user
+    workplaces = Workplace.objects.all()[:4]
+    # users = User.objects.all()[:4]
+    return render(request, 'snippets/workplace_list.html', locals())
 
 # Create your views here.

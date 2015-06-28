@@ -1,0 +1,14 @@
+{% for p in workplaces %}
+	<a href="{% url 'workplace:workplace_profile' p.slug %}">
+		<li>
+			<img src="{{p.get_logo}}">
+			<div class="ppl_info">
+				
+				<span class="label label-default">{{ p.points }}</span>
+			</div>
+		</li>
+	</a>
+{% endfor %}
+{% for p in people_joint %}
+	<li><img src="{{p.get_profile_image}}"><b>{{p}} | {{p.primary_workplace}}</b></li>
+{% endfor %}
