@@ -162,7 +162,6 @@ class Node(models.Model):
             return comment
 
     def get_images(self):
-        print('khokho')
 
         images = self.images.all()
         return images

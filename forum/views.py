@@ -22,10 +22,11 @@ def ask(request):
             title = form.cleaned_data.get('title')
             user = request.user
             anonymous = request.POST.get('anonymous')
+            category = request.POST.get('category')
             if anonymous:
-                question = Question(question=question, title=title, user=user, anonymous=True)
+                question = Question(question=question, title=title, user=user, anonymous=True, category=category)
             else:
-                question = Question(question=question, title=title, user=user)
+                question = Question(question=question, title=title, user=user, category=category)
             question.save()
             image0 = request.FILES.get('image0', None)
             image1 = request.FILES.get('image1', None)
@@ -370,6 +371,14 @@ def delete_answer(request):
     if request.user == answer.user:
         answer.delete()
     return redirect('/forum')
+
+
+def delete_question_image(request):
+    qid = request.GET.get('qid')
+    pid = request.GET.get('pid')
+    image = Images.objects.get(pid=pid)
+    question = Question.objects.get(qid=qid)
+    question.images.remove(image)
 
 
 

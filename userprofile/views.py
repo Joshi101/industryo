@@ -97,14 +97,15 @@ def set_interests(request):
 
 
 def delete_interest(request):
+    print('sshshhhhhhhhhhh')
     if request.method == 'GET':
         user = request.user
         up = user.userprofile
         delete = request.GET['delete']
 
         response = {}
-        Tags.objects.get(tag=delete)
-        up.interests.get(tag=delete).delete()
+        # Tags.objects.get(tag=delete)
+        up.interests.remove(tag=delete)
 
         return HttpResponse(json.dumps(response), content_type="application/json")
 
