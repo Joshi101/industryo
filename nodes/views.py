@@ -56,6 +56,22 @@ def edit(request, id):
         if anonymous=='true':
             node.anonymous = True
         node.save()
+        image0 = request.FILES.get('image0', None)
+        image1 = request.FILES.get('image1', None)
+        image2 = request.FILES.get('image2', None)
+        print(image0,image1,image2)
+        if image0:
+            i = Images()
+            a = i.upload_image(image=image0, user=user)
+            node.images.add(a)
+        if image1:
+            i = Images()
+            a = i.upload_image(image=image1, user=user)
+            node.images.add(a)
+        if image2:
+            i = Images()
+            a = i.upload_image(image=image2, user=user)
+            node.images.add(a)
         node.set_tags(tags)
         return redirect('/nodes/articles')
     return render(request, 'nodes/edit.html', locals())

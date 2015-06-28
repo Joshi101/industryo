@@ -12,7 +12,7 @@
 				<h5 class="q_title">{{ question.title }}</h5>
 			</a>
 			{% if question.question %}
-			<p class="q_summary">{{ question.question }}</p>
+			<p class="q_summary">{{ question.question|truncatechars:200 }}</p>
 			{% for image in question.get_images %}
 			<figure>
 				<img src="/images/{{image.image}}">

@@ -324,12 +324,12 @@ def delete_tag(request):
         wp = user.userprofile.primary_workplace
         delete = request.GET['delete']
         response = {}
-        #Tags.objects.get(tag=delete)
+        t = Tags.objects.get(tag=delete)
         try:
-            wp.tags.get(tag=delete).delete()
+            wp.tags.remove(t)
             print('nal')
         except:
-            up.interests.get(tag=delete).delete()
+            up.interests.remove(t)
             print('al')
         return HttpResponse(json.dumps(response), content_type="application/json")
 # def delete_tags

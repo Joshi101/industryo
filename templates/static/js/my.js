@@ -484,7 +484,7 @@ $('.img_pre').on('click','.close',function(){
     img_index[im] = 0;
     var free = check_img_index();
     console.log('deleted. next free: ',free)
-    $(this).closest('form').find('.fake_btn').data('btn','#id_image_'+free);
+    $(this).closest('form').find('.fake_btn').attr('data-btn','#id_image_'+free);
     //$(this).closest('form').find('#id_image_'+im).parent().remove();
     $(this).closest('form').find('#id_image_'+im).parent().html('<input id="id_image_' + im + '" type="file" name="image' + im + '">');
     $(this).closest('form').find('#id_image_'+im).change(send_img);
@@ -558,7 +558,8 @@ $('.answer_form button[type="button"]').click(function(event){
     var $editor = $this.find('#editor');
     var content = $editor.html();
     $editor.next().val(content);
-    $this.find('.form-ajax').trigger('click');
+    $this.find('.form-ajax-filed').trigger('click');
+    console.log('yaha hain bhaiya');
     $('#write_answer').trigger('click');
     $editor.html('');
 });
@@ -932,9 +933,9 @@ $('.answers').on('click','.edit_ans',function(){
 
 $('#write_answer').on('click',function(){
     var mode = $(this).text();
-    var form = $('.answer_form')
+    var form = $('.answer_form');
     if (mode == 'Cancel'){
-        form.reset();
+        form[0].reset();
         $('#editor').html('');
     }
     //form.find('input[name=aid]').val('');
@@ -961,3 +962,30 @@ function change_image(){
     }
     console.log($('.img_pre').data('index'));
 }
+
+
+$('.feed_box_body').each(function(){
+    var fig_w = (100/($(this).find('figure').length))-1;
+    $(this).find('figure').css({'width':fig_w+'%'});
+});
+
+$('.change_image').on('click','.img_pre .close', function(){
+    var pid = $(this).data('id');
+    if (pid){
+        var pre = $(this).closest('.img_pre');
+        var url = pre.data('url');
+        var id = $(this).closest('form').find('input[name=id]').val();
+        console.log('hello',pid);
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {qid: id, pid: pid},
+            success: function(response){
+                console.log('image removeed');
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(errmsg,err);
+            }
+        });
+    }
+});

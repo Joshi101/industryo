@@ -10,7 +10,7 @@
 		<div class="feed_box_body">
 
 			<a href="{% url 'nodes:node' node.slug %}"><h4 class="article_title">{{ node.title }}</h4></a>
-			<div class="article_body">{{ node.get_summary|safe }}</div>
+			<div class="article_body">{{ node.get_summary|safe|truncatechars:200 }}</div>
 			{% for image in node.get_images %}
 			<figure>
 				<img src="/images/{{image.image}}">

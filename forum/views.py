@@ -22,10 +22,11 @@ def ask(request):
             title = form.cleaned_data.get('title')
             user = request.user
             anonymous = request.POST.get('anonymous')
+            category = request.POST.get('category')
             if anonymous:
-                question = Question(question=question, title=title, user=user, anonymous=True)
+                question = Question(question=question, title=title, user=user, anonymous=True, category=category)
             else:
-                question = Question(question=question, title=title, user=user)
+                question = Question(question=question, title=title, user=user, category=category)
             question.save()
             image0 = request.FILES.get('image0', None)
             image1 = request.FILES.get('image1', None)
@@ -53,9 +54,25 @@ def ask(request):
 def edit_ques(request, id):
     q = Question.objects.get(id=id)
     if request.method == 'POST':
+        user = request.user
         q.question = request.POST['question']
         q.title = request.POST['title']
         q.save()
+        image0 = request.FILES.get('image0', None)
+        image1 = request.FILES.get('image1', None)
+        image2 = request.FILES.get('image2', None)
+        if image0:
+            i = Images()
+            a = i.upload_image(image=image0, user=user)
+            q.images.add(a)
+        if image1:
+            i = Images()
+            a = i.upload_image(image=image1, user=user)
+            q.images.add(a)
+        if image2:
+            i = Images()
+            a = i.upload_image(image=image2, user=user)
+            q.images.add(a)
         #tags = form.cleaned_data.get('tags')
         #question.set_tags(tags)
         slug = q.slug
@@ -218,6 +235,21 @@ def reply(request):
             else:
                 answer.anonymous=False
             answer.save()
+            image0 = request.FILES.get('image0', None)
+            image1 = request.FILES.get('image1', None)
+            image2 = request.FILES.get('image2', None)
+            if image0:
+                i = Images()
+                a = i.upload_image(image=image0, user=user)
+                answer.images.add(a)
+            if image1:
+                i = Images()
+                a = i.upload_image(image=image1, user=user)
+                answer.images.add(a)
+            if image2:
+                i = Images()
+                a = i.upload_image(image=image2, user=user)
+                answer.images.add(a)
         else:
             if anonymous:
                 answer = Answer.objects.create(answer=ans, user=user, question=question, anonymous=True)
@@ -227,6 +259,7 @@ def reply(request):
         image0 = request.FILES.get('image0', None)
         image1 = request.FILES.get('image1', None)
         image2 = request.FILES.get('image2', None)
+        print(image0,image1,image2)
         if image0:
             i = Images()
             a = i.upload_image(image=image0, user=user)
@@ -340,6 +373,15 @@ def delete_answer(request):
         answer.delete()
     return redirect('/forum')
 
+
+def delete_question_image(request):
+    qid = request.GET.get('qid')
+    pid = request.GET.get('pid')
+    image = Images.objects.get(id=pid)
+    question = Question.objects.get(id=qid)
+    question.images.remove(image)
+    print(qid, pid)
+    return 0
 
 
 # def a_questions(request):           # for SME
