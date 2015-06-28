@@ -237,6 +237,7 @@ $(".ajax_andar").on('click','.form-ajax-filed',function(event){
     $.ajax({
         url : $form.attr('action'),
         type : $form.attr('method'),
+		async : false,
         data : formData,
         cache: false,
         contentType: false,
