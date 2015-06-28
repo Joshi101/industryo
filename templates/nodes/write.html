@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<form class="article_form" role="form" action="{% url 'nodes:write' %}" method="POST">
+	<form class="article_form" role="form" action="{% url 'nodes:write' %}" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<strong><input class="form-control" type="text" placeholder="The Spectacular Title comes here ..." name="title" required></strong>
 		</div>
@@ -9,6 +9,20 @@
 			{% include "snippets/richtext_toolbar.html" %}
 	    <div id="editor" class="empty"><div class="text-muted">The Awesome Body goes here ...</div></div>
 			<input class="form-control" type="hidden" name="post">
+		</div>
+		<div class="form-group">
+			<div class="hide">
+      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+					<input id="id_image_0" type="file" name="image0">
+    		</span>
+  		</div>
+      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+    	</span>
+		</div>
+		<div class="form-group">
+			<div class="img_pre hide" data-index=0>
+			</div>
 		</div>
 		<div class="form-group">
       <label class="control-label" for="id_tags">Tags</label>

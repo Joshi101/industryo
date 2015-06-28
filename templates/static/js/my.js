@@ -5,6 +5,15 @@
  */
 
 
+// variable to index the no.of images uploaded
+    var img_index = [0,0,0];
+    function check_img_index(){
+        var i = img_index.indexOf(0);
+        if (i == -1)
+            i = 3;
+        return i;
+    }
+
 /* function to auto adjust top margin for the body */
     function body_slide () {
       var top = $('.navbar-fixed-top').outerHeight(true);
@@ -237,7 +246,6 @@ $(".ajax_andar").on('click','.form-ajax-filed',function(event){
     $.ajax({
         url : $form.attr('action'),
         type : $form.attr('method'),
-		async : false,
         data : formData,
         cache: false,
         contentType: false,
@@ -425,28 +433,43 @@ $('.fake_btn').click(function(){
 });
 
 function send_img(){
-    var i = $(this).closest('form').find('.img_pre').data('index');
-    var img_pre = '<div class="alert"><a href="#" class="close">&times;</a><img height="56" src="" alt=""></div>';
-    var input = '<span title="Add Image" data-toggle="tooltip" data-placement="left" class="btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in"><input id="id_image_' + (i+1) + '" type="file" name="image' + (i+1) + '"></span>'
-    $(this).closest('form').find('.img_pre').append(img_pre);
+    var i = check_img_index();
+    console.log(i);
+    if ( i > 2 ){
+        console.log('premature exit');
+        return 0;
+    }
+    img_index[i] = 1;
+    var free = check_img_index();
+    console.log('free: ',free);
+    var img_pre = '<div class="alert"><a href="#" class="close">&times;</a><img width="90%" src="" alt=""></div>';
+    var input = '<span title="Add Image" data-toggle="tooltip" data-placement="left" class="btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in"><input id="id_image_' + free + '" type="file" name="image' + free + '"></span>';
+    if ($(this).closest('form').find('.img_pre .alert').length <= i){
+        console.log('alert added',$(this).closest('form').find('.img_pre .alert').length);
+        $(this).closest('form').find('.img_pre').append(img_pre);
+    }
+    else {
+        console.log(i,$(this).closest('form').find('.img_pre .alert').eq(i).css('display'));
+        $(this).closest('form').find('.img_pre .alert').eq(i).show();
+    }
     var preview = $(this).closest('form').find('.img_pre img').eq(i);
-    console.log(i)
     var file = this.files[0];
     var fd = new FormData($('#form_feed')[0]);
     fd.append('file'+i,file);
     console.log(fd,$('#form_feed').serialize())
     var reader  = new FileReader();
     reader.onloadend = function () {
-        preview.attr('src', reader.result);
+        preview.attr('src', reader.result).closest('.alert').show();
     }
     if (file) {
         reader.readAsDataURL(file);
         preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
+        console.log('img_pre showing');
         $(this).closest('form').find('.img_pre').data('index',(i+1));
         $(this).addClass('hide');
         $(this).parent().addClass('hide').after(input);
-        $('#id_image_'+(i+1)).change(send_img);;
-        $(this).closest('form').find('.fake_btn').data('btn','#id_image_'+(i+1));
+        $('#id_image_'+(i+1)).change(send_img);
+        $(this).closest('form').find('.fake_btn').data('btn','#id_image_'+free);
         console.log($(this).closest('form').find('.img_pre').data('index'));
     } else {
         preview.attr('src', "");
@@ -455,9 +478,29 @@ function send_img(){
 }
 
 $('.img_pre_in input').change(send_img);
+
 $('.img_pre').on('click','.close',function(){
-    $(this).closest('form').find('.alert').alert('close');
-    $(this).closest('form').find('.img_pre').addClass('hide');
+    var im = $(this).closest('.alert').index();
+    img_index[im] = 0;
+    var free = check_img_index();
+    console.log('deleted. next free: ',free)
+    $(this).closest('form').find('.fake_btn').attr('data-btn','#id_image_'+free);
+    //$(this).closest('form').find('#id_image_'+im).parent().remove();
+    $(this).closest('form').find('#id_image_'+im).parent().html('<input id="id_image_' + im + '" type="file" name="image' + im + '">');
+    $(this).closest('form').find('#id_image_'+im).change(send_img);
+    /*var i = $(this).closest('form').find('.img_pre').data('index');
+    $(this).closest('form').find('#id_image_'+(i-1)).parent().nextAll().each(function() {
+        var old_i = $(this).children().attr('id').slice(9);
+        console.log(old_i);
+        $(this).children().attr('id','id_image'+(old_i-1));
+        $(this).children().attr('name','image'+(old_i-1));
+    });*/
+    //$(this).closest('form').find('#id_image_'+(i-1)).parent().remove();
+    /*if ($(this).closest('form').find('.img_pre alert').length < 1){
+        $(this).closest('form').find('.img_pre').addClass('hide');
+    }*/
+    //$(this).closest('form').find('.img_pre').data('index',(i-1));
+    $(this).closest('form').find('.alert').eq(im).hide();
     console.log($(this).closest('form').find('input'));
 });
 
@@ -515,7 +558,8 @@ $('.answer_form button[type="button"]').click(function(event){
     var $editor = $this.find('#editor');
     var content = $editor.html();
     $editor.next().val(content);
-    $this.find('.form-ajax').trigger('click');
+    $this.find('.form-ajax-filed').trigger('click');
+    console.log('yaha hain bhaiya');
     $('#write_answer').trigger('click');
     $editor.html('');
 });
@@ -889,12 +933,59 @@ $('.answers').on('click','.edit_ans',function(){
 
 $('#write_answer').on('click',function(){
     var mode = $(this).text();
-    var form = $('.answer_form')
+    var form = $('.answer_form');
     if (mode == 'Cancel'){
-        form.reset();
+        form[0].reset();
         $('#editor').html('');
     }
     //form.find('input[name=aid]').val('');
     form.find('.new').removeClass('hide');
     form.find('.check_btn').addClass('hide');
+});
+
+$('.change_image').on('load',change_image());
+
+function change_image(){
+    var form = $('.change_image');
+    var images = form.find('.img_pre').children();
+    var img_no = images.length;
+    if (img_no > 0){
+        $('.img_pre').removeClass('hide').addClass('show_pre');
+        $('.img_pre').attr('data-index',img_no);
+        for (i=1; i<=img_no; i++){
+            var input = '<span title="Add Image" data-toggle="tooltip" data-placement="left" class="btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in"><input id="id_image_' + i + '" type="file" name="image' + i + '"></span>';
+            $('.img_pre_in').last().after(input);
+            $('#id_image_'+i).change(send_img);
+            img_index[i-1] = 1;
+        }
+        form.find('.fake_btn').attr('data-btn',('#id_image_'+img_no));
+    }
+    console.log($('.img_pre').data('index'));
+}
+
+
+$('.feed_box_body').each(function(){
+    var fig_w = (100/($(this).find('figure').length))-1;
+    $(this).find('figure').css({'width':fig_w+'%'});
+});
+
+$('.change_image').on('click','.img_pre .close', function(){
+    var pid = $(this).data('id');
+    if (pid){
+        var pre = $(this).closest('.img_pre');
+        var url = pre.data('url');
+        var id = $(this).closest('form').find('input[name=id]').val();
+        console.log('hello',pid);
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {qid: id, pid: pid},
+            success: function(response){
+                console.log('image removeed');
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(errmsg,err);
+            }
+        });
+    }
 });

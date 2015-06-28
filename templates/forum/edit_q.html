@@ -4,15 +4,33 @@
 {% load bootstrap3 %}
 
 {% block content %}
-	<form enctype="multipart/form-data" action="" method="POST" role="form" >
+	<form class="change_image" enctype="multipart/form-data" action="" method="POST" role="form" >
 		{% csrf_token %}
 		<div class="form-group">
+			<input type="hidden" name="id" value="{{ q.id }}">
       <label class="control-label">Title of the Question</label>
       <input class="form-control" id="id_title" maxlength="255" name="title" type="text" value="{{ q.title }}" />
 		</div>
 		<div class="form-group">
       <label class="control-label">Details of the Question</label>
       <textarea class=" form-control" cols="40" id="id_question" maxlength="5000" name="question" rows="10">{{ q.question }}</textarea>
+		</div>
+		<div class="form-group">
+			<div class="hide">
+      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+					<input id="id_image_0" type="file" name="image0">
+    		</span>
+  		</div>
+      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+    	</span>
+		</div>
+		<div class="form-group">
+			<div class="img_pre hide" data-index=0 data-url="{% url 'forum:delete_image' %}">
+				{% for image in q.get_images %}
+				<div class="alert"><a href="#" class="close" data-id="{{ image.id }}">&times;</a><img width="90%" src="/images/{{image.image}}" alt=""></div>
+				{% endfor %}
+			</div>
 		</div>
 		<div class="form-group">
       <label class="control-label" for="id_tags">Tags</label>

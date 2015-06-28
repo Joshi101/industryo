@@ -259,6 +259,7 @@ def reply(request):
         image0 = request.FILES.get('image0', None)
         image1 = request.FILES.get('image1', None)
         image2 = request.FILES.get('image2', None)
+        print(image0,image1,image2)
         if image0:
             i = Images()
             a = i.upload_image(image=image0, user=user)
@@ -380,12 +381,11 @@ def delete_question_image(request):
     image = Images.objects.get(id=pid)
     question = Question.objects.get(id=qid)
     question.images.remove(image)
-
+    print(qid, pid)
+    return 0
 
 
 
 # def a_questions(request):           # for SME
 #     user = request.user
 #     area =
-
-

@@ -18,12 +18,16 @@
 			{% if node.category == 'F' %}
 				<pre class="text-justify">{{ node.post }}</pre>
 			{% else %}
-
 				<h4 class="article_title">
 					{{ node.title }}
 					<a class="edit_post pull-right" href="{% url 'nodes:edit' node.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
 				</h4>
 				<div class="article_body">{{ node.post|safe }}</div>
+				{% for image in node.get_images %}
+				<figure>
+					<img src="/images/{{image.image}}">
+				</figure>
+				{% endfor %}
 				{% if node.get_tags %}
 				<div class="tags">
 					{% for tag in node.get_tags %}

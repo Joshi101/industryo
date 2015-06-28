@@ -25,12 +25,17 @@
 						{% if q.question %}
 						<p class="q_body">{{ q.question }}</p>
 						{% endif %}
-						{% if q.get_tags %}
+						{% for image in q.get_images %}
+						<figure>
+							<img src="/images/{{image.image}}">
+						</figure>
+						{% endfor %}
+						{% if q. %}
 						<div class="tags">
 							{% for tag in q.get_tags %}
-								<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+								<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 							{% endfor %}
-						</div>
+						</div>="{%
 						{% endif %}
 					</div>
 					<div class="feed_box_extra">
@@ -50,7 +55,7 @@
 					</div>
 				</div>
 			</div>
-			<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST">
+			<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
 				<div class="collapse">
 					{% include "snippets/richtext_toolbar.html" %}
 			    <div id="editor">
@@ -59,13 +64,27 @@
 					<input type="hidden" name="id" value="{{ q.id }}">
 					<input type="hidden" name="aid" value="" autocomplete="off">
 					<input type="hidden" name="slug" value="{{ q.slug }}">
+					<div class="form-group">
+						<div class="hide">
+			      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+								<input id="id_image_0" type="file" name="image0">
+			    		</span>
+			  		</div>
+			      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+			      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+			    	</span>
+					</div>
+					<div class="form-group">
+						<div class="img_pre hide" data-index=0>
+						</div>
+					</div>
 					<div class="checkbox">
 					  <label><input type="checkbox" name="anonymous" value="true">Post as Anynonymous</label>
 					</div>
 					<button type="button" class="btn btn-success btn-md pull-left new">Submit Answer</button>
 					<button type="button" class="btn btn-success btn-md pull-left check_btn hide">Save Changes</button>
 					<input type="hidden" name="edit" value="">
-					<a class="form-ajax hide"></a>
+					<a class="form-ajax-filed hide"></a>
 					{% csrf_token %}
 				</div>
 				<a id="write_answer" class="a_collapse btn btn-info btn-md pull-right" data-alternate="Cancel">Write Answer</a>
