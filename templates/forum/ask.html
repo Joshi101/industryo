@@ -4,7 +4,7 @@
 {% load bootstrap3 %}
 
 {% block content %}
-	<form enctype="multipart/form-data" action="" method="POST" role="form" >
+	<form id="form_ask" enctype="multipart/form-data" action="" method="POST" role="form" >
 		{% csrf_token %}
 		<div class="form-group">
       <label class="control-label">Title of the Question</label>
@@ -13,6 +13,20 @@
 		<div class="form-group">
       <label class="control-label">Details of the Question</label>
       <textarea class=" form-control" cols="40" id="id_question" maxlength="5000" name="question" rows="10"></textarea>
+		</div>
+		<div class="form-group">
+			<div class="hide">
+      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+					<input id="id_image_0" type="file" name="image0">
+    		</span>
+  		</div>
+      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+    	</span>
+		</div>
+		<div class="form-group">
+			<div class="img_pre hide" data-index=0>
+			</div>
 		</div>
 		<div class="form-group">
       <label class="control-label" for="id_tags">Tags</label>
@@ -27,7 +41,7 @@
 				</div>
 			</div>
 		  <p class="help-block">
-        Use , (comma) to separate the tags, such as "asp.net,mvc5,javascript"
+        Press Enter to select or create a tag
       </p>
 		</div>
 		<div class="checkbox">

@@ -237,7 +237,6 @@ $(".ajax_andar").on('click','.form-ajax-filed',function(event){
     $.ajax({
         url : $form.attr('action'),
         type : $form.attr('method'),
-		async : false,
         data : formData,
         cache: false,
         contentType: false,
@@ -426,7 +425,7 @@ $('.fake_btn').click(function(){
 
 function send_img(){
     var i = $(this).closest('form').find('.img_pre').data('index');
-    var img_pre = '<div class="alert"><a href="#" class="close">&times;</a><img height="56" src="" alt=""></div>';
+    var img_pre = '<div class="alert"><a href="#" class="close">&times;</a><img width="90%" src="" alt=""></div>';
     var input = '<span title="Add Image" data-toggle="tooltip" data-placement="left" class="btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in"><input id="id_image_' + (i+1) + '" type="file" name="image' + (i+1) + '"></span>'
     $(this).closest('form').find('.img_pre').append(img_pre);
     var preview = $(this).closest('form').find('.img_pre img').eq(i);
@@ -456,8 +455,19 @@ function send_img(){
 
 $('.img_pre_in input').change(send_img);
 $('.img_pre').on('click','.close',function(){
-    $(this).closest('form').find('.alert').alert('close');
-    $(this).closest('form').find('.img_pre').addClass('hide');
+    var i = $(this).closest('form').find('.img_pre').data('index');
+    $(this).closest('form').find('#id_image_'+(i-1)).parent().nextAll().each(function() {
+        var old_i = $(this).children().attr('id').slice(9);
+        console.log(old_i)
+        $(this).children().attr('id','id_image'+(old_i-1));
+        $(this).children().attr('name','image'+(old_i-1));
+    });
+    $(this).closest('form').find('#id_image_'+(i-1)).parent().remove();
+    if (i == 1){
+        $(this).closest('form').find('.img_pre').addClass('hide');
+    }
+    $(this).closest('form').find('.img_pre').data('index',(i-1));
+    $(this).closest('form').find('.alert').eq(i-1).alert('close');
     console.log($(this).closest('form').find('input'));
 });
 
