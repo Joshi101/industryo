@@ -34,6 +34,7 @@ def ask(request):
     else:
         return render(request, 'forum/ask.html', {'form': form})
 
+
 def edit_ques(request, id):
     q = Question.objects.get(id=id)
     if request.method == 'POST':

@@ -72,7 +72,6 @@ class Node(models.Model):
     slug = models.SlugField(max_length=255, null=True, blank=True)# no blank
     date = models.DateTimeField(auto_now_add=True)
     last_active = models.TimeField(auto_now=True)       # last_activity
-    # parent = models.ForeignKey('self', null=True, blank=True)
     comments_count = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     admin_score = models.FloatField(default=1)
@@ -162,11 +161,11 @@ class Node(models.Model):
         for comment in comments:
             return comment
 
-    def get_image(self):
-        if self.image:
-            # print(str(self.image))
-            image_url = '/images/' + str(self.image.image)
-            return image_url
+    # def get_image(self):
+    #     if self.image:
+    #         # print(str(self.image))
+    #         image_url = '/images/' + str(self.image.image)
+    #         return image_url
 
     def get_score(self):
         p = self.likes+self.comments    # popularity
