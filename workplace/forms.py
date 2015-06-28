@@ -9,8 +9,8 @@ class WorkplaceForm(forms.ModelForm):
     Workplace_Type = (
         ('A', 'Large Scale Industry'),
         ('B', 'Small & Medium Scale Enterprise'),
-        ('C', 'College Teams'),
-        ('O', 'Others')
+        ('C', 'SAE Collegiate Club'),
+        ('O', 'Educational Institution')
     )
     workplace_type = forms.ChoiceField(choices=Workplace_Type, widget=forms.Select(attrs={'class': 'regDropDown'}))
 

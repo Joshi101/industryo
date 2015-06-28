@@ -312,7 +312,8 @@ def question_tagged(request):
     else:
         return render(request, 'forum/questions.html')
 
-@login_required
+# @login_required
+
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
     paginator = Paginator(questions, 5)
@@ -376,9 +377,10 @@ def delete_answer(request):
 def delete_question_image(request):
     qid = request.GET.get('qid')
     pid = request.GET.get('pid')
-    image = Images.objects.get(pid=pid)
-    question = Question.objects.get(qid=qid)
+    image = Images.objects.get(id=pid)
+    question = Question.objects.get(id=qid)
     question.images.remove(image)
+
 
 
 

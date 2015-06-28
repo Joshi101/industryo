@@ -53,7 +53,7 @@ def edit(request, id):
         user = request.user
         tags = request.POST['tags']
         anonymous = request.POST.get('anonymous')
-        if anonymous=='true':
+        if anonymous == 'true':
             node.anonymous = True
         node.save()
         image0 = request.FILES.get('image0', None)
@@ -305,5 +305,12 @@ def edit_node(request):
     node = Node.objects.get(id=id)
     return render(request, 'nodes/articles.html', locals())
 
+
+def delete_node_image(request):
+    nid = request.GET.get('nid')
+    pid = request.GET.get('pid')
+    image = Images.objects.get(id=pid)
+    question = Node.objects.get(id=nid)
+    question.images.remove(image)
 
 # Create your views here.
