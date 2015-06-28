@@ -113,6 +113,11 @@ class Question(models.Model):
         tags = self.tags.all()
         return tags
 
+    def get_images(self):
+
+        images = self.images.all()
+        return images
+
 
 class Answer(models.Model):
     user = models.ForeignKey(User)
@@ -170,6 +175,9 @@ class Answer(models.Model):
             list.append(downvote.user)
         return list
 
+    def get_images(self):
 
+        images = self.images.all()
+        return images
 
 # Create your models here.

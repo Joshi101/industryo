@@ -27,6 +27,21 @@ def ask(request):
             else:
                 question = Question(question=question, title=title, user=user)
             question.save()
+            image0 = request.FILES.get('image0', None)
+            image1 = request.FILES.get('image1', None)
+            image2 = request.FILES.get('image2', None)
+            if image0:
+                i = Images()
+                a = i.upload_image(image=image0, user=user)
+                question.images.add(a)
+            if image1:
+                i = Images()
+                a = i.upload_image(image=image1, user=user)
+                question.images.add(a)
+            if image2:
+                i = Images()
+                a = i.upload_image(image=image2, user=user)
+                question.images.add(a)
             tags = form.cleaned_data.get('tags')
             question.set_tags(tags)
             slug = question.slug
@@ -46,6 +61,7 @@ def edit_ques(request, id):
         slug = q.slug
         return HttpResponseRedirect('/forum/'+slug)
     return render(request, 'forum/edit_q.html', locals())
+
 
 def get_question(request, slug):
     q = Question.objects.get(slug=slug)
@@ -208,6 +224,21 @@ def reply(request):
             else:
                 answer = Answer.objects.create(answer=ans, user=user, question=question)
             user.userprofile.notify_answered(question)
+        image0 = request.FILES.get('image0', None)
+        image1 = request.FILES.get('image1', None)
+        image2 = request.FILES.get('image2', None)
+        if image0:
+            i = Images()
+            a = i.upload_image(image=image0, user=user)
+            answer.images.add(a)
+        if image1:
+            i = Images()
+            a = i.upload_image(image=image1, user=user)
+            answer.images.add(a)
+        if image2:
+            i = Images()
+            a = i.upload_image(image=image2, user=user)
+            answer.images.add(a)
         r_elements = ['answers']
         r_html['answers'] = render_to_string('snippets/one_answer.html', {'q': question, 'a':answer})
         response['html'] = r_html
