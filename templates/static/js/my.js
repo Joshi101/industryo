@@ -49,30 +49,28 @@
 
 
 /* handling input for dynamiac search inputs */
-$('.d_input').keydown(function(event){
-    var $this = $(this);
-    if(event.keyCode == '13'){
-        event.preventDefault();
-        $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
-        $this.val('');
-    }
-    else{
-	
-		console.log('loipu')
-        var query = $this.val()
-        ,   search = "/search" + $this.data('search')
-        ,   create = $this.data('create');
-        if(!create)
-            create = '';
-        var type = $this.siblings('input[name=type]').val();
-        if(!type)
-            type = '';
+
+function doneTyping(){
+    console.log('loipu');
+    var $this = d_this;
+    var query = $this.val()
+    ,   search = "/search" + $this.data('search')
+    ,   create = $this.data('create');
+    if(!create)
+        create = '';
+    var type = $this.siblings('input[name=type]').val();
+    if(!type)
+        type = '';
+    if (d_on){
+        d_on = false;
         console.log(query, search, create, type);
         $.ajax({
             url : search,
             type : "GET",
             data : { the_query : query, the_create : create, the_type: type},
             success: function(result){
+                d_on = true;
+                console.log(result);
                 $this.nextAll('.dropdown')
                     .children(".d_list").html(result);
                 if (create == 'create_new'){
@@ -87,14 +85,38 @@ $('.d_input').keydown(function(event){
                 }
             },
             error : function(xhr,errmsg,err) {
+                d_on = true;
                 $this.nextAll('.dropdown')
                     .children(".d_list").html("<li class='list-group-item-warning'><a>Sorry, unable to fetch results. Try later.</a></li>");
                 console.log(errmsg,err);
             }
         });
-        if(query != '')
-            $(this).nextAll('.dropdown')
-                .children('.d_list').css({'display':'block'});
+    }
+    if(query != '')
+        $this.nextAll('.dropdown')
+            .children('.d_list').css({'display':'block'});
+
+}
+
+var typingTimer;                //timer identifier
+var doneTypingInterval = 500;  //time in ms, 1 second for example
+var d_this;
+var d_on = true;
+
+$('.d_input').keydown(function(event){
+    var $this = $(this);
+    d_this = $this;
+    if(event.keyCode == '13'){
+        event.preventDefault();
+        $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
+        $this.val('');
+    }
+    else {
+        clearTimeout(typingTimer);
+        $this.keyup(function(){
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        });
     }
 });
 
