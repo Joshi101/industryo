@@ -161,11 +161,11 @@ class Node(models.Model):
         for comment in comments:
             return comment
 
-    # def get_image(self):
-    #     if self.image:
-    #         # print(str(self.image))
-    #         image_url = '/images/' + str(self.image.image)
-    #         return image_url
+    def get_images(self):
+        print('khokho')
+
+        images = self.images.all()
+        return images
 
     def get_score(self):
         p = self.likes+self.comments    # popularity
