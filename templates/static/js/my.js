@@ -943,7 +943,10 @@ $('#write_answer').on('click',function(){
     form.find('.check_btn').addClass('hide');
 });
 
-$('.change_image').on('load',change_image());
+var c_i = $('.change_image');
+if (c_i.length > 0){
+    change_image();
+}
 
 function change_image(){
     var form = $('.change_image');

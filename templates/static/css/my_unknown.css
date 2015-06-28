@@ -133,8 +133,6 @@ pre{
 }
 
 #cover input{
-	max-width: 250px;
-	margin: auto;
 	height: 40px;
 	padding: 0px 15px;
 	border-radius: 0px;
@@ -145,8 +143,6 @@ pre{
 }
 
 #cover .btn{
-	max-width: 250px;
-	margin: auto;
 	margin-top: 15px;
 	border-radius: 0px;
 	height: 40px;
@@ -260,7 +256,7 @@ pre{
 }
 
 .socialaccount_providers img:hover{
-	opacity: 0.75;
+	width: 95%;
 }
 
 #forgot_pass{
