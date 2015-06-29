@@ -12,7 +12,7 @@
 	  <div class="panel panel-default">
 	    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
 	      <div class="panel-body">
-	      	<p class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span> Select or create the company/team/institution you belong to so that you can see relevant results and make better contribution.</p>
+	      	<p class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span> Select or create the Company/Team/Institution you belong to so that you can see relevant content and make better contribution.</p>
 	      	<form action="" method="POST" role="form">
 						{% csrf_token %}
 						{{ form_set_workplace|bootstrap }}
@@ -26,7 +26,7 @@
 	  <div class="panel panel-default">
 	    <div id="create_workplace" class="panel-collapse collapse">
 	      <div class="panel-body">
-	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please put the official name of the company using Capitals appropriately.</p>
+	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please put the official name of the company using Capitals appropriately (eg. UTC Aerospace Systems).</p>
 	      	<form action="{% url 'register' %}" method="POST" role="form">
 						{% csrf_token %}
 						{{ form_create_workplace|bootstrap }}
