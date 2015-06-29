@@ -22,6 +22,6 @@
     </form>
 
 	{% for ob in o %}
-		<li>{{ob}}</li>
+		<li>{{ob}} ({{ob.get_workplace_type_display}})</li>
 	{% endfor %}
 {% endblock %}
