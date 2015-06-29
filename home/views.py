@@ -29,7 +29,7 @@ def home(request):
             elif t == 'C':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
                 question = Question.objects.all().select_related('user__userprofile')
-            elif t == 'O':
+            else:  # t == 'O':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
                 question = Question.objects.all().select_related('user__userprofile')
             all_result_list = sorted(

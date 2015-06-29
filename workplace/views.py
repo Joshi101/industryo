@@ -53,6 +53,7 @@ def set_workplace(request):
         else:
             user = request.user
             workplace = form.cleaned_data.get('workplace')
+            # print(workplace)
             primary_workplace = Workplace.objects.get(name=workplace)
             job_position = form.cleaned_data.get('job_position')
             userprofile = UserProfile.objects.get(user=user)
@@ -65,7 +66,7 @@ def set_workplace(request):
             node = Node(user=User.objects.get(pk=1), post=welcome)   #, tags=t
             node.save()
             if user.first_name:
-                return redirect('/')
+                return redirect('/workplace/'+primary_workplace.slug)
             else:
                 return redirect('/details/')
     else:

@@ -38,7 +38,7 @@ def set_details(request):
             user.first_name = first_name
             user.last_name = last_name
             user.save()
-            return redirect('/')
+            return redirect('/workplace/'+user.userprofile.primary_workplace.slug)
     else:
         form = UserDetailsForm(instance=user, initial={
             'first_name': user.first_name,
