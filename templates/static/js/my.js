@@ -62,7 +62,7 @@ function doneTyping(){
     if(!type)
         type = '';
     if (d_on){
-        d_on = false;
+        //d_on = false;
         console.log(query, search, create, type);
         $.ajax({
             url : search,
