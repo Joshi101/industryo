@@ -1,5 +1,5 @@
 {% for ob in o %}
-	<li><a class="">{{ob}} ({{ob.get_type_display}})</a></li>
+	<li><a class=""><span>{{ob}}</span> ({{ob.get_type_display}})</a></li>
 {% endfor %}
 	{% ifequal create "create" %}
 	<li class="list-group-item-info"><a class="create"><span class="glyphicon glyphicon-plus"></span> Create now</a></li>

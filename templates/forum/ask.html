@@ -7,6 +7,14 @@
 	<form id="form_ask" enctype="multipart/form-data" action="" method="POST" role="form" >
 		{% csrf_token %}
 		<div class="form-group">
+			<label class="control-label">Type of the Question</label>
+			<div>
+				<button class="categ_btn" type="button" value="0">General</button>
+				<button class="categ_btn" type="button" value="1">Technical</button>
+				<input type="hidden" name="category" value="none" autocomplete='off'>
+			</div>
+		</div>
+		<div class="form-group">
       <label class="control-label">Title of the Question</label>
       <input class="form-control" id="id_title" maxlength="255" name="title" type="text" />
 		</div>
@@ -53,4 +61,13 @@
       </button>
     </div>
 	</form>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.categ_btn').on('click',function(){
+				$(this).closest('.form-group').find('input').val($(this).val());
+				$(this).closest('.form-group').find('.categ_btn').removeClass('selected_categ');
+				$(this).addClass('selected_categ');
+			});
+		});
+	</script>
 {% endblock %}
