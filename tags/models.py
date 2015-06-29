@@ -7,8 +7,8 @@ from industryo.unique_slug import unique_slugify
 class Tags(models.Model):
     tag = models.CharField(max_length=50, db_index=True)
     tag_types = (('S', 'Segment'), ('C', 'City'), ('E', 'Event'), ('I', 'IndustrialArea'), ('D', 'ProductCategory'),
-                 ('A', 'Asset'), ('O', 'Operation'), ('M', 'Material'), ('P', 'ParentInstitution'),)
-    type = models.CharField(max_length=1, null=True, blank=True)
+                 ('A', 'Asset'), ('O', 'Operation'), ('M', 'Material'), ('P', 'ParentInstitution'), ('N', 'None'))
+    type = models.CharField(max_length=1, choices=tag_types, null=True)
     logo = models.ForeignKey('nodes.Images', null=True, blank=True)
     slug = models.SlugField(max_length=50)
     description = models.CharField(max_length=500, null=True, blank=True)
@@ -20,6 +20,10 @@ class Tags(models.Model):
 
     def __str__(self):
         return self.tag
+
+    def get_detail(self):
+        detail = "%s (%s)" % (self.tag, self.type)
+        return detail
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug
