@@ -133,8 +133,6 @@ pre{
 }
 
 #cover input{
-	max-width: 250px;
-	margin: auto;
 	height: 40px;
 	padding: 0px 15px;
 	border-radius: 0px;
@@ -145,8 +143,6 @@ pre{
 }
 
 #cover .btn{
-	max-width: 250px;
-	margin: auto;
 	margin-top: 15px;
 	border-radius: 0px;
 	height: 40px;
@@ -260,7 +256,7 @@ pre{
 }
 
 .socialaccount_providers img:hover{
-	opacity: 0.75;
+	width: 95%;
 }
 
 #forgot_pass{
@@ -290,57 +286,6 @@ pre{
 
 .message{
 	margin-top: 20px;
-}
-
-
-#pg_set .radio input{
-	position: relative;
-	bottom: 1px;
-	margin-right: 5px;
-	height: 25px;
-	vertical-align: middle;
-}
-
-#pg_set .radio{
-	margin: 0px;
-}
-
-#pg_set .radio label{
-	margin: 0px;
-}
-
-#pg_set label{
-	padding-left: 5px;
-	margin-top: 20px;
-}
-
-#pg_set input{
-	margin: 3px auto;
-	height: 35px;
-	padding: 0px 15px;
-	border-radius: 0px;
-	//border: 0px;
-	border: 1px solid rgba(16,144,112,0.2);
-	box-shadow: 0px 0px 0px rgba(10,90,70,0.2) inset;
-	font-size: 15px;
-}
-
-#pg_set input:focus{
-	background-color: rgba(0,0,0,0.05);
-}
-
-#pg_set .btn:first-of-type{
-	margin-top: 40px;
-}
-
-#pg_set .btn{
-	margin: 0px auto 15px;
-	border-radius: 0px;
-	height: 40px;
-	border: 0px;
-	display: block;
-	width: 49%;
-	max-width: 200px;
 }
 
 /* home.html */
@@ -807,9 +752,9 @@ a{
 	color: rgb(55,55,55);
 }
 
-.w_650{
+.w_400{
 	margin: auto;
-	max-width: 650px;
+	max-width: 500px;
 }
 
 .dropdown-menu > li.no-select {

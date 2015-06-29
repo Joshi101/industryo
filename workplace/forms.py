@@ -12,7 +12,7 @@ class WorkplaceForm(forms.ModelForm):
         ('C', 'SAE Collegiate Club'),
         ('O', 'Educational Institution')
     )
-    workplace_type = forms.ChoiceField(choices=Workplace_Type, widget=forms.Select(attrs={'class': 'regDropDown'}))
+    workplace_type = forms.ChoiceField(choices=Workplace_Type, widget=forms.RadioSelect(attrs={'class': 'regDropDown'}))
 
     class Meta:
         model = Workplace
@@ -21,7 +21,7 @@ class WorkplaceForm(forms.ModelForm):
 
 
 class SetWorkplaceForm(forms.ModelForm):
-    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create_new', 'autocomplete':"off", 'placeholder':'Search for your Workplace here ...'}), required=True, max_length=255)
+    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create_new', 'autocomplete':"off", 'placeholder':'Search for your Company, Team or Institution ...'}), required=True, max_length=255)
 
     job_position = forms.CharField(max_length=255)
 
