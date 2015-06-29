@@ -62,7 +62,7 @@ function doneTyping(){
     if(!type)
         type = '';
     if (d_on){
-        d_on = false;
+        //d_on = false;
         console.log(query, search, create, type);
         $.ajax({
             url : search,
@@ -142,8 +142,8 @@ $(".d_list").on('click', 'a', function(event){
             return 0;
         }
         else{
-            var value = $this.text();
-            console.log('list wala', $this.attr('class'));
+            var value = $this.find('span').first().text();
+            console.log('list wala', value);
         }
         var r_type = $sabke_papa.data('results');
         console.log($sabke_papa.attr('class'));
@@ -1012,5 +1012,17 @@ $('.change_image').on('click','.img_pre .close', function(){
                 console.log(errmsg,err);
             }
         });
+    }
+});
+
+$('#form_ask').on('click', 'button[type=submit]',function(event){
+    event.preventDefault();
+    //console.log($(this).closest('form').find('input[name=category]').val());
+    if($(this).closest('form').find('input[name=category]').val() == 'none'){
+        $(this).closest('form').find('input[name=category]').before('<p class="text-danger"><strong>Please select one of the above categories to continue !</strong></p>')
+        console.log('error');
+    }
+    else {
+        $(this).closest('form').submit();
     }
 });

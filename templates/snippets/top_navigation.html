@@ -11,9 +11,19 @@
       </div> -->
       <div class="navbar-brand">
         <a class="green_a" href="/">
-          <span class="glyphicon glyphicon-compressed"></span> CoreLogs
+          <span class="glyphicon glyphicon-home"></span> CoreLogs
         </a>
       </div>
+      <div class="navbar-brand">
+        <a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a>
+      </div>
+      <div class="navbar-brand">
+        <a href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a>
+      </div>
+      <!-- <ul class="nav navbar-nav">
+        <li><a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a></li>
+        <li><a href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
+      </ul> -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -21,10 +31,6 @@
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a></li>
-        <li><a href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
-      </ul>
       <ul class="nav navbar-nav navbar-right top_bar_info">
         {% if user.is_authenticated %}
         <li title="Notifications" data-toggle="tooltip" data-placement="bottom" id="notifications" class="hover_ajax" data-url="/notify" data-active='no'>
@@ -44,7 +50,7 @@
         {% endif %}
         </li>
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
-          <a id="usr_name" href="{% url 'user:profile' user.username %}">{{user}} <span class="badge">{{user.userprofile.points}}</span></a>
+          <a id="usr_name" href="{% url 'user:profile' user.username %}"><span class="badge">{{user.userprofile.points}}</span> {{user}}</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
