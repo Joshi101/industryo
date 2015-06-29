@@ -1022,4 +1022,7 @@ $('#form_ask').on('click', 'button[type=submit]',function(event){
         $(this).closest('form').find('input[name=category]').before('<p class="text-danger"><strong>Please select one of the above categories to continue !</strong></p>')
         console.log('error');
     }
+    else {
+        $(this).closest('form').submit();
+    }
 });
