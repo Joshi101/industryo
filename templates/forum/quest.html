@@ -3,14 +3,16 @@
 
 {% block title %} {{q.title}} {% endblock title %}
 
+{% block pg_schema %}{% endblock pg_schema %}
+
 {% block body %}
 	<div class="container ajax_papa">
-		<div class="col-sm-9">
+		<div class="col-sm-9" typeof="Question">
 			<div id="question" class="feed_box ajax_andar">
 				<div class="feed_box_heading">
 					<h5>
 						{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}
-						<small class='pull-right post_date'>{{ q.date }}</small>
+						<time class='pull-right post_date' property='dateCreated'><small>{{ q.date }}</small></time>
 					</h5>
 				</div>
 				<div class="ajax_papa">
@@ -19,23 +21,23 @@
 					</div>
 					<div class="ajax_papa feed_box_body">
 						<h4 class="q_title">
-							{{ q.title }}
+							<span property="name">{{ q.title }}</span>
 							<a class="edit_post pull-right" href="{% url 'forum:edit_ques' q.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
 						</h4>
 						{% if q.question %}
-						<p class="q_body">{{ q.question }}</p>
+						<p class="q_body" property="text">{{ q.question }}</p>
 						{% endif %}
 						{% for image in q.get_images %}
-						<figure>
-							<img src="/images/{{image.image}}">
+						<figure property='assocaitedMedia' typeof='ImageObject'>
+							<img src="/images/{{image.image}}" property='contentUrl'>
 						</figure>
 						{% endfor %}
-						{% if q. %}
-						<div class="tags">
+						{% if q.get_tags %}
+						<div class="tags" property='keywords'>
 							{% for tag in q.get_tags %}
 								<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 							{% endfor %}
-						</div>="{%
+						</div>
 						{% endif %}
 					</div>
 					<div class="feed_box_extra">
