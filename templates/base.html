@@ -5,13 +5,20 @@
     This is the 'base' template, never loaded
 -->
 <html>
-<head>
+<head vocab="http://schema.org/">
   <meta charset="UTF-8">
   <meta name="keywords" content={% block keywords %}"Industry, SMEs, Engineers, Baja, Formula"{% endblock %}>
   <meta name="description" content={% block description %}"A platform for the entire core segment of engineering"{% endblock %}>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- og protocol for social sites -->
+  <meta property="og:image" content="{% static "css/cover_back_default.jpg" %}">
+  
+  <!-- facebook domain insight -->
+  <meta property="fb:app_id" content="1584559205143714" />
+
   <link rel="icon" href="{% static "css/icon.ico" %}">
-  <title>{% block title %}Corelogs | A platform for Industries, SMEs, Baja/Formula teams & Engineers in core segment{% endblock %}</title>
+  <title>{% block title %}Corelogs | A platform for Industries, SMEs, Baja/Formula teams &amp; Engineers in core segment{% endblock %}</title>
   
   <link rel="stylesheet" type="text/css" href={% static 'bootstrap/css/bootstrap.css' %}>
   <link rel="stylesheet" type="text/css" href={% static 'fontawesome/css/font-awesome.css' %}>
@@ -40,7 +47,7 @@
   </script>
 </head>
 
-<body>
+<body vocab="http://schema.org/"  typeof="{% block pg_schema %}{% endblock pg_schema %}">
   <div>
     {% block back %}
     <div id="back"></div>

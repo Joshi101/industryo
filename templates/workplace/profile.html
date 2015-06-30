@@ -4,8 +4,8 @@
 {% load bootstrap %}
 
 {% block left %}
-	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}">
+	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" property='logo' typeof='ImageObject'>
     {% if user == request.user %}
     <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
     {% endif %}
@@ -16,11 +16,11 @@
 {% endblock left %}
 
 {% block content %}
-  <div id="workplace_info" class="row">
+  <div id="workplace_info" class="row" typeof='Organization' resource='#workplace'>
     <div class="col-sm-7">
-      <h4 class=" text-uppercase">{{ workplace.name }}</h4>
-      <h4 class="text-muted ajax_andar ajax_papa">
-        <small><i class="tag_container">{% include "snippets/area.html" with workplace=workplace %}</i></small>
+      <h4 class=" text-uppercase" property='name'>{{ workplace.name }}</h4>
+      <h4 class="text-muted ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <small><i class="tag_container" property='addressRegion'>{% include "snippets/area.html" with workplace=workplace %}</i></small>
       </h4>
       <h4 class="text-muted ajax_andar ajax_papa">
         <small><b><i class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</i></b></small>
@@ -28,7 +28,7 @@
     </div>
     <div class="col-sm-offset-1 col-sm-4">
       <h5><span class="label label-default">{{workplace.points}} points</span></h5>
-      <h5><span class="label label-success">{{ member_count }} members</span></h5>
+      <h5><span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span></h5>
     </div>
   </div>
   <ul class="nav nav-pills">

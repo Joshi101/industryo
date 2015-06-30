@@ -5,7 +5,7 @@
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</a>
 </form>
-<span class="count votes">{{q.votes}}</span>
+<span class="count votes" property="upvoteCount">{{q.votes}}</span>
 <form role='form' action="{% url 'forum:votedown' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="D">

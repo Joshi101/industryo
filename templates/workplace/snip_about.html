@@ -1,11 +1,11 @@
-<div class="panel panel-default ajax_andar ajax_papa">
+<div class="panel panel-default ajax_andar ajax_papa" typeof='Organization' resource='#workplace'>
 	{% if user.userprofile in members %}
 	<form id="about_w" class="pull-right" action="{% url 'workplace:set_about' %}" method="POST">
 		<button data-content="about_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right little_edit" name="">Edit</button>
 	</form>
 	{% endif %}
 	<div class="panel-body">
-		<p class="detail_body content_about_w"><i class="text-muted">{% if about_w %}{{about_w}}{% elif user.userprofile in members %}Add a breif description of your workplace for the rest of the world{% endif %}</i></p>
+		<p class="detail_body content_about_w" property='description'><i class="text-muted">{% if about_w %}{{about_w}}{% elif user.userprofile in members %}Add a breif description of your workplace for the rest of the world{% endif %}</i></p>
 		<textarea name="about" form="about_w" rows="3" class="form-control replacer edit_about_w hide"></textarea>
 	</div>
 </div>
