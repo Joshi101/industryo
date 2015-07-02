@@ -1,5 +1,6 @@
 body{
 	overflow-x: hidden;
+	//background-color: #eee;
 }
 
 a:focus, .btn:focus, input[type="file"]:focus, input[type="radio"]:focus, .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
@@ -492,9 +493,11 @@ pre{
 
 
 .feed_box{
+	background: #fff;
 	margin: 15px 0px;
 	padding: 5px;
-	box-shadow: 0px 0px 2px rgba(222,222,222,0.5);
+	box-shadow: 0px 0px 2px rgba(222,222,222,0.75);
+	//border: 1px solid rgba(222,222,222,0.5);
 }
 
 .feed_box_heading{
@@ -544,11 +547,11 @@ pre{
 
 .article_title{
 	font-family: 'Tahoma';
-	font-size: 18px;
+	font-size: 15px;
 	//background-color: rgba(0,0,0,0.1);
 	font-weight: 900;
-	padding: 5px 0px 7px;
-	margin-bottom: 10px;
+	padding: 7px 0px;
+	margin-bottom: 7px;
 	border-bottom: 1px solid #9d9d9d;
 	overflow: hidden;
 }
@@ -556,19 +559,24 @@ pre{
 .article_body{
 	font-family: 'Open Sans';
 	text-align: justify;
-	font-size: 14px;
-	margin-bottom: 15px;
+	font-size: 13px;
+	margin-bottom: 10px;
 }
 
 .q_title{
-	font-family: 'Calibri';
-	font-size: 18px;
-	color: #333;
+	font-size: 14px;
+	color: #444;
 	font-weight: 700;
-	padding: 9px 0px 5px;
-	margin-bottom: 10px;
+	padding: 10px 0px 7px;
+	margin-bottom: 7px;
 	margin-top: 5px;
-	border-bottom: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+	overflow: hidden;
+}
+
+.q_title:hover{
+	color: #000;
+	border-bottom: 1px solid #197;
 }
 
 .feed_box_body a:hover{
@@ -577,11 +585,10 @@ pre{
 }
 
 .q_body{
-	padding-left: 10px;
 	color: #555;
 	font-family: 'Open Sans';
 	text-align: justify;
-	font-size: 14px;
+	font-size: 13px;
 	margin-bottom: 25px;
 }
 
@@ -590,7 +597,7 @@ pre{
 	color: #555;
 	font-family: 'Open Sans';
 	text-align: justify;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 .feed_box_body > pre{
@@ -952,16 +959,16 @@ footer{
 	font-size: 12px;
 }
 
-.name_workplace.same{
-	color: #23927C;
+.name_workplace{
+	//color: #057;
 }
 
 .name_user{
-	color: #337AB7;
+	//color: #337AB7;
 }
 
-.name_user.same{
-	color: #23927C;
+.same{
+	color: #197;
 }
 
 #editor {
@@ -1132,6 +1139,7 @@ div[data-role="editor-toolbar"] {
 
 #top_members{
 	list-style: none;
+	position: relative;
 }
 
 #top_members li{
@@ -1161,9 +1169,12 @@ div[data-role="editor-toolbar"] {
 
 #right{
 	padding: 0% 3%;
+	position: relative;
 }
 
 .floating_form:first-of-type{
+	position: fixed;
+	width: 25%;
 }
 
 #members_list{
@@ -1309,4 +1320,8 @@ textarea.replacer{
 
 h4 > .edit_post:hover{
 	text-decoration: none;
+}
+
+.edit_post{
+	overflow: hidden;
 }

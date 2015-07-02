@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, HttpRespons
 from django.template.loader import render_to_string
 from nodes.forms import *
 from nodes.models import *
+from workplace.models import Workplace
 from activities.models import Activity, Notification
 import json
 from django.contrib.auth.decorators import login_required
@@ -275,7 +276,7 @@ def node(request, slug):
 
 def articles(request):
     articles = Node.article.all()           # here we can use prefetch_related to get tags
-
+    workplaces = Workplace.objects.all()[:5]
     paginator = Paginator(articles, 5)
     page = request.GET.get('page')
 
@@ -291,7 +292,7 @@ def articles(request):
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
         # return render(request, 'home.html', {'result_list': result_list})
-        return render(request, 'nodes/articles.html', {'result_list': result_list})
+        return render(request, 'nodes/articles.html', {'result_list': result_list, 'workplaces':workplaces})
 
 
 def delete(request):

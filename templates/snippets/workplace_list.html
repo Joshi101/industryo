@@ -3,6 +3,8 @@
 		<li>
 			<img src="{{p.get_logo}}">
 			<div class="ppl_info">
+				<b class="name_user {% ifequal p.user.username user.username %}same{% endifequal %}">{{p}}</b>
+				<br>
 				<span class="label label-default">{{ p.points }}</span>
 			</div>
 		</li>

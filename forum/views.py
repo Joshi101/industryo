@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, HttpRespons
 from django.template.loader import render_to_string
 from forum.models import *
 from tags.models import Tags
+from workplace.models import Workplace
 from forum.forms import AskForm
 from activities.models import *
 import json
@@ -318,6 +319,7 @@ def question_tagged(request):
 
 def questions(request):
     questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
+    workplaces = Workplace.objects.all()[:5]
     paginator = Paginator(questions, 5)
     page = request.GET.get('page')
     try:
@@ -333,7 +335,7 @@ def questions(request):
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
         # return render(request, 'home.html', {'result_list': result_list})
-        return render(request, 'forum/questions.html', {'result_list': result_list})
+        return render(request, 'forum/questions.html', {'result_list': result_list, 'workplaces':workplaces})
 
 
 def w_questions(request):           # for team

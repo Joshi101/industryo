@@ -2,6 +2,10 @@
 	border-radius: 0px;
 }
 
+.navbar > .container-fluid .navbar-brand {
+    margin-left: 0px;
+}
+
 .page-header{
 	margin: 0px 0px 5px;
 	padding-bottom: 0px;
