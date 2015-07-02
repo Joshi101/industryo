@@ -165,6 +165,7 @@ def set_tags_short(request):
 
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
+    
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()

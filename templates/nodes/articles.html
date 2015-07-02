@@ -12,3 +12,13 @@
 		<div class="paginator" data-next_page="2"></div>
 	</div>
 {% endblock %}
+
+
+{% block right %}
+	<div class="floating_form">
+    <h5 class="side_head">Active Workplaces</h5>
+    <ul id="top_members" class="ppl_list">
+    	{% include "snippets/workplace_list.html" with workplaces=workplaces %}
+    </ul>
+  </div>
+{% endblock right %}

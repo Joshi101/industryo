@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, render_to_response, RequestContex
 from nodes.models import Node
 from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
+from workplace.models import Workplace
 from forum.models import Question
 from itertools import chain
 from allauth.account.forms import AddEmailForm, ChangePasswordForm
@@ -16,6 +17,8 @@ from activities.models import Notification
 def home(request):
     if request.user.is_authenticated():
         user = request.user
+        workplaces = Workplace.objects.all()[:5]
+        print(workplaces)
         if request.user.userprofile.primary_workplace:
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
             workplace = profile.primary_workplace
@@ -50,7 +53,7 @@ def home(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'feed_img_form':UploadImageForm()})
+                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'feed_img_form':UploadImageForm(), 'workplaces':workplaces})
         else:
             return redirect('/set/')
     else:
