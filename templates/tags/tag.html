@@ -5,7 +5,7 @@
 
 {% block left %}
 	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{tag.get_logo}}">
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="/{{tag.get_logo}}">
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
   </div>
   {% include "snippets/img_upload_modal.html" with url='nodes:set_tag_logo' url_slug=tag.slug form=tag_logo_form.image %}
