@@ -57,6 +57,7 @@
 					</div>
 				</div>
 			</div>
+			{% if user.is_authenticated %}
 			<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
 				<div class="collapse">
 					{% include "snippets/richtext_toolbar.html" %}
@@ -91,6 +92,9 @@
 				</div>
 				<a id="write_answer" class="a_collapse btn btn-info btn-md pull-right" data-alternate="Cancel">Write Answer</a>
 			</form>
+			{% else %}
+			<button id="almost_write_answer" class="btn btn-info btn-md pull-right" title="To write an answer you must be logged in. Its simple and takes no time." data-toggle="tooltip">Write Answer</button>
+			{% endif %}
 			<div id="answers" class="ajax_andar ajax_papa">
 				<h2 class="text-muted">Answers</h2>
 				<div class="answers">
