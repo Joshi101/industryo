@@ -15,10 +15,10 @@
         </a>
       </div>
       <div class="navbar-brand">
-        <a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a>
+        <a class="green_a" href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a>
       </div>
       <div class="navbar-brand">
-        <a href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a>
+        <a class="green_a" href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a>
       </div>
       <!-- <ul class="nav navbar-nav">
         <li><a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a></li>
@@ -62,6 +62,61 @@
               <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
             </li>
           </ul>
+        </li>
+        {% elif request.path != '/' and request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
+        <li class="top_nav_acc dropdown">
+          <a id="top_login" class="dropdown-toggle" data-toggle="dropdown"><span>Login</span></a>
+          <div class="dropdown-menu">
+            <form class="form-inline" method="POST" action="{% url 'account_login' %}?next={{request.path}}">
+              {% csrf_token %}
+              <div class="form-group col-sm-12">
+                <input id="id_login" class="form-control input-sm" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+                <input id="id_password" class="form-control input-sm" type="password" placeholder="Password" name="password">
+                <button class="primaryAction btn btn-primary btn-xs" type="submit">Sign in</button>
+              </div>
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <div class="form-group">
+                <a id="forgot_pass" class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+              </div>
+              {% if socialaccount.providers %}
+              <div class="socialaccount_ballot">
+                {% include "socialaccount/snippets/provider_list_sm.html" with process="login" %}
+              </div>
+              {% include "socialaccount/snippets/login_extra.html" %}
+            {% endif %}
+            </form>
+          </div>
+        </li>
+        <li class="top_nav_acc dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown"><span>Signup</span></a>
+          <div class="dropdown-menu signup">
+            <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}?next={{request.path}}" role='form'>
+              {% csrf_token %}
+              <div class="form-group">
+                {% if socialaccount.providers %}
+                <div class="socialaccount_ballot">
+                  {% include "socialaccount/snippets/provider_list_sm.html" with process="login" %}
+                </div>
+                  {% include "socialaccount/snippets/login_extra.html" %}
+                {% endif %}
+              </div>
+              <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
+              <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
+              <input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
+              <input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
+              {% endif %}
+              <div class="form-group">
+                <div class="col-sm-12 text-center">
+                  <button class="primaryAction btn btn-primary" type="submit">Register</button>
+                </div>
+              </div>
+              {% csrf_token %}
+            </form>
+          </div>
         </li>
         {% endif %}
       </ul>
