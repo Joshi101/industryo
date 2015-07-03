@@ -30,7 +30,10 @@ class UserProfile(models.Model):
         db_table = 'userprofile'
 
     def __str__(self):
+        # if self.user.first_name:
         return self.user.get_full_name()
+        # else:
+        #     return self.user.username
 
     def get_details(self):
         detail = "%s | %s" % (self.user, self.primary_workplace)

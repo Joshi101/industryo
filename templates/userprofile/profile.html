@@ -13,7 +13,11 @@
 	<div class="account">
 		<h4 class="acc_detail">{{ name }}</h4>
 		<h4 class="acc_detail"><small class='small_mid'>( {{ page_user.userprofile.job_position }} )</small></h4>
+		{% if user.userprofile.primary_workplace %}
 		<h4 class="acc_detail"><a href="{% url "workplace:workplace_profile" page_user.userprofile.primary_workplace.slug %}" class="no_a">{{ page_user.userprofile.primary_workplace }}</a></h4>
+		{% else %}
+		<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
+		{% endif %}
 		<h5 class="acc_detail text-muted">{{page_user.userprofile.area}}</h5>
 	</div>
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_profile_image' form=profile_image_form.image %}
