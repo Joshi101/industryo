@@ -354,7 +354,7 @@ pre {
 .body {
   font-size: 13px;
 
-  overflow: hidden;
+  
 
   position: relative;
   top: 71px;
@@ -1357,6 +1357,12 @@ div[data-role='editor-toolbar'] {
   padding: 0 3%;
 }
 
+@media (max-width: 768px) {
+	#right {
+		display: none;
+	}
+}
+
 .floating_form:first-of-type {
   position: fixed;
   top: 71px;
@@ -1535,4 +1541,11 @@ h4 > .edit_post:hover {
 #login_to_write {
   position: relative;
   top: 50px;
+}
+
+.name_user {
+	display: block;
+	height: 20px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
