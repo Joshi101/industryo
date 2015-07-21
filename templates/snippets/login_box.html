@@ -1,0 +1,25 @@
+{% spaceless %}
+<form class="form-inline" method="POST" action="{% url 'account_login' %}?next={{request.path}}">
+  {% csrf_token %}
+  <div class="form-group col-sm-12">
+    <input id="id_login" class="form-control input-sm" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+    <input id="id_password" class="form-control input-sm" type="password" placeholder="Password" name="password">
+    <button class="primaryAction btn btn-primary btn-xs" type="submit">Sign in</button>
+  </div>
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <div class="form-group col-sm-12 forgot_pass">
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+  </div>
+  {% if socialaccount.providers %}
+  <div class="form-group col-sm-12">
+    <h5>Login using one of your existing accounts</h5>
+    <div class="socialaccount_ballot">
+      {% include "socialaccount/snippets/provider_list_sm.html" with process="login" %}
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% endif %}
+  </div>
+</form>
+{% endspaceless %}

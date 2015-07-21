@@ -5,7 +5,7 @@ from userprofile.models import UserProfile
 
 
 class WorkplaceForm(forms.ModelForm):
-    name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder':'Enter the name of your Enterprise/Group'}))
+    name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter the name of your Enterprise/Group'}))
     Workplace_Type = (
         ('A', 'Large Scale Industry'),
         ('B', 'Small & Medium Scale Enterprise'),
@@ -21,9 +21,9 @@ class WorkplaceForm(forms.ModelForm):
 
 
 class SetWorkplaceForm(forms.ModelForm):
-    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create_new', 'autocomplete':"off", 'placeholder':'Search for your Company, Team or Institution ...'}), required=True, max_length=255)
+    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create_new', 'autocomplete':"off", 'placeholder':'Search for your Company, Team or Institution ...'}), required=True, max_length=100)
 
-    job_position = forms.CharField(max_length=255)
+    job_position = forms.CharField(max_length=50)
 
     class Meta:
         model = UserProfile
@@ -50,12 +50,12 @@ class SetSegmentForm(forms.ModelForm):
 
 
 class EditTeamForm(forms.ModelForm):
-    city = forms.CharField(max_length=50, required=False)          ## later change it to queryset
-    address = forms.CharField(max_length=255, required=False)
-    contact = forms.CharField(max_length=255, required=False)
+    city = forms.CharField(max_length=50, required=False)          # later change it to queryset
+    address = forms.CharField(max_length=50, required=False)
+    contact = forms.CharField(max_length=50, required=False)
     about = forms.CharField(widget=forms.Textarea, max_length=5000, required=False)
-    institution_name = forms.CharField(max_length=50, required=False)        ## later change it to queryset
-    participation = forms.CharField(max_length=255, required=False)
+    institution_name = forms.CharField(max_length=50, required=False)        # later change it to queryset
+    participation = forms.CharField(max_length=50, required=False)
     logo = forms.ImageField(required=False)
 
     # def dude

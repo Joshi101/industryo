@@ -14,9 +14,13 @@
         <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
           {% csrf_token %}
           <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
+          <div class="help-block"><span class="text-danger">{{form.username.errors}}</span></div>
           <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
+          <div class="help-block"><span class="text-danger">{{form.email.errors}}</span></div>
           <input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
+          <div class="help-block"><span class="text-danger">{{form.password1.errors}}</span></div>
           <input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
+          <div class="help-block"><span class="text-danger">{{form.password2.errors}}</span></div>
           {% if redirect_field_value %}
           <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
           {% endif %}

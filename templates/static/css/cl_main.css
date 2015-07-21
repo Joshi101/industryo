@@ -1,0 +1,224 @@
+body {
+  background-color: #eee;
+}
+
+
+/* un-bootstrap */
+
+.navbar-brand {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+  color: #179;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #197;
+}
+
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: 0;
+  }
+}
+
+
+/* generic styles */
+
+.a_alt:hover {
+  text-decoration: none;
+}
+
+.a_green:hover {
+  text-decoration: none;
+
+  color: #197;
+}
+
+.mob_only {
+  display: none;
+}
+
+.pc_only {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .mob_only {
+    display: inline-block;
+  }
+  .pc_only {
+    display: none;
+  }
+}
+
+
+/* top navigation */
+
+.navbar-inverse .navbar-nav > li > .top_info_box {
+  color: #aaa;
+}
+
+.navbar-inverse .navbar-nav > li > .top_info_box:hover,
+.navbar-inverse .top_user_info > li > .top_info_box:focus {
+  color: #fff;
+}
+
+.navbar-collapse li {
+  text-align: right;
+}
+
+.top_info_name {
+  font-weight: bold;
+}
+
+.top_info_points {
+  font-size: 11px;
+
+  padding: 1px 2px;
+
+  color: #000;
+  background-color: #197;
+}
+
+.top_user_info .dropdown-menu {
+  top: 115%;
+}
+
+@media (min-width: 768px) {
+  .top_user_unfo {
+    border: 1px solid #179;
+  }
+
+  .navbar-inverse .navbar-nav > li > .top_info_box {
+    position: relative;
+
+    margin: 5px 0 0;
+    padding: 5px 15px 20px;
+
+    color: #000;
+    background-color: #eee;
+  }
+  .top_info_points {
+    line-height: 20px;
+
+    position: absolute;
+    top: 30px;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+
+    text-align: center;
+
+    color: #aaa;
+    background-color: #222;
+  }
+
+  .top_user_info .wp {
+    border-left: 2px solid #179;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+  }
+
+  .top_user_info .wp .top_info_points {
+    border-bottom-left-radius: 25px;
+  }
+
+  .top_user_info .usr {
+    border-right: 2px solid #179;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+
+  .top_user_info .usr .top_info_points {
+    border-bottom-right-radius: 25px;
+  }
+}
+
+.top_extra .glyphicon{
+	float: left;
+}
+
+.top_acc a span {
+  padding: 5px 7px;
+
+  border-bottom: 1px solid #197;
+}
+
+.top_acc a span:hover {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-right: 2px;
+  padding-left: 2px;
+
+  border-bottom-color: #179;
+}
+
+.top_acc input,
+.top_acc button {
+  max-width: 175px;
+  height: 27px;
+	box-shadow: 0 0 0;
+  border-radius: 0;
+}
+
+.top_acc .dropdown-menu {
+  font-size: 12px;
+
+  width: 400px;
+  padding: 20px 5px 5px;
+}
+
+.top_acc .form-horizontal input {
+  margin: 10px auto;
+}
+
+.top_acc .form-inline .form-control,
+.top_acc .form-inline button {
+  display: inline-block;
+}
+
+.top_acc form img {
+  width: 25px;
+  margin-right: 15px;
+
+  border-radius: 15px;
+}
+
+.top_acc form img:hover {
+  box-shadow: 0 0 5px #197;
+}
+
+.top_login .forgot_pass{
+	margin-top: 7px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+}
+
+.top_login form .socialaccount_ballot {
+  margin-bottom: 7px;
+}
+
+.top_signup .dropdown-menu {
+  width: 250px;
+  text-align: center;
+}
+
+.top_signup .form-group{
+	padding: 0 29px;
+}
+
+.top_signup form .socialaccount_ballot {
+  width: 100%;
+
+  text-align: center;
+}

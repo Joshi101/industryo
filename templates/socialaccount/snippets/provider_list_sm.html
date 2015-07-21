@@ -3,12 +3,12 @@
 {% for provider in socialaccount.providers %}
 {% if provider.id == "openid" %}
 {% for brand in provider.get_brands %}
-  <a class="socialaccount_provider {{provider.id}} {{brand.id}}" href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
+  <a class="socialaccount_provider {{provider.id}} {{brand.id}} a_alt" href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
   	<img src="/images/{{brand.name}}.jpg">
 	</a>
 {% endfor %}
 {% endif %}
-  <a class="socialaccount_provider {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+  <a class="socialaccount_provider {{provider.id}} a_alt" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
   	<img src="/images/{{provider.name}}.jpg">
 	</a>
 {% endfor %}
