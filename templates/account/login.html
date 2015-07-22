@@ -24,7 +24,9 @@
         <!-- <h4>CoreLogs account</h4> -->
         {% csrf_token %}
         <input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+        <div class="help-block"><span class="text-danger">{{form.login.errors}}</span></div>
         <input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
+        <div class="help-block"><span class="text-danger">{{form.password.errors}}</span></div>
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}

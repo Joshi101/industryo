@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class SetInterestsForm(forms.ModelForm):
-    skills = forms.CharField(max_length=255)
+    skills = forms.CharField(max_length=50)
 
     class Meta:
         model = UserProfile
@@ -25,8 +25,8 @@ class EditProfileForm(forms.ModelForm):
 
 
 class UserDetailsForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=30, required=True)
-    last_name = forms.CharField(max_length=30)
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50)
 
     class Meta:
         model = User

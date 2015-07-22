@@ -1,3 +1,4 @@
+{% spaceless %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -9,117 +10,104 @@
           </div>
         </form>
       </div> -->
-      <div class="navbar-brand">
-        <a class="green_a" href="/">
-          <span class="glyphicon glyphicon-home"></span> CoreLogs
-        </a>
-      </div>
-      <div class="navbar-brand">
-        <a class="green_a" href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a>
-      </div>
-      <div class="navbar-brand">
-        <a class="green_a" href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a>
-      </div>
-      <!-- <ul class="nav navbar-nav">
-        <li><a href="{% url 'forum:questions' %}"><span class="glyphicon glyphicon-tasks"></span> Forum</a></li>
-        <li><a href="{% url 'nodes:articles' %}"><span class="glyphicon glyphicon-book"></span> Articles</a></li>
-      </ul> -->
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <span class="glyphicon glyphicon-home"></span>
+        <span> CoreLogs</span>
+      </a>
+      <a class="navbar-brand" href="{% url 'forum:questions' %}">
+        <span class="glyphicon glyphicon-tasks"></span>
+        <span> Forum</span>
+      </a>
+      <a class="navbar-brand" href="{% url 'nodes:articles' %}">
+        <span class="glyphicon glyphicon-book"></span>
+        <span> Articles</span>
+      </a>
+      <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right top_bar_info">
-        {% if user.is_authenticated %}
-        <li title="Notifications" data-toggle="tooltip" data-placement="bottom" id="notifications" class="hover_ajax" data-url="/notify" data-active='no'>
-          <a><span class="glyphicon glyphicon-bell"></span></a>
+    <div class="collapse navbar-collapse" id="topNavbar">
+      {% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right top_user_info">
+        <li id="notifications" class="hover_ajax" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
+          <a>
+            <span class="glyphicon glyphicon-bell"></span>
+            <span class="mob_only">Notifications</span>
+          </a>
           <span class="badge"></span>
           <div class="dropdown">
             <div class="dropdown-menu hover_box">
             </div>
           </div>
         </li>
+        <!-- 
         <li title="No No... nothing here yet" data-toggle="tooltip" data-placement="bottom">
           <a><span class="glyphicon glyphicon-comment"></span></a>
         </li>
-        <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
+        -->
         {% if user.userprofile.primary_workplace %}
-          <a id="ind_name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}"><span class="badge">{{user.userprofile.get_workplace_points}}</span>{{user.userprofile.primary_workplace}}</a>
+        <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
+            <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
+              <span class="top_info_name">{{user.userprofile.primary_workplace}}</span>
+              <span class="top_info_points">{{user.userprofile.get_workplace_points}}</span>
+            </a>
+        </li>
         {% endif %}
-        </li>
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
-          <a id="usr_name" href="{% url 'user:profile' user.username %}"><span class="badge">{{user.userprofile.points}}</span> {{user}}</a>
+          <a id="top_usr" class="top_info_box usr" href="{% url 'user:profile' user.username %}">
+            <span class="top_info_name">{{user}}</span>
+            <span class="top_info_points">{{user.userprofile.points}}</span>
+          </a>
         </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <li class="dropdown top_extra">
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu">
-            <!-- <li>
-              <a href="#"><span class="glyphicon glyphicon-cog"></span> Account Settings</a>
-            </li> -->
             <li>
-              <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+              <a href="{% url 'set' %}">
+                <span class="glyphicon glyphicon-briefcase"></span>
+                <span> Set Workplace </span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'details' %}">
+                <span class="glyphicon glyphicon-wrench"></span>
+                <span> Set Details </span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'logout' %}">
+                <span class="glyphicon glyphicon-log-out"></span>
+                <span> Logout </span>
+              </a>
             </li>
           </ul>
         </li>
-        {% elif request.path != '/' and request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
-        <li class="top_nav_acc dropdown">
-          <a id="top_login" class="dropdown-toggle" data-toggle="dropdown"><span>Login</span></a>
-          <div class="dropdown-menu">
-            <form class="form-inline" method="POST" action="{% url 'account_login' %}?next={{request.path}}">
-              {% csrf_token %}
-              <div class="form-group col-sm-12">
-                <input id="id_login" class="form-control input-sm" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-                <input id="id_password" class="form-control input-sm" type="password" placeholder="Password" name="password">
-                <button class="primaryAction btn btn-primary btn-xs" type="submit">Sign in</button>
-              </div>
-              {% if redirect_field_value %}
-              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-              {% endif %}
-              <div class="form-group">
-                <a id="forgot_pass" class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
-              </div>
-              {% if socialaccount.providers %}
-              <div class="socialaccount_ballot">
-                {% include "socialaccount/snippets/provider_list_sm.html" with process="login" %}
-              </div>
-              {% include "socialaccount/snippets/login_extra.html" %}
-            {% endif %}
-            </form>
-          </div>
-        </li>
-        <li class="top_nav_acc dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown"><span>Signup</span></a>
-          <div class="dropdown-menu signup">
-            <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}?next={{request.path}}" role='form'>
-              {% csrf_token %}
-              <div class="form-group">
-                {% if socialaccount.providers %}
-                <div class="socialaccount_ballot">
-                  {% include "socialaccount/snippets/provider_list_sm.html" with process="login" %}
-                </div>
-                  {% include "socialaccount/snippets/login_extra.html" %}
-                {% endif %}
-              </div>
-              <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
-              <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
-              <input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
-              <input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
-              {% if redirect_field_value %}
-              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-              {% endif %}
-              <div class="form-group">
-                <div class="col-sm-12 text-center">
-                  <button class="primaryAction btn btn-primary" type="submit">Register</button>
-                </div>
-              </div>
-              {% csrf_token %}
-            </form>
-          </div>
-        </li>
-        {% endif %}
       </ul>
+      {% elif request.path != '/' and request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
+      <ul class="nav navbar-nav navbar-right top_acc">
+        <li id="top_login" class="dropdown top_login">
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <span>Login</span>
+          </a>
+          <div class="dropdown-menu">
+            {% include "snippets/login_box.html" %}
+          </div>
+        </li>
+        <li id="top_signup" class="dropdown top_signup">
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <span>Signup</span>
+          </a>
+          <div class="dropdown-menu">
+            {% include "snippets/signup_box.html" %}
+          </div>
+        </li>
+      </ul>
+      {% endif %}
     </div>
   </div>
 </nav>
+{% endspaceless %}
