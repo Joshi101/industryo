@@ -17,8 +17,13 @@ from activities.models import Notification
 def home(request):
     if request.user.is_authenticated():
         user = request.user
-        workplaces = Workplace.objects.all()[:5]
-        print(workplaces)
+        if user.userprofile.primary_workplace:
+            t = user.userprofile.primary_workplace.workplace_type
+
+            workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
+        else:
+            workplaces = Workplace.objects.all().order_by('?')[:5]          # change it soon
+
         if request.user.userprofile.primary_workplace:
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
             workplace = profile.primary_workplace

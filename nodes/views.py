@@ -276,7 +276,16 @@ def node(request, slug):
 
 def articles(request):
     articles = Node.article.all()           # here we can use prefetch_related to get tags
-    workplaces = Workplace.objects.all()[:5]
+    user = request.user
+    if user.is_authenticated():
+        if user.userprofile.primary_workplace:
+            t = user.userprofile.primary_workplace.workplace_type
+            workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
+        else:
+            workplaces = Workplace.objects.all().order_by('?')[:5]          # change it soon
+    else:
+        workplaces = Workplace.objects.all().order_by('?')[:5]          # change it soon
+
     paginator = Paginator(articles, 5)
     page = request.GET.get('page')
 

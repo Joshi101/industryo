@@ -19,7 +19,6 @@ def count_notify(request):
     if request.method == 'GET':
         response = {}
         user = request.user
-        print('yoyo')
         unread_all = Notification.objects.filter(to_user=user, is_read=False)
         c = unread_all.count()
         response['count'] = c
@@ -32,11 +31,9 @@ def notify(request):
         r_html = {}
         r_elements = []
         user = request.user
-        print('a')
         unread_all = Notification.objects.filter(to_user=user, is_read=False)
         c = unread_all.count()
         unread = unread_all[:5]
-        print(c)
         for notification in unread:
             notification.is_read = True
             notification.save()

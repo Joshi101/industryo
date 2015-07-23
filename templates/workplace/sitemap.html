@@ -12,7 +12,10 @@
 {% block content %}
 	People
 	{% for user in users %}
+		{% if user.first_name %}
 		<li><a href="{% url 'user:profile' user.username %}">{{ user.get_full_name }}</a></li>
+		{% else %}
+		<li><a href="{% url 'user:profile' user.username %}">{{ user.username }}</a></li>
 	{% endfor %}
 	Workplace
 	{% for workplace in workplaces %}

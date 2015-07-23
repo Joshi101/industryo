@@ -347,9 +347,10 @@ def sitemap(request):
 
 
 def side_panel(request):
-    # user = request.user
-    workplaces = Workplace.objects.all()[:4]
-    # users = User.objects.all()[:4]
+    user = request.user
+    t = user.userprofile.primary_workplace.workplace_type
+
+    workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:4]           # change it soon
     return render(request, 'snippets/workplace_list.html', locals())
 
 # Create your views here.
