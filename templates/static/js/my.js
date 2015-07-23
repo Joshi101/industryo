@@ -763,7 +763,7 @@ function count_notifications() {
     });
 }
 
-$('.to_quest').on('click', 'a', function() {
+$('.ajax_andar').on('click', '.to_quest a', function() {
     var $this = $(this);
     $this.closest('.to_quest').find('input').val('no');
     $this.children('input').val('true');

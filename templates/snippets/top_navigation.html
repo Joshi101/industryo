@@ -34,7 +34,7 @@
         <li id="notifications" class="hover_ajax" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <a>
             <span class="glyphicon glyphicon-bell"></span>
-            <span class="mob_only">Notifications</span>
+            <span class="mob_only">- Notifications</span>
           </a>
           <span class="badge"></span>
           <div class="dropdown">
@@ -50,14 +50,14 @@
         {% if user.userprofile.primary_workplace %}
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
             <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
-              <span class="top_info_name">{{user.userprofile.primary_workplace}}</span>
+              <span class="top_info_name">{{user.userprofile.primary_workplace}} </span>
               <span class="top_info_points">{{user.userprofile.get_workplace_points}}</span>
             </a>
         </li>
         {% endif %}
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
           <a id="top_usr" class="top_info_box usr" href="{% url 'user:profile' user.username %}">
-            <span class="top_info_name">{{user}}</span>
+            <span class="top_info_name">{{user}} </span>
             <span class="top_info_points">{{user.userprofile.points}}</span>
           </a>
         </li>

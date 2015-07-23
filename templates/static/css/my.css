@@ -1543,8 +1543,11 @@ h4 > .edit_post:hover {
   top: 50px;
 }
 
-.name_user {
+.ppl_list .name_user{
 	display: block;
+}
+
+.name_user {
 	height: 20px;
 	text-overflow: ellipsis;
 	overflow: hidden;
