@@ -13,6 +13,7 @@
         <h3><span>Create a new account</span></h3>
         <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
           {% csrf_token %}
+          <div class="text-danger">{{form.non_field_errors}}</div>
           <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
           <div class="help-block"><span class="text-danger">{{form.username.errors}}</span></div>
           <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">

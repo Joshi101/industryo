@@ -17,7 +17,7 @@ ul {
 
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a {
-  color: #179;
+  color: #eee;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -67,6 +67,10 @@ ul {
 
 /* top navigation */
 
+.navbar-fixed-top{
+	border: 0;
+}
+
 .navbar-inverse .navbar-nav > li > .top_info_box {
   color: #aaa;
 }
@@ -98,15 +102,18 @@ ul {
 }
 
 @media (min-width: 768px) {
-  .top_user_unfo {
-    border: 1px solid #179;
+  .top_user_info {
+    border: 2px solid #eee;
+    border-width: 1px 0 0;
+
+    box-shadow: 0 0 5px 5px #222 inset;
   }
 
   .navbar-inverse .navbar-nav > li > .top_info_box {
     position: relative;
 
-    margin: 5px 0 0;
-    padding: 5px 15px 20px;
+    margin: 0 0;
+    padding: 5px 15px;
 
     color: #000;
     background-color: #eee;
@@ -115,12 +122,13 @@ ul {
     line-height: 20px;
 
     position: absolute;
-    top: 30px;
+    top: 32px;
     left: 0;
 
     display: block;
 
     width: 100%;
+    border-bottom: 2px solid #eee;
 
     text-align: center;
 
@@ -129,27 +137,23 @@ ul {
   }
 
   .top_user_info .wp {
-    border-left: 2px solid #179;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
+    
   }
 
   .top_user_info .wp .top_info_points {
-    border-bottom-left-radius: 25px;
+    border-bottom-left-radius: 100% 50%;
   }
 
   .top_user_info .usr {
-    border-right: 2px solid #179;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
+    
   }
 
   .top_user_info .usr .top_info_points {
-    border-bottom-right-radius: 25px;
+    border-bottom-right-radius: 100% 50%;
   }
 }
 
-.top_extra .glyphicon{
+.top_user_info .glyphicon{
 	float: left;
 }
 
