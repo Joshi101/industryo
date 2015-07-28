@@ -10,6 +10,10 @@ ul {
 
 /* un-bootstrap */
 
+.navbar-fixed-top .navbar-collapse{
+	max-height: none;
+}
+
 .navbar-brand {
   font-size: 14px;
   font-weight: bold;
@@ -136,16 +140,8 @@ ul {
     background-color: #222;
   }
 
-  .top_user_info .wp {
-    
-  }
-
   .top_user_info .wp .top_info_points {
     border-bottom-left-radius: 100% 50%;
-  }
-
-  .top_user_info .usr {
-    
   }
 
   .top_user_info .usr .top_info_points {
@@ -172,62 +168,52 @@ ul {
   border-bottom-color: #179;
 }
 
-.top_acc input,
-.top_acc button {
-  max-width: 175px;
-  height: 27px;
+.top_acc .form-group-sm {
+	margin-bottom: 10px;
+}
+
+.top_acc .form-group-sm .form-control, .top_acc .form-group-sm .btn{
 	box-shadow: 0 0 0;
   border-radius: 0;
+  width: 100%;
 }
 
 .top_acc .dropdown-menu {
   font-size: 12px;
-
-  width: 400px;
-  padding: 20px 5px 5px;
+	
+	background-color: #fff;
+	width: 300px;
+  padding: 10px;
 }
 
-.top_acc .form-horizontal input {
-  margin: 10px auto;
+.top_acc form {
+	max-width: 200px;
+	margin: auto;
 }
 
-.top_acc .form-inline .form-control,
-.top_acc .form-inline button {
-  display: inline-block;
+.top_acc .social_connect {
+  margin: auto;
+  text-align: center;
+  padding-bottom: 10px;
+  border-color: #555;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
 }
 
-.top_acc form img {
-  width: 25px;
+.top_acc .social_connect img {
+  width: 30px;
+  height: 30px;
   margin-right: 15px;
 
   border-radius: 15px;
 }
 
-.top_acc form img:hover {
+.top_acc .social_connect img:hover {
   box-shadow: 0 0 5px #197;
 }
 
-.top_login .forgot_pass{
-	margin-top: 7px;
-	padding-bottom: 5px;
-	border-bottom: 1px solid #ccc;
-}
-
-.top_login form .socialaccount_ballot {
-  margin-bottom: 7px;
-}
-
-.top_signup .dropdown-menu {
-  width: 250px;
-  text-align: center;
-}
-
-.top_signup .form-group{
-	padding: 0 29px;
-}
-
-.top_signup form .socialaccount_ballot {
-  width: 100%;
-
-  text-align: center;
+@media (max-width: 767px) {
+	.top_acc .open .dropdown-menu {
+		color: #ddd;
+	}
 }

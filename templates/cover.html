@@ -18,57 +18,53 @@
 		CoreLogs - A platform for the entire core segment of Engineering
 	</div>
 	<div class="container cover_body">
-		<div class="col-sm-6" data-move="left">
-			<div id="login" class="text-center pull-left cover_form">
-				<h3><span>Sign In</span></h3>
-				<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
-			    {% if socialaccount.providers %}
-			    <div class="socialaccount_ballot">
-			      <ul class="socialaccount_providers list-group">
-			        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-			      </ul>
-			    </div>
-			    {% include "socialaccount/snippets/login_extra.html" %}
-			    {% endif %}
-					<!-- <h4>CoreLogs account</h4> -->
-		      {% csrf_token %}
-	    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-	    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
-		      {% if redirect_field_value %}
-		      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-		      {% endif %}
-		      <div class="form-group">
-		        <div class="col-sm-12 text-center">
-		          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
-		        </div>
-		      </div>
-		      <div class="form-group forgot_pass">
-		        <a class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
-		      </div>
-		    </form>
-	    </div>
-		</div>
-		<div class="col-sm-6" data-move="right">
-			<div id="signup" class="text-center pull-right cover_form">
-		    <h3><span>Create a new account</span></h3>
-		    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
-		    	{% csrf_token %}
-		      <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
-		      <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
-	    		<input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
-	    		<input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
-		      {% if redirect_field_value %}
-		      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-		      {% endif %}
-		      <div class="form-group">
-		        <div class="col-sm-12 text-center">
-		          <button class="primaryAction btn btn-primary" type="submit">Register</button>
-		        </div>
-		      </div>
-		      {% csrf_token %}
-		    </form>
-	    </div>
-		</div>
+		<div id="login" class="text-center pull-left cover_form">
+			<h3><span>Sign In</span></h3>
+			<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+		    {% if socialaccount.providers %}
+		    <div class="socialaccount_ballot">
+		      <ul class="socialaccount_providers list-group">
+		        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+		      </ul>
+		    </div>
+		    {% include "socialaccount/snippets/login_extra.html" %}
+		    {% endif %}
+				<!-- <h4>CoreLogs account</h4> -->
+	      {% csrf_token %}
+    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
+	      {% if redirect_field_value %}
+	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+	      {% endif %}
+	      <div class="form-group">
+	        <div class="col-sm-12 text-center">
+	          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
+	        </div>
+	      </div>
+	      <div class="form-group forgot_pass">
+	        <a class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+	      </div>
+	    </form>
+    </div>
+		<div id="signup" class="text-center pull-right cover_form">
+	    <h3><span>Create a new account</span></h3>
+	    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
+	    	{% csrf_token %}
+	      <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
+	      <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
+    		<input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
+    		<input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
+	      {% if redirect_field_value %}
+	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
+	      {% endif %}
+	      <div class="form-group">
+	        <div class="col-sm-12 text-center">
+	          <button class="primaryAction btn btn-primary" type="submit">Register</button>
+	        </div>
+	      </div>
+	      {% csrf_token %}
+	    </form>
+    </div>
 	</div>
 </div>
 <div id="lsi" class="cover_page">
@@ -150,12 +146,6 @@
 	</div>
 </div>
 {% endblock body %}
-
-{% block foot %}
-	<footer class="container-fluid">
-		<a href="{% url 'sitemap' %}">Sitemap</a>
-	</footer>
-{% endblock foot %}
 
 {% block end_js %}
 <script type="text/javascript" src={% static 'js/cl_cover.js' %}></script>

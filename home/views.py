@@ -59,6 +59,9 @@ def home(request):
     else:
         return render(request, 'cover.html',{'form_signup':SignupForm(), 'form_login':LoginForm()})
 
+def about(request):
+    return render_to_response ('about.html')
+
 
 def search(request):
     if 'q' in request.GET:
