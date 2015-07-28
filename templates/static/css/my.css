@@ -111,6 +111,8 @@
   display: block;
 
   height: auto;
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 0 0 10px 10px rgba(255,255,255,0.2);
 }
 
 #cover li {
@@ -237,7 +239,7 @@
   padding-bottom: 5px;
 
   color: #000;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #777;
 
   //background-color: rgba(255,255,255,.15);
 }
@@ -352,7 +354,7 @@ pre {
 }
 
 .body {
-  font-size: 13px;
+  font-family: 'Open Sans';
 
   
 
@@ -573,8 +575,8 @@ pre {
 }
 
 .feed_box {
-  margin: 15px 0;
-  padding: 5px;
+  margin: 15px 0 15px 30px;
+  padding: 0 7px;
 
   background: #fff;
   box-shadow: 0 0 2px rgba(222, 222, 222, .75);
@@ -583,6 +585,7 @@ pre {
 }
 
 .feed_box_heading {
+  display: none;
   overflow: hidden;
 
   margin: -5px;
@@ -602,12 +605,11 @@ pre {
   font-size: 12px;
 
   margin-bottom: 10px;
-  margin-left: 30px;
   padding: 0;
 }
 
 .feed_box_extra {
-  margin-left: 30px;
+  margin: 0 -7px;
 
   border-top: 1px dashed #ddd;
 }
@@ -666,9 +668,7 @@ pre {
 
   overflow: hidden;
 
-  margin-top: 5px;
-  margin-bottom: 7px;
-  padding: 10px 0 7px;
+  padding: 7px 0;
 
   color: #444;
   border-bottom: 1px solid #aaa;
@@ -709,7 +709,7 @@ pre {
 
 .feed_box_body > pre {
   margin-bottom: 0;
-  padding: 7px 10px;
+  padding: 7px 0;
 
   word-wrap: break-word;
 }
@@ -720,7 +720,9 @@ pre {
 
 .vote_box {
   float: left;
-
+  background-color: #fff;
+  border-bottom-left-radius: 15px;
+  margin-left: -30px;
   padding: 4px 5px;
 }
 
@@ -742,7 +744,7 @@ pre {
 .vote_box .count {
   margin-left: -1px;
 
-  color: #9d9d9d;
+  color: #197;
 }
 
 .tags {
@@ -1005,13 +1007,18 @@ a {
 
 footer {
   position: relative;
-  top: 91px;
-  bottom: 0;
-
-  padding: 20px;
 
   border-top: 1px solid #fff;
+  margin-top: 20px;
   background-color: rgba(0, 0, 0, .7);
+}
+
+footer h3, footer h3 a{
+  color:#8fd;
+}
+
+footer h3 a:hover{
+  color:#197;
 }
 /*profile page*/
 
@@ -1180,7 +1187,7 @@ div[data-role='editor-toolbar'] {
 }
 
 .done span {
-  color: #000;
+  color: #ccc;
 }
 
 .btn-toolbar > .btn-group {
@@ -1551,4 +1558,22 @@ h4 > .edit_post:hover {
 	height: 20px;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+#about .container{
+  background-color: rgba(255,255,255,0.75);
+  color: #333;
+}
+
+#about h2{
+  font-size: 25px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #aaa;
+  color: #197;
+}
+
+footer h3{
+  font-family: 'Tahoma';
+  font-size: 16px;
+  padding-bottom: 7px;
 }

@@ -22,21 +22,24 @@
         <span class="glyphicon glyphicon-book"></span>
         <span> Articles</span>
       </a>
+      {% if user.is_authenticated %}
       <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      {% endif %}
     </div>
     <div class="collapse navbar-collapse" id="topNavbar">
       {% if user.is_authenticated %}
       <ul class="nav navbar-nav navbar-right top_user_info">
         <li id="notifications" class="hover_ajax" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
-          <a>
-            <span class="glyphicon glyphicon-bell"></span>
-            <span class="mob_only">- Notifications</span>
-          </a>
           <span class="badge"></span>
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-bell"></span>
+            <span> </span>
+            <span class="mob_only">Notifications</span>
+          </a>
           <div class="dropdown">
             <div class="dropdown-menu hover_box">
             </div>
