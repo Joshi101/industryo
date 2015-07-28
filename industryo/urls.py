@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
     url(r'^sitemap/$', 'workplace.views.sitemap', name='sitemap'),
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
+    url(r'^send_an_email/$', 'home.views.send_an_email', name='send_an_email'),
 
     url(r'^forum/', include('forum.urls', namespace='forum')),
     url(r'^user/', include('userprofile.urls', namespace='user')),
