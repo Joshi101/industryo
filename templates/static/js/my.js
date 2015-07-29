@@ -355,7 +355,7 @@ if ($('.paginator').length) {
         var b = $this.outerHeight();
         var c = $pg.offset().top;
         var nxt = $pg.data('next_page');
-        console.log('scroll', load, a + b - c);
+        //console.log('scroll', load, a + b - c);
         if ((a + b - c) > -10) {
             console.log('Yeah');
             load = false;
@@ -369,7 +369,18 @@ if ($('.paginator').length) {
                 success: function(response) {
                     nxt++;
                     $pg.data('next_page', nxt);
+                    var $pg_parent = $pg.parent();
+                    var height_before = $pg.parent().height();
+                    $pg_parent.css({
+                        'height': height_before,
+                        'overflow-y': 'hidden'
+                    });
                     $pg.before(response);
+                    var height_after = $pg.parent()[0].scrollHeight;
+                    $pg_parent.animate({
+                        'height': height_after
+                    }, 2000);
+                    console.log(height_after,height_before);
                     load = true;
                 },
 
