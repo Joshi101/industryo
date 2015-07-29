@@ -5,11 +5,12 @@
  */
 
 /* global parameters */
-var top_nav_width, win_width;
+var top_nav_width, win_width, win_height;
 /* function to initialize some global parameters */
 function measure() {
     top_nav_width = $('.navbar-fixed-top').outerHeight(true);
     win_width = $(window).width();
+    win_height = $(window).height();
     body_slide();
 }
 
@@ -17,6 +18,11 @@ function measure() {
 function body_slide() {
     $('.body').stop().animate({
         'top': top_nav_width
+    });
+    var footer_top = win_height - $('footer').offset().top - $('footer').outerHeight();
+    console.log(win_height,$('footer').offset().top);
+    $('footer').stop().animate({
+        'top': footer_top
     });
 }
 

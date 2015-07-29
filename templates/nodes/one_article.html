@@ -23,6 +23,9 @@
 				{% endfor %}
 			</div>
 			{% endif %}
+			<div class="text-right author">
+				{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted"> {{node.date}} </time>
+			</div>
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">

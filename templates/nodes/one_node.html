@@ -7,23 +7,22 @@
 		<div class="text-center vote_box ajax_papa">
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
-
 		<div class="feed_box_body">
 			<pre>{{ node.post }}</pre>
-			
-				{% for image in node.get_images %}
+			{% for image in node.get_images %}
 			<figure>
 				<img src="/images/{{image.image_thumbnail}}">
 			</figure>
-				{% endfor %}
-			
+			{% endfor %}
+			<div class="text-right">
+				--{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted">{{node.date}}</time>
+			</div>
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">
 			{% if node.get_last_comment %}
 				{% include "snippets/comment.html" with comment=node.get_last_comment %}
 			{% endif %}
-
 			</div>
 			<div class="interaction">
 				<a class="a_collapse text-muted">Write Comment</a>

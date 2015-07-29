@@ -3,8 +3,15 @@
 {% block content %}
 <div id="home" class="ajax_papa">
 	<div class="panel panel-default">
-		<div class="panel-body text-center">
-			<a class="btn btn-primary" href="{% url 'forum:ask' %}">Ask a Question</a>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-6 text-center">
+					<a class="btn btn-primary btn-sqr" href="{% url 'forum:ask' %}">Ask a Question</a>
+				</div>
+				<div class="col-xs-6 text-center">
+					<a class="btn btn-primary btn-sqr" href="{% url 'nodes:write' %}">Write an Article</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">

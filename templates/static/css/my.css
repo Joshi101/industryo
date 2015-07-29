@@ -1616,3 +1616,11 @@ footer .contact li{
   list-style: none;
 
 }
+
+.btn-sqr {
+  border-radius: 0;
+}
+
+.author time{
+  display: block;
+}
