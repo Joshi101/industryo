@@ -22,7 +22,7 @@ function body_slide() {
     var footer_top = win_height - $('footer').offset().top - $('footer').outerHeight();
     console.log(win_height,$('footer').offset().top);
     $('footer').stop().animate({
-        'top': footer_top
+        'margin-top': footer_top
     });
 }
 

@@ -81,26 +81,31 @@ def search(request):
 
 @login_required
 def send_an_email(request):
-    users = User.objects.all()
-    for user in users:
-        user_email = user.email
-        if user.first_name:
-            name = user.get_full_name()
-        else:
-            name = user.username
-        template = u'''Hi {0},
+    if request.user.id == 1:
+        users = User.objects.all()
+        for user in users:
+            user_email = user.email
+            if user.first_name:
+                name = user.get_full_name()
+            else:
+                name = user.username
+            template = u'''Hi {0},
 
-how did you like www.corelogs.com?
+How did you like www.corelogs.com ? DO you have any suggestions?
 
-We hope to see you again on the website, as questions and give answers and help us create a valuable community
+A community is only as good as the people in it and the quality of forum is defined by the quality of questions on it.
+
+Ask a question today and get it answered by the best out there.
 
 Thanks & Regards
 
 Surya Prakash'''
 
-        content = template.format(name)
-        try:
-            send_mail('test email', content, 'site.corelogs@gmail.com', [user_email])
-        except Exception:
-            pass
-    return redirect('/sitemap')
+            content = template.format(name)
+            try:
+                send_mail('test email', content, 'site.corelogs@gmail.com', [user_email])
+            except Exception:
+                pass
+        return redirect('/sitemap')
+    else:
+        return redirect('/sitemap')
