@@ -26,6 +26,9 @@
 				{% endfor %}
 			</div>
 			{% endif %}
+			<div class="text-right author">
+				{% include "snippets/joint_name.html" with user=question.user anony=question.anonymous %}<time property='dateCreated' class="text-muted"> {{question.date}} </time>
+			</div>
 		</div>
 		<div class="feed_box_extra">
 			<div class="interaction">

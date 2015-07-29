@@ -4,13 +4,13 @@
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="U">
 	<a title="{% if q_or_a == 'q' %}{% if request.user in q.get_q_upvoters %}Cancel Vote{% else %}Vote Up{% endif %}{% else %}{% if request.user in q.get_a_upvoters %}Cancel Vote{% else %}Vote Up{% endif %}{% endif %}" data-toggle="tooltip" data-placement="top" class="form-ajax upvote {% if q_or_a == 'q' %}{% if request.user in q.get_q_upvoters %}done{% endif %}{% else %}{% if request.user in q.get_a_upvoters %}done{% endif %}{% endif %}">
-		<span class="fa fa-caret-up"></span>
+		<span class="fa fa-chevron-up"></span>
 	</a>
 </form>
 <form role='form' action="{% url 'forum:votedown' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="D">
 	<a title="{% if q_or_a == 'q' %}{% if request.user in q.get_q_downvoters %}Cancel Vote{% else %}Vote Down{% endif %}{% else %}{% if request.user in q.get_a_downvoters %}Cancel Vote{% else %}Vote Down{% endif %}{% endif %}" data-toggle="tooltip" data-placement="bottom" class="form-ajax downvote {% if q_or_a == 'q' %}{% if request.user in q.get_q_downvoters %}done{% endif %}{% else %}{% if request.user in q.get_a_downvoters %}done{% endif %}{% endif %}">
-		<span class="fa fa-caret-down"></span>
+		<span class="fa fa-chevron-down"></span>
 	</a>
 </form>

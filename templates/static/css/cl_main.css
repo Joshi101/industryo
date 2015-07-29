@@ -79,6 +79,7 @@ ul {
 .navbar-inverse .navbar-nav > li > .top_info_box:hover,
 .navbar-inverse .top_user_info > li > .top_info_box:focus {
   color: #179;
+  background-color: #333;
 }
 
 .navbar-collapse li {
@@ -86,15 +87,15 @@ ul {
 }
 
 .top_info_name {
-  font-weight: bold;
+  
 }
 
 .top_info_points {
-  font-size: 11px;
+  font-size: 10px;
 
-  padding: 1px 2px;
+  padding: 2px 2px;
 
-  color: #000;
+  color: #197;
   background-color: #197;
 }
 
@@ -104,23 +105,22 @@ ul {
 
 @media (min-width: 768px) {
   .top_user_info {
-		background-color: #eee;
+		//background-color: #eee;
+		color: #aaa;
   }
 
   .navbar-inverse .navbar-nav > li > .top_info_box {
     position: relative;
 
     margin: 0 0;
-    padding: 5px 15px;
-
-    color: #000;
-    background-color: #eee;
+    padding: 10px 15px 20px;
+    background-color: #333;
   }
   .top_info_points {
-    line-height: 20px;
+    line-height: 10px;
 
     position: absolute;
-    top: 32px;
+    top: 34px;
     left: 0;
 
     display: block;
@@ -131,15 +131,15 @@ ul {
     text-align: center;
 
     //color: #aaa;
-    background-color: #eee;
+    background-color: #333;
   }
 
   .top_user_info .wp .top_info_points {
-    border-bottom-left-radius: 100% 50%;
+    //border-bottom-left-radius: 100% 50%;
   }
 
   .top_user_info .usr .top_info_points {
-    border-bottom-right-radius: 100% 50%;
+    //border-bottom-right-radius: 100% 50%;
   }
 }
 
