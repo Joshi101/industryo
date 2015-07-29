@@ -19,17 +19,24 @@ function body_slide() {
     $('.body').stop().animate({
         'top': top_nav_width
     });
-    var footer_top = win_height - $('footer').offset().top - $('footer').outerHeight();
-    console.log(win_height,$('footer').offset().top);
-    $('footer').stop().animate({
-        'top': footer_top
-    });
 }
 
 /* call body_slide when the window loads or resizes */
 $(measure);
 $(window).on('resize', measure);
 
+
+$(function(){
+    var footer_check = win_height - $('footer').outerHeight();
+    if (footer_check > $('footer').offset().top){
+        var footer_top = footer_check - $('footer').offset().top;
+        console.log(footer_check,$('footer').offset().top);
+        $('footer').stop().animate({
+            'top': footer_top
+        });
+    }
+
+});
 
 /* function to convert rendered form inputs that require tagging (remove soon) */
 function convert_to_taggable() {
