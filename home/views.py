@@ -88,22 +88,19 @@ def send_an_email(request):
             name = user.get_full_name()
         else:
             name = user.username
-        template = u'<p>Hi {0},</p>'\
-                   u'<p>&nbsp;</p>'\
-                   u'<p>How did you like <strong><a href="http://www.corelogs.com">CoreLog</a>?&nbsp;</strong></p>'\
-                   u"<p>Isn'tit something useful? We are expanding fast and have many engineers, scientists and research scholars on our website and are getting great response across the globe.</p>"\
-                   u'<p>&nbsp;</p>'\
-                   u'<p>Ask questions if you have any on the <strong><a href="http://www.corelogs.com/forum/">Forum</a>&nbsp;</strong>and get it answered by the scholars and industry experts. You get points for good questions and answers.</p>'\
-                   u'<p>&nbsp;</p>'\
-                   u'<p>Answer the existing questions and share what you know.</p>'\
-                   u'<p>&nbsp;</p>'\
-                   u'<p>Thanks &amp; Regards</p>'\
-                   u'<p>Surya Prakash</p>'\
-                   u'<p>Founder</p>'\
-                   u'<p><a href="http://www.corelogs.com"><strong>CoreLogs</strong></a></p>'\
-                   u'<p>&nbsp;</p>'\
-                   u'<p>&nbsp;</p>'
+        template = u'''Hi {0},
+
+how did you like www.corelogs.com?
+
+We hope to see you again on the website, as questions and give answers and help us create a valuable community
+
+Thanks & Regards
+
+Surya Prakash'''
 
         content = template.format(name)
-        send_mail('test email', content, 'site.corelogs@gmail.com', [user_email])
+        try:
+            send_mail('test email', content, 'site.corelogs@gmail.com', [user_email])
+        except Exception:
+            pass
     return redirect('/sitemap')
