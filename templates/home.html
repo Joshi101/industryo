@@ -2,6 +2,11 @@
 
 {% block content %}
 <div id="home" class="ajax_papa">
+	<div class="panel panel-default">
+		<div class="panel-body text-center">
+			<a class="btn btn-primary" href="{% url 'forum:ask' %}">Ask a Question</a>
+		</div>
+	</div>
 	<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
 		<div class="input-group">
 			<span class="input-group-addon">
