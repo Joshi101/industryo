@@ -379,7 +379,7 @@ if ($('.paginator').length) {
                     var height_after = $pg.parent()[0].scrollHeight;
                     $pg_parent.animate({
                         'height': height_after
-                    }, 2000);
+                    }, 500);
                     console.log(height_after,height_before);
                     load = true;
                 },
