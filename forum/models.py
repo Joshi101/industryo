@@ -58,6 +58,8 @@ class Question(models.Model):
         for m in question_tags:
             t, created = Tags.objects.get_or_create(tag=m)
             li.append(t)
+            t.count +=1
+            t.save()
         self.tags = li
 
     def get_q_upvoters(self):

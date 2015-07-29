@@ -10,16 +10,16 @@
           </div>
         </form>
       </div> -->
-      <a class="navbar-brand" href="{% url 'home' %}">
-        <span class="glyphicon glyphicon-home"></span>
+      <a class="navbar-brand nav_a_home" href="{% url 'home' %}">
+        <span class="fa fa-home"></span>
         <span> CoreLogs</span>
       </a>
-      <a class="navbar-brand" href="{% url 'forum:questions' %}">
-        <span class="glyphicon glyphicon-tasks"></span>
+      <a class="navbar-brand nav_a_forum" href="{% url 'forum:questions' %}">
+        <span class="fa fa-tasks"></span>
         <span> Forum</span>
       </a>
-      <a class="navbar-brand" href="{% url 'nodes:articles' %}">
-        <span class="glyphicon glyphicon-book"></span>
+      <a class="navbar-brand nav_a_articles" href="{% url 'nodes:articles' %}">
+        <span class="fa fa-book"></span>
         <span> Articles</span>
       </a>
       {% if user.is_authenticated %}
@@ -36,7 +36,7 @@
         <li id="notifications" class="hover_ajax" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <span class="badge"></span>
           <a class="dropdown-toggle" data-toggle="dropdown">
-            <span class="glyphicon glyphicon-bell"></span>
+            <span class="fa fa-bell"></span>
             <span> </span>
             <span class="mob_only">Notifications</span>
           </a>
@@ -47,7 +47,7 @@
         </li>
         <!-- 
         <li title="No No... nothing here yet" data-toggle="tooltip" data-placement="bottom">
-          <a><span class="glyphicon glyphicon-comment"></span></a>
+          <a><span class="fa fa-comment"></span></a>
         </li>
         -->
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
@@ -76,19 +76,19 @@
           <ul class="dropdown-menu">
             <li>
               <a href="{% url 'set' %}">
-                <span class="glyphicon glyphicon-briefcase"></span>
+                <span class="fa fa-briefcase"></span>
                 <span> Set Workplace </span>
               </a>
             </li>
             <li>
               <a href="{% url 'details' %}">
-                <span class="glyphicon glyphicon-wrench"></span>
+                <span class="fa fa-wrench"></span>
                 <span> Set Details </span>
               </a>
             </li>
             <li>
               <a href="{% url 'logout' %}">
-                <span class="glyphicon glyphicon-log-out"></span>
+                <span class="fa fa-sign-out"></span>
                 <span> Logout </span>
               </a>
             </li>

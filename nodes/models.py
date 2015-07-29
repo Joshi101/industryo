@@ -126,10 +126,8 @@ class Node(models.Model):
 
     def set_tags(self, tags):
         article_tags = tags.split(',')
-        print(article_tags)
         li = []
         for m in article_tags:
-            print(m)
             t, created = Tags.objects.get_or_create(tag=m)
             t.count +=1
             t.save()
