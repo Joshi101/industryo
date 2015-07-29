@@ -721,7 +721,8 @@ pre {
 .vote_box {
   float: left;
   background-color: #fff;
-  border-bottom-left-radius: 15px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
   margin-left: -30px;
   padding: 4px 5px;
 }
@@ -1584,12 +1585,13 @@ footer h3{
 footer .connect i{
   display: inline-block;
   width: 35px;
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
 }
 
 footer{
   position: relative;
+  font-size: 13px;
 }
 
 footer .contact h3, footer .connect h3{
