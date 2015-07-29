@@ -1600,6 +1600,7 @@ footer .contact h3, footer .connect h3{
 
 footer .contact_mid{
   position: absolute;
+  z-index: 0;
   width: 100%;
   text-align: center;
   margin: auto;
@@ -1608,8 +1609,11 @@ footer .contact_mid{
 footer .fa{
   display: inline-block;
   width: 30px;
-  font-size: 20px;
   color: #fff;
+}
+
+footer .contact .col-xs-6{
+  z-index: 1;
 }
 
 footer .contact li{
