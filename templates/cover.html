@@ -67,7 +67,7 @@
     </div>
 	</div>
 </div>
-<div id="lsi" class="cover_page">
+<!-- <div id="lsi" class="cover_page">
 	<div class="container text-center cover_desc" data-move="top" data-extra="">
 		A place where you can interact with the big fishes ...
 	</div>
@@ -144,9 +144,12 @@
 			Small and Medium scale Enterprises
 		</div>
 	</div>
-</div>
+</div> -->
 {% endblock body %}
 
 {% block end_js %}
 <script type="text/javascript" src={% static 'js/cl_cover.js' %}></script>
+<script type="text/javascript">
+	$('.nav_a_home').addClass('current');
+</script>
 {% endblock end_js %}

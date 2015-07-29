@@ -22,3 +22,10 @@
     </ul>
   </div>
 {% endblock right %}
+
+{% block end_js %}
+	{{block.super}}
+	<script type="text/javascript">
+		$('.nav_a_articles').addClass('current');
+	</script>
+{% endblock end_js %}

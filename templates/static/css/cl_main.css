@@ -26,8 +26,10 @@ ul {
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-brand.current,
 .navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li > a.current {
   color: #197;
 }
 
@@ -149,7 +151,7 @@ ul {
   }
 }
 
-.top_user_info .glyphicon{
+.top_user_info .fa{
 	float: left;
 }
 

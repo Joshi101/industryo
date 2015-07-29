@@ -10,7 +10,8 @@
 				</a>
 			</span>
 			<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Got something to discuss..?" required></textarea>
-			<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+			<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file input-group-addon seamless_r img_pre_in'>
+				<i class="fa fa-camera"></i>
 				<input id="id_image_0" type="file" name="image0">
     	</span>
 		</div>
@@ -18,10 +19,10 @@
 		</div>
   	<div class="textarea_bottom hide">
   		<span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+      	<span class="fa fa-camera"></span> Add Photo
     	</span>
   		<button class='btn btn-default pull-right form-ajax-filed'>
-      	<span class="glyphicon glyphicon-bullhorn"></span> Post
+      	<span class="fa fa-bullhorn"></span> Post
     	</button>
   	</div>
 		{% csrf_token %}
@@ -41,3 +42,10 @@
     </ul>
   </div>
 {% endblock right %}
+
+{% block end_js %}
+	{{block.super}}
+	<script type="text/javascript">
+		$('.nav_a_home').addClass('current');
+	</script>
+{% endblock end_js %}
