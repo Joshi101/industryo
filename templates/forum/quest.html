@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %} {{q.title}} {% endblock title %}
+{% block title %} {{q.title}}- {% for tag in q.get_tags %} {{tag}} {% endfor %} {% endblock title %}
 
 {% block pg_schema %}{% endblock pg_schema %}
 
@@ -39,6 +39,9 @@
 							{% endfor %}
 						</div>
 						{% endif %}
+						<div class="text-right author">
+							{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}<time property='dateCreated' class="text-muted"> {{q.date}} </time>
+						</div>
 					</div>
 					<div class="feed_box_extra">
 						<div class="comments">

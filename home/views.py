@@ -91,19 +91,21 @@ def send_an_email(request):
                 name = user.username
             template = u'''Hi {0},
 
-How did you like www.corelogs.com ? DO you have any suggestions?
+How did you like www.corelogs.com ? Do you have any suggestions?
 
 A community is only as good as the people in it and the quality of forum is defined by the quality of questions on it.
+There are a few great questions waiting to be answered. Have a look and answer them if you can.
 
 Ask a question today and get it answered by the best out there.
 
 Thanks & Regards
 
-Surya Prakash'''
+Surya Prakash
+CoreLogs'''
 
             content = template.format(name)
             try:
-                send_mail('test email', content, 'site.corelogs@gmail.com', [user_email])
+                send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
             except Exception:
                 pass
         return redirect('/sitemap')

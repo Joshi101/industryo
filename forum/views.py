@@ -89,6 +89,7 @@ def get_question(request, slug):
     show_ans = request.GET.get('answers', None)
     write_ans = request.GET.get('write', None)
     tags = q.tags.all()
+    # user = q.user
     return render(request, 'forum/quest.html', locals())
 
 @login_required

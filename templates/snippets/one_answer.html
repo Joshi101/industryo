@@ -15,6 +15,9 @@
 					<img src="/images/{{image.image}}">
 				</figure>
 				{% endfor %}
+						<div class="text-right author">
+							{% include "snippets/joint_name.html" with user=a.user anony=a.anonymous %}<time property='dateCreated' class="text-muted"> {{a.date}} </time>
+						</div>
 			</div>
 			<div class="feed_box_extra">
 				<h4 class="text-right">

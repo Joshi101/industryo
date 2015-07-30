@@ -3,6 +3,8 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
+{% block title %} CoreLogs | {{ name }} {% endblock title %}
+
 {% block left %}
 	<div id="img_profile_box">
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{page_user.userprofile.get_profile_image}}"/>
