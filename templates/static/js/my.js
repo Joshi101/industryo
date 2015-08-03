@@ -372,16 +372,16 @@ if ($('.paginator').length) {
                     $pg.data('next_page', nxt);
                     var $pg_parent = $pg.parent();
                     var height_before = $pg.parent().height();
-                    $pg_parent.css({
+                    /*$pg_parent.css({
                         'height': height_before,
                         'overflow-y': 'hidden'
-                    });
+                    });*/
                     $pg.before(response);
-                    var height_after = $pg.parent()[0].scrollHeight;
+                    /*var height_after = $pg.parent()[0].scrollHeight;
                     $pg_parent.animate({
                         'height': height_after
                     }, 500);
-                    console.log(height_after,height_before);
+                    console.log(height_after,height_before);*/
                     load = true;
                 },
 
