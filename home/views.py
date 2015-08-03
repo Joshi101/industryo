@@ -81,20 +81,24 @@ def search(request):
 
 @login_required
 def send_an_email(request):
-    if request.user.id == 1:
+    if request.user.is_authenticated():
         users = User.objects.all()
         for user in users:
-            user_email = user.email
+            if user.email:
+                user_email = user.email
+            else:
+                user_email = "rohit9gag@gmail.com"
             if user.first_name:
                 name = user.get_full_name()
             else:
                 name = user.username
             template = u'''Hi {0},
 
-How did you like www.corelogs.com ? Do you have any suggestions?
+How did you like www.corelogs.com ?
 
-A community is only as good as the people in it and the quality of forum is defined by the quality of questions on it.
-There are a few great questions waiting to be answered. Have a look and answer them if you can.
+The website is going at a great pace. Many scholars from various colleges, SAE Teams & Industries have registered and are actively participating in the discussions.
+
+Visit the www.corelogs.com/forum/ and see if you can answer the questions.
 
 Ask a question today and get it answered by the best out there.
 
@@ -105,7 +109,7 @@ CoreLogs'''
 
             content = template.format(name)
             try:
-                send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
+                send_mail('CoreLogs Followup', content, 'surya@corelogs.com', [user_email])
             except Exception:
                 pass
         return redirect('/sitemap')
