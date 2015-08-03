@@ -12,7 +12,7 @@
 	  <div class="panel panel-default">
 	    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
 	      <div class="panel-body">
-	      	<p class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span> Select or create the Company/ SAE Team/ Institution you belong to so that you can see relevant content and make better contribution.</p>
+	      	<p class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span> Select or create the Educational Institution / SAE Team/ Company you belong to.</p>
 	      	<form action="" method="POST" role="form">
 						{% csrf_token %}
 						{{ form_set_workplace|bootstrap }}
@@ -26,7 +26,7 @@
 	  <div class="panel panel-default">
 	    <div id="create_workplace" class="panel-collapse collapse">
 	      <div class="panel-body">
-	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please put the official name of the company using Capitals appropriately (eg. UTC Aerospace Systems).</p>
+	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please put the official name of the College/Company/Team using Capitals appropriately (eg. UTC Aerospace Systems).</p>
 	      	<form action="{% url 'register' %}" method="POST" role="form">
 						{% csrf_token %}
 						{{ form_create_workplace|bootstrap }}
@@ -37,8 +37,8 @@
 	    </div>
 	  </div>
 	  <script type="text/javascript">
-	  	$('label').first().after('<div style="display:inline-block;padding-left:10px;" class="text-muted"> ( Search for your Company, Team or Institution )</div>');
-	  	$('form').last().find('label').first().text('Name of Your Workplace')
+	  	$('label').first().after('<div style="display:inline-block;padding-left:10px;" class="text-muted"> ( Search for your Institution, Team or Company)</div>');
+	  	$('form').last().find('label').first().text('Name of Your Workplace/College/Team')
 	  </script>
 	</div>
 </div>
