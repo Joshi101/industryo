@@ -67,6 +67,10 @@ ul {
   .pc_only {
     display: none;
   }
+  .body > .container-fluid > .row {
+  	margin-left: -15px;
+  	margin-right: -15px;
+  }
 }
 
 

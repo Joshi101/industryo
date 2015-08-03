@@ -220,7 +220,7 @@
 
 .cover_form {
   max-width: 400px;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .cover_form form {
@@ -356,7 +356,7 @@ pre {
 .body {
   font-family: 'Open Sans';
 
-  
+  overflow-x: hidden;
 
   position: relative;
   top: 71px;
@@ -642,7 +642,8 @@ pre {
   font-family: 'Tahoma';
   font-size: 15px;
   font-weight: 900;
-
+  
+  color: #444;
   overflow: hidden;
 
   margin-bottom: 7px;
@@ -651,6 +652,12 @@ pre {
   border-bottom: 1px solid #9d9d9d;
 
   //background-color: rgba(0,0,0,.1);
+}
+
+
+.article_title:hover {
+  color: #000;
+  border-bottom: 1px solid #197;
 }
 
 .article_body {
@@ -720,11 +727,12 @@ pre {
 
 .vote_box {
   float: left;
-  background-color: #fff;
+  background-color: #efe;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
-  margin-left: -30px;
+  margin-left: -31px;
   padding: 4px 5px;
+  width: 25px;
 }
 
 .vote_box span {
@@ -850,10 +858,11 @@ pre {
 
 .comment {
   padding-top: 5px;
+  padding-left: 50px;
 }
 
-.comment pre {
-  font-size: 11px;
+.comment p {
+  font-size: 12px;
 
   margin-bottom: 0;
   padding: 5px 0 2px;
@@ -1534,9 +1543,9 @@ textarea.replacer {
 }
 
 #last_feed {
-  padding: 5px 5px 7px;
+  padding: 15px 5px;
 
-  border-top: 2px solid #333;
+  border-top: 1px solid #333;
   border-bottom: 1px solid;
 }
 
