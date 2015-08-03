@@ -81,7 +81,7 @@ def search(request):
 
 @login_required
 def send_an_email(request):
-    if request.user.is_authenticated():
+    if request.user.id == 1:
         users = User.objects.all()
         for user in users:
             if user.email:
