@@ -129,20 +129,19 @@ def send_set_wp_email(request):
                     name = user.username
                 template = u'''Hi {0},
 
-Did you check *www.corelogs.com* <http://www.corelogs.com/> recently? We are getting great questions and answers on our forum. and we need people who can answer.
+Did you check www.corelogs.com ? We are getting great questions and answers on our forum. and we need people who can answer.
 
 You have still not set your workplace till now.
 To see optimized content, you should tell us where do you work or study.
 
 Thanks & Regards
 
-*--Surya Prakash.Founder*
-*CoreLogs* <http://www.corelogs.com/>
-
+Surya Prakash
+CoreLogs
 '''
                 content = template.format(name)
                 try:
-                    send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
+                    send_mail('CoreLogs- Set your Workplace', content, 'site.corelogs@gmail.com', [user_email])
                 except Exception:
                     pass
         return redirect('/kabira')
