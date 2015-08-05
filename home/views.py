@@ -34,16 +34,16 @@ def home(request):
             t = workplace.workplace_type
             if t == 'A':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
-                question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
+                question = Question.objects.filter(user__id=11).select_related('user__userprofile')
             elif t == 'B':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
-                question = Question.objects.all().select_related('user__userprofile')
+                question = Question.objects.filter(user__id=11).select_related('user__userprofile')
             elif t == 'C':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
-                question = Question.objects.all().select_related('user__userprofile')
+                question = Question.objects.filter(user__id=11).select_related('user__userprofile')
             else:  # t == 'O':
                 related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
-                question = Question.objects.all().select_related('user__userprofile')
+                question = Question.objects.filter(user__id=11).select_related('user__userprofile')
             all_result_list = sorted(
                 chain(related_node, question),
                 key=attrgetter('date'), reverse=True)
@@ -82,7 +82,7 @@ def search(request):
 @login_required
 def send_an_email(request):
     if request.user.id == 1:
-        users = User.objects.all()
+        users = User.objects.filter(id__gte=90)
         for user in users:
             if user.email:
                 user_email = user.email
@@ -115,3 +115,36 @@ CoreLogs'''
         return redirect('/sitemap')
     else:
         return redirect('/sitemap')
+
+
+def send_set_wp_email(request):
+    if request.user.is_authenticated():
+        users = User.objects.all()
+        for user in users:
+            if not user.userprofile.primary_workplace:
+                user_email = user.email
+                if user.first_name:
+                    name = user.get_full_name()
+                else:
+                    name = user.username
+                template = u'''Hi {0},
+
+Did you check *www.corelogs.com* <http://www.corelogs.com/> recently? We are getting great questions and answers on our forum. and we need people who can answer.
+
+You have still not set your workplace till now.
+To see optimized content, you should tell us where do you work or study.
+
+Thanks & Regards
+
+*--Surya Prakash.Founder*
+*CoreLogs* <http://www.corelogs.com/>
+
+'''
+                content = template.format(name)
+                try:
+                    send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
+                except Exception:
+                    pass
+        return redirect('/kabira')
+    else:
+        return redirect('/rahima')

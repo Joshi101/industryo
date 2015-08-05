@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^sitemap/$', 'workplace.views.sitemap', name='sitemap'),
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
     url(r'^send_an_email/$', 'home.views.send_an_email', name='send_an_email'),
+    url(r'^send_set_wp_email/$', 'home.views.send_set_wp_email', name='send_set_wp_email'),
 
     url(r'^forum/', include('forum.urls', namespace='forum')),
     url(r'^user/', include('userprofile.urls', namespace='user')),
