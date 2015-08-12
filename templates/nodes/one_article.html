@@ -29,9 +29,9 @@
 		</div>
 		<div class="feed_box_extra">
 			<div class="comments">
-			{% if node.get_last_comment %}
-				{% include "snippets/comment.html" with comment=node.get_last_comment %}
-			{% endif %}
+			{%  for c in node.get_all_comments %}
+				{% include "snippets/comment.html" with comment=c %}
+			{% endfor %}
 			</div>
 			<div class="interaction">
 				<a class="a_collapse">Comment</a>
