@@ -1601,6 +1601,7 @@ footer .connect i{
 footer{
   position: relative;
   font-size: 13px;
+  top: 100%;
 }
 
 footer .contact h3, footer .connect h3{
@@ -1636,4 +1637,17 @@ footer .contact li{
 
 .author time{
   display: block;
+}
+
+#figure_modal .carousel-control span{
+  position: relative;
+  top:49%;
+}
+
+#figure_modal .carousel-indicators li{
+  margin: 2px;
+}
+
+.modal-header{
+  min-height: 45px;
 }

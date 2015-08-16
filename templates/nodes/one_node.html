@@ -10,8 +10,10 @@
 		<div class="feed_box_body">
 			<pre>{{ node.post }}</pre>
 			{% for image in node.get_images %}
-			<figure>
-				<img src="/images/{{image.image_thumbnail}}">
+			<figure class="call_car">
+				<a data-toggle='modal' data-target='#figure_modal'>
+					<img src="/images/{{image.image_thumbnail}}">
+				</a>
 			</figure>
 			{% endfor %}
 			<div class="text-right">

@@ -9,6 +9,7 @@
 	<div class="container ajax_papa">
 		<div class="col-sm-9" typeof="Question">
 			<div id="question" class="feed_box ajax_andar">
+				{% include "snippets/figure_modal.html" %}
 				<div class="feed_box_heading">
 					<h5>
 						{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}
@@ -28,8 +29,10 @@
 						<p class="q_body" property="text">{{ q.question }}</p>
 						{% endif %}
 						{% for image in q.get_images %}
-						<figure property='assocaitedMedia' typeof='ImageObject'>
-							<img src="/images/{{image.image}}" property='contentUrl'>
+						<figure class="call_car" property='assocaitedMedia' typeof='ImageObject'>
+							<a data-toggle='modal' data-target='#figure_modal'>
+								<img src="/images/{{image.image}}" property='contentUrl'>
+							</a>
 						</figure>
 						{% endfor %}
 						{% if q.get_tags %}
