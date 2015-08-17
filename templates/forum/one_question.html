@@ -14,8 +14,10 @@
 			{% if question.question %}
 			<p class="q_summary">{{ question.question|truncatechars:200 }}</p>
 			{% for image in question.get_images %}
-			<figure>
-				<img src="/images/{{image.image}}">
+			<figure class="call_car">
+				<a data-toggle='modal' data-target='#figure_modal'>
+					<img src="/images/{{image.image}}">
+				</a>
 			</figure>
 			{% endfor %}
 			{% endif %}

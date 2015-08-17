@@ -6,6 +6,7 @@
 
 {% block content %}
 <div id="article" class="feed_box feed ajax_andar">
+	{% include "snippets/figure_modal.html" %}
 	<div class="feed_box_heading">
 		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
 		<span class='pull-right text-muted'><small>{{ node.date }}</small></span>
@@ -19,13 +20,13 @@
 				<pre class="text-justify">{{ node.post }}</pre>
 			{% else %}
 				<h4 class="article_title">
-					{{ node.title }}
+					<span>{{ node.title }}</span>
 					<a class="edit_post pull-right" href="{% url 'nodes:edit' node.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
 				</h4>
 				<div class="article_body">{{ node.post|safe }}</div>
 				{% for image in node.get_images %}
-				<figure>
-					<img src="/images/{{image.image}}">
+				<figure class="call_car">
+					<a data-toggle='modal' data-target='#figure_modal'><img src="/images/{{image.image}}"></a>
 				</figure>
 				{% endfor %}
 				{% if node.get_tags %}

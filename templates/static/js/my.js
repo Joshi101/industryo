@@ -17,7 +17,8 @@ function measure() {
 /* function to auto adjust top margin for the body */
 function body_slide() {
     $('.body').stop().animate({
-        'top': top_nav_width
+        'top': top_nav_width,
+        'min-height': (win_height - top_nav_width)
     });
 
 }
@@ -1108,4 +1109,21 @@ $('#almost_write_answer').mouseenter(function(){
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   autosize($('textarea'));
+});
+
+$('.call_car').on('click', function(){
+    var $this = $(this);
+    var $feed = $this.closest('.feed_box_body');
+    var title = $feed.children('h4').first().children('span').first().text();
+    var $img = $feed.find('figure');
+    $('#figure_modal .modal-title').text(title);
+    $('#figure_modal .carousel-inner').html('');
+    $('#figure_modal .carousel-indicators').html('');
+    $img.each(function(index){
+        var src = $(this).find('img').attr('src');
+        $('<div class="item"><img src="' + src + '"></div>').appendTo('#figure_modal .carousel-inner');
+        $('<li data-target="#myCarousel" data-slide-to="'+index+'"></li>').appendTo('#figure_modal .carousel-indicators');
+    });
+    $('#figure_modal .carousel-indicators li').first().addClass('active');
+    $('#figure_modal .carousel-inner .item').first().addClass('active');
 });
