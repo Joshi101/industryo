@@ -8,7 +8,7 @@
 			{% include "snippets/like_box.html" with node=node %}
 		</div>
 		<div class="feed_box_body">
-			<pre>{{ node.post }}</pre>
+			<pre>{{ node.post | urlize }}</pre>
 			{% for image in node.get_images %}
 			<figure>
 				<img src="/images/{{image.image_thumbnail}}">
