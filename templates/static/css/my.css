@@ -1639,13 +1639,8 @@ footer .contact li{
   display: block;
 }
 
-#figure_modal .carousel-control span{
-  position: relative;
-  top:49%;
-}
-
-#figure_modal .carousel-indicators li{
-  margin: 2px;
+#figure_modal .modal-body img{
+  width: 100%;
 }
 
 .modal-header{

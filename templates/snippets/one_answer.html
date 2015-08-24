@@ -11,8 +11,10 @@
 			<div class="feed_box_body">
 				<div class="a_detail">{{ a.answer|safe }}</div>
 				{% for image in a.get_images %}
-				<figure>
-					<img src="/images/{{image.image}}">
+				<figure class="call_car">
+					<a data-toggle='modal' data-target='#figure_modal'>
+						<img src="/images/{{image.image}}">
+					</a>
 				</figure>
 				{% endfor %}
 
@@ -23,7 +25,9 @@
 			<div class="feed_box_extra">
 				<h4 class="text-right">
 					<span class="hide">{{ a.id }}</span>
+					{% if a.user.pk == request.user.pk %}
 					<a class="edit_ans"><small><span class="glyphicon glyphicon-cog"></span>Edit</small></a>
+					{% endif %}
 				</h4>
 				<div class="comments">
 				{% if a.get_comments %}
