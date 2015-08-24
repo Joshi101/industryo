@@ -23,7 +23,9 @@
 					<div class="ajax_papa feed_box_body">
 						<h4 class="q_title">
 							<span property="name">{{ q.title }}</span>
+							{% if q.user.pk == request.user.pk %}
 							<a class="edit_post pull-right" href="{% url 'forum:edit_ques' q.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
+							{% endif %}
 						</h4>
 						{% if q.question %}
 						<p class="q_body" property="text">{{ q.question }}</p>

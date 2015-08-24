@@ -21,7 +21,9 @@
 			{% else %}
 				<h4 class="article_title">
 					<span>{{ node.title }}</span>
+					{% if node.user.pk == request.user.pk %}
 					<a class="edit_post pull-right" href="{% url 'nodes:edit' node.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
+					{% endif %}
 				</h4>
 				<div class="article_body">{{ node.post|safe }}</div>
 				{% for image in node.get_images %}
