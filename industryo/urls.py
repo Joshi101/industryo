@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^notify/$', 'activities.views.notify', name='notify'),
     url(r'^count_notify/$', 'activities.views.count_notify', name='count_notify'),
     url(r'^search/$', 'home.views.home', name='search'),
+
     url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': 'home'}, name='logout'),
     url(r'^workplace/register/$', 'workplace.views.workplace_register', name='register'),
     url(r'^set/$', 'workplace.views.set_workplace', name='set'),

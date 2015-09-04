@@ -128,10 +128,10 @@ class UserProfile(models.Model):
             Notification(notification_type=Notification.COMMENTED,
                          from_user=self.user,
                          to_user=node.user,
-                         answer=node).save()
+                         node=node).save()
 
-    def notify_also_commented(self, node):
-        comments = node.get_comments()
+    def notify_also_n_commented(self, node):
+        comments = node.get_all_comments()
         users = []
         for comment in comments:
             if comment.user != self.user and comment.user != node.user:
@@ -142,6 +142,32 @@ class UserProfile(models.Model):
                          from_user=self.user,
                          to_user=User(id=user),
                          node=node).save()
+
+    def notify_also_q_commented(self, question):
+        comments = question.get_comment_count()
+        users = []
+        for comment in comments:
+            if comment.user != self.user and comment.user != question.user:
+                users.append(comment.user.pk)
+        users = list(set(users))
+        for user in users:
+            Notification(notification_type=Notification.ALSO_COMMENTED,
+                         from_user=self.user,
+                         to_user=User(id=user),
+                         question=question).save()
+
+    def notify_also_a_commented(self, answer):
+        comments = answer.get_comments()
+        users = []
+        for comment in comments:
+            if comment.user != self.user and comment.user != answer.user:
+                users.append(comment.user.pk)
+        users = list(set(users))
+        for user in users:
+            Notification(notification_type=Notification.ALSO_COMMENTED,
+                         from_user=self.user,
+                         to_user=User(id=user),
+                         answer=answer).save()
 
     def notify_q_upvoted(self, question):           # working
         if self.user != question.user:
@@ -225,20 +251,30 @@ class UserProfile(models.Model):
                                         to_user=answer.user,
                                         answer=answer).delete()
 
-    def notify_joined(self, workplace, node):
-        users = User.objects.filter(primary_workplace=workplace)
+    def notify_also_joined(self, primary_workplace):
+        userprofiles = UserProfile.objects.filter(primary_workplace=primary_workplace)
 
-        for user in users:
+        for userprofile in userprofiles:
             Notification(notification_type=Notification.ALSO_JOINED,
                          from_user=self.user,
-                         to_user=user,
-                         node=node).save()
+                         to_user=userprofile.user,).save()
 
     def notify_answered(self, question):           # working
         if self.user != question.user:
             Notification(notification_type=Notification.ANSWERED,
                          from_user=self.user,
                          to_user=question.user,
+                         question=question).save()
+        answers = question.get_answers()
+        answerers = []
+        for answer in answers:
+            if self.user != answer.user:
+                answerers.append(answer.user.pk)
+        answerers = list(set(answerers))
+        for user in answerers:
+            Notification(notification_type=Notification.ANSWERED,
+                         from_user=self.user,
+                         to_user=User(id=user),
                          question=question).save()
 
     # def notify_edited(self, workplace, node):

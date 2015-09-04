@@ -105,6 +105,7 @@ def ques_comment(request):
         comment = Comments(question=question, user=user, comment=comment)
         comment.save()
         user.userprofile.notify_q_commented(question=question)
+        user.userprofile.notify_also_q_commented(question=question)
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':comment})
         response['html'] = r_html
@@ -125,6 +126,7 @@ def ans_comment(request):
         c = Comments(answer=answer, comment=comment, user=user)
         c.save()
         user.userprofile.notify_a_commented(answer)
+        user.userprofile.notify_also_a_commented(answer=answer)
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html
@@ -284,6 +286,7 @@ def reply(request):
     else:
         print('problem hai')
 
+
 def tag(request):           # this for what
     if request.method == 'POST':
         t = request.POST['tag']
@@ -397,7 +400,30 @@ def delete_question_image(request):
     return 0
 
 
-
+def category(request):
+    if 'q' in request.GET:
+        querystring = request.GET.get('q')
+        if querystring == 't':
+            questions = Question.objects.filter(category=1)
+        elif querystring == 'g':
+            questions = Question.objects.filter(category=0)
+        paginator = Paginator(questions, 5)
+        page = request.GET.get('page')
+        workplaces = Workplace.objects.all().order_by('?')[:5]
+        try:
+            result_list = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result_list = paginator.page(1)
+        except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+            return
+            # result_list = paginator.page(paginator.num_pages)
+        if page:
+            return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+        else:
+            # return render(request, 'home.html', {'result_list': result_list})
+            return render(request, 'forum/questions.html', {'result_list': result_list, 'workplaces': workplaces})
 # def a_questions(request):           # for SME
 #     user = request.user
 #     area =
