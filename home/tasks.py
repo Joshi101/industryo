@@ -6,16 +6,16 @@ from activities.models import Notification
 
 @background(schedule=60)
 def notify_user(id, n):
-    notifcation = Notification.objects.get(id=id)
-    user = notifcation.to_user
+    notification = Notification.objects.get(id=id)
+    user = notification.to_user
     user_email = user.email
     name = user.get_full_name()
-    question = notifcation.question
-    node = notifcation.node
-    answer = notifcation.answer
-    ans_q = answer.question
-    from_user = notifcation.from_user
-    workplace = user.primary_workplace
+    question = notification.question
+    node = notification.node
+    answer = notification.answer
+
+    from_user = notification.from_user
+
 
     if n == 1:
         template = Template1
@@ -25,6 +25,7 @@ def notify_user(id, n):
         content = template.format(name, from_user, question)
     elif n == 3:
         template = Template3
+        ans_q = answer.question
         content = template.format(name, from_user, ans_q)
     elif n == 4:
         template = Template4
@@ -37,6 +38,7 @@ def notify_user(id, n):
         content = template.format(name, from_user, question)
     elif n == 7:
         template = Template7
+        ans_q = answer.question
         content = template.format(name, from_user, ans_q)
     elif n == 8:
         template = Template8
@@ -46,12 +48,15 @@ def notify_user(id, n):
         content = template.format(name, from_user, question)
     elif n == 10:
         template = Template10
+        ans_q = answer.question
         content = template.format(name, from_user, ans_q)
     elif n == 11:
         template = Template11
+        ans_q = answer.question
         content = template.format(name, from_user, ans_q)
     elif n == 12:
         template = Template12
+        workplace = user.userprofile.primary_workplace
         content = template.format(name, from_user, workplace)
     elif n == 13:
         template = Template13
