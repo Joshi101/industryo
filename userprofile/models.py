@@ -7,6 +7,7 @@ import hashlib
 # from nodes.models import Images
 from tags.models import Tags
 from activities.models import Notification
+from home import tasks
 
 
 class UserProfile(models.Model):
@@ -89,15 +90,20 @@ class UserProfile(models.Model):
         t.count +=1
         t.save()
 
-    def notify_liked(self, node):           # working
+    def notify_liked(self, node):           # working 1
         if self.user != node.user:
             notified_user = node.user.userprofile
             notified_user.points += 5
             notified_user.save()
-            Notification(notification_type=Notification.LIKED,
-                         from_user=self.user,
-                         to_user=node.user,
-                         node=node).save()
+            a = Notification.objects.create(notification_type=Notification.LIKED,
+                             from_user=self.user,
+                             to_user=node.user,
+                             node=node)
+            print('notification bana')
+            # id = a.id
+            # print(id)
+            tasks.notify_user(a.id, n=1)
+            print("kwargs ka chakkar")
 
     def unotify_liked(self, node):           # working
         if self.user != node.user:
@@ -109,28 +115,31 @@ class UserProfile(models.Model):
                                         to_user=node.user,
                                         node=node).delete()
 
-    def notify_q_commented(self, question):           # working
+    def notify_q_commented(self, question):           # working 2
         if self.user != question.user:
-            Notification(notification_type=Notification.COMMENTED,
-                         from_user=self.user,
-                         to_user=question.user,
-                         question=question).save()
+            a = Notification.objects.create(notification_type=Notification.COMMENTED,
+                             from_user=self.user,
+                             to_user=question.user,
+                             question=question)
+            tasks.notify_user(a.id, n=2)
 
-    def notify_a_commented(self, answer):           # working
+    def notify_a_commented(self, answer):           # working 3
         if self.user != answer.user:
-            Notification(notification_type=Notification.COMMENTED,
-                         from_user=self.user,
-                         to_user=answer.user,
-                         answer=answer).save()
+            a = Notification.objects.create(notification_type=Notification.COMMENTED,
+                             from_user=self.user,
+                             to_user=answer.user,
+                             answer=answer)
+            tasks.notify_user(a.id, n=3)
 
-    def notify_n_commented(self, node):           # working
+    def notify_n_commented(self, node):           # working 4
         if self.user != node.user:
-            Notification(notification_type=Notification.COMMENTED,
-                         from_user=self.user,
-                         to_user=node.user,
-                         node=node).save()
+            a = Notification.objects.create(notification_type=Notification.COMMENTED,
+                             from_user=self.user,
+                             to_user=node.user,
+                             node=node)
+            tasks.notify_user(a.id, n=4)
 
-    def notify_also_n_commented(self, node):
+    def notify_also_n_commented(self, node):           # working 5
         comments = node.get_all_comments()
         users = []
         for comment in comments:
@@ -138,12 +147,13 @@ class UserProfile(models.Model):
                 users.append(comment.user.pk)
         users = list(set(users))
         for user in users:
-            Notification(notification_type=Notification.ALSO_COMMENTED,
-                         from_user=self.user,
-                         to_user=User(id=user),
-                         node=node).save()
+            a = Notification.objects.create(notification_type=Notification.ALSO_COMMENTED,
+                             from_user=self.user,
+                             to_user=User(id=user),
+                             node=node)
+            tasks.notify_user(a.id, n=5)
 
-    def notify_also_q_commented(self, question):
+    def notify_also_q_commented(self, question):           # working 6
         comments = question.get_comment_count()
         users = []
         for comment in comments:
@@ -151,12 +161,13 @@ class UserProfile(models.Model):
                 users.append(comment.user.pk)
         users = list(set(users))
         for user in users:
-            Notification(notification_type=Notification.ALSO_COMMENTED,
-                         from_user=self.user,
-                         to_user=User(id=user),
-                         question=question).save()
+            a = Notification.objects.create(notification_type=Notification.ALSO_COMMENTED,
+                             from_user=self.user,
+                             to_user=User(id=user),
+                             question=question)
+            tasks.notify_user(a.id, n=6)
 
-    def notify_also_a_commented(self, answer):
+    def notify_also_a_commented(self, answer):           # working 7
         comments = answer.get_comments()
         users = []
         for comment in comments:
@@ -164,51 +175,55 @@ class UserProfile(models.Model):
                 users.append(comment.user.pk)
         users = list(set(users))
         for user in users:
-            Notification(notification_type=Notification.ALSO_COMMENTED,
-                         from_user=self.user,
-                         to_user=User(id=user),
-                         answer=answer).save()
+            a = Notification.objects.create(notification_type=Notification.ALSO_COMMENTED,
+                             from_user=self.user,
+                             to_user=User(id=user),
+                             answer=answer)
+            tasks.notify_user(a.id, n=7)
 
-    def notify_q_upvoted(self, question):           # working
+    def notify_q_upvoted(self, question):           # working 8
         if self.user != question.user:
             notified_user = question.user.userprofile
             notified_user.points += 5
             notified_user.save()
-            Notification(notification_type=Notification.VotedUp,
-                         from_user=self.user,
-                         to_user=question.user,
-                         question=question).save()
-            print("noti created")
+            a = Notification.objects.create(notification_type=Notification.VotedUp,
+                                            from_user=self.user,
+                                            to_user=question.user,
+                                            question=question)
+            tasks.notify_user(a.id, n=8)
 
-    def notify_q_downvoted(self, question):           # working
+    def notify_q_downvoted(self, question):           # working 9
         if self.user != question.user:
             notified_user = question.user.userprofile
             notified_user.points -= 5
             notified_user.save()
-            Notification(notification_type=Notification.VotedDown,
-                         from_user=self.user,
-                         to_user=question.user,
-                         question=question).save()
+            a = Notification.objects.create(notification_type=Notification.VotedDown,
+                             from_user=self.user,
+                             to_user=question.user,
+                             question=question)
+            tasks.notify_user(a.id, n=9)
 
-    def notify_a_upvoted(self, answer):           # working
+    def notify_a_upvoted(self, answer):           # working 10
         if self.user != answer.user:
             notified_user = answer.user.userprofile
             notified_user.points += 5
             notified_user.save()
-            Notification(notification_type=Notification.VotedUp,
-                         from_user=self.user,
-                         to_user=answer.user,
-                         answer=answer).save()
+            a = Notification.objects.create(notification_type=Notification.VotedUp,
+                             from_user=self.user,
+                             to_user=answer.user,
+                             answer=answer)
+            tasks.notify_user(a.id, n=10)
 
-    def notify_a_downvoted(self, answer):           # working
+    def notify_a_downvoted(self, answer):           # working 11
         if self.user != answer.user:
             notified_user = answer.user.userprofile
             notified_user.points -= 5
             notified_user.save()
-            Notification(notification_type=Notification.VotedDown,
-                         from_user=self.user,
-                         to_user=answer.user,
-                         answer=answer).save()
+            a = Notification.objects.create(notification_type=Notification.VotedDown,
+                             from_user=self.user,
+                             to_user=answer.user,
+                             answer=answer)
+            tasks.notify_user(a.id, n=11)
 
     def unotify_q_upvoted(self, question):           # working
         if self.user != question.user:
@@ -251,20 +266,22 @@ class UserProfile(models.Model):
                                         to_user=answer.user,
                                         answer=answer).delete()
 
-    def notify_also_joined(self, primary_workplace):
+    def notify_also_joined(self, primary_workplace):           # working 12
         userprofiles = UserProfile.objects.filter(primary_workplace=primary_workplace)
 
         for userprofile in userprofiles:
-            Notification(notification_type=Notification.ALSO_JOINED,
-                         from_user=self.user,
-                         to_user=userprofile.user,).save()
+            a = Notification.objects.create(notification_type=Notification.ALSO_JOINED,
+                             from_user=self.user,
+                             to_user=userprofile.user,)
+            tasks.notify_user(a.id, n=12)
 
-    def notify_answered(self, question):           # working
+    def notify_answered(self, question):           # working 13
         if self.user != question.user:
-            Notification(notification_type=Notification.ANSWERED,
-                         from_user=self.user,
-                         to_user=question.user,
-                         question=question).save()
+            a = Notification.objects.create(notification_type=Notification.ANSWERED,
+                             from_user=self.user,
+                             to_user=question.user,
+                             question=question)
+            tasks.notify_user(a.id, n=13)
         answers = question.get_answers()
         answerers = []
         for answer in answers:
@@ -272,10 +289,11 @@ class UserProfile(models.Model):
                 answerers.append(answer.user.pk)
         answerers = list(set(answerers))
         for user in answerers:
-            Notification(notification_type=Notification.ANSWERED,
-                         from_user=self.user,
-                         to_user=User(id=user),
-                         question=question).save()
+            a = Notification.objects.create(notification_type=Notification.ANSWERED,            # working 14
+                             from_user=self.user,
+                             to_user=User(id=user),
+                             question=question)
+            tasks.notify_user(a.id, n=14)
 
     # def notify_edited(self, workplace, node):
     #     users = User.objects.filter(enterprise=enterprise)

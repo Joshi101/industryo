@@ -61,10 +61,10 @@ class Notification(models.Model):
     _ALSO_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the post: <a href="/nodes/{2}/">{3}</a>'    # working
     _ALSO_Q_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the question: <a href="/forum/{2}/">{3}</a>'    # working
     _ALSO_A_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the answer: <a href="/forum/{2}/">{3}</a>'    # working
-    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise' #fuck
-    _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace' #fuck
-    _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile' #fuck
-    _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now' #fuck
+    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise'  # fuck
+    _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace'  # fuck
+    _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile'  # fuck
+    _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now'  #fuck
     _VotedUpQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your question: <a href="/forum/{2}/">{3}</a>'            # working
     _VotedDownQ_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your question: <a href="/forum/{2}/">{3}</a>'            # working
     _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/forum/{2}/">{3}</a>'            # working

@@ -83,7 +83,6 @@ def set_interests(request):
         interests = request.POST.get('value')
         if type == 'All':
             up.set_interests(interests)
-        print(interests)
         up.set_interests(interests)
         new_interest = user.userprofile.interests.get(tag=interests)
         r_elements = ['detail_body']
@@ -97,7 +96,6 @@ def set_interests(request):
 
 
 def delete_interest(request):
-    print('sshshhhhhhhhhhh')
     if request.method == 'GET':
         user = request.user
         up = user.userprofile
