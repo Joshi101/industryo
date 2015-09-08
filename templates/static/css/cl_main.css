@@ -10,6 +10,15 @@ ul {
 
 /* un-bootstrap */
 
+.form-control{
+  border-radius: 1px;
+  box-shadow: 0 0 0;
+}
+
+.btn{
+  border-radius: 1px;
+}
+
 .navbar-fixed-top .navbar-collapse{
 	max-height: none;
 }

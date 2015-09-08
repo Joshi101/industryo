@@ -78,6 +78,7 @@ $('form .taggable').each(convert_to_taggable);
             type = '';
         if (d_on) {
             //d_on = false;
+            $this.nextAll('.form-control-feedback').children('.fback_working').removeClass('hide');
             console.log(query, search, create, type);
             $.ajax({
                 url: search,
@@ -101,6 +102,7 @@ $('form .taggable').each(convert_to_taggable);
                         var collapse_parent = $create_a.closest('.panel-group').attr('id');
                         $create_a.data('parent', '#' + collapse_parent);
                         console.log($create_a.data('parent'));
+                        $this.nextAll('.form-control-feedback').children('.fback_working').addClass('hide');
                     }
                 },
                 error: function(xhr, errmsg, err) {
@@ -108,6 +110,7 @@ $('form .taggable').each(convert_to_taggable);
                     $this.nextAll('.dropdown')
                         .children(".d_list").html("<li class='list-group-item-warning'><a>Sorry, unable to fetch results. Try later.</a></li>");
                     console.log(errmsg, err);
+                    $this.nextAll('.form-control-feedback').children('.fback_working').addClass('hide');
                 }
             });
         }
@@ -126,6 +129,7 @@ $('form .taggable').each(convert_to_taggable);
 
     $('.d_input').keydown(function(event) {
         var $this = $(this);
+        $this.nextAll('.form-control-feedback').children().addClass('hide');
         d_this = $this;
         if (event.keyCode == '13') {
             event.preventDefault();
@@ -140,6 +144,14 @@ $('form .taggable').each(convert_to_taggable);
         }
     });
 
+    $('.d_input').on('blur', function(event) {
+        var $this = $(this);
+        var value = $this.next().val();
+        if (!value){
+            $this.nextAll('.form-control-feedback').children().addClass('hide');
+            $this.nextAll('.form-control-feedback').children('.fback_warn').removeClass('hide');
+        }
+    });
     $(".d_list").on('click', 'a', function(event) {
         event.preventDefault();
         aj_search($(this));
