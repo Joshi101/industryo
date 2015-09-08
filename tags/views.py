@@ -97,4 +97,16 @@ def describe_tag(request):          # edit description
         return redirect('/tags/')
 
 
+# new function to add a follow button to a tag adding it to interests
+def follow_tag(request):
+    user = request.user
+    if request.method == 'POST':
+        tag = Tags.objects.get(id=request.POST['tag_id'])
+        user.useprofile.interest.add(tag)
+        return HttpResponse()
+    else:
+        return redirect('/tags/')
+
+
+
 # Create your views here.

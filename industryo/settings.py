@@ -46,8 +46,8 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3',
     'crispy_forms',
-    # 'background_task',
-    # 'debug_toolbar',
+    'debug_toolbar',
+    'background_task',
 
     'nodes',
     'workplace',
@@ -60,6 +60,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'corelogs_db',  # last was db
+        'NAME': 'server_cp',  # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

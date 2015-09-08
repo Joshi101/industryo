@@ -20,7 +20,7 @@ def profile(request, username):
 
     questions = Question.objects.filter(user=page_user)
     answers = Question.objects.filter(answer__question__user=page_user)
-    feeds = Node.feed.filter(user=page_user)
+    feeds = Node.feed.filter(user=page_user)[:10]
     articles = Node.article.filter(user=page_user)
     interests = userprofile.get_interests()
     return render(request, 'userprofile/profile.html', locals())
@@ -83,7 +83,6 @@ def set_interests(request):
         interests = request.POST.get('value')
         if type == 'All':
             up.set_interests(interests)
-        print(interests)
         up.set_interests(interests)
         new_interest = user.userprofile.interests.get(tag=interests)
         r_elements = ['detail_body']
@@ -97,7 +96,6 @@ def set_interests(request):
 
 
 def delete_interest(request):
-    print('sshshhhhhhhhhhh')
     if request.method == 'GET':
         user = request.user
         up = user.userprofile

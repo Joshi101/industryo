@@ -33,16 +33,16 @@ def home(request):
             workplace = profile.primary_workplace
             t = workplace.workplace_type
             if t == 'A':
-                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                related_node = Node.feed.filter(w_type__in=['A', 'B']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             elif t == 'B':
-                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                related_node = Node.feed.filter(w_type__in=['A', 'B']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             elif t == 'C':
-                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             else:  # t == 'O':
-                related_node = Node.feed.filter(w_type=t).select_related('user__userprofile')
+                related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             all_result_list = sorted(
                 chain(related_node, question),
@@ -68,6 +68,7 @@ def home(request):
     else:
         return render(request, 'cover.html',{'form_signup':SignupForm(), 'form_login':LoginForm()})
 
+
 def about(request):
     return render_to_response ('about.html')
 
@@ -82,7 +83,7 @@ def search(request):
 @login_required
 def send_an_email(request):
     if request.user.id == 1:
-        users = User.objects.filter(id__gte=90)
+        users = User.objects.all()
         for user in users:
             if user.email:
                 user_email = user.email
@@ -109,7 +110,7 @@ CoreLogs'''
 
             content = template.format(name)
             try:
-                send_mail('CoreLogs Followup', content, 'surya@corelogs.com', [user_email])
+                send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
             except Exception:
                 pass
         return redirect('/sitemap')

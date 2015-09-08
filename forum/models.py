@@ -88,6 +88,10 @@ class Question(models.Model):
         c = Answer.objects.filter(question=self).count()
         return c
 
+    def get_answers(self):
+        answers = Answer.objects.filter(question=self)
+        return answers
+
     def get_comment_count(self):
         c = Comments.objects.filter(question=self.pk)
         return c

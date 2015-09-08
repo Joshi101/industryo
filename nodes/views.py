@@ -45,7 +45,7 @@ def post(request):
     else:
         return redirect('/')
 
-
+@login_required
 def edit(request, id):
     node = Node.objects.get(id=id)
     if request.method == 'POST':
@@ -252,11 +252,12 @@ def comment(request):
         node_id = request.POST['id']
         user = request.user
         node = Node.objects.get(pk=node_id)
+        # tram = node.user
         post = request.POST['comment']
         c = Comments(user=user, node=node, comment=post)
         c.save()
-        #user.userprofile.notify_n_commented(node)
-        print(c)
+        user.userprofile.notify_n_commented(node)
+        user.userprofile.notify_also_n_commented(node)
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html

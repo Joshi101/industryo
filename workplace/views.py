@@ -55,11 +55,13 @@ def set_workplace(request):
             workplace = form.cleaned_data.get('workplace')
             # print(workplace)
             primary_workplace = Workplace.objects.get(name=workplace)
+            user.userprofile.notify_also_joined(primary_workplace)
             job_position = form.cleaned_data.get('job_position')
             userprofile = UserProfile.objects.get(user=user)
             userprofile.primary_workplace = primary_workplace
             userprofile.job_position = job_position
             userprofile.save()
+
             t = userprofile.primary_workplace.workplace_type
 
             welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
@@ -146,9 +148,7 @@ def set_tags_short(request):
         if type == 'C':
             t = wp.set_city(value)
         if type == 'P':
-            print('a')
             t = wp.set_institution(value)
-            print('b')
         if type == 'E':
             t = wp.set_events(value)
         if type == 'S':
@@ -163,6 +163,7 @@ def set_tags_short(request):
     else:
         return redirect('/user/'+request.user.username)
 
+
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     
@@ -171,9 +172,10 @@ def workplace_profile(request, slug):
     workplace_logo_form = SetLogoForm()
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
-    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
     articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
     return render(request, 'workplace/profile.html', locals())
+
 
 def workplace_about(request, slug):
     workplace = Workplace.objects.get(slug=slug)
@@ -182,12 +184,14 @@ def workplace_about(request, slug):
     workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/prof_about.html', locals())
 
+
 def workplace_capabilities(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/prof_capabilities.html', locals())
+
 
 def workplace_members(request, slug):
     workplace = Workplace.objects.get(slug=slug)
