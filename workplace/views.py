@@ -6,7 +6,7 @@ from nodes.models import Node
 from products.models import Products
 from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
-from userprofile.models import User, UserProfile
+from userprofile.models import User, UserProfile, Workplaces
 import json
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
@@ -29,9 +29,9 @@ def workplace_register(request):
             workplace_type = form.cleaned_data.get('workplace_type')
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
             if created:
-                welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
-                node = Node(user=User.objects.get(pk=1), post=welcome)
-                node.save()
+                # welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
+                # node = Node(user=User.objects.get(pk=1), post=welcome)
+                # node.save()
                 r_elements = ['message']
                 r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name':name})
             r_inputs = ['id_workplace']
@@ -61,18 +61,22 @@ def set_workplace(request):
             userprofile.primary_workplace = primary_workplace
             userprofile.job_position = job_position
             userprofile.save()
+            o, created = Workplaces.objects.get_or_create(userprofile=userprofile, workplace=primary_workplace, job_position=job_position)
 
             t = userprofile.primary_workplace.workplace_type
 
-            welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
-            node = Node(user=User.objects.get(pk=1), post=welcome)   #, tags=t
-            node.save()
+            # welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
+            # node = Node(user=User.objects.get(pk=1), post=welcome)   #, tags=t
+            # node.save()
             if user.first_name:
                 return redirect('/workplace/'+primary_workplace.slug)
             else:
                 return redirect('/details/')
     else:
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
+
+
+# def change_workplace(request):        # new
 
 
 def search_workplace(request):                  # for searching the workplace
@@ -88,7 +92,6 @@ def search_workplace(request):                  # for searching the workplace
 @login_required
 def set_tags(request):
     if request.method == 'POST':
-        print('aa rha h')
         response = {}
         r_html = {}
         r_elements = []
@@ -332,7 +335,7 @@ def delete_tag(request):
         response = {}
         t = Tags.objects.get(tag=delete)
         try:
-            wp.tags.remove(t)
+            WpTags.objects.get(tags=t, workplace=wp).delete()
             print('nal')
         except:
             up.interests.remove(t)
@@ -356,5 +359,16 @@ def side_panel(request):
 
     workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:4]           # change it soon
     return render(request, 'snippets/workplace_list.html', locals())
+
+
+def fodder(request):
+    ob = WpTags.objects.all()
+    for o in ob:
+        print('a')
+        o.category = o.tags.type
+        o.save()
+        print(o.tags.type)
+
+    return redirect('/')
 
 # Create your views here.

@@ -10,6 +10,7 @@ from nodes.models import Comments
 
 class Question(models.Model):
     user = models.ForeignKey(User)
+    # w_type = models.CharField(max_length=1, null=True)
     anonymous = models.BooleanField(default=False)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
@@ -56,7 +57,10 @@ class Question(models.Model):
         question_tags = tags.split(',')
         li = []
         for m in question_tags:
-            t, created = Tags.objects.get_or_create(tag=m)
+            try:
+                t = Tags.objects.get(tag=m)
+            except Exception:
+                t = Tags.objects.create(tag=m, type='T')
             li.append(t)
             t.count +=1
             t.save()

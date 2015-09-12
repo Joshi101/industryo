@@ -33,8 +33,8 @@ class Workplace(models.Model):
     # SME
     capabilities = models.TextField(max_length=5000, null=True, blank=True)
     product_details = models.TextField(max_length=5000, null=True, blank=True)
-
-    tags = models.ManyToManyField(Tags)
+    # tags = models.ManyToManyField(Tags)
+    wptags = models.ManyToManyField(Tags, through='WpTags', related_name='wptags')
 
     class Meta:
         db_table = 'Workplace'
@@ -50,58 +50,82 @@ class Workplace(models.Model):
         super(Workplace, self).save(*args, **kwargs)
 
     def set_materials(self, materials):
-        t, created = Tags.objects.get_or_create(tag=materials, type='M')
-        self.tags.add(t)
-        t.count +=1
+        try:
+            t = Tags.objects.get(tag=materials)
+        except Exception:
+            t = Tags.objects.create(tag=materials, type='M')
+        WpTags.objects.create(workplace=self, tags=t, category='M')
+        t.count += 1
         t.save()
         return t
 
     def set_segments(self, segments):
-        t, created = Tags.objects.get_or_create(tag=segments, type='S')
-        self.tags.add(t)
-        t.count +=1
+        try:
+            t = Tags.objects.get(tag=segments)
+        except Exception:
+            t = Tags.objects.create(tag=segments, type='S')
+        WpTags.objects.create(workplace=self, tags=t, category='S')
+        t.count += 1
         t.save()
         return t
 
     def set_operations(self, operations):
-        t, created = Tags.objects.get_or_create(tag=operations, type='O')
-        self.tags.add(t)
-        t.count +=1
+        try:
+            t = Tags.objects.get(tag=operations)
+        except Exception:
+            t = Tags.objects.create(tag=operations, type='O')
+        WpTags.objects.create(workplace=self, tags=t, category='O')
+        t.count += 1
         t.save()
         return t
 
     def set_industrial_area(self, industrial_area):
-        t, created = Tags.objects.get_or_create(tag=industrial_area, type='I')
-        self.tags.add(t)
-        t.count +=1
+        try:
+            t = Tags.objects.get(tag=industrial_area)
+        except Exception:
+            t = Tags.objects.create(tag=industrial_area, type='I')
+        WpTags.objects.create(workplace=self, tags=t, category='I')
+        t.count += 1
         t.save()
         return t
 
     def set_assets(self, assets):
-        t, created = Tags.objects.get_or_create(tag=assets, type='A')
-        self.tags.add(t)
-        t.count +=1
+        try:
+            t = Tags.objects.get(tag=assets)
+        except Exception:
+            t = Tags.objects.create(tag=assets, type='A')
+        WpTags.objects.create(workplace=self, tags=t, category='A')
+        t.count += 1
         t.save()
         return t
 
     def set_institution(self, institution):
-        t, created = Tags.objects.get_or_create(tag=institution, type='P')
-        self.tags.add(t)
+        try:
+            t = Tags.objects.get(tag=institution)
+        except Exception:
+            t = Tags.objects.create(tag=institution, type='P')
+        WpTags.objects.create(workplace=self, tags=t, category='P')
         self.institution = t
-        t.count +=1
+        t.count += 1
         t.save()
         return t
 
     def set_city(self, city):
-        t, created = Tags.objects.get_or_create(tag=city, type='C')
-        self.tags.add(t)
-        t.count +=1
+        try:
+            t = Tags.objects.get(tag=city)
+        except Exception:
+            t = Tags.objects.create(tag=city, type='C')
+        WpTags.objects.create(workplace=self, tags=t, category='C')
+        t.count += 1
         t.save()
         return t
 
     def set_events(self, events):
-        t, created = Tags.objects.get_or_create(tag=events, type='E')
-        self.tags.add(t)
+        try:
+            t = Tags.objects.get(tag=events)
+        except Exception:
+            t = Tags.objects.create(tag=events, type='E')
+        WpTags.objects.create(workplace=self, tags=t, category='E')
         t.count +=1
         t.save()
         return t
@@ -112,7 +136,7 @@ class Workplace(models.Model):
         self.logo = a
 
     def get_city(self):
-        city = self.tags.filter(type='C')
+        city = self.wptags.filter(type='C')
         return city
 
     def get_logo(self):
@@ -124,19 +148,31 @@ class Workplace(models.Model):
             return default_image
 
     def get_tags(self):
-        operations = self.tags.filter(type='O')
-        assets = self.tags.filter(type='A')
-        industrial_area = self.tags.filter(type='I')
-        city = self.tags.filter(type='C')
-        materials = self.tags.filter(type='M')
-        segments = self.tags.filter(type='S')
-        events = self.tags.filter(type='E')
-        institution = self.tags.filter(type='P')
+        operations = self.wptags.filter(type='O')
+        assets = self.wptags.filter(type='A')
+        industrial_area = self.wptags.filter(type='I')
+        city = self.wptags.filter(type='C')
+        materials = self.wptags.filter(type='M')
+        segments = self.wptags.filter(type='S')
+        events = self.wptags.filter(type='E')
+        institution = self.wptags.filter(type='P')
         return locals()
 
     def get_institution(self):
         institution = self.institution
         return institution
+
+
+class WpTags(models.Model):
+    workplace = models.ForeignKey(Workplace, related_name='w_tags')
+    tags = models.ForeignKey(Tags, related_name='wp_relations')
+    tag_types = (('S', 'Segment'), ('C', 'City'), ('E', 'Event'), ('I', 'IndustrialArea'), ('D', 'ProductCategory'),
+                 ('A', 'Asset'), ('O', 'Operation'), ('M', 'Material'), ('P', 'ParentInstitution'),
+                 ('N', 'None'), ('T', 'Topic/Subject'))
+    category = models.CharField(max_length=1, choices=tag_types, null=True)
+
+    class Meta:
+        db_table = 'WpTags'
 
 
 

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block title %} CoreLogs | Tags {% endblock title %}
+
+{% block content %}
+	{% for interest in q_tag %}
+		{% include 'snippets/one_q_tag.html' with interest=interest %}
+	{% endfor %}
+{% endblock content %}

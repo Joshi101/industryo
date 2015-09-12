@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, render_to_response, HttpResponse
 from tags.forms import CreateTagForm
 from tags.models import Tags
 from forum.models import Question
-from workplace.models import Workplace
+from workplace.models import WpTags
 from nodes.models import Node
 from nodes.forms import SetTagLogoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -32,9 +32,9 @@ def search_tag(request):
         create = request.GET['the_create']
         type = request.GET['the_type']
         if type == 'All':
-            o = Tags.objects.filter(tag__icontains=tag)
+            o = Tags.objects.filter(tag__icontains=tag)[:6]
         else:
-            o = Tags.objects.filter(type=type, tag__icontains=tag)
+            o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
         return render(request, 'tags/list.html', {'o': o, 'create': create})
     else:
         return render(request, 'tags/list.html')
@@ -53,7 +53,7 @@ def search_interests(request):                  # for searching the workplace
 def get_tag(request, slug):
     tag = Tags.objects.get(slug=slug)
     questions = Question.objects.filter(tags=tag)
-    workplaces = Workplace.objects.filter(tags=tag)
+    workplaces = tag.wptags.all()
     articles = Node.article.filter(tags=tag)
     tag_logo_form = SetTagLogoForm()
 

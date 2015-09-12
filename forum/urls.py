@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -14,11 +16,16 @@ urlpatterns = patterns('',
     url(r'^w/$', 'forum.views.w_questions', name='w_questions'),
     url(r'^s/$', 'forum.views.s_questions', name='s_questions'),
     url(r'^ask/$', 'forum.views.ask', name='ask'),
+
+    url(r'^help/$', TemplateView.as_view(template_name='forum/help.html')),
     url(r'^ques_comment/$', 'forum.views.ques_comment', name='ques_comment'),
     url(r'^ans_comment/$', 'forum.views.ans_comment', name='ans_comment'),
     url(r'^answer/$', 'forum.views.reply', name='answer'),
     url(r'^voteup/$', 'forum.views.voteup', name='voteup'),
     url(r'^tagged/$', 'forum.views.question_tagged', name='tagged'),
+    url(r'^set_right/$', 'forum.views.set_things_right', name='set_things'),
+
+    url(r'^q_tags/$', 'forum.views.q_tags', name='q_tags'),
     url(r'^delete_question/$', 'forum.views.delete_question', name='delete_question'),
     url(r'^delete_answer/$', 'forum.views.delete_answer', name='delete_answer'),
     url(r'^delete_image/$', 'forum.views.delete_question_image', name='delete_image'),

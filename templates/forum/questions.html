@@ -4,9 +4,31 @@
 
 {% block content %}
 	<div class="panel panel-success bg-info">
+	
 		<div class="panel-body">
-			<p class="text-justify text-muted">Take the attitude of a student,<i> never be too big to ask questions, never know too much to learn something new</i>.</p>
-			<a class="pull-right" href="{% url 'forum:ask' %}">Ask a Question now</a>
+		   <div class="row">
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="{% url 'forum:ask' %}">Ask a Question</a>
+			</div>
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="{% url 'forum:q_tags' %}">Search Tags</a>
+			</div>
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="/forum/category?q=unanswered">Unanswered</a>
+			</div>
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="/forum/category?q=sae">Automotive Teams</a>
+			</div>
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="/forum/category?q=scholar">Scholars</a>
+			</div>
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="/forum/category?q=lsi">Engineers</a>
+			</div>
+			<div class="col-xs-6 text-center">
+				<a class="btn btn-primary btn-sqr" href="/forum/category?q=sme">SMEs</a>
+			</div>
+		  </div>
 		</div>
 	</div>
 	<div class="ajax_andar feeds">

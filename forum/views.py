@@ -24,7 +24,6 @@ def ask(request):
             user = request.user
             anonymous = request.POST.get('anonymous')
             category = request.POST.get('category')
-            print(category)
             if anonymous:
                 question = Question(question=question, title=title, user=user, anonymous=True, category=category)
             else:
@@ -75,8 +74,8 @@ def edit_ques(request, id):
             i = Images()
             a = i.upload_image(image=image2, user=user)
             q.images.add(a)
-        #tags = form.cleaned_data.get('tags')
-        #question.set_tags(tags)
+        # tags = form.cleaned_data.get('tags')
+        # q.set_tags(tags)
         slug = q.slug
         return HttpResponseRedirect('/forum/'+slug)
     return render(request, 'forum/edit_q.html', locals())
@@ -228,6 +227,7 @@ def reply(request):
         user = request.user
         id = request.POST['id']
         question = Question.objects.get(id=id)
+        question.answered = True
         slug = question.slug
         anonymous = request.POST.get('anonymous')
         edit = request.POST.get('edit')
@@ -264,7 +264,6 @@ def reply(request):
         image0 = request.FILES.get('image0', None)
         image1 = request.FILES.get('image1', None)
         image2 = request.FILES.get('image2', None)
-        print(image0,image1,image2)
         if image0:
             i = Images()
             a = i.upload_image(image=image0, user=user)
@@ -296,7 +295,6 @@ def tag(request):           # this for what
         t = request.GET['tag']
         tag = Tags.objects.get(tag=t)
         return tag
-# Create your views here.
 
 
 def question_tagged(request):
@@ -396,7 +394,6 @@ def delete_question_image(request):
     image = Images.objects.get(id=pid)
     question = Question.objects.get(id=qid)
     question.images.remove(image)
-    print(qid, pid)
     return 0
 
 
@@ -407,6 +404,16 @@ def category(request):
             questions = Question.objects.filter(category=1)
         elif querystring == 'g':
             questions = Question.objects.filter(category=0)
+        elif querystring == 'unanswered':
+            questions = Question.objects.filter(answered=False)
+        elif querystring == 'sae':
+            questions = Question.objects.filter(user__userprofile__primary_workplace__workplace_type='C')
+        elif querystring == 'scholar':
+            questions = Question.objects.filter(user__userprofile__primary_workplace__workplace_type='O')
+        elif querystring == 'sme':
+            questions = Question.objects.filter(user__userprofile__primary_workplace__workplace_type='B')
+        elif querystring == 'lsi':
+            questions = Question.objects.filter(user__userprofile__primary_workplace__workplace_type='A')
         paginator = Paginator(questions, 5)
         page = request.GET.get('page')
         workplaces = Workplace.objects.all().order_by('?')[:5]
@@ -424,6 +431,20 @@ def category(request):
         else:
             # return render(request, 'home.html', {'result_list': result_list})
             return render(request, 'forum/questions.html', {'result_list': result_list, 'workplaces': workplaces})
-# def a_questions(request):           # for SME
-#     user = request.user
-#     area =
+
+
+def q_tags(request):
+    q_tag = Tags.objects.all().order_by('-count')
+    return render(request, 'forum/q_tags.html', locals())
+
+# def un
+
+
+def set_things_right(request):
+    questions = Question.objects.all()
+
+    for question in questions:
+        if question.get_answer_count() >0:
+            question.answered=True
+            question.save()
+    return redirect('/')

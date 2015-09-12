@@ -22,7 +22,7 @@
 		<div class="panel-body">
 			<div class="col-sm-7">
 	      <h4 class=" text-uppercase">{{ tag }}</h4>
-	      <h5 class="text-muted"><b><i>{{ tag.type }}</i></b></h5>
+	      <h5 class="text-muted"><b><i>{{ tag.get_type }}</i></b></h5>
 	      <h5 class="text-muted content_tag_desc">{{ tag.description }}</h5>
 				<textarea name="description" form="tag_desc" rows="3" class="form-control edit_tag_desc hide"></textarea>
 	    </div>

@@ -21,7 +21,11 @@ class WorkplaceForm(forms.ModelForm):
 
 
 class SetWorkplaceForm(forms.ModelForm):
-    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace', 'data-results':'single', 'data-create':'create_new', 'autocomplete':"off", 'placeholder':'Search for your Company, Team or Institution ...'}), required=True, max_length=100)
+    workplace = forms.CharField(widget=forms.TextInput(attrs={'class':'taggable', 'data-search':'workplace',
+                                                              'data-results':'single', 'data-create':'create_new',
+                                                              'autocomplete':"off", 'placeholder':'Search for your\
+                                                               Company, Team or Institution ...'}),
+                                required=True, max_length=100)
 
     job_position = forms.CharField(max_length=50)
 
@@ -29,6 +33,16 @@ class SetWorkplaceForm(forms.ModelForm):
         model = UserProfile
         exclude = ['user', 'gender', 'points', 'experience', 'image', 'image_thumbnail', 'primary_workplace']
         fields = ['workplace', 'job_position']
+
+#
+# class ChangeWorkplaceForm(forms.ModelForm):                                                 # new
+#     workplace = forms.ModelMultipleChoiceField(queryset=UserProfile.workplaces.all())
+#     job_position = forms.CharField(max_length=50)
+#
+#     class Meta:
+#         model = UserProfile
+#         exclude = ['user', 'gender', 'points', 'experience', 'image', 'image_thumbnail', 'primary_workplace']
+#         fields = ['workplace', 'job_position']
 
 
 class SetTeamTypeForm(forms.ModelForm):

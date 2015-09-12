@@ -8,6 +8,8 @@ urlpatterns = patterns('',
 
 
     url(r'^set_about/$', 'workplace.views.set_about', name='set_about'),
+
+    url(r'^fodder/$', 'workplace.views.fodder', name='fodder'),
     url(r'^set_tags/$', 'workplace.views.set_tags', name='set_tags'),
     url(r'^set_tags_short/$', 'workplace.views.set_tags_short', name='set_tags_short'),
     url(r'^set_capabilities/$', 'workplace.views.set_capabilities', name='set_capabilities'),
