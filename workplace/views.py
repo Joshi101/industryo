@@ -79,8 +79,7 @@ def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
         o = Workplace.objects.filter(name__icontains=w)[:5]
-        create = request.GET['the_create']
-        return render(request, 'tags/list_wp.html', {'o': o, 'create': create})
+        return render(request, 'tags/list_wp.html', {'objects': o})
     else:
         return render(request, 'tags/list_wp.html')
 

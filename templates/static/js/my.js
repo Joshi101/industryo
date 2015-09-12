@@ -30,6 +30,7 @@ $(window).on('resize', measure);
 
 $(function(){
     var footer_check = win_height - $('footer').outerHeight();
+    console.log(footer_check)
     if ($('footer').length){
         if (footer_check > $('footer').offset().top){
             var footer_top = footer_check - $('footer').offset().top;
@@ -42,7 +43,7 @@ $(function(){
 });
 
 /* function to convert rendered form inputs that require tagging (remove soon) */
-function convert_to_taggable() {
+/*function convert_to_taggable() {
     var $this = $(this);
     var d_results;
     var name = $this.attr('name'),
@@ -59,83 +60,77 @@ function convert_to_taggable() {
     var new_input = '<div class="d_search" data-results=' + d_results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
     $this.replaceWith(new_input);
 }
-
+*/
 /* convert each form with class 'taggable' (remove soon) */
-$('form .taggable').each(convert_to_taggable);
+/*$('form .taggable').each(convert_to_taggable);*/
 
 
 /* handling input for dynamiac search inputs */
 
-    function doneTyping() {
-        var $this = d_this;
-        var query = $this.val(),
-            search = "/search" + $this.data('search') + "/",
-            create = $this.data('create');
-        if (!create)
-            create = '';
-        var type = $this.siblings('input[name=type]').val();
-        if (!type)
-            type = '';
-        if (d_on) {
-            //d_on = false;
-            $this.nextAll('.form-control-feedback').children('.fback_working').removeClass('hide');
-            console.log(query, search, create, type);
-            $.ajax({
-                url: search,
-                type: "GET",
-                data: {
-                    the_query: query,
-                    the_create: create,
-                    the_type: type
-                },
-                success: function(result) {
-                    d_on = true;
-                    console.log(result);
-                    $this.nextAll('.dropdown')
-                        .children(".d_list").html(result);
-                    if (create == 'create_new') {
-                        var $create_a = $this.nextAll('.dropdown')
-                            .find(".create_new");
-                        var create_now = 'create_' + $this.data('search');
-                        console.log(create_now);
-                        $create_a.attr('href', '#' + create_now);
-                        var collapse_parent = $create_a.closest('.panel-group').attr('id');
-                        $create_a.data('parent', '#' + collapse_parent);
-                        console.log($create_a.data('parent'));
-                        $this.nextAll('.form-control-feedback').children('.fback_working').addClass('hide');
-                    }
-                },
-                error: function(xhr, errmsg, err) {
-                    d_on = true;
-                    $this.nextAll('.dropdown')
-                        .children(".d_list").html("<li class='list-group-item-warning'><a>Sorry, unable to fetch results. Try later.</a></li>");
-                    console.log(errmsg, err);
-                    $this.nextAll('.form-control-feedback').children('.fback_working').addClass('hide');
-                }
-            });
-        }
-        if (query !== '')
-            $this.nextAll('.dropdown')
-            .children('.d_list').css({
-                'display': 'block'
-            });
-
+function doneTyping() {
+    var $this = d_this;
+    var query = $this.val(),
+        search = "/search" + $this.data('search') + "/";
+    var type = $this.siblings('d_type').val();
+    if (!type)
+        type = '';
+    if (d_on) {
+        //d_on = false;
+        $this.siblings('.form-control-feedback').children('.fback_wait').removeClass('hide');
+        console.log(query, search, type);
+        $.ajax({
+            url: search,
+            type: "GET",
+            data: {
+                the_query: query,
+                the_type: type
+            },
+            success: function(result) {
+                //d_on = true;
+                //console.log(result);
+                $this.siblings('.dropdown')
+                    .find(".d_list").html(result);
+                /*if (create == 'create_new') {
+                    var $create_a = $this.nextAll('.dropdown')
+                        .find(".create_new");
+                    var create_now = 'create_' + $this.data('search');
+                    console.log(create_now);
+                    $create_a.attr('href', '#' + create_now);
+                    var collapse_parent = $create_a.closest('.panel-group').attr('id');
+                    $create_a.data('parent', '#' + collapse_parent);
+                    console.log($create_a.data('parent'));
+                }*/
+                $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
+            },
+            error: function(xhr, errmsg, err) {
+                //d_on = true;
+                $this.siblings('.dropdown')
+                    .find(".d_list").html("<li class='list-group-item list-group-item-warning'>Sorry, unable to fetch results. Try later.</li>");
+                console.log(errmsg, err);
+                $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
+            }
+        });
     }
+    if (query !== '')
+        $this.siblings('.dropdown').addClass('open');
+}
 
     var typingTimer; //timer identifier
-    var doneTypingInterval = 500; //time in ms, 1 second for example
+    var doneTypingInterval = 500; //time in ms
     var d_this;
     var d_on = true;
 
     $('.d_input').keydown(function(event) {
         var $this = $(this);
-        $this.nextAll('.form-control-feedback').children().addClass('hide');
+        $this.closest('.d_search').removeClass('has-error');
+        $this.closest('.form-group').find('.fback_warn').addClass('hide');
         d_this = $this;
         if (event.keyCode == '13') {
             event.preventDefault();
-            $this.siblings('.dropdown').children('.d_list').find('a').first().trigger('click');
+            $this.siblings('.dropdown').find('.d_list').find('a').first().trigger('click');
             $this.val('');
-        } else {
+        }
+        else {
             clearTimeout(typingTimer);
             $this.keyup(function() {
                 clearTimeout(typingTimer);
@@ -144,17 +139,31 @@ $('form .taggable').each(convert_to_taggable);
         }
     });
 
-    $('.d_input').on('blur', function(event) {
-        var $this = $(this);
-        var value = $this.next().val();
-        if (!value){
-            $this.nextAll('.form-control-feedback').children().addClass('hide');
-            $this.nextAll('.form-control-feedback').children('.fback_warn').removeClass('hide');
-        }
+
+    $('.d_search').on('click', '.value_close', function() {
+        $(this).parent('.alert').siblings('.d_input').removeClass('hide').focus();
+        $(this).parent('.alert').siblings('.d_value').val('');
+        $(this).parent('.alert').addClass('hide');
     });
-    $(".d_list").on('click', 'a', function(event) {
-        event.preventDefault();
-        aj_search($(this));
+
+    $(".one_list").on('click', '.option', function(event) {
+        //event.preventDefault();
+        //aj_search($(this));
+        d_check = false;
+        var $this = $(this),
+            $d_s = $this.closest('.d_search'),
+            value = $this.children('.option_value').text();
+        $this.closest('.d_search').removeClass('has-error');
+        $this.closest('.form-group').find('.fback_warn').addClass('hide');
+        $this.closest('.form-group').find('.fback_msg').addClass('hide');
+        $d_s.children('.d_value').val(value);
+        $d_s.children('.value_alert').removeClass('hide')
+            .children('span').text(value);
+        $d_s.children('.d_input').addClass('hide');
+        $this.closest('.dropdown').removeClass('open');
+    });
+
+
 
         function aj_search($this) {
             var $sabke_papa = $this.closest('.d_search'),
@@ -188,14 +197,14 @@ $('form .taggable').each(convert_to_taggable);
             } else if (r_type == 'single') {
                 $sabke_papa.children('input').first().before('<div class="alert"><a class="close">&times;</a><strong>' + value + '</strong></div>').addClass('hide').next().val(value);
 
-                $sabke_papa.find('.close').on('click', function() {
+                $sabke_papa.on('click', '.close', function() {
                     $(this).parent('.alert').alert('close');
                     $sabke_papa.children('input').first().removeClass('hide').focus();
                 });
             } else if (r_type == 'multiple') {
                 var $d_results = $sabke_papa.children('.d_results');
                 var pre_value = $d_results.html();
-                $d_results.html(pre_value + '<div class="alert alert_tag"><a href="#" class="close">&times;</a><strong>' + value + '</strong></div>');
+                $d_results.html(pre_value + '<div class="alert alert_tag"><a class="close">&times;</a><strong>' + value + '</strong></div>');
                 var pre_value_snd = $sabke_papa.children('input').first().next().val();
                 if (pre_value_snd !== '')
                     pre_value_snd += ',';
@@ -207,45 +216,48 @@ $('form .taggable').each(convert_to_taggable);
                 });
                 //$sabke_papa.children('input').val('');
             }
-            $sabke_papa.find('.d_list').css({
-                'display': 'none'
-            });
         }
-    });
 
-    $(".d_list").on('click', '.no-select', function() {
-        var $sabke_papa = $(this).closest('.d_search');
-        $sabke_papa.find('.d_list').css({
-            'display': 'none'
-        });
-    });
 
-    // displaying the dynamically formed list
-    $(".d_list").hover(function() {
-        $(this).css({
-            'display': 'block'
-        });
-        $(".d_input").off('blur');
-    }, function() {
-        //  $(this).css({'display':'none'});
-        $(".d_input").blur(function() {
-            $(this).nextAll('.dropdown').find('.d_list').css({
-                'display': 'none'
-            });
-        });
+var d_check = true;
+
+function d_input_blur() {
+    if (d_check){
+        $(this).siblings('.dropdown').removeClass('open');
+        console.log('okkk');
+        var $this = $(this);
+        var value = $this.siblings('.d_value').val();
+        if (!value){
+            console.log('click nai kiya', value);
+            $this.closest('.d_search').addClass('has-error');
+            $this.closest('.form-group').find('.fback_warn').removeClass('hide');
+            $this.closest('.form-group').find('.fback_msg').removeClass('hide');
+        }
+        else
+            console.log('clicl kiya');
+    }
+}
+
+    $(".d_input").focus(function(){
+        d_check = true;
+    });
+    $(".d_input").blur(d_input_blur);
+
+    $(".d_menu").hover(
+        function() {
+            $(".d_input").off('blur');
+        },
+        function() {
+        $(".d_input").blur(d_input_blur);
     });
     $(".d_input").focus(function() {
         var $this = $(this);
         var query = $this.val();
         if (query !== '')
-            $this.nextAll('.dropdown').find('.d_list').css({
-                'display': 'block'
-            });
+            $(this).siblings('.dropdown').addClass('open');
     });
     $(".d_input").blur(function() {
-        $(this).nextAll('.dropdown').find('.d_list').css({
-            'display': 'none'
-        });
+        $(this).siblings('.dropdown').removeClass('open');
     });
 
     // function to submit form ajaxly
@@ -274,7 +286,7 @@ $('form .taggable').each(convert_to_taggable);
                         var cl = $papa.find('#' + response.inputs[i]).attr('class');
                         if (cl.indexOf('d_input') >= 0) {
                             console.log('OKAY');
-                            $papa.find('#' + response.inputs[i]).before('<div class="alert"><a href="#" class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
+                            $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
 
                         }
                     }
@@ -295,7 +307,7 @@ $('form .taggable').each(convert_to_taggable);
             },
 
             error: function(xhr, errmsg, err) {
-                $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
                 console.log(errmsg, err);
             }
         });
@@ -344,7 +356,7 @@ $('form .taggable').each(convert_to_taggable);
             },
 
             error: function(xhr, errmsg, err) {
-                $this.next().next().find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
                 console.log(errmsg, err);
             }
         });
@@ -402,6 +414,7 @@ if ($('.paginator').length) {
                 error: function(xhr, errmsg, err) {
                     console.log(errmsg, err);
                     $pg.before("<h5 id='last_feed' class='text-center text-muted'>Looks like you've reached the beginning of your history at CoreLogs :)</h5>");
+                    $pg.addClass('hide');
                 }
             });
         }
@@ -544,7 +557,7 @@ function send_img() {
     img_index[i] = 1;
     var free = check_img_index();
     console.log('free: ', free);
-    var img_pre = '<div class="alert"><a href="#" class="close">&times;</a><img width="90%" src="" alt=""></div>';
+    var img_pre = '<div class="alert"><a class="close">&times;</a><img width="90%" src="" alt=""></div>';
     var input = '<span title="Add Image" data-toggle="tooltip" data-placement="left" class="btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in"><input id="id_image_' + free + '" type="file" name="image' + free + '"></span>';
     if ($(this).closest('form').find('.img_pre .alert').length <= i) {
         console.log('alert added', $(this).closest('form').find('.img_pre .alert').length);
@@ -771,7 +784,7 @@ $('.hover_ajax').on({
             },
 
             error: function(xhr, errmsg, err) {
-                $this.nextAll('.dropdown').find(".d_list").html("<li><a href='#' class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+                $this.nextAll('.dropdown').find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
                 console.log(errmsg, err);
             }
         });
@@ -1132,3 +1145,13 @@ $('.call_car').on('click', function(){
     $('#figure_modal .modal-title').text(title);
     $('#figure_modal .modal-body img').attr('src',src);
 });
+
+if($('#set_workplace').length){
+
+        console.log('b')
+    $('#set_workplace').find('input[name=workplace]').change(function(){
+        var $this = this;
+        console.log('a',$this.find('button[type=submit]').attr('disabled'))
+        $this.find('button[type=submit]').attr('disabled','false');
+    });
+}
