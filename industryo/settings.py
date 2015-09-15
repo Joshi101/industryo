@@ -46,8 +46,8 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3',
     'crispy_forms',
-    'debug_toolbar',
-    'background_task',
+    #'debug_toolbar',
+    #'background_task',
 
     'nodes',
     'workplace',

@@ -1,10 +1,10 @@
-from background_task import background
+#from background_task import background
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from activities.models import Notification
 
 
-@background(schedule=60)
+#@background(schedule=60)
 def notify_user(id, n):
     notification = Notification.objects.get(id=id)
     user = notification.to_user

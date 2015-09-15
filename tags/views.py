@@ -29,13 +29,13 @@ def create_tag(request):
 def search_tag(request):
     if request.method == 'GET':
         tag = request.GET['the_query']
-        create = request.GET['the_create']
         type = request.GET['the_type']
         if type == 'All':
             o = Tags.objects.filter(tag__icontains=tag)[:6]
         else:
+
             o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
-        return render(request, 'tags/list.html', {'o': o, 'create': create})
+        return render(request, 'tags/list.html', {'objects': o})
     else:
         return render(request, 'tags/list.html')
 
