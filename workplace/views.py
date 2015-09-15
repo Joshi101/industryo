@@ -364,11 +364,19 @@ def side_panel(request):
 def fodder(request):
     ob = WpTags.objects.all()
     for o in ob:
-        print('a')
-        o.category = o.tags.type
-        o.save()
-        print(o.tags.type)
+        print(o.id)
+        if o.tags:
+            o.category = o.tags.type
+            o.save()
 
     return redirect('/')
 
+
+def todder(request):
+    ob = UserProfile.objects.all()
+    for o in ob:
+        if o.primary_workplace:
+            a = o.primary_workplace
+            Workplaces.objects.create(userprofile=o, workplace=a, job_position=o.job_position)
+    return redirect('/')
 # Create your views here.

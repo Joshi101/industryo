@@ -330,7 +330,7 @@ class Workplaces(models.Model):
     job_position = models.CharField(max_length=255, null=True)
 
     class Meta:
-        db_table = 'Workplaces'
+        db_table = 'workplaces'
 
 
 
