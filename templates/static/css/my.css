@@ -1650,8 +1650,41 @@ footer .contact li{
   border-radius: 0;
 }
 
-.value_alert{
+.one_value{
   border: 1px solid #3c763d;
   border-radius: 1px;
   background-color: #dff0d8;
+}
+
+.d_search{
+
+}
+
+.d_search .input-group textarea{
+  border-left: 0;
+}
+
+.d_search .input-group textarea:focus{
+  box-shadow: 0 0 0;
+}
+
+.d_search .input-group-addon{
+  background-color: #fff;
+  padding: 0;
+}
+
+.d_search .input-group .close{
+  font-size: 20px;
+}
+
+.many_value{
+  line-height: 20px;
+  display: inline-block;
+  padding: 0 5px;
+  background-color: #ccc;
+  margin: 5px;
+}
+
+.many_value span{
+  padding-right: 15px;
 }

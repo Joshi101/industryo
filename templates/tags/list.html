@@ -1,6 +1,7 @@
-{% for ob in o %}
-	<li><a class=""><span>{{ob}}</span> ({{ob.get_type_display}})</a></li>
+{% for o in objects %}
+	<li class="list-group-item option"><span class="option_value">{{o}}</span> <span class="text-muted option_type">({{o.get_workplace_type_display}})</span></li>
 {% endfor %}
+	{% comment %}
 	{% ifequal create "create" %}
 	<li class="list-group-item-info"><a class="create"><span class="glyphicon glyphicon-plus"></span> Create now</a></li>
 	{% endifequal %}
@@ -10,3 +11,4 @@
 	{% ifequal create "" %}
 	<li class="no-select">Sorry, no match found</li>
 	{% endifequal %}
+	{% endcomment %}

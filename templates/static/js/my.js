@@ -69,9 +69,11 @@ $(function(){
 
 function doneTyping() {
     var $this = d_this;
+    var $d_search = $this.closest('.d_search');
     var query = $this.val(),
         search = "/search" + $this.data('search') + "/";
-    var type = $this.siblings('d_type').val();
+    var type = $d_search.find('.d_type').val();
+    console.log(type);
     if (!type)
         type = '';
     if (d_on) {
@@ -88,7 +90,7 @@ function doneTyping() {
             success: function(result) {
                 //d_on = true;
                 //console.log(result);
-                $this.siblings('.dropdown')
+                $d_search.find('.dropdown')
                     .find(".d_list").html(result);
                 /*if (create == 'create_new') {
                     var $create_a = $this.nextAll('.dropdown')
@@ -104,7 +106,7 @@ function doneTyping() {
             },
             error: function(xhr, errmsg, err) {
                 //d_on = true;
-                $this.siblings('.dropdown')
+                $d_search.find('.dropdown')
                     .find(".d_list").html("<li class='list-group-item list-group-item-warning'>Sorry, unable to fetch results. Try later.</li>");
                 console.log(errmsg, err);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
@@ -112,7 +114,7 @@ function doneTyping() {
         });
     }
     if (query !== '')
-        $this.siblings('.dropdown').addClass('open');
+        $d_search.find('.dropdown').addClass('open');
 }
 
     var typingTimer; //timer identifier
@@ -120,15 +122,38 @@ function doneTyping() {
     var d_this;
     var d_on = true;
 
+    function d_input_remove_error($this,sign,msg){
+        if(sign){
+            $this.closest('.d_search').removeClass('has-error');
+            $this.closest('.form-group').find('.fback_warn').addClass('hide');
+        }
+        if(msg)
+            $this.closest('.form-group').find('.fback_msg').addClass('hide');    
+    }
+    function d_input_show_error($this,sign,msg){
+        if(sign){
+            $this.closest('.d_search').addClass('has-error');
+            $this.closest('.form-group').find('.fback_warn').removeClass('hide');
+        }
+        if(msg)
+            $this.closest('.form-group').find('.fback_msg').removeClass('hide');
+    }
+
+    function d_input_errmsg($this){
+        $this.closest('.form-group').find('.fback_msg').addClass('hide');
+    }
+
     $('.d_input').keydown(function(event) {
         var $this = $(this);
-        $this.closest('.d_search').removeClass('has-error');
-        $this.closest('.form-group').find('.fback_warn').addClass('hide');
+        d_input_remove_error($this,true,false);
         d_this = $this;
+        $d_search = $this.closest('.d_search');
         if (event.keyCode == '13') {
             event.preventDefault();
-            $this.siblings('.dropdown').find('.d_list').find('a').first().trigger('click');
-            $this.val('');
+            if ($d_search.find('.dropdown').attr('class').indexOf('open') >= 0){
+                $d_search.find('.dropdown').find('.d_list').find('.option').first().trigger('click');
+                $this.val('');
+            }
         }
         else {
             clearTimeout(typingTimer);
@@ -140,9 +165,10 @@ function doneTyping() {
     });
 
 
-    $('.d_search').on('click', '.value_close', function() {
-        $(this).parent('.alert').siblings('.d_input').removeClass('hide').focus();
-        $(this).parent('.alert').siblings('.d_value').val('');
+    $('.d_search').on('click', '.one_value .close', function() {
+        $d_search = $(this).closest('.d_search');
+        $d_search.find('.d_input').removeClass('hide').focus();
+        $d_search.find('.d_value').val('');
         $(this).parent('.alert').addClass('hide');
     });
 
@@ -151,15 +177,29 @@ function doneTyping() {
         //aj_search($(this));
         d_check = false;
         var $this = $(this),
-            $d_s = $this.closest('.d_search'),
-            value = $this.children('.option_value').text();
-        $this.closest('.d_search').removeClass('has-error');
-        $this.closest('.form-group').find('.fback_warn').addClass('hide');
-        $this.closest('.form-group').find('.fback_msg').addClass('hide');
-        $d_s.children('.d_value').val(value);
-        $d_s.children('.value_alert').removeClass('hide')
+            $d_search = $this.closest('.d_search'),
+            value = $this.find('.option_value').text();
+        d_input_remove_error($this,true,true);
+        $d_search.find('.d_value').val(value);
+        $d_search.find('.one_value').removeClass('hide')
             .children('span').text(value);
-        $d_s.children('.d_input').addClass('hide');
+        $d_search.find('.d_input').addClass('hide');
+        $this.closest('.dropdown').removeClass('open');
+    });
+
+    $(".many_list").on('click', '.option', function(event) {
+        d_check = false;
+        var $this = $(this),
+            $d_search = $this.closest('.d_search'),
+            value = $this.find('.option_value').text();
+        d_input_remove_error($this,true,true);
+        var pre_value = $d_search.find('.d_value').val();        
+        if (pre_value !== '')
+            pre_value += ',';
+        $d_search.find('.d_value').val(pre_value + value);
+
+        $d_search.find('.input-group-addon').append('<div class="many_value"><a class="close">&times;</a><span>' + value +'</span></div>');
+        //$d_search.find('.d_input').addClass('hide');
         $this.closest('.dropdown').removeClass('open');
     });
 
@@ -223,24 +263,16 @@ var d_check = true;
 
 function d_input_blur() {
     if (d_check){
-        $(this).siblings('.dropdown').removeClass('open');
+        $(this).closest('.d_search').find('.dropdown').removeClass('open');
         console.log('okkk');
         var $this = $(this);
-        var value = $this.siblings('.d_value').val();
+        var value = $(this).closest('.d_search').find('.d_value').val();
         if (!value){
-            console.log('click nai kiya', value);
-            $this.closest('.d_search').addClass('has-error');
-            $this.closest('.form-group').find('.fback_warn').removeClass('hide');
-            $this.closest('.form-group').find('.fback_msg').removeClass('hide');
+            d_input_show_error($this,true,true);
         }
-        else
-            console.log('clicl kiya');
     }
 }
 
-    $(".d_input").focus(function(){
-        d_check = true;
-    });
     $(".d_input").blur(d_input_blur);
 
     $(".d_menu").hover(
@@ -251,13 +283,11 @@ function d_input_blur() {
         $(".d_input").blur(d_input_blur);
     });
     $(".d_input").focus(function() {
+        d_check = true;
         var $this = $(this);
         var query = $this.val();
         if (query !== '')
-            $(this).siblings('.dropdown').addClass('open');
-    });
-    $(".d_input").blur(function() {
-        $(this).siblings('.dropdown').removeClass('open');
+            $(this).closest('.d_search').find('.dropdown').addClass('open');
     });
 
     // function to submit form ajaxly
