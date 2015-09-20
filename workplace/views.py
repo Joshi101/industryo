@@ -137,7 +137,7 @@ def set_tags_short(request):
         up = user.userprofile
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
-        value = request.POST.get('value')
+        value = request.POST.get('tag')
 
         if type == 'A':
             t = wp.set_assets(value)

@@ -22,10 +22,10 @@
     <div class="col-sm-7">
       <h4 class=" text-uppercase" property='name'>{{ workplace.name }}</h4>
       <h4 class="text-muted ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-        <small><i class="tag_container" property='addressRegion'>{% include "snippets/area.html" with workplace=workplace %}</i></small>
+        <small><span class="tag_container" property='addressRegion'>{% include "snippets/area.html" with workplace=workplace %}</span></small>
       </h4>
       <h4 class="text-muted ajax_andar ajax_papa">
-        <small><b><i class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</i></b></small>
+        <small><b><span class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</span></b></small>
       </h4>
     </div>
     <div class="col-sm-offset-1 col-sm-4">

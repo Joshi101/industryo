@@ -201,9 +201,30 @@ function doneTyping() {
         $d_search.find('.input-group-addon').append('<div class="many_value"><a class="close">&times;</a><span>' + value +'</span></div>');
         //$d_search.find('.d_input').addClass('hide');
         $this.closest('.dropdown').removeClass('open');
+        textarea_size($d_search);
     });
 
+    function textarea_size(ds){
+        var ds_w = ds.innerWidth();
+        ds.find('.input-group').css({'width':'100%'});
+        var taggrp_w = ds.find('.input-group-addon').outerWidth(true);
+        console.log(taggrp_w,ds_w)
+        var texta = ds.find('textarea');
+        if ((taggrp_w*2) > ds_w){
+            var rows = parseInt(texta.attr('rows'));
+            var line_h = parseInt(texta.css('line-height').replace('px', ''));
+            var h = parseInt(texta.css('height').replace('px', ''));
+            console.log(h,line_h)
+            texta.css('height',(h+line_h+'px'));
+            texta.attr('rows',rows+1);
+            ds.find('.input-group-addon').css({'width':ds_w/2});
+        }
+    }
 
+    var ds = $('.d_search');
+    if(ds.find('.input-group')){
+        textarea_size(ds);
+    }
 
         function aj_search($this) {
             var $sabke_papa = $this.closest('.d_search'),
@@ -521,11 +542,14 @@ $('#form_feed .btn, .img_pre').on({
     }
 });
 
-$('.ajax_andar').on('click', '.alert .delete', function() {
+$('.ajax_andar').on('click', '.delete', function() {
     var $this = $(this);
     var from = $this.data('delete');
     var url = '/workplace/delete_tag';
-    var del = $this.closest('.alert').children('.del_id').text();
+    var del = $this.closest('.alert').find('.del_id').text();
+    if(!del){
+        del = $this.closest('.tag_short').find('.del_id').text();
+    }
     console.log(del, url);
     $.ajax({
         url: url,
@@ -729,13 +753,15 @@ $('.detail').on({
 
 $('.detail_add').on('click', function(event) {
     event.preventDefault();
+    console.log('clickku')
     var $this = $(this);
-    var save = $this.data('save');
+    var save = $this.attr('data-save');
     var content = $this.data('content');
     var taggy = $this.data('taggy');
+    console.log(save,content,taggy)
     var $forms = $('.edit_' + content);
     if (save == 'save') {
-        $this.text('Add').data('save', '');
+        $this.text('Add').attr('data-save', '');
         if (taggy == 'yes') {
             console.log($this.prev().text());
             $this.siblings('span').removeClass('hide').siblings('.tag_short').addClass('hide').children('.close');
@@ -743,8 +769,9 @@ $('.detail_add').on('click', function(event) {
         $forms.each(function() {
             $(this).addClass('hide');
         });
+        ajax_from($(this).siblings('form'));
     } else {
-        $this.text('Done').data('save', 'save');
+        $this.text('Done').attr('data-save', 'save');
         if (taggy == 'yes') {
             $this.siblings('span').addClass('hide').siblings('.tag_short').removeClass('hide').children('.close');
         }
@@ -1183,5 +1210,55 @@ if($('#set_workplace').length){
         var $this = this;
         console.log('a',$this.find('button[type=submit]').attr('disabled'))
         $this.find('button[type=submit]').attr('disabled','false');
+    });
+}
+
+    
+function ajax_from($this){
+    var $papa = $this.closest('.ajax_papa');
+    var $form = $this.closest('form');
+    console.log($form.serialize());
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+
+        success: function(response) {
+            $form.find('.form-control').val('');
+            if (response.fields) {
+                for (i = 0; i < response.fields.length; i++) {
+                    $papa.find('.' + response.fields[i]).text(response.data[response.fields[i]]);
+                }
+            }
+            if (response.inputs) {
+                for (i = 0; i < response.inputs.length; i++) {
+                    $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
+                    var cl = $papa.find('#' + response.inputs[i]).attr('class');
+                    if (cl.indexOf('d_input') >= 0) {
+                        console.log('OKAY');
+                        $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
+
+                    }
+                }
+            }
+            if (response.elements) {
+                if (response.prepend) {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
+                        console.log(response.elements[i], response.html[response.elements[i]]);
+                    }
+                    console.log('yoho');
+                } else {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
+                    }
+                }
+            }
+        },
+
+        error: function(xhr, errmsg, err) {
+            $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+            console.log(errmsg, err);
+        }
     });
 }
