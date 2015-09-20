@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
 
@@ -13,6 +14,9 @@ urlpatterns = patterns('',
     url(r'^delete/$', 'nodes.views.delete', name='delete'),
     url(r'^delete_image/$', 'nodes.views.delete_node_image', name='delete_image'),
     url(r'^write/$', 'nodes.views.write', name='write'),
+
+    url(r'^what_to_write/$', TemplateView.as_view(template_name='nodes/what_to_write.html'), name='what_to_write'),
+    url(r'^help/$', TemplateView.as_view(template_name='nodes/help.html'), name='help'),
     url(r'^set_logo/$', 'nodes.views.set_logo', name='set_logo'),
     url(r'^set_profile_image/$', 'nodes.views.set_profile_image', name='set_profile_image'),
     url(r'^set_product_image/(?P<slug>[^/]+)/$', 'nodes.views.set_product_image', name='set_product_image'),

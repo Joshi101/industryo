@@ -1629,6 +1629,13 @@ footer .contact li{
   display: block;
 }
 
+#side_instructions.ask{
+  width: 280px;
+  color: #000;
+  background-color: #dff0d8;
+}
+
+
 #figure_modal .modal-body img{
   width: 100%;
 }
@@ -1688,3 +1695,4 @@ footer .contact li{
 .many_value span{
   padding-right: 15px;
 }
+

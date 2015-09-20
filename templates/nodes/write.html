@@ -50,3 +50,15 @@
 		{% csrf_token %}
 	</form>
 {% endblock %}
+{% block right %}
+  <div id='side_instructions' class="ask">
+    <h3 class="side_head"><a href="{% url 'nodes:what_to_write' %}">What to write</a></h3>
+	<h4>CoreLogs - The Engineer's Blog</h4>    
+		<p>We accept technical & Industry related Articles.</p>
+		<p>The Title of the article should clearly summarize the topic you are writing about.</p>
+		<p>You can write articles as a Engineering related blog and your CoreLogs profile would contain all your blogs at one place.</p>
+		<p>Tag the Article with appropriate topics for classification.</p>
+		<p>You can add upto 3 images to your article for explanation</p>
+  </div>
+{% endblock right %}
+

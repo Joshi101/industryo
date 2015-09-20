@@ -155,7 +155,7 @@ def set_tags_short(request):
             t = wp.set_events(value)
         if type == 'S':
             t = wp.set_segments(value)
-        new_interest = wp.tags.get(tag=value)
+        new_interest = t
         r_elements = ['tag_container']
         r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
         response['html'] = r_html
@@ -379,3 +379,13 @@ def todder(request):
             Workplaces.objects.create(userprofile=o, workplace=a, job_position=o.job_position)
     return redirect('/')
 # Create your views here.
+
+
+def change_workplace(request):
+    if 'q' in request.GET:
+        querystring = request.GET.get('q')
+        usp = request.user.userprofile
+        workplace = Workplace.objects.get(id=querystring)
+        usp.primary_workplace = workplace
+        usp.save()
+        return redirect('/')

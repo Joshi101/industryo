@@ -41,6 +41,10 @@ class UserProfile(models.Model):
         detail = "%s | %s" % (self.user, self.primary_workplace)
         return detail
 
+    def get_all_workplaces(self):
+        w = self.workplaces.all()
+        return w
+
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:

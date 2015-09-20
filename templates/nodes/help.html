@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load account %}
+
+
+{% block body %}
+<div class="container">
+	<h3><b>CoreLogs</b> - The Engineer's Blog</h3>
+	<p>CoreLogs - The Engineer's Blog is a platform where you can write articles or blog about any engineering related topic of your interest.
+	Although there are a lot of other platforms for blogging, but on a website like CoreLogs, which is a platform for core segment of engineering, you 
+	actually put your blog in front of a community of people who are interested in your work. 
+	<h4>Why should I write an Article or a Blog:</h4>
+	<p>Writing an article on CoreLogs is a voluntary act. The entire platform is based on your will to share your knowledge with others in your community
+	and help others. You write an article today adressing some common problem, misunderstanding or some particular topic that people might find helpful, it can 
+	be read by many people and those in need can get benefitted from it. It stays there forever and depending upon the quality, might be used as a reference by 
+	people. Also, by writing a valuable article, you are actually helping in creation of a thriving community of people related to core segment. You are 
+	helping in development of the Core Segment of Engineering in your own way. You are actually removing roadblocks for many people.</p>
+	<h4>There are other reasons too:</h4>
+	<li>You get 5 points for every upvote you get on your article increasing your credibility.
+	<li>The Visibility of you and your workplace increases on internet. Your Team/ Company/ College will be more visible.</li>
+	<li>By writing an Article you are establishing your superiority in the field. The best people should write the most.</li>
+	<h4>To understand what kind of articles you can write <a href="{% url 'nodes:what_to_write' %}">What can I write about</a></h4>
+	
+</div>
+{% endblock body %}
+
+

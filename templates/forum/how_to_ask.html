@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load account %}
+
+
+{% block body %}
+<div class="container">
+	<h3><b>CoreLogs</b> - The Engineer's Forum <a href="{% url 'forum:help' %}">(What is it?)</a></h3>	
+	<h3>What to Ask</h3>
+	<p>CoreLogs is an Engineer's Forum. You can ask technical problems related to core segment of engineering (mechanical, electrical, Manufacturing, 
+	Materials etc.) You can also ask non-technical questions but that must be related to the Engineering & Industry.</p>
+	<p>If you belong to a collegiate club designing and manufacturing automobile, aeroplanes, robots etc, you can ask event related questions but you 
+	must tag it appropriately and give proper details about the questions. You can ask questions related to Static & Dynamic events too.</p>
+	<p>However if you want some details about the event or the competition which is only relevant to your the type of your workplace (Teams/ Colleges/ industry) 
+	you should post it on home page.</p>
+	<h3>How to Ask</h3>
+	<p><h4>Title</h4></p>
+	<p>The Title of the Question should contain a brief introduction of the Question in about than 15-20 words.
+	<li>The title would be visible on the forum. If somebody understands the title then only he is going to look at the question and answer it.
+	<li>The title must summarize the question
+	<li>Avoid words like "need help", "i have a problem", "share your opinion" etc. in the title.
+	<p><h5>Example</h5></p>
+	<li>Bad: I need help in CFD Meshing
+	<li>Good: How and why mesh skewness is used to determine the quality of the mesh?
+	<li>Bad: Baja SAE India Suspension Geometry
+	<li>Good: Which software can be used to design and analyze the Suspension Geometry and calculate camber changes on wheel travel of a Baja vehicle?</li>
+	<p><h4>Details</h4></p>
+	<p><h5>You should provide every detail about the question in the details section. It should describe the problem and may also provide a little detail 
+	about the topic it is associated with.</h5></p>
+	<li>If the problem is related to some calculations, you should tell about the formulas you used and problems you are getting
+	<li>If the problem is regarding some software, you should tell the steps you took to solve.
+	<p><h4>Tags</h4></p>
+	<p><h5>You must tag the question with appropriate topics for categorization.</p></h5>
+	<li>You should provide at least 3-4 tags in order to categorize the question completely</li>
+	<li>You should try to use an existing tag. But if you are creating a new tag, you should describe the tag by going on the tag page.</li>
+	
+</div>
+{% endblock body %}
+
+

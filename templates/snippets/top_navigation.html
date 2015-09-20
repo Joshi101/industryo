@@ -85,7 +85,16 @@
                 <span> Set Details </span>
               </a>
             </li>
-            <li>
+            
+			{% for works in user.userprofile.get_all_workplaces %}
+			<li>
+              <a href="/workplace/cw?q={{works.id}}">
+                <span class="fa fa-briefcase"></span>
+                <span> {{works}} </span>
+              </a>
+            </li>
+			{% endfor %}
+			<li>
               <a href="{% url 'logout' %}">
                 <span class="fa fa-sign-out"></span>
                 <span> Logout </span>

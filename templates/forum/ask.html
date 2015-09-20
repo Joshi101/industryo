@@ -62,6 +62,8 @@
       </button>
     </div>
 	</form>
+	<p>You can also Answer your own Question, now or later if you get the answer from some other source or solve it yourself.
+	See <a href="{% url 'forum:why_should_i_answer' %}">why should you answer on CoreLogs</a></h3>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.categ_btn').on('click',function(){
@@ -74,22 +76,29 @@
 {% endblock %}
 
 {% block right %}
-	<div class="floating_form">
-    <h5 class="side_head">How to Ask</h5>
+  <div id='side_instructions' class="ask">
+    <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">How & What to Ask</a></h3>
+	<h4>CoreLogs - The Engineer's Forum</h4>
     {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
-		<li>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
-		<li>For informations related to dealers and parts, post on the homepage instead </li>
-		<li>Tag the Questions with appropriate topics for classification</li>
-		<li>If you are asking a question about baja, tag Baja, if asking about formula, tag formula, if the question applies to both, tag both</li>
-		<li>You can answer your own question too so that other might find it useful later.</li>
-		<li>You can add upto 3 images to explain your question</li>
+		<p>We accept technical & Industry related questions.</p>
+		<p>For informations related to dealers and parts, post on the homepage instead.</p>
+		<p><b>The title must give a brief introduction of the question.</b></p>
+		<p>Provide necessary details so that others may better understand the exact problem you are facing. People not familiar with Baja & Formula may also answer.</p>
+		<p>Tag the Questions with appropriate topics for classification.</p>
+		<p>If your question is about baja, tag <b>Baja</b>, if it's about formula, tag <b>Formula</b></p>
+		<p>You can answer your own questions too so that other might find it useful later.</p>
+		<p>You can add upto 3 images to explain your question</p>
 	{% else %}
-		<li>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
-		<li>Keep the question to the point and add necessary details along with what approach you were taking to solve it</li>
-		<li>Tag the Questions with appropriate topics for classification</li>
-		<li>You can answer your own question too so that other might find it useful later.</li>
-		<li>You can add upto 3 images to explain your question</li>
+		<p>We accept technical & Industry related questions.</p>
+		<p>For informations related to dealers and parts, post on the homepage instead.</p>
+		<p><b>The title must give a brief introduction of the question.</b></p>
+		<p>Provide necessary details so that others may better understand the exact problem you are facing.</p>
+		<p>Tag the Questions with appropriate topics for classification.</p>
+		<p>You can answer your own questions too so that other might find it useful later.</p>
+		<p>You can add upto 3 images to explain your question</p>
 	{% endif %}
-	</div>
+  </div>
 {% endblock right %}
+
+
 
