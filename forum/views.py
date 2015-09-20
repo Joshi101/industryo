@@ -44,7 +44,7 @@ def ask(request):
                 i = Images()
                 a = i.upload_image(image=image2, user=user)
                 question.images.add(a)
-            tags = form.cleaned_data.get('tag')
+            tags = request.POST.get('tag')
             print(tags)
             question.set_tags(tags)
             slug = question.slug

@@ -1,7 +1,7 @@
-<button data-content="{{ category }}" data-save='' data-taggy="yes" class="btn btn-default btn-xs detail_add pull-right hide" name="">Add</button>
+<button data-content="{{ category }}" data-save='' data-taggy="yes" class="btn btn-default btn-xs detail_add pull-right hide" type="button" name="">Add</button>
 <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
 	{% csrf_token %}
-	{% include "snippets/d_search.html" with search="tag" type=type %}
+	{% include "snippets/d_search_tags.html" with search="tag" type=type %}
 	<!-- <div class="d_search" data-results="instant">
 		<input class="form-control input-sm d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your {{ head }} here ...">
 		<input type="hidden" name="value" class="instant_i">

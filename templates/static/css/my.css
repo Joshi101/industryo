@@ -1656,6 +1656,11 @@ footer .contact li{
   background-color: #dff0d8;
 }
 
+.one_value .close{
+  position: relative;
+  bottom: 3px;
+}
+
 .d_search{
 
 }
@@ -1670,11 +1675,25 @@ footer .contact li{
 
 .d_search .input-group-addon{
   background-color: #fff;
-  padding: 0;
+  padding: 0 25px 0 5px;
+}
+
+@media (max-width: 767px){
+  .d_search .input-group-addon{
+    display: block;
+    border: 0;
+    background-color: transparent;
+    margin-bottom: 5px;
+  }
+  
+  .d_search .input-group textarea{
+    border-left: 1px solid #ccc;
+  }
 }
 
 .d_search .input-group .close{
-  font-size: 20px;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .many_value{
@@ -1686,5 +1705,5 @@ footer .contact li{
 }
 
 .many_value span{
-  padding-right: 15px;
+  margin-right: 12px;
 }
