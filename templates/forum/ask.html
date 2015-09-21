@@ -4,7 +4,7 @@
 {% load bootstrap3 %}
 
 {% block content %}
-	<form id="form_ask" enctype="multipart/form-data" action="" method="POST" role="form" >
+	<form id="form_ask" class="article_form" enctype="multipart/form-data" action="" method="POST" role="form" enctype="multipart/form-data">
 		{% csrf_token %}
 		<div class="form-group">
 			<label class="control-label">Type of the Question</label>
@@ -20,7 +20,9 @@
 		</div>
 		<div class="form-group">
       <label class="control-label">Details of the Question</label>
-      <textarea class=" form-control" cols="40" id="id_question" maxlength="5000" name="question" rows="10"></textarea>
+			{% include "snippets/richtext_toolbar.html" %}
+	    <div id="editor" class="empty"><div class="text-muted">Details please ...</div></div>
+			<input type="hidden" name="question">
 		</div>
 		<div class="form-group">
 			<div class="hide">
@@ -56,11 +58,8 @@
 		<div class="checkbox">
 		  <label><input type="checkbox" name="anonymous" value="true">Ask as Anynonymous</label>
 		</div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-ok"></span> Submit
-      </button>
-    </div>
+    <button type="button" class="btn btn-default">Ask</button>
+    <button type="submit" class="hidden"></button>
 	</form>
 	<p>You can also Answer your own Question, now or later if you get the answer from some other source or solve it yourself.
 	See <a href="{% url 'forum:why_should_i_answer' %}">why should you answer on CoreLogs</a></h3>
