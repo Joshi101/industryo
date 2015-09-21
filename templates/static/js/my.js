@@ -11,14 +11,16 @@ function measure() {
     top_nav_width = $('.navbar-fixed-top').outerHeight(true);
     win_width = $(window).width();
     win_height = $(window).height();
+    foot_height = $('footer').outerHeight(true);
     body_slide();
 }
 
 /* function to auto adjust top margin for the body */
 function body_slide() {
+    console.log(win_height, top_nav_width, foot_height)
     $('.body').stop().animate({
-        'top': top_nav_width,
-        'min-height': (win_height - top_nav_width)
+        'margin-top': top_nav_width,
+        'min-height': (win_height - top_nav_width - foot_height)
     });
 
 }
@@ -27,7 +29,7 @@ function body_slide() {
 $(measure);
 $(window).on('resize', measure);
 
-
+/*
 $(function(){
     var footer_check = win_height - $('footer').outerHeight();
     console.log(footer_check)
@@ -40,7 +42,7 @@ $(function(){
             });
         }
     }
-});
+});*/
 
 /* function to convert rendered form inputs that require tagging (remove soon) */
 /*function convert_to_taggable() {
