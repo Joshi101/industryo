@@ -19,7 +19,8 @@ def ask(request):
         if not form.is_valid():
             return render(request, 'forum/ask.html', {'form': form})
         else:
-            question = form.cleaned_data.get('question')
+            question = request.POST.get('question')
+            print(question)
             title = form.cleaned_data.get('title')
             user = request.user
             anonymous = request.POST.get('anonymous')
