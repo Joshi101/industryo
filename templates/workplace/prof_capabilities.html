@@ -17,7 +17,7 @@
 		<li><a href="{% url "workplace:members" workplace.slug %}">Members</a></li>
 		<li class="active"><a href="{% url "workplace:capabilities" workplace.slug %}">Events</a></li>
 		<li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
-		<li>a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+		<li><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
 	{% elif workplace.workplace_type == 'O' %}
 		<li><a href="{% url "workplace:members" workplace.slug %}">People</a></li>
 		<li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>

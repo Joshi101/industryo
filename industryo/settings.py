@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'corelogs_db',  # last was db
+        'NAME': 'again',  # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
