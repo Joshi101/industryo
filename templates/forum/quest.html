@@ -28,7 +28,7 @@
 							{% endif %}
 						</h4>
 						{% if q.question %}
-						<p class="q_body" property="text">{{ q.question }}</p>
+						<p class="q_body" property="text">{{ q.question|safe }}</p>
 						{% endif %}
 						{% for image in q.get_images %}
 						<figure class="call_car" property='assocaitedMedia' typeof='ImageObject'>
