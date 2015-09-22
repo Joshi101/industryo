@@ -1653,49 +1653,26 @@ footer .contact li{
   border: 1px solid #3c763d;
   border-radius: 1px;
   background-color: #dff0d8;
+  padding: 6px;
 }
 
 .one_value .close{
   position: relative;
-  bottom: 3px;
 }
 
 .d_search{
 
 }
 
-.d_search .input-group textarea{
-  border-left: 0;
-}
-
 .d_search .input-group textarea:focus{
   box-shadow: 0 0 0;
 }
 
-.d_search .input-group-addon{
-  background-color: #fff;
-  padding: 0 25px 0 5px;
+.input_tags{
+  margin-bottom: 5px;
 }
 
-@media (max-width: 767px){
-  .d_search .input-group-addon{
-    display: block;
-    border: 0;
-    background-color: transparent;
-    margin-bottom: 5px;
-  }
-  
-  .d_search .input-group textarea{
-    border-left: 1px solid #ccc;
-  }
-}
-
-.d_search .input-group .close{
-  font-size: 16px;
-  line-height: 20px;
-}
-
-.many_value{
+.tag{
   line-height: 20px;
   display: inline-block;
   padding: 0 5px;
@@ -1703,6 +1680,24 @@ footer .contact li{
   margin: 5px;
 }
 
+.tag .close{
+  font-size: 20px;
+  padding-left: 10px;
+}
+
 .many_value span{
-  margin-right: 12px;
+  //margin-right: 12px;
+}
+
+#workplace_info .info_left{
+  padding-right: 8.5%;
+}
+
+#workplace_info .d_input{
+  padding: 0 6px;
+  height: 24px;
+}
+
+.d_edit .d_search{
+ margin-right: 52px;
 }

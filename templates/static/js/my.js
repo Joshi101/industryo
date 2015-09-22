@@ -5,7 +5,8 @@
  */
 
 /* global parameters */
-var top_nav_width, win_width, win_height;
+var top_nav_width, win_width, win_height, foot_height;
+
 /* function to initialize some global parameters */
 function measure() {
     top_nav_width = $('.navbar-fixed-top').outerHeight(true);
@@ -22,53 +23,14 @@ function body_slide() {
         'margin-top': top_nav_width,
         'min-height': (win_height - top_nav_width - foot_height)
     });
-
 }
 
 /* call body_slide when the window loads or resizes */
 $(measure);
 $(window).on('resize', measure);
 
-/*
-$(function(){
-    var footer_check = win_height - $('footer').outerHeight();
-    console.log(footer_check)
-    if ($('footer').length){
-        if (footer_check > $('footer').offset().top){
-            var footer_top = footer_check - $('footer').offset().top;
-            console.log(footer_check,$('footer').offset().top);
-            $('footer').stop().animate({
-                'top': footer_top
-            });
-        }
-    }
-});*/
-
-/* function to convert rendered form inputs that require tagging (remove soon) */
-/*function convert_to_taggable() {
-    var $this = $(this);
-    var d_results;
-    var name = $this.attr('name'),
-        result = $this.data('results');
-    $this.attr('name', '');
-    $this.removeClass('taggable').addClass('d_input');
-    if (result == 'multiple')
-        d_results = '"multiple"><div class="d_results"></div>';
-    else if (result == 'single')
-        d_results = '"single">';
-    var old_input = $this.clone().wrap('<p>')
-        .parent().html();
-    var hidden_input = '<input type="hidden" name="' + name + '" value="">';
-    var new_input = '<div class="d_search" data-results=' + d_results + old_input + hidden_input + '<div class="dropdown"><ul class="dropdown-menu d_list"></ul></div></div>';
-    $this.replaceWith(new_input);
-}
-*/
-/* convert each form with class 'taggable' (remove soon) */
-/*$('form .taggable').each(convert_to_taggable);*/
-
 
 /* handling input for dynamiac search inputs */
-
 function doneTyping() {
     var $this = d_this;
     var $d_search = $this.closest('.d_search');
@@ -94,16 +56,6 @@ function doneTyping() {
                 //console.log(result);
                 $d_search.find('.dropdown')
                     .find(".d_list").html(result);
-                /*if (create == 'create_new') {
-                    var $create_a = $this.nextAll('.dropdown')
-                        .find(".create_new");
-                    var create_now = 'create_' + $this.data('search');
-                    console.log(create_now);
-                    $create_a.attr('href', '#' + create_now);
-                    var collapse_parent = $create_a.closest('.panel-group').attr('id');
-                    $create_a.data('parent', '#' + collapse_parent);
-                    console.log($create_a.data('parent'));
-                }*/
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
             },
             error: function(xhr, errmsg, err) {
@@ -119,301 +71,305 @@ function doneTyping() {
         $d_search.find('.dropdown').addClass('open');
 }
 
-    var typingTimer; //timer identifier
-    var doneTypingInterval = 500; //time in ms
-    var d_this;
-    var d_on = true;
+var typingTimer; //timer identifier
+var doneTypingInterval = 500; //time in ms
+var d_this;
+var d_on = true;
 
-    function d_input_remove_error($this,sign,msg){
-        if(sign){
-            $this.closest('.d_search').removeClass('has-error');
-            $this.closest('.form-group').find('.fback_warn').addClass('hide');
-        }
-        if(msg)
-            $this.closest('.form-group').find('.fback_msg').addClass('hide');    
+function d_input_remove_error($this,sign,msg){
+    if(sign){
+        $this.closest('.d_search').removeClass('has-error');
+        $this.closest('.form-group').find('.fback_warn').addClass('hide');
     }
-    function d_input_show_error($this,sign,msg){
-        if(sign){
-            $this.closest('.d_search').addClass('has-error');
-            $this.closest('.form-group').find('.fback_warn').removeClass('hide');
-        }
-        if(msg)
-            $this.closest('.form-group').find('.fback_msg').removeClass('hide');
+    if(msg)
+        $this.closest('.form-group').find('.fback_msg').addClass('hide');    
+}
+function d_input_show_error($this,sign,msg){
+    if(sign){
+        $this.closest('.d_search').addClass('has-error');
+        $this.closest('.form-group').find('.fback_warn').removeClass('hide');
     }
+    if(msg)
+        $this.closest('.form-group').find('.fback_msg').removeClass('hide');
+}
 
-    function d_input_errmsg($this){
-        $this.closest('.form-group').find('.fback_msg').addClass('hide');
-    }
 
-    $('.d_input').keydown(function(event) {
-        var $this = $(this);
-        d_input_remove_error($this,true,false);
-        d_this = $this;
-        $d_search = $this.closest('.d_search');
-        if (event.keyCode == '13') {
-            event.preventDefault();
-            if ($d_search.find('.dropdown').attr('class').indexOf('open') >= 0){
-                $d_search.find('.dropdown').find('.d_list').find('.option').first().trigger('click');
-                $this.val('');
-            }
+$('.d_input').keydown(function(event) {
+    var $this = $(this);
+    d_input_remove_error($this,true,false);
+    d_this = $this;
+    $d_search = $this.closest('.d_search');
+    if (event.keyCode == '13') {
+        event.preventDefault();
+        if ($d_search.find('.dropdown').attr('class').indexOf('open') >= 0){
+            $d_search.find('.dropdown').find('.d_list').find('.option').first().trigger('click');
+            $this.val('');
         }
-        else {
+    }
+    else {
+        clearTimeout(typingTimer);
+        $this.keyup(function() {
             clearTimeout(typingTimer);
-            $this.keyup(function() {
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(doneTyping, doneTypingInterval);
+            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        });
+    }
+});
+
+
+$('.d_search').on('click', '.one_value .close', function() {
+    $d_search = $(this).closest('.d_search');
+    $d_search.find('.d_input').removeClass('hide').focus();
+    $d_search.find('.d_value').val('');
+    $(this).closest('.one_value').addClass('hide');
+});
+
+$(".one_list").on('click', '.option', function(event) {
+    //event.preventDefault();
+    //aj_search($(this));
+    d_check = false;
+    var $this = $(this),
+        $d_search = $this.closest('.d_search'),
+        value = $this.find('.option_value').text();
+    d_input_remove_error($this,true,true);
+    $d_search.find('.d_value').val(value);
+    $d_search.find('.one_value').removeClass('hide')
+        .children('span').text(value);
+    $d_search.find('.d_input').addClass('hide');
+    $this.closest('.dropdown').removeClass('open');
+});
+
+$(".many_list").on('click', '.option', function(event) {
+    d_check = false;
+    var $this = $(this),
+        $d_search = $this.closest('.d_search'),
+        value = $this.find('.option_value').text();
+    d_input_remove_error($this,true,true);
+    var pre_value = $d_search.find('.d_value').val();        
+    if (pre_value !== '')
+        pre_value += ',';
+    $d_search.find('.d_value').val(pre_value + value);
+    console.log('asd');
+    $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
+    $this.closest('.dropdown').removeClass('open');
+    $('.d_search').find('.d_input').val('');
+});
+
+$('.d_search').on('click', '.create', function(){
+    d_check = false;
+    var $d_search = $(this).closest('.d_search'),
+        value = $('.d_search').find('.d_input').val();
+    d_input_remove_error($(this),true,true);
+    var pre_value = $d_search.find('.d_value').val();
+    if (pre_value !== '')
+        pre_value += ',';
+    $d_search.find('.d_value').val(pre_value + value);
+    $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
+    //$d_search.find('.d_input').addClass('hide');
+    $(this).closest('.dropdown').removeClass('open');
+    $('.d_search').find('.d_input').val('');
+});
+
+$('.input_tags').on('click','.tag .close', function(){
+    var tag = $(this).closest('.tag');
+    value = tag.find('.value').text();
+    var pre_value = $d_search.find('.d_value').val();
+    i1 = pre_value.indexOf(value);
+    i2 = i1 + value.length;
+    if(i1!=0)
+        i1 -= 1;
+    val1 = pre_value.slice(0, i1);
+    val2 = pre_value.slice(i2);
+    console.log(i1,i2,val1+val2);
+    tag.remove();
+});
+
+
+    function aj_search($this) {
+        var $sabke_papa = $this.closest('.d_search'),
+            value;
+        if ($this.attr('class') == 'create') {
+            value = $sabke_papa.children('input').val();
+            if (value[value.length - 1] == ',') {
+                value = value.substring(0, value.length - 1);
+            }
+            console.log('input wala');
+        } else if ($this.attr('class').indexOf('create_new') >= 0) {
+            $sabke_papa.find('.d_list').css({
+                'display': 'none'
             });
+            value = $sabke_papa.children('input').val();
+            var target = $this.attr('href');
+            console.log(target, value);
+            $(target).find('input[type=text]').first().val(value);
+            console.log('naya form');
+            return 0;
+        } else {
+            value = $this.find('span').first().text();
+            console.log('list wala', value);
         }
-    });
+        var r_type = $sabke_papa.data('results');
+        console.log($sabke_papa.attr('class'));
+        if (r_type == 'instant') {
+            $sabke_papa.children('input[name=value]').val(value)
+                .nextAll('.form-ajax').trigger('click');
+            console.log('1');
+        } else if (r_type == 'single') {
+            $sabke_papa.children('input').first().before('<div class="alert"><a class="close">&times;</a><strong>' + value + '</strong></div>').addClass('hide').next().val(value);
 
-
-    $('.d_search').on('click', '.one_value .close', function() {
-        $d_search = $(this).closest('.d_search');
-        $d_search.find('.d_input').removeClass('hide').focus();
-        $d_search.find('.d_value').val('');
-        $(this).parent('.alert').addClass('hide');
-    });
-
-    $(".one_list").on('click', '.option', function(event) {
-        //event.preventDefault();
-        //aj_search($(this));
-        d_check = false;
-        var $this = $(this),
-            $d_search = $this.closest('.d_search'),
-            value = $this.find('.option_value').text();
-        d_input_remove_error($this,true,true);
-        $d_search.find('.d_value').val(value);
-        $d_search.find('.one_value').removeClass('hide')
-            .children('span').text(value);
-        $d_search.find('.d_input').addClass('hide');
-        $this.closest('.dropdown').removeClass('open');
-    });
-
-    $(".many_list").on('click', '.option', function(event) {
-        d_check = false;
-        var $this = $(this),
-            $d_search = $this.closest('.d_search'),
-            value = $this.find('.option_value').text();
-        d_input_remove_error($this,true,true);
-        var pre_value = $d_search.find('.d_value').val();        
-        if (pre_value !== '')
-            pre_value += ',';
-        $d_search.find('.d_value').val(pre_value + value);
-
-        $d_search.find('.input-group-addon').append('<div class="many_value"><a class="close">&times;</a><span>' + value +'</span></div>');
-        //$d_search.find('.d_input').addClass('hide');
-        $this.closest('.dropdown').removeClass('open');
-        textarea_size($d_search);
-    });
-
-    function textarea_size(ds){
-        var ds_w = ds.innerWidth();
-        ds.find('.input-group').css({'width':'100%'});
-        var taggrp_w = ds.find('.input-group-addon').outerWidth(true);
-        console.log(taggrp_w,ds_w)
-        var texta = ds.find('textarea');
-        if ((taggrp_w*2) > ds_w){
-            var rows = parseInt(texta.attr('rows'));
-            var line_h = parseInt(texta.css('line-height').replace('px', ''));
-            var h = parseInt(texta.css('height').replace('px', ''));
-            console.log(h,line_h)
-            texta.css('height',(h+line_h+'px'));
-            texta.attr('rows',rows+1);
-            ds.find('.input-group-addon').css({'width':ds_w/2});
+            $sabke_papa.on('click', '.close', function() {
+                $(this).parent('.alert').alert('close');
+                $sabke_papa.children('input').first().removeClass('hide').focus();
+            });
+        } else if (r_type == 'multiple') {
+            var $d_results = $sabke_papa.children('.d_results');
+            var pre_value = $d_results.html();
+            $d_results.html(pre_value + '<div class="alert alert_tag"><a class="close">&times;</a><strong>' + value + '</strong></div>');
+            var pre_value_snd = $sabke_papa.children('input').first().next().val();
+            if (pre_value_snd !== '')
+                pre_value_snd += ',';
+            $sabke_papa.children('input').first().next().val(pre_value_snd + value);
+            console.log($sabke_papa.children('input').first().next().val());
+            $sabke_papa.find('.close').on('click', function() {
+                $(this).parent('.alert_tag').alert('close');
+                $sabke_papa.children('input').first().focus();
+            });
+            //$sabke_papa.children('input').val('');
         }
     }
-
-    var ds = $('.d_search');
-    if(ds.find('.input-group')){
-        textarea_size(ds);
-    }
-
-        function aj_search($this) {
-            var $sabke_papa = $this.closest('.d_search'),
-                value;
-            if ($this.attr('class') == 'create') {
-                value = $sabke_papa.children('input').val();
-                if (value[value.length - 1] == ',') {
-                    value = value.substring(0, value.length - 1);
-                }
-                console.log('input wala');
-            } else if ($this.attr('class').indexOf('create_new') >= 0) {
-                $sabke_papa.find('.d_list').css({
-                    'display': 'none'
-                });
-                value = $sabke_papa.children('input').val();
-                var target = $this.attr('href');
-                console.log(target, value);
-                $(target).find('input[type=text]').first().val(value);
-                console.log('naya form');
-                return 0;
-            } else {
-                value = $this.find('span').first().text();
-                console.log('list wala', value);
-            }
-            var r_type = $sabke_papa.data('results');
-            console.log($sabke_papa.attr('class'));
-            if (r_type == 'instant') {
-                $sabke_papa.children('input[name=value]').val(value)
-                    .nextAll('.form-ajax').trigger('click');
-                console.log('1');
-            } else if (r_type == 'single') {
-                $sabke_papa.children('input').first().before('<div class="alert"><a class="close">&times;</a><strong>' + value + '</strong></div>').addClass('hide').next().val(value);
-
-                $sabke_papa.on('click', '.close', function() {
-                    $(this).parent('.alert').alert('close');
-                    $sabke_papa.children('input').first().removeClass('hide').focus();
-                });
-            } else if (r_type == 'multiple') {
-                var $d_results = $sabke_papa.children('.d_results');
-                var pre_value = $d_results.html();
-                $d_results.html(pre_value + '<div class="alert alert_tag"><a class="close">&times;</a><strong>' + value + '</strong></div>');
-                var pre_value_snd = $sabke_papa.children('input').first().next().val();
-                if (pre_value_snd !== '')
-                    pre_value_snd += ',';
-                $sabke_papa.children('input').first().next().val(pre_value_snd + value);
-                console.log($sabke_papa.children('input').first().next().val());
-                $sabke_papa.find('.close').on('click', function() {
-                    $(this).parent('.alert_tag').alert('close');
-                    $sabke_papa.children('input').first().focus();
-                });
-                //$sabke_papa.children('input').val('');
-            }
-        }
 
 
 var d_check = true;
 
 function d_input_blur() {
-    if (d_check){
-        $(this).closest('.d_search').find('.dropdown').removeClass('open');
-        console.log('okkk');
-        var $this = $(this);
-        var value = $(this).closest('.d_search').find('.d_value').val();
-        if (!value){
-            d_input_show_error($this,true,true);
-        }
+if (d_check){
+    $(this).closest('.d_search').find('.dropdown').removeClass('open');
+    console.log('okkk');
+    var $this = $(this);
+    var value = $(this).closest('.d_search').find('.d_value').val();
+    if (!value){
+        d_input_show_error($this,true,true);
     }
 }
+}
 
+$(".d_input").blur(d_input_blur);
+
+$(".d_menu").hover(
+    function() {
+        $(".d_input").off('blur');
+    },
+    function() {
     $(".d_input").blur(d_input_blur);
+});
+$(".d_input").focus(function() {
+    d_check = true;
+    var $this = $(this);
+    var query = $this.val();
+    if (query !== '')
+        $(this).closest('.d_search').find('.dropdown').addClass('open');
+});
 
-    $(".d_menu").hover(
-        function() {
-            $(".d_input").off('blur');
+// function to submit form ajaxly
+$(".ajax_andar").on('click', '.form-ajax', function(event) {
+    event.preventDefault();
+    console.log('default nahi');
+    var $this = $(this);
+    var $papa = $this.closest('.ajax_papa');
+    var $form = $this.closest('form');
+    console.log($form.serialize());
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+
+        success: function(response) {
+            $form.find('.form-control').val('');
+            if (response.fields) {
+                for (i = 0; i < response.fields.length; i++) {
+                    $papa.find('.' + response.fields[i]).text(response.data[response.fields[i]]);
+                }
+            }
+            if (response.inputs) {
+                for (i = 0; i < response.inputs.length; i++) {
+                    $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
+                    var cl = $papa.find('#' + response.inputs[i]).attr('class');
+                    if (cl.indexOf('d_input') >= 0) {
+                        console.log('OKAY');
+                        $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
+
+                    }
+                }
+            }
+            if (response.elements) {
+                if (response.prepend) {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
+                        console.log(response.elements[i], response.html[response.elements[i]]);
+                    }
+                    console.log('yoho');
+                } else {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
+                    }
+                }
+            }
         },
-        function() {
-        $(".d_input").blur(d_input_blur);
+
+        error: function(xhr, errmsg, err) {
+            $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+            console.log(errmsg, err);
+        }
     });
-    $(".d_input").focus(function() {
-        d_check = true;
-        var $this = $(this);
-        var query = $this.val();
-        if (query !== '')
-            $(this).closest('.d_search').find('.dropdown').addClass('open');
-    });
+});
 
-    // function to submit form ajaxly
-    $(".ajax_andar").on('click', '.form-ajax', function(event) {
-        event.preventDefault();
-        console.log('default nahi');
-        var $this = $(this);
-        var $papa = $this.closest('.ajax_papa');
-        var $form = $this.closest('form');
-        console.log($form.serialize());
-        $.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
-            data: $form.serialize(),
+$(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
+    event.preventDefault();
+    console.log('file wala');
+    var $this = $(this);
+    var $papa = $this.closest('.ajax_papa');
+    var $form = $this.closest('form');
+    var formData = new FormData($form[0]);
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
 
-            success: function(response) {
-                $form.find('.form-control').val('');
-                if (response.fields) {
-                    for (i = 0; i < response.fields.length; i++) {
-                        $papa.find('.' + response.fields[i]).text(response.data[response.fields[i]]);
-                    }
+        success: function(response) {
+            $form.find('.form-control').val('');
+            if (response.fields) {
+                for (i = 0; i < response.fields.length; i++) {
+                    $papa.find('.' + response.fields[i]).text(response.data[response.fields[i]]);
                 }
-                if (response.inputs) {
-                    for (i = 0; i < response.inputs.length; i++) {
-                        $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
-                        var cl = $papa.find('#' + response.inputs[i]).attr('class');
-                        if (cl.indexOf('d_input') >= 0) {
-                            console.log('OKAY');
-                            $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
-
-                        }
-                    }
-                }
-                if (response.elements) {
-                    if (response.prepend) {
-                        for (i = 0; i < response.elements.length; i++) {
-                            $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
-                            console.log(response.elements[i], response.html[response.elements[i]]);
-                        }
-                        console.log('yoho');
-                    } else {
-                        for (i = 0; i < response.elements.length; i++) {
-                            $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
-                        }
-                    }
-                }
-            },
-
-            error: function(xhr, errmsg, err) {
-                $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
-                console.log(errmsg, err);
             }
-        });
-    });
-
-    $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
-        event.preventDefault();
-        console.log('file wala');
-        var $this = $(this);
-        var $papa = $this.closest('.ajax_papa');
-        var $form = $this.closest('form');
-        var formData = new FormData($form[0]);
-        $.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-
-            success: function(response) {
-                $form.find('.form-control').val('');
-                if (response.fields) {
-                    for (i = 0; i < response.fields.length; i++) {
-                        $papa.find('.' + response.fields[i]).text(response.data[response.fields[i]]);
-                    }
+            if (response.inputs) {
+                for (i = 0; i < response.inputs.length; i++) {
+                    $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
                 }
-                if (response.inputs) {
-                    for (i = 0; i < response.inputs.length; i++) {
-                        $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
-                    }
-                }
-                if (response.elements) {
-                    if (response.prepend) {
-                        for (i = 0; i < response.elements.length; i++) {
-                            $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
-                        }
-                        console.log('yoho');
-                    } else {
-                        for (i = 0; i < response.elements.length; i++) {
-                            $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
-                        }
-                    }
-                }
-                $form.find('.close').trigger('click');
-            },
-
-            error: function(xhr, errmsg, err) {
-                $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
-                console.log(errmsg, err);
             }
-        });
+            if (response.elements) {
+                if (response.prepend) {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
+                    }
+                    console.log('yoho');
+                } else {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
+                    }
+                }
+            }
+            $form.find('.close').trigger('click');
+        },
+
+        error: function(xhr, errmsg, err) {
+            $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
+            console.log(errmsg, err);
+        }
     });
+});
 
 //home page
 var load = true;
@@ -562,7 +518,8 @@ $('.ajax_andar').on('click', '.delete', function() {
 
         success: function(response) {
             console.log('deleted');
-            $this.parent().remove();
+            $this.tooltip("hide").parent().remove();
+
         },
 
         error: function(xhr, errmsg, err) {

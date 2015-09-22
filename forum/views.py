@@ -76,8 +76,8 @@ def edit_ques(request, id):
             i = Images()
             a = i.upload_image(image=image2, user=user)
             q.images.add(a)
-        # tags = form.cleaned_data.get('tags')
-        # q.set_tags(tags)
+        tags = request.POST.get('tag')
+        q.set_tags(tags)
         slug = q.slug
         return HttpResponseRedirect('/forum/'+slug)
     return render(request, 'forum/edit_q.html', locals())
