@@ -1,5 +1,5 @@
 <div class="d_search has-feedback">
-  <div class="alert one_value hide">
+  <div class="one_value hide">
     <a class="close">&times;</a>
     <span></span>
   </div>
@@ -10,10 +10,10 @@
   <div class="dropdown">
     <ul class="dropdown-menu list-group d_menu">
       <div class="d_list one_list"></div>
-      <a href="#create_{{search}}" class="list-group-item list-group-item-info create" data-toggle="collapse" data-parent="#{{parent}}"><i class="fa fa-plus"></i> Create New</a>
+      <a href="#create_{{search}}" class="list-group-item list-group-item-info" data-toggle="collapse" data-parent="#{{parent}}"><i class="fa fa-plus"></i> Create New</a>
     </ul>
   </div>
-	<input class="d_value" name={{search}} value="" type="hidden">
+	<input class="d_value" name={{search}} value="" type="hidden" autocomplete=off>
   {% if type %}
   <input class="d_type" name="type" value="{{type}}" type="hidden">
   {% endif %}

@@ -19,16 +19,16 @@
 
 {% block content %}
   <div id="workplace_info" class="row" typeof='Organization' resource='#workplace'>
-    <div class="col-sm-7">
+    <div class="col-sm-8 info_left">
       <h4 class=" text-uppercase" property='name'>{{ workplace.name }}</h4>
       <h4 class="text-muted ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <small><span class="tag_container" property='addressRegion'>{% include "snippets/area.html" with workplace=workplace %}</span></small>
       </h4>
       <h4 class="text-muted ajax_andar ajax_papa">
-        <small><b><span class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</span></b></small>
+        <small><span class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</span></small>
       </h4>
     </div>
-    <div class="col-sm-offset-1 col-sm-4">
+    <div class="col-sm-4">
       <h5><span class="label label-default">{{workplace.points}} points</span></h5>
       <h5><span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span></h5>
     </div>

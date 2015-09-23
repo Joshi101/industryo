@@ -274,7 +274,7 @@ class UserProfile(models.Model):
             a = Notification.objects.create(notification_type=Notification.ALSO_JOINED,
                                             from_user=self.user,
                                             to_user=userprofile.user,)
-            tasks.notify_user(a.id, n=12)
+            # tasks.notify_user(a.id, n=12)
 
     def notify_answered(self, question):           # working 13
         if self.user != question.user:

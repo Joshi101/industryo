@@ -25,5 +25,14 @@
 	{% if user.userprofile in members %}
     {% include "workplace/set_tags_head.html" with category='inst' type='P' %}
   {% endif %}
+ {% elif workplace.workplace_type == 'O' %}
+	{% for city in workplace.get_tags.city %}
+		{% include "snippets/tag_short.html" with tag=city %}
+	{% empty %}
+		<span class="none">City in which your Institution lies</span>
+	{% endfor %}
+	{% if user.userprofile in members %}
+    {% include "workplace/set_tags_head.html" with category='city' type='C' %}
+  {% endif %}
   
 {% endif %}

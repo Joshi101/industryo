@@ -138,30 +138,32 @@ def set_tags_short(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('tag')
-
-        if type == 'A':
-            t = wp.set_assets(value)
-        if type == 'M':
-            t = wp.set_materials(value)
-        if type == 'O':
-            t = wp.set_operations(value)
-        if type == 'I':
-            t = wp.set_industrial_area(value)
-        if type == 'C':
-            t = wp.set_city(value)
-        if type == 'P':
-            t = wp.set_institution(value)
-        if type == 'E':
-            t = wp.set_events(value)
-        if type == 'S':
-            t = wp.set_segments(value)
-        new_interest = t
-        r_elements = ['tag_container']
-        r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        print(value)
+        if value:
+            if type == 'A':
+                t = wp.set_assets(value)
+            if type == 'M':
+                t = wp.set_materials(value)
+            if type == 'O':
+                t = wp.set_operations(value)
+            if type == 'I':
+                t = wp.set_industrial_area(value)
+            if type == 'C':
+                t = wp.set_city(value)
+            if type == 'P':
+                t = wp.set_institution(value)
+            if type == 'E':
+                t = wp.set_events(value)
+            if type == 'S':
+                t = wp.set_segments(value)
+            print('kkk')
+            new_interest = t
+            r_elements = ['tag_container']
+            r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
+            response['html'] = r_html
+            response['elements'] = r_elements
+            response['prepend'] = True
+            return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
 
