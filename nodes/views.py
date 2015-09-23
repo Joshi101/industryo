@@ -88,7 +88,7 @@ def write(request):                 ## Write an article
         post = request.POST.get('post')
         title = request.POST.get('title')
         user = request.user
-        tags = request.POST['tags']
+        tags = request.POST['tag']
         anonymous = request.POST.get('anonymous')
         draft = request.POST.get('draft')
 

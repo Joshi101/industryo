@@ -23,12 +23,7 @@ def home(request):
         user = request.user
         if user.userprofile.primary_workplace:
             t = user.userprofile.primary_workplace.workplace_type
-
             workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
-        else:
-            workplaces = Workplace.objects.all().order_by('?')[:5]          # change it soon
-
-        if request.user.userprofile.primary_workplace:
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
             workplace = profile.primary_workplace
             t = workplace.workplace_type
@@ -49,7 +44,6 @@ def home(request):
                 key=attrgetter('date'), reverse=True)
             paginator = Paginator(all_result_list, 5)
             page = request.GET.get('page')
-
             try:
                 result_list = paginator.page(page)
             except PageNotAnInteger:

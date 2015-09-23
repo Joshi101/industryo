@@ -1,5 +1,9 @@
 /* unbootstrap */
 
+.label{
+  font-weight: normal;
+}
+
 .page-header {
   margin: 0 0 5px;
   padding-bottom: 0;
@@ -634,9 +638,9 @@ pre {
 }
 
 .article_title {
+  position: relative;
   font-family: 'Tahoma';
   font-size: 15px;
-  font-weight: 900;
   
   color: #444;
   overflow: hidden;
@@ -665,15 +669,23 @@ pre {
 }
 
 .q_title {
-  font-size: 14px;
-  font-weight: 700;
+  position: relative;
+  font-size: 15px;
 
   overflow: hidden;
 
-  padding: 7px 0;
+  padding: 7px 2px 5px;
+  margin-bottom: 5px;
 
-  color: #444;
+  color: #111;
   border-bottom: 1px solid #aaa;
+}
+
+.q_title .sign,.article_title .sign{
+  position: absolute;
+  line-height: 1.5;
+  right: 0;
+  color: #444;
 }
 
 .q_title:hover {
@@ -700,9 +712,10 @@ pre {
 
 .q_summary {
   font-family: 'Open Sans';
-  font-size: 13px;
+  font-size: 12px;
+  max-height: 150px;
 
-  padding-left: 0;
+  padding: 0 7px;
 
   text-align: justify;
 
@@ -752,7 +765,7 @@ pre {
 }
 
 .tags {
-  padding: 5px 0pc;
+  padding: 5px;
 }
 
 .tags a:hover {
@@ -769,8 +782,6 @@ pre {
 }
 
 .tags a:hover > .label {
-  font-size: 12px;
-
   background-color: #38a0be;
 }
 
@@ -1337,7 +1348,7 @@ div[data-role='editor-toolbar'] {
 
 .side_head {
   padding: 3px 5px;
-
+  margin-bottom: 10px;
   border-bottom: 1px solid #9d9d9d;
 }
 
@@ -1349,6 +1360,30 @@ div[data-role='editor-toolbar'] {
 
   border: 1px solid #333;
 }
+
+.wp_list li{
+  display: block;
+  margin: 5px 0;
+}
+
+.wp_list{
+  list-style: none;
+  line-height: 20px;
+}
+
+.wp_list img {
+  float: left;
+
+  width: 40px;
+  margin-right: 5%;
+
+  border: 1px solid #333;
+}
+
+.wp_list .name_user{
+  display: block;
+}
+
 
 #top_members a:hover {
   text-decoration: none;
@@ -1371,11 +1406,13 @@ div[data-role='editor-toolbar'] {
 	}
 }
 
-.floating_form:first-of-type {
+.right_fixed{
+  font-size: 0.9em;
+}
+
+.right_fixed:first-of-type {
   position: fixed;
   top: 71px;
-
-  width: 25%;
 }
 
 #members_list {
@@ -1709,3 +1746,8 @@ footer .contact li{
  margin-right: 52px;
 }
 
+.label_sm{
+  padding: 0 5px;
+  height: 20px;
+  border-radius: 1px;
+}

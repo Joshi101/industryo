@@ -1,45 +1,42 @@
-<div class="feed_box question">
-	<div class="feed_box_heading">
-			{% include "snippets/joint_name.html" with user=question.user anony=question.anonymous %}
-			<small class='pull-right post_date'>{{ question.date }}</small>
+<div class="feed_box question" typeof="Question">
+	<div class="text-center vote_box ajax_papa">
+		{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 	</div>
-	<div class="ajax_papa">
-		<div class="text-center vote_box ajax_papa">
-			{% include "snippets/vote_box.html" with q_or_a='q' q=question %}
-		</div>
-		<div class="feed_box_body">
-			<a href="{% url 'forum:question' question.slug %}">
-				<h5 class="q_title">{{ question.title }}</h5>
+	<div class="feed_box_body ajax_papa">
+		<a href="{% url 'forum:question' q.slug %}">
+			<div class="q_title">
+				<span property="name">{{ q.title|capfirst }}</span>
+				<i class="fa fa-question sign"></i>
+			</div>
+		</a>
+		{% if q.question %}
+		<div class="q_summary">{{ q.question|safe|truncatechars:200 }}</div>
+		{% for image in q.get_images %}
+		<figure class="call_car">
+			<a data-toggle='modal' data-target='#figure_modal'>
+				<img src="/images/{{image.image}}">
 			</a>
-			{% if question.question %}
-			<p class="q_summary">{{ question.question|truncatechars:200|safe }}</p>
-			{% for image in question.get_images %}
-			<figure class="call_car">
-				<a data-toggle='modal' data-target='#figure_modal'>
-					<img src="/images/{{image.image}}">
-				</a>
-			</figure>
+		</figure>
+		{% endfor %}
+		{% endif %}
+		{% if q.get_tags %}
+		<div class="tags">
+			{% for tag in q.get_tags %}
+				<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-default">{{tag}}</span></a>
 			{% endfor %}
-			{% endif %}
-			{% if question.get_tags %}
-			<div class="tags">
-				{% for tag in question.get_tags %}
-					<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-default">{{tag}}</span></a>
-				{% endfor %}
-			</div>
-			{% endif %}
-			<div class="text-right author">
-				{% include "snippets/joint_name.html" with user=question.user anony=question.anonymous %}<time property='dateCreated' class="text-muted"> {{question.date}} </time>
-			</div>
 		</div>
-		<div class="feed_box_extra">
-			<div class="interaction">
-				<form class="to_quest" action="{% url 'forum:question' question.slug %}" method="GET">
-					<a class="pull-left">{{question.get_answer_count}} Answers<input type="hidden" name="answers" value="no"></a>
-					<a class="btn btn-success btn-xs">Write Answer
-					<input type="hidden" name="write" value="no"></a>
-				</form>
-			</div>
+	{% endif %}
+		<div class="text-right author">
+			{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}<time property='dateCreated' class="text-muted"> {{q.date}} </time>
+		</div>
+	</div>
+	<div class="feed_box_extra">
+		<div class="interaction">
+			<form class="to_quest" action="{% url 'forum:question' q.slug %}" method="GET">
+				<a class="pull-left">{{q.get_answer_count}} Answers<input type="hidden" name="answers" value="no"></a>
+				<a class="btn btn-success btn-xs">Write Answer
+				<input type="hidden" name="write" value="no"></a>
+			</form>
 		</div>
 	</div>
 </div>

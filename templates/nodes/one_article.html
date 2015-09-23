@@ -1,45 +1,43 @@
 <div class="feed_box article">
-	<div class="feed_box_heading">
-		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
-		<small class='pull-right'>{{ node.date }}</small>
+	<div class="text-center vote_box ajax_papa">
+		{% include "snippets/like_box.html" with node=node %}
 	</div>
-	<div class="ajax_papa">
-		<div class="text-center vote_box ajax_papa">
-			{% include "snippets/like_box.html" with node=node %}
-		</div>
-		<div class="feed_box_body">
-
-			<a href="{% url 'nodes:node' node.slug %}"><h4 class="article_title">{{ node.title }}</h4></a>
-			<div class="article_body">{{ node.get_summary|safe|truncatechars:200 }}</div>
-			{% for image in node.get_images %}
-			<figure class="call_car">
-				<a data-toggle='modal' data-target='#figure_modal'>
-					<img src="/images/{{image.image}}">
-				</a>
-			</figure>
+	<div class="feed_box_body ajax_papa">
+		<a href="{% url 'nodes:node' node.slug %}">
+			<div class="article_title">
+				<span>{{ node.title|capfirst }}</span>
+				<i class="fa fa-newspaper-o sign"></i>
+			</div>
+		</a>
+		<div class="article_body">{{ node.get_summary|safe|truncatechars:200 }}</div>
+		{% for image in node.get_images %}
+		<figure class="call_car">
+			<a data-toggle='modal' data-target='#figure_modal'>
+				<img src="/images/{{image.image}}">
+			</a>
+		</figure>
+		{% endfor %}
+		{% if node.get_tags %}
+		<div class="tags">
+			{% for tag in node.get_tags %}
+				<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 			{% endfor %}
-			{% if node.get_tags %}
-			<div class="tags">
-				{% for tag in node.get_tags %}
-					<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
-				{% endfor %}
-			</div>
-			{% endif %}
-			<div class="text-right author">
-				{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted"> {{node.date}} </time>
-			</div>
 		</div>
-		<div class="feed_box_extra">
-			<div class="comments">
-			{%  for c in node.get_all_comments %}
-				{% include "snippets/comment.html" with comment=c %}
-			{% endfor %}
-			</div>
-			<div class="interaction">
-				<a class="a_collapse">Comment</a>
-		    <div class="collapse row">
-					{% include "snippets/comment_form.html" with type='n' post=node %}
-				</div>
+		{% endif %}
+		<div class="text-right author">
+			{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted"> {{node.date}} </time>
+		</div>
+	</div>
+	<div class="feed_box_extra">
+		<div class="comments">
+		{%  for c in node.get_all_comments %}
+			{% include "snippets/comment.html" with comment=c %}
+		{% endfor %}
+		</div>
+		<div class="interaction">
+			<a class="a_collapse">Comment</a>
+	    <div class="collapse row">
+				{% include "snippets/comment_form.html" with type='n' post=node %}
 			</div>
 		</div>
 	</div>
