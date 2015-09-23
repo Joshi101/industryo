@@ -14,12 +14,12 @@
 <div class="tab-content">
   <div id="questions" class="tab-pane fade in active">
 		{% for question in questions %}
-			{% include 'forum/one_question.html' with node=question %}
+			{% include 'forum/one_question.html' with q=question %}
 		{% endfor %}
   </div>
   <div id="answers" class="tab-pane fade">
 		{% for question in answers %}
-			{% include 'forum/one_question.html' with node=question %}
+			{% include 'forum/one_question.html' with q=question %}
 		{% endfor %}
   </div>
   <div id="articles" class="tab-pane fade">

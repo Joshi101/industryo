@@ -86,13 +86,13 @@
 			</div>
     </div>
     <div id="questions" class="tab-pane fade ajax_andar ajax_papa">
-  		{% for question in questions %}
-			{% include 'forum/one_question.html' with node=node %}
+  		{% for q in questions %}
+			{% include 'forum/one_question.html' with q=q %}
 		{% endfor %}  
     </div>
     <div id="answers" class="tab-pane fade ajax_andar ajax_papa">
-		{% for question in answers %}
-			{% include 'forum/one_question.html' with node=node %}
+		{% for a in answers %}
+			{% include 'forum/one_question.html' with q=a %}
 		{% endfor %}
     </div>
     <div id="articles" class="tab-pane fade ajax_andar ajax_papa">

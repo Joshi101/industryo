@@ -59,6 +59,9 @@ def edit_ques(request, id):
     if request.method == 'POST':
         user = request.user
         q.question = request.POST['question']
+        print('klklk')
+        print(request.POST['question'])
+        print(q.question)
         q.title = request.POST['title']
         q.save()
         image0 = request.FILES.get('image0', None)

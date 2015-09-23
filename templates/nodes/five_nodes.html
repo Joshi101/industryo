@@ -4,6 +4,6 @@
   {% elif a.category == 'A' %}
 		{% include 'nodes/one_article.html' with node=a %}
   {% else %}
-    {% include 'forum/one_question.html' with question=a %}
+    {% include 'forum/one_question.html' with q=a %}
 	{% endif %}
 {% endfor %}

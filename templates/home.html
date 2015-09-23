@@ -6,10 +6,10 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-xs-6 text-center">
-					<a class="btn btn-primary btn-sqr" href="{% url 'forum:ask' %}">Ask a Question</a>
+					<a class="btn btn-primary" href="{% url 'forum:ask' %}">Ask a Question</a>
 				</div>
 				<div class="col-xs-6 text-center">
-					<a class="btn btn-primary btn-sqr" href="{% url 'nodes:write' %}">Write an Article</a>
+					<a class="btn btn-primary" href="{% url 'nodes:write' %}">Write an Article</a>
 				</div>
 			</div>
 		</div>
@@ -53,10 +53,10 @@
 {% endblock content %}
 
 {% block right %}
-	<div class="floating_form">
-    <h5 class="side_head">Active Workplaces</h5>
-    <ul id="top_members" class="ppl_list">
-    	{% include "snippets/workplace_list.html" with workplaces=workplaces %}
+	<div class="right_fixed">
+    <div class="side_head">Active Workplaces</div>
+    <ul class="wp_list">
+    	{% include "snippets/general/workplace_list.html" with workplaces=workplaces %}
     </ul>
   </div>
 {% endblock right %}
