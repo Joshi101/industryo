@@ -98,31 +98,32 @@ def set_tags(request):
         up = user.userprofile
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
-        value = request.POST.get('value')
-
-        if type == 'A':
-            t = wp.set_assets(value)
-        if type == 'M':
-            t = wp.set_materials(value)
-        if type == 'O':
-            t = wp.set_operations(value)
-        if type == 'I':
-            t = wp.set_industrial_area(value)
-        if type == 'C':
-            t = wp.set_city(value)
-        if type == 'P':
-            t = wp.set_institution(value)
-        if type == 'E':
-            t = wp.set_events(value)
-        if type == 'S':
-            t = wp.set_segments(value)
-        new_interest = wp.tags.get(tag=value)
-        r_elements = ['detail_body']
-        r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        value = request.POST.get('tag')
+        print(value)
+        if value:
+            if type == 'A':
+                t = wp.set_assets(value)
+            if type == 'M':
+                t = wp.set_materials(value)
+            if type == 'O':
+                t = wp.set_operations(value)
+            if type == 'I':
+                t = wp.set_industrial_area(value)
+            if type == 'C':
+                t = wp.set_city(value)
+            if type == 'P':
+                t = wp.set_institution(value)
+            if type == 'E':
+                t = wp.set_events(value)
+            if type == 'S':
+                t = wp.set_segments(value)
+            new_interest = t
+            r_elements = ['detail_body']
+            r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
+            response['html'] = r_html
+            response['elements'] = r_elements
+            response['prepend'] = True
+            return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
 

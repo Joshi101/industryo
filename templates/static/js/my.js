@@ -124,7 +124,6 @@ $('.d_search').on('click', '.one_value .close', function() {
 });
 
 $(".one_list").on('click', '.option', function(event) {
-    //event.preventDefault();
     //aj_search($(this));
     d_check = false;
     var $this = $(this),
@@ -140,6 +139,7 @@ $(".one_list").on('click', '.option', function(event) {
 
 $(".many_list").on('click', '.option', function(event) {
     d_check = false;
+    console.log('arrey')
     var $this = $(this),
         $d_search = $this.closest('.d_search'),
         value = $this.find('.option_value').text();
@@ -157,14 +157,13 @@ $(".many_list").on('click', '.option', function(event) {
 $('.d_search').on('click', '.create', function(){
     d_check = false;
     var $d_search = $(this).closest('.d_search'),
-        value = $('.d_search').find('.d_input').val();
+        value = $d_search.find('.d_input').val();
     d_input_remove_error($(this),true,true);
     var pre_value = $d_search.find('.d_value').val();
     if (pre_value !== '')
         pre_value += ',';
     $d_search.find('.d_value').val(pre_value + value);
     $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
-    //$d_search.find('.d_input').addClass('hide');
     $(this).closest('.dropdown').removeClass('open');
     $('.d_search').find('.d_input').val('');
 });

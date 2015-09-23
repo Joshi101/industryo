@@ -1,13 +1,13 @@
 <div class="d_search has-feedback">
   <div class="input_tags"></div>
-  <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" rows=1 data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">
+  <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">
   <span class="form-control-feedback">
     <i class="fa fa-pulse fa-spinner fback_wait hide"></i>
   </span>
   <div class="dropdown">
     <ul class="dropdown-menu list-group d_menu">
       <div class="d_list many_list"></div>
-      <a class="list-group-item list-group-item-info create" {{parent}}><i class="fa fa-plus"></i> Create Now</a>
+      <a class="list-group-item list-group-item-info create"><i class="fa fa-plus"></i> Create Now</a>
     </ul>
   </div>
   <input class="d_type" name="type" value="{{type}}" type="hidden">
