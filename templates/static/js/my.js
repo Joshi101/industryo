@@ -1220,3 +1220,23 @@ function ajax_from($this){
         }
     });
 }
+
+$(document).ready(function(){
+    $('.ajax_load').each(function(index, el) {
+        var $this = $(this);
+        var url = $(this).data('url');
+        $.ajax({
+            url: url,
+            type: 'GET',
+
+            success: function(response) {
+                $this.html(response);
+                console.log('home_right load hua');
+            },
+
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg, err, url);
+            }
+        });
+    });
+});

@@ -22,8 +22,6 @@ def home(request):
     if request.user.is_authenticated():
         user = request.user
         if user.userprofile.primary_workplace:
-            t = user.userprofile.primary_workplace.workplace_type
-            workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
             workplace = profile.primary_workplace
             t = workplace.workplace_type
@@ -56,15 +54,24 @@ def home(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace':workplace, 'feed_img_form':UploadImageForm(), 'workplaces':workplaces})
+                return render(request, 'home.html', {'result_list': result_list, 'workplace': workplace, 'feed_img_form': UploadImageForm()})
         else:
             return redirect('/set/')
     else:
-        return render(request, 'cover.html',{'form_signup':SignupForm(), 'form_login':LoginForm()})
+        return render(request, 'cover.html', {'form_signup': SignupForm(), 'form_login': LoginForm()})
 
+
+def home_right(request):
+    user = request.user
+    if user.userprofile.primary_workplace:
+        profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+        workplace = profile.primary_workplace
+        t = workplace.workplace_type
+        workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
+        return render(request, 'snippets/right/home_right.html', {'workplaces': workplaces})
 
 def about(request):
-    return render_to_response ('about.html')
+    return render_to_response('about.html')
 
 
 def search(request):
