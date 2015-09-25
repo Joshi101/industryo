@@ -1810,3 +1810,7 @@ footer .contact li{
   right: 0;
   top: 0;
 }
+
+.info_labels{
+  margin: 5px 0;
+}
