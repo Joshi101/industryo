@@ -7,15 +7,17 @@
 	{% if user.userprofile in members %}
     {% include "workplace/set_tags_head.html" with category='city' type='C' %}
   {% endif %}
+  
 {% elif workplace.workplace_type == 'B' %}
-	{% for area in workplace.get_tags.industrial_area %}
-		{% include "snippets/tag_short.html" with tag=area %}
+	{% for city in workplace.get_tags.city %}
+		{% include "snippets/tag_short.html" with tag=city %}
 	{% empty %}
-		<span class="none">Industrial area in which company exists</span>
+		<span class="none">City in which the company exists</span>
 	{% endfor %}
 	{% if user.userprofile in members %}
-    {% include "workplace/set_tags_head.html" with category='ind_area' type='I' %}
+    {% include "workplace/set_tags_head.html" with category='city' type='C' %}
   {% endif %}
+  
 {% elif workplace.workplace_type == 'C' %}
 	{% for inst in workplace.get_tags.institution %}
 		{% include "snippets/tag_short.html" with tag=inst %}

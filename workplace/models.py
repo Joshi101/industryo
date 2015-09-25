@@ -50,85 +50,160 @@ class Workplace(models.Model):
         super(Workplace, self).save(*args, **kwargs)
 
     def set_materials(self, materials):
-        try:
-            t = Tags.objects.get(tag=materials)
-        except Exception:
-            t = Tags.objects.create(tag=materials, type='M')
-        WpTags.objects.create(workplace=self, tags=t, category='M')
-        t.count += 1
-        t.save()
-        return t
+        if materials:
+            workplace_tags = materials.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='M')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='M')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='M')
+            return li
 
     def set_segments(self, segments):
-        try:
-            t = Tags.objects.get(tag=segments)
-        except Exception:
-            t = Tags.objects.create(tag=segments, type='S')
-        WpTags.objects.create(workplace=self, tags=t, category='S')
-        t.count += 1
-        t.save()
-        return t
+        if segments:
+            workplace_tags = segments.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='S')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='S')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='S')
+            return li
 
     def set_operations(self, operations):
-        try:
-            t = Tags.objects.get(tag=operations)
-        except Exception:
-            t = Tags.objects.create(tag=operations, type='O')
-        WpTags.objects.create(workplace=self, tags=t, category='O')
-        t.count += 1
-        t.save()
-        return t
+        if operations:
+            workplace_tags = operations.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='O')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='O')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='O')
+            return li
 
-    def set_industrial_area(self, industrial_area):
-        try:
-            t = Tags.objects.get(tag=industrial_area)
-        except Exception:
-            t = Tags.objects.create(tag=industrial_area, type='I')
-        WpTags.objects.create(workplace=self, tags=t, category='I')
-        t.count += 1
-        t.save()
-        return t
+    # def set_industrial_area(self, industrial_area):
+    #     if industrial_area:
+    #         workplace_tags = industrial_area.split(',')
+    #         li = []
+    #         for m in workplace_tags:
+    #             try:
+    #                 t = Tags.objects.get(tag=m)
+    #             except Exception:
+    #                 t = Tags.objects.create(tag=m, type='I')
+    #             li.append(t)
+    #             t.count += 1
+    #             t.save()
+    #         for t in li:
+    #             WpTags.objects.create(workplace=self, tags=t, category='I')
+    #         return li
 
     def set_assets(self, assets):
-        try:
-            t = Tags.objects.get(tag=assets)
-        except Exception:
-            t = Tags.objects.create(tag=assets, type='A')
-        WpTags.objects.create(workplace=self, tags=t, category='A')
-        t.count += 1
-        t.save()
-        return t
+        if assets:
+            workplace_tags = assets.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='A')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='A')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='A')
+            return li
 
     def set_institution(self, institution):
-        try:
-            t = Tags.objects.get(tag=institution)
-        except Exception:
-            t = Tags.objects.create(tag=institution, type='P')
-        WpTags.objects.create(workplace=self, tags=t, category='P')
-        self.institution = t
-        t.count += 1
-        t.save()
-        return t
+        if institution:
+            workplace_tags = institution.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='P')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='P')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='P')
+            return li
 
     def set_city(self, city):
-        try:
-            t = Tags.objects.get(tag=city)
-        except Exception:
-            t = Tags.objects.create(tag=city, type='C')
-        WpTags.objects.create(workplace=self, tags=t, category='C')
-        t.count += 1
-        t.save()
-        return t
+        if city:
+            workplace_tags = city.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='C')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='C')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='C')
+            return li
 
     def set_events(self, events):
-        try:
-            t = Tags.objects.get(tag=events)
-        except Exception:
-            t = Tags.objects.create(tag=events, type='E')
-        WpTags.objects.create(workplace=self, tags=t, category='E')
-        t.count +=1
-        t.save()
-        return t
+        if events:
+            workplace_tags = events.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='E')
+                li.append(t)
+                print(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category='E')
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category='E')
+            return li
 
     def set_logo(self, image, user):
         i = Images()
@@ -148,14 +223,41 @@ class Workplace(models.Model):
             return default_image
 
     def get_tags(self):
-        operations = self.wptags.filter(type='O')
-        assets = self.wptags.filter(type='A')
-        industrial_area = self.wptags.filter(type='I')
-        city = self.wptags.filter(type='C')
-        materials = self.wptags.filter(type='M')
-        segments = self.wptags.filter(type='S')
-        events = self.wptags.filter(type='E')
-        institution = self.wptags.filter(type='P')
+        o = WpTags.objects.filter(workplace=self, category='O')
+        operations = []
+        for b in o:
+            operations.append(b.tags)
+
+        a = WpTags.objects.filter(workplace=self, category='A')
+        assets = []
+        for b in a:
+            assets.append(b.tags)
+
+        # industrial_area = self.wptags.filter(type='I')
+        c = WpTags.objects.filter(workplace=self, category='C')
+        city = []
+        for b in c:
+            city.append(b.tags)
+
+        m = WpTags.objects.filter(workplace=self, category='M')
+        materials = []
+        for b in m:
+            materials.append(b.tags)
+
+        s = WpTags.objects.filter(workplace=self, category='S')
+        segments = []
+        for b in s:
+            segments.append(b.tags)
+
+        e = WpTags.objects.filter(workplace=self, category='E')
+        events = []
+        for b in e:
+            events.append(b.tags)
+
+        i = WpTags.objects.filter(workplace=self, category='P')
+        institution = []
+        for b in i:
+            institution.append(b.tags)
         return locals()
 
     def get_institution(self):

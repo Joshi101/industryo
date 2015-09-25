@@ -17,11 +17,11 @@
 </div>
 <div class="panel panel-default ajax_andar ajax_papa">
 	<div class="panel-heading">
-		{% include "workplace/set_tags.html" with head='Events (we participate in)' category='mat' type='M' %}
+		{% include "workplace/set_tags.html" with head='Events (we participate in)' category='mat' type='E' %}
 	</div>
 	<div class="panel-body">
 		<div class="detail_body">
-			{% for material in materials %}
+			{% for material in workplace.get_tags.events %}
 				{% include 'snippets/one_interest.html' with interest=material %}
 			{% endfor %}
 		</div>
