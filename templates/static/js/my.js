@@ -1092,13 +1092,13 @@ function change_image() {
 }
 
 
-$('.feed_box_body').each(function() {
+/*$('.feed_box_body').each(function() {
     var fig_w = (100 / ($(this).find('figure').length)) - 1;
     $(this).find('figure').css({
         'width': fig_w + '%'
     });
 });
-
+*/
 $('.change_image').on('click', '.img_pre .close', function() {
     var pid = $(this).data('id');
     if (pid) {
@@ -1155,15 +1155,21 @@ $(document).ready(function(){
 $('.call_car').on('click', function(){
     var $this = $(this);
     var $feed = $this.closest('.feed_box_body');
-    var title = $feed.children('h4').first().children('span').first().text();
-    var src = $this.find('img').attr('src');
+    var title = $feed.find('.summary_title').text();
+    var src = $this.attr('src');
     $('#figure_modal .modal-title').text(title);
     $('#figure_modal .modal-body img').attr('src',src);
+    $('#figure_modal').on('shown.bs.modal', function(){
+        var h_head = $(this).find('.modal-header').outerHeight(true);
+        var h_foot = $(this).find('.modal-footer').outerHeight(true);
+        console.log(win_height, h_head, h_foot)
+        $(this).find('.modal-body').css('height',(win_height-h_head-h_foot));
+    });
 });
 
-if($('#set_workplace').length){
 
-        console.log('b')
+if($('#set_workplace').length){
+    console.log('b');
     $('#set_workplace').find('input[name=workplace]').change(function(){
         var $this = this;
         console.log('a',$this.find('button[type=submit]').attr('disabled'))

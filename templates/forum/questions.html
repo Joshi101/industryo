@@ -30,11 +30,8 @@
 {% endblock %}
 
 {% block right %}
-	<div class="floating_form">
-    <h5 class="side_head">Active Workplaces</h5>
-    <ul id="top_members" class="ppl_list">
-    	{% include "snippets/workplace_list.html" with workplaces=workplaces %}
-    </ul>
+	<div class="right_fixed">
+		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
   </div>
 {% endblock right %}
 

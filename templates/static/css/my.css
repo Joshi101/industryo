@@ -616,6 +616,7 @@ pre {
 .feed_box_body figure {
   display: inline-block;
 
+  width: 33%;
   margin-top: 0;
   padding: 0;
 }
@@ -624,11 +625,10 @@ pre {
   display: block;
 
   width: 100%;
-  max-width: 250px;
-  max-height: 500px;
+  max-height: 300px;
 
   border: 1px solid rgba(55, 55, 55, .3);
-  box-shadow: 0 0 5px rgba(55, 55, 55, .3);
+  box-shadow: 0 0 2px rgba(55, 55, 55, .3);
 
   //margin: auto;
 }
@@ -668,28 +668,25 @@ pre {
   text-align: justify;
 }
 
-.q_title {
+.summary_title {
   position: relative;
   font-size: 15px;
 
   overflow: hidden;
 
   padding: 7px 2px 5px;
-  margin-bottom: 5px;
 
-  color: #111;
   border-bottom: 1px solid #aaa;
 }
 
-.q_title .sign,.article_title .sign{
+.summary_title .sign{
   position: absolute;
   line-height: 1.5;
   right: 0;
-  color: #444;
+  color: #197;
 }
 
-.q_title:hover {
-  color: #000;
+.summary_title:hover {
   border-bottom: 1px solid #197;
 }
 
@@ -710,12 +707,12 @@ pre {
   color: #555;
 }
 
-.q_summary {
+.summary_body {
   font-family: 'Open Sans';
   font-size: 12px;
   max-height: 150px;
 
-  padding: 0 7px;
+  padding: 10px 5px 2px;
 
   text-align: justify;
 
@@ -735,12 +732,17 @@ pre {
 
 .vote_box {
   float: left;
+  text-align: center;
   background-color: #efe;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   margin-left: -31px;
+  margin-top: -1px;
   padding: 4px 5px;
   width: 25px;
+  border-style: solid;
+  border-width: 1px 0 1px 1px;
+  border-color: #eee;
 }
 
 .vote_box span {
@@ -765,7 +767,7 @@ pre {
 }
 
 .tags {
-  padding: 5px;
+  padding: 10px 5px;
 }
 
 .tags a:hover {
@@ -812,7 +814,8 @@ pre {
 
   text-align: right;
 
-  background: rgba(222, 222, 222, .25);
+  //background: rgba(222, 222, 222, .25);
+  border-bottom: 1px solid #ddd;
 }
 
 .interaction .collapse {
@@ -1661,16 +1664,44 @@ footer .contact li{
   border-radius: 0;
 }
 
+.author{
+  text-align: right;
+}
+
 .author time{
   display: block;
 }
 
-#figure_modal .modal-body img{
-  width: 100%;
+#figure_modal .modal-content{
+  background-color: rgba(0,0,0,0.50);
+  min-height: 100%;
+  border-radius: 0;
 }
 
-.modal-header{
+#figure_modal .modal-header{
   min-height: 45px;
+  background-color: #fff;
+}
+
+#figure_modal .modal-body{
+  padding: 0;
+}
+
+#figure_modal .modal-footer{
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+}
+
+#figure_modal figure{
+  height: 100%;
+}
+
+#figure_modal .modal-body img{
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
+  margin: auto;
 }
 
 .d_menu{
@@ -1712,9 +1743,9 @@ footer .contact li{
 .tag{
   line-height: 20px;
   display: inline-block;
-  padding: 0 5px;
-  background-color: #ccc;
-  margin: 5px;
+  padding: 2px 5px;
+  background-color: #eff5ef;
+  margin: 0 5px 5px 0;
 }
 
 .tag .close{
@@ -1743,4 +1774,13 @@ footer .contact li{
   padding: 0 5px;
   height: 20px;
   border-radius: 1px;
+}
+
+.pressme{
+  cursor: pointer;
+}
+
+.summary_fig{
+  text-align: center;
+  padding: 5px;
 }

@@ -1,5 +1,5 @@
 body {
-  background-color: #eee;
+  background-color: #f9f9f9;
   overflow-x: hidden;
 }
 
@@ -7,7 +7,15 @@ ul {
 	padding: 0;
 }
 
+a:hover, a:focus{
+  color: #0a7;
+}
+
 /* un-bootstrap */
+
+.modal-dialog{
+  margin: 0 auto;
+}
 
 .valid{
   float: right;
@@ -125,7 +133,6 @@ ul {
 
 @media (min-width: 768px) {
   .top_user_info {
-		//background-color: #eee;
 		color: #aaa;
   }
 
@@ -146,20 +153,18 @@ ul {
     display: block;
 
     width: 100%;
-    //border-bottom: 2px solid #eee;
 
     text-align: center;
 
-    //color: #aaa;
     background-color: #333;
   }
 
   .top_user_info .wp .top_info_points {
-    //border-bottom-left-radius: 100% 50%;
+
   }
 
   .top_user_info .usr .top_info_points {
-    //border-bottom-right-radius: 100% 50%;
+
   }
 }
 
