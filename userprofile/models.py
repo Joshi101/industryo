@@ -133,14 +133,17 @@ class UserProfile(models.Model):
             tasks.notify_user(a.id, n=3)
 
     def notify_n_commented(self, node):           # working 4
+        print('shava')
         if self.user != node.user:
             a = Notification.objects.create(notification_type=Notification.COMMENTED,
                                             from_user=self.user,
                                             to_user=node.user,
                                             node=node)
             tasks.notify_user(a.id, n=4)
+            print('dava')
 
     def notify_also_n_commented(self, node):           # working 5
+        print('balle')
         comments = node.get_all_comments()
         users = []
         for comment in comments:
@@ -153,6 +156,7 @@ class UserProfile(models.Model):
                                             to_user=User(id=user),
                                             node=node)
             tasks.notify_user(a.id, n=5)
+            print('walle')
 
     def notify_also_q_commented(self, question):           # working 6
         comments = question.get_comment_count()
@@ -274,7 +278,7 @@ class UserProfile(models.Model):
             a = Notification.objects.create(notification_type=Notification.ALSO_JOINED,
                                             from_user=self.user,
                                             to_user=userprofile.user,)
-            # tasks.notify_user(a.id, n=12)
+            tasks.notify_user(a.id, n=12)
 
     def notify_answered(self, question):           # working 13
         if self.user != question.user:

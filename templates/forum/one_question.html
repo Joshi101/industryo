@@ -1,18 +1,18 @@
-<div class="feed_box question" typeof="Question">
-	<div class="text-center vote_box ajax_papa">
+<div class="feed_box question ajax_papa" typeof="Question">
+	<div class="text-center vote_box">
 		{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 	</div>
-	<div class="feed_box_body ajax_papa">
+	<div class="feed_box_body">
 		<a href="{% url 'forum:question' q.slug %}">
-			<div class="q_title">
+			<div class="summary_title">
 				<span property="name">{{ q.title|capfirst }}</span>
 				<i class="fa fa-question sign"></i>
 			</div>
 		</a>
 		{% if q.question %}
-		<div class="q_summary">{{ q.question|safe|truncatechars:200 }}</div>
+		<div class="summary_body">{{ q.question|safe|truncatechars:200 }}</div>
 		{% for image in q.get_images %}
-		<figure class="call_car">
+		<figure class="summary_fig call_car">
 			<a data-toggle='modal' data-target='#figure_modal'>
 				<img src="/images/{{image.image}}">
 			</a>
@@ -22,7 +22,7 @@
 		{% if q.get_tags %}
 		<div class="tags">
 			{% for tag in q.get_tags %}
-				<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-default">{{tag}}</span></a>
+				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag">{{tag}}</a>
 			{% endfor %}
 		</div>
 	{% endif %}

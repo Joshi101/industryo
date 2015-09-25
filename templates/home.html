@@ -54,10 +54,7 @@
 
 {% block right %}
 	<div class="right_fixed">
-    <div class="side_head">Active Workplaces</div>
-    <ul class="wp_list">
-    	{% include "snippets/general/workplace_list.html" with workplaces=workplaces %}
-    </ul>
+		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
   </div>
 {% endblock right %}
 

@@ -38,6 +38,4 @@ urlpatterns = patterns('',
     url(r'^edit/(?P<id>[^/]+)/$', 'forum.views.edit_ques', name='edit_ques'),
 
 
-
-
 )

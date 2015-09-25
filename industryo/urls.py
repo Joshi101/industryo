@@ -38,6 +38,8 @@ urlpatterns = patterns('',
     url(r'^tags/', include('tags.urls', namespace='tags')),
     url(r'^products/', include('products.urls', namespace='products')),
 
+    url(r'^home/right/$', 'home.views.home_right', name='home_right'),
+
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
