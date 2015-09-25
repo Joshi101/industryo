@@ -4,37 +4,19 @@
 	{% empty %}
 		<span class="none">City in which the company exists</span>
 	{% endfor %}
-	{% if user.userprofile in members %}
-    {% include "workplace/set_tags_head.html" with category='city' type='C' %}
-  {% endif %}
-  
+
 {% elif workplace.workplace_type == 'B' %}
 	{% for city in workplace.get_tags.city %}
 		{% include "snippets/tag_short.html" with tag=city %}
 	{% empty %}
 		<span class="none">City in which the company exists</span>
 	{% endfor %}
-	{% if user.userprofile in members %}
-    {% include "workplace/set_tags_head.html" with category='city' type='C' %}
-  {% endif %}
-  
+
 {% elif workplace.workplace_type == 'C' %}
 	{% for inst in workplace.get_tags.institution %}
 		{% include "snippets/tag_short.html" with tag=inst %}
 	{% empty %}
 	<span class="none">Add parent institution</span>
 	{% endfor %}
-	{% if user.userprofile in members %}
-    {% include "workplace/set_tags_head.html" with category='inst' type='P' %}
-  {% endif %}
- {% elif workplace.workplace_type == 'O' %}
-	{% for city in workplace.get_tags.city %}
-		{% include "snippets/tag_short.html" with tag=city %}
-	{% empty %}
-		<span class="none">City in which your Institution lies</span>
-	{% endfor %}
-	{% if user.userprofile in members %}
-    {% include "workplace/set_tags_head.html" with category='city' type='C' %}
-  {% endif %}
-  
+
 {% endif %}

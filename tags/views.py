@@ -31,9 +31,10 @@ def search_tag(request):
         tag = request.GET['the_query']
         type = request.GET['the_type']
         if type == 'All':
+            print(type)
             o = Tags.objects.filter(tag__icontains=tag)[:6]
         else:
-
+            print('sahi')
             o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
         return render(request, 'tags/list.html', {'objects': o})
     else:

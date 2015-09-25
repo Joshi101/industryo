@@ -11,13 +11,15 @@
 		</a>
 		{% if q.question %}
 		<div class="summary_body">{{ q.question|safe|truncatechars:200 }}</div>
-		{% for image in q.get_images %}
-		<figure class="summary_fig call_car">
-			<a data-toggle='modal' data-target='#figure_modal'>
-				<img src="/images/{{image.image}}">
-			</a>
-		</figure>
-		{% endfor %}
+		{% endif %}
+		{% if q.get_images %}
+		<div class="summary_fig">
+			{% for image in q.get_images %}
+			<figure>
+				<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+			</figure>
+			{% endfor %}
+		</div>
 		{% endif %}
 		{% if q.get_tags %}
 		<div class="tags">

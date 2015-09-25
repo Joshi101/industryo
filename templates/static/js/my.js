@@ -102,7 +102,7 @@ $('.d_input').keydown(function(event) {
     if (event.keyCode == '13') {
         event.preventDefault();
         if ($d_search.find('.dropdown').attr('class').indexOf('open') >= 0){
-            $d_search.find('.dropdown').find('.d_list').find('.option').first().trigger('click');
+            $d_search.find('.dropdown').find('.d_menu').find('.option').first().trigger('click');
             $this.val('');
         }
     }
@@ -179,6 +179,7 @@ $('.input_tags').on('click','.tag .close', function(){
     val1 = pre_value.slice(0, i1);
     val2 = pre_value.slice(i2);
     console.log(i1,i2,val1+val2);
+    $d_search.find('.d_value').val(val1+val2);
     tag.remove();
 });
 
@@ -719,6 +720,7 @@ $('.detail_add').on('click', function(event) {
     console.log(save,content,taggy)
     var $forms = $('.edit_' + content);
     if (save == 'save') {
+        console.log('save hoga');
         $this.text('Add').attr('data-save', '');
         if (taggy == 'yes') {
             console.log($this.prev().text());
@@ -727,7 +729,7 @@ $('.detail_add').on('click', function(event) {
         $forms.each(function() {
             $(this).addClass('hide');
         });
-        ajax_from($(this).siblings('form'));
+        ajax_form($(this).siblings('form'));
     } else {
         $this.text('Done').attr('data-save', 'save');
         if (taggy == 'yes') {
@@ -1178,7 +1180,7 @@ if($('#set_workplace').length){
 }
 
     
-function ajax_from($this){
+function ajax_form($this){
     var $papa = $this.closest('.ajax_papa');
     var $form = $this.closest('form');
     console.log($form.serialize());
@@ -1245,4 +1247,19 @@ $(document).ready(function(){
             }
         });
     });
+});
+
+$('.show_edit').on('click', function(){
+    var $form = $(this).parent().find('.d_edit');
+    $form.removeClass('hide');
+    $(this).addClass('hide');
+    $(this).parent().find('.done_edit').removeClass('hide');
+});
+
+$('.done_edit').on('click', function(){
+    var $form = $(this).parent().find('.d_edit');
+    ajax_form($form);
+    $form.addClass('hide');
+    $(this).addClass('hide');
+    $(this).parent().find('.show_edit').removeClass('hide');
 });
