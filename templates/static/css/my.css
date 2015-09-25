@@ -1332,7 +1332,7 @@ div[data-role='editor-toolbar'] {
 }
 
 #workplace_info div:last-child {
-  padding-bottom: 4px;
+  //padding-bottom: 4px;
 
   //border-left: 1px solid rgba(16,144,112,.5);
   //box-shadow: -1px -1px 1px rgba(16,144,112,.5);
@@ -1744,8 +1744,14 @@ footer .contact li{
   line-height: 20px;
   display: inline-block;
   padding: 2px 5px;
-  background-color: #eff5ef;
+  background-color: #99f;
   margin: 0 5px 5px 0;
+  color: #fff;
+}
+
+.tag:hover{
+  color: #fff;
+  background-color: #999;
 }
 
 .tag .close{
@@ -1761,17 +1767,8 @@ footer .contact li{
   padding-right: 8.5%;
 }
 
-#workplace_info .d_input{
-  padding: 0 6px;
-  height: 24px;
-}
-
-.d_edit .d_search{
- margin-right: 52px;
-}
-
 .label_sm{
-  padding: 0 5px;
+  padding: 1px 5px;
   height: 20px;
   border-radius: 1px;
 }
@@ -1783,4 +1780,33 @@ footer .contact li{
 .summary_fig{
   text-align: center;
   padding: 5px;
+}
+
+.inline_fa{
+  margin: 0 5px;
+}
+
+.d_search .tag{
+  background-color: #999;
+  
+}
+
+.info_title{
+  margin-top:0;
+}
+
+.info_field{
+  position: relative;
+  border-bottom: 1px solid #999;
+  margin-bottom: 10px;
+}
+
+.info_field_value{
+  margin-right: 50px;
+}
+
+.show_edit, .done_edit{
+  position: absolute;
+  right: 0;
+  top: 0;
 }

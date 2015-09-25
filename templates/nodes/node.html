@@ -26,11 +26,15 @@
 					{% endif %}
 				</h4>
 				<div class="article_body">{{ node.post|safe }}</div>
-				{% for image in node.get_images %}
-				<figure class="call_car">
-					<a data-toggle='modal' data-target='#figure_modal'><img src="/images/{{image.image}}"></a>
-				</figure>
-				{% endfor %}
+				{% if node.get_images %}
+				<div class="summary_fig">
+					{% for image in node.get_images %}
+					<figure>
+						<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+					</figure>
+					{% endfor %}
+				</div>
+				{% endif %}
 				{% if node.get_tags %}
 				<div class="tags">
 					{% for tag in node.get_tags %}

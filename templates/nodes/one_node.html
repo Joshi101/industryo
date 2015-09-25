@@ -4,13 +4,17 @@
 	</div>
 	<div class="feed_box_body">
 		<pre>{{ node.post | urlize }}</pre>
-		{% for image in node.get_images %}
-		<figure class="call_car">
-			<a data-toggle='modal' data-target='#figure_modal'>
-				<img src="/images/{{image.image_thumbnail}}">
-			</a>
-		</figure>
-		{% endfor %}
+		{% if node.get_images %}
+			<div class="summary_fig">
+			{% for image in node.get_images %}
+			<figure class="call_car">
+				<a data-toggle='modal' data-target='#figure_modal'>
+					<img src="/images/{{image.image_thumbnail}}">
+				</a>
+			</figure>
+			{% endfor %}
+		</div>
+		{% endif %}
 		<div class="author">
 			--{% include "snippets/joint_name.html" with user=node.user %}
 			<time property='dateCreated' class="text-muted">{{node.date}}</time>

@@ -5,6 +5,8 @@
 
 {% block title %} CoreLogs | {{ workplace.name }} {% endblock title %}
 
+{% block page_id %}workplace{% endblock page_id %}
+
 {% block left %}
 	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" property='logo' typeof='ImageObject'>
@@ -18,19 +20,49 @@
 {% endblock left %}
 
 {% block content %}
-  <div id="workplace_info" class="row" typeof='Organization' resource='#workplace'>
+  <div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
     <div class="col-sm-8 info_left">
-      <h4 class=" text-uppercase" property='name'>{{ workplace.name }}</h4>
-      <h4 class="text-muted ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-        <small><span class="tag_container" property='addressRegion'>{% include "snippets/area.html" with workplace=workplace %}</span></small>
-      </h4>
-      <h4 class="text-muted ajax_andar ajax_papa">
-        <small><span class="tag_container">{% include "snippets/segment.html" with workplace=workplace %}</span></small>
-      </h4>
+      <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ workplace.name }}</h1>
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+          {% include "snippets/area.html" with workplace=workplace %}
+        </div>
+        {% if user.userprofile in members %}
+        <div class="info_field_edit">
+          <a class="show_edit"><i class="fa fa-edit inline_fa"></i>Edit</a>
+          <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i>Done</a>
+          {% if workplace.workplace_type == 'A' %}
+            {% include "workplace/snippets/edit_info_head.html" with category='city' type='C' %}
+          {% elif workplace.workplace_type == 'B' %}
+            {% include "workplace/snippets/edit_info_head.html" with category='ind_area' type='I' %}
+          {% elif workplace.workplace_type == 'C' %}
+            {% include "workplace/snippets/edit_info_head.html" with category='inst' type='P' %}
+          {% endif %}
+          {% comment %}
+            {% include "workplace/set_tags_head.html" with category='city' type='C' %}
+          {% endcomment %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+          {% include "snippets/segment.html" with workplace=workplace %}
+        </div>
+        {% if user.userprofile in members %}
+        <div class="info_field_edit">
+          <a class="show_edit"><i class="fa fa-edit inline_fa"></i>Edit</a>
+          <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i>Done</a>
+          {% include "workplace/snippets/edit_info_head.html" with category='segment' type='S' %}
+          {% comment %}
+            {% include "workplace/set_tags_head.html" with category='city' type='C' %}
+          {% endcomment %}
+        </div>
+        {% endif %}
+      </div>
     </div>
     <div class="col-sm-4">
-      <h5><span class="label label-default">{{workplace.points}} points</span></h5>
-      <h5><span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span></h5>
+      <div><span class="label label-default">{{workplace.points}} points</span></div>
+      <div><span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span></div>
     </div>
   </div>
   <ul class="nav nav-pills">
@@ -52,10 +84,8 @@
 {% endblock %}
 
 {% block right %}
-  <div class="floating_form">
-    <h5 class="side_head">Most Active Members</h5>
-    <ul id="top_members" class="ppl_list">
-    </ul>
+  <div class="right_fixed">
+    <div class="ajax_load" data-url="{% url 'workplace:get_top_scorers' workplace.slug %}"></div>
   </div>
   {% comment %}
   {% ifequal user.userprofile in members %}
@@ -64,22 +94,4 @@
     {% include "snippets/floating_form.html" with tag="asset" type="A" %}
   {% endifequal %}
   {% endcomment %}
-  <script type="text/javascript">
-    $(document).ready(function(){
-      get_top_scorers();
-    });
-    function get_top_scorers(){
-      $.ajax({
-        url: "{% url "workplace:get_top_scorers" workplace.slug %}",
-        type: 'GET',
-
-        success: function(response){
-            $('#top_members').html(response);
-        },
-        error : function(xhr,errmsg,err) {
-            console.log(errmsg,err);
-        }
-      });
-    }
-  </script>
 {% endblock right %}

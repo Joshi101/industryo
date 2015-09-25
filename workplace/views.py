@@ -159,6 +159,7 @@ def set_tags_short(request):
                 t = wp.set_segments(value)
             print('kkk')
             new_interest = t
+            print(t)
             r_elements = ['tag_container']
             r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
             response['html'] = r_html
@@ -284,7 +285,7 @@ def workplace_articles(request, id):
 def get_top_scorers(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')[:3]
-    return render(request, 'snippets/people_list.html', {'people': members})
+    return render(request, 'workplace/snippets/wp_right.html', {'people': members})
 
 
 @login_required

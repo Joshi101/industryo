@@ -1,12 +1,14 @@
 {% if user.userprofile.primary_workplace %}
-<span class="joint_name" property='author' typeof='Person'>
-	<a class="name_user {% ifequal user.username request.user.username %}same{% endifequal %}" {% if not anony %}href="{% url 'user:profile' user.username %}"{% endif %} property='sameAs'><span property='name'>{% if anony %}Anonymous{% else %}{{ user.get_full_name }}{% endif %}</span></a>
-  
-	<span class="line"><b>|</b></span>
-	<a class="name_workplace {% ifequal user.userprofile.primary_workplace.slug request.user.userprofile.primary_workplace.slug %}same{% endifequal %}" href="{% url "workplace:workplace_profile" user.userprofile.primary_workplace.slug %}" property="worksFor" typeof='Organization'><span property='name'>{{ user.userprofile.primary_workplace }}</span></a>
-</span>
+<div class="joint_name" property='author' typeof='Person'>
+	<a class="name_user {% ifequal user.username request.user.username %}same{% endifequal %}" {% if not anony %}href="{% url 'user:profile' user.username %}"{% endif %} property='sameAs'>
+		<span property='name'>{% if anony %}Anonymous{% else %}{{ user.get_full_name }}{% endif %}</span>
+	</a>
+	<span class="line">|</span>
+	<a class="name_workplace {% ifequal user.userprofile.primary_workplace.slug request.user.userprofile.primary_workplace.slug %}same{% endifequal %}" href="{% url "workplace:workplace_profile" user.userprofile.primary_workplace.slug %}" property="worksFor" typeof='Organization'>
+		<span property='name'>{{ user.userprofile.primary_workplace }}</span>
+	</a>
+</div>
 {% else %}
 <span class="joint_name" property='author' typeof='Person'>
 	<a class="name_user {% ifequal user.username request.user.username %}same{% endifequal %}" {% if not anony %}href="{% url 'user:profile' user.username %}"{% endif %} property='sameAs'><span property='name'>{% if anony %}Anonymous{% else %}{{ user.get_full_name }}{% endif %}</span></a>
-	<span class="line"><b>
 {% endif %}
