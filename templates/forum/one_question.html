@@ -16,7 +16,9 @@
 		<div class="summary_fig">
 			{% for image in q.get_images %}
 			<figure>
+			  <a>
 				<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+			  </a>
 			</figure>
 			{% endfor %}
 		</div>

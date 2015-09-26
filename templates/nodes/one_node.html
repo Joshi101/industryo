@@ -9,9 +9,9 @@
 			<div class="summary_fig">
 			{% for image in node.get_images %}
 			<figure class="call_car">
-				<a data-toggle='modal' data-target='#figure_modal'>
-					<img src="/images/{{image.image_thumbnail}}">
-				</a>
+				<a>
+				<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+			  </a>
 			</figure>
 			{% endfor %}
 		</div>
