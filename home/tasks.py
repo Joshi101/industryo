@@ -8,7 +8,10 @@ from activities.models import Notification
 def notify_user(id, n):
     notification = Notification.objects.get(id=id)
     user = notification.to_user
-    user_email = user.email
+    if user.email:
+        user_email = user.email
+    else:
+        user_email = 'rohit9gag@gmail.com'
     name = user.get_full_name()
     question = notification.question
     node = notification.node
