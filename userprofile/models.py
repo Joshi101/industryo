@@ -13,18 +13,18 @@ from home import tasks
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    primary_workplace = models.ForeignKey(Workplace, null=True)
+    primary_workplace = models.ForeignKey(Workplace, null=True, blank=True)
     workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps')
 
     GenderChoices = (('M', 'Male'), ('F', 'Female'),)
-    gender = models.CharField(max_length=1, choices=GenderChoices, null=True)
-    job_position = models.CharField(max_length=255, null=True)
+    gender = models.CharField(max_length=1, choices=GenderChoices, null=True, blank=True)
+    job_position = models.CharField(max_length=255, null=True, blank=True)
     experience = models.TextField(max_length=5000, blank=True, null=True)
     points = models.IntegerField(default=100)
 
     profile_image = models.ForeignKey('nodes.Images', null=True, blank=True)
 
-    interests = models.ManyToManyField(Tags)
+    interests = models.ManyToManyField(Tags, blank=True)
     # area = models.ForeignKey('Area', null=True, blank=True)       # maybe m2m
     approved = models.BooleanField(default=True)
 

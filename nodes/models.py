@@ -77,8 +77,8 @@ class Node(models.Model):
     admin_score = models.FloatField(default=1)
     score = models.FloatField(default=0)
     is_active = models.BooleanField(default=True)           # use this to keep unpublished articles
-    tags = models.ManyToManyField(Tags, null=True)
-    images = models.ManyToManyField(Images, null=True)
+    tags = models.ManyToManyField(Tags, null=True, blank=True)
+    images = models.ManyToManyField(Images, null=True, blank=True)
 
     objects = models.Manager()
     feed = FeedManager()

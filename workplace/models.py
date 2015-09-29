@@ -27,7 +27,7 @@ class Workplace(models.Model):
     points = models.IntegerField(default=0)
     logo = models.ForeignKey('nodes.Images', null=True, blank=True)
 
-    segments = models.ManyToManyField(Tags, related_name='segments')
+    segments = models.ManyToManyField(Tags, related_name='segments', blank=True)
     # Team
     institution = models.ForeignKey(Tags, related_name='institution', null=True, blank=True)            # don't know why
     # SME

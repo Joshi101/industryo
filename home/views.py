@@ -14,6 +14,7 @@ from activities.models import Notification
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from home import tasks
 
 # import tasks
 
@@ -81,42 +82,16 @@ def search(request):
         return render(request, 'search/search.html')
 
 
-@login_required
+# @login_required
 def send_an_email(request):
-    if request.user.id == 1:
-        users = User.objects.all()
+    if request.user.is_authenticated():
+        users = User.objects.filter(id__lte=2) #(user__userprofile__primary_workplace__workplace_type='C')
         for user in users:
-            if user.email:
-                user_email = user.email
-            else:
-                user_email = "rohit9gag@gmail.com"
-            if user.first_name:
-                name = user.get_full_name()
-            else:
-                name = user.username
-            template = u'''Hi {0},
+            tasks.bhakk(user.id, n=15)
 
-How did you like www.corelogs.com ?
-
-The website is going at a great pace. Many scholars from various colleges, SAE Teams & Industries have registered and are actively participating in the discussions.
-
-Visit the www.corelogs.com/forum/ and see if you can answer the questions.
-
-Ask a question today and get it answered by the best out there.
-
-Thanks & Regards
-
-Surya Prakash
-CoreLogs'''
-
-            content = template.format(name)
-            try:
-                send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
-            except Exception:
-                pass
         return redirect('/sitemap')
     else:
-        return redirect('/sitemap')
+        return redirect('/')
 
 
 def send_set_wp_email(request):
