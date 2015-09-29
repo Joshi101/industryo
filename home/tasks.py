@@ -17,7 +17,10 @@ def bhakk(id, n):
     if n == 15:
         template = Template15
         content = template.format(name)
-    send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', [user_email])
+    try:
+        send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', [user_email])
+    except Exception:
+        pass
 
 
 @background(schedule=60)

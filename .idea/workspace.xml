@@ -13,16 +13,8 @@
       <change type="DELETED" beforePath="C:\Users\sp\industryo\compat\tests\models.py" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\sp\industryo\compat\tests\test_compat.py" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\sp\industryo\compat\tests\urls.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/admin.py" afterPath="$PROJECT_DIR$/tags/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userprofile/admin.py" afterPath="$PROJECT_DIR$/userprofile/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nodes/models.py" afterPath="$PROJECT_DIR$/nodes/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userprofile/models.py" afterPath="$PROJECT_DIR$/userprofile/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/workplace/models.py" afterPath="$PROJECT_DIR$/workplace/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/industryo/settings.py" afterPath="$PROJECT_DIR$/industryo/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/tags/tag.html" afterPath="$PROJECT_DIR$/templates/tags/tag.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home/tasks.py" afterPath="$PROJECT_DIR$/home/tasks.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home/views.py" afterPath="$PROJECT_DIR$/home/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/views.py" afterPath="$PROJECT_DIR$/tags/views.py" />
     </list>
     <ignored path="industryo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -109,8 +101,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/home/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26923078" vertical-offset="1291" max-vertical-offset="2516">
-              <caret line="85" column="17" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.48076922" vertical-offset="1374" max-vertical-offset="2550">
+              <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
               <folding>
                 <element signature="e#0#81#0" expanded="true" />
               </folding>
@@ -122,7 +114,7 @@
         <entry file="file://$PROJECT_DIR$/industryo/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="2475" max-vertical-offset="3060">
-              <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+              <caret line="162" column="25" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -131,8 +123,8 @@
       <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="562" max-vertical-offset="5678">
-              <caret line="88" column="60" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5729">
+              <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -177,8 +169,8 @@
         <option value="$PROJECT_DIR$/nodes/models.py" />
         <option value="$PROJECT_DIR$/workplace/models.py" />
         <option value="$PROJECT_DIR$/tags/views.py" />
-        <option value="$PROJECT_DIR$/home/tasks.py" />
         <option value="$PROJECT_DIR$/home/views.py" />
+        <option value="$PROJECT_DIR$/home/tasks.py" />
       </list>
     </option>
   </component>
@@ -327,7 +319,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -482,16 +474,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/industryo/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="3060">
-          <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2475" max-vertical-offset="3060">
+          <caret line="162" column="25" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/home/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="562" max-vertical-offset="5678">
-          <caret line="88" column="60" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5729">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -500,8 +492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26923078" vertical-offset="1291" max-vertical-offset="2516">
-          <caret line="85" column="17" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.48076922" vertical-offset="1374" max-vertical-offset="2550">
+          <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
           <folding>
             <element signature="e#0#81#0" expanded="true" />
           </folding>

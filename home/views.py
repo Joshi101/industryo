@@ -85,8 +85,9 @@ def search(request):
 # @login_required
 def send_an_email(request):
     if request.user.is_authenticated():
-        users = User.objects.filter(id__lte=2) #(user__userprofile__primary_workplace__workplace_type='C')
-        for user in users:
+        userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+        for userprofile in userprofiles:
+            user = userprofile.user
             tasks.bhakk(user.id, n=15)
 
         return redirect('/sitemap')
@@ -95,6 +96,7 @@ def send_an_email(request):
 
 
 def send_set_wp_email(request):
+
     if request.user.is_authenticated():
         users = User.objects.all()
         for user in users:
