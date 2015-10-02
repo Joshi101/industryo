@@ -4,19 +4,31 @@
  * Date: 07-07-2015
  */
 
+
+/* global parameters */
+var top_nav_width, win_width, win_height, foot_height;
+
+/* function to initialize some global parameters */
+function measure() {
+    top_nav_width = $('.navbar-fixed-top').outerHeight(true);
+    win_width = $(window).width();
+    win_height = $(window).height();
+    foot_height = $('footer').outerHeight(true);
+    body_slide();
+}
+
 /* function to auto adjust top margin for the body */
 function body_slide() {
-    var top = $('.navbar-fixed-top').outerHeight(true);
-    console.log(top);
+    console.log(win_height, top_nav_width, foot_height);
     $('.body').stop().animate({
-        'top': top
+        'margin-top': top_nav_width,
+        'min-height': (win_height - top_nav_width - foot_height)
     });
 }
 
 /* call body_slide when the window loads or resizes */
-$(body_slide);
-$(window).on('resize', body_slide);
-
+$(measure);
+$(window).on('resize', measure);
 
 $(document).ready(function() {
     // url for background image location
