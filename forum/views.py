@@ -20,7 +20,6 @@ def ask(request):
             return render(request, 'forum/ask.html', {'form': form})
         else:
             question = request.POST.get('question')
-            print(question)
             title = form.cleaned_data.get('title')
             user = request.user
             anonymous = request.POST.get('anonymous')

@@ -4,13 +4,6 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'industryo.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-
-    # url(r'^accounts/', include('allauth.urls')),
-    # url(r'^$', 'home.views.home', name='home'),
 
     url(r'^$', 'forum.views.questions', name='questions'),
     url(r'^w/$', 'forum.views.w_questions', name='w_questions'),

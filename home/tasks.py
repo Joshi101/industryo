@@ -18,7 +18,7 @@ def bhakk(id, n):
         template = Template15
         content = template.format(name)
     try:
-        send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', [user_email])
+        send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
     except Exception:
         pass
 

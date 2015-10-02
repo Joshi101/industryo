@@ -84,15 +84,18 @@ def search(request):
 
 # @login_required
 def send_an_email(request):
-    if request.user.is_authenticated():
-        userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
-        for userprofile in userprofiles:
-            user = userprofile.user
-            tasks.bhakk(user.id, n=15)
-
-        return redirect('/sitemap')
-    else:
-        return redirect('/')
+    send_mail('CoreLogs- Set your Workplace', 'hi dude.. whatsup?', 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
+    return redirect('/')
+    # if request.user.is_authenticated():
+    #     # userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+    #     users = User.objects.filter(id__lte=5)
+    #     for user in users:
+    #         # user = userprofile.user
+    #         tasks.bhakk(user.id, n=15)
+    #
+    #     return redirect('/sitemap')
+    # else:
+    #     return redirect('/')
 
 
 def send_set_wp_email(request):
