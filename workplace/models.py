@@ -33,7 +33,7 @@ class Workplace(models.Model):
     # SME
     capabilities = models.TextField(max_length=5000, null=True, blank=True)
     product_details = models.TextField(max_length=5000, null=True, blank=True)
-    # tags = models.ManyToManyField(Tags)
+
     wptags = models.ManyToManyField(Tags, through='WpTags', related_name='wptags')
 
     class Meta:

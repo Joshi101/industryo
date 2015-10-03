@@ -3,15 +3,32 @@ from tags.models import Tags
 from nodes.models import Images
 from industryo.unique_slug import unique_slugify
 from workplace.models import Workplace
+from django.contrib.auth.models import User
 
 
 class Products(models.Model):
     product = models.CharField(max_length=50)
     producer = models.ForeignKey(Workplace)
+    user = models.ForeignKey(User, null=True)
     slug = models.SlugField(max_length=50)
     image = models.ForeignKey(Images, null=True, blank=True)
-    tags = models.ManyToManyField(Tags)
+    tags = models.ManyToManyField(Tags, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
+    LargeScaleIndustry = 'A'
+    SME = 'B'
+    SAE_Team = 'C'
+    Educational_Institution = 'O'
+    target_segments = (
+        (LargeScaleIndustry, 'Large Scale Industry'),
+        (SME, 'Small & Medium Scale Enterprise'),
+        (SAE_Team, 'SAE Collegiate club'),
+        (Educational_Institution, 'Educational Institution')
+    )
+    target_segment = models.CharField(max_length=4, null=True, blank=True)
+    admin_score = models.FloatField(default=1)
+    score = models.FloatField(default=0)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+    modified = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         db_table = 'Products'
@@ -48,6 +65,18 @@ class Products(models.Model):
         else:
             return default_image
 
+    def set_target_segments(self, li):
+        l = len(li)
+        if l == 1:
+            q = li[0]
+        elif l == 2:
+            q = li[0] + li[1]
+        elif l == 3:
+            q = li[0] + li[1] + li[2]
+        else:
+            q = li[0] + li[1] + li[2] + li[3]
+        self.target_segments = q
+        return q
 
 
 

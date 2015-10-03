@@ -14,16 +14,17 @@ def add_product(request):
         product = request.POST.get('product')
         description = request.POST.get('description')
         tags = request.POST.get('tags')
-        # user = request.user
+        li = request.POST.get('target_segments')
+        user = request.user
         workplace = request.user.userprofile.primary_workplace
-        p = Products.objects.create(product=product, producer=workplace, description=description)
+        p = Products.objects.create(product=product, producer=workplace, description=description, user=user)
         p.set_tags(tags)
+        p.set_target_segments(li)
         r_elements = ['products_list']
         r_html['products_list'] = render_to_string('workplace/one_product.html', {'product': p})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
-        print(response)
         return HttpResponse(json.dumps(response), content_type="application/json")
 
 
