@@ -1,5 +1,18 @@
 {% for segment in workplace.get_tags.segments %}
 	{% include "snippets/tag_short.html" with tag=segment %}
 {% empty %}
-	Add segment
+  {% if workplace.workplace_type == 'A' %}
+	Add segments (Automobile/ Aerospace/ Consultancy/ Manufacturing etc.)
+  {% elif workplace.workplace_type == 'B' %}
+	Add segments (Manufacturing/ Automobile/ Aerospace/ Consultancy etc.)
+  {% elif workplace.workplace_type == 'C' %}
+	Add segments (Baja/ Formula/ Efficycle/ AeroDesign etc.)
+  
+  {% endif %}
 {% endfor %}
+{% if user.userprofile in members %}
+  {% include "workplace/set_tags_head_2.html" with category='segment' type='S' %}
+{% endif %}
+
+
+

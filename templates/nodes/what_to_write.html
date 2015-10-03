@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load account %}
+
+
+{% block body %}
+<div class="container">
+	<h3><b>CoreLogs</b> - The Engineer's Blog <a href="{% url 'nodes:help' %}">(What is it?)</a></h3>	
+	<h3>What to Write</h3>
+	<p>CoreLogs is an Engineer's Blog. You can start blogging on a connected platform where people related to your field of interest can read 
+	and share your article. Your CoreLogs Profile would contain all the articles written by you which you can use as a showcase.</p>
+	<p>You can write about any topic you are familiar with and want to share your knowledge and experience about it. The only requirement is that it should 
+	be original and should not contain false information.</p>
+	<li>You can write about some problem people normally face. 
+	<li>You can write a tutorial about using some software for a specific purpose like ANSYS/ Teamcenter/ Fluent/ MATLAB/ Catia etc. that you know about.
+	<li>You can write about some segmentof industry/ Industrial area and share your understanding and insight about it's future.
+	<li>You can publish your research on some engineering related topic that you think might help somebody in future.
+	<li>You can write about your experience in come engineering related event like SAE events.
+	<li>Basically you can write about anything related to Engineering, Industry, Manufacturing, Economy etc.
+	
+	<h3>How to Write</h3>
+	<p><h4>Title</h4></p>
+	<p>The Title of the Article should contain a brief introduction of the Article in about than 15-20 words.
+	<li>The title would be the first thing somebody will see and based on its relevance and clarity people would determine whether they should read it or not. 
+	If somebody understands the title then only he is going to look at the Article. 
+	<li>The title must summarize the question
+	<p><h4>Tags</h4></p>
+	<p><h5>You must tag the article with appropriate topics for categorization.</p></h5>
+	<li>You should provide at least 3-4 tags in order to categorize the article completely</li>
+	<li>You should try to use an existing tag. But if you are creating a new tag, you should describe the tag by going on the tag page.</li>
+	
+</div>
+{% endblock body %}
+
+

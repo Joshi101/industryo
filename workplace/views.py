@@ -99,7 +99,6 @@ def set_tags(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('tag')
-        print(value)
         if value:
             if type == 'A':
                 t = wp.set_assets(value)
@@ -107,8 +106,6 @@ def set_tags(request):
                 t = wp.set_materials(value)
             if type == 'O':
                 t = wp.set_operations(value)
-            if type == 'I':
-                t = wp.set_industrial_area(value)
             if type == 'C':
                 t = wp.set_city(value)
             if type == 'P':
@@ -130,7 +127,6 @@ def set_tags(request):
 @login_required
 def set_tags_short(request):
     if request.method == 'POST':
-        print('aa rha h')
         response = {}
         r_html = {}
         r_elements = []
@@ -139,7 +135,6 @@ def set_tags_short(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('tag')
-        print(value)
         if value:
             if type == 'A':
                 t = wp.set_assets(value)
@@ -147,8 +142,6 @@ def set_tags_short(request):
                 t = wp.set_materials(value)
             if type == 'O':
                 t = wp.set_operations(value)
-            if type == 'I':
-                t = wp.set_industrial_area(value)
             if type == 'C':
                 t = wp.set_city(value)
             if type == 'P':
@@ -157,7 +150,6 @@ def set_tags_short(request):
                 t = wp.set_events(value)
             if type == 'S':
                 t = wp.set_segments(value)
-            print('kkk')
             new_interest = t
             print(t)
             r_elements = ['tag_container']
@@ -206,6 +198,7 @@ def workplace_members(request, slug):
     workplace_logo_form = SetLogoForm()
     products = Products.objects.filter(producer=workplace.pk)
     return render(request, 'workplace/prof_members.html', locals())
+
 
 def workplace_products(request, slug):
     workplace = Workplace.objects.get(slug=slug)
@@ -339,10 +332,8 @@ def delete_tag(request):
         t = Tags.objects.get(tag=delete)
         try:
             WpTags.objects.get(tags=t, workplace=wp).delete()
-            print('nal')
         except:
             up.interests.remove(t)
-            print('al')
         return HttpResponse(json.dumps(response), content_type="application/json")
 # def delete_tags
 
@@ -383,3 +374,13 @@ def todder(request):
             Workplaces.objects.create(userprofile=o, workplace=a, job_position=o.job_position)
     return redirect('/')
 # Create your views here.
+
+
+def change_workplace(request):
+    if 'q' in request.GET:
+        querystring = request.GET.get('q')
+        usp = request.user.userprofile
+        workplace = Workplace.objects.get(id=querystring)
+        usp.primary_workplace = workplace
+        usp.save()
+        return redirect('/')

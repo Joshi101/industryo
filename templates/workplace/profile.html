@@ -10,7 +10,7 @@
 {% block left %}
 	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" property='logo' typeof='ImageObject'>
-    {% if user == request.user %}
+    {% if user.userprofile.primary_workplace == workplace %}
     <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
     {% endif %}
   </div>
@@ -71,11 +71,28 @@
   </div>
   <ul class="nav nav-pills">
   {% block workplace_nav %}
-    <li><a href="{% url "workplace:products" workplace.slug %}">Products</a></li>
-    <li><a href="{% url "workplace:members" workplace.slug %}">Members</a></li>
-    <li><a href="{% url "workplace:capabilities" workplace.slug %}">Capabilities</a></li>
-    <li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
-    <li class="active"><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+	{% if workplace.workplace_type == 'A' %}
+		<li><a href="{% url "workplace:members" workplace.slug %}">People</a></li>
+		<li><a href="{% url "workplace:capabilities" workplace.slug %}">Capabilities</a></li>
+		<li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
+		<li class="active"><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+	{% elif workplace.workplace_type == 'B' %}
+		<li><a href="{% url "workplace:products" workplace.slug %}">Products / Services</a></li>
+		<li><a href="{% url "workplace:members" workplace.slug %}">People</a></li>
+		<li><a href="{% url "workplace:capabilities" workplace.slug %}">Capabilities</a></li>
+		<li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
+		<li class="active"><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+	{% elif workplace.workplace_type == 'C' %}
+		<li><a href="{% url "workplace:products" workplace.slug %}">Our Cars</a></li>
+		<li><a href="{% url "workplace:members" workplace.slug %}">Members</a></li>
+		<li><a href="{% url "workplace:capabilities" workplace.slug %}">Events</a></li>
+		<li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
+		<li class="active"><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+	{% elif workplace.workplace_type == 'O' %}
+		<li><a href="{% url "workplace:members" workplace.slug %}">People</a></li>
+		<li><a href="{% url "workplace:about" workplace.slug %}">About</a></li>
+		<li class="active"><a href="{% url "workplace:workplace_profile" workplace.slug %}">Dashboard</a></li>
+	{% endif %}
   {% endblock workplace_nav %}
   </ul>
   <div class="tab-content ajax_papa ajax_andar">

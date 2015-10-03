@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load account %}
+
+
+{% block body %}
+<div class="container">
+	<h3><b>CoreLogs</b> - The Engineer's Forum <a href="{% url 'forum:help' %}">(What is it?)</a></h3>	
+	<h3>Why should you answer on CoreLogs</h3>
+	<p>CoreLogs is an Engineer's Forum. It is a community of Engineers, Industrialists, Research Scholars, Engineering students, people participating in 
+	Baja/ Formula/ Aero-Design events and in general the entire community of people related to the core segment of Engineering. The Forum is meant to be a 
+	place where you can get definitive answers, help, and solution to your engineering related problems.</p>
+	<p><b>Your Answers on CoreLogs get answered only because somebody in the community takes the pain to write down an answer to your problems.</b> This entire community 
+	works on the principle of mutual help, sharing and solving other's problems. If you are getting even the slightest help from this community, it is
+	your duty to help somebody by sharing your knwledge. For that you can find some question in your area of interest and provide an answer to the question. 
+	You can also write an article in order to share your knowledge and make your mark on internet.</p>
+	<p>You can also answer the questions that have already been answered if you have a better answer as the better answer would get more upvotes and move up. 
+	Also, it will hep people to get a better answer of the existing question.</p>
+	<h4>Apart from this, you have other reasons too:</h4>
+	<li>For every upvote on your Question, Answer or Article, you get 5 points. So a good answer can bring you 100s of points.</li>
+	<li>The Visibility of you and your workplace increases on internet. Your Team/ Company/ College will be more visible.</li>
+	<li>Not only the person who asks the question but many others who see your answer in future will be benefitted by your answers.</li>
+	<li>By Answering a question you are establishing your superiority in the field. The best people should answer the most.</li>
+	<li>By Answering today, you are helping in creaing the community which might help you someday.</li>
+</div>
+{% endblock body %}
+
+

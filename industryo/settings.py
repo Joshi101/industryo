@@ -46,8 +46,8 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3',
     'crispy_forms',
-    #'debug_toolbar',
-    #'background_task',
+    'debug_toolbar',
+    'background_task',
 
     'nodes',
     'workplace',
@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'activities',
     'products',
     'tags',
+    'chat',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,7 +83,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'corelogs_db',  # last was db
+        'NAME': 'again',  # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -142,6 +143,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30 * 2
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -165,9 +167,9 @@ STATICFILES_DIRS = [os.path.join(ROOT_DIR, 'templates/static')]
 
 SITE_ID = 1
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'site.corelogs@gmail.com'
-# EMAIL_HOST_PASSWORD = 'SP@nitj.09'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'site.corelogs@gmail.com'
+EMAIL_HOST_PASSWORD = 'SP@nitj.10$'

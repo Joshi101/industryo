@@ -44,11 +44,9 @@
             </div>
           </div>
         </li>
-        <!-- 
-        <li title="No No... nothing here yet" data-toggle="tooltip" data-placement="bottom">
-          <a><span class="fa fa-comment"></span></a>
+        <li data-toggle="tooltip" data-placement="bottom">
+          <a href="{% url 'messages:inbox' %}"><span class="fa fa-comment"></span></a>
         </li>
-        -->
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
           {% if user.userprofile.primary_workplace %}
             <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
@@ -85,7 +83,16 @@
                 <span class="fa fa-wrench"></span>
               </a>
             </li>
-            <li>
+            
+			{% for works in user.userprofile.get_all_workplaces %}
+			<li>
+              <a href="/workplace/cw?q={{works.id}}">
+                <span class="fa fa-briefcase"></span>
+                <span> {{works}} </span>
+              </a>
+            </li>
+			{% endfor %}
+			<li>
               <a href="{% url 'logout' %}">
                 <span> Logout </span>
                 <span class="fa fa-sign-out"></span>

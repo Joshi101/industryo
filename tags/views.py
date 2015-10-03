@@ -6,6 +6,7 @@ from workplace.models import WpTags
 from nodes.models import Node
 from nodes.forms import SetTagLogoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 
 def create_tag(request):
@@ -86,6 +87,7 @@ def search_n_tags(request):
     return render(request, 'tags/list.html', {'o': o, 'create': create})
 
 
+@login_required
 def describe_tag(request):          # edit description
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -99,6 +101,7 @@ def describe_tag(request):          # edit description
 
 
 # new function to add a follow button to a tag adding it to interests
+@login_required
 def follow_tag(request):
     user = request.user
     if request.method == 'POST':

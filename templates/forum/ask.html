@@ -61,28 +61,31 @@
     <button type="button" class="btn btn-primary">Ask</button>
     <button type="submit" class="hidden"></button>
 	</form>
+	<p>You can also Answer your own Question, now or later if you get the answer from some other source or solve it yourself.
+	See <a href="{% url 'forum:why_should_i_answer' %}">why should you answer on CoreLogs</a></p>
 {% endblock %}
 
 {% block right %}
-	<div class="">
-    <h5 class="side_head">Guidlines</h5>
-    <ul class="side_help">
-    {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for proper classification<br>
-			<small class="text-muted">For example, if you are asking a question about baja, tag Baja, if asking about formula, tag formula, if the question applies to both, tag both</small>
-			</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own question too so that other might find it useful later.</li>
-		{% else %}
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Keep the question to the point and add necessary details along with what approach you were taking to solve it</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own question too so that other might find it useful later.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
-		{% endif %}
-		</ul>
-	</div>
-{% endblock right %}
-
+	<div id='side_instructions' class="ask">
+    <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">How &amp; What to Ask</a></h3>
+		<h4>CoreLogs - The Engineer's Forum</h4>
+  {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical & Industry related questions.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i><b>The title must give a brief introduction of the question.</b></li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>Provide necessary details so that others may better understand the exact problem you are facing. People not familiar with Baja & Formula may also answer.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>If your question is about baja, tag <b>Baja</b>, if it's about formula, tag <b>Formula</b></li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own questions too so that other might find it useful later.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
+	{% else %}
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical & Industry related questions.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i><b>The title must give a brief introduction of the question.</b></li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>Provide necessary details so that others may better understand the exact problem you are facing.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own questions too so that other might find it useful later.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
+	{% endif %}
+  </div>
+{% endblock %}

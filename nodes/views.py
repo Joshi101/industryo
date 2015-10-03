@@ -19,10 +19,15 @@ def post(request):
         post = request.POST.get('post')
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
-        node = Node.objects.create(post=post, user=user, w_type=type)
+        # node = Node.objects.create(post=post, user=user, w_type=type)
         image0 = request.FILES.get('image0', None)
         image1 = request.FILES.get('image1', None)
         image2 = request.FILES.get('image2', None)
+        if not image0:
+            if post:
+                node = Node.objects.create(post=post, user=user, w_type=type)
+        else:
+            node = Node.objects.create(post=post, user=user, w_type=type)
         if image0:
             i = Images()
             a = i.upload_image(image=image0, user=user)

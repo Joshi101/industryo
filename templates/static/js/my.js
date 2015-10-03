@@ -1270,3 +1270,69 @@ $('.done_edit').on('click', function(){
     $(this).addClass('hide');
     $(this).parent().find('.show_edit').removeClass('hide');
 });
+
+$(function () {
+  function check_messages() {
+    $.ajax({
+      url: '/messages/check/',
+      cache: false,
+      success: function (data) {
+        $("#unread-count").text(data);
+      },
+      complete: function () {
+        window.setTimeout(check_messages, 60000);
+      }
+    });
+  };
+  check_messages();
+});
+
+$(function () {
+  $("#send").submit(function () {
+    $.ajax({
+      url: '/messages/send/',
+      data: $("#send").serialize(),
+      cache: false,
+      type: 'post',
+      success: function (data) {
+        $(".send-message").before(data);
+        $("input[name='message']").val('');
+        $("input[name='message']").focus();
+      }
+    });
+    return false;
+  });
+});
+
+$(function () {
+  var substringMatcher = function(strs) {
+    return function findMatches(q, cb) {
+      var matches, substringRegex;
+      matches = [];
+      substrRegex = new RegExp(q, 'i');
+      $.each(strs, function(i, str) {
+        if (substrRegex.test(str)) {
+          matches.push({ value: str });
+        }
+      });
+      cb(matches);
+    };
+  };
+
+  $.ajax({
+    url: '/messages/users/',
+    cache: false,
+    success: function (data) {
+      $('#to').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'data',
+        displayKey: 'value',
+        source: substringMatcher(data)
+      });
+    }
+  });  
+});

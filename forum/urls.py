@@ -4,20 +4,15 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'industryo.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-
-    # url(r'^accounts/', include('allauth.urls')),
-    # url(r'^$', 'home.views.home', name='home'),
 
     url(r'^$', 'forum.views.questions', name='questions'),
     url(r'^w/$', 'forum.views.w_questions', name='w_questions'),
     url(r'^s/$', 'forum.views.s_questions', name='s_questions'),
     url(r'^ask/$', 'forum.views.ask', name='ask'),
 
-    url(r'^help/$', TemplateView.as_view(template_name='forum/help.html')),
+    url(r'^help/$', TemplateView.as_view(template_name='forum/help.html'), name='help'),
+    url(r'^why_should_i_answer/$', TemplateView.as_view(template_name='forum/why_should_i_answer.html'), name='why_should_i_answer'),
+    url(r'^how_to_ask/$', TemplateView.as_view(template_name='forum/how_to_ask.html'), name='how_to_ask'),
     url(r'^ques_comment/$', 'forum.views.ques_comment', name='ques_comment'),
     url(r'^ans_comment/$', 'forum.views.ans_comment', name='ans_comment'),
     url(r'^answer/$', 'forum.views.reply', name='answer'),

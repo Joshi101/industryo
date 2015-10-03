@@ -14,6 +14,7 @@ from activities.models import Notification
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from home import tasks
 
 # import tasks
 
@@ -81,45 +82,24 @@ def search(request):
         return render(request, 'search/search.html')
 
 
-@login_required
+# @login_required
 def send_an_email(request):
-    if request.user.id == 1:
-        users = User.objects.all()
-        for user in users:
-            if user.email:
-                user_email = user.email
-            else:
-                user_email = "rohit9gag@gmail.com"
-            if user.first_name:
-                name = user.get_full_name()
-            else:
-                name = user.username
-            template = u'''Hi {0},
-
-How did you like www.corelogs.com ?
-
-The website is going at a great pace. Many scholars from various colleges, SAE Teams & Industries have registered and are actively participating in the discussions.
-
-Visit the www.corelogs.com/forum/ and see if you can answer the questions.
-
-Ask a question today and get it answered by the best out there.
-
-Thanks & Regards
-
-Surya Prakash
-CoreLogs'''
-
-            content = template.format(name)
-            try:
-                send_mail('CoreLogs Followup', content, 'site.corelogs@gmail.com', [user_email])
-            except Exception:
-                pass
-        return redirect('/sitemap')
-    else:
-        return redirect('/sitemap')
+    send_mail('CoreLogs- Set your Workplace', 'hi dude.. whatsup?', 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
+    return redirect('/')
+    # if request.user.is_authenticated():
+    #     # userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+    #     users = User.objects.filter(id__lte=5)
+    #     for user in users:
+    #         # user = userprofile.user
+    #         tasks.bhakk(user.id, n=15)
+    #
+    #     return redirect('/sitemap')
+    # else:
+    #     return redirect('/')
 
 
 def send_set_wp_email(request):
+
     if request.user.is_authenticated():
         users = User.objects.all()
         for user in users:
@@ -149,3 +129,20 @@ CoreLogs
         return redirect('/kabira')
     else:
         return redirect('/rahima')
+
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response

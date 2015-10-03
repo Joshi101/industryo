@@ -13,18 +13,18 @@ from home import tasks
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    primary_workplace = models.ForeignKey(Workplace, null=True)
+    primary_workplace = models.ForeignKey(Workplace, null=True, blank=True)
     workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps')
 
     GenderChoices = (('M', 'Male'), ('F', 'Female'),)
-    gender = models.CharField(max_length=1, choices=GenderChoices, null=True)
-    job_position = models.CharField(max_length=255, null=True)
+    gender = models.CharField(max_length=1, choices=GenderChoices, null=True, blank=True)
+    job_position = models.CharField(max_length=255, null=True, blank=True)
     experience = models.TextField(max_length=5000, blank=True, null=True)
     points = models.IntegerField(default=100)
 
     profile_image = models.ForeignKey('nodes.Images', null=True, blank=True)
 
-    interests = models.ManyToManyField(Tags)
+    interests = models.ManyToManyField(Tags, blank=True)
     # area = models.ForeignKey('Area', null=True, blank=True)       # maybe m2m
     approved = models.BooleanField(default=True)
 
@@ -40,6 +40,10 @@ class UserProfile(models.Model):
     def get_details(self):
         detail = "%s | %s" % (self.user, self.primary_workplace)
         return detail
+
+    def get_all_workplaces(self):
+        w = self.workplaces.all()
+        return w
 
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.JPG'
@@ -129,14 +133,17 @@ class UserProfile(models.Model):
             tasks.notify_user(a.id, n=3)
 
     def notify_n_commented(self, node):           # working 4
+        print('shava')
         if self.user != node.user:
             a = Notification.objects.create(notification_type=Notification.COMMENTED,
                                             from_user=self.user,
                                             to_user=node.user,
                                             node=node)
             tasks.notify_user(a.id, n=4)
+            print('dava')
 
     def notify_also_n_commented(self, node):           # working 5
+        print('balle')
         comments = node.get_all_comments()
         users = []
         for comment in comments:
@@ -149,6 +156,7 @@ class UserProfile(models.Model):
                                             to_user=User(id=user),
                                             node=node)
             tasks.notify_user(a.id, n=5)
+            print('walle')
 
     def notify_also_q_commented(self, question):           # working 6
         comments = question.get_comment_count()

@@ -1,15 +1,41 @@
-#from background_task import background
+from background_task import background
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from activities.models import Notification
 
+@background(schedule=60)
+def bhakk(id, n):
+    user = User.objects.get(id=id)
+    if user.email:
+        user_email = user.email
+    else:
+        user_email = 'rohit9gag@gmail.com'
+    if user.first_name:
+        name = user.get_full_name()
+    else:
+        name = user.username
+    if n == 15:
+        template = Template15
+        content = template.format(name)
+    try:
+        send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
+    except Exception:
+        pass
 
-#@background(schedule=60)
+
+@background(schedule=60)
 def notify_user(id, n):
     notification = Notification.objects.get(id=id)
     user = notification.to_user
-    user_email = user.email
-    name = user.get_full_name()
+    if user.email:
+        user_email = user.email
+    else:
+        user_email = 'rohit9gag@gmail.com'
+    if user.first_name:
+        name = user.get_full_name()
+    else:
+        name = user.username
+
     question = notification.question
     node = notification.node
     answer = notification.answer
@@ -282,4 +308,25 @@ CoreLogs - The Engineer's Forum is dependent on your will to share your knowledg
  Admin
  CoreLogs
  (www.corelogs.com)
+'''
+
+# Regular email for teams
+Template15 = u'''Hi {0},
+
+CoreLogs is all set to become a complete platform for Automobile and AeroDesign related teams. We would like to tell
+you that we have more than 150 Teams registered on the website and we have crossed the mark of 1000 users in a very
+short time.
+
+We would like to request you make your valuable contribution by answering the questions and participating in the
+discussions. Let us create a community and help each other. Do not hesitate to ask questions.
+
+Also, Be sure to have a look at the improved look of the website.
+
+We would like you inputs as to what features do you want on CoreLogs to make it more helpful to you.
+
+Thanks & Regards
+
+Admin
+CoreLogs
+www.corelogs.com
 '''
