@@ -1399,8 +1399,6 @@ div[data-role='editor-toolbar'] {
 #right {
   position: relative;
   overflow: hidden;
-
-  padding: 0 3%;
 }
 
 @media (max-width: 768px) {
@@ -1673,13 +1671,6 @@ footer .contact li{
 }
 
 
-#side_instructions.ask{
-  width: 280px;
-  color: #000;
-  background-color: #dff0d8;
-}
-
-
 #figure_modal .modal-content{
   background-color: rgba(0,0,0,0.50);
   min-height: 100%;
@@ -1823,13 +1814,22 @@ s
 }
 
 .side_help{
-  padding: 5px 10px 10px 10px;
-  list-style: none;
+  padding: 10px;
   font-size: 1em;
   font-family: 'Calibri';
   text-align: justify;
   color: #666;
-  
+  background-color: #eef;
+  border: 1px solid #ccf;
+}
+
+.side_help .side_head{
+  margin-top: 5px;
+}
+
+.side_help ul{
+  padding-left: 25px;
+  list-style: none;
 }
 
 .side_help li{

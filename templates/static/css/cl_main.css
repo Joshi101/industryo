@@ -11,6 +11,10 @@ a:hover, a:focus{
   color: #66c;
 }
 
+form{
+  margin-bottom: 10px;
+}
+
 /* un-bootstrap */
 
 .modal-dialog{
