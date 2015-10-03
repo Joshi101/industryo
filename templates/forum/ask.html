@@ -8,15 +8,15 @@
 		{% csrf_token %}
 		<div class="form-group">
 			<label class="control-label">Type of the Question</label>
-			<div>
-				<button class="categ_btn" type="button" value="0">General</button>
-				<button class="categ_btn" type="button" value="1">Technical</button>
-				<input type="hidden" name="category" value="none" autocomplete='off'>
-			</div>
+			<select class="form-control" name="category" required>
+				<option value="">Select an Option</option>
+				<option value="0">General</option>
+				<option value="1">Technical</option>
+			</select>
 		</div>
 		<div class="form-group">
       <label class="control-label">Title of the Question</label>
-      <input class="form-control" id="id_title" maxlength="255" name="title" type="text" />
+      <input class="form-control" id="id_title" maxlength="255" name="title" type="text" required/>
 		</div>
 		<div class="form-group">
       <label class="control-label">Details of the Question</label>
@@ -58,37 +58,31 @@
 		<div class="checkbox">
 		  <label><input type="checkbox" name="anonymous" value="true">Ask as Anynonymous</label>
 		</div>
-    <button type="button" class="btn btn-default">Ask</button>
+    <button type="button" class="btn btn-primary">Ask</button>
     <button type="submit" class="hidden"></button>
 	</form>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('.categ_btn').on('click',function(){
-				$(this).closest('.form-group').find('input').val($(this).val());
-				$(this).closest('.form-group').find('.categ_btn').removeClass('selected_categ');
-				$(this).addClass('selected_categ');
-			});
-		});
-	</script>
 {% endblock %}
 
 {% block right %}
-	<div class="floating_form">
-    <h5 class="side_head">How to Ask</h5>
+	<div class="">
+    <h5 class="side_head">Guidlines</h5>
+    <ul class="side_help">
     {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
-		<li>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
-		<li>For informations related to dealers and parts, post on the homepage instead </li>
-		<li>Tag the Questions with appropriate topics for classification</li>
-		<li>If you are asking a question about baja, tag Baja, if asking about formula, tag formula, if the question applies to both, tag both</li>
-		<li>You can answer your own question too so that other might find it useful later.</li>
-		<li>You can add upto 3 images to explain your question</li>
-	{% else %}
-		<li>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
-		<li>Keep the question to the point and add necessary details along with what approach you were taking to solve it</li>
-		<li>Tag the Questions with appropriate topics for classification</li>
-		<li>You can answer your own question too so that other might find it useful later.</li>
-		<li>You can add upto 3 images to explain your question</li>
-	{% endif %}
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for proper classification<br>
+			<small class="text-muted">For example, if you are asking a question about baja, tag Baja, if asking about formula, tag formula, if the question applies to both, tag both</small>
+			</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own question too so that other might find it useful later.</li>
+		{% else %}
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>CoreLogs is an Engineer's Forum. We accept technical Engineering Questions and General Industry related questions.</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>Keep the question to the point and add necessary details along with what approach you were taking to solve it</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own question too so that other might find it useful later.</li>
+			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
+		{% endif %}
+		</ul>
 	</div>
 {% endblock right %}
 

@@ -25,6 +25,7 @@ def ask(request):
             user = request.user
             anonymous = request.POST.get('anonymous')
             category = request.POST.get('category')
+            print(category)
             if anonymous:
                 question = Question(question=question, title=title, user=user, anonymous=True, category=category)
             else:

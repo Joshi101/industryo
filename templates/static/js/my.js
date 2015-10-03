@@ -168,6 +168,25 @@ $('.d_search').on('click', '.create', function(){
     $('.d_search').find('.d_input').val('');
 });
 
+$('.d_search').on('click', '.create_new', function(){
+    var $d_search = $(this).closest('.d_search'),
+        value = $d_search.find('.d_input').val();
+    var create = $(this).attr('href');
+    var $create = $(create);
+    $create.find('input[name=name]').val(value);
+    var $form = $create.find('form');
+    $create.on('click','button[type=submit]', function(){
+        console.log('bind hua h')
+        d_check = false;
+        d_input_remove_error($d_search.find('.d_input'),true,true);
+        $d_search.find('.d_value').val(value);
+        $d_search.find('.one_value').removeClass('hide')
+            .children('span').text(value);
+        $d_search.find('.d_input').addClass('hide');
+        $d_search.find('.dropdown').removeClass('open');
+    });
+});
+
 $('.input_tags').on('click','.tag .close', function(){
     var tag = $(this).closest('.tag');
     value = tag.find('.value').text();
@@ -293,11 +312,10 @@ $(".ajax_andar").on('click', '.form-ajax', function(event) {
                 for (i = 0; i < response.inputs.length; i++) {
                     $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
                     var cl = $papa.find('#' + response.inputs[i]).attr('class');
-                    if (cl.indexOf('d_input') >= 0) {
+                    /*if (cl.indexOf('d_input') >= 0) {
                         console.log('OKAY');
                         $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
-
-                    }
+                    }*/
                 }
             }
             if (response.elements) {
@@ -1122,17 +1140,6 @@ $('.change_image').on('click', '.img_pre .close', function() {
                 console.log(errmsg, err);
             }
         });
-    }
-});
-
-$('#form_ask').on('click', 'button[type=submit]', function(event) {
-    event.preventDefault();
-    //console.log($(this).closest('form').find('input[name=category]').val());
-    if ($(this).closest('form').find('input[name=category]').val() == 'none') {
-        $(this).closest('form').find('input[name=category]').before('<p class="text-danger"><strong>Please select one of the above categories to continue !</strong></p>');
-        console.log('error');
-    } else {
-        $(this).closest('form').submit();
     }
 });
 

@@ -1813,3 +1813,23 @@ footer .contact li{
 .info_labels{
   margin: 5px 0;
 }
+
+.side_help{
+  padding: 5px 10px 10px 10px;
+  list-style: none;
+  font-size: 1em;
+  font-family: 'Calibri';
+  text-align: justify;
+  color: #666;
+  
+}
+
+.side_help li{
+  margin-bottom: 10px;
+}
+
+.fa_li_style{
+  margin-left: -25px;
+  margin-right: 10px;
+  color: #197;
+}
