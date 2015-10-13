@@ -58,9 +58,6 @@ def edit_ques(request, id):
     if request.method == 'POST':
         user = request.user
         q.question = request.POST['question']
-        print('klklk')
-        print(request.POST['question'])
-        print(q.question)
         q.title = request.POST['title']
         q.save()
         image0 = request.FILES.get('image0', None)
@@ -439,7 +436,24 @@ def category(request):
 
 def q_tags(request):
     q_tag = Tags.objects.all().order_by('-count')
-    return render(request, 'forum/q_tags.html', locals())
+    paginator = Paginator(q_tag, 30)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'forum/20_tags.html', {'result_list': result_list})
+    else:
+        # return render(request, 'home.html', {'result_list': result_list})
+        return render(request, 'forum/q_tags.html', {'result_list': result_list})
+    # return render(request, 'forum/q_tags.html', locals())
 
 # def un
 
@@ -452,3 +466,11 @@ def set_things_right(request):
             question.answered=True
             question.save()
     return redirect('/')
+
+
+def popular(request):
+    questions = Question.objects.all().order_by('-votes')[:5]
+    return questions
+
+
+

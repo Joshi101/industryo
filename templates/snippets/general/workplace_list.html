@@ -3,7 +3,7 @@
 		<li>
 			<img src="{{w.get_logo}}">
 			<div class="wp_info">
-				<span class="name_user">{{w}}</span>
+				<span class="name_user">{{w.name}}</span>
 				<span class="label label-default label_sm">{{ w.points }}</span>
 			</div>
 		</li>
@@ -11,4 +11,12 @@
 {% endfor %}
 {% for p in people_joint %}
 	<li><img src="{{p.get_profile_image}}">{{p}} | {{p.primary_workplace}}</li>
+{% endfor %}
+
+<h4>Most Upvoted Questions</h4>
+
+{% for q in questions %}
+	<li>
+	<a href="{% url 'forum:question' q.slug %}">{{q.title}}</a>
+	</li>
 {% endfor %}

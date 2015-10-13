@@ -640,12 +640,12 @@ pre {
 .article_title {
   position: relative;
   font-family: 'Tahoma';
-  font-size: 15px;
+  font-size: 25px;
   
   color: #444;
   overflow: hidden;
 
-  margin-bottom: 7px;
+  margin-bottom: 30px;
   padding: 7px 0;
 
   border-bottom: 1px solid #9d9d9d;
@@ -660,12 +660,14 @@ pre {
 }
 
 .article_body {
-  font-family: 'Open Sans';
-  font-size: 13px;
+  line-height: 200%;
+  font-size: 1.35em;
+  font-family:  Georgia;
+  
 
   margin-bottom: 10px;
 
-  text-align: justify;
+  text-align: left;
 }
 
 .summary_title {
@@ -1146,11 +1148,11 @@ footer h3 a:hover{
 }
 
 .name_workplace {
-  //color: #057;
+  color: #000;
 }
 
 .name_user {
-  //color: #337ab7;
+  color: #000;
 }
 
 .same {
@@ -1353,6 +1355,7 @@ div[data-role='editor-toolbar'] {
   padding: 3px 5px;
   margin-bottom: 10px;
   border-bottom: 1px solid #9d9d9d;
+  background-color: #dff0d8;
 }
 
 .ppl_list img {
@@ -1367,11 +1370,13 @@ div[data-role='editor-toolbar'] {
 .wp_list li{
   display: block;
   margin: 5px 0;
+  background-color: #dff0d8;
 }
 
 .wp_list{
   list-style: none;
   line-height: 20px;
+  background-color: #dff0d8;
 }
 
 .wp_list img {
@@ -1597,8 +1602,6 @@ h4 > .edit_post:hover {
 
 .name_user {
 	height: 20px;
-	text-overflow: ellipsis;
-	overflow: hidden;
 }
 
 #about .container{
@@ -1892,4 +1895,17 @@ s
 }
 .tt-suggestion p {
   margin: 0;
+}
+.articles article {
+  padding-bottom: 1.4em;
+  border-bottom: 1px solid #eeeeee;
+  margin-top: 2.4em;
+}
+
+.articles article p {
+  font-size: 1.2em;
+}
+
+.articles article:last-child {
+  border-bottom: none;
 }

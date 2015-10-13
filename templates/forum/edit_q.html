@@ -67,4 +67,29 @@
       <button type="submit" class="hidden"></button>
     </div>
 	</form>
-{% endblock %}
+{% endblock content %}
+
+{% block right %}
+  <div id='side_instructions' class="ask">
+    <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">How & What to Ask</a></h3>
+	<h4>CoreLogs - The Engineer's Forum</h4>
+    {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
+		<p>We accept technical & Industry related questions.</p>
+		<p>For informations related to dealers and parts, post on the homepage instead.</p>
+		<p><b>The title must give a brief introduction of the question.</b></p>
+		<p>Provide necessary details so that others may better understand the exact problem you are facing. People not familiar with Baja & Formula may also answer.</p>
+		<p>Tag the Questions with appropriate topics for classification.</p>
+		<p>If your question is about baja, tag <b>Baja</b>, if it's about formula, tag <b>Formula</b></p>
+		<p>You can answer your own questions too so that other might find it useful later.</p>
+		<p>You can add upto 3 images to explain your question</p>
+	{% else %}
+		<p>We accept technical & Industry related questions.</p>
+		<p>For informations related to dealers and parts, post on the homepage instead.</p>
+		<p><b>The title must give a brief introduction of the question.</b></p>
+		<p>Provide necessary details so that others may better understand the exact problem you are facing.</p>
+		<p>Tag the Questions with appropriate topics for classification.</p>
+		<p>You can answer your own questions too so that other might find it useful later.</p>
+		<p>You can add upto 3 images to explain your question</p>
+	{% endif %}
+  </div>
+{% endblock right %}

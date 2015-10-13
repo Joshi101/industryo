@@ -2,7 +2,7 @@ from django.db import models
 from industryo.unique_slug import unique_slugify
 from nodes.models import Images
 from tags.models import Tags
-# from userprofile.models import UserProfile
+from django.contrib.auth.models import User
 
 
 class Workplace(models.Model):
@@ -263,6 +263,11 @@ class Workplace(models.Model):
     def get_institution(self):
         institution = self.institution
         return institution
+
+    def get_count(self):
+        ups = self.userprofile_set.all()
+        count = ups.count()
+        return count
 
 
 class WpTags(models.Model):

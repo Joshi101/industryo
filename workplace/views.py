@@ -384,3 +384,13 @@ def change_workplace(request):
         usp.primary_workplace = workplace
         usp.save()
         return redirect('/')
+
+
+def workplace_data(request):
+    workplaces = Workplace.objects.filter(workplace_type='C')
+    # li = []
+    # for w in workplaces:
+    #     u = UserProfile.objects.filter(primary_workplace=w.id)
+    #     c = u.count()
+    #     li.append(c)
+    return render(request, 'activities/workplace_data.html', locals())

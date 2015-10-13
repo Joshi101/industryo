@@ -4,6 +4,8 @@ from activities.models import Notification
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 import json
+from workplace.models import Workplace
+
 
 # @login_required
 def notifications(request):
@@ -63,6 +65,7 @@ def check_notifications(request):
     notifications = Notification.objects.filter(to_user=user, is_read=False)[:5]
     return HttpResponse(len(notifications))
 # Create your views here.
+
 
 
 # Create your views here.

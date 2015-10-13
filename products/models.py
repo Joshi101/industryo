@@ -76,6 +76,7 @@ class Products(models.Model):
         else:
             q = li[0] + li[1] + li[2] + li[3]
         self.target_segments = q
+        self.save()
         return q
 
 

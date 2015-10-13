@@ -10,7 +10,7 @@
 			</div>
 		</a>
 		{% if q.question %}
-		<div class="summary_body">{{ q.question|safe|truncatechars:200 }}</div>
+		<div class="summary_body">{{ q.question|truncatechars:200 }}</div>
 		{% endif %}
 		{% if q.get_images %}
 		<div class="summary_fig">

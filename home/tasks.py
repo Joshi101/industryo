@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from activities.models import Notification
 
+from django.core.mail import EmailMultiAlternatives
+
 @background(schedule=60)
 def bhakk(id, n):
     user = User.objects.get(id=id)
@@ -16,11 +18,16 @@ def bhakk(id, n):
         name = user.username
     if n == 15:
         template = Template15
-        content = template.format(name)
-    try:
-        send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
-    except Exception:
-        pass
+        html_content = template.format(name)
+    subject, from_email, to = 'CoreLogs The platform for teams', 'sp@corelogs.com', user_email
+    text_content = 'This is an important message.'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # try:
+    #     send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
+    # except Exception:
+    #     pass
 
 
 @background(schedule=60)
@@ -313,20 +320,99 @@ CoreLogs - The Engineer's Forum is dependent on your will to share your knowledg
 # Regular email for teams
 Template15 = u'''Hi {0},
 
-CoreLogs is all set to become a complete platform for Automobile and AeroDesign related teams. We would like to tell
-you that we have more than 150 Teams registered on the website and we have crossed the mark of 1000 users in a very
-short time.
+<div style="margin:0;padding:0;min-width:100%;background-color:#fff">
 
-We would like to request you make your valuable contribution by answering the questions and participating in the
-discussions. Let us create a community and help each other. Do not hesitate to ask questions.
+    <center style="display:table;table-layout:fixed;width:100%;min-width:620px;background-color:#fff">
+      <table style="border-collapse:collapse;border-spacing:0;font-size:1px;line-height:1px;width:100%;height:54px"><tbody><tr><td style="padding:0;vertical-align:top">&nbsp;</td></tr></tbody></table>
 
-Also, Be sure to have a look at the improved look of the website.
 
-We would like you inputs as to what features do you want on CoreLogs to make it more helpful to you.
+          <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:600px;table-layout:fixed">
+            <tbody><tr>
+              <td style="padding:0;vertical-align:top;text-align:left">
+                <div><div style="font-size:20px;line-height:20px">&nbsp;</div></div>
+                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+                    <tbody><tr>
+                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
 
-Thanks & Regards
+            <h1 style="font-style:normal;font-weight:400;Margin-bottom:24px;Margin-top:0;font-size:32px;line-height:40px;font-family:&quot;Open Sans&quot;,sans-serif;color:#404040;text-align:center">Why are you alone when you too have a team?</h1>
 
-Admin
-CoreLogs
-www.corelogs.com
+                      </td>
+                    </tr>
+                  </tbody></table>
+
+                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+                    <tbody><tr>
+                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+
+            <div style="font-size:12px;font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-family:&quot;Open Sans&quot;,sans-serif;color:#8f8f8f" align="center">
+              <a style="text-decoration:underline;color:#e45d6b" href="http://industrylogger.cmail20.com/t/i-i-ttlhsk-l-r/" target="_blank"><img style="border:0;display:block;max-width:400px" src="https://ci3.googleusercontent.com/proxy/SkT2gspldP2HuLQZt6fSJttXIiPBEUfBfiReLOS_3hXCvXgHYcrEGMLx4_yR4Yrh8QR3F-TeRiXELXhUBxTrcrQBUGVA44Uq34Fq32b9hp3pukA2NJXrERRxEpYRbeb3pMA=s0-d-e1-ft#http://i1.cmail20.com/ei/i/8D/923/04E/062312/csfinal/chessoneagainstmany.jpg" alt="CoreLogs" width="400" height="260" class="CToWUd"></a>
+            </div>
+
+                      </td>
+                    </tr>
+                  </tbody></table>
+
+                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+                    <tbody><tr>
+                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+
+            <h2 style="font-style:normal;font-weight:700;Margin-bottom:0;Margin-top:0;font-size:22px;line-height:30px;font-family:Cabin,Avenir,sans-serif;color:#706f70;text-align:left">We <strong style="font-weight:bold">Invite</strong>
+you to Invite your TeamMates to&nbsp;<a style="text-decoration:none;color:#e45d6b" href="http://industrylogger.cmail20.com/t/i-i-ttlhsk-l-y/" target="_blank">CoreLogs</a></h2><p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:16px;font-size:17px;line-height:25px;font-family:&quot;Open Sans&quot;,sans-serif;color:#8f8f8f;text-align:left">CoreLogs is a platform for teams to ask and answer technical and event related questions. Make your mark on the internet by asking and answering. A good question and a good answer are timeless and stay forever on internet and serve as a reference to many depending upon the quality. Forward the mail to your teammates.</p>
+
+                      </td>
+                    </tr>
+                  </tbody></table>
+
+                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+                    <tbody><tr>
+                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+
+            <div style="Margin-bottom:0;Margin-top:0;text-align:center">
+              <u></u><a style="border-radius:3px;display:inline-block;font-size:14px;font-weight:700;line-height:24px;padding:13px 35px 12px 35px;text-align:center;text-decoration:none!important;color:#fefefe;font-family:&quot;Open Sans&quot;,sans-serif;background-color:#e45d6b" href="http://industrylogger.cmail20.com/t/i-i-ttlhsk-l-j/" target="_blank">Visit CoreLogs</a><u></u>
+            </div>
+
+                      </td>
+                    </tr>
+                  </tbody></table>
+
+                <div style="font-size:20px;line-height:20px">&nbsp;</div>
+              </td>
+            </tr>
+          </tbody></table>
+
+      <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:560px;color:#bdb9bd">
+        <tbody><tr>
+          <td style="padding:0;vertical-align:top" align="center">
+            <div style="font-size:11px;line-height:17px;font-weight:400;letter-spacing:0.01em;Margin-bottom:17px">&nbsp;</div>
+            <center style="Margin-bottom:10px;Margin-top:0;font-size:4px;line-height:4px">
+              <table style="border-collapse:collapse;border-spacing:0;Margin-bottom:27px;Margin-left:auto;Margin-right:auto">
+                <tbody><tr>
+                  <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#ccc">&nbsp;</span></td>
+                  <td style="padding:0;vertical-align:top;font-size:1px;line-height:1px;width:8px">&nbsp;</td>
+                  <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#ccc">&nbsp;</span></td>
+                  <td style="padding:0;vertical-align:top;font-size:1px;line-height:1px;width:8px">&nbsp;</td>
+                  <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#ccc">&nbsp;</span></td>
+                </tr>
+              </tbody></table>
+            </center>
+
+            <div style="font-family:Cabin,Avenir,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
+              <div style="font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">You are receiving this email because you have registered on <a href="http://www.corelogs.com" target="_blank">www.corelogs.com</a></div>
+            </div>
+            <div style="font-family:Cabin,Avenir,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
+              <span>No Images? <a style="text-decoration:none;color:#bdb9bd;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-e-ttlhsk-l-d/" target="_blank">Click here</a></span>
+
+
+              <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                <a style="text-decoration:none;color:#bdb9bd;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-u-ttlhsk-l-h/" target="_blank">Unsubscribe</a>
+            </div>
+            <div style="font-family:Cabin,Avenir,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">CoreLogs - The Platform for entire core segment of engineering</div>
+
+          </td>
+        </tr>
+      </tbody></table>
+      <table style="border-collapse:collapse;border-spacing:0;font-size:1px;line-height:1px;width:100%;height:54px"><tbody><tr><td style="padding:0;vertical-align:top">&nbsp;</td></tr></tbody></table>
+    </center>
+  <img style="border:0!important;display:block!important;min-height:1px!important;width:1px!important;margin:0!important;padding:0!important" src="https://ci3.googleusercontent.com/proxy/w_qniVtCSM2hSzmAd0hJL2PAhm0KjcqIuo0uAHvONoQZS3fUQOfzf-oihT7OgZm3rM3pb6Vaz5aWoQJNQUVmBEX5J_D4Nt60I6bsy5I=s0-d-e1-ft#https://industrylogger.cmail20.com/t/i-o-ttlhsk-l/o.gif" width="1" height="1" border="0" alt="" class="CToWUd"><div class="yj6qo"></div><div class="adL">
+</div></div>
 '''

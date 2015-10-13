@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'again',  # last was db
+        'NAME': 'hawa',  # last was db
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -169,7 +169,7 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'site.corelogs@gmail.com'
-EMAIL_HOST_PASSWORD = 'SP@nitj.10$'
+EMAIL_HOST_USER = 'sp@corelogs.com'
+EMAIL_HOST_PASSWORD = 'SP@zoho.09'

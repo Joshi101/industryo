@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills">
-			  <li><a href="#">Search Tags</a></li>
+			  <li><a href="/forum/q_tags/">Search Tags</a></li>
 			  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
 			  <li><a href="/forum/category?q=sme">SME</a></li>
 			  <li><a href="/forum/category?q=scholar">Scholars</a></li>
@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block right %}
-	<div class="right_fixed">
+	<div class="right_floating">
 		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
   </div>
 {% endblock right %}
