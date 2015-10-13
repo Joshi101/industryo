@@ -44,7 +44,7 @@
             </div>
           </div>
         </li>
-        <li data-toggle="tooltip" data-placement="bottom">
+        <li title="Messages" data-toggle="tooltip" data-placement="bottom">
           <a href="{% url 'messages:inbox' %}"><span class="fa fa-comment"></span></a>
         </li>
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
@@ -54,10 +54,7 @@
               <span class="top_info_points">{{user.userprofile.get_workplace_points}}</span>
             </a>
           {% else %}
-            <a id="top_wp" class="top_info_box wp" href="{% url 'set' %}" style="background-color: #222; color: #179">
-              <span class="top_info_name">Set Your Workplace </span>
-              <span class="top_info_points">--</span>
-            </a>
+            <a id="top_wp" class="top_info_box wp" href="{% url 'set' %}" style="background-color: #222; color: #179">Set Your Workplace</a>
           {% endif %}
         </li>
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
@@ -83,16 +80,15 @@
                 <span class="fa fa-wrench"></span>
               </a>
             </li>
-            
-			{% for works in user.userprofile.get_all_workplaces %}
-			<li>
+            {% for works in user.userprofile.get_all_workplaces %}
+            <li>
               <a href="/workplace/cw?q={{works.id}}">
                 <span class="fa fa-briefcase"></span>
                 <span> {{works}} </span>
               </a>
             </li>
-			{% endfor %}
-			<li>
+            {% endfor %}
+		        <li>
               <a href="{% url 'logout' %}">
                 <span> Logout </span>
                 <span class="fa fa-sign-out"></span>

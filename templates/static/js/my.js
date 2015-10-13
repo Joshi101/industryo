@@ -190,10 +190,11 @@ $('.d_search').on('click', '.create_new', function(){
 $('.input_tags').on('click','.tag .close', function(){
     var tag = $(this).closest('.tag');
     value = tag.find('.value').text();
+    var $d_search = $(this).closest('.d_search');
     var pre_value = $d_search.find('.d_value').val();
     i1 = pre_value.indexOf(value);
     i2 = i1 + value.length;
-    if(i1!=0)
+    if(i1!==0)
         i1 -= 1;
     val1 = pre_value.slice(0, i1);
     val2 = pre_value.slice(i2);
@@ -557,8 +558,11 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
         col.addClass('in');
         col.find('textarea').first().focus();
     }
-    $this.text(alt);
-    $this.data('alternate', text);
+    if (alt){
+        console.log(alt)
+        $this.text(alt);
+        $this.data('alternate', text);
+    }
 });
 
 $('.fake_btn').click(function() {
@@ -1261,6 +1265,7 @@ $('.show_edit').on('click', function(){
     $form.removeClass('hide');
     $(this).addClass('hide');
     $(this).parent().find('.done_edit').removeClass('hide');
+    $(this).closest('.info_field').find('.info_field_value').addClass('hide');
 });
 
 $('.done_edit').on('click', function(){

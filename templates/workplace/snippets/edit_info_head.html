@@ -1,15 +1,4 @@
 <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
 	{% csrf_token %}
-		{% include "snippets/d_search_tags.html" with search="tag" type=type %}
-	<!-- <div class="d_search" data-results="instant">
-		<input class="form-control input-sm d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your {{ head }} here ...">
-		<input type="hidden" name="value" class="instant_i">
-		<input type="hidden" name="type" value="{{ type }}">
-		<button type="submit" class="form-ajax hide"></button>
-		<div class="dropdown">
-			<ul class="dropdown-menu d_list">
-			</ul>
-		</div>
-		<div class="d_results"></div>
-	</div> -->
+		{% include "snippets/d_search_tags.html" with search="tag" type=type tags=tags %}
 </form>

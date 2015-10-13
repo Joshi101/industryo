@@ -6,7 +6,7 @@
 
 {% block page %}pg_set{% endblock page %}
 
-{% block body %}
+{% block content %}
 <div class="w_650">
 	<div class="panel-group ajax_andar ajax_papa" id="accordion">
 	  <div class="panel panel-default">
@@ -135,14 +135,15 @@
 	    </div>
 	  </div> -->
 	</div>
-</div>
-{% endblock body %}
+{% endblock content %}
 
 {% block right %}
-    <div id='side_instructions' class="ask">
-		<p>If you are an Engineer, find or create your company</p>
-		<p>If you are an student, find or create your Educational Institution</p>
-		<p>If you are from an SAE or other collegiate club, find or create your Team</p>
-		<p>In the team profile you can provide the parent institution for the Team</p>		
+    <div class="side_help">
+    	<ul>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an Engineer, find or create your company</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an student, find or create your Educational Institution</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are from an SAE or other collegiate club, find or create your Team</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>In the team profile you can provide the parent institution for the Team</li>
+			</ul>
     </div>
 {% endblock right %}

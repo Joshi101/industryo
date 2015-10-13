@@ -59,9 +59,6 @@ def edit_ques(request, id):
     if request.method == 'POST':
         user = request.user
         q.question = request.POST['question']
-        print('klklk')
-        print(request.POST['question'])
-        print(q.question)
         q.title = request.POST['title']
         q.save()
         image0 = request.FILES.get('image0', None)
@@ -80,6 +77,7 @@ def edit_ques(request, id):
             a = i.upload_image(image=image2, user=user)
             q.images.add(a)
         tags = request.POST.get('tag')
+        print('a'+tags+'b')
         q.set_tags(tags)
         slug = q.slug
         return HttpResponseRedirect('/forum/'+slug)

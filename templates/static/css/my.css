@@ -355,7 +355,7 @@ pre {
 
 .body {
   font-family: 'Open Sans','Helvetica Neue';
-
+  min-height: 100%;
   overflow-x: hidden;
 
   position: relative;
@@ -477,8 +477,13 @@ pre {
   background-color: #3870a0;
 }
 
-#form_feed .img_pre img {
+.img_pre img {
   border: 3px solid #fff;
+  height: 100%;
+}
+
+.img_pre .close{
+  line-height: 14px;
 }
 
 #form_feed .img_pre .alert .close {
@@ -679,11 +684,27 @@ pre {
   border-bottom: 1px solid #aaa;
 }
 
-.summary_title .sign{
+.post_title{
+  padding: 10px 25px 10px 0;
+  position: relative;
+  
+  border-bottom: 1px solid #aaa;
+}
+
+.post_title h1{
+  font-size: 2em;
+  margin: 0;
+}
+
+.sign{
   position: absolute;
   line-height: 1.5;
   right: 0;
   color: #197;
+}
+
+.post .sign{
+  top: 12px;
 }
 
 .summary_title:hover {
@@ -696,11 +717,11 @@ pre {
   opacity: .9;
 }
 
-.q_body {
+.post_body {
   font-family: 'Open Sans';
   font-size: 13px;
 
-  margin-bottom: 25px;
+  padding: 10px 5px 0;
 
   text-align: justify;
 
@@ -736,13 +757,17 @@ pre {
   background-color: #efe;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
-  margin-left: -31px;
+  margin-left: -32px;
   margin-top: -1px;
   padding: 4px 5px;
   width: 25px;
   border-style: solid;
   border-width: 1px 0 1px 1px;
   border-color: #eee;
+}
+
+.post .vote_box{
+  margin-left: -36px
 }
 
 .vote_box span {
@@ -841,9 +866,10 @@ pre {
 }
 
 .comment .joint_name {
+  font-size: 0.9em;
   margin: 0 5px;
-  padding: 2px 3px;
-
+  padding: 0 3px 2px;
+  display: inline-block;
   background: rgba(222, 222, 222, .85);
 }
 
@@ -853,7 +879,6 @@ pre {
   height: 30px;
   padding: 5px 10px;
 
-  border-radius: 0;
 }
 
 .comment_form .btn {
@@ -866,6 +891,7 @@ pre {
 }
 
 .comment {
+  font-size: 0.9em;
   padding-top: 5px;
   padding-left: 50px;
 }
@@ -1136,14 +1162,6 @@ footer h3 a:hover{
   background: white;
 }
 
-.feed_box_heading .joint_name {
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.comment .joint_name {
-  font-size: 12px;
-}
 
 .name_workplace {
   //color: #057;
@@ -1331,11 +1349,8 @@ div[data-role='editor-toolbar'] {
   padding-bottom: 1px;
 }
 
-#workplace_info div:last-child {
-  //padding-bottom: 4px;
-
-  //border-left: 1px solid rgba(16,144,112,.5);
-  //box-shadow: -1px -1px 1px rgba(16,144,112,.5);
+.info_field_edit form{
+  margin-bottom: 10px;
 }
 
 #top_members {
@@ -1414,6 +1429,7 @@ div[data-role='editor-toolbar'] {
 .right_fixed:first-of-type {
   position: fixed;
   top: 71px;
+  padding-left: 30px;
 }
 
 #members_list {
@@ -1627,6 +1643,7 @@ footer .connect i{
 
 footer{
   position: relative;
+  z-index: 999;
   font-size: 13px;
   top: 100%;
 }
@@ -1771,12 +1788,12 @@ footer .contact li{
   height: 20px;
   border-radius: 1px;
 }
-s
+
 .pressme{
   cursor: pointer;
 }
 
-.summary_fig{
+.summary_fig, .post_fig{
   padding: 5px;
 }
 
@@ -1795,8 +1812,9 @@ s
 
 .info_field{
   position: relative;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #eee;
   margin-bottom: 10px;
+  padding-right: 20px;
 }
 
 .info_field_value{
@@ -1915,4 +1933,9 @@ s
 }
 .tt-suggestion p {
   margin: 0;
+}
+
+.post{
+  padding: 0 10px;
+  margin-bottom: 40px;
 }
