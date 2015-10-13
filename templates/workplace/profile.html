@@ -25,20 +25,23 @@
       <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ workplace.name }}</h1>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
-          {% include "snippets/area.html" with workplace=workplace %}
+          {% for a in area %}
+            <div class="tag"><span class="value">{{a}}</span></div>
+          {% empty %}
+            <span class="none text-muted">City in which the company exists</span>
+          {% endfor %}
         </div>
         {% if user.userprofile in members %}
         <div class="info_field_edit">
-          <a class="show_edit"><i class="fa fa-edit inline_fa"></i>Edit</a>
-          <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i>Done</a>
-          {% if workplace.workplace_type == 'A' %}
-            {% include "workplace/snippets/edit_info_head.html" with category='city' type='C' %}
-          {% elif workplace.workplace_type == 'B' %}
-            {% include "workplace/snippets/edit_info_head.html" with category='ind_area' type='I' %}
-          {% elif workplace.workplace_type == 'C' %}
-            {% include "workplace/snippets/edit_info_head.html" with category='inst' type='P' %}
-          {% endif %}
+          <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+          <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
+            {% csrf_token %}
+              {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=area %}
+          </form>
+          <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
           {% comment %}
+            {% include "workplace/snippets/edit_info_head.html" with category='ind_area' type='I' %}
+            {% include "workplace/snippets/edit_info_head.html" with category='inst' type='P' %}
             {% include "workplace/set_tags_head.html" with category='city' type='C' %}
           {% endcomment %}
         </div>
@@ -50,9 +53,12 @@
         </div>
         {% if user.userprofile in members %}
         <div class="info_field_edit">
-          <a class="show_edit"><i class="fa fa-edit inline_fa"></i>Edit</a>
-          <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i>Done</a>
-          {% include "workplace/snippets/edit_info_head.html" with category='segment' type='S' %}
+          <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+          <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i></a>
+          <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
+            {% csrf_token %}
+              {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=area %}
+          </form>
           {% comment %}
             {% include "workplace/set_tags_head.html" with category='city' type='C' %}
           {% endcomment %}
@@ -61,8 +67,12 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <div><span class="label label-default">{{workplace.points}} points</span></div>
-      <div><span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span></div>
+      <div class="info_labels">
+        <span class="label label-default">{{workplace.points}} points</span>
+      </div>
+      <div class="info_labels">
+        <span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span>
+      </div>
     </div>
   </div>
   <ul class="nav nav-pills">

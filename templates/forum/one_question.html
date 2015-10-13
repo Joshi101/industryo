@@ -1,4 +1,4 @@
-<div class="feed_box question ajax_papa" typeof="Question">
+<div class="feed_box summary question ajax_papa" typeof="Question">
 	<div class="text-center vote_box">
 		{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 	</div>
@@ -31,7 +31,8 @@
 		</div>
 	{% endif %}
 		<div class="text-right author">
-			{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}<time property='dateCreated' class="text-muted"> {{q.date}} </time>
+			{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}
+			<time property='dateCreated' class="text-muted"> {{q.date}} </time>
 		</div>
 	</div>
 	<div class="feed_box_extra">

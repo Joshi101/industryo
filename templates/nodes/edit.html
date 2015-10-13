@@ -57,4 +57,17 @@
 		<button type="submit" class="hidden"></button>
 		{% csrf_token %}
 	</form>
-{% endblock %}
+{% endblock content %}
+{% block right %}
+	<div class="side_help">
+    <h3 class="side_head"><a href="{% url 'nodes:what_to_write' %}">How &amp; What to Ask</a><br>
+		<small>CoreLogs - The Engineer's Blog</small></h3>
+		<ul> 
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical & Industry related Articles.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>The Title of the article should clearly summarize the topic you are writing about.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>You can write articles as a Engineering related blog and your CoreLogs profile would contain all your blogs at one place.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Article with appropriate topics for classification.</li>
+		<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to your article for explanation</li>
+		</ul>
+  </div>
+{% endblock right %}

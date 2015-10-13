@@ -135,6 +135,7 @@ def set_tags_short(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('tag')
+        print(type,value)
         if value:
             if type == 'A':
                 t = wp.set_assets(value)
@@ -164,7 +165,16 @@ def set_tags_short(request):
 
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
-    
+    tags = workplace.get_tags()
+    if workplace.workplace_type == 'C':
+        area = tags['institution']
+        a_type = 'P'
+    elif workplace.workplace_type == 'B':
+        area = tags['city']
+        a_type = 'C'
+    elif workplace.workplace_type == 'A':
+        area = tags['city']
+        a_type = 'C'
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()

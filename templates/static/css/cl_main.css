@@ -11,6 +11,10 @@ a:hover, a:focus{
   color: #66c;
 }
 
+form{
+  //margin-bottom: 10px;
+}
+
 /* un-bootstrap */
 
 .modal-dialog{
@@ -169,7 +173,7 @@ a:hover, a:focus{
 }
 
 .top_user_info .fa{
-	float: left;
+	/*float: left;*/
 }
 
 .top_acc a span {

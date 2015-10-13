@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3',
     'crispy_forms',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'background_task',
 
     'nodes',
@@ -83,7 +83,8 @@ WSGI_APPLICATION = 'industryo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'hawa',  # last was db
+        'NAME': 'again',  # last was db
+
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

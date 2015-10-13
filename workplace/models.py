@@ -152,8 +152,10 @@ class Workplace(models.Model):
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag=m)
+                    print('tag exists')
                 except Exception:
                     t = Tags.objects.create(tag=m, type='P')
+                    print('tag created')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -161,14 +163,19 @@ class Workplace(models.Model):
             for t in li:
                 try:
                     e = WpTags.objects.get(workplace=self, tags=t, category='P')
+                    print('a')
+                    print(e)
                 except Exception:
                     e = WpTags.objects.create(workplace=self, tags=t, category='P')
+                    print('b')
+                    print(e)
             return li
 
     def set_city(self, city):
         if city:
             workplace_tags = city.split(',')
             li = []
+            print('here')
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag=m)

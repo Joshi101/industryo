@@ -55,17 +55,17 @@ class Question(models.Model):
 
     def set_tags(self, tags):
         if tags:
-
             question_tags = tags.split(',')
             li = []
             for m in question_tags:
-                try:
-                    t = Tags.objects.get(tag=m)
-                except Exception:
-                    t = Tags.objects.create(tag=m, type='T')
-                li.append(t)
-                t.count +=1
-                t.save()
+                if m:
+                    try:
+                        t = Tags.objects.get(tag=m)
+                    except Exception:
+                        t = Tags.objects.create(tag=m, type='T')
+                    li.append(t)
+                    t.count += 1
+                    t.save()
             self.tags = li
 
     def get_q_upvoters(self):

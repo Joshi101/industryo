@@ -168,13 +168,33 @@ $('.d_search').on('click', '.create', function(){
     $('.d_search').find('.d_input').val('');
 });
 
+$('.d_search').on('click', '.create_new', function(){
+    var $d_search = $(this).closest('.d_search'),
+        value = $d_search.find('.d_input').val();
+    var create = $(this).attr('href');
+    var $create = $(create);
+    $create.find('input[name=name]').val(value);
+    var $form = $create.find('form');
+    $create.on('click','button[type=submit]', function(){
+        console.log('bind hua h')
+        d_check = false;
+        d_input_remove_error($d_search.find('.d_input'),true,true);
+        $d_search.find('.d_value').val(value);
+        $d_search.find('.one_value').removeClass('hide')
+            .children('span').text(value);
+        $d_search.find('.d_input').addClass('hide');
+        $d_search.find('.dropdown').removeClass('open');
+    });
+});
+
 $('.input_tags').on('click','.tag .close', function(){
     var tag = $(this).closest('.tag');
     value = tag.find('.value').text();
+    var $d_search = $(this).closest('.d_search');
     var pre_value = $d_search.find('.d_value').val();
     i1 = pre_value.indexOf(value);
     i2 = i1 + value.length;
-    if(i1!=0)
+    if(i1!==0)
         i1 -= 1;
     val1 = pre_value.slice(0, i1);
     val2 = pre_value.slice(i2);
@@ -293,11 +313,10 @@ $(".ajax_andar").on('click', '.form-ajax', function(event) {
                 for (i = 0; i < response.inputs.length; i++) {
                     $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
                     var cl = $papa.find('#' + response.inputs[i]).attr('class');
-                    if (cl.indexOf('d_input') >= 0) {
+                    /*if (cl.indexOf('d_input') >= 0) {
                         console.log('OKAY');
                         $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
-
-                    }
+                    }*/
                 }
             }
             if (response.elements) {
@@ -539,8 +558,11 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
         col.addClass('in');
         col.find('textarea').first().focus();
     }
-    $this.text(alt);
-    $this.data('alternate', text);
+    if (alt){
+        console.log(alt)
+        $this.text(alt);
+        $this.data('alternate', text);
+    }
 });
 
 $('.fake_btn').click(function() {
@@ -1125,17 +1147,6 @@ $('.change_image').on('click', '.img_pre .close', function() {
     }
 });
 
-$('#form_ask').on('click', 'button[type=submit]', function(event) {
-    event.preventDefault();
-    //console.log($(this).closest('form').find('input[name=category]').val());
-    if ($(this).closest('form').find('input[name=category]').val() == 'none') {
-        $(this).closest('form').find('input[name=category]').before('<p class="text-danger"><strong>Please select one of the above categories to continue !</strong></p>');
-        console.log('error');
-    } else {
-        $(this).closest('form').submit();
-    }
-});
-
 
 $('#almost_write_answer').mouseenter(function(){
     if (win_width > 768 ){
@@ -1254,6 +1265,7 @@ $('.show_edit').on('click', function(){
     $form.removeClass('hide');
     $(this).addClass('hide');
     $(this).parent().find('.done_edit').removeClass('hide');
+    $(this).closest('.info_field').find('.info_field_value').addClass('hide');
 });
 
 $('.done_edit').on('click', function(){

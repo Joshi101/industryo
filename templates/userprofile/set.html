@@ -6,7 +6,7 @@
 
 {% block page %}pg_set{% endblock page %}
 
-{% block body %}
+{% block content %}
 <div class="w_650">
 	<div class="panel-group ajax_andar ajax_papa" id="accordion">
 	  <div class="panel panel-default">
@@ -15,9 +15,6 @@
 	      	<p class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span> Select or create the Educational Institution / SAE Team/ Company you belong to.</p>
 	      	<form class="validate" action="" method="POST" role="form">
 						{% csrf_token %}
-						{% comment %}
-						{{ form_set_workplace|bootstrap }}
-						{% endcomment %}
 						<div class="form-group">
             	<label class="control-label" for="id_workplace">Workplace</label>
             	<i class="fa fa-exclamation fback_warn text-danger hide pull-right"></i>
@@ -41,7 +38,41 @@
 	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please put the official name of the College/Company/Team using Capitals appropriately (eg. UTC Aerospace Systems).</p>
 	      	<form action="{% url 'register' %}" method="POST" role="form">
 						{% csrf_token %}
-						{{ form_create_workplace|bootstrap }}
+	      		<div class="form-group">
+            	<label class="control-label  " for="id_name">Name</label>
+        			<div class=" ">
+            		<input class=" form-control" id="id_name" maxlength="50" name="name" placeholder="Enter the name of your Enterprise/Group" type="text">
+        			</div>
+						</div>
+						<div class="form-group">
+            	<label class="control-label">Workplace type</label>
+        			<div class="">
+                <div class="radio">
+                  <label>
+                    <input class="regDropDown" id="id_workplace_type_0" name="workplace_type" value="A" type="radio">
+                    Large Scale Industry
+                  </label>
+                </div>    
+                <div class="radio">
+                  <label>
+                    <input class="regDropDown" id="id_workplace_type_1" name="workplace_type" value="B" type="radio">
+                    Small &amp; Medium Scale Enterprise
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input class="regDropDown" id="id_workplace_type_2" name="workplace_type" value="C" type="radio">
+                    SAE Collegiate Club
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input class="regDropDown" id="id_workplace_type_3" name="workplace_type" value="O" type="radio">
+                    Educational Institution
+                  </label>
+                </div>
+        			</div>
+						</div>
 						<button type="submit" class="btn btn-success form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
 						<button type="button" class="btn btn-danger" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
 					</form>
@@ -104,14 +135,15 @@
 	    </div>
 	  </div> -->
 	</div>
-</div>
-{% endblock body %}
+{% endblock content %}
 
 {% block right %}
-    <div id='side_instructions' class="ask">
-		<p>If you are an Engineer, find or create your company</p>
-		<p>If you are an student, find or create your Educational Institution</p>
-		<p>If you are from an SAE or other collegiate club, find or create your Team</p>
-		<p>In the team profile you can provide the parent institution for the Team</p>		
+    <div class="side_help">
+    	<ul>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an Engineer, find or create your company</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an student, find or create your Educational Institution</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are from an SAE or other collegiate club, find or create your Team</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>In the team profile you can provide the parent institution for the Team</li>
+			</ul>
     </div>
 {% endblock right %}
