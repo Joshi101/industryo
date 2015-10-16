@@ -2,9 +2,10 @@
 	{% if request.user.userprofile in members %}
 	
 	<a href="{% url 'products:add_product' %}">Add Products</a>
+
 	{% endif %}
 </h3>	
-<form class="edit_{{category}} hide" action="{% url 'products:add_product' %}" method="POST" role="form">
+<form class="edit_product hide" action="{% url 'products:add_product' %}" method="POST" role="form">
 	{% csrf_token %}
 	<div class="form-group">
 		<label class="control-label">Name of product</label>

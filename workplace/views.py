@@ -190,7 +190,19 @@ def workplace_about(request, slug):
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
-    return render(request, 'workplace/prof_about.html', locals())
+    return render(request, 'workplace/snip_about.html', locals())
+
+
+def workplace_dash(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
+    articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
+    return render(request, 'workplace/snip_dashboard.html', locals())
 
 
 def workplace_capabilities(request, slug):
@@ -198,7 +210,7 @@ def workplace_capabilities(request, slug):
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
-    return render(request, 'workplace/prof_capabilities.html', locals())
+    return render(request, 'workplace/snip_capabilities.html', locals())
 
 
 def workplace_members(request, slug):
@@ -207,7 +219,7 @@ def workplace_members(request, slug):
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
     products = Products.objects.filter(producer=workplace.pk)
-    return render(request, 'workplace/prof_members.html', locals())
+    return render(request, 'workplace/snip_members.html', locals())
 
 
 def workplace_products(request, slug):
@@ -216,7 +228,7 @@ def workplace_products(request, slug):
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
     products = Products.objects.filter(producer=workplace.pk)
-    return render(request, 'workplace/prof_products.html', locals())
+    return render(request, 'workplace/snip_products.html', locals())
 
 
 def workplace_questions(request, id):

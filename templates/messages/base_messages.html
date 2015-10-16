@@ -2,8 +2,9 @@
 
 
 {% block content %}
+  {% include "messages/new_modal.html" %}
   <div class="page-header">
-    <a href="{% url 'messages:new_message' %}" class="btn btn-primary pull-right">New message</a>
+    <a class="btn btn-success pull-right"  data-toggle='modal' data-target='#msg_modal'><i class="fa fa-file-text-o inline_fa"></i> New message</a>
     <h1>{% block page_header %}{% endblock %}</h1>
   </div>
   <div class="row" style="margin-top: 1em">

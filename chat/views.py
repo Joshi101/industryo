@@ -48,7 +48,7 @@ def delete(request):
 def new(request):
     if request.method == 'POST':
         from_user = request.user
-        to_user_username = request.POST.get('to')
+        to_user_username = request.POST.get('person')
         try:
             to_user = User.objects.get(username=to_user_username)
         except Exception:
