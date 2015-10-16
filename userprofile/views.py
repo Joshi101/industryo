@@ -138,6 +138,15 @@ def search_area(request):
         return render(request, 'tags/list.html')
 
 
+def search_person(request):                  # for searching the workplace
+    if request.method == 'GET':
+        w = request.GET['the_query']
+        o = User.objects.filter(username__icontains=w)[:5]
+        return render(request, 'tags/list_ppl.html', {'objects': o})
+    else:
+        return render(request, 'tags/list_ppl.html')
+
+
 # def set_area(request):
 #     form = SetSkillsForm(request.POST)
 #     if request.method == 'POST':

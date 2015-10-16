@@ -8,7 +8,7 @@ ul {
 }
 
 a:hover, a:focus{
-  color: #66c;
+  color: #333;
 }
 
 form{
@@ -17,7 +17,7 @@ form{
 
 /* un-bootstrap */
 
-.modal-dialog{
+#figure_modal .modal-dialog{
   margin: 0 auto;
 }
 

@@ -10,7 +10,9 @@
   <div class="dropdown">
     <ul class="dropdown-menu list-group d_menu">
       <div class="d_list one_list"></div>
+      {% if parent %}
       <a href="#create_{{search}}" class="list-group-item list-group-item-info create_new" data-toggle="collapse" data-parent="#{{parent}}"><i class="fa fa-plus"></i> Create New</a>
+      {% endif %}
     </ul>
   </div>
 	<input class="d_value" name={{search}} value="" type="hidden" autocomplete=off>

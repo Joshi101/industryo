@@ -583,9 +583,7 @@ pre {
   padding: 0 7px;
 
   background: #fff;
-  box-shadow: 0 0 2px rgba(222, 222, 222, .75);
-
-  //border: 1px solid rgba(222,222,222,.5);
+  box-shadow: 0 0 2px rgba(230, 230, 230, 1);
 }
 
 .feed_box_heading {
@@ -615,7 +613,7 @@ pre {
 .feed_box_extra {
   margin: 0 -7px;
 
-  border-top: 1px dashed #ddd;
+  border-top: 1px dashed #eee;
 }
 
 .feed_box_body figure {
@@ -681,14 +679,14 @@ pre {
 
   padding: 7px 2px 5px;
 
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
 }
 
 .post_title{
   padding: 10px 25px 10px 0;
   position: relative;
   
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #ddd;
 }
 
 .post_title h1{
@@ -831,6 +829,10 @@ pre {
   padding: 7px;
 
   text-align: justify;
+}
+
+.a_detail br{
+  margin-bottom: 10px;
 }
 
 .interaction {
@@ -993,9 +995,6 @@ a {
   margin: 10px 0;
 }
 
-.page-header {
-  background: rgba(255, 255, 255, .85);
-}
 
 #home_intro {
   margin: 30px 0;
@@ -1086,9 +1085,9 @@ footer h3 a:hover{
 
 #img_profile_box {
   overflow: hidden;
-
+  width: 120px;
   height: 120px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
 }
 
 #img_upload {
@@ -1186,12 +1185,9 @@ footer h3 a:hover{
   border-collapse: separate;
 
   border: 1px solid rgb(204, 204, 204);
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  
   outline: none;
   background-color: white;
-  -webkit-box-shadow: rgba(0, 0, 0, .0745098) 0 1px 1px 0 inset;
-          box-shadow: rgba(0, 0, 0, .0745098) 0 1px 1px 0 inset;
 }
 
 #editor img {
@@ -1395,7 +1391,7 @@ div[data-role='editor-toolbar'] {
   width: 40px;
   margin-right: 5%;
 
-  border: 1px solid #333;
+  border: 1px solid #eee;
 }
 
 .wp_list .name_user{
@@ -1605,6 +1601,11 @@ h4 > .edit_post:hover {
   top: 50px;
 }
 
+.ppl_info{
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
 .ppl_list .name_user{
 	display: block;
 }
@@ -1757,17 +1758,19 @@ footer .contact li{
 }
 
 .tag{
+  //font-size: 0.9em;
   line-height: 20px;
   display: inline-block;
-  padding: 2px 5px;
-  background-color: #99f;
+  padding: 1px 5px;
+  background-color: transparent;
+  border: 1px solid #ddd;
   margin: 0 5px 5px 0;
-  color: #fff;
 }
 
 .tag:hover{
-  color: #fff;
-  background-color: #999;
+  //color: #777;
+  //background-color: #eee;
+  border-color: #777;
 }
 
 .tag .close{
@@ -1784,9 +1787,16 @@ footer .contact li{
 }
 
 .label_sm{
-  padding: 1px 5px;
-  height: 20px;
+  font-size: 10px;
+  padding: 2px 5px;
   border-radius: 1px;
+}
+
+.wp_list .label_sm{
+  display: inline-block;
+  padding: 2px 5px 3px;
+  position: relative;
+  top: -1px;
 }
 
 .pressme{
@@ -1803,11 +1813,10 @@ footer .contact li{
 
 .d_search .tag{
   background-color: #999;
-  
 }
 
 .info_title{
-  margin-top:0;
+  margin-top: 0;
 }
 
 .info_field{
@@ -1938,4 +1947,18 @@ footer .contact li{
 .post{
   padding: 0 10px;
   margin-bottom: 40px;
+}
+
+#wp_content{
+  position: relative;
+}
+
+.loading{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 2em;
+  background: rgba(255,255,255,0.5);
+  color: #999;
 }

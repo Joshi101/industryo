@@ -5,7 +5,7 @@
 
 {% block page_header %}{% trans 'New message' %}{% endblock %}
 
-{% block container %}
+{% block content %}
   <form class="form-horizontal" role="form" method="post">
     {% csrf_token %}
     <div class="form-group">
@@ -27,4 +27,4 @@
     </div>
   </form>
   <script src="{{ STATIC_URL }}js/messages.typehead.js"></script>
-{% endblock container %}
+{% endblock content %}

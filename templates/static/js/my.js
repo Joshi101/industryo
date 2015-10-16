@@ -1339,5 +1339,30 @@ $(function () {
         source: substringMatcher(data)
       });
     }
-  });  
+  });
 });
+
+$('.ajax_a').on('click', function(event){
+    event.preventDefault();
+    var target = $(this).data('place');
+    var url = $(this).attr('href');
+    console.log(target);
+    $(target).find('.loading').removeClass('hide');
+    $.ajax({
+        url: url,
+        success: function (response) {
+            console.log(response)
+            $(target).find('.content').html(response);
+            $(target).find('.loading').addClass('hide');
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+            $(target).find('.loading').addClass('hide');
+        }
+    });
+});
+
+$('.nav-pills').on('click', 'li', function(){
+    $(this).addClass('active');
+    $(this).siblings('li').removeClass('active');
+})

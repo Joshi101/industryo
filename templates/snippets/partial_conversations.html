@@ -18,6 +18,6 @@
       {% endif %}
     </a>
   {% empty %}
-    <a href="#" class="list-group-item">{% trans 'Start a conversation' %}</a>
+    <a data-toggle='modal' data-target='#msg_modal' class="list-group-item">{% trans 'Start a conversation' %}</a>
   {% endfor %}
 </div>
