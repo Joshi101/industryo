@@ -1,6 +1,7 @@
 <h3 class="text-muted detail_head">
 	{% if request.user.userprofile in members %}
-	<button data-content="{{ category }}" data-save='' class="btn btn-success btn-xs detail_add" name="">Add Products</button>
+	
+	<a href="{% url 'products:add_product' %}">Add Products</a>
 	{% endif %}
 </h3>	
 <form class="edit_{{category}} hide" action="{% url 'products:add_product' %}" method="POST" role="form">
@@ -28,7 +29,7 @@
 <ul id="products_list" class="row products_list">
 {% for product in products %}
 	<li class="product col-sm-4">
-		<img src="{{product.get_profile_image}}">
+		<img src="{{product.get_image}}">
 		<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
 		<div class="product_tags tags">
 			{% for tag in product.get_tags %}

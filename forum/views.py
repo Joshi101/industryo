@@ -24,7 +24,6 @@ def ask(request):
             user = request.user
             anonymous = request.POST.get('anonymous')
             category = request.POST.get('category')
-            print(category)
             if anonymous:
                 question = Question(question=question, title=title, user=user, anonymous=True, category=category)
             else:
@@ -46,7 +45,6 @@ def ask(request):
                 a = i.upload_image(image=image2, user=user)
                 question.images.add(a)
             tags = request.POST.get('tag')
-            print(tags)
             question.set_tags(tags)
             slug = question.slug
             return HttpResponseRedirect('/forum/'+slug)

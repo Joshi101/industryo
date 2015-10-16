@@ -52,9 +52,12 @@
 {% endblock content %}
 
 {% block right %}
-	<div class="right_floating">
+	<div class="side_help">
 		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
     </div>
+	<div class="side_help">
+		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
+  </div>
 {% endblock right %}
 
 {% block foot %}

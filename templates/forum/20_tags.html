@@ -1,3 +1,19 @@
-{% for interest in result_list %}
-	{% include 'snippets/one_q_tag.html' with interest=interest %}
-{% endfor %}
+<div class="row">
+      {% for interest in result_list %}
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a href="{% url 'tags:get_tag' interest.slug %}">{{interest.tag}}</a> x {{interest.count}}
+            </div>
+            <div class="panel-body">
+			  {% if interest.description %}
+              {{interest.description|truncatechars:90}}
+			  {% else %}
+			  Describe it now!
+			  {% endif %}
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% endfor %}
+    </div>

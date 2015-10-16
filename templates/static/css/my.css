@@ -1427,14 +1427,20 @@ div[data-role='editor-toolbar'] {
 	}
 }
 
-.right_fixed{
-  font-size: 0.9em;
-}
-
 .right_fixed:first-of-type {
   position: fixed;
   top: 71px;
+  font-size: 0.9em;
   padding-left: 30px;
+}
+
+
+.right_fixed_down:first-of-type {
+  position: fixed;
+  top: 222px;
+  font-size: 0.9em;
+  padding-left: 30px;
+  margin-bottom: 20px;
 }
 
 #members_list {

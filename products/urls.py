@@ -6,6 +6,7 @@ urlpatterns = patterns('',
     # url(r'^accounts/', include('allauth.urls')),
     # url(r'^$', 'home.views.home', name='home'),
 
+    url(r'^random/$', 'products.views.random', name='random'),
     url(r'^delete/$', 'products.views.delete', name='delete'),
     url(r'^add_product/$', 'products.views.add_product', name='add_product'),
     url(r'^(?P<slug>[^/]+)/$', 'products.views.product', name='product'),

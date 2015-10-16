@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^internal/', include('activities.urls', namespace='activities')),
 
     url(r'^home/right/$', 'home.views.home_right', name='home_right'),
+    url(r'^home/right_down/$', 'home.views.home_right_down', name='home_right_down'),
 
 
 

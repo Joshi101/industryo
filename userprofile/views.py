@@ -16,8 +16,6 @@ def profile(request, username):
     name = page_user.get_full_name()
     userprofile = UserProfile.objects.get(user=page_user)
     profile_image_form = SetProfileImageForm()
-
-
     questions = Question.objects.filter(user=page_user)
     answers = Question.objects.filter(answer__question__user=page_user)
     feeds = Node.feed.filter(user=page_user)[:10]
@@ -53,7 +51,6 @@ def edit(request):
     up = user.userprofile
     if request.method == 'POST':
         if not form.is_valid():
-            print("fuck")
             return render(request, 'userprofile/edit.html', {'form': form})
         else:
 

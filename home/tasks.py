@@ -29,6 +29,24 @@ def bhakk(id, n):
     # except Exception:
     #     pass
 
+@background(schedule=60)
+def luck(id, n):
+    user = User.objects.get(id=id)
+    if user.email:
+        user_email = user.email
+    else:
+        user_email = 'rohit9gag@gmail.com'
+    if user.first_name:
+        name = user.get_full_name()
+    else:
+        name = user.username
+    workplace = user.userprofile.primary_workplace
+    url = 'www.corelogs.com/workplace/'+workplace.slug
+
+    template = Template16
+    content = template.format(name, workplace, url)
+    send_mail('Baja/ Supra Teams Feedbacks', content, 'sp@corelogs.com', [user_email])
+
 
 @background(schedule=60)
 def notify_user(id, n):
@@ -415,4 +433,22 @@ you to Invite your TeamMates to&nbsp;<a style="text-decoration:none;color:#e45d6
     </center>
   <img style="border:0!important;display:block!important;min-height:1px!important;width:1px!important;margin:0!important;padding:0!important" src="https://ci3.googleusercontent.com/proxy/w_qniVtCSM2hSzmAd0hJL2PAhm0KjcqIuo0uAHvONoQZS3fUQOfzf-oihT7OgZm3rM3pb6Vaz5aWoQJNQUVmBEX5J_D4Nt60I6bsy5I=s0-d-e1-ft#https://industrylogger.cmail20.com/t/i-o-ttlhsk-l/o.gif" width="1" height="1" border="0" alt="" class="CToWUd"><div class="yj6qo"></div><div class="adL">
 </div></div>
+'''
+
+Template16 = u'''Hi {0}
+
+You have registered on CoreLogs as a member of {1} which participates in Baja/Supra events.
+I would like to have your genuine feedback about our website www.corelogs.com.
+
+1. How do you like www.corelogs.com as a platform for SAE teams and the entire core segment of engineering?
+2. Did you find the Forum section helpful and did you find it upto the mark?
+3. Would you like to use the profile page {2} of your team as a substitute for your website?
+
+How do you think we should expand so as to cover all the teams and become more valuable to the people of the teams. Please reply to me directly.
+Also, invite your teammates to the website so that we may together create a great community.
+
+Thanks
+Surya Prakash
+Founder
+CoreLogs
 '''

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %} CoreLogs - {{product}} {% endblock title %}
+
+{% block content %}
+<div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
+    <div class="col-sm-8 info_left">
+      <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ product }}</h1>
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+          {% for t in tags %}
+            <div class="tag"><span class="value">{{t}}</span></div>
+          {% empty %}
+            <span class="none text-muted">Add Product tags for categorization</span>
+          {% endfor %}
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-sm-4">
+      <div class="info_labels">
+        <span class="label label-default">{{product.producer}}</span>
+      </div>
+      <div class="info_labels">
+        <span class="label label-default">Uploaded by: {{ product.user }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="summary_fig">
+	<figure>
+	  <a>
+		<img src="{{product.get_image}}" style="border: 1px solid #000; max-width:500px; max-height:500px;">
+	  </a>	
+	</figure>
+  </div>
+  <div>
+	<p id="wp_name"  property='name'>{{ product.description }}</p>
+</div>
+	
+{% endblock %}
+
+
+{% block right %}
+	<div class="side_help">
+		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
+  </div>
+  
+{% endblock right %}
+

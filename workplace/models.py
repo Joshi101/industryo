@@ -276,6 +276,10 @@ class Workplace(models.Model):
         count = ups.count()
         return count
 
+    def get_members(self):
+        ups = self.userprofile_set.all()
+        return ups
+
 
 class WpTags(models.Model):
     workplace = models.ForeignKey(Workplace, related_name='w_tags')

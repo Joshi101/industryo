@@ -37,9 +37,12 @@ class UserProfile(models.Model):
         # else:
         #     return self.user.username
 
-    def get_details(self):
-        detail = "%s | %s" % (self.user, self.primary_workplace)
-        return detail
+    def get_name(self):
+        if self.first_name:
+            name = "%s %s" % (self.first_name, self.last_name)
+        else:
+            name = use
+        return name
 
     def get_all_workplaces(self):
         w = self.workplaces.all()

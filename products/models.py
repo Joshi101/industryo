@@ -44,29 +44,36 @@ class Products(models.Model):
         super(Products, self).save(*args, **kwargs)
 
     def set_tags(self, tags):
-        product_tags = tags.split(',')
-        li = []
-        for p in product_tags:
-            t, created = Tags.objects.get_or_create(tag=p, type='D')
-            t.count += 1
-            t.save()
-            li.append(t)
-        self.tags = li
+        print(tags)
+        if tags:
+            question_tags = tags.split(',')
+            li = []
+            for m in question_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='T')
+                li.append(t)
+                t.count +=1
+                t.save()
+            self.tags = li
+            print('kabira maan ja')
 
     def get_tags(self):
         tags = self.tags.all()
         return tags
 
     def get_image(self):
-        default_image = '/images/thumbnails/workplace.jpg'
+        default_image = '/images/main/product.jpg'
         if self.image:
-            image_url = '/images/'+str(self.image.image_thumbnail)
+            image_url = '/images/'+str(self.image.image)
             return image_url
         else:
             return default_image
 
     def set_target_segments(self, li):
         l = len(li)
+        print(l)
         if l == 1:
             q = li[0]
         elif l == 2:
@@ -75,7 +82,8 @@ class Products(models.Model):
             q = li[0] + li[1] + li[2]
         else:
             q = li[0] + li[1] + li[2] + li[3]
-        self.target_segments = q
+        self.target_segment = q
+        print(q)
         self.save()
         return q
 

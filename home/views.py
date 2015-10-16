@@ -76,6 +76,11 @@ def home_right(request):
     return render(request, 'snippets/right/home_right.html', {'workplaces': workplaces, 'questions': questions})
 
 
+def home_right_down(request):
+    questions = Question.objects.all().order_by('-last_active')[:5]
+    return render(request, 'snippets/right/home_right_down.html', {'questions': questions})
+
+
 def about(request):
     return render_to_response('about.html')
 
@@ -89,137 +94,139 @@ def search(request):
 
 # @login_required
 def send_an_email(request):
-    # tasks.bhakk(1, n=15)
-    # return redirect('/')
-
-
-    subject, from_email, to = 'hello', 'rohit9gag@gmail.com', 'sprksh.j@gmail.com'
-    text_content = 'This is an important message.'
-    content = '''
-Hi {0},
-<div style="margin:0;padding:0;min-width:100%;background-color:#fafafa">
-
-    <center style="display:table;table-layout:fixed;width:100%;min-width:620px;background-color:#fafafa">
-      <table style="border-collapse:collapse;border-spacing:0;font-size:1px;line-height:1px;width:100%;height:54px"><tbody><tr><td style="padding:0;vertical-align:top">&nbsp;</td></tr></tbody></table>
-      <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:560px;color:#bbb">
-        <tbody><tr>
-          <td style="padding:0;vertical-align:top;font-size:24px;padding-top:2px;padding-bottom:27px">
-            <div style="font-family:Merriweather,Georgia,serif;color:#202020;font-weight:bold;text-align:center;font-size:0px!important;line-height:0!important" align="center"><a style="text-decoration:none;color:#bbb" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-r/" target="_blank"><img style="border:0;display:block;Margin-left:auto;Margin-right:auto;max-width:308px" src="https://ci5.googleusercontent.com/proxy/FTIYZ6-RJGq2A2FwjtSklzbowPpUJSyrqlSKEeZVaBNdUa4CfuUiFbxb-ozl0XTIjbPRLnmWlGAofgL9uVC4psqqNtWH-R0RkzEZ6MmU_LvyBD1MLyBX=s0-d-e1-ft#http://i1.cmail20.com/ei/i/95/FD7/15B/015829/csfinal/corelogs.JPG" alt="CoreLogs" width="221" height="90" class="CToWUd"></a></div>
-          </td>
-        </tr>
-      </tbody></table>
-
-          <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:600px;table-layout:fixed">
-            <tbody><tr>
-              <td style="padding:0;vertical-align:top;text-align:left">
-                <div><div style="font-size:20px;line-height:20px">&nbsp;</div></div>
-                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
-                    <tbody><tr>
-                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
-
-            <h1 style="font-style:normal;font-weight:400;Margin-bottom:24px;Margin-top:0;font-size:32px;line-height:40px;font-family:Lato,Tahoma,sans-serif;color:#b8bdc9;text-align:center"><a style="text-decoration:none;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-y/" target="_blank"><strong style="font-weight:bold">The Engineer's Forum</strong></a></h1>
-
-                      </td>
-                    </tr>
-                  </tbody></table>
-
-                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
-                    <tbody><tr>
-                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
-
-            <p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959">It's been a long time since you last visited <a style="text-decoration:underline;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-j/" target="_blank"><strong style="font-weight:bold">CoreLogs</strong></a>. We are going great and gaining a lot of visitors and lots of engineering related Questions.</p>
-
-                      </td>
-                    </tr>
-                  </tbody></table>
-
-                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
-                    <tbody><tr>
-                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
-
-            <div style="font-size:12px;font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-family:Lato,Tahoma,sans-serif;color:#595959" align="center">
-              <a style="text-decoration:underline;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-t/" target="_blank"><img style="border:0;display:block;max-width:900px" src="https://ci6.googleusercontent.com/proxy/0yBIk0n1mgw76qDN0E-ijH7NjfSUWCvBQ8pLXunjky6S7jlRgkPAmeXmYt6LkYxuGAVjBYRQySwwMTH-yROjp_JfCLbfvxYeUr68mUWkTDatMpBx6w=s0-d-e1-ft#http://i1.cmail20.com/ei/i/95/FD7/15B/015829/csfinal/dewdwe.JPG" alt="The Engineer's Forum" width="560" height="286" class="CToWUd"></a>
-            </div>
-
-                      </td>
-                    </tr>
-                  </tbody></table>
-
-                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
-                    <tbody><tr>
-                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
-
-
-<p style="font-style:normal;font-weight:400;Margin-bottom:0;Margin-top:0;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959"><a style="text-decoration:underline;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-i/" target="_blank">CoreLogs</a><span style="color:rgb(89,89,89)">&nbsp;is all set to become the best and most active Forum for Engineers in the core segment along with the Small scale industries and Baja/ Formula Teams.</span></p><blockquote style="font-style:italic;font-weight:400;Margin-left:0;Margin-right:0;padding-right:0;border-left:4px solid #c7c7c7;Margin-bottom:0;Margin-top:27px;padding-left:17px"><p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959">"A well framed Question and a great answer on CoreLogs are timeless. The questions you ask and answer make a mark on the internet and might be a help to many people in future. Share your knowledge on CoreLogs.</p></blockquote><p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:27px;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959"><span style="color:#6b396b">We would request you to <strong style="font-weight:bold">ask and answer</strong> technical and industry related questions and let's together create a community that you can depend upon later. <strong style="font-weight:bold">Invite your friends too.</strong></span></p>
-
-                      </td>
-                    </tr>
-                  </tbody></table>
-
-                  <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
-                    <tbody><tr>
-                      <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
-
-            <div style="Margin-bottom:0;Margin-top:0;text-align:center">
-              <u></u><a style="border-radius:3px;display:inline-block;font-size:14px;font-weight:700;line-height:24px;padding:13px 35px 12px 35px;text-align:center;text-decoration:none!important;color:#fefefe;font-family:Lato,Tahoma,sans-serif;background-color:#28bf32" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-d/" target="_blank">Visit CoreLogs</a><u></u>
-            </div>
-
-                      </td>
-                    </tr>
-                  </tbody></table>
-
-                <div style="font-size:20px;line-height:20px">&nbsp;</div>
-              </td>
-            </tr>
-          </tbody></table>
-
-      <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:560px;color:#bbb">
-        <tbody><tr>
-          <td style="padding:0;vertical-align:top" align="center">
-            <div style="font-size:11px;line-height:17px;font-weight:400;letter-spacing:0.01em;Margin-bottom:17px">&nbsp;</div>
-            <center style="Margin-bottom:10px;Margin-top:0;font-size:4px;line-height:4px">
-              <table style="border-collapse:collapse;border-spacing:0;Margin-bottom:27px;Margin-left:auto;Margin-right:auto">
-                <tbody><tr>
-                  <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#c7c7c7">&nbsp;</span></td>
-                  <td style="padding:0;vertical-align:top;font-size:1px;line-height:1px;width:8px">&nbsp;</td>
-                  <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#c7c7c7">&nbsp;</span></td>
-                  <td style="padding:0;vertical-align:top;font-size:1px;line-height:1px;width:8px">&nbsp;</td>
-                  <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#c7c7c7">&nbsp;</span></td>
-                </tr>
-              </tbody></table>
-            </center>
-
-            <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
-              <div style="font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">This is a gentle reminder to you about CoreLogs</div>
-            </div>
-            <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
-              <span>No Images? <a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-e-ttkjkil-l-b/" target="_blank">Click here</a></span>
-
-
-              <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-                <a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-u-ttkjkil-l-n/" target="_blank">Unsubscribe</a>
-            </div>
-            <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">CoreLogs (<a href="http://www.corelogs.com" target="_blank">www.corelogs.com</a>)</div>
-            <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
-              <span><a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-fb-ttkjkil-l-p/" rel="cs_facebox" target="_blank">Like</a></span>
-              <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-              <span><a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-tw-ttkjkil-l-x/" target="_blank">Tweet</a></span>
-
-
-            </div>
-          </td>
-        </tr>
-      </tbody></table>
-      <table style="border-collapse:collapse;border-spacing:0;font-size:1px;line-height:1px;width:100%;height:54px"><tbody><tr><td style="padding:0;vertical-align:top">&nbsp;</td></tr></tbody></table>
-    </center>
-  <img style="border:0!important;display:block!important;min-height:1px!important;width:1px!important;margin:0!important;padding:0!important" src="https://ci5.googleusercontent.com/proxy/pIIHpNiUTjqaDy-xBCSaiAnFh8mNs54ukiu8tMC4QeaavXcE2GmUqjVrcX3KbVC7zhCXYpXPTCI0NbCXUiuJ8HBGHwiDUxoNId8Rg8Wc=s0-d-e1-ft#https://industrylogger.cmail20.com/t/i-o-ttkjkil-l/o.gif" width="1" height="1" border="0" alt="" class="CToWUd"><div class="yj6qo"></div><div class="adL">
-</div></div>
-'''
-    html_content = content.format('Ram')
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+    for u in userprofiles:
+        tasks.luck(u.id, n=16)
     return redirect('/')
+
+
+#     subject, from_email, to = 'hello', 'rohit9gag@gmail.com', 'sprksh.j@gmail.com'
+#     text_content = 'This is an important message.'
+#     content = '''
+# Hi {0},
+# <div style="margin:0;padding:0;min-width:100%;background-color:#fafafa">
+#
+#     <center style="display:table;table-layout:fixed;width:100%;min-width:620px;background-color:#fafafa">
+#       <table style="border-collapse:collapse;border-spacing:0;font-size:1px;line-height:1px;width:100%;height:54px"><tbody><tr><td style="padding:0;vertical-align:top">&nbsp;</td></tr></tbody></table>
+#       <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:560px;color:#bbb">
+#         <tbody><tr>
+#           <td style="padding:0;vertical-align:top;font-size:24px;padding-top:2px;padding-bottom:27px">
+#             <div style="font-family:Merriweather,Georgia,serif;color:#202020;font-weight:bold;text-align:center;font-size:0px!important;line-height:0!important" align="center"><a style="text-decoration:none;color:#bbb" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-r/" target="_blank"><img style="border:0;display:block;Margin-left:auto;Margin-right:auto;max-width:308px" src="https://ci5.googleusercontent.com/proxy/FTIYZ6-RJGq2A2FwjtSklzbowPpUJSyrqlSKEeZVaBNdUa4CfuUiFbxb-ozl0XTIjbPRLnmWlGAofgL9uVC4psqqNtWH-R0RkzEZ6MmU_LvyBD1MLyBX=s0-d-e1-ft#http://i1.cmail20.com/ei/i/95/FD7/15B/015829/csfinal/corelogs.JPG" alt="CoreLogs" width="221" height="90" class="CToWUd"></a></div>
+#           </td>
+#         </tr>
+#       </tbody></table>
+#
+#           <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:600px;table-layout:fixed">
+#             <tbody><tr>
+#               <td style="padding:0;vertical-align:top;text-align:left">
+#                 <div><div style="font-size:20px;line-height:20px">&nbsp;</div></div>
+#                   <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+#                     <tbody><tr>
+#                       <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+#
+#             <h1 style="font-style:normal;font-weight:400;Margin-bottom:24px;Margin-top:0;font-size:32px;line-height:40px;font-family:Lato,Tahoma,sans-serif;color:#b8bdc9;text-align:center"><a style="text-decoration:none;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-y/" target="_blank"><strong style="font-weight:bold">The Engineer's Forum</strong></a></h1>
+#
+#                       </td>
+#                     </tr>
+#                   </tbody></table>
+#
+#                   <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+#                     <tbody><tr>
+#                       <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+#
+#             <p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959">It's been a long time since you last visited <a style="text-decoration:underline;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-j/" target="_blank"><strong style="font-weight:bold">CoreLogs</strong></a>. We are going great and gaining a lot of visitors and lots of engineering related Questions.</p>
+#
+#                       </td>
+#                     </tr>
+#                   </tbody></table>
+#
+#                   <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+#                     <tbody><tr>
+#                       <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+#
+#             <div style="font-size:12px;font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-family:Lato,Tahoma,sans-serif;color:#595959" align="center">
+#               <a style="text-decoration:underline;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-t/" target="_blank"><img style="border:0;display:block;max-width:900px" src="https://ci6.googleusercontent.com/proxy/0yBIk0n1mgw76qDN0E-ijH7NjfSUWCvBQ8pLXunjky6S7jlRgkPAmeXmYt6LkYxuGAVjBYRQySwwMTH-yROjp_JfCLbfvxYeUr68mUWkTDatMpBx6w=s0-d-e1-ft#http://i1.cmail20.com/ei/i/95/FD7/15B/015829/csfinal/dewdwe.JPG" alt="The Engineer's Forum" width="560" height="286" class="CToWUd"></a>
+#             </div>
+#
+#                       </td>
+#                     </tr>
+#                   </tbody></table>
+#
+#                   <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+#                     <tbody><tr>
+#                       <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+#
+#
+# <p style="font-style:normal;font-weight:400;Margin-bottom:0;Margin-top:0;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959"><a style="text-decoration:underline;color:#6b7489" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-i/" target="_blank">CoreLogs</a><span style="color:rgb(89,89,89)">&nbsp;is all set to become the best and most active Forum for Engineers in the core segment along with the Small scale industries and Baja/ Formula Teams.</span></p><blockquote style="font-style:italic;font-weight:400;Margin-left:0;Margin-right:0;padding-right:0;border-left:4px solid #c7c7c7;Margin-bottom:0;Margin-top:27px;padding-left:17px"><p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:0;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959">"A well framed Question and a great answer on CoreLogs are timeless. The questions you ask and answer make a mark on the internet and might be a help to many people in future. Share your knowledge on CoreLogs.</p></blockquote><p style="font-style:normal;font-weight:400;Margin-bottom:27px;Margin-top:27px;font-size:17px;line-height:25px;font-family:Lato,Tahoma,sans-serif;color:#595959"><span style="color:#6b396b">We would request you to <strong style="font-weight:bold">ask and answer</strong> technical and industry related questions and let's together create a community that you can depend upon later. <strong style="font-weight:bold">Invite your friends too.</strong></span></p>
+#
+#                       </td>
+#                     </tr>
+#                   </tbody></table>
+#
+#                   <table style="border-collapse:collapse;border-spacing:0;table-layout:fixed;width:100%">
+#                     <tbody><tr>
+#                       <td style="padding:0;vertical-align:top;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+#
+#             <div style="Margin-bottom:0;Margin-top:0;text-align:center">
+#               <u></u><a style="border-radius:3px;display:inline-block;font-size:14px;font-weight:700;line-height:24px;padding:13px 35px 12px 35px;text-align:center;text-decoration:none!important;color:#fefefe;font-family:Lato,Tahoma,sans-serif;background-color:#28bf32" href="http://industrylogger.cmail20.com/t/i-i-ttkjkil-l-d/" target="_blank">Visit CoreLogs</a><u></u>
+#             </div>
+#
+#                       </td>
+#                     </tr>
+#                   </tbody></table>
+#
+#                 <div style="font-size:20px;line-height:20px">&nbsp;</div>
+#               </td>
+#             </tr>
+#           </tbody></table>
+#
+#       <table style="border-collapse:collapse;border-spacing:0;Margin-left:auto;Margin-right:auto;width:560px;color:#bbb">
+#         <tbody><tr>
+#           <td style="padding:0;vertical-align:top" align="center">
+#             <div style="font-size:11px;line-height:17px;font-weight:400;letter-spacing:0.01em;Margin-bottom:17px">&nbsp;</div>
+#             <center style="Margin-bottom:10px;Margin-top:0;font-size:4px;line-height:4px">
+#               <table style="border-collapse:collapse;border-spacing:0;Margin-bottom:27px;Margin-left:auto;Margin-right:auto">
+#                 <tbody><tr>
+#                   <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#c7c7c7">&nbsp;</span></td>
+#                   <td style="padding:0;vertical-align:top;font-size:1px;line-height:1px;width:8px">&nbsp;</td>
+#                   <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#c7c7c7">&nbsp;</span></td>
+#                   <td style="padding:0;vertical-align:top;font-size:1px;line-height:1px;width:8px">&nbsp;</td>
+#                   <td style="padding:0;vertical-align:top"><span style="border-radius:2px;display:inline-block;font-size:4px;min-height:4px;line-height:4px;width:4px;background-color:#c7c7c7">&nbsp;</span></td>
+#                 </tr>
+#               </tbody></table>
+#             </center>
+#
+#             <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
+#               <div style="font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">This is a gentle reminder to you about CoreLogs</div>
+#             </div>
+#             <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
+#               <span>No Images? <a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-e-ttkjkil-l-b/" target="_blank">Click here</a></span>
+#
+#
+#               <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+#                 <a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-u-ttkjkil-l-n/" target="_blank">Unsubscribe</a>
+#             </div>
+#             <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">CoreLogs (<a href="http://www.corelogs.com" target="_blank">www.corelogs.com</a>)</div>
+#             <div style="font-family:Lato,Tahoma,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.01em;line-height:17px;Margin-bottom:17px">
+#               <span><a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-fb-ttkjkil-l-p/" rel="cs_facebox" target="_blank">Like</a></span>
+#               <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+#               <span><a style="text-decoration:none;color:#bbb;font-weight:700;letter-spacing:0.03em" href="http://industrylogger.cmail20.com/t/i-tw-ttkjkil-l-x/" target="_blank">Tweet</a></span>
+#
+#
+#             </div>
+#           </td>
+#         </tr>
+#       </tbody></table>
+#       <table style="border-collapse:collapse;border-spacing:0;font-size:1px;line-height:1px;width:100%;height:54px"><tbody><tr><td style="padding:0;vertical-align:top">&nbsp;</td></tr></tbody></table>
+#     </center>
+#   <img style="border:0!important;display:block!important;min-height:1px!important;width:1px!important;margin:0!important;padding:0!important" src="https://ci5.googleusercontent.com/proxy/pIIHpNiUTjqaDy-xBCSaiAnFh8mNs54ukiu8tMC4QeaavXcE2GmUqjVrcX3KbVC7zhCXYpXPTCI0NbCXUiuJ8HBGHwiDUxoNId8Rg8Wc=s0-d-e1-ft#https://industrylogger.cmail20.com/t/i-o-ttkjkil-l/o.gif" width="1" height="1" border="0" alt="" class="CToWUd"><div class="yj6qo"></div><div class="adL">
+# </div></div>
+# '''
+#     html_content = content.format('Ram')
+#     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+#     msg.attach_alternative(html_content, "text/html")
+#     msg.send()
+#     return redirect('/')
     # send_mail('CoreLogs- Set your Workplace', '<p>This is an <strong>important</strong> message.</p>', 'sp@corelogs.com', ['sprksh.j@gmail.com'])
     # return redirect('/')
     # if request.user.is_authenticated():
