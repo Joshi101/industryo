@@ -135,7 +135,6 @@ def set_tags_short(request):
         wp = user.userprofile.primary_workplace
         type = request.POST.get('type')
         value = request.POST.get('tag')
-        print(type,value)
         if value:
             if type == 'A':
                 t = wp.set_assets(value)
@@ -152,7 +151,6 @@ def set_tags_short(request):
             if type == 'S':
                 t = wp.set_segments(value)
             new_interest = t
-            print(t)
             r_elements = ['tag_container']
             r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
             response['html'] = r_html
@@ -166,14 +164,24 @@ def set_tags_short(request):
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     tags = workplace.get_tags()
-    if workplace.workplace_type == 'C':
-        area = tags['institution']
-        a_type = 'P'
-    elif workplace.workplace_type == 'B':
-        area = tags['city']
+    type = workplace.workplace_type
+    if type == 'C':
+        tag1 = tags['city']
         a_type = 'C'
-    elif workplace.workplace_type == 'A':
-        area = tags['city']
+        tag2 = tags['institution']
+        b_type = 'P'
+    elif type == 'B':
+        tag1 = tags['city']
+        a_type = 'C'
+        tag2 = tags['segments']
+        b_type = 'S'
+    elif type == 'A':
+        tag1 = tags['city']
+        a_type = 'C'
+        tag2 = tags['segments']
+        b_type = 'S'
+    elif type == 'O':
+        tag1 = tags['city']
         a_type = 'C'
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
@@ -188,8 +196,8 @@ def workplace_profile(request, slug):
 def workplace_about(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    workplace_logo_form = SetLogoForm()
+    # member_count = members.count()
+    # workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/snip_about.html', locals())
 
 
@@ -416,3 +424,5 @@ def workplace_data(request):
     #     c = u.count()
     #     li.append(c)
     return render(request, 'activities/workplace_data.html', locals())
+
+

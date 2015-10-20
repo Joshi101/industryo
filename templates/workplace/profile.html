@@ -25,45 +25,47 @@
       <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ workplace.name }}</h1>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
-          {% for a in area %}
+		City:
+          {% for a in workplace.get_tags.city %}
             <div class="tag"><span class="value">{{a}}</span></div>
-          {% empty %}
-            <span class="none text-muted">City in which the company exists</span>
-          {% endfor %}
+		  {% endfor %}
         </div>
         {% if user.userprofile in members %}
         <div class="info_field_edit">
           <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
           <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
             {% csrf_token %}
-              {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=area %}
+              {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tag1 %}
           </form>
           <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
-          {% comment %}
-            {% include "workplace/snippets/edit_info_head.html" with category='ind_area' type='I' %}
-            {% include "workplace/snippets/edit_info_head.html" with category='inst' type='P' %}
-            {% include "workplace/set_tags_head.html" with category='city' type='C' %}
-          {% endcomment %}
         </div>
         {% endif %}
       </div>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
-          {% include "snippets/segment.html" with workplace=workplace %}
+		{% if b_type %}		
+		{% if b_type == 'S' %}	
+			Segments: {% include "snippets/segment.html" with workplace=workplace %}
+		{% elif b_type == "C" %}
+			Parent Institution:
+          {% for a in workplace.get_tags.institution %}
+            <div class="tag"><span class="value">{{a}}</span></div>
+		  {% endfor %}		
+		{% endif %} 
+		{% endif %} 
         </div>
         {% if user.userprofile in members %}
+		{% if b_type %}		
         <div class="info_field_edit">
           <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
           <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i></a>
           <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
             {% csrf_token %}
-              {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=area %}
+              {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tag2 %}
           </form>
-          {% comment %}
-            {% include "workplace/set_tags_head.html" with category='city' type='C' %}
-          {% endcomment %}
         </div>
-        {% endif %}
+		{% endif %}
+		{% endif %}
       </div>
     </div>
     <div class="col-sm-4">
@@ -77,19 +79,20 @@
   </div>
   <ul id="wp_nav" class="nav nav-pills">
   {% block workplace_nav %}
-    <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:members" workplace.slug %}">People</a></li>
-    <li class="active"><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:dashboard" workplace.slug %}">Dashboard</a></li>
-		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:about" workplace.slug %}">About</a></li>
-    {% if workplace.workplace_type == 'C' %}
+    <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:members" workplace.slug %}">People</a></li>    
+    {% if type == 'C' %}
     <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:capabilities" workplace.slug %}">Events</a></li>
-    {% elif workplace.workplace_type != 'O' %}
+    {% elif type != 'O' %}
     <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:capabilities" workplace.slug %}">Capabilities</a></li>
     {% endif %}
-    {% if workplace.workplace_type == 'B' %}
-		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Products / Services</a></li>
-    {% elif workplace.workplace_type == 'C' %}
+    {% if type == 'B' %}
+		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Products/ Services</a></li>
+    {% elif type == 'C' %}
 		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Our Cars</a></li>
     {% endif %}
+	<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:about" workplace.slug %}">About</a></li>
+	<li class="active"><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:dashboard" workplace.slug %}">Dashboard</a></li>
+		
   {% endblock workplace_nav %}
   </ul>
   <div class="tab-content ajax_papa ajax_andar">
@@ -107,14 +110,12 @@
 {% endblock %}
 
 {% block right %}
-  <div class="right_fixed">
+  <div class="side_help">
     <div class="ajax_load" data-url="{% url 'workplace:get_top_scorers' workplace.slug %}"></div>
   </div>
-  {% comment %}
-  {% ifequal user.userprofile in members %}
-    {% include "snippets/floating_form.html" with tag="material" type="M" %}
-    {% include "snippets/floating_form.html" with tag="operation" type="O" %}
-    {% include "snippets/floating_form.html" with tag="asset" type="A" %}
-  {% endifequal %}
-  {% endcomment %}
+  <div class="side_help">
+		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
+  </div>
+  
+
 {% endblock right %}
