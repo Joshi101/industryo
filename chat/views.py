@@ -46,7 +46,9 @@ def delete(request):
 
 @login_required
 def new(request):
+    print('pardescc')
     if request.method == 'POST':
+        print('pardes')
         from_user = request.user
         to_user_username = request.POST.get('person')
         try:
@@ -56,13 +58,17 @@ def new(request):
                 to_user_username = to_user_username[to_user_username.rfind('(')+1:len(to_user_username)-1]
                 to_user = User.objects.get(username=to_user_username)
             except Exception:
+                print('dasdamd')
                 return redirect('/messages/new/')
         message = request.POST.get('message')
+        print(message)
         if len(message.strip()) == 0:
             return redirect('/messages/new/')
         if from_user != to_user:
             Message.send_message(from_user, to_user, message)
+        print(from_user, to_user)
         return redirect(u'/messages/{0}/'.format(to_user_username))
+
     else:
         conversations = Message.get_conversations(user=request.user)
         return render(request, 'messages/new.html', {'conversations': conversations})
@@ -86,6 +92,7 @@ def send(request):
 
 @login_required
 def users(request):
+    print('jklop')
     users = User.objects.filter(is_active=True)
     dump = []
     template = u'{0} ({1})'

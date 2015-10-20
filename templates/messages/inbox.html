@@ -11,12 +11,7 @@
       {% include 'snippets/partial_message.html' with message=message %}
     {% endfor %}
     <li class="send-message">
-      <div class="form-group">
-		<label for="to" class="col-sm-1 control-label">To</label>
-		<div class="col-sm-11">
-			<input class="form-control typeahead" type="text" placeholder="to" id="to" name="to">
-		</div>
-	  </div>
+      
       <div style="margin-top: .3em">
         <form role="form" method="post" action="{% url 'messages:send_message' %}" id="send">
           {% csrf_token %}

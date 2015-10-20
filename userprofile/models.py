@@ -38,10 +38,10 @@ class UserProfile(models.Model):
         #     return self.user.username
 
     def get_name(self):
-        if self.first_name:
-            name = "%s %s" % (self.first_name, self.last_name)
+        if self.user.first_name:
+            name = "%s %s" % (self.user.first_name, self.user.last_name)
         else:
-            name = use
+            name = self.user.username
         return name
 
     def get_all_workplaces(self):
