@@ -46,9 +46,7 @@ def delete(request):
 
 @login_required
 def new(request):
-    print('pardescc')
     if request.method == 'POST':
-        print('pardes')
         from_user = request.user
         to_user_username = request.POST.get('person')
         try:
@@ -71,7 +69,7 @@ def new(request):
 
     else:
         conversations = Message.get_conversations(user=request.user)
-        return render(request, 'messages/new.html', {'conversations': conversations})
+        return render(request, 'messages/new_modal.html', {'conversations': conversations})
 
 
 @login_required
@@ -94,14 +92,13 @@ def send(request):
 def users(request):
     print('jklop')
     users = User.objects.filter(is_active=True)
+    print('jkldsvdwp')
     dump = []
     template = u'{0} ({1})'
     for user in users:
-        if user.profile.get_screen_name() != user.username:
-            dump.append(template.format(user.profile.get_screen_name(), user.username))
-        else:
-            dump.append(user.username)
+        dump.append(user.username)
     data = json.dumps(dump)
+    print('wskkkkkkdwp')
     return HttpResponse(data, content_type='application/json')
 
 @login_required
