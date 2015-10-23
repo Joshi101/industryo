@@ -1,11 +1,11 @@
 <div class="side_head"><h4>Products</h4></div>
-<ul class="wp_list">
+<ul class="pd_list row">
 {% for product in products %}
-	<li class="product col-sm-4">
+	<li class="side_product col-sm-6">
 		<a href="{% url 'products:product' product.slug %}">
-		<img src="{{product.get_image}}">
-		<div class="product_name">{{ product }}</a></div>
-		
+			<img src="{{product.get_image}}">
+			<div class="text-center">{{product}}</div>
+		</a>
 	</li>
 {% endfor %}
 </ul>

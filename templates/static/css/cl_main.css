@@ -245,3 +245,7 @@ form{
   text-align: center;
   font-size: 20px;
 }
+
+#form_ask{
+  margin-bottom: 10px;
+}

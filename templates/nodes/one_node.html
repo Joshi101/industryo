@@ -17,7 +17,7 @@
 		</div>
 		{% endif %}
 		<div class="author">
-			--{% include "snippets/joint_name.html" with user=node.user %}
+			{% include "snippets/joint_name.html" with user=node.user %}
 			<time property='dateCreated' class="text-muted">{{node.date}}</time>
 		</div>
 

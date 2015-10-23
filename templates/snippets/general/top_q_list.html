@@ -1,0 +1,5 @@
+{% for q in questions %}
+	<li>
+	<a href="{% url 'forum:question' q.slug %}">{{q.title}}</a>
+	</li>
+{% endfor %}

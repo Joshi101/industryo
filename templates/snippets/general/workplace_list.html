@@ -12,9 +12,3 @@
 {% for p in people_joint %}
 	<li><img src="{{p.get_profile_image}}">{{p}} | {{p.primary_workplace}}</li>
 {% endfor %}
-<div class="side_head"><h4>Most Upvoted Questions</h4></div>
-{% for q in questions %}
-	<li>
-	<a href="{% url 'forum:question' q.slug %}">{{q.title}}</a>
-	</li>
-{% endfor %}

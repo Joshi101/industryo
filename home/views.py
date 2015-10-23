@@ -73,6 +73,7 @@ def home_right(request):
         workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
     else:
         workplaces = Workplace.obects.all().order_by('?')[:5]
+    print('yaha to aya')
     return render(request, 'snippets/right/home_right.html', {'workplaces': workplaces, 'questions': questions})
 
 

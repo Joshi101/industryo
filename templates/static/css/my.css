@@ -627,8 +627,8 @@ pre {
 .feed_box_body img {
   display: block;
 
-  width: 100%;
-  max-height: 300px;
+  width: 100px;
+  max-height: 100px;
 
   border: 1px solid rgba(55, 55, 55, .3);
   box-shadow: 0 0 2px rgba(55, 55, 55, .3);
@@ -792,7 +792,7 @@ pre {
 }
 
 .tags {
-  padding: 10px 5px;
+  padding: 10px 5px 2px;
 }
 
 .tags a:hover {
@@ -1366,7 +1366,7 @@ div[data-role='editor-toolbar'] {
   padding: 3px 5px;
   margin-bottom: 10px;
   border-bottom: 1px solid #9d9d9d;
-  background-color: #dff0d8;
+  //background-color: #dff0d8;
 }
 
 .ppl_list img {
@@ -1381,13 +1381,13 @@ div[data-role='editor-toolbar'] {
 .wp_list li{
   display: block;
   margin: 5px 0;
-  background-color: #dff0d8;
+  //background-color: #dff0d8;
 }
 
 .wp_list{
   list-style: none;
   line-height: 20px;
-  background-color: #dff0d8;
+  //background-color: #dff0d8;
 }
 
 .wp_list img {
@@ -1850,13 +1850,14 @@ footer .contact li{
 }
 
 .side_help{
+  margin-bottom: 10px;
   padding: 10px;
   font-size: 1em;
   font-family: 'Calibri';
   text-align: justify;
   color: #666;
-  background-color: #eef;
-  border: 1px solid #ccf;
+  background-color: #dff0d8;
+  border: 1px solid #ddf;
 }
 
 .side_help .side_head{
@@ -1871,6 +1872,26 @@ footer .contact li{
 .side_help li{
   margin-bottom: 10px;
 }
+
+.side_show{
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1em;
+  font-family: 'Calibri';
+  color: #666;
+  background-color: #eef;
+  border: 1px solid #ddf;
+}
+
+.side_show ul{
+  padding-left: 5px;
+  list-style: none;
+}
+
+.side_show li{
+  margin-bottom: 10px;
+}
+
 
 .fa_li_style{
   margin-left: -25px;
@@ -1970,4 +1991,8 @@ footer .contact li{
   font-size: 2em;
   background: rgba(255,255,255,0.5);
   color: #999;
+}
+
+.side_product img{
+  width: 100%;
 }
