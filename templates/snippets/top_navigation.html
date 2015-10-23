@@ -21,6 +21,10 @@
         <span class="fa fa-book"></span>
         <span> Articles</span>
       </a>
+	  <form id="search" action="{% url 'search' %}">
+          <input type="text" id="search-text" name="q" placeholder="Search" required>
+          <input type="submit" id="search-button" value="Go">
+      </form>
       {% if user.is_authenticated or request.path != '/' %}
       <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
         <span class="icon-bar"></span>
