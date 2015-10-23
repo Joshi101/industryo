@@ -4,9 +4,7 @@
 {% load bootstrap %}
 
 {% block content %}
-
 <form  action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
-
 	{% csrf_token %}
 	<div class="form-group">
 		<label class="control-label">Name of product</label>
@@ -16,39 +14,31 @@
 		<label class="control-label">Description of the product</label>
 		<textarea class="form-control" rows="3" name="description"></textarea>
 	</div>
-	
-	
 	<div class="form-group">
-      <label class="control-label" for="id_tags">Tags: Topics under which the Product might fall</label>
-			{% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Relevent tags help your article reach out to the right people" %}
-		  
-		</div>
-	
+    <label class="control-label" for="id_tags">Tags: Topics under which the Product might fall</label>
+		{% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Relevent tags help your article reach out to the right people" %}
+	</div>
 	<div class="form-group">
-			<div class="hide">
-      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-					<input id="id_image_0" type="file" name="image0">
-    		</span>
-  		</div>
-      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-      	<span class="fa fa-camera"></span> Add Photo
-    	</span>
+		<div class="hide">
+    	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+				<input id="id_image_0" type="file" name="image0">
+  		</span>
 		</div>
-		<div class="form-group">
-			<div class="img_pre hide" data-index=0>
-			</div>
+    <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+    	<span class="fa fa-camera"></span> Add Photo
+  	</span>
+	</div>
+	<div class="form-group">
+		<div class="img_pre hide" data-index=0>
 		</div>
+	</div>
 	<div class="checkbox">
-	<h4>Target Segments</h4>
-		  <label><input type="checkbox" name="A" value="A">Small & Medium Scale Enterprises</label>
-		  <label><input type="checkbox" name="B" value="B">Engineers & Managers From Large Industries</label>
-		  <label><input type="checkbox" name="C" value="C">Baja/ Formula related Teams</label>
-		  <label><input type="checkbox" name="O" value="O">College Students</label>
-		</div>
+		<h4>Target Segments</h4>
+	  <label><input type="checkbox" name="A" value="A">Small &amp; Medium Scale Enterprises</label>
+	  <label><input type="checkbox" name="B" value="B">Engineers &amp; Managers From Large Industries</label>
+	  <label><input type="checkbox" name="C" value="C">Baja/ Formula related Teams</label>
+	  <label><input type="checkbox" name="O" value="O">College Students</label>
+	</div>
 	<input type="submit" value="Submit">
 </form>
-
-
-
-
 {% endblock content %}

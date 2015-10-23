@@ -1,0 +1,53 @@
+<div id="prod_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Describe the Product, please!!</h4>
+      </div>
+      <div class="modal-body">
+        <form  action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="control-label">Name of product</label>
+            <input class="form-control" name="product">
+          </div>
+          <div class="form-group">
+            <label class="control-label">Description of the product</label>
+            <textarea class="form-control" rows="3" name="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="id_tags">Tags: Topics under which the Product might fall</label>
+            {% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Relevent tags help your product reach out to the right market" %}
+          </div>
+          <div class="form-group">
+            <div class="hide">
+              <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+                <input id="id_image_0" type="file" name="image0">
+              </span>
+            </div>
+            <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+              <span class="fa fa-camera"></span> Add Photo
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="img_pre hide" data-index=0>
+            </div>
+          </div>
+          <div class="checkbox">
+            <h4>Target Segments</h4>
+            <label><input type="checkbox" name="A" value="A">Small &amp; Medium Scale Enterprises</label>
+            <label><input type="checkbox" name="B" value="B">Engineers &amp; Managers From Large Industries</label>
+            <label><input type="checkbox" name="C" value="C">Baja/ Formula related Teams</label>
+            <label><input type="checkbox" name="O" value="O">College Students</label>
+          </div>
+          <button class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
