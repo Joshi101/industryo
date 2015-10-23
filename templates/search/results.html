@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if what == "workplace" %}
+{% for q in query %}
+<li><a href="{% url 'workplace:workplace_profile' q.slug %}">{{ q.title }}</a></li>
+{% endfor %}
+
+{% elif what == "user" %}
+{% for q in query %}
+<li><a href="{% url 'user:profile' q.username %}">{{ q.get_full_name }}</a></li>
+{% endfor %}
+
+{% elif what == "products" %}
+{% for q in query %}
+<li><a href="{% url 'products:product' q.slug %}">{{ q }}</a></li>
+{% endfor %}
+
+{% elif what == "questions" %}
+{% for q in query %}
+<li><a href="{% url 'forum:question' q.slug %}">{{ q.title }}</a></li>
+{% endfor %}
+
+{% elif what == "tags" %}
+{% for q in query %}
+<li><a href="{% url 'tags:get_tag' q.slug %}">{{ q }}</a></li>
+{% endfor %}
+
+{% elif what == "articles" %}
+{% for q in query %}
+<li><a href="{% url 'nodes:nodee' q.slug %}">{{ q.title }}</a></li>
+{% endfor %}
+
+
+{% endif %}
+
+{% endblock content %}
