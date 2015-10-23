@@ -1,4 +1,6 @@
 {% for o in objects %}
-	<li class="list-group-item option"><span type="hidden" class="option_value">{{o.username}}</span>
-	<span class="text-muted option_type">{{o.get_full_name}}({{o.userprofile.primary_workplace}})</span></li>
+	<li class="list-group-item option">
+		<span class="option_extra">{{o.get_full_name}} <span class="text-muted">({{o.userprofile.primary_workplace}})</span></span>
+		<span class="option_value text-info pull-right">{{o.username}}</span>
+	</li>
 {% endfor %}

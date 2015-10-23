@@ -1363,7 +1363,7 @@ div[data-role='editor-toolbar'] {
 }
 
 .side_head {
-  padding: 3px 5px;
+  padding: 0 5px;
   margin-bottom: 10px;
   border-bottom: 1px solid #9d9d9d;
   //background-color: #dff0d8;
@@ -1400,6 +1400,7 @@ div[data-role='editor-toolbar'] {
 }
 
 .wp_list .name_user{
+  overflow: hidden;
   display: block;
 }
 
@@ -1995,4 +1996,13 @@ footer .contact li{
 
 .side_product img{
   width: 100%;
+}
+
+.conversation .thumb_small{
+  float: left;
+  border: 1px solid #aaa;
+}
+
+.option{
+  position: relative;
 }

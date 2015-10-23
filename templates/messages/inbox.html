@@ -8,10 +8,9 @@
   {% if messages %}
   <ul class="conversation">
     {% for message in messages %}
-      {% include 'snippets/partial_message.html' with message=message %}
+      {% include 'messages/partial_message.html' with message=message %}
     {% endfor %}
     <li class="send-message">
-      
       <div style="margin-top: .3em">
         <form role="form" method="post" action="{% url 'messages:send_message' %}" id="send">
           {% csrf_token %}

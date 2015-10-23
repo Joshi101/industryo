@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 
 
-{% block content %}
-  {% include "messages/new_modal.html" with url='messages:new' %}
-  <div class="page-header">
-    <a class="btn btn-success pull-right"  data-toggle='modal' data-target='#msg_modal'><i class="fa fa-file-text-o inline_fa"></i> New message</a>
-    <h1>{% block page_header %}{% endblock %}</h1>
-  </div>
-  <div class="row" style="margin-top: 1em">
-    <div class="col-md-3">
-      {% include 'snippets/partial_conversations.html' with conversations=conversations active=active %}
+{% block body %}
+  <div class="container">
+    {% include "messages/new_modal.html" with url='messages:new' %}
+    <div class="page-header">
+      <a class="btn btn-success pull-right"  data-toggle='modal' data-target='#msg_modal'><i class="fa fa-file-text-o inline_fa"></i> New message</a>
+      <h1>{% block page_header %}{% endblock %}</h1>
     </div>
-    <div class="col-md-9">
-      {% block container %}
-      {% endblock container %}
+    <div class="row" style="margin-top: 1em">
+      <div class="col-md-3">
+        {% include 'messages/partial_conversations.html' with conversations=conversations active=active %}
+      </div>
+      <div class="col-md-9">
+        {% block container %}
+        {% endblock container %}
+      </div>
     </div>
   </div>
-{% endblock content %}
+{% endblock body %}

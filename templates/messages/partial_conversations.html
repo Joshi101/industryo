@@ -10,7 +10,7 @@
   {% for conversation in conversations %}
     <a href="{% url 'messages:messages' conversation.user.username %}" 
       class="list-group-item{% if active == conversation.user.username %} active{% endif %}">
-      <img src="{{ conversation.user.userprofile.get_profile_ }}" class="conversation-portrait">
+      <img src="{{ conversation.user.userprofile.get_profile_image }}" class="conversation-portrait">
       <span class="name">{{ conversation.user.userprofile.get_name }}</span>
       {% if conversation.unread > 0 %}
         <span class="badge pull-right">{{ conversation.unread }}</span>
