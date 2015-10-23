@@ -1254,6 +1254,7 @@ $(document).ready(function(){
             },
 
             error: function(xhr, errmsg, err) {
+                $this.html("<p class='text-center'>Yoo..<br>Content lost its way ... :/</p>");
                 console.log(errmsg, err, url);
             }
         });

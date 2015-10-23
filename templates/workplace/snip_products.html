@@ -1,8 +1,6 @@
-<h3 class="text-muted detail_head">
+<h3 class="text-muted text-center">
 	{% if request.user.userprofile in members %}
-	
 	<a href="{% url 'products:add_product' %}">Add Products</a>
-
 	{% endif %}
 </h3>	
 <form class="edit_product hide" action="{% url 'products:add_product' %}" method="POST" role="form">
@@ -32,12 +30,12 @@
 	<li class="product col-sm-4">
 		<img src="{{product.get_image}}">
 		<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
+		<div class="product_desc">{{ product.description }}</div>
 		<div class="product_tags tags">
 			{% for tag in product.get_tags %}
 				<a href="{% url 'tags:get_tag' tag.slug %}"><span class="label label-info">{{tag}}</span></a>
 			{% endfor %}
 		</div>
-		<div class="product_desc">{{ product.description }}</div>
 	</li>
 {% endfor %}
 </ul>

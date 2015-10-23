@@ -1363,7 +1363,8 @@ div[data-role='editor-toolbar'] {
 }
 
 .side_head {
-  padding: 0 5px;
+  padding: 0 5px 5px;
+  font-size: 1.2em;
   margin-bottom: 10px;
   border-bottom: 1px solid #9d9d9d;
   //background-color: #dff0d8;
@@ -1416,6 +1417,10 @@ div[data-role='editor-toolbar'] {
 #right {
   position: relative;
   overflow: hidden;
+}
+
+#right img{
+  border: 1px solid #ccc;
 }
 
 @media (max-width: 768px) {
@@ -1486,7 +1491,7 @@ div[data-role='editor-toolbar'] {
   overflow: hidden;
 
   width: 50%;
-  height: 97px;
+  height: 100px;
   margin-bottom: 20px;
 
   list-style: none;
@@ -1495,7 +1500,7 @@ div[data-role='editor-toolbar'] {
 .product img {
   float: left;
 
-  width: 95px;
+  height: 100px;
   margin-right: 7px;
 
   border: 1px solid #ccc;
@@ -1509,9 +1514,15 @@ div[data-role='editor-toolbar'] {
 }
 
 .product_desc {
-  line-height: 17px;
-
+  line-height: 16px;
+  font-size: 13px;
+  height: 50px;
   color: #666;
+}
+
+.product .tags{
+  padding: 0;
+  height: 25px;
 }
 
 .little_edit {
@@ -1615,7 +1626,7 @@ h4 > .edit_post:hover {
 
 .ppl_info{
   padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
 }
 
 .ppl_list .name_user{
@@ -1880,8 +1891,8 @@ footer .contact li{
   font-size: 1em;
   font-family: 'Calibri';
   color: #666;
-  background-color: #eef;
-  border: 1px solid #ddf;
+  background-color: #f2f2f2;
+  border: 1px solid #c0c0c0;
 }
 
 .side_show ul{
