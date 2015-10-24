@@ -110,7 +110,7 @@ def tag_search(request):
         return render(request, 'search/search.html')
 
 
-def person_search(request):
+def user_search(request):
     if 'q' in request.GET:
         querystring = request.GET.get('q')
         terms = querystring.split(' ')
