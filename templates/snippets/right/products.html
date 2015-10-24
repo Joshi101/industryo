@@ -1,7 +1,7 @@
 <div class="side_head">Products</div>
 <ul class="pd_list row">
 {% for product in products %}
-	<li class="side_product col-sm-6">
+	<li class="side_product col-sm-4">
 		<a href="{% url 'products:product' product.slug %}">
 			<img src="{{product.get_image}}">
 			<div class="text-center">{{product}}</div>

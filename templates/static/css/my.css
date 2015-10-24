@@ -1484,6 +1484,7 @@ div[data-role='editor-toolbar'] {
 
 #products_list {
   padding-left: 7px;
+  margin-top: 40px;
 }
 
 .product {
@@ -1514,14 +1515,17 @@ div[data-role='editor-toolbar'] {
 }
 
 .product_desc {
+  margin-left: 105px;
+  padding: 5px 0 12px;
   line-height: 16px;
   font-size: 13px;
   height: 50px;
-  color: #666;
+  color: #777;
+  border-top: 1px solid #eee;
 }
 
 .product .tags{
-  padding: 0;
+  padding-top: 2px;
   height: 25px;
 }
 
@@ -1782,10 +1786,15 @@ footer .contact li{
   //font-size: 0.9em;
   line-height: 20px;
   display: inline-block;
-  padding: 1px 5px;
+  padding: 0 5px;
   background-color: transparent;
   border: 1px solid #ddd;
   margin: 0 5px 5px 0;
+    font-size: 85%;
+    color: #000;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
 }
 
 .tag:hover{
