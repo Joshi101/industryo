@@ -9,6 +9,9 @@ urlpatterns = patterns('',
     url(r'^random/$', 'products.views.random', name='random'),
     url(r'^delete/$', 'products.views.delete', name='delete'),
     url(r'^add_product/$', 'products.views.add_product', name='add_product'),
+    url(r'^(?P<id>[^/]+)/edit_desc/$', 'products.views.edit_desc', name='edit_desc'),
+    url(r'^(?P<id>[^/]+)/change_image/$', 'products.views.change_image', name='change_image'),
     url(r'^(?P<slug>[^/]+)/$', 'products.views.product', name='product'),
+    url(r'^(?P<slug>[^/]+)/set_tags_short/$', 'products.views.set_tags_short', name='set_tags_short'),
 
 )

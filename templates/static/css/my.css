@@ -795,7 +795,7 @@ pre {
   padding: 10px 5px 2px;
 }
 
-.tags a:hover {
+.tag:hover {
   text-decoration: none;
 }
 
@@ -1341,10 +1341,8 @@ div[data-role='editor-toolbar'] {
   padding-left: 5px;
 }
 
-#workplace_info {
-  margin-top: 5px;
-  margin-bottom: 51px;
-  padding-bottom: 1px;
+.info_head {
+  margin-bottom: 10px;
 }
 
 .info_field_edit form{
@@ -1468,17 +1466,21 @@ div[data-role='editor-toolbar'] {
   border: 1px solid #ccc;
 }
 
-.member > div {
-  line-height: 25px;
+.member{
+  overflow: hidden;
 }
 
 .member_name {
+  line-height: 18px;
+  margin-bottom: 2px;
   font-weight: bold;
+  border-bottom: 1px solid #eee;
 
   color: #333;
 }
 
 .member_position {
+  font-size: 0.9em;
   color: #666;
 }
 
@@ -1569,7 +1571,9 @@ textarea.replacer {
 }
 
 .d_edit {
-  margin-top: 10px;
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
 }
 
 .tag_short a:hover {
@@ -1787,11 +1791,11 @@ footer .contact li{
   line-height: 20px;
   display: inline-block;
   padding: 0 5px;
-  background-color: transparent;
+  background-color: #eee;
   border: 1px solid #ddd;
   margin: 0 5px 5px 0;
     font-size: 85%;
-    color: #000;
+    color: #179;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -1842,7 +1846,8 @@ footer .contact li{
 }
 
 .d_search .tag{
-  background-color: #999;
+  //background-color: #999;
+  color: #555;
 }
 
 .info_title{
@@ -1864,6 +1869,10 @@ footer .contact li{
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.done_edit{
+  top: 10px;
 }
 
 .info_labels{
@@ -2025,4 +2034,32 @@ footer .contact li{
 
 .option{
   position: relative;
+}
+
+.prod_img{
+  margin-bottom: 20px;
+}
+
+.prod_img a{
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 10px;
+}
+
+.prod_img img{
+  width: 100%;
+  border: 1px solid #ccc;
+  max-width: 400px;
+  display: block;
+}
+
+.prod_desc{
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  margin-bottom: 20px;
+}
+
+#wp_nav{
+  margin-top: 40px;
 }

@@ -14,6 +14,6 @@
       <a class="list-group-item list-group-item-info create"><i class="fa fa-plus"></i> Create Now</a>
     </ul>
   </div>
-  <input class="d_type" name="type" value="{{type}}" type="hidden">
+  <input class="d_type" name="type" value="{% if type %}{{type}}{% else %}All{% endif %}" type="hidden">
   <input class="d_value" name={{search}} value="{% for tag in tags %}{{tag}}{% if not forloop.last %},{% endif %}{% endfor %}" type="hidden" autocomplete=off>
 </div>
