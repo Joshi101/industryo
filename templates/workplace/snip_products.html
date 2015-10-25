@@ -2,29 +2,7 @@
 	{% if request.user.userprofile in members %}
 	<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-cubes inline_fa"></i>Add Products</a>
 	{% endif %}
-</h3>	
-<!-- <form class="edit_product hide" action="{% url 'products:add_product' %}" method="POST" role="form">
-	{% csrf_token %}
-	<div class="form-group">
-		<label class="control-label">Name of product</label>
-		<input class="form-control" name="product">
-	</div>
-	<div class="form-group">
-		<label class="control-label">Description of the product</label>
-		<textarea class="form-control" rows="3" name="description"></textarea>
-	</div>
-	<div class="form-group">
-    <label class="control-label" for="id_tags">Tags</label>
-			{% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=area %}
-	  <p class="help-block">
-      Use , (comma) to separate the tags, such as "asp.net,mvc5,javascript"
-    </p>
-	</div>
-	<div class="form-group">
-		<button class="btn btn-primary form-ajax">Submit</button>
-	</div>
-</form>
- -->
+</h3>
 {% include "products/new_modal.html" %}
 <ul id="products_list" class="row products_list">
 {% for product in products %}

@@ -130,6 +130,26 @@ def person_search(request):
         return render(request, 'search/search.html')
 
 
+def user_search(request):
+    if 'q' in request.GET:
+        querystring = request.GET.get('q')
+        terms = querystring.split(' ')
+        what = "user"
+        if not terms:
+            return redirect('/search/')
+        query = None
+        for term in terms:
+            q = User.objects.filter(Q(first_name__icontains=term) | Q(last_name__icontains=term)) | Q(username__icontains=term)
+
+            if query is None:
+                query = q
+            else:
+                query = query & q
+        return render(request, 'search/results.html', locals())
+    else:
+        return render(request, 'search/search.html')
+
+
 def workplace_search(request):
     if 'q' in request.GET:
         querystring = request.GET.get('q')

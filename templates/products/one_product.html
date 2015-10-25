@@ -1,43 +1,70 @@
 {% extends "base.html" %}
 
-{% block title %} CoreLogs - {{product}} {% endblock title %}
+{% block title %}{{product}}{% endblock title %}
 
 {% block content %}
-<div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
-  <div class="col-sm-8 info_left">
-    <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ product }}</h1>
-    <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-      <div class="info_field_value" property='addressRegion'>
-        {% for t in tags %}
-          <div class="tag"><span class="value">{{t}}</span></div>
-        {% empty %}
-          <span class="none text-muted">Add Product tags for categorization</span>
-        {% endfor %}
+  {% include "snippets/img_upload_modal.html" with url='products:change_image' url_slug=product.id form=prod_img_form.image %}
+  <div class="row info_head" typeof='Organization' resource='#workplace'>
+    <div class="col-sm-8 info_left">
+      <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ product }}</h1>
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+          {% for tag in tags %}
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag">{{tag}}</a>
+          {% empty %}
+            <span class="none text-muted">Add Product tags for categorization</span>
+          {% endfor %}
+        </div>
+        {% if user.userprofile in members %}
+        <div class="info_field_edit">
+          <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+          <form class="edit_{{category}} d_edit hide" action="{% url 'products:set_tags_short' product.slug %}" method="POST" role="form">
+            {% csrf_token %}
+            {% include "snippets/d_search_tags.html" with search="tag" tags=tags %}
+          </form>
+          <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="info_labels">
+        <span class="label label-default">{{product.producer}}</span>
+      </div>
+      <div class="info_labels">
+        <span class="label label-default">Added by : {{ product.user }}</span>
       </div>
     </div>
   </div>
-  <div class="col-sm-4">
-    <div class="info_labels">
-      <span class="label label-default">{{product.producer}}</span>
+  <div class="prod_img">
+    <img src="{{product.get_image}}">
+    {% if user.userprofile in members %}
+    <a class="text-center" data-toggle='modal' data-target='#img_upload_modal'><i class="fa fa-wrench inline_fa"></i>Change Image</a>
+    {% endif %}
+  </div>
+  <div class="panel panel-default ajax_andar ajax_papa">
+    <div class="panel-heading">
+      <h3 class="text-muted detail_head">
+        Product Description
+        {% if request.user.userprofile in members %}
+        <form id="prod_desc_form" class="pull-right" action="{% url 'products:edit_desc' product.id %}" method="POST">
+          <button data-content="capabilities_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+        </form>
+        {% endif %}
+      </h3>
     </div>
-    <div class="info_labels">
-      <span class="label label-default">Uploaded by: {{ product.user }}</span>
+    <div class="panel-body">
+      <p class="detail_body content_capabilities_w">{{ product.description }}</p>
+      <textarea name="description" form="prod_desc_form" rows="3" class="form-control edit_capabilities hide"></textarea>
     </div>
   </div>
-  </div>
-  <a>
-	 <img src="{{product.get_image}}" style="border: 1px solid #000; max-width:500px; max-height:500px;">
-  </a>
-  <div>
-	 <p id="wp_name"  property='name'>{{ product.description }}</p>
+  <div class="prod_desc">
+   <p property='name'>{{ product.description }}</p>
   </div>
 {% endblock %}
 
-
 {% block right %}
-	<div class="side_help">
+	<div class="side_show">
 		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
   </div>
-  
 {% endblock right %}
-

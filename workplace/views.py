@@ -166,22 +166,22 @@ def workplace_profile(request, slug):
     tags = workplace.get_tags()
     type = workplace.workplace_type
     if type == 'C':
-        tag1 = tags['city']
+        tags1 = tags['city']
         a_type = 'C'
-        tag2 = tags['institution']
+        tags2 = tags['institution']
         b_type = 'P'
     elif type == 'B':
-        tag1 = tags['city']
+        tags1 = tags['city']
         a_type = 'C'
-        tag2 = tags['segments']
+        tags2 = tags['segments']
         b_type = 'S'
     elif type == 'A':
-        tag1 = tags['city']
+        tags1 = tags['city']
         a_type = 'C'
-        tag2 = tags['segments']
+        tags2 = tags['segments']
         b_type = 'S'
     elif type == 'O':
-        tag1 = tags['city']
+        tags1 = tags['city']
         a_type = 'C'
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
