@@ -1,14 +1,6 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <!-- <div class="navbar-brand" title="Its the defining feature.. under construction!" data-toggle="tooltip" data-placement="bottom">
-        <form id="top_search" action="" role="form">
-          <div class="has-feedback">
-            <input type="text" class="form-control" name="q" placeholder="Advanced Lookup ...">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-          </div>
-        </form>
-      </div> -->
       <a class="navbar-brand nav_a_home" href="{% url 'home' %}">
         <span class="fa fa-home"></span>
         <span> CoreLogs</span>
@@ -21,10 +13,6 @@
         <span class="fa fa-book"></span>
         <span> Articles</span>
       </a>
-	  <form id="search" action="{% url 'search' %}">
-          <input type="text" id="search-text" name="q" placeholder="Search" required>
-          <input type="submit" id="search-button" value="Go">
-      </form>
       {% if user.is_authenticated or request.path != '/' %}
       <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
         <span class="icon-bar"></span>
@@ -124,3 +112,32 @@
     </div>
   </div>
 </nav>
+<div id="top_search" class="container">
+  <form action="{% url 'search' %}" role="form">
+    <div class="form-group">
+      <div class="input-group input-group-sm">
+        <span id="search_typ" class="input-group-btn">
+          <div class="dropdown select_dropdown" data-name="what">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+              <span class="value">{{what|capfirst}}</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a>Questions</a></li>
+              <li><a>Articles</a></li>
+              <li><a>Tags</a></li>
+              <li><a>Users</a></li>
+              <li><a>Workplaces</a></li>
+              <li><a>Products</a></li>
+            </ul>
+          </div>
+        </span>
+        <input class="form-control input-sm" name="q" placeholder="{{querystring}}">
+        <span class="input-group-btn">
+          <button class="btn btn-default"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </div>
+    <input class="what" type="hidden" name="what" value="{{what}}">
+  </form>
+</div>

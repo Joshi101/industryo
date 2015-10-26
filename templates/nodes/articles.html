@@ -2,6 +2,11 @@
 
 {% block title %} CoreLogs - The Engineer's Blog {% endblock title %}
 
+
+{% block top %}
+	{% include "snippets/top_navigation.html" with what='Articles' %}
+{% endblock top %}
+
 {% block content %}
 	<div class="panel panel-success bg-info">
 		<div class="panel-body">

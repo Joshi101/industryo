@@ -1367,3 +1367,13 @@ $('.nav-pills').on('click', 'li', function(){
     $(this).addClass('active');
     $(this).siblings('li').removeClass('active');
 })
+
+$('.select_dropdown').on('click', '.dropdown-menu a', function(){
+    console.log($(this).text());
+    var what = $(this).text();
+    var sd = $('.select_dropdown');
+    sd.find('.value').text(what);
+    sd.closest('form').find('.what').val(what.toLowerCase());
+    var s_url = '/search/'+what.toLowerCase()
+    /*sd.closest('form').attr('action',s_url);*/
+});
