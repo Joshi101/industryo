@@ -7,7 +7,7 @@
             </div>
             <div class="panel-body">
 			  {% if interest.description %}
-              {{interest.description|truncatechars:90}}
+              {{interest.description|truncatewords:15}}
 			  {% else %}
 			  Describe it now!
 			  {% endif %}

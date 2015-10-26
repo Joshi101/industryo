@@ -65,7 +65,7 @@ def home(request):
 
 def home_right(request):
     user = request.user
-    questions = Question.objects.all().order_by('-last_active')[:5]
+    questions = Question.objects.all().order_by('?')[:5]
     if user.userprofile.primary_workplace:
         profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
         workplace = profile.primary_workplace
@@ -73,7 +73,6 @@ def home_right(request):
         workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
     else:
         workplaces = Workplace.obects.all().order_by('?')[:5]
-    print('yaha to aya')
     return render(request, 'snippets/right/home_right.html', {'workplaces': workplaces, 'questions': questions})
 
 

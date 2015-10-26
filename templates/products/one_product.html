@@ -15,7 +15,7 @@
             <span class="none text-muted">Add Product tags for categorization</span>
           {% endfor %}
         </div>
-        {% if user.userprofile in members %}
+        {% if user == product.user %}
         <div class="info_field_edit">
           <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
           <form class="edit_{{category}} d_edit hide" action="{% url 'products:set_tags_short' product.slug %}" method="POST" role="form">
@@ -29,16 +29,16 @@
     </div>
     <div class="col-sm-4">
       <div class="info_labels">
-        <span class="label label-default">{{product.producer}}</span>
+	  <a href="{% url 'workplace:workplace_profile' product.producer.slug %}" class="tag"><span class="value">{{product.producer}}</span></a>
       </div>
       <div class="info_labels">
-        <span class="label label-default">Added by : {{ product.user }}</span>
+        <a href="{% url 'user:profile' product.producer.slug %}" class="tag"><span class="value">{{product.user.username}}</span></a>
       </div>
     </div>
   </div>
   <div class="prod_img">
     <img src="{{product.get_image}}">
-    {% if user.userprofile in members %}
+    {% if user == product.user %}
     <a class="text-center" data-toggle='modal' data-target='#img_upload_modal'><i class="fa fa-wrench inline_fa"></i>Change Image</a>
     {% endif %}
   </div>
@@ -46,7 +46,7 @@
     <div class="panel-heading">
       <h3 class="text-muted detail_head">
         Product Description
-        {% if request.user.userprofile in members %}
+        {% if request.user == product.user %}
         <form id="prod_desc_form" class="pull-right" action="{% url 'products:edit_desc' product.id %}" method="POST">
           <button data-content="capabilities_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
         </form>
@@ -58,9 +58,7 @@
       <textarea name="description" form="prod_desc_form" rows="3" class="form-control edit_capabilities hide"></textarea>
     </div>
   </div>
-  <div class="prod_desc">
-   <p property='name'>{{ product.description }}</p>
-  </div>
+  
 {% endblock %}
 
 {% block right %}

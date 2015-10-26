@@ -1,0 +1,21 @@
+<div class="row">
+      {% for w in result_list %}
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+				
+              <h4><a href="{% url 'workplace:workplace_profile' w.slug %}"><img src="{{ w.get_logo }}" style="width:50px">{{w|capfirst}}</a></h4> ({{w.get_type}})
+            </div>
+            <div class="panel-body">			  
+			  <li>{{w.get_count}} people registered</li>
+			  {% if w.get_tags.city %}
+			  City: {% for tag in w.get_tags.city %}
+				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>
+				{% endfor %}
+				{% endif %}
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
+      {% endfor %}
+    </div>

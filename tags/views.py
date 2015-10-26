@@ -32,10 +32,8 @@ def search_tag(request):
         tag = request.GET['the_query']
         type = request.GET['the_type']
         if type == 'All':
-            print(type)
             o = Tags.objects.filter(tag__icontains=tag)[:6]
         else:
-            print(type)
             o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
         return render(request, 'tags/list.html', {'objects': o})
     else:
@@ -58,6 +56,7 @@ def get_tag(request, slug):
     workplaces = tag.wptags.all()
     articles = Node.article.filter(tags=tag)
     tag_logo_form = SetTagLogoForm()
+    wptags = WpTags.objects.filter(tags=tag)
 
     return render(request, 'tags/tag.html', locals())
 

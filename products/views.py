@@ -98,6 +98,7 @@ def delete(request):
 
 @login_required
 def edit_desc(request, id):
+    print('dsds')
     p = Products.objects.get(id=id)
     user = request.user
     workplace = user.userprofile.primary_workplace
@@ -135,7 +136,6 @@ def random(request):
         products = Products.objects.all().order_by('?')[:6]
     else:
         products = Products.objects.all().order_by('?')[:6]
-    print(products)
     return render(request, 'snippets/right/products.html', {'products': products})
 
 

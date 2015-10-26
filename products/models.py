@@ -71,6 +71,14 @@ class Products(models.Model):
         else:
             return default_image
 
+    def get_image_thumbnail(self):
+        default_image = '/images/main/product.jpg'
+        if self.image:
+            image_url = '/images/'+str(self.image.image_thumbnail)
+            return image_url
+        else:
+            return default_image
+
     def set_target_segments(self, li):
         l = len(li)
         print(l)

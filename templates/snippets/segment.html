@@ -1,5 +1,5 @@
-{% for segment in workplace.get_tags.segments %}
-	<div class="tag"><span class="value">{{segment}}</span></div>
+{% for a in workplace.get_tags.segments %}
+	<a href="{% url 'tags:get_tag' a.slug %}" class="tag"><span class="value">{{a}}</span></a>
 {% empty %}
   {% if workplace.workplace_type == 'A' %}
 	Add segments (Automobile/ Aerospace/ Consultancy/ Manufacturing etc.)

@@ -42,13 +42,9 @@ class Question(models.Model):
 
         super(Question, self).save(*args, **kwargs)
 
-    def get_all_question(self):
-        all_question = Question.objects.all()[:50]
-        return all_question
-
-    def get_unanswered(self):
-        all_unanswered = Question.objects.filter(answered=False)[:20]
-        return all_unanswered
+    # def get_detail_preview(self):
+    #     if self.question:
+    #         detail = s
 
     def get_tagged(self, tag):
         all_tagged = Question.objects.filter()

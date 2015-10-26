@@ -34,8 +34,8 @@
 
 	<ul class="nav nav-tabs">
 	  <li class="active"><a data-toggle="tab" href="#questions">Questions</a></li>
-	  <li><a data-toggle="tab" href="#answers">Answers</a></li>
 	  <li><a data-toggle="tab" href="#articles">Articles</a></li>
+	  <li><a data-toggle="tab" href="#workplaces">Workplaces</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -44,12 +44,19 @@
 				{% include 'forum/one_question.html' with q=question %}
 			{% endfor %}
 	  </div>
-	  <div id="answers" class="tab-pane fade">
-	  </div>
+	  
 	  <div id="articles" class="tab-pane fade">
-	  	{% for article in articles %}
+			{% for article in articles %}
 				{% include 'nodes/one_article.html' with node=article %}
 			{% endfor %}
 	  </div>
+	  <div id="workplaces" class="tab-pane fade">
+			{% if wptags %}
+			{% include 'tags/21_workplaces.html' with result_list=wptags %}
+			</div>
+			{% endif %}
+	  </div>
+	  
+	  
 	</div>
 {% endblock %}

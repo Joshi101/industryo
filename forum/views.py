@@ -469,7 +469,7 @@ def set_things_right(request):
 
 
 def popular(request):
-    questions = Question.objects.all().order_by('-votes')[:5]
+    questions = Question.objects.all().order_by('?')[:5]
     return questions
 
 

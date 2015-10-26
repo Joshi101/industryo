@@ -280,6 +280,16 @@ class Workplace(models.Model):
         ups = self.userprofile_set.all()
         return ups
 
+    def get_type(self):
+        if self.workplace_type == 'A':
+            return "Large Scale Industry"
+        elif self.workplace_type == 'B':
+            return "Small / Medium Scale Enterprise"
+        elif self.workplace_type == 'C':
+            return "SAE Collegiate Club"
+        elif self.workplace_type == 'O':
+            return "Educational Institution"
+
 
 class WpTags(models.Model):
     workplace = models.ForeignKey(Workplace, related_name='w_tags')
@@ -291,6 +301,27 @@ class WpTags(models.Model):
 
     class Meta:
         db_table = 'WpTags'
+
+    def get_display(self):
+        category = self.category
+        if category == 'C':
+            return "Exists in this city."
+        if category == 'E':
+            return "Participates in this Event."
+        if category == 'S':
+            return "Is related to this Segment."
+        if category == 'O':
+            return "Performs this Operation."
+        if category == 'M':
+            return "Deals in this Material"
+        if category == 'D':
+            return "Deals in this Product Category"
+        if category == 'A':
+            return "Exists in this city"
+        if category == 'I':
+            return "Exists in this Industrial Area"
+        else:
+            return "Oops this was remaining"
 
 
 

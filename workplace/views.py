@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, render_to_response
 from django.template.loader import render_to_string
 from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
 from workplace.models import *
@@ -307,7 +307,7 @@ def workplace_articles(request, id):
 
 def get_top_scorers(request, slug):
     workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('-points')[:3]
+    members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('?')[:3]
     return render(request, 'workplace/snippets/wp_right.html', {'people': members})
 
 
@@ -397,12 +397,24 @@ def fodder(request):
 
 
 def todder(request):
-    ob = UserProfile.objects.all()
-    for o in ob:
-        if o.primary_workplace:
-            a = o.primary_workplace
-            Workplaces.objects.create(userprofile=o, workplace=a, job_position=o.job_position)
-    return redirect('/')
+    workplaces = Workplace.objects.all().order_by('?')
+    paginator = Paginator(workplaces, 30)
+    page = request.GET.get('page')
+
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'workplace/20_workplaces.html', {'result_list': result_list})
+    else:
+        # return render(request, 'home.html', {'result_list': result_list})
+        return render(request, 'workplace/workplace_tag.html', {'result_list': result_list})
 # Create your views here.
 
 

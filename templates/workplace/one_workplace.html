@@ -1,0 +1,38 @@
+<div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
+    <div class="col-sm-8 info_left">
+      <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ workplace.name }}</h1>{{ workplace.get_type }}
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+		      City:
+          {% for tag in tags1 %}
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>
+		      {% endfor %}
+        </div>
+        
+      </div>
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+		    {% if b_type %}		
+		      {% if b_type == 'S' %}	
+		        Segments: {% include "snippets/segment.html" with workplace=workplace %}
+		      {% elif b_type == "C" %}
+		        Parent Institution:
+            {% for a in workplace.get_tags.institution %}
+            <a href="{% url 'tags:get_tag' a.slug %}" class="tag"><span class="value">{{a}}</span></a>
+		        {% endfor %}		
+		      {% endif %} 
+		    {% endif %} 
+        </div>
+        
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="info_labels">
+        <span class="label label-default">{{workplace.points}} points</span>
+      </div>
+      <div class="info_labels">
+        <span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span>
+      </div>
+    </div>
+  </div>
+  <ul id="wp_nav" class="nav nav-pills">
