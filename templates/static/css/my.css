@@ -337,7 +337,19 @@ pre {
 
 
 #top_search {
-  margin: -7px 0 0;
+  max-width: 500px;
+  position: relative;
+  top:42px;
+  margin: 0 auto;
+  border-bottom: 1px solid #ddd;
+}
+
+#top_search .input-group-btn > .btn{
+  border-radius: 0;
+}
+
+#search_typ .btn{
+  border-right: 0;
 }
 
 #notifications .badge {
@@ -2062,4 +2074,9 @@ footer .contact li{
 
 #wp_nav{
   margin-top: 40px;
+}
+
+.side_product div{
+  height: 20px;
+  overflow: hidden;
 }

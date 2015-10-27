@@ -7,6 +7,11 @@
 
 {% block page_id %}workplace{% endblock page_id %}
 
+
+{% block top %}
+  {% include "snippets/top_navigation.html" with what='Products' %}
+{% endblock top %}
+
 {% block left %}
 	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" property='logo' typeof='ImageObject'>
