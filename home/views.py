@@ -64,15 +64,19 @@ def home(request):
 
 
 def home_right(request):
-    user = request.user
     questions = Question.objects.all().order_by('?')[:5]
-    if user.userprofile.primary_workplace:
-        profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
-        workplace = profile.primary_workplace
-        t = workplace.workplace_type
-        workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
+
+    if request.user.is_authenticated():
+
+        if request.user.userprofile.primary_workplace:
+            # profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+            # workplace = profile.primary_workplace
+            t = request.user.userprofile.primary_workplace.workplace_type
+            workplaces = Workplace.objects.filter(workplace_type=t).order_by('?')[:5]           # change it soon
+        else:
+            workplaces = Workplace.objects.all().order_by('?')[:5]
     else:
-        workplaces = Workplace.obects.all().order_by('?')[:5]
+        workplaces = Workplace.objects.all().order_by('?')[:5]
     return render(request, 'snippets/right/home_right.html', {'workplaces': workplaces, 'questions': questions})
 
 

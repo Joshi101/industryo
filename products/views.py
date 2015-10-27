@@ -129,11 +129,14 @@ def change_image(request, id):
 
 
 def random(request):
-    user = request.user
-    if user.userprofile.primary_workplace:
-        a = user.userprofile.primary_workplace.workplace_type
-        print(a)
-        products = Products.objects.all().order_by('?')[:6]
+    if request.user.is_authenticated():
+        user = request.user
+        if user.userprofile.primary_workplace:
+            a = user.userprofile.primary_workplace.workplace_type
+            print(a)
+            products = Products.objects.all().order_by('?')[:6]
+        else:
+            products = Products.objects.all().order_by('?')[:6]
     else:
         products = Products.objects.all().order_by('?')[:6]
     return render(request, 'snippets/right/products.html', {'products': products})
