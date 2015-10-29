@@ -16,7 +16,7 @@
 	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" property='logo' typeof='ImageObject'>
     {% if user.userprofile.primary_workplace == workplace %}
-    <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
+    <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
     {% endif %}
   </div>
 	<div class="account">
@@ -90,7 +90,9 @@
     {% elif type != 'O' %}
     <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:capabilities" workplace.slug %}">Capabilities</a></li>
     {% endif %}
-    {% if type == 'B' %}
+    {% if type == 'A' %}
+		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Products/ Services</a></li>
+	{% elif type == 'B' %}
 		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Products/ Services</a></li>
     {% elif type == 'C' %}
 		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Our Cars</a></li>

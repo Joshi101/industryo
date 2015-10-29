@@ -135,7 +135,6 @@ class Workplace(models.Model):
                 except Exception:
                     t = Tags.objects.create(tag=m, type='A')
                 li.append(t)
-                print(t)
                 t.count += 1
                 t.save()
             for t in li:

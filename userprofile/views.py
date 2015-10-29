@@ -69,25 +69,50 @@ def edit(request):
         return render(request, 'userprofile/edit.html', {'form': form})
 
 
-@login_required
+# @login_required
+# def set_interests(request):
+#     if request.method == 'POST':
+#         response = {}
+#         r_html = {}
+#         r_elements = []
+#         user = request.user
+#         up = user.userprofile
+#         interests = request.POST.get('value')
+#         if type == 'All':
+#             up.set_interests(interests)
+#         up.set_interests(interests)
+#         new_interest = user.userprofile.interests.get(tag=interests)
+#         r_elements = ['detail_body']
+#         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
+#         response['html'] = r_html
+#         response['elements'] = r_elements
+#         response['prepend'] = True
+#         return HttpResponse(json.dumps(response), content_type="application/json")
+#     else:
+#         return redirect('/user/'+request.user.username)
+
+
 def set_interests(request):
+    print("walla")
     if request.method == 'POST':
+        print("waka")
         response = {}
         r_html = {}
         r_elements = []
         user = request.user
         up = user.userprofile
-        interests = request.POST.get('value')
-        if type == 'All':
-            up.set_interests(interests)
-        up.set_interests(interests)
-        new_interest = user.userprofile.interests.get(tag=interests)
-        r_elements = ['detail_body']
-        r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        wp = user.userprofile.primary_workplace
+        # type = request.POST.get('type')
+        value = request.POST.get('tag')
+        if value:
+            t = wp.set_interests(value)
+            new_interest = t
+            r_elements = ['tag_container']
+            r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
+            response['html'] = r_html
+            response['elements'] = r_elements
+            response['prepend'] = True
+            return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
 

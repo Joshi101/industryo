@@ -25,17 +25,17 @@ class UserProfile(models.Model):
     profile_image = models.ForeignKey('nodes.Images', null=True, blank=True)
 
     interests = models.ManyToManyField(Tags, blank=True)
-    # area = models.ForeignKey('Area', null=True, blank=True)       # maybe m2m
     approved = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'userprofile'
 
     def __str__(self):
-        # if self.user.first_name:
-        return self.user.get_full_name()
-        # else:
-        #     return self.user.username
+        if self.user.first_name:
+            name = "%s %s" % (self.user.first_name, self.user.last_name)
+        else:
+            name = self.user.username
+        return name
 
     def get_name(self):
         if self.user.first_name:
@@ -69,13 +69,20 @@ class UserProfile(models.Model):
                 except Exception:
                     return default_image
 
-    def set_interests(self, interests):     # needs improvement
-        interests_tags = interests.split(',')
-        for m in interests_tags:
-            t, created = Tags.objects.get_or_create(tag=m)
-            t.count += 1
-            t.save()
-            self.interests.add(t)
+    def set_interests(self, interests):
+        if interests:
+            workplace_tags = interests.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag=m)
+                except Exception:
+                    t = Tags.objects.create(tag=m, type='T')
+                li.append(t)
+                t.count += 1
+                t.save()
+            self.interests = li
+            return li
 
     def get_interests(self):
         # page_user = User.objects.get(id=id)

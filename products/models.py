@@ -57,7 +57,6 @@ class Products(models.Model):
                 t.count +=1
                 t.save()
             self.tags = li
-            print('kabira maan ja')
 
     def get_tags(self):
         tags = self.tags.all()

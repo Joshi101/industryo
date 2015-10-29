@@ -4,6 +4,8 @@ from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
 from workplace.models import Workplace
 from forum.models import Question
+from tags.models import Tags
+from products.models import Products
 from itertools import chain
 from allauth.account.forms import AddEmailForm, ChangePasswordForm
 from allauth.account.forms import LoginForm, ResetPasswordKeyForm
@@ -16,8 +18,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from home import tasks
 from django.core.mail import EmailMultiAlternatives
-
-# import tasks
 
 
 def home(request):
@@ -83,6 +83,102 @@ def home_right(request):
 def home_right_down(request):
     questions = Question.objects.all().order_by('-last_active')[:5]
     return render(request, 'snippets/right/home_right_down.html', {'questions': questions})
+
+
+def people(request):
+    all_user = UserProfile.objects.all()
+    paginator = Paginator(all_user, 50)
+    page = request.GET.get('page')
+    try:
+        people = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        people = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        people = paginator.page(paginator.num_pages)
+
+    return render_to_response('sitemap/sitemap_user.html', {"list": people, "what": 'user'})
+
+
+def workplaces(request):
+    all_objects = Workplace.objects.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'workplace'})
+
+
+def questions(request):
+    all_objects = Question.objects.all()
+    paginator = Paginator(all_objects, 20)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'question'})
+
+
+def tags(request):
+    all_objects = Tags.objects.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'tag'})
+
+
+def articles(request):
+    all_objects = Node.article.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'article'})
+
+
+def products(request):
+    all_objects = Products.objects.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'product'})
 
 
 def about(request):

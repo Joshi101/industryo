@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %} CoreLogs | Sitemap {% endblock title %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href={% static 'css/accounts/signup.css' %}>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+<div class="col-md-3">
+	<a href="/about" class="list-group-item">
+	About Us
+	</a>
+	<a href="/contact" class="list-group-item">
+	Contact Us
+	</a>
+	<a href="/sitemap" class="list-group-item active">
+    Sitemap
+    </a>
+	<a href="/terms" class="list-group-item">
+    Terms & Privacy
+    </a>
+	<a href="/team" class="list-group-item">
+    Our Team
+    </a>
+</div>
+<div class="col-md-7">
+	{% if what == "user" %}
+		{% for ob in list %}
+		<li><a href='{% url 'user:profile' ob.user.username %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% elif what == "workplace" %}
+		{% for ob in list %}
+		<li><a href='{% url 'workplace:workplace_profile' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% elif what == "tag" %}
+		{% for ob in list %}
+		<li><a href='{% url 'tags:get_tag' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% elif what == "question" %}
+		{% for ob in list %}
+		<li><a href='{% url 'forum:question' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% elif what == "article" %}
+		{% for ob in list %}
+		<li><a href='{% url 'nodes:node' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% elif what == "product" %}
+		{% for ob in list %}
+		<li><a href='{% url 'products:product' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if list.has_previous %}
+            <a href="?page={{ list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ list.number }} of {{ list.paginator.num_pages }}.
+        </span>
+
+        {% if list.has_next %}
+            <a href="?page={{ list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+</div>
+	
+{% endblock body %}
+
+

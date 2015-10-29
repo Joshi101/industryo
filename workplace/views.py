@@ -368,15 +368,6 @@ def delete_tag(request):
 # def delete_tags
 
 
-def sitemap(request):
-    users = User.objects.all()
-    workplaces = Workplace.objects.all()
-    tags = Tags.objects.all()
-    questions = Question.objects.all()
-    articles = Node.article.all()
-    return render(request, 'workplace/sitemap.html', locals())
-
-
 def side_panel(request):
     user = request.user
     t = user.userprofile.primary_workplace.workplace_type

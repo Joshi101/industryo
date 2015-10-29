@@ -82,7 +82,7 @@ def add_product(request):
 
 def product(request, slug):
     product = Products.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=request.user.userprofile.primary_workplace.pk)
+    members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tags = product.tags.all()
     prod_img_form = SetLogoForm()
     return render(request, 'products/one_product.html', locals())
@@ -133,7 +133,6 @@ def random(request):
         user = request.user
         if user.userprofile.primary_workplace:
             a = user.userprofile.primary_workplace.workplace_type
-            print(a)
             products = Products.objects.all().order_by('?')[:6]
         else:
             products = Products.objects.all().order_by('?')[:6]
