@@ -1,0 +1,58 @@
+{% if what == "workplace" %}
+	{% for q in query %}
+	<a href="{% url 'workplace:workplace_profile' q.slug %}">
+		<li class="list-group-item option">{{ q.name }}</li>
+	</a>
+	{% empty %}
+	<li class="list-group-item option">Sorry, no results found</li>
+	{% endfor %}
+{% elif what == "user" %}
+	{% for q in query %}
+	<a href="{% url 'user:profile' q.username %}">
+		<li class="list-group-item option">{{ q.get_full_name }}</li>
+	</a>
+	{% empty %}
+	<li class="list-group-item option">Sorry, no results found</li>
+	{% endfor %}
+{% elif what == "products" %}
+	{% for q in query %}
+	<a href="{% url 'products:product' q.slug %}">
+		<li class="list-group-item option">{{ q }}</li>
+	</a>
+	{% empty %}
+	<li class="list-group-item option">Sorry, no results found</li>
+	{% endfor %}
+{% elif what == "questions" %}
+	{% for q in query %}
+	<a href="{% url 'forum:question' q.slug %}"><li class="list-group-item option">{{ q.title }}</li></a>
+	{% empty %}
+	<li class="list-group-item option">Sorry, no results found</li>
+	{% endfor %}
+{% elif what == "tags" %}
+	{% for q in query %}
+	<a href="{% url 'tags:get_tag' q.slug %}">
+		<li class="list-group-item option">{{ q }}</li>
+	</a>
+	{% empty %}
+	<li class="list-group-item option">Sorry, no results found</li>
+	{% endfor %}
+{% elif what == "articles" %}
+	{% for q in query %}
+	<a href="{% url 'nodes:node' q.slug %}">
+		<li class="list-group-item option">{{ q.title }}</li>
+	</a>
+	{% empty %}
+	<li class="list-group-item option">Sorry, no results found</li>
+	{% endfor %}
+{% endif %}
+	{% comment %}
+	{% ifequal create "create" %}
+	<li class="list-group-item-info"><a class="create"><span class="glyphicon glyphicon-plus"></span> Create now</a></li>
+	{% endifequal %}
+	{% ifequal create "create_new" %}
+	<li class="list-group-item-info"><a class='create_new' data-toggle="collapse" data-parent=""><span class="glyphicon glyphicon-plus"></span> Create new</a></li>
+	{% endifequal %}
+	{% ifequal create "" %}
+	<li class="no-select">Sorry, no match found</li>
+	{% endifequal %}
+	{% endcomment %}

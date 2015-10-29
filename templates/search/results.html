@@ -4,7 +4,7 @@
 
 {% if what == "workplace" %}
 {% for q in query %}
-<li><a href="{% url 'workplace:workplace_profile' q.slug %}">{{ q.title }}</a></li>
+<li><a href="{% url 'workplace:workplace_profile' q.slug %}">{{ q.name }}</a></li>
 {% endfor %}
 
 {% elif what == "user" %}

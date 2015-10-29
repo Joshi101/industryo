@@ -53,7 +53,7 @@ function doneTyping() {
             },
             success: function(result) {
                 //d_on = true;
-                //console.log(result);
+                console.log(result);
                 $d_search.find('.dropdown')
                     .find(".d_list").html(result);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
@@ -1376,4 +1376,9 @@ $('.select_dropdown').on('click', '.dropdown-menu a', function(){
     sd.closest('form').find('.what').val(what.toLowerCase());
     var s_url = '/search/'+what.toLowerCase()
     /*sd.closest('form').attr('action',s_url);*/
+});
+
+$('#top_search').on('focus', '.d_input', function(){
+    type = $('#top_search').find('.what').val().toLowerCase();
+    var d_s = $(this).closest('.d_search').find('.d_type').val(type);
 });

@@ -132,7 +132,8 @@
             </ul>
           </div>
         </span>
-        <input class="form-control input-sm" name="q" placeholder="{{querystring}}">
+        {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
+        <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
         <span class="input-group-btn">
           <button class="btn btn-default"><i class="fa fa-search"></i></button>
         </span>

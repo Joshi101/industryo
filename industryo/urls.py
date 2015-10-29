@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^count_notify/$', 'activities.views.count_notify', name='count_notify'),
 
     url(r'^search/$', 'search.views.search', name='search'),
+    url(r'^searchq/$', 'search.views.searchq', name='searchq'),
     url(r'^forum_search/$', 'search.views.forum_search', name='forum_search'),
     url(r'^article_search/$', 'search.views.article_search', name='article_search'),
     url(r'^product_search/$', 'search.views.product_search', name='product_search'),
