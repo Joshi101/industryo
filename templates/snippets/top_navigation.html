@@ -2,16 +2,16 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand nav_a_home" href="{% url 'home' %}">
-        <span class="fa fa-home"></span>
-        <span> CoreLogs</span>
+        <span class="fa fa-home inline_fa"></span>
+        <span>Home</span>
       </a>
       <a class="navbar-brand nav_a_forum" href="{% url 'forum:questions' %}">
-        <span class="fa fa-tasks"></span>
-        <span> Forum</span>
+        <span class="fa fa-tasks inline_fa"></span>
+        <span>Forum</span>
       </a>
       <a class="navbar-brand nav_a_articles" href="{% url 'nodes:articles' %}">
-        <span class="fa fa-book"></span>
-        <span> Articles</span>
+        <span class="fa fa-book inline_fa"></span>
+        <span>Articles</span>
       </a>
       {% if user.is_authenticated or request.path != '/' %}
       <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
