@@ -81,6 +81,7 @@ def add_product(request):
 
 
 def product(request, slug):
+
     product = Products.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tags = product.tags.all()

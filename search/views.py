@@ -75,14 +75,14 @@ def searchq(request):
             q = Workplace.objects.filter(name__icontains=term)
     elif what == 'products':            
         for term in terms:
-            q = Products.objects.filter(Q(title__icontains=term) | Q(detail__icontains=term))
+            q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
     # if query is None:
     #     query = q
     # else:
     #     query = query & q
     query = q
     for a in query:
-        print(a.name)
+        print(a)
     return render(request, 'search/list.html', {'query': query, 'what': what})
 
 def forum_search(request):

@@ -1,4 +1,4 @@
-{% if what == "workplace" %}
+{% if what == "workplaces" %}
 	{% for q in query %}
 	<a href="{% url 'workplace:workplace_profile' q.slug %}">
 		<li class="list-group-item option">{{ q.name }}</li>
@@ -6,10 +6,10 @@
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
-{% elif what == "user" %}
+{% elif what == "users" %}
 	{% for q in query %}
 	<a href="{% url 'user:profile' q.username %}">
-		<li class="list-group-item option">{{ q.get_full_name }}</li>
+		<li class="list-group-item option">{{ q.userprofile }}</li>
 	</a>
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>

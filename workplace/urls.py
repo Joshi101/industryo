@@ -30,6 +30,9 @@ urlpatterns = patterns('',
     url(r'^members/(?P<slug>[^/]+)/$', 'workplace.views.workplace_members', name='members'),
     url(r'^products/(?P<slug>[^/]+)/$', 'workplace.views.workplace_products', name='products'),
     url(r'^get_top_scorers/(?P<slug>[^/]+)/$', 'workplace.views.get_top_scorers', name='get_top_scorers'),
+    url(r'^invite_colleague/$', 'workplace.views.invite_colleague', name='invite_colleague'),
+
+
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
 
 )

@@ -11,7 +11,7 @@ import json
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.core.mail import send_mail
 
 @login_required
 def workplace_register(request):
@@ -428,4 +428,30 @@ def workplace_data(request):
     #     li.append(c)
     return render(request, 'activities/workplace_data.html', locals())
 
+
+def invite_colleague(request):
+    user =request.user
+    userprofile = user.userprofile
+    workplace = user.userprofile.primary_workplace
+    user_email = request.GET.get('email')
+    name = request.GET.get('name')
+
+    template = u'''Hi {0},
+
+{1} has personally asked you to join www.corelogs.com as a member of {2}.
+
+We look forward to see you on CoreLogs shortly and hope that you like the website as well as {3} did.
+
+For your curiosity, www.corelogs.com is a website for engineers and people working in small, medium & large scale
+industries to get connected to each other and build a community of like minded people to help each other.
+
+Admin
+CoreLogs
+'''
+    content = template.format(name, userprofile, workplace, userprofile)
+    subject = u'''{0} invites you to CoreLogs.'''.format(userprofile)
+    try:
+        send_mail(subject, content, 'admin@corelogs.com', [user_email])
+    except Exception:
+        pass
 
