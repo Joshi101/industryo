@@ -1,3 +1,3 @@
-<span {% if ajax %}class="hide"{% endif %}>
-	{{tag}}{% if not forloop.last %}, {% endif %}
-</span>
+<a href="{% url 'tags:get_tag' tag.slug %}" class="tag">
+	<span class="value">{{tag}}{% if not forloop.last %}, {% endif %}</span>
+</a>

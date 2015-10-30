@@ -151,8 +151,8 @@ def set_tags_short(request):
             if type == 'S':
                 t = wp.set_segments(value)
             new_interest = t
-            r_elements = ['tag_container']
-            r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
+            r_elements = ['info_field_value']
+            r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tag': new_interest})
             response['html'] = r_html
             response['elements'] = r_elements
             response['prepend'] = True
