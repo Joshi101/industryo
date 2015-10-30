@@ -430,11 +430,12 @@ def workplace_data(request):
 
 
 def invite_colleague(request):
+    print('kkkkk')
     user =request.user
     userprofile = user.userprofile
     workplace = user.userprofile.primary_workplace
-    user_email = request.GET.get('email')
-    name = request.GET.get('name')
+    user_email = request.POST.get('email')
+    name = request.POST.get('name')
 
     template = u'''Hi {0},
 
@@ -451,7 +452,10 @@ CoreLogs
     content = template.format(name, userprofile, workplace, userprofile)
     subject = u'''{0} invites you to CoreLogs.'''.format(userprofile)
     try:
-        send_mail(subject, content, 'admin@corelogs.com', [user_email])
+        send_mail(subject, content, 'sp@corelogs.com', [user_email])
+        print('llll')
     except Exception:
         pass
+    print('mmmm')
 
+    return HttpResponse()

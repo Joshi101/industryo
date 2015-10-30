@@ -12,7 +12,7 @@
       <input class="form-control" id="id_title" maxlength="255" name="title" type="text" value="{{ q.title }}" />
 		</div>
 		<div class="form-group">
-      <label class="control-label">Details of the Question</label>
+      <label class="control-label"></label>
       {% include "snippets/richtext_toolbar.html" %}
 	    <div id="editor" class="empty">{{ q.question|safe }}</div>
 			<input type="hidden" name="question" autocomplete=off>
