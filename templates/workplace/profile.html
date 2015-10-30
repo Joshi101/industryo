@@ -40,7 +40,7 @@
           <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
           <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
             {% csrf_token %}
-            {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tag1 %}
+            {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 %}
           </form>
           <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
         </div>

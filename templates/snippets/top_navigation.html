@@ -20,6 +20,36 @@
         <span class="icon-bar"></span>
       </button>
       {% endif %}
+      <div id="top_search" class="">
+  <form action="{% url 'search' %}" role="form">
+    <div class="form-group">
+      <div class="input-group input-group-sm">
+        <span id="search_typ" class="input-group-btn">
+          <div class="dropdown select_dropdown" data-name="what">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+              <span class="value">{{what|capfirst}}</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a>Questions</a></li>
+              <li><a>Articles</a></li>
+              <li><a>Tags</a></li>
+              <li><a>Users</a></li>
+              <li><a>Workplaces</a></li>
+              <li><a>Products</a></li>
+            </ul>
+          </div>
+        </span>
+        {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
+        <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
+        <span class="input-group-btn">
+          <button class="btn btn-default"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </div>
+    <input class="what" type="hidden" name="what" value="{{what}}">
+  </form>
+</div>
     </div>
     <div class="collapse navbar-collapse" id="topNavbar">
       {% if user.is_authenticated %}
@@ -112,33 +142,3 @@
     </div>
   </div>
 </nav>
-<div id="top_search" class="container">
-  <form action="{% url 'search' %}" role="form">
-    <div class="form-group">
-      <div class="input-group input-group-sm">
-        <span id="search_typ" class="input-group-btn">
-          <div class="dropdown select_dropdown" data-name="what">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-              <span class="value">{{what|capfirst}}</span>
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a>Questions</a></li>
-              <li><a>Articles</a></li>
-              <li><a>Tags</a></li>
-              <li><a>Users</a></li>
-              <li><a>Workplaces</a></li>
-              <li><a>Products</a></li>
-            </ul>
-          </div>
-        </span>
-        {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
-        <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
-        <span class="input-group-btn">
-          <button class="btn btn-default"><i class="fa fa-search"></i></button>
-        </span>
-      </div>
-    </div>
-    <input class="what" type="hidden" name="what" value="{{what}}">
-  </form>
-</div>

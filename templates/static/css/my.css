@@ -339,9 +339,10 @@ pre {
 #top_search {
   max-width: 500px;
   position: relative;
-  top:42px;
+  top:10px;
   margin: 0 auto;
-  border-bottom: 1px solid #ddd;
+  float: left;
+  //border-bottom: 1px solid #ddd;
 }
 
 #top_search .input-group-btn > .btn{
