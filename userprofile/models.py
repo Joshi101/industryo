@@ -77,7 +77,8 @@ class UserProfile(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='T')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='T')
                 li.append(t)
                 t.count += 1
                 t.save()

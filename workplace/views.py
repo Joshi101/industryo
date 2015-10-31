@@ -26,12 +26,12 @@ def workplace_register(request):
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             name = form.cleaned_data.get('name')
-            workplace_type = form.cleaned_data.get('workplace_type')
+            if len(name)>4:
+                workplace_type = form.cleaned_data.get('workplace_type')
+            else:
+                return HttpResponse('The name should have at least 5 characters')
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
             if created:
-                # welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
-                # node = Node(user=User.objects.get(pk=1), post=welcome)
-                # node.save()
                 r_elements = ['message']
                 r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name':name})
             r_inputs = ['id_workplace']
@@ -82,8 +82,11 @@ def set_workplace(request):
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = Workplace.objects.filter(name__icontains=w)[:5]
-        return render(request, 'tags/list_wp.html', {'objects': o})
+        if len(w)>=2:
+            o = Workplace.objects.filter(name__icontains=w)[:5]
+            return render(request, 'tags/list_wp.html', {'objects': o})
+        else:
+            return HttpResponse('Keep Typing..')
     else:
         return render(request, 'tags/list_wp.html')
 

@@ -56,12 +56,10 @@ def add_product(request):
         o = request.POST.get('O')
         if o:
             li.append('O')
-        print(li)
         user = request.user
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
         p = Products.objects.create(product=product, producer=workplace, description=description, user=user)
-        print(tags)
         p.set_tags(tags)
         p.set_target_segments(li)
         if image0:

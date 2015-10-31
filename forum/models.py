@@ -42,10 +42,6 @@ class Question(models.Model):
 
         super(Question, self).save(*args, **kwargs)
 
-    # def get_detail_preview(self):
-    #     if self.question:
-    #         detail = s
-
     def get_tagged(self, tag):
         all_tagged = Question.objects.filter()
 
@@ -58,7 +54,8 @@ class Question(models.Model):
                     try:
                         t = Tags.objects.get(tag=m)
                     except Exception:
-                        t = Tags.objects.create(tag=m, type='T')
+                        if len(m) > 2:
+                            t = Tags.objects.create(tag=m, type='T')
                     li.append(t)
                     t.count += 1
                     t.save()

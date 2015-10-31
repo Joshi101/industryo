@@ -67,11 +67,12 @@
           </div>
         </li>
         <li title="Messages" data-toggle="tooltip" data-placement="bottom">
-          <a href="{% url 'messages:inbox' %}"><span class="fa fa-comment"></span></a>
+          <a href="{% url 'messages:inbox' %}"><span class="fa fa-envelope"></span></a>
         </li>
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
           {% if user.userprofile.primary_workplace %}
             <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
+			  <i class="fa fa-suitcase fa-lg"></i>
               <span class="top_info_name">{{user.userprofile.primary_workplace}} </span>
               <span class="top_info_points">{{user.userprofile.get_workplace_points}}</span>
             </a>
@@ -81,6 +82,7 @@
         </li>
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
           <a id="top_usr" class="top_info_box usr" href="{% url 'user:profile' user.username %}">
+			<i class="fa fa-user fa-lg"></i>
             <span class="top_info_name">{{user}} </span>
             <span class="top_info_points">{{user.userprofile.points}}</span>
           </a>

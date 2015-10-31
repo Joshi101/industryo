@@ -9,6 +9,7 @@ from nodes.models import Node
 from django.contrib.auth.decorators import login_required
 from tags.models import Tags
 import json
+from django.db.models import Q
 
 
 def profile(request, username):
@@ -163,7 +164,7 @@ def search_area(request):
 def search_person(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = User.objects.filter(username__icontains=w)[:5]
+        o = User.objects.filter(Q(first_name__icontains=w) | Q(last_name__icontains=w)) | Q(username__icontains=w)[:5]
         return render(request, 'tags/list_ppl.html', {'objects': o})
     else:
         return render(request, 'tags/list_ppl.html')

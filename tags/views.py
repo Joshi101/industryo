@@ -31,11 +31,14 @@ def search_tag(request):
     if request.method == 'GET':
         tag = request.GET['the_query']
         type = request.GET['the_type']
-        if type == 'All':
-            o = Tags.objects.filter(tag__icontains=tag)[:6]
+        if len(tag) >= 2:
+            if type == 'All':
+                o = Tags.objects.filter(tag__icontains=tag)[:6]
+            else:
+                o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
+            return render(request, 'tags/list.html', {'objects': o})
         else:
-            o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
-        return render(request, 'tags/list.html', {'objects': o})
+            return HttpResponse('Keep Typing..')
     else:
         return render(request, 'tags/list.html')
 
@@ -43,9 +46,12 @@ def search_tag(request):
 def search_interests(request):                  # for searching the workplace
     if request.method == 'GET':
         n = request.GET['the_query']
-        o = Tags.objects.filter(tag__icontains=n)[:6]
-        create = request.GET['the_create']
-        return render(request, 'tags/list.html', {'o': o, 'create': create})
+        if len(n) >= 2:
+            o = Tags.objects.filter(tag__icontains=n)[:6]
+            create = request.GET['the_create']
+            return render(request, 'tags/list.html', {'o': o, 'create': create})
+        else:
+            return HttpResponse('Keep Typing..')
     else:
         return render(request, 'tags/list.html')
 

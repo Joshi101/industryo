@@ -56,7 +56,6 @@ def new(request):
                 to_user_username = to_user_username[to_user_username.rfind('(')+1:len(to_user_username)-1]
                 to_user = User.objects.get(username=to_user_username)
             except Exception:
-                print('dasdamd')
                 return redirect('/messages/new/')
         message = request.POST.get('message')
         print(message)
@@ -105,4 +104,10 @@ def users(request):
 def check(request):
     count = Message.objects.filter(user=request.user, is_read=False).count()
     return HttpResponse(count)
+
+
+# @login_required
+# def send_one():
+#
+
 # Create your views here.
