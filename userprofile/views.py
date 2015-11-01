@@ -94,9 +94,7 @@ def edit(request):
 
 
 def set_interests(request):
-    print("walla")
     if request.method == 'POST':
-        print("waka")
         response = {}
         r_html = {}
         r_elements = []
@@ -164,7 +162,8 @@ def search_area(request):
 def search_person(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = User.objects.filter(Q(first_name__icontains=w) | Q(last_name__icontains=w)) | Q(username__icontains=w)[:5]
+        o = User.objects.filter(Q(first_name__icontains=w) | Q(last_name__icontains=w) | Q(username__icontains=w))[:5]
+        # o = User.objects.filter(username__icontains=w)
         return render(request, 'tags/list_ppl.html', {'objects': o})
     else:
         return render(request, 'tags/list_ppl.html')
