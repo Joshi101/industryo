@@ -27,7 +27,10 @@
 {% block content %}
   <div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
     <div class="col-sm-8 info_left">
-      <h2 id="wp_name" class="info_title text-uppercase" property='name'>{{ workplace.name }}</h2>{{ workplace.get_type }}
+      <header class="info_title">
+        <h2 id="wp_name" class="text-uppercase" property='name'>{{ workplace.name }}</h2>
+        <small class="text-muted">( {{ workplace.get_type }} )</small>
+      </header>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
 		      City:
@@ -54,8 +57,8 @@
 		        Segments: {% include "snippets/segment.html" with workplace=workplace %}
 		      {% elif b_type == "P" %}
 		        Parent Institution:
-				{% for a in workplace.get_tags.institution %}
-				<a href="{% url 'tags:get_tag' a.slug %}" class="tag"><span class="value">{{a}}</span></a>
+				{% for tag in tags2 %}
+				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>
 		        {% endfor %}		
 		      {% endif %} 
 		     
@@ -66,7 +69,7 @@
           <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i></a>
           <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
             {% csrf_token %}
-            {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tag2 %}
+            {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 %}
           </form>
         </div>
 		{% endif %}

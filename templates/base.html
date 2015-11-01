@@ -81,45 +81,48 @@
   {% block foot %}
   <footer class="container-fluid">
     <div class="row">
-      <div class="col-xs-6 col-sm-3">
-        <p>CoreLogs is a website for entire core segment of Engineering. 
-		We aim to create an open platform for the people of small & medium scale 
-		manufacturing Industries to connect with each others, the engineers & managers from large scale industries. It is also
-		a platform for college students, research scholars & automobile teams to connect 
-		with each others and help each other by solving their technical problems.</p>
+      <div class="col-xs-12 foot_desc">
+        <p class="text-justify">
+          CoreLogs is a website for entire core segment of Engineering. 
+		      We aim to create an open platform for the people of small &amp; medium scale 
+      		manufacturing Industries to connect with each others, the engineers &amp; managers from large scale industries. It is also
+      		a platform for college students, research scholars &amp; automobile teams to connect 
+      		with each others and help each other by solving their technical problems.
+        </p>
       </div>
-      <div class="col-xs-12 col-sm-3 connect text-center">
-        <p>Follow CoreLogs on</p>
-        <ul><a target="_blank" href="https://www.facebook.com/corelogs.page"><i class="fa fa-facebook"></i></a></ul>
-        <ul><a target="_blank" href="https://www.plus.google.com/+Corelogs"><i class="fa fa-google-plus"></i></a></ul>
-        <ul><a target="_blank" href="https://www.twitter.com/Corelogstwt"><i class="fa fa-twitter"></i></a></ul>
-        <ul><a target="_blank" href="https://www.linkedin.com/company/corelogs"><i class="fa fa-linkedin"></i></a></ul>
-        <ul><a target="_blank" href="https://angel.co/corelogs"><i class="fa fa-angellist"></i></a></ul>
+      <div class="col-xs-6 connect text-center">
+        <h3>Follow CoreLogs on</h3>
+        <ul>
+          <li><a target="_blank" href="https://www.facebook.com/corelogs.page"><i class="fa fa-facebook"></i></a></li>
+          <li><a target="_blank" href="https://www.plus.google.com/+Corelogs"><i class="fa fa-google-plus"></i></a></li>
+          <li><a target="_blank" href="https://www.twitter.com/Corelogstwt"><i class="fa fa-twitter"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/company/corelogs"><i class="fa fa-linkedin"></i></a></li>
+          <li><a target="_blank" href="https://angel.co/corelogs"><i class="fa fa-angellist"></i></a></li>
+        </ul>
       </div>
-		<div class="col-xs-3">
-			<h4 class="text-muted">
-			<i class="fa fa-link" style="margin-left:3px;font-size:1.4em"></i>
-				<strong style="margin-top:12px;display:block;">LINKS</strong>
-			</h4>
-			<ul class="list-unstyled" style="font-size:1.2em;">
-			<li style="padding-bottom:4px">
-			<a class="text-link" href="/about">About CoreLogs</a>
-			</li>
-			<li style="padding-bottom:4px">
-			<a class="text-link" href="{% url 'sitemap' %}">Sitemap</a>
-			</li>
-			<li style="padding-bottom:4px">
-			<a class="text-link" href="/careers">Careers</a>
-			</li>
-			<li style="padding-bottom:4px">
-			<a class="text-link" href="/contact">Contact Us</a>
-			</li>
-			<li style="padding-bottom:4px">
-			<a class="text-link" href="/privacy">Terms and Privacy</a>
-			</li>
+		<div class="col-xs-6 text-center foot_links">
+			<h3>
+        <i class="fa fa-link"></i>LINKS
+			</h3>
+			<ul class="list-unstyled">
+  			<li>
+  			<a class="text-link" href="/about">About CoreLogs</a>
+  			</li>
+  			<li>
+  			<a class="text-link" href="{% url 'sitemap' %}">Sitemap</a>
+  			</li>
+  			<li>
+  			<a class="text-link" href="/careers">Careers</a>
+  			</li>
+  			<li>
+  			<a class="text-link" href="/contact">Contact Us</a>
+  			</li>
+  			<li>
+  			<a class="text-link" href="/privacy">Terms and Privacy</a>
+  			</li>
 			</ul>
 			</div>
-        </div>
+    </div>
   </footer>
   {% endblock foot %}
 
