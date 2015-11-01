@@ -21,35 +21,35 @@
       </button>
       {% endif %}
       <div id="top_search" class="">
-  <form action="{% url 'search' %}" role="form">
-    <div class="form-group">
-      <div class="input-group input-group-sm">
-        <span id="search_typ" class="input-group-btn">
-          <div class="dropdown select_dropdown" data-name="what">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-              <span class="value">{{what|capfirst}}</span>
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a>Questions</a></li>
-              <li><a>Articles</a></li>
-              <li><a>Tags</a></li>
-              <li><a>Users</a></li>
-              <li><a>Workplaces</a></li>
-              <li><a>Products</a></li>
-            </ul>
+        <form action="{% url 'search' %}" role="form">
+          <div class="form-group">
+            <div class="input-group input-group-sm">
+              <span id="search_typ" class="input-group-btn">
+                <div class="dropdown select_dropdown" data-name="what">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="value">{{what|capfirst}}</span>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a>Questions</a></li>
+                    <li><a>Articles</a></li>
+                    <li><a>Tags</a></li>
+                    <li><a>Users</a></li>
+                    <li><a>Workplaces</a></li>
+                    <li><a>Products</a></li>
+                  </ul>
+                </div>
+              </span>
+              {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
+              <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
+              <span class="input-group-btn">
+                <button class="btn btn-default"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
           </div>
-        </span>
-        {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
-        <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
-        <span class="input-group-btn">
-          <button class="btn btn-default"><i class="fa fa-search"></i></button>
-        </span>
+          <input class="what" type="hidden" name="what" value="{{what}}">
+        </form>
       </div>
-    </div>
-    <input class="what" type="hidden" name="what" value="{{what}}">
-  </form>
-</div>
     </div>
     <div class="collapse navbar-collapse" id="topNavbar">
       {% if user.is_authenticated %}
@@ -72,7 +72,7 @@
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
           {% if user.userprofile.primary_workplace %}
             <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
-			  <i class="fa fa-suitcase fa-lg"></i>
+		          <i class="fa fa-suitcase inline_fa"></i>
               <span class="top_info_name">{{user.userprofile.primary_workplace}} </span>
               <span class="top_info_points">{{user.userprofile.get_workplace_points}}</span>
             </a>
@@ -82,7 +82,7 @@
         </li>
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
           <a id="top_usr" class="top_info_box usr" href="{% url 'user:profile' user.username %}">
-			<i class="fa fa-user fa-lg"></i>
+		        <i class="fa fa-user inline_fa"></i>
             <span class="top_info_name">{{user}} </span>
             <span class="top_info_points">{{user.userprofile.points}}</span>
           </a>
@@ -94,30 +94,31 @@
           <ul class="dropdown-menu">
             <li>
               <a href="{% url 'set' %}">
-                <span> Set Workplace </span>
-                <span class="fa fa-briefcase"></span>
+                <span>Set Workplace</span>
+                <span class="fa fa-briefcase inline_fa"></span>
               </a>
             </li>
             <li>
               <a href="{% url 'details' %}">
-                <span> Set Details </span>
-                <span class="fa fa-wrench"></span>
+                <span>Set Details</span>
+                <span class="fa fa-wrench inline_fa"></span>
               </a>
             </li>
+		        <li>
+              <a href="{% url 'logout' %}">
+                <span>Logout</span>
+                <span class="fa fa-sign-out inline_fa"></span>
+              </a>
+            </li>
+            <li class="divider"></li>
             {% for works in user.userprofile.get_all_workplaces %}
             <li>
               <a href="/workplace/cw?q={{works.id}}">
-                <span class="fa fa-briefcase"></span>
-                <span> {{works}} </span>
+                <span>{{works}}</span>
+                <span class="fa fa-briefcase inline_fa"></span>
               </a>
             </li>
             {% endfor %}
-		        <li>
-              <a href="{% url 'logout' %}">
-                <span> Logout </span>
-                <span class="fa fa-sign-out"></span>
-              </a>
-            </li>
           </ul>
         </li>
       </ul>

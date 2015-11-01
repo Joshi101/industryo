@@ -1,25 +1,23 @@
-<ul id="members_list" class="row">
 {% if user.userprofile in members %}
-	<li class="member col-sm-4">
-	<img src="/images/thumbnails/logo.JPG">
-	<a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Invite a Colleague</a>
-	<div class="collapse">
-	<form class="comment_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
-	{% csrf_token %}
-	<div class="input-group">
-		<textarea rows="1" class="form-control" name="name" placeholder="name of your colleague" required></textarea>
-		<textarea rows="1" class="form-control" name="email" placeholder="email of your colleague" required></textarea>
-		<span class="input-group-btn">
-			<button class='fa fa-plus-circle fa-lg inline_fa form-ajax'>Invite</button>
-		</span>
-	</div>
-	</form>
-	
-	</div>	
-	</li>
+	<h3 class="text-center">
+		<a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Invite a Colleague</a>
+		<div class="collapse">
+			<form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
+			{% csrf_token %}
+				<div class="form-group">
+					<input class="form-control input-sm" name="name" placeholder="name of your colleague" required>
+				</div>
+				<div class="form-group">
+					<input class="form-control input-sm" type="email" name="email" placeholder="email of your colleague" required>
+				</div>
+				<button class="btn btn-primary form-ajax"><i class='fa fa-plus-circle fa-lg inline_fa'> Invite</i></button>
+			</form>
+		</div>
+	</h3>
 {% endif %}
+<ul id="members_list">
 {% for member in members %}
-	<li class="member col-sm-4">
+	<li class="member">
 		<img src="{{member.get_profile_image}}">
 		<div class="member_name"><a class="name_user {% ifequal member.user.username user.username %}same{% endifequal %}" href="{% url 'user:profile' member.user.username %}">{{ member }}</a></div>
 		<div class="member_position">{{ member.job_position }}</div>

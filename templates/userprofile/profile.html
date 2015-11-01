@@ -16,39 +16,37 @@
 {% endblock left %}
 
 {% block content %}
-<div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
+	{% include "messages/new_modal.html" with url='messages:new' %}
+	<div id="info_head" class="row info_head" typeof='Organization' resource='#workplace'>
     <div class="col-sm-8 info_left">
-      <h3 id="wp_name" class="info_title text-uppercase" property='name'>{{ userprofile }}</h3>
+    	<header class="info_title">
+      	<h2 class="text-uppercase" property='name'>{{ userprofile }}</h2>
+			</header>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
-		{% if userprofile.primary_workplace %}
-		<h4 class="acc_detail"><a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h4>
-		<h4 class="acc_detail"><small class='small_mid'>Working as: {{ page_user.userprofile.job_position }}</small></h4>
-		{% else %}
-			{% if page_user == request.user %}
-			<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
-			{% else %}
-			<h4 class="acc_detail">No Workplace Defined</h4>
-			{% endif %}
-		{% endif %}
-		
-		</div>        
+					{% if userprofile.primary_workplace %}
+					<h3 class="acc_detail"><a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h3>
+					<h3 class="acc_detail"><small class='small_mid'>Working as: {{ page_user.userprofile.job_position }}</small></h3>
+					{% else %}
+						{% if page_user == request.user %}
+						<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
+						{% else %}
+						<h4 class="acc_detail">No Workplace Defined</h4>
+						{% endif %}
+					{% endif %}
+				</div>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="info_labels">
         <span class="label label-default">{{userprofile.points}} points</span>
       </div>
-	{% if user.is_authenticated %}
-	  <div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
-	    <a class="a_collapse"><i class="fa fa-envelope fa-2x inline_fa" data-toggle='modal' data-target='#msg_modal'></i></a>
-		{% include "messages/new_modal.html" with url='messages:new' %}
-    
-      <h1>{% block page_header %}{% endblock %}</h1>
-    
-	  </div>
-	{% endif %}
-  </div>
+			{% if user.is_authenticated %}
+	  	<div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
+	    	<a class="a_modal"><i class="fa fa-envelope fa-2x" data-toggle='modal' data-target='#msg_modal'></i></a>
+	  	</div>
+			{% endif %}
+  	</div>
  </div>
   
   <ul class="nav nav-tabs">

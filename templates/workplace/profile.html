@@ -25,10 +25,10 @@
 {% endblock left %}
 
 {% block content %}
-  <div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
+  <div id="info_head" class="row info_head" typeof='Organization' resource='#workplace'>
     <div class="col-sm-8 info_left">
       <header class="info_title">
-        <h2 id="wp_name" class="text-uppercase" property='name'>{{ workplace.name }}</h2>
+        <h2 class="text-uppercase" property='name'>{{ workplace.name }}</h2>
         <small class="text-muted">( {{ workplace.get_type }} )</small>
       </header>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
