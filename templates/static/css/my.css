@@ -1710,6 +1710,11 @@ footer .foot_desc{
   color: #ccc;
 }
 
+footer .foot_links li{
+  //font-size: 1.1em;
+  padding: 2px;
+}
+
 footer .fa{
   display: inline-block;
   width: 30px;
