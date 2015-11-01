@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
-{% block title %} CoreLogs | {{ name }} {% endblock title %}
+{% block title %} CoreLogs | {{ userprofile }} {% endblock title %}
 
 {% block left %}
 	<div id="img_profile_box">
@@ -12,20 +12,45 @@
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
 		{% endif %}
 	</div>
-	<div class="account">
-		<h4 class="acc_detail">{{ name }}</h4>
-		<h4 class="acc_detail"><small class='small_mid'>( {{ page_user.userprofile.job_position }} )</small></h4>
-		{% if page_user.userprofile.primary_workplace %}
-		<h4 class="acc_detail"><a href="{% url "workplace:workplace_profile" page_user.userprofile.primary_workplace.slug %}" class="no_a">{{ page_user.userprofile.primary_workplace }}</a></h4>
-		{% else %}
-		<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
-		{% endif %}
-		<h5 class="acc_detail text-muted">{{page_user.userprofile.area}}</h5>
-	</div>
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_profile_image' form=profile_image_form.image %}
 {% endblock left %}
 
 {% block content %}
+<div id="workplace_info" class="row info_head" typeof='Organization' resource='#workplace'>
+    <div class="col-sm-8 info_left">
+      <h3 id="wp_name" class="info_title text-uppercase" property='name'>{{ userprofile }}</h3>
+      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+        <div class="info_field_value" property='addressRegion'>
+		{% if userprofile.primary_workplace %}
+		<h4 class="acc_detail"><a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h4>
+		<h4 class="acc_detail"><small class='small_mid'>Working as: {{ page_user.userprofile.job_position }}</small></h4>
+		{% else %}
+			{% if page_user == request.user %}
+			<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
+			{% else %}
+			<h4 class="acc_detail">No Workplace Defined</h4>
+			{% endif %}
+		{% endif %}
+		
+		</div>        
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="info_labels">
+        <span class="label label-default">{{userprofile.points}} points</span>
+      </div>
+	{% if user.is_authenticated %}
+	  <div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
+	    <a class="a_collapse"><i class="fa fa-envelope fa-2x inline_fa" data-toggle='modal' data-target='#msg_modal'></i></a>
+		{% include "messages/new_modal.html" with url='messages:new' %}
+    
+      <h1>{% block page_header %}{% endblock %}</h1>
+    
+	  </div>
+	{% endif %}
+  </div>
+ </div>
+  
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#about">About</a></li>
     <li><a data-toggle="tab" href="#questions">Questions</a></li>
@@ -39,8 +64,8 @@
       <div class="panel panel-default ajax_andar ajax_papa">
 				<div class="panel-heading">
 					<h3 class="text-muted detail_head">
-						Experience
-						{% ifequal user request.user %}
+						Experience(A small Introduction)
+						{% ifequal page_user request.user %}
 						<form id="experience" class="pull-right" action="{% url 'user:set_experience' %}" method="POST">
 							<button data-content="experience" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
 						</form>
@@ -58,22 +83,14 @@
 					<h3 class="text-muted detail_head">
 						Interests
 						{% ifequal page_user request.user %}
+						(Add your Engineering related intersts)
 						<button data-content="interest" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
 						{% endifequal %}
 					</h3>
-					<form class="edit_interest hide" action="{% url 'user:set_interests' %}" method="POST" role="form">
-		      	{% csrf_token %}
-						<div class="d_search instant" data-results="instant">
-							<input class="form-control d_input" data-search="tag" data-create="create" data-results="multiple" placeholder="Search for your interests here ...">
-							<input type="hidden" name="value" class="instant_i">
-							<input type="hidden" name="type" value="All">
-							<button type="submit" class="form-ajax hide"></button>
-							<div class="dropdown">
-								<ul class="dropdown-menu d_list">
-								</ul>
-							</div>
-							<div class="d_results"></div>
-						</div>
+					
+					<form class="edit_interest d_edit hide" action="{% url 'user:set_interests' %}" method="POST" role="form">
+						{% csrf_token %}
+						{% include "snippets/d_search_tags.html" with search="tag" type="All"  placeholder="Start typing your interest topics" %}
 					</form>
 				</div>
 				<div class="panel-body">

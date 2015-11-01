@@ -1,4 +1,23 @@
 <ul id="members_list" class="row">
+{% if user.userprofile in members %}
+	<li class="member col-sm-4">
+	<img src="/images/thumbnails/logo.JPG">
+	<a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Invite a Colleague</a>
+	<div class="collapse">
+	<form class="comment_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
+	{% csrf_token %}
+	<div class="input-group">
+		<textarea rows="1" class="form-control" name="name" placeholder="name of your colleague" required></textarea>
+		<textarea rows="1" class="form-control" name="email" placeholder="email of your colleague" required></textarea>
+		<span class="input-group-btn">
+			<button class='fa fa-plus-circle fa-lg inline_fa form-ajax'>Invite</button>
+		</span>
+	</div>
+	</form>
+	
+	</div>	
+	</li>
+{% endif %}
 {% for member in members %}
 	<li class="member col-sm-4">
 		<img src="{{member.get_profile_image}}">

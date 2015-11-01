@@ -11,7 +11,7 @@ import json
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.core.mail import send_mail
 
 @login_required
 def workplace_register(request):
@@ -26,12 +26,12 @@ def workplace_register(request):
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             name = form.cleaned_data.get('name')
-            workplace_type = form.cleaned_data.get('workplace_type')
+            if len(name)>4:
+                workplace_type = form.cleaned_data.get('workplace_type')
+            else:
+                return HttpResponse('The name should have at least 5 characters')
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
             if created:
-                # welcome = u'{0} is now in the network, have a look at its profile.'.format(name)
-                # node = Node(user=User.objects.get(pk=1), post=welcome)
-                # node.save()
                 r_elements = ['message']
                 r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name':name})
             r_inputs = ['id_workplace']
@@ -82,8 +82,11 @@ def set_workplace(request):
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = Workplace.objects.filter(name__icontains=w)[:5]
-        return render(request, 'tags/list_wp.html', {'objects': o})
+        if len(w)>=2:
+            o = Workplace.objects.filter(name__icontains=w)[:5]
+            return render(request, 'tags/list_wp.html', {'objects': o})
+        else:
+            return HttpResponse('Keep Typing..')
     else:
         return render(request, 'tags/list_wp.html')
 
@@ -368,15 +371,6 @@ def delete_tag(request):
 # def delete_tags
 
 
-def sitemap(request):
-    users = User.objects.all()
-    workplaces = Workplace.objects.all()
-    tags = Tags.objects.all()
-    questions = Question.objects.all()
-    articles = Node.article.all()
-    return render(request, 'workplace/sitemap.html', locals())
-
-
 def side_panel(request):
     user = request.user
     t = user.userprofile.primary_workplace.workplace_type
@@ -438,3 +432,33 @@ def workplace_data(request):
     return render(request, 'activities/workplace_data.html', locals())
 
 
+def invite_colleague(request):
+    print('kkkkk')
+    user =request.user
+    userprofile = user.userprofile
+    workplace = user.userprofile.primary_workplace
+    user_email = request.POST.get('email')
+    name = request.POST.get('name')
+
+    template = u'''Hi {0},
+
+{1} has personally asked you to join www.corelogs.com as a member of {2}.
+
+We look forward to see you on CoreLogs shortly and hope that you like the website as well as {3} did.
+
+For your curiosity, www.corelogs.com is a website for engineers and people working in small, medium & large scale
+industries to get connected to each other and build a community of like minded people to help each other.
+
+Admin
+CoreLogs
+'''
+    content = template.format(name, userprofile, workplace, userprofile)
+    subject = u'''{0} invites you to CoreLogs.'''.format(userprofile)
+    try:
+        send_mail(subject, content, 'sp@corelogs.com', [user_email])
+        print('llll')
+    except Exception:
+        pass
+    print('mmmm')
+
+    return HttpResponse()

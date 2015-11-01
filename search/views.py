@@ -48,18 +48,15 @@ def search(request):
 
 
 def searchq(request):
-    querystring = request.GET.get('the_query')
-    print(querystring)
-    terms = querystring.split(' ')
-    what = request.GET.get('the_type')
-    if not terms:
-        return redirect('/search/')
+    querystring = request.GET.get('the_query').strip()
+    if len(querystring) >= 3:
+        terms = querystring.split(' ')
     if not terms:
         return redirect('/search/')
     query = None
+    what = request.GET.get('the_type')
     if what == 'questions':
         for term in terms:
-            print(term,'ho')
             q = Question.objects.filter(Q(title__icontains=term) | Q(question__icontains=term))
     elif what == 'articles':
         for term in terms:
@@ -75,15 +72,16 @@ def searchq(request):
             q = Workplace.objects.filter(name__icontains=term)
     elif what == 'products':            
         for term in terms:
-            q = Products.objects.filter(Q(title__icontains=term) | Q(detail__icontains=term))
+            q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
     # if query is None:
     #     query = q
     # else:
     #     query = query & q
     query = q
     for a in query:
-        print(a.name)
+        print(a)
     return render(request, 'search/list.html', {'query': query, 'what': what})
+
 
 def forum_search(request):
     if 'q' in request.GET:

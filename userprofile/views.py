@@ -9,6 +9,7 @@ from nodes.models import Node
 from django.contrib.auth.decorators import login_required
 from tags.models import Tags
 import json
+from django.db.models import Q
 
 
 def profile(request, username):
@@ -69,25 +70,50 @@ def edit(request):
         return render(request, 'userprofile/edit.html', {'form': form})
 
 
-@login_required
+# @login_required
+# def set_interests(request):
+#     if request.method == 'POST':
+#         response = {}
+#         r_html = {}
+#         r_elements = []
+#         user = request.user
+#         up = user.userprofile
+#         interests = request.POST.get('value')
+#         if type == 'All':
+#             up.set_interests(interests)
+#         up.set_interests(interests)
+#         new_interest = user.userprofile.interests.get(tag=interests)
+#         r_elements = ['detail_body']
+#         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
+#         response['html'] = r_html
+#         response['elements'] = r_elements
+#         response['prepend'] = True
+#         return HttpResponse(json.dumps(response), content_type="application/json")
+#     else:
+#         return redirect('/user/'+request.user.username)
+
+
 def set_interests(request):
+    print("walla")
     if request.method == 'POST':
+        print("waka")
         response = {}
         r_html = {}
         r_elements = []
         user = request.user
         up = user.userprofile
-        interests = request.POST.get('value')
-        if type == 'All':
-            up.set_interests(interests)
-        up.set_interests(interests)
-        new_interest = user.userprofile.interests.get(tag=interests)
-        r_elements = ['detail_body']
-        r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        wp = user.userprofile.primary_workplace
+        # type = request.POST.get('type')
+        value = request.POST.get('tag')
+        if value:
+            t = wp.set_interests(value)
+            new_interest = t
+            r_elements = ['tag_container']
+            r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
+            response['html'] = r_html
+            response['elements'] = r_elements
+            response['prepend'] = True
+            return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
 
@@ -138,7 +164,7 @@ def search_area(request):
 def search_person(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = User.objects.filter(username__icontains=w)[:5]
+        o = User.objects.filter(Q(first_name__icontains=w) | Q(last_name__icontains=w)) | Q(username__icontains=w)[:5]
         return render(request, 'tags/list_ppl.html', {'objects': o})
     else:
         return render(request, 'tags/list_ppl.html')

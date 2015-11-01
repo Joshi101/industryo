@@ -1,21 +1,21 @@
-{% if what == "workplace" %}
-	{% for q in query %}
+{% if what == "workplaces" %}
+	{% for q in query|slice:":10" %}
 	<a href="{% url 'workplace:workplace_profile' q.slug %}">
 		<li class="list-group-item option">{{ q.name }}</li>
 	</a>
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
-{% elif what == "user" %}
-	{% for q in query %}
+{% elif what == "users" %}
+	{% for q in query|slice:":10" %}
 	<a href="{% url 'user:profile' q.username %}">
-		<li class="list-group-item option">{{ q.get_full_name }}</li>
+		<li class="list-group-item option">{{ q.userprofile }}</li>
 	</a>
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
 {% elif what == "products" %}
-	{% for q in query %}
+	{% for q in query|slice:":10" %}
 	<a href="{% url 'products:product' q.slug %}">
 		<li class="list-group-item option">{{ q }}</li>
 	</a>
@@ -23,13 +23,13 @@
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
 {% elif what == "questions" %}
-	{% for q in query %}
+	{% for q in query|slice:":10" %}
 	<a href="{% url 'forum:question' q.slug %}"><li class="list-group-item option">{{ q.title }}</li></a>
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
 {% elif what == "tags" %}
-	{% for q in query %}
+	{% for q in query|slice:":10" %}
 	<a href="{% url 'tags:get_tag' q.slug %}">
 		<li class="list-group-item option">{{ q }}</li>
 	</a>
@@ -37,7 +37,7 @@
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
 {% elif what == "articles" %}
-	{% for q in query %}
+	{% for q in query|slice:":10" %}
 	<a href="{% url 'nodes:node' q.slug %}">
 		<li class="list-group-item option">{{ q.title }}</li>
 	</a>

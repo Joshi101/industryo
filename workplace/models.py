@@ -57,7 +57,8 @@ class Workplace(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='M')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='M')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -77,7 +78,8 @@ class Workplace(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='S')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='S')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -97,7 +99,8 @@ class Workplace(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='O')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='O')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -133,9 +136,9 @@ class Workplace(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='A')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='A')
                 li.append(t)
-                print(t)
                 t.count += 1
                 t.save()
             for t in li:
@@ -154,7 +157,8 @@ class Workplace(models.Model):
                     t = Tags.objects.get(tag=m)
                     print('tag exists')
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='P')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='P')
                     print('tag created')
                 li.append(t)
                 print(t)
@@ -180,7 +184,8 @@ class Workplace(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='C')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='C')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -200,7 +205,8 @@ class Workplace(models.Model):
                 try:
                     t = Tags.objects.get(tag=m)
                 except Exception:
-                    t = Tags.objects.create(tag=m, type='E')
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='E')
                 li.append(t)
                 print(t)
                 t.count += 1
