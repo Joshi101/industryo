@@ -874,7 +874,7 @@ $('.little_edit').each(function() {
     });
 });
 
-$('#workplace_info').on({
+$('#info_head').on({
     'mouseenter': function() {
         $(this).find('.detail_add').each(function() {
             $(this).removeClass('hide');

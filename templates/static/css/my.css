@@ -340,7 +340,7 @@ pre {
   max-width: 500px;
   position: relative;
   top:10px;
-  margin: 0 auto;
+  margin: 0 10px;
   float: left;
   //border-bottom: 1px solid #ddd;
 }
@@ -1075,14 +1075,6 @@ footer {
   color: #fff;
 }
 
-footer h3, footer h3 a{
-  color:#8fd;
-}
-
-footer h3 a:hover{
-  color:#197;
-}
-
 footer .connect ul{
   list-style: none;
 }
@@ -1467,15 +1459,17 @@ div[data-role='editor-toolbar'] {
 
 #members_list {
   padding-left: 7px;
+  margin-top: 30px;
 }
 
 .member {
   float: left;
 
-  width: 33%;
+  width: 31%;
   height: 77px;
-  margin-bottom: 20px;
-
+  margin: 10px 1%;
+  
+  overflow: hidden;
   list-style: none;
 }
 
@@ -1486,10 +1480,6 @@ div[data-role='editor-toolbar'] {
   margin-right: 7px;
 
   border: 1px solid #ccc;
-}
-
-.member{
-  overflow: hidden;
 }
 
 .member_name {
@@ -1505,6 +1495,20 @@ div[data-role='editor-toolbar'] {
   font-size: 0.9em;
   color: #666;
 }
+
+@media (max-width: 768px){
+  .member{
+    height: auto;
+    width: 46%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .member img{
+    float: none;
+    margin-bottom: 5px;
+  }
+}
+
 
 #products_list {
   padding-left: 7px;
@@ -1683,33 +1687,43 @@ h4 > .edit_post:hover {
 
 footer h3{
   font-family: 'Tahoma';
-  font-size: 16px;
+  font-size: 14px;
   padding-bottom: 7px;
-  text-align: center;
+  color:#ccc;
+  border-bottom: 1px solid #666;
 }
 
 footer .connect i{
   display: inline-block;
   width: 35px;
-  font-size: 18px;
-  color: #fff;
+  font-size: 15px;
 }
 
 footer{
   position: relative;
   //z-index: 999;
-  font-size: 13px;
+  font-size: 12px;
   top: 100%;
 }
 
-footer h3{
-  border-bottom: 1px solid #666;
-}
-
 footer .foot_desc{
-  padding: 0 20px;
+  padding: 20px 20px;
   text-align: justify;
   color: #ccc;
+  font-size: 0.9em;
+}
+
+footer .foot_links li{
+  //font-size: 1.1em;
+  padding: 2px;
+}
+
+footer a{
+  color: #bdf;
+}
+
+footer a:hover, footer a:focus{
+  color: #fff;
 }
 
 footer .fa{
@@ -1837,7 +1851,7 @@ footer .contact li{
   margin-right: 12px;
 }
 
-#workplace_info .info_left{
+.info_head .info_left{
   padding-right: 8.5%;
 }
 
@@ -2107,4 +2121,12 @@ footer .contact li{
 
 #top_search .d_search .input_tags{
   margin:0;
+}
+
+.invite_form{
+  position: relative;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }

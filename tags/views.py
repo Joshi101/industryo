@@ -117,5 +117,65 @@ def follow_tag(request):
         return redirect('/tags/')
 
 
+def create(request):
+    lis = ['Automotive', 'Aerospace', 'Manufacturing', 'Food processing', 'Power', 'Oil & Gas',
+           'Industrial Consultancy', 'Engineering Consultancy', 'Designing', 'Material Testing', 'Repairing & Servicing']
+    lia = ['Milling Machine', 'Mig Welding Setup', 'Tig Welding Setup', 'CNC Milling Machine', 'Lathe Machine', 'CNC Lathe Machine',
+           'Rotomolding Machine', 'Melting Furnace', 'Knurling Machine', 'Press Brake ', 'CNC Press Brake', 'Slotter', 'Shaper',
+           'Drilling Machine', 'Hobbing Machine', 'Honing Machine', 'Special Purpose Machines (SPM)', 'Hydraulic Ram', 'Rolling Mill',
+           'Crusher', 'Polymer processing Machine', 'Electric Furnace', 'Gas Furnace', 'Rapid Prototyping Machine',
+           'Electrical Discharge Machine (EDM)', 'Water Jet Cutter', 'Laser Beam Machine', 'Earth Moving Equipments', 'Industrial Robots']
+    lid = ['FMCG (Consumer Goods)', 'Iron & Steel', 'Aluminium sheet', 'Automobile Components(OEM)', 'Automobile Components',
+           'Aerospace Components(OEM)', 'Hydraulic Device', 'Pneumatic Device', 'Polymer Components', 'Rubber Items',
+           'Plastic Items', 'Agricultural equipments', 'Machine Tools', 'Cutting Tools', 'Power tools', 'Electric tools',
+           'Electrical Equipments', 'Hand Tools', 'Material Handling Equipments', 'Boilers', 'Chemicals', 'Paints & Coatings',
+           'Raisins', 'Thinners', 'Adhesives', 'Cutting Fluids', 'Coolants', 'Lubricants', 'Furniture', 'Jigs & Fixtures',
+           'Die & Punch', 'Consumer Electronics', 'Tubes & Tyres', 'Fasteners', 'Couplings',
+           'Sealants', 'Pipes & Tubes', 'Glass', 'Lean Manufacturing Implementation', 'Six Sigma Implementation', 'Construction Materials']
+    lim = ['Alloy Steel', 'Aluminium', 'Mild Steel (MS)', 'Alloy Steel', 'Non Ferrous Metals', 'Glass & Ceramics', 'Copper Alloys',
+           'Zinc Alloys', 'Wood ', 'Industrial Chemicals', 'Silicon Compounds',
+           'Rubber', 'Polymers', 'Plastic', 'Agricultural Products', 'Gases', 'Ores & Minerals', 'Coal & Petroleum', 'Refractories']
+    lio = ['Casting', 'Forging', 'Die Design', 'Welding', 'Lathe Machine Operations', 'Heat Treatment', 'Hobbing',
+           'Broaching', 'Scrap processing', 'Molding', 'wire drawing', 'Tyre Retreading', 'Hot Rolling',
+           'Cold Rolling', 'CNC Operations', 'Design Consultancy', 'Welding', 'Aluminium Welding', 'Electroplating',
+           'Rapid Prototyping', 'Injection Molding', 'CNC Programming', 'Punching & Blanking', 'Sheet Metal Operations',
+           'induction hardening', 'Superfinishing Operations', 'Rotomolding', 'Phosphating',
+           'Body building & Fabrication', 'Precision Job', 'Electroplating', 'Electroforming', 'Powder coating',
+           'Mining & Mineral Processing', 'Operations research', 'High Pressure Die Casting (HPDC)',
+           'Low Pressure Die Casting (LPDC)', 'laser Cutting']
+    lie = ['Baja SAE India', 'Supra SAE India', 'Baja Student India', 'Formula Student India', 'EffiCycle SAE India',
+           'SAE Supermileage']
+    for o in lis:
+        try:
+            t = Tags.objects.get(tag=o)
+        except Exception:
+            t = Tags.objects.create(tag=o, type='S')
+    for o in lia:
+        try:
+            t = Tags.objects.get(tag=o)
+        except Exception:
+            t = Tags.objects.create(tag=o, type='A')
+    for o in lid:
+        try:
+            t = Tags.objects.get(tag=o)
+        except Exception:
+            t = Tags.objects.create(tag=o, type='D')
+    for o in lim:
+        try:
+            t = Tags.objects.get(tag=o)
+        except Exception:
+            t = Tags.objects.create(tag=o, type='M')
+    for o in lio:
+        try:
+            t = Tags.objects.get(tag=o)
+        except Exception:
+            t = Tags.objects.create(tag=o, type='O')
+    for o in lie:
+        try:
+            t = Tags.objects.get(tag=o)
+        except Exception:
+            t = Tags.objects.create(tag=o, type='E')
+    return redirect('/')
+
 
 # Create your views here.
