@@ -732,7 +732,7 @@ $('.detail').on({
     }
 });
 
-$('.detail_add').on('click', function(event) {
+$('.ajax_andar').on('click', '.detail_add', function(event) {
     event.preventDefault();
     console.log('clickku')
     var $this = $(this);
@@ -763,8 +763,10 @@ $('.detail_add').on('click', function(event) {
     }
 });
 
-$('.detail_edit').on('click', function(event) {
+
+$('.ajax_andar').on('click', '.detail_edit', function(event) {
     event.preventDefault();
+    console.log('oki')
     var $this = $(this);
     var content = $this.data('content');
     var $content = $('.content_' + content);
@@ -1275,6 +1277,7 @@ $('.done_edit').on('click', function(){
     $form.addClass('hide');
     $(this).addClass('hide');
     $(this).parent().find('.show_edit').removeClass('hide');
+    $(this).closest('.info_field').find('.info_field_value').removeClass('hide');
 });
 
 $(function () {

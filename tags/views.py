@@ -38,7 +38,7 @@ def search_tag(request):
                 o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
             return render(request, 'tags/list.html', {'objects': o})
         else:
-            return HttpResponse('Keep Typing..')
+            return render(request, 'tags/list.html', {'objects': 'short'})
     else:
         return render(request, 'tags/list.html')
 
