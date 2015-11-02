@@ -100,9 +100,8 @@
     {% elif type == 'C' %}
 		<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:products" workplace.slug %}">Our Cars</a></li>
     {% endif %}
-	<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:about" workplace.slug %}">About</a></li>
-	<li class="active"><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:dashboard" workplace.slug %}">Dashboard</a></li>
-		
+  	<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:about" workplace.slug %}">About</a></li>
+  	<li class="active"><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url "workplace:dashboard" workplace.slug %}">Dashboard</a></li>
   {% endblock workplace_nav %}
   </ul>
   <div class="tab-content ajax_papa ajax_andar">

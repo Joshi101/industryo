@@ -337,6 +337,7 @@ def set_capabilities(request):
         capabilities = request.POST.get('capabilities')
         wp.capabilities = capabilities
         wp.save()
+        print(capabilities,wp.capabilities)
         return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
