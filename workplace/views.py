@@ -127,8 +127,10 @@ def set_tags(request):
     else:
         return redirect('/user/'+request.user.username)
 
+
 @login_required
 def set_tags_short(request):
+    print('aaye')
     if request.method == 'POST':
         response = {}
         r_html = {}
@@ -154,6 +156,7 @@ def set_tags_short(request):
             if type == 'S':
                 t = wp.set_segments(value)
             new_interest = t
+            print('12',t)
             r_elements = ['info_field_value']
             r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tag': new_interest})
             response['html'] = r_html

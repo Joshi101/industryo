@@ -94,7 +94,7 @@ function d_input_show_error($this,sign,msg){
 }
 
 
-$('.d_input').keydown(function(event) {
+$('body').on('keydown', '.d_input', function(event) {
     var $this = $(this);
     d_input_remove_error($this,true,false);
     d_this = $this;
@@ -116,14 +116,14 @@ $('.d_input').keydown(function(event) {
 });
 
 
-$('.d_search').on('click', '.one_value .close', function() {
+$('body').on('click', '.d_search .one_value .close', function() {
     $d_search = $(this).closest('.d_search');
     $d_search.find('.d_input').removeClass('hide').focus();
     $d_search.find('.d_value').val('');
     $(this).closest('.one_value').addClass('hide');
 });
 
-$(".one_list").on('click', '.option', function(event) {
+$("body").on('click', '.one_list .option', function(event) {
     //aj_search($(this));
     d_check = false;
     var $this = $(this),
@@ -137,7 +137,7 @@ $(".one_list").on('click', '.option', function(event) {
     $this.closest('.dropdown').removeClass('open');
 });
 
-$(".many_list").on('click', '.option', function(event) {
+$('body').on('click', '.many_list .option', function(event) {
     d_check = false;
     console.log('arrey')
     var $this = $(this),
@@ -154,8 +154,9 @@ $(".many_list").on('click', '.option', function(event) {
     $('.d_search').find('.d_input').val('');
 });
 
-$('.d_search').on('click', '.create', function(){
+$('body').on('click', '.d_search .create', function(){
     d_check = false;
+    console.log('ab create to hoga')
     var $d_search = $(this).closest('.d_search'),
         value = $d_search.find('.d_input').val();
     d_input_remove_error($(this),true,true);
@@ -168,7 +169,7 @@ $('.d_search').on('click', '.create', function(){
     $('.d_search').find('.d_input').val('');
 });
 
-$('.d_search').on('click', '.create_new', function(){
+$('body').on('click', '.d_search .create_new', function(){
     var $d_search = $(this).closest('.d_search'),
         value = $d_search.find('.d_input').val();
     var create = $(this).attr('href');
@@ -187,7 +188,7 @@ $('.d_search').on('click', '.create_new', function(){
     });
 });
 
-$('.input_tags').on('click','.tag .close', function(){
+$('body').on('click','.input_tags .tag .close', function(){
     var tag = $(this).closest('.tag');
     value = tag.find('.value').text();
     var $d_search = $(this).closest('.d_search');
@@ -272,16 +273,16 @@ if (d_check){
 }
 }
 
-$(".d_input").blur(d_input_blur);
+/*$("body").on('blur', '.d_input', d_input_blur);*/
 
-$(".d_menu").hover(
+/*$("body").on('hover', '.d_menu', 
     function() {
         $(".d_input").off('blur');
     },
     function() {
     $(".d_input").blur(d_input_blur);
-});
-$(".d_input").focus(function() {
+});*/
+$("body").on('focus', '.d_input', function() {
     d_check = true;
     var $this = $(this);
     var query = $this.val();
@@ -290,7 +291,7 @@ $(".d_input").focus(function() {
 });
 
 // function to submit form ajaxly
-$(".ajax_andar").on('click', '.form-ajax', function(event) {
+$("body").on('click', '.form-ajax', function(event) {
     event.preventDefault();
     console.log('default nahi');
     var $this = $(this);
@@ -732,10 +733,11 @@ $('.detail').on({
     }
 });
 
-$('.ajax_andar').on('click', '.detail_add', function(event) {
+$('body').on('click', '.detail_add', function(event) {
     event.preventDefault();
     console.log('clickku')
     var $this = $(this);
+    console.log()
     var save = $this.attr('data-save');
     var content = $this.data('content');
     var taggy = $this.data('taggy');
@@ -764,7 +766,7 @@ $('.ajax_andar').on('click', '.detail_add', function(event) {
 });
 
 
-$('.ajax_andar').on('click', '.detail_edit', function(event) {
+$('body').on('click', '.detail_edit', function(event) {
     event.preventDefault();
     console.log('oki')
     var $this = $(this);
@@ -772,6 +774,7 @@ $('.ajax_andar').on('click', '.detail_edit', function(event) {
     var $content = $('.content_' + content);
     var save = $this.data('save');
     if (save == 'save') {
+        console.log('abhi data-save "" hoga or agli baar daba k userwa edit krega')
         console.log(('#' + content), $('#' + content).serialize());
         $content.each(function() {
             var value = $(this).next().val();
@@ -779,15 +782,16 @@ $('.ajax_andar').on('click', '.detail_edit', function(event) {
             $(this).text(value).removeClass('hide')
                 .next().addClass('hide');
         });
-        $this.text('Edit').data('save', '').addClass('form-ajax');
+        $this.text('Edit').data('save', '').removeClass('form-ajax');
     } else {
+        console.log('abhi data-save save hoga or agli baar dabaenge to form submit hoga')
         $content.each(function() {
             var value = $(this).text();
             console.log(value);
             $(this).addClass('hide')
                 .next().val(value).removeClass('hide');
         });
-        $this.text('Save').data('save', 'save').removeClass('form-ajax');
+        $this.text('Save').data('save', 'save').addClass('form-ajax');
     }
 });
 
@@ -1197,6 +1201,7 @@ function ajax_form($this){
     var $papa = $this.closest('.ajax_papa');
     var $form = $this.closest('form');
     console.log($form.serialize());
+    console.log('gaiyyo')
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),

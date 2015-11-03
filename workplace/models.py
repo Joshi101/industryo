@@ -95,6 +95,7 @@ class Workplace(models.Model):
         if operations:
             workplace_tags = operations.split(',')
             li = []
+            print('setting operations')
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag=m)

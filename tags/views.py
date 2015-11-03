@@ -94,11 +94,13 @@ def search_n_tags(request):
 
 @login_required
 def describe_tag(request):          # edit description
+    print('tag describe dp')
     if request.method == 'POST':
         id = request.POST.get('id')
         tag = Tags.objects.get(id=id)
         description = request.POST['description']
         tag.description = description
+        print(tag.description)
         tag.save()
         return HttpResponse()
     else:

@@ -54,7 +54,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="detail_body">
-			{% for op in ops %}
+			{% for op in workplace.get_tags.operations %}
 				{% include 'snippets/one_interest.html' with interest=op %}
 			{% endfor %}
 		</div>
@@ -85,4 +85,4 @@
 	</div>
 </div>
 {% endif %}
-<script type="text/javascript" src={% static 'js/my.js' %}></script>
+<!-- <script type="text/javascript" src={% static 'js/my.js' %}></script> -->
