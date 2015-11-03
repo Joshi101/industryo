@@ -1,3 +1,5 @@
+{% for tag in tags %}	
 <a href="{% url 'tags:get_tag' tag.slug %}" class="tag">
 	<span class="value">{{tag}}{% if not forloop.last %}, {% endif %}</span>
 </a>
+{% endfor %}

@@ -119,7 +119,7 @@ def set_tags(request):
                 t = wp.set_segments(value)
             new_interest = t
             r_elements = ['detail_body']
-            r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
+            r_html['detail_body'] = render_to_string('snippets/interest.html', {'interests': new_interest})
             response['html'] = r_html
             response['elements'] = r_elements
             response['prepend'] = True
@@ -158,10 +158,11 @@ def set_tags_short(request):
             new_interest = t
             print('12',t)
             r_elements = ['info_field_value']
-            r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tag': new_interest})
+            r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
+            print(r_html['info_field_value'])
             response['html'] = r_html
             response['elements'] = r_elements
-            response['prepend'] = True
+            response['prepend'] = False
             return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
