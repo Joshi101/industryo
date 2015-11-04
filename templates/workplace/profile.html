@@ -45,7 +45,7 @@
             {% csrf_token %}
             {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 %}
           </form>
-          <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+          <a class="done_edit hide"><i class="fa fa-check-square fa-2x inline_fa"></i></a>
         </div>
         {% endif %}
       </div>
@@ -66,7 +66,7 @@
         {% if user.userprofile in members %}	
         <div class="info_field_edit">
           <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
-          <a class="done_edit hide"><i class="fa fa-check-square-o inline_fa"></i></a>
+          <a class="done_edit hide"><i class="fa fa-check-square-o fa-2x inline_fa"></i></a>
           <form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
             {% csrf_token %}
             {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 %}

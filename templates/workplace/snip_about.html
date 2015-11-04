@@ -6,7 +6,7 @@
 	</form>
 	{% endif %}
 	<div class="panel-body">
-		<p class="detail_body content_about_w" property='description'><i class="text-muted">{% if about_w %}{{about_w}}{% elif user.userprofile in members %}Add a breif description of your workplace for the rest of the world{% endif %}</i></p>
+		<p class="detail_body content_about_w" property='description'>{% if workplace.about %}{{workplace.about}}{% elif user.userprofile in members %}<i class="text-muted">Add a breif description of your workplace for the rest of the world</i>{% endif %}</p>
 		<textarea name="about" form="about_w" rows="3" class="form-control replacer edit_about_w hide"></textarea>
 	</div>
 </div>
