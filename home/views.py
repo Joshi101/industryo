@@ -192,7 +192,7 @@ def search(request):
         return render(request, 'search/search.html')
 
 
-# @login_required
+@login_required
 def send_an_email(request):
     userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
     for u in userprofiles:

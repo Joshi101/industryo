@@ -9,7 +9,7 @@
 <ul id="products_list" class="row products_list">
 {% for product in products %}
 	<li class="product col-sm-4">
-		<img src="{{product.get_image}}">
+		<img src="{{product.get_image}}" alt="CoreLogs-{{product}}">
 		<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
 		<div class="product_desc">{{ product.description }}</div>
 		<div class="product_tags tags">

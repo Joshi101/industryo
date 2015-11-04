@@ -44,8 +44,8 @@ def luck(id, n):
     url = 'www.corelogs.com/workplace/'+workplace.slug
 
     template = Template16
-    content = template.format(name, workplace, url)
-    send_mail('Baja/ Supra Teams Feedbacks', content, 'sp@corelogs.com', [user_email])
+    content = template.format(name)
+    send_mail('#CaptureYourTeam & win Cash prizes', content, 'sp@corelogs.com', [user_email])
 
 
 @background(schedule=60)
@@ -437,15 +437,410 @@ you to Invite your TeamMates to&nbsp;<a style="text-decoration:none;color:#e45d6
 
 Template16 = u'''Hi {0}
 
-You have registered on CoreLogs as a member of {1} which participates in Baja/Supra events.
-I would like to have your genuine feedback about our website www.corelogs.com.
+<div id=":30" class="ii gt m150d2ff4d31ae9b1 adP adO"><div id=":2z" class="a3s" style="overflow: hidden;"><u></u>
+    <div style="min-height:100%;margin:0;padding:0;width:100%;background-color:#fafafa">
+        <center>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="border-collapse:collapse;height:100%;margin:0;padding:0;width:100%;background-color:#fafafa">
+                <tbody><tr>
+                    <td align="center" valign="top" style="height:100%;margin:0;padding:0;width:100%;border-top:0">
 
-1. How do you like www.corelogs.com as a platform for SAE teams and the entire core segment of engineering?
-2. Did you find the Forum section helpful and did you find it upto the mark?
-3. Would you like to use the profile page {2} of your team as a substitute for your website?
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                            <tbody><tr>
+								<td align="center" valign="top" style="background-color:#fafafa;border-top:0;border-bottom:0;padding-top:9px;padding-bottom:9px">
 
-How do you think we should expand so as to cover all the teams and become more valuable to the people of the teams. Please reply to me directly.
-Also, invite your teammates to the website so that we may together create a great community.
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
+										<tbody><tr>
+                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td valign="top">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="366" style="border-collapse:collapse">
+                    <tbody><tr>
+
+                        <td valign="top" style="padding-top:9px;padding-left:18px;padding-bottom:9px;padding-right:0;word-break:break-word;color:#656565;font-family:Helvetica;font-size:12px;line-height:150%;text-align:left">
+
+                            #CaptureYourTeam &amp; Win exciting prizes
+                        </td>
+                    </tr>
+                </tbody></table>
+
+                <table align="right" border="0" cellpadding="0" cellspacing="0" width="197" style="border-collapse:collapse">
+                    <tbody><tr>
+
+                        <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:0;word-break:break-word;color:#656565;font-family:Helvetica;font-size:12px;line-height:150%;text-align:left">
+
+                            <a href="http://www.corelogs.com" style="color:#656565;font-weight:normal;text-decoration:underline" target="_blank">View this email in your browser</a>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</tbody></table>
+
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:0;padding-top:9px;padding-bottom:0">
+
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
+										<tbody><tr>
+                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td valign="top" style="padding:9px">
+
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody><tr>
+        <td valign="top" style="padding:0 9px">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                <tbody><tr>
+                    <td valign="top">
+
+
+
+                        <img alt="" src="http://www.corelogs.com/images/thumbnails/corelogs_logo.jpg" width="176" style="max-width:552px;border:0;min-height:auto;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 146px; top: 250px;"><div id=":m9" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" role="button" tabindex="0" aria-label="Download attachment " data-tooltip-class="a1V" data-tooltip="Download"><div class="aSK J-J5-Ji aYr"></div></div></div>
+
+
+
+                    </td>
+                </tr>
+            </tbody></table>
+            <table align="right" border="0" cellpadding="0" cellspacing="0" width="352" style="border-collapse:collapse">
+                <tbody><tr>
+                    <td valign="top" style="word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
+                        <span style="font-size:22px">CoreLogs</span>.com is a platform for SAE related collegiate clubs to get connected to each other and the Engineers, experts &amp; Industrialists across the world. Visit <a href="http://www.corelogs.com/forum/" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">The Engineer's Forum</a> to ask &amp; answer Technical questions.
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</tbody></table>
+
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0">
+
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
+										<tbody><tr>
+                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td valign="top">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                    <tbody><tr>
+
+                        <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
+
+                            <h1 style="display:block;margin:0;padding:0;color:#202020;font-family:Helvetica;font-size:26px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:normal;text-align:left">Capture Your Team and win exciting prizes</h1>
+
+<p style="margin:10px 0;padding:0;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left"><span style="font-size:22px;line-height:20.8px">CoreLogs</span><span style="line-height:20.8px">.com brings a facebook event&nbsp;</span><a href="https://www.facebook.com/hashtag/captureyourteam" style="color:#3b5998;text-decoration:none;font-family:helvetica,arial,sans-serif;font-size:14px;line-height:19.32px;font-weight:normal" target="_blank"><span aria-label="hashtag" style="color:#627aad">#</span><span>CAPTUREYOURTEAM&#8236;</span></a><span style="color:#141823;font-family:helvetica,arial,sans-serif;font-size:14px;line-height:19.32px">&nbsp;for the SAE related Teams across India. You send us a pic of your car, we upload it from our facebook page. The teams with maximum likes win exciting prizes. Visit our <a href="https://www.facebook.com/corelogs.page" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">facebook page</a> for <a href="https://www.facebook.com/notes/corelogs/rules-and-regulations-for-online-event/1635293750068276" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">details and rules</a>.<br>
+You can send us the image at <a href="mailto:info@corelogs.com?subject=Paticipation%20in%20%23captureyourteam" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">info@corelogs.com</a>&nbsp;by <span class="aBn" data-term="goog_724187763" tabindex="0"><span class="aQJ">30th November</span></span>. <strong>The sooner the better.<br>
+It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</strong></span></p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</tbody></table>
+
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
+                                        <tbody><tr>
+                                            <td align="center" valign="top">
+
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" style="border-collapse:collapse">
+													<tbody><tr>
+														<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px">
+
+<table align="right" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#404040;border-collapse:collapse">
+    <tbody><tr>
+        <td align="left" valign="top" style="padding-top:0px;padding-right:0px;padding-bottom:0;padding-left:0px">
+
+
+
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/baja.JPG" width="264" style="max-width:552px;border:0;min-height:auto;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 234px; top: 972px;"><div id=":m8" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" title="Download" role="button" tabindex="0" aria-label="Download attachment " data-tooltip-class="a1V"><div class="aSK J-J5-Ji aYr"></div></div></div>
+
+
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" style="padding:9px 18px;color:#f2f2f2;font-family:Helvetica;font-size:14px;font-weight:normal;text-align:center;word-break:break-word;line-height:150%" width="246">
+            BAja SAE India &amp; Baja Student India
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+													</tr>
+												</tbody></table>
+
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" style="border-collapse:collapse">
+													<tbody><tr>
+														<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px">
+
+<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#404040;border-collapse:collapse">
+    <tbody><tr>
+        <td align="left" valign="top" style="padding-top:0px;padding-right:0px;padding-bottom:0;padding-left:0px">
+
+
+
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/fsae.JPG" width="264" style="max-width:552px;border:0;min-height:auto;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 234px; top: 1293px;"><div id=":ma" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" title="Download" role="button" tabindex="0" aria-label="Download attachment " data-tooltip-class="a1V"><div class="aSK J-J5-Ji aYr"></div></div></div>
+
+
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" style="padding:9px 18px;color:#f2f2f2;font-family:Helvetica;font-size:14px;font-weight:normal;text-align:center;word-break:break-word;line-height:150%" width="246">
+            Supra SAE India &amp; Formula Student India
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+													</tr>
+												</tbody></table>
+
+											</td>
+										</tr>
+									</tbody></table>
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:2px solid #eaeaea;padding-top:0;padding-bottom:9px">
+
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
+										<tbody><tr>
+                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td valign="top">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                    <tbody><tr>
+
+                        <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
+
+                            Through this event we want to emphasize how important it is to bring a culture of sharing and open source movement in Core Segment of Engineering. Let's Speed up the pace of development by following the principle of open source movement &amp; knowledge sharing.<br>
+The IT industry &amp; the startup world learnt about <strong>Lean</strong>&nbsp;from the Core Segment of Engineering. Now Its our chance to learn about <strong>Open Source Technology </strong>from them<strong>.<br>
+Ask, Answer &amp; Write on CoreLogs to help others and make your mark on internet.</strong>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px" valign="top" align="center">
+                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate!important;border-radius:3px;background-color:#2baadf">
+                    <tbody>
+                        <tr>
+                            <td align="center" valign="middle" style="font-family:Arial;font-size:16px;padding:15px">
+                                <a title="Visit CoreLogs" href="http://www.corelogs.com" style="font-weight:bold;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;display:block" target="_blank">Visit CoreLogs</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</tbody></table>
+
+								</td>
+                            </tr>
+                            <tr>
+								<td align="center" valign="top" style="background-color:#fafafa;border-top:0;border-bottom:0;padding-top:9px;padding-bottom:9px">
+
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
+										<tbody><tr>
+                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td align="center" valign="top" style="padding:9px">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+    <tbody><tr>
+        <td align="center" style="padding-left:9px;padding-right:9px">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                <tbody><tr>
+                    <td align="center" valign="top" style="padding-top:9px;padding-right:9px;padding-left:9px">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                            <tbody><tr>
+                                <td valign="top">
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right:10px;padding-bottom:9px">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse:collapse">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24">
+                                                                                    <a href="https://twitter.com/Corelogstwt" target="_blank"><img src="https://ci5.googleusercontent.com/proxy/-SgR5D3-bPp1julTBdSE5457JLji6LNVwzZc_IzhWv_glCJmaIYrbdmJKf7oglfkeHHhMOEnTfkjdEFyTdW4nZ7I9uQz-CPztcyuJwCec3wpBJjvTFOFzAkhm_xj1bBX=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" height="24" width="24" class="CToWUd"></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right:10px;padding-bottom:9px">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse:collapse">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24">
+                                                                                    <a href="https://www.facebook.com/corelogs.page" target="_blank"><img src="https://ci4.googleusercontent.com/proxy/X9MqCnSCvb5f1PshSVntsSqqm9dNg_ie7HbGsGn_ezsyhoBi1KL0re94Q0I4KPY2mGVpcW3dKRZwm_0bekmhL_IFCF7C82_1xXG2ZkrezDWf6kPh_gik805bm8zRcbMSMw=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" height="24" width="24" class="CToWUd"></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right:0;padding-bottom:9px">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse:collapse">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24">
+                                                                                    <a href="http://www.corelogs.com" target="_blank"><img src="https://ci3.googleusercontent.com/proxy/_uFbA8j5252fdnk4T1_dJcIe3YicShHtrxPXTNzgU81-5pFJl2KE13IBBm4-vmLNjsIyoC7sNVtQSpq--CaF3PHuhb6igzEEPH4WYLOOxYKIPOBarWCqgaZCobMK=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" height="24" width="24" class="CToWUd"></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;border-collapse:collapse;table-layout:fixed!important">
+    <tbody>
+        <tr>
+            <td style="min-width:100%;padding:10px 18px 25px">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;border-top-width:2px;border-top-style:solid;border-top-color:#eeeeee;border-collapse:collapse">
+                    <tbody><tr>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+
+</table></td>
+										</tr>
+									</tbody></table>
+
+								</td>
+                            </tr>
+                        </tbody></table>
+
+                    </td>
+                </tr>
+            </tbody></table>
+        </center>
+    <img src="https://ci4.googleusercontent.com/proxy/ct_zxr3LLMPnfSlsneOV1ereoYzjdduwA2RTmFMy9NTI7jm3w67yco9WgoF37MpqftUaztQuky3YwkQ5JQTeTs5ydXm0aosjZdqBXPae5kdelA8Al1shjP5iZ3wQa9o4uI0OjI_wfl6slMWH0lJvDeQmhVnph5SLNkuftui0zxg=s0-d-e1-ft#http://corelogs.us12.list-manage.com/track/open.php?u=f4abfd921eb96255e46134f8f&amp;id=e5d3fc15c2&amp;e=965faa2986" height="1" width="1" class="CToWUd"></div><div class="yj6qo"></div><div class="adL">
+</div></div></div>
 
 Thanks
 Surya Prakash

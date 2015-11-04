@@ -1,7 +1,7 @@
 {% for p in people %}
 	<a href="{% url 'user:profile' p.user.username %}">
 		<li>
-			<img src="{{p.get_profile_image}}">
+			<img src="{{p.get_profile_image}}" alt="Corelogs-{{userprofile}}">
 			<div class="ppl_info">
 				<span class="name_user {% ifequal p.user.username user.username %}same{% endifequal %}">{{p.get_name}}</span>
 				<span class="label label-default label_sm">{{ p.points }}</span>

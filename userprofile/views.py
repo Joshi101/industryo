@@ -92,7 +92,31 @@ def edit(request):
 #     else:
 #         return redirect('/user/'+request.user.username)
 
+#
+# def set_interests(request):
+#     if request.method == 'POST':
+#         response = {}
+#         r_html = {}
+#         r_elements = []
+#         user = request.user
+#         up = user.userprofile
+#         wp = user.userprofile.primary_workplace
+#         # type = request.POST.get('type')
+#         value = request.POST.get('tag')
+#         if value:
+#             t = wp.set_interests(value)
+#             new_interest = t
+#             r_elements = ['tag_container']
+#             r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
+#             response['html'] = r_html
+#             response['elements'] = r_elements
+#             response['prepend'] = True
+#             return HttpResponse(json.dumps(response), content_type="application/json")
+#     else:
+#         return redirect('/user/'+request.user.username)
 
+
+@login_required
 def set_interests(request):
     if request.method == 'POST':
         response = {}
@@ -100,21 +124,19 @@ def set_interests(request):
         r_elements = []
         user = request.user
         up = user.userprofile
-        wp = user.userprofile.primary_workplace
-        # type = request.POST.get('type')
+        type = request.POST.get('type')
         value = request.POST.get('tag')
         if value:
-            t = wp.set_interests(value)
-            new_interest = t
-            r_elements = ['tag_container']
-            r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
-            response['html'] = r_html
-            response['elements'] = r_elements
-            response['prepend'] = True
-            return HttpResponse(json.dumps(response), content_type="application/json")
+            t = up.set_interests(value)
+        new_interest = t
+        r_elements = ['detail_body']
+        r_html['detail_body'] = render_to_string('snippets/interests.html', {'interests': new_interest})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
-
 
 def delete_interest(request):
     if request.method == 'GET':

@@ -18,7 +18,7 @@
 <ul id="members_list">
 {% for member in members %}
 	<li class="member">
-		<img src="{{member.get_profile_image}}">
+		<img src="{{member.get_profile_image}}" alt="CoreLogs-{{member}}">
 		<div class="member_name"><a class="name_user {% ifequal member.user.username user.username %}same{% endifequal %}" href="{% url 'user:profile' member.user.username %}">{{ member }}</a></div>
 		<div class="member_position">{{ member.job_position }}</div>
 		<div></div>

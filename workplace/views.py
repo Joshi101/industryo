@@ -94,7 +94,6 @@ def search_workplace(request):                  # for searching the workplace
 
 @login_required
 def set_tags(request):
-    print('balle')
     if request.method == 'POST':
         response = {}
         r_html = {}
@@ -110,7 +109,6 @@ def set_tags(request):
             if type == 'M':
                 t = wp.set_materials(value)
             if type == 'O':
-                print('shava')
                 t = wp.set_operations(value)
             if type == 'C':
                 t = wp.set_city(value)

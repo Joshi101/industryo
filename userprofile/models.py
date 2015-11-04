@@ -70,6 +70,7 @@ class UserProfile(models.Model):
                     return default_image
 
     def set_interests(self, interests):
+        print('wow')
         if interests:
             workplace_tags = interests.split(',')
             li = []
