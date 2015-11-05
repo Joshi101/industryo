@@ -51,6 +51,10 @@
   border-bottom-color: #222;
 }
 
+.nav > li > a {
+  padding: 15px 10px;
+}
+
 
 /* cover */
 /*
@@ -337,12 +341,32 @@ pre {
 
 
 #top_search {
-  max-width: 500px;
-  position: relative;
-  top:10px;
-  margin: 0 10px;
-  float: left;
-  //border-bottom: 1px solid #ddd;
+  width: 100%;
+  position: fixed;
+  height: 50px;
+  //z-index: -1;
+}
+
+@media (min-width: 1000px){
+  #top_search form{
+    width: 300px;
+    margin: auto;
+    position: relative;
+    left: -25px;
+    top: 10px;
+    z-index: auto;
+  }
+}
+
+@media (max-width: 1000px ) and (min-width: 768px){
+  #top_search form{
+    width: 200px;
+    margin: auto;
+    position: relative;
+    left: -25px;
+    top: 10px;
+    z-index: 1000;
+  }
 }
 
 #top_search .input-group-btn > .btn{
@@ -1672,7 +1696,7 @@ h4 > .edit_post:hover {
 }
 
 #about .container{
-  background-color: rgba(255,255,255,0.75);
+  //background-color: rgba(255,255,255,0.75);
   color: #333;
   width: 100%;
   text-align: left;
@@ -1783,6 +1807,10 @@ footer .contact li{
   max-width: 100%;
   display: block;
   margin: auto;
+}
+
+#msg_modal .dropdown-menu{
+  width: 100%;
 }
 
 .d_menu{

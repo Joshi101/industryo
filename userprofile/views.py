@@ -204,14 +204,3 @@ def search_person(request):                  # for searching the workplace
 #             return redirect('/user/'+user.username)
 #     else:
 #         return render(request, 'userprofile/set_interests.html', {'form': form})
-
-
-# def set_profile_image(request):
-
-
-
-
-
-
-
-# Create your views here.
