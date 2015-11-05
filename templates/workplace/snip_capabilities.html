@@ -8,13 +8,13 @@
 			{% if request.user.userprofile in members %}
 			<form id="capabilities_w" class="pull-right" action="{% url 'workplace:set_capabilities' %}" method="POST">
 				{% csrf_token %}
-				<button data-content="capabilities_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+				<button data-content="capabilities_w" data-save="" class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
 			</form>
 			{% endif %}
 		</h3>
 	</div>
 	<div class="panel-body">
-		<pre class="detail_body content_capabilities_w">{{capabilities}}</pre>
+		<pre class="detail_body content_capabilities_w">{{workplace.capabilities}}</pre>
 		<textarea name="capabilities" form="capabilities_w" rows="3" class="form-control edit_capabilities hide"></textarea>
 	</div>
 </div>
@@ -50,7 +50,7 @@
 </div>
 <div class="panel panel-default ajax_andar ajax_papa">
 	<div class="panel-heading">
-		{% include "workplace/set_tags.html" with head='Operations' category='op' type='O' %}
+		{% include "workplace/set_tags.html" with head='Operations we can Perform:' category='op' type='O' %}
 	</div>
 	<div class="panel-body">
 		<div class="detail_body">
@@ -62,11 +62,11 @@
 </div>
 <div class="panel panel-default ajax_andar ajax_papa">
 	<div class="panel-heading">
-		{% include "workplace/set_tags.html" with head='Materials' category='mat' type='M' %}
+		{% include "workplace/set_tags.html" with head='Materials that we work on:' category='mat' type='M' %}
 	</div>
 	<div class="panel-body">
 		<div class="detail_body">
-			{% for material in materials %}
+			{% for material in workplace.get_tags.materials %}
 				{% include 'snippets/one_interest.html' with interest=material %}
 			{% endfor %}
 		</div>
@@ -74,11 +74,11 @@
 </div>
 <div class="panel panel-default ajax_andar ajax_papa">
 	<div class="panel-heading">
-		{% include "workplace/set_tags.html" with head='Assets' category='assets' type='A' %}
+		{% include "workplace/set_tags.html" with head='Assets / Machinery we have:' category='assets' type='A' %}
 	</div>
 	<div class="panel-body">
 		<div class="detail_body">
-			{% for asset in assets %}
+			{% for asset in workplace.get_tags.assets %}
 				{% include 'snippets/one_interest.html' with interest=asset %}
 			{% endfor %}
 		</div>

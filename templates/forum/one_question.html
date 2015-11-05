@@ -26,7 +26,7 @@
 		{% if q.get_tags %}
 		<div class="tags">
 			{% for tag in q.get_tags %}
-				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag">{{tag}}</a>
+				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
 			{% endfor %}
 		</div>
 	{% endif %}

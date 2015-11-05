@@ -3,7 +3,7 @@
 {% for product in products %}
 	<li class="side_product col-sm-4">
 		<a href="{% url 'products:product' product.slug %}">
-			<img src="{{product.get_image_thumbnail}}">
+			<img src="{{product.get_image_thumbnail}}" alt="CoreLogs-{{product}}">
 			<div class="text-center">{{product}}</div>
 		</a>
 	</li>

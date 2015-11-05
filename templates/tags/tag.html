@@ -7,24 +7,25 @@
 
 {% block left %}
 	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="/{{tag.get_logo}}">
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{tag.get_logo}}" alt="CoreLogs-{{tag}}">
 		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
     </div>
   {% include "snippets/img_upload_modal.html" with url='nodes:set_tag_logo' url_slug=tag.slug form=tag_logo_form.image %}
 {% endblock left %}
 
 {% block content %}
-	<div class="panel panel-success bg-info ajax_andar ajax_papa">
-		<form id="tag_desc" class="pull-right" action="{% url 'tags:describe_tag' %}" method="POST">
-			<button data-content="tag_desc" data-save='' class="btn btn-default btn-xs detail_edit pull-right little_edit" name="">Edit</button>
-      <input type="hidden" value="{{ tag.id }}" name="id">
-		</form>
+		<div class="panel panel-success bg-info ajax_andar ajax_papa">
+        <form id="tag_desc" class="pull-right" action="{% url 'tags:describe_tag' %}" method="POST">
+            <button data-content="tag_desc" data-save="" class="btn btn-default btn-xs detail_edit pull-right little_edit" name="">Edit</button>
+			<input type="hidden" value="{{ tag.id }}" name="id">
+        </form>
+
 		<div class="panel-body">
 			<div class="col-sm-7">
 	      <h4 class=" text-uppercase">{{ tag }}</h4>
 	      <h5 class="text-muted"><b>{{ tag.get_type }}</b></h5>
 	      <h5 class="text-muted content_tag_desc">{{ tag.description }}</h5>
-				<textarea name="description" form="tag_desc" rows="3" class="form-control edit_tag_desc hide"></textarea>
+			<textarea name="description" form="tag_desc" rows="3" class="form-control edit_tag_desc hide"></textarea>
 	    </div>
 	    <div class="col-sm-offset-1 col-sm-4">
 	      <h5><span class="label label-success">{{ tag.count }} Instances</span></h5>

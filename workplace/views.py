@@ -12,6 +12,7 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
+from background_task import background
 
 @login_required
 def workplace_register(request):
@@ -119,7 +120,7 @@ def set_tags(request):
                 t = wp.set_segments(value)
             new_interest = t
             r_elements = ['detail_body']
-            r_html['detail_body'] = render_to_string('snippets/interest.html', {'interests': new_interest})
+            r_html['detail_body'] = render_to_string('snippets/interests.html', {'interests': new_interest})
             response['html'] = r_html
             response['elements'] = r_elements
             response['prepend'] = True
@@ -341,7 +342,6 @@ def set_capabilities(request):
         capabilities = request.POST.get('capabilities')
         wp.capabilities = capabilities
         wp.save()
-        print(capabilities,wp.capabilities)
         return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
@@ -387,7 +387,6 @@ def side_panel(request):
 def fodder(request):
     ob = WpTags.objects.all()
     for o in ob:
-        print(o.id)
         if o.tags:
             o.category = o.tags.type
             o.save()
@@ -437,8 +436,9 @@ def workplace_data(request):
     return render(request, 'activities/workplace_data.html', locals())
 
 
+# @background(schedule=60)
 def invite_colleague(request):
-    print('kkkkk')
+    print('wala')
     user =request.user
     userprofile = user.userprofile
     workplace = user.userprofile.primary_workplace
