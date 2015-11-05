@@ -164,7 +164,7 @@ def search_area(request):
 def search_person(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        o = User.objects.filter(Q(first_name__icontains=w) | Q(last_name__icontains=w)) | Q(username__icontains=w)[:5]
+        o = User.objects.filter(Q(first_name__icontains=w) | Q(last_name__icontains=w) | Q(username__icontains=w))[:5]
         return render(request, 'tags/list_ppl.html', {'objects': o})
     else:
         return render(request, 'tags/list_ppl.html')
@@ -183,14 +183,3 @@ def search_person(request):                  # for searching the workplace
 #             return redirect('/user/'+user.username)
 #     else:
 #         return render(request, 'userprofile/set_interests.html', {'form': form})
-
-
-# def set_profile_image(request):
-
-
-
-
-
-
-
-# Create your views here.

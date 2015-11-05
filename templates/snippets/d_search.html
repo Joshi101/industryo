@@ -17,6 +17,6 @@
   </div>
 	<input class="d_value" name={{search}} value="" type="hidden" autocomplete=off>
   {% if type %}
-  <input class="d_type" name="type" value="{{type}}" type="hidden">
+  <input class="d_type" name="type" value="{% if type %}{{type}}{% else %}All{% endif %}" type="hidden">
   {% endif %}
 </div>

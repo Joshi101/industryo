@@ -1,65 +1,70 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand nav_a_home" href="{% url 'home' %}">
-        <span class="fa fa-home inline_fa"></span>
-        <span>Home</span>
-      </a>
-      <a class="navbar-brand nav_a_forum" href="{% url 'forum:questions' %}">
-        <span class="fa fa-tasks inline_fa"></span>
-        <span>Forum</span>
-      </a>
-      <a class="navbar-brand nav_a_articles" href="{% url 'nodes:articles' %}">
-        <span class="fa fa-book inline_fa"></span>
-        <span>Articles</span>
-      </a>
-      {% if user.is_authenticated or request.path != '/' %}
-      <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      {% endif %}
-      <div id="top_search" class="">
-        <form action="{% url 'search' %}" role="form">
-          <div class="form-group">
-            <div class="input-group input-group-sm">
-              <span id="search_typ" class="input-group-btn">
-                <div class="dropdown select_dropdown" data-name="what">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span class="value">{{what|capfirst}}</span>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a>Questions</a></li>
-                    <li><a>Articles</a></li>
-                    <li><a>Tags</a></li>
-                    <li><a>Users</a></li>
-                    <li><a>Workplaces</a></li>
-                    <li><a>Products</a></li>
-                  </ul>
-                </div>
-              </span>
-              {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
-              <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
-              <span class="input-group-btn">
-                <button class="btn btn-default"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
+    <div id="top_search" class="">
+      <form action="{% url 'search' %}" role="form">
+        <div class="form-group">
+          <div class="input-group input-group-sm">
+            <span id="search_typ" class="input-group-btn">
+              <div class="dropdown select_dropdown" data-name="what">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                  <span class="value">{{what|capfirst}}</span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a>Questions</a></li>
+                  <li><a>Articles</a></li>
+                  <li><a>Tags</a></li>
+                  <li><a>Users</a></li>
+                  <li><a>Workplaces</a></li>
+                  <li><a>Products</a></li>
+                </ul>
+              </div>
+            </span>
+            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
+            <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
+            <span class="input-group-btn">
+              <button class="btn btn-default"><i class="fa fa-search"></i></button>
+            </span>
           </div>
-          <input class="what" type="hidden" name="what" value="{{what}}">
-        </form>
-      </div>
+        </div>
+        <input class="what" type="hidden" name="what" value="{{what}}">
+      </form>
     </div>
-    <div class="collapse navbar-collapse" id="topNavbar">
+    <ul class="nav navbar-nav">
+      <li>
+        <a class="nav_a_home" href="{% url 'home' %}">
+          <span class="fa fa-home inline_fa"></span>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav_a_forum" href="{% url 'forum:questions' %}">
+          <span class="fa fa-tasks inline_fa"></span>
+          <span>Forum</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav_a_articles" href="{% url 'nodes:articles' %}">
+          <span class="fa fa-book inline_fa"></span>
+          <span>Articles</span>
+        </a>
+      </li>
+    {% if user.is_authenticated or request.path != '/' %}
+    <button id="top_nav_toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    {% endif %}
+    </ul>
+    <div id="topNavbar" class="collapse navbar-collapse">
       {% if user.is_authenticated %}
       <ul class="nav navbar-nav navbar-right top_user_info">
         <li id="notifications" class="hover_ajax" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <span class="badge"></span>
           <a class="dropdown-toggle" data-toggle="dropdown">
-            <span class="fa fa-bell"></span>
-            <span> </span>
             <span class="mob_only">Notifications</span>
+            <span class="fa fa-bell inline_fa"></span>
           </a>
           <div class="dropdown">
             <div class="dropdown-menu hover_box">
@@ -67,7 +72,10 @@
           </div>
         </li>
         <li title="Messages" data-toggle="tooltip" data-placement="bottom">
-          <a href="{% url 'messages:inbox' %}"><span class="fa fa-envelope"></span></a>
+          <a href="{% url 'messages:inbox' %}">
+            <span class="mob_only">Messages</span>
+            <span class="fa fa-envelope inline_fa"></span>
+          </a>
         </li>
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
           {% if user.userprofile.primary_workplace %}

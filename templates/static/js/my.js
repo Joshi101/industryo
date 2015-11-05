@@ -95,6 +95,7 @@ function d_input_show_error($this,sign,msg){
 
 
 $('body').on('keydown', '.d_input', function(event) {
+    $(".d_input").on('blur', d_input_blur);
     var $this = $(this);
     d_input_remove_error($this,true,false);
     d_this = $this;
@@ -273,15 +274,16 @@ if (d_check){
 }
 }
 
-/*$("body").on('blur', '.d_input', d_input_blur);*/
+/*$(".body").on('blur', '.d_input', d_input_blur);*/
 
-/*$("body").on('hover', '.d_menu', 
-    function() {
-        $(".d_input").off('blur');
-    },
-    function() {
-    $(".d_input").blur(d_input_blur);
-});*/
+$("body").on('mouseenter', '.d_menu', function() {
+    console.log('lop')
+    $(".d_input").off('blur');
+});
+$('body').on('mouseleave', '.d_menu', function() {
+    $(".d_input").on('blur', d_input_blur);
+});
+
 $("body").on('focus', '.d_input', function() {
     d_check = true;
     var $this = $(this);
