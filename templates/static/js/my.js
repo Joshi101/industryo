@@ -658,6 +658,7 @@ $('.img_pre').on('click', '.close', function() {
 
 $('.ajax_andar').on('click', '.upvote', function() {
     $this = $(this);
+    console.log($(this))
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
     if ($this.attr('class').indexOf('done') >= 0) {
         $this.removeClass('done').tooltip('hide').attr('data-original-title', 'Vote Up').tooltip('fixTitle');
@@ -666,7 +667,7 @@ $('.ajax_andar').on('click', '.upvote', function() {
         $this.addClass('done').tooltip('hide').attr('data-original-title', 'Cancel Vote').tooltip('fixTitle');
         val += 1;
     }
-    console.log(val);
+    console.log(val, $(this).closest('.ajax_papa').find('.votes').text());
     $(this).closest('.ajax_papa').find('.votes').text(val);
 });
 
