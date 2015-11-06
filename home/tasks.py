@@ -29,7 +29,7 @@ def bhakk(id, n):
     # except Exception:
     #     pass
 
-@background(schedule=60)
+# @background(schedule=60)
 def luck(id, n):
     user = User.objects.get(id=id)
     if user.email:
