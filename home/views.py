@@ -194,7 +194,15 @@ def search(request):
 
 @login_required
 def send_list(request):
-    li = ['sprksh.j@gmail.com', 'rohit9gag@gmail.com', ]
+    li = ['sprksh.j@gmail.com', 'dmce.torridracing@gmail.com', 'autorangers2016@gmail.com', 'baja@kiit.ac.in', 'info@teamaerosouls.com',
+          'acrostreakbaja@gmail.com', 'sae.sati@gmail.com', 'sae@bitmesra.ac.in', 'saenitrr@gmail.com', 'saeindiacpu@gmail.com',
+          'forza.racing.baja@gmail.com', 'blitzpvpit@gmail.com', 'teamarvan2.0@gmail.com', 'info@teamvulcans.com',
+          'umkcbaja@umkc.edu', 'scoe.baja@gmail.com', 'teamunwired@nitc.ac.in', 'rohit.kher619@gmail.com', 'sachiname@live.com',
+          'ignitorracing107@gmail.com', 'race@9T9racing.com', 'vssutsae@gmail.com', 'emanation.ksit@gmail.com', 'info@teamaudacious.com',
+          'fssparkracing@gmail.com', 'raftarformularacing@gmail.com', 'info@stesracing.in', 'banduriarijit16@gmail.com', 'sid04sid@gmail.com',
+          'sbjitmr.sae@gmail.com', 'knocksoniacs@gmail.com', 'vayuputrasupra@gmail.com', 'redlineracing.supra@gmail.com',
+          'newautomachen@gmail.com', 'supermileage@dce.ac.in', 'racing.pioneers@gmail.com', 'stallionmotorsport@gmail.com',
+          'sachiname@live.com', 'info@areionmotorsports.com']
     for m in li:
         tasks.list_mail(m, n=18)
     return redirect('/')
@@ -206,7 +214,8 @@ def send_test(request):
 
 @login_required
 def send_an_email(request):
-    userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+    # userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+    userprofiles = UserProfile.objects.filter(id__lte=2)
     for u in userprofiles:
         tasks.luck(u.id, n=16)
     return redirect('/')

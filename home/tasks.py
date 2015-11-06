@@ -40,12 +40,16 @@ def luck(id, n):
         name = user.get_full_name()
     else:
         name = user.username
-    workplace = user.userprofile.primary_workplace
-    url = 'www.corelogs.com/workplace/'+workplace.slug
-
     template = Template16
-    content = template.format(name)
-    send_mail('#CaptureYourTeam with CoreLogs & win Cash prizes', content, 'sp@corelogs.com', [user_email])
+    html_content = template.format(name)
+    subject, from_email, to = '#CaptureYourTeam with CoreLogs & Win Cash Prizes', 'sp@corelogs.com', user_email
+    text_content = '#CaptureYourTeam with CoreLogs & Win Cash Prizes'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # template = Template16
+    # content = template.format(name)
+    # send_mail('#CaptureYourTeam with CoreLogs & win Cash prizes', content, 'sp@corelogs.com', [user_email])
 
 @background(schedule=60)
 def test_mail(id, n):
@@ -1333,6 +1337,7 @@ Ask, Answer & Write on CoreLogs to help others and make your mark on internet.</
         </center>
     </body>
 </html>
+
 
 Thanks
 Surya Prakash

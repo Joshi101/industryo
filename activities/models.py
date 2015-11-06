@@ -88,60 +88,84 @@ class Notification(models.Model):
 
     def __str__(self):
         if self.notification_type == self.LIKED:
-            return self._LIKED_TEMPLATE.format(
-                escape(self.from_user.username),
-                escape(self.from_user.first_name),
-                self.node.slug,
-                escape(self.get_summary(self.node.post))
-                )
-        elif self.notification_type == self.COMMENTED:
-            if self.node:
-                return self._COMMENTED_N_TEMPLATE.format(
+            if self.node.category == 'A':
+                return self._LIKED_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.get_full_name()),
+                    escape(self.from_user.userprofile),
+                    self.node.slug,
+                    escape(self.node.title)
+                    )
+            else:
+                return self._LIKED_TEMPLATE.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.userprofile),
                     self.node.slug,
                     escape(self.get_summary(self.node.post))
                     )
+        elif self.notification_type == self.COMMENTED:
+            if self.node:
+                if self.node.category == 'A':
+                    return self._LIKED_TEMPLATE.format(
+                        escape(self.from_user.username),
+                        escape(self.from_user.userprofile),
+                        self.node.slug,
+                        escape(self.node.title)
+                        )
+                else:
+                    return self._LIKED_TEMPLATE.format(
+                        escape(self.from_user.username),
+                        escape(self.from_user.userprofile),
+                        self.node.slug,
+                        escape(self.get_summary(self.node.post))
+                        )
             elif self.question:
                 return self._COMMENTED_Q_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.get_full_name()),
+                    escape(self.from_user.userprofile),
                     self.question.slug,
                     escape(self.get_summary(self.question.title))
                     )
             elif self.answer:
                 return self._COMMENTED_A_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.get_full_name()),
+                    escape(self.from_user.userprofile),
                     self.answer.question.slug,
                     escape(self.get_summary(self.answer.answer))
                     )
 
         elif self.notification_type == 'S':
             if self.node:
-                return self._ALSO_COMMENTED_TEMPLATE.format(
-                    escape(self.from_user.username),
-                    escape(self.from_user.get_full_name()),
-                    self.node.slug,
-                    escape(self.get_summary(self.node.post))
-                    )
+                if self.node.category == 'A':
+                    return self._LIKED_TEMPLATE.format(
+                        escape(self.from_user.username),
+                        escape(self.from_user.userprofile),
+                        self.node.slug,
+                        escape(self.node.title)
+                        )
+                else:
+                    return self._LIKED_TEMPLATE.format(
+                        escape(self.from_user.username),
+                        escape(self.from_user.userprofile),
+                        self.node.slug,
+                        escape(self.get_summary(self.node.post))
+                        )
             elif self.question:
                 return self._ALSO_Q_COMMENTED_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.get_full_name()),
+                    escape(self.from_user.userprofile),
                     self.question.slug,
                     escape(self.get_summary(self.question.title))
                     )
             elif self.answer:
                 return self._ALSO_A_COMMENTED_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.get_full_name()),
+                    escape(self.from_user.userprofile),
                     self.answer.question.slug,
                     escape(self.get_summary(self.answer.answer))
                     )
             # return self._ALSO_COMMENTED_TEMPLATE.format(
             #     escape(self.from_user.username),
-            #     escape(self.from_user.get_full_name()),
+            #     escape(self.from_user.userprofile),
             #     self.node.pk,
             #     escape(self.get_summary(self.node.post))
             #     )
@@ -149,7 +173,7 @@ class Notification(models.Model):
         elif self.notification_type == 'F':
             return self._FOLLOWS_TEMPLATE.format(
                 escape(self.from_user.username),
-                escape(self.from_user.get_full_name()),
+                escape(self.from_user.userprofile),
                 escape(self.from_user.enterprise.slug),
                 escape(self.from_user.enterprise)
                 )
@@ -157,26 +181,26 @@ class Notification(models.Model):
         elif self.notification_type == 'J':
             return self._ALSO_JOINED_TEMPLATE.format(
                 escape(self.from_user.username),
-                escape(self.from_user.get_full_name()),
+                escape(self.from_user.userprofile),
                 )
 
         elif self.notification_type == 'E':
             return self._EDITED_TEMPLATE.format(
                 escape(self.from_user.username),
-                escape(self.from_user.get_full_name()),
+                escape(self.from_user.userprofile),
                 )
         if self.notification_type == 'U':
             if self.question:
                 return self._VotedUpQ_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.first_name),
+                    escape(self.from_user.userprofile),
                     self.question.slug,
                     escape(self.get_summary(self.question.title))
                     )
             else:
                 return self._VotedUpA_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.first_name),
+                    escape(self.from_user.userprofile),
                     self.answer.question.slug,
                     escape(self.get_summary(self.answer.answer))
                     )
@@ -185,21 +209,21 @@ class Notification(models.Model):
             if self.question:
                 return self._VotedDownQ_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.first_name),
+                    escape(self.from_user.userprofile),
                     self.question.slug,
                     escape(self.get_summary(self.question.title))
                     )
             else:
                 return self._VotedDownA_TEMPLATE.format(
                     escape(self.from_user.username),
-                    escape(self.from_user.first_name),
+                    escape(self.from_user.userprofile),
                     self.answer.question.slug,
                     escape(self.get_summary(self.answer.answer))
                     )
         elif self.notification_type == 'A':
             return self._ANSWERED_TEMPLATE.format(
                 escape(self.from_user.username),
-                escape(self.from_user.get_full_name()),
+                escape(self.from_user.userprofile),
                 self.question.slug,
                 escape(self.get_summary(self.question.title))
                 )

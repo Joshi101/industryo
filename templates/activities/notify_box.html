@@ -2,7 +2,7 @@
 	<h5>{% if count %}{{count}}{% else %}No{% endif %} New notifications</h5>
 	<ul class="unread">
 		{% for n in unread %}
-			<li><span class="glyphicon glyphicon-exclamation-sign"></span> <span class="notify">{{n|safe}}</span></li>
+			<li>{{n|safe}}</span></li>
 		{% endfor %}
 	</ul>
 	<h5><a href="{% url 'notifications' %}">View all notifications</a></h5>

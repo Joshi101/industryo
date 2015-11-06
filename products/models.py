@@ -44,7 +44,6 @@ class Products(models.Model):
         super(Products, self).save(*args, **kwargs)
 
     def set_tags(self, tags):
-        print(tags)
         if tags:
             question_tags = tags.split(',')
             li = []
@@ -58,6 +57,7 @@ class Products(models.Model):
                 t.count +=1
                 t.save()
             self.tags = li
+        return li
 
     def get_tags(self):
         tags = self.tags.all()
@@ -81,7 +81,6 @@ class Products(models.Model):
 
     def set_target_segments(self, li):
         l = len(li)
-        print(l)
         if l == 1:
             q = li[0]
         elif l == 2:
@@ -91,7 +90,6 @@ class Products(models.Model):
         else:
             q = li[0] + li[1] + li[2] + li[3]
         self.target_segment = q
-        print(q)
         self.save()
         return q
 
