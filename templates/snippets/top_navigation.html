@@ -20,6 +20,28 @@
                 </ul>
               </div>
             </span>
+            <div class="has-feedback">
+              <div class="one_value hide">
+                <a class="close">&times;</a>
+                <span></span>
+              </div>
+              <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">
+              <span class="form-control-feedback">
+                <i class="fa fa-pulse fa-spinner fback_wait hide"></i>
+              </span>
+              <div class="dropdown">
+                <ul class="dropdown-menu list-group d_menu">
+                  <div class="d_list one_list"></div>
+                  {% if parent %}
+                  <a href="#create_{{search}}" class="list-group-item list-group-item-info create_new" data-toggle="collapse" data-parent="#{{parent}}"><i class="fa fa-plus"></i> Create New</a>
+                  {% endif %}
+                </ul>
+              </div>
+              <input class="d_value" name={{search}} value="" type="hidden" autocomplete=off>
+              {% if type %}
+              <input class="d_type" name="type" value="{% if type %}{{type}}{% else %}All{% endif %}" type="hidden">
+              {% endif %}
+            </div>
             {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
             <!-- <input class="form-control input-sm" name="q" placeholder="{{querystring}}"> -->
             <span class="input-group-btn">

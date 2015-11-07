@@ -122,6 +122,12 @@ form{
   color: #aaa;
 }
 
+@media (min-width: 768px) {
+  .navbar-inverse .navbar-nav > li > .top_info_box {
+    max-width: 150px;
+  }
+}
+
 .navbar-inverse .navbar-nav > li > .top_info_box:hover,
 .navbar-inverse .top_user_info > li > .top_info_box:focus {
   color: #179;
