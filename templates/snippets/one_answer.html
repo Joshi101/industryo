@@ -1,3 +1,4 @@
+{% load filter %}
 <div class="feed_box answer" property='suggestedAnswer' typeof='Answer'>
 	<div class="feed_box_heading">
 			{% include "snippets/joint_name.html" with user=a.user anony=a.anonymous %}
@@ -9,7 +10,7 @@
 		</div>
 		<div class="ajax_papa">
 			<div class="feed_box_body">
-				<div class="a_detail">{{ a.answer|safe }}</div>
+				<div class="a_detail">{{ a.answer|new_tab|safe }}</div>
 				{% for image in a.get_images %}
 				<figure class="call_car">
 					<a data-toggle='modal' data-target='#figure_modal'>

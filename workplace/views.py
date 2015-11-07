@@ -158,7 +158,6 @@ def set_tags_short(request):
             new_interest = t
             r_elements = ['info_field_value']
             r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
-            print(r_html['info_field_value'])
             response['html'] = r_html
             response['elements'] = r_elements
             response['prepend'] = False
