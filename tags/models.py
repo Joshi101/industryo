@@ -50,6 +50,8 @@ class Tags(models.Model):
             return "Asset"
         elif self.type == 'C':
             return "City"
+        elif self.type == 'S':
+            return "Industry Segment"
         elif self.type == 'E':
             return "Event"
         elif self.type == 'I':
