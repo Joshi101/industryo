@@ -124,7 +124,9 @@ form{
 
 @media (min-width: 768px) {
   .navbar-inverse .navbar-nav > li > .top_info_box {
-    max-width: 150px;
+    max-width: 120px;
+    max-height: 40px;
+    overflow: hidden;
   }
 }
 
@@ -165,6 +167,7 @@ form{
     margin: 0 0;
     padding: 10px 15px 20px;
     background-color: #333;
+    text-align: center;
   }
   .top_info_points {
     line-height: 10px;
@@ -176,8 +179,6 @@ form{
     display: block;
 
     width: 100%;
-
-    text-align: center;
 
     background-color: #333;
   }

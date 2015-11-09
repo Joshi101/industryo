@@ -1381,15 +1381,17 @@ $('.nav-pills').on('click', 'li', function(){
 
 $('.select_dropdown').on('click', '.dropdown-menu a', function(){
     console.log($(this).text());
-    var what = $(this).text();
-    var sd = $('.select_dropdown');
+    var what = $(this).find('.value').text();
+    var what_fa = $(this).find('i').attr('class');
+    var sd = $('.select_dropdown .dropdown-toggle');
     sd.find('.value').text(what);
+    sd.find('i').attr('class', what_fa);
     sd.closest('form').find('.what').val(what.toLowerCase());
-    var s_url = '/search/'+what.toLowerCase()
+    var s_url = '/search/'+what.toLowerCase();
     /*sd.closest('form').attr('action',s_url);*/
 });
 
 $('#top_search').on('focus', '.d_input', function(){
     type = $('#top_search').find('.what').val().toLowerCase();
-    var d_s = $(this).closest('.d_search').find('.d_type').val(type);
+    $(this).closest('.d_search').find('.d_type').val(type);
 });

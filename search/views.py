@@ -49,10 +49,12 @@ def search(request):
 
 def searchq(request):
     querystring = request.GET.get('the_query').strip()
+    print(querystring)
     if len(querystring) >= 3:
         terms = querystring.split(' ')
-    if not terms:
-        return redirect('/search/')
+    else:
+        print('chotu')
+        return render(request, 'search/list.html')
     query = None
     what = request.GET.get('the_type')
     if what == 'questions':
