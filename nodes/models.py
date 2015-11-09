@@ -28,6 +28,8 @@ class Images(models.Model):
         return str(self.pk)
 
     def upload_image(self, image, user):
+        if len(image.name) > 30:
+            image.name = image.name[:20]
         i = Images.objects.create(image=image, image_thumbnail=image, user=user)
         return i
 

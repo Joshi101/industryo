@@ -24,7 +24,7 @@ class Question(models.Model):
     score = models.FloatField(default=0)            # score added and two more below
     is_active = models.BooleanField(default=True)
     last_active = models.TimeField(auto_now=True)
-    images = models.ManyToManyField(Images, null=True)
+    images = models.ManyToManyField(Images, null=True, blank=True)
     category = models.BooleanField(default=0)           # 0 for general, 1 for technical
 
     class Meta:
