@@ -57,6 +57,7 @@ def searchq(request):
         terms = querystring.split(' ')
     if not terms:
         return HttpResponse('Keep Typing..')
+
     query = None
     what = request.GET.get('the_type')
     if what == 'questions':
