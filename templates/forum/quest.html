@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load filter %}
 {% load staticfiles %}
 
 {% block title %} {{q.title}}- {% for tag in q.get_tags %} {{tag}} {% endfor %} {% endblock title %}
@@ -23,7 +24,7 @@
 						{% endif %}
 					</div>
 					{% if q.question %}
-					<p class="post_body" property="text">{{ q.question|safe }}</p>
+					<p class="post_body" property="text">{{ q.question|new_tab|safe }}</p>
 					{% endif %}
 					{% if q.get_images %}
 					<div class="post_fig">

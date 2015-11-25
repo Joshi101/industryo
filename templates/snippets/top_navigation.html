@@ -1,23 +1,38 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="">
     <div id="top_search" class="">
-      <form action="{% url 'search' %}" role="form">
+      <a id="search_toggle" href="#top_search_form" class="btn btn-default btn-sm" data-toggle="collapse">
+        <i class="fa fa-search"></i>
+      </a>
+      <form id="top_search_form" class="collapse" action="{% url 'search' %}" role="form" title="Search {{what}}" data-toggle="tooltip" data-placement="bottom">
         <div class="form-group">
           <div class="input-group input-group-sm">
             <span id="search_typ" class="input-group-btn">
               <div class="dropdown select_dropdown" data-name="what">
                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                   <i class=""></i>
-                  <span class="value pc_only">{{what|capfirst}}</span>
+                  <span class="value hide">{{what|capfirst}}</span>
                   <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">
-                  <li><a><i class="fa fa-tasks"></i><span class="value">Questions</span></a></li>
-                  <li><a><i class="fa fa-book"></i><span class="value">Articles</span></a></li>
-                  <li><a><i class="fa fa-tag"></i><span class="value">Tags</span></a></li>
-                  <li><a><i class="fa fa-users"></i><span class="value">Users</span></a></li>
-                  <li><a><i class="fa fa-building"></i><span class="value">Workplaces</span></a></li>
-                  <li><a><i class="fa fa-cubes"></i><span class="value">Products</span></a></li>
+                <ul class="list-group dropdown-menu">
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-tasks fa-fw"></i>&nbsp;<span class="value">Questions</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-book fa-fw"></i>&nbsp;<span class="value">Articles</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-tag fa-fw"></i>&nbsp;<span class="value">Tags</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-users fa-fw"></i>&nbsp;<span class="value">Users</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-building fa-fw"></i>&nbsp;<span class="value">Workplaces</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-cubes fa-fw"></i>&nbsp;<span class="value">Products</span></a>
+                  </li>
                 </ul>
               </div>
             </span>
@@ -65,7 +80,7 @@
           <span class="badge"></span>
           <a class="dropdown-toggle" data-toggle="dropdown">
             <span class="mob_only">Notifications</span>
-            <span class="fa fa-bell inline_fa"></span>
+            <span class="fa fa-bell inline_fa fa-fw"></span>
           </a>
           <div class="dropdown">
             <div class="dropdown-menu hover_box">
@@ -75,15 +90,19 @@
         <li title="Messages" data-toggle="tooltip" data-placement="bottom">
           <a href="{% url 'messages:inbox' %}">
             <span class="mob_only">Messages</span>
-            <span class="fa fa-envelope inline_fa"></span>
+            <span class="fa fa-envelope inline_fa fa-fw"></span>
           </a>
         </li>
         <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
           {% if user.userprofile.primary_workplace %}
             <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
-		          <i class="fa fa-suitcase inline_fa"></i>
+              <div class="top_info_icon">
+                <i class="fa fa-suitcase inline_fa fa-fw"></i>
+                <span class="top_info_points">
+                  {{user.userprofile.get_workplace_points}}
+                </span>
+              </div>
               <span class="top_info_name">{{user.userprofile.primary_workplace}} </span>
-              <span class="top_info_points">{{user.userprofile.get_workplace_points}}</span>
             </a>
           {% else %}
             <a id="top_wp" class="top_info_box wp" href="{% url 'set' %}" style="background-color: #222; color: #179">Set Your Workplace</a>
@@ -91,9 +110,11 @@
         </li>
         <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
           <a id="top_usr" class="top_info_box usr" href="{% url 'user:profile' user.username %}">
-		        <i class="fa fa-user inline_fa"></i>
-            <span class="top_info_name">{{user}} </span>
-            <span class="top_info_points">{{user.userprofile.points}}</span>
+            <div class="top_info_icon">
+              <i class="fa fa-user inline_fa fa-fw"></i>
+              <span class="top_info_points">{{user.userprofile.points}}</span>
+            </div>
+            <span class="top_info_name">{{user}}</span>
           </a>
         </li>
         <li class="dropdown top_extra">

@@ -29,7 +29,7 @@ def bhakk(id, n):
     # except Exception:
     #     pass
 
-@background(schedule=60)
+# @background(schedule=60)
 def luck(id, n):
     user = User.objects.get(id=id)
     if user.email:
@@ -40,12 +40,42 @@ def luck(id, n):
         name = user.get_full_name()
     else:
         name = user.username
-    workplace = user.userprofile.primary_workplace
-    url = 'www.corelogs.com/workplace/'+workplace.slug
-
     template = Template16
-    content = template.format(name)
-    send_mail('#CaptureYourTeam & win Cash prizes', content, 'sp@corelogs.com', [user_email])
+    html_content = template.format(name)
+    subject, from_email, to = '#CaptureYourTeam with CoreLogs & Win Cash Prizes', 'sp@corelogs.com', user_email
+    text_content = '#CaptureYourTeam with CoreLogs & Win Cash Prizes'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # template = Template16
+    # content = template.format(name)
+    # send_mail('#CaptureYourTeam with CoreLogs & win Cash prizes', content, 'sp@corelogs.com', [user_email])
+
+@background(schedule=60)
+def test_mail(id, n):
+    u = User.objects.get(id=id)
+    user_email = 'sprksh.j@gmail.com'
+
+    template = Template17
+    html_content = template.format('Dude')
+    subject, from_email, to = '#CaptureYourTeam with CoreLogs & Win Cash Prizes', 'sp@corelogs.com', user_email
+    text_content = 'The Platform for Small scale Industries'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+@background(schedule=60)
+def list_mail(id, n):
+
+    user_email = id
+
+    template = Template18
+    html_content = template.format('Sir / Madam')
+    subject, from_email, to = '#CaptureYourTeam with CoreLogs & Win Cash Prizes', 'sp@corelogs.com', user_email
+    text_content = '#CaptureYourTeam with CoreLogs & Win Cash Prizes'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
 
 
 @background(schedule=60)
@@ -437,40 +467,468 @@ you to Invite your TeamMates to&nbsp;<a style="text-decoration:none;color:#e45d6
 
 Template16 = u'''Hi {0}
 
-<div id=":30" class="ii gt m150d2ff4d31ae9b1 adP adO"><div id=":2z" class="a3s" style="overflow: hidden;"><u></u>
-    <div style="min-height:100%;margin:0;padding:0;width:100%;background-color:#fafafa">
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+	<head>
+		<!-- NAME: 1:2:1 COLUMN - BANDED -->
+		<!--[if gte mso 15]>
+		<xml>
+			<o:OfficeDocumentSettings>
+			<o:AllowPNG/>
+			<o:PixelsPerInch>96</o:PixelsPerInch>
+			</o:OfficeDocumentSettings>
+		</xml>
+		<![endif]-->
+		<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>*|#CaptureYourTeam with CoreLogs & win cash prizes|*</title>
+
+    <style type="text/css">
+		p{{
+			margin:10px 0;
+			padding:0;
+		}}
+		table{{
+			border-collapse:collapse;
+		}}
+		h1,h2,h3,h4,h5,h6{{
+			display:block;
+			margin:0;
+			padding:0;
+		}}
+		img,a img{{
+			border:0;
+			height:auto;
+			outline:none;
+			text-decoration:none;
+		}}
+		body,#bodyTable,#bodyCell{{
+			height:100%;
+			margin:0;
+			padding:0;
+			width:100%;
+		}}
+		#outlook a{{
+			padding:0;
+		}}
+		img{{
+			-ms-interpolation-mode:bicubic;
+		}}
+		table{{
+			mso-table-lspace:0pt;
+			mso-table-rspace:0pt;
+		}}
+		.ReadMsgBody{{
+			width:100%;
+		}}
+		.ExternalClass{{
+			width:100%;
+		}}
+		p,a,li,td,blockquote{{
+			mso-line-height-rule:exactly;
+		}}
+		a[href^=tel],a[href^=sms]{{
+			color:inherit;
+			cursor:default;
+			text-decoration:none;
+		}}
+		p,a,li,td,body,table,blockquote{{
+			-ms-text-size-adjust:100%;
+			-webkit-text-size-adjust:100%;
+		}}
+		.ExternalClass,.ExternalClass p,.ExternalClass td,.ExternalClass div,.ExternalClass span,.ExternalClass font{{
+			line-height:100%;
+		}}
+		a[x-apple-data-detectors]{{
+			color:inherit !important;
+			text-decoration:none !important;
+			font-size:inherit !important;
+			font-family:inherit !important;
+			font-weight:inherit !important;
+			line-height:inherit !important;
+		}}
+		.templateContainer{{
+			max-width:600px !important;
+		}}
+		a.mcnButton{{
+			display:block;
+		}}
+		.mcnImage{{
+			vertical-align:bottom;
+		}}
+		.mcnTextContent{{
+			word-break:break-word;
+		}}
+		.mcnTextContent img{{
+			height:auto !important;
+		}}
+		.mcnDividerBlock{{
+			table-layout:fixed !important;
+		}}
+		body,#bodyTable{{
+			background-color:#FAFAFA;
+		}}
+		#bodyCell{{
+			border-top:0;
+		}}
+		h1{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:26px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h2{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:22px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h3{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:20px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h4{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:18px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		#templatePreheader{{
+			background-color:#FAFAFA;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:9px;
+		}}
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{{
+			color:#656565;
+			font-family:Helvetica;
+			font-size:12px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p a{{
+			color:#656565;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateHeader{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:0;
+		}}
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateHeader .mcnTextContent a,#templateHeader .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateUpperBody{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}}
+		#templateUpperBody .mcnTextContent,#templateUpperBody .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateUpperBody .mcnTextContent a,#templateUpperBody .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateColumns{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}}
+		#templateColumns .columnContainer .mcnTextContent,#templateColumns .columnContainer .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateColumns .columnContainer .mcnTextContent a,#templateColumns .columnContainer .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateLowerBody{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:2px solid #EAEAEA;
+			padding-top:0;
+			padding-bottom:9px;
+		}}
+		#templateLowerBody .mcnTextContent,#templateLowerBody .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateLowerBody .mcnTextContent a,#templateLowperBody .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateFooter{{
+			background-color:#FAFAFA;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:9px;
+		}}
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{{
+			color:#656565;
+			font-family:Helvetica;
+			font-size:12px;
+			line-height:150%;
+			text-align:center;
+		}}
+		#templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{{
+			color:#656565;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+	@media only screen and (min-width:768px){{
+		.templateContainer{{
+			width:600px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		body,table,td,p,a,li,blockquote{{
+			-webkit-text-size-adjust:none !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		body{{
+			width:100% !important;
+			min-width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#bodyCell{{
+			padding-top:10px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.columnWrapper{{
+			max-width:100% !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImage{{
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnShareContent,.mcnCaptionTopContent,.mcnCaptionBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcnImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionRightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRightImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCardRightTextContentContainer{{
+			max-width:100% !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnBoxedTextContentContainer{{
+			min-width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupContent{{
+			padding:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnCaptionLeftContentOuter .mcnTextContent,.mcnCaptionRightContentOuter .mcnTextContent{{
+			padding-top:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardTopImageContent,.mcnCaptionBlockInner .mcnCaptionTopContent:last-child .mcnTextContent{{
+			padding-top:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardBottomImageContent{{
+			padding-bottom:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupBlockInner{{
+			padding-top:0 !important;
+			padding-bottom:0 !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupBlockOuter{{
+			padding-top:9px !important;
+			padding-bottom:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnTextContent,.mcnBoxedTextContentColumn{{
+			padding-right:18px !important;
+			padding-left:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardLeftImageContent,.mcnImageCardRightImageContent{{
+			padding-right:18px !important;
+			padding-bottom:0 !important;
+			padding-left:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcpreview-image-uploader{{
+			display:none !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h1{{
+			font-size:22px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h2{{
+			font-size:20px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h3{{
+			font-size:18px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h4{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnBoxedTextContentContainer .mcnTextContent,.mcnBoxedTextContentContainer .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templatePreheader{{
+			display:block !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateUpperBody .mcnTextContent,#templateUpperBody .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateColumns .columnContainer .mcnTextContent,#templateColumns .columnContainer .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateLowerBody .mcnTextContent,#templateLowerBody .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}</style></head>
+    <body style="height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;">
         <center>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="border-collapse:collapse;height:100%;margin:0;padding:0;width:100%;background-color:#fafafa">
-                <tbody><tr>
-                    <td align="center" valign="top" style="height:100%;margin:0;padding:0;width:100%;border-top:0">
-
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-                            <tbody><tr>
-								<td align="center" valign="top" style="background-color:#fafafa;border-top:0;border-bottom:0;padding-top:9px;padding-bottom:9px">
-
-									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
-										<tbody><tr>
-                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;background-color: #FAFAFA;">
+                <tr>
+                    <td align="center" valign="top" id="bodyCell" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;border-top: 0;">
+                        <!-- BEGIN TEMPLATE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tr>
+								<td align="center" valign="top" id="templatePreheader" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="preheaderContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
         <tr>
-            <td valign="top">
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="366" style="border-collapse:collapse">
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="366" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tbody><tr>
 
-                        <td valign="top" style="padding-top:9px;padding-left:18px;padding-bottom:9px;padding-right:0;word-break:break-word;color:#656565;font-family:Helvetica;font-size:12px;line-height:150%;text-align:left">
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-left: 18px;padding-bottom: 9px;padding-right: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: left;">
 
-                            #CaptureYourTeam &amp; Win exciting prizes
+                            #CaptureYourTeam & Win exciting prizes
                         </td>
                     </tr>
                 </tbody></table>
 
-                <table align="right" border="0" cellpadding="0" cellspacing="0" width="197" style="border-collapse:collapse">
+                <table align="right" border="0" cellpadding="0" cellspacing="0" width="197" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tbody><tr>
 
-                        <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:0;word-break:break-word;color:#656565;font-family:Helvetica;font-size:12px;line-height:150%;text-align:left">
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: left;">
 
-                            <a href="http://www.corelogs.com" style="color:#656565;font-weight:normal;text-decoration:underline" target="_blank">View this email in your browser</a>
+                            <a href="http://www.corelogs.com/" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">View this email in your browser</a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -480,43 +938,51 @@ Template16 = u'''Hi {0}
     </tbody>
 </table></td>
 										</tr>
-									</tbody></table>
-
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
 								</td>
                             </tr>
 							<tr>
-								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:0;padding-top:9px;padding-bottom:0">
-
-									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
-										<tbody><tr>
-                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+								<td align="center" valign="top" id="templateHeader" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 0;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="headerContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnCaptionBlockOuter">
         <tr>
-            <td valign="top" style="padding:9px">
+            <td class="mcnCaptionBlockInner" valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
 
 
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody><tr>
-        <td valign="top" style="padding:0 9px">
-            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <td valign="top" class="mcnCaptionRightContentInner" style="padding: 0 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                 <tbody><tr>
-                    <td valign="top">
+                    <td class="mcnCaptionRightImageContent" valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
 
 
-                        <img alt="" src="http://www.corelogs.com/images/thumbnails/corelogs_logo.jpg" width="176" style="max-width:552px;border:0;min-height:auto;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 146px; top: 250px;"><div id=":m9" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" role="button" tabindex="0" aria-label="Download attachment " data-tooltip-class="a1V" data-tooltip="Download"><div class="aSK J-J5-Ji aYr"></div></div></div>
+                        <img alt="" src="http://www.corelogs.com/images/thumbnails/corelogs_logo.jpg" width="176" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
 
 
 
                     </td>
                 </tr>
             </tbody></table>
-            <table align="right" border="0" cellpadding="0" cellspacing="0" width="352" style="border-collapse:collapse">
+            <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="352" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                 <tbody><tr>
-                    <td valign="top" style="word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
-                        <span style="font-size:22px">CoreLogs</span>.com is a platform for SAE related collegiate clubs to get connected to each other and the Engineers, experts &amp; Industrialists across the world. Visit <a href="http://www.corelogs.com/forum/" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">The Engineer's Forum</a> to ask &amp; answer Technical questions.
+                    <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+                        <span style="font-size:22px">CoreLogs</span>.com is a platform for SAE related collegiate clubs to get connected to each other and the Engineers, experts & Industrialists across the world. Visit <a href="http://www.corelogs.com/forum/" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">The Engineer's Forum</a> to ask & answer Technical questions.
                     </td>
                 </tr>
             </tbody></table>
@@ -532,29 +998,37 @@ Template16 = u'''Hi {0}
     </tbody>
 </table></td>
 										</tr>
-									</tbody></table>
-
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
 								</td>
                             </tr>
 							<tr>
-								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0">
-
-									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
-										<tbody><tr>
-                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+								<td align="center" valign="top" id="templateUpperBody" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 0;padding-bottom: 0;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="bodyContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
         <tr>
-            <td valign="top">
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tbody><tr>
 
-                        <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
 
-                            <h1 style="display:block;margin:0;padding:0;color:#202020;font-family:Helvetica;font-size:26px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:normal;text-align:left">Capture Your Team and win exciting prizes</h1>
+                            <h1 style="display: block;margin: 0;padding: 0;color: #202020;font-family: Helvetica;font-size: 26px;font-style: normal;font-weight: bold;line-height: 125%;letter-spacing: normal;text-align: left;">Capture Your Team and win exciting prizes</h1>
 
-<p style="margin:10px 0;padding:0;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left"><span style="font-size:22px;line-height:20.8px">CoreLogs</span><span style="line-height:20.8px">.com brings a facebook event&nbsp;</span><a href="https://www.facebook.com/hashtag/captureyourteam" style="color:#3b5998;text-decoration:none;font-family:helvetica,arial,sans-serif;font-size:14px;line-height:19.32px;font-weight:normal" target="_blank"><span aria-label="hashtag" style="color:#627aad">#</span><span>CAPTUREYOURTEAM&#8236;</span></a><span style="color:#141823;font-family:helvetica,arial,sans-serif;font-size:14px;line-height:19.32px">&nbsp;for the SAE related Teams across India. You send us a pic of your car, we upload it from our facebook page. The teams with maximum likes win exciting prizes. Visit our <a href="https://www.facebook.com/corelogs.page" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">facebook page</a> for <a href="https://www.facebook.com/notes/corelogs/rules-and-regulations-for-online-event/1635293750068276" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">details and rules</a>.<br>
-You can send us the image at <a href="mailto:info@corelogs.com?subject=Paticipation%20in%20%23captureyourteam" style="color:#2baadf;font-weight:normal;text-decoration:underline" target="_blank">info@corelogs.com</a>&nbsp;by <span class="aBn" data-term="goog_724187763" tabindex="0"><span class="aQJ">30th November</span></span>. <strong>The sooner the better.<br>
+<p style="margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;"><span style="font-size:22px; line-height:20.8px">CoreLogs</span><span style="line-height:20.8px">.com brings a facebook event </span><a class="_58cn" data-ft="{{"tn":"*N","type":104}}" href="https://www.facebook.com/hashtag/captureyourteam?source=feed_text&story_id=1635510520046599" style="color: #3B5998;cursor: pointer;text-decoration: none;font-family: helvetica, arial, sans-serif;font-size: 14px;line-height: 19.32px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;font-weight: normal;"><span aria-label="hashtag" class="_58cl" style="color: #627AAD;">#</span><span class="_58cm">CAPTUREYOURTEAM?</span></a><span style="color: #141823;font-family: helvetica,arial,sans-serif;font-size: 14px;line-height: 19.32px;"> for the SAE related Teams across India. You send us a pic of your car, we upload it from our facebook page. The teams with maximum likes win exciting prizes. Visit our <a href="https://www.facebook.com/corelogs.page" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">facebook page</a> for <a href="https://www.facebook.com/notes/corelogs/rules-and-regulations-for-online-event/1635293750068276" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">details and rules</a>.<br>
+You can send us the image at <a href="mailto:info@corelogs.com?subject=Paticipation%20in%20%23captureyourteam" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">info@corelogs.com</a> by 30th November. <strong>The sooner the better.<br>
 It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</strong></span></p>
 
                         </td>
@@ -566,37 +1040,45 @@ It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</st
     </tbody>
 </table></td>
 										</tr>
-									</tbody></table>
-
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
 								</td>
                             </tr>
 							<tr>
-								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0">
-									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
-                                        <tbody><tr>
-                                            <td align="center" valign="top">
-
-												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" style="border-collapse:collapse">
-													<tbody><tr>
-														<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+								<td align="center" valign="top" id="templateColumns" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 0;padding-bottom: 0;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+                                        <tr>
+                                            <td align="center" valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+												<!--[if gte mso 9]>
+												<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+												<tr>
+												<td align="center" valign="top" width="300" style="width:300px;">
+												<![endif]-->
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" class="columnWrapper" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+													<tr>
+														<td valign="top" class="columnContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnImageCardBlockOuter">
         <tr>
-            <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px">
+            <td class="mcnImageCardBlockInner" valign="top" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
-<table align="right" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#404040;border-collapse:collapse">
+<table align="right" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardBottomContent" width="100%" style="background-color: #404040;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody><tr>
-        <td align="left" valign="top" style="padding-top:0px;padding-right:0px;padding-bottom:0;padding-left:0px">
+        <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 0px;padding-right: 0px;padding-bottom: 0;padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
 
 
-            <img alt="" src="http://www.corelogs.com/images/thumbnails/baja.JPG" width="264" style="max-width:552px;border:0;min-height:auto;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 234px; top: 972px;"><div id=":m8" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" title="Download" role="button" tabindex="0" aria-label="Download attachment " data-tooltip-class="a1V"><div class="aSK J-J5-Ji aYr"></div></div></div>
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/baja.JPG" width="264" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
 
 
         </td>
     </tr>
     <tr>
-        <td valign="top" style="padding:9px 18px;color:#f2f2f2;font-family:Helvetica;font-size:14px;font-weight:normal;text-align:center;word-break:break-word;line-height:150%" width="246">
-            BAja SAE India &amp; Baja Student India
+        <td class="mcnTextContent" valign="top" style="padding: 9px 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;line-height: 150%;" width="246">
+            BAja SAE India & Baja Student India
         </td>
     </tr>
 </tbody></table>
@@ -609,29 +1091,32 @@ It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</st
     </tbody>
 </table></td>
 													</tr>
-												</tbody></table>
-
-												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" style="border-collapse:collapse">
-													<tbody><tr>
-														<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+												</table>
+												<!--[if gte mso 9]>
+												</td>
+												<td align="center" valign="top" width="300" style="width:300px;">
+												<![endif]-->
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" class="columnWrapper" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+													<tr>
+														<td valign="top" class="columnContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnImageCardBlockOuter">
         <tr>
-            <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px">
+            <td class="mcnImageCardBlockInner" valign="top" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
-<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#404040;border-collapse:collapse">
+<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardBottomContent" width="100%" style="background-color: #404040;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody><tr>
-        <td align="left" valign="top" style="padding-top:0px;padding-right:0px;padding-bottom:0;padding-left:0px">
+        <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 0px;padding-right: 0px;padding-bottom: 0;padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
 
 
-            <img alt="" src="http://www.corelogs.com/images/thumbnails/fsae.JPG" width="264" style="max-width:552px;border:0;min-height:auto;outline:none;text-decoration:none;vertical-align:bottom" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 234px; top: 1293px;"><div id=":ma" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" title="Download" role="button" tabindex="0" aria-label="Download attachment " data-tooltip-class="a1V"><div class="aSK J-J5-Ji aYr"></div></div></div>
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/fsae.JPG" width="264" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
 
 
         </td>
     </tr>
     <tr>
-        <td valign="top" style="padding:9px 18px;color:#f2f2f2;font-family:Helvetica;font-size:14px;font-weight:normal;text-align:center;word-break:break-word;line-height:150%" width="246">
-            Supra SAE India &amp; Formula Student India
+        <td class="mcnTextContent" valign="top" style="padding: 9px 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;line-height: 150%;" width="246">
+            Supra SAE India & Formula Student India
         </td>
     </tr>
 </tbody></table>
@@ -644,31 +1129,39 @@ It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</st
     </tbody>
 </table></td>
 													</tr>
-												</tbody></table>
-
+												</table>
+												<!--[if gte mso 9]>
+												</td>
+												</tr>
+												</table>
+												<![endif]-->
 											</td>
 										</tr>
-									</tbody></table>
+									</table>
 								</td>
                             </tr>
 							<tr>
-								<td align="center" valign="top" style="background-color:#ffffff;border-top:0;border-bottom:2px solid #eaeaea;padding-top:0;padding-bottom:9px">
-
-									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
-										<tbody><tr>
-                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+								<td align="center" valign="top" id="templateLowerBody" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 2px solid #EAEAEA;padding-top: 0;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="bodyContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
         <tr>
-            <td valign="top">
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
-                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tbody><tr>
 
-                        <td valign="top" style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
 
-                            Through this event we want to emphasize how important it is to bring a culture of sharing and open source movement in Core Segment of Engineering. Let's Speed up the pace of development by following the principle of open source movement &amp; knowledge sharing.<br>
-The IT industry &amp; the startup world learnt about <strong>Lean</strong>&nbsp;from the Core Segment of Engineering. Now Its our chance to learn about <strong>Open Source Technology </strong>from them<strong>.<br>
-Ask, Answer &amp; Write on CoreLogs to help others and make your mark on internet.</strong>
+                            Through this event we want to emphasize how important it is to bring a culture of sharing and open source movement in Core Segment of Engineering. Let's Speed up the pace of development by following the principle of open source movement & knowledge sharing.<br>
+The IT industry & the startup world learnt about <strong>Lean</strong> from the Core Segment of Engineering. Now Its our chance to learn about <strong>Open Source Technology </strong>from them<strong>.<br>
+Ask, Answer & Write on CoreLogs to help others and make your mark on internet.</strong>
                         </td>
                     </tr>
                 </tbody></table>
@@ -676,15 +1169,15 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
             </td>
         </tr>
     </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnButtonBlockOuter">
         <tr>
-            <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px" valign="top" align="center">
-                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate!important;border-radius:3px;background-color:#2baadf">
+            <td style="padding-top: 0;padding-right: 18px;padding-bottom: 18px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" valign="top" align="center" class="mcnButtonBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #2BAADF;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tbody>
                         <tr>
-                            <td align="center" valign="middle" style="font-family:Arial;font-size:16px;padding:15px">
-                                <a title="Visit CoreLogs" href="http://www.corelogs.com" style="font-weight:bold;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;display:block" target="_blank">Visit CoreLogs</a>
+                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial;font-size: 16px;padding: 15px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                <a class="mcnButton " title="Visit CoreLogs" href="http://www.corelogs.com" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Visit CoreLogs</a>
                             </td>
                         </tr>
                     </tbody>
@@ -694,43 +1187,55 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
     </tbody>
 </table></td>
 										</tr>
-									</tbody></table>
-
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
 								</td>
                             </tr>
                             <tr>
-								<td align="center" valign="top" style="background-color:#fafafa;border-top:0;border-bottom:0;padding-top:9px;padding-bottom:9px">
-
-									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px!important">
-										<tbody><tr>
-                                			<td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-    <tbody>
+								<td align="center" valign="top" id="templateFooter" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="footerContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnFollowBlockOuter">
         <tr>
-            <td align="center" valign="top" style="padding:9px">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+            <td align="center" valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody><tr>
-        <td align="center" style="padding-left:9px;padding-right:9px">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+        <td align="center" style="padding-left: 9px;padding-right: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContent" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                 <tbody><tr>
-                    <td align="center" valign="top" style="padding-top:9px;padding-right:9px;padding-left:9px">
-                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                    <td align="center" valign="top" style="padding-top: 9px;padding-right: 9px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                             <tbody><tr>
-                                <td valign="top">
+                                <td valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <!--[if mso]>
+                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="524">
+                                    <tr>
+                                    <td align="left" valign="top" width="524">
+                                    <![endif]-->
 
 
 
-
-                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                 <tbody><tr>
-                                                    <td valign="top" style="padding-right:10px;padding-bottom:9px">
-                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                    <td valign="top" style="padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                             <tbody><tr>
-                                                                <td align="left" valign="middle" style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px">
-                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse:collapse">
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                                         <tbody><tr>
 
-                                                                                <td align="center" valign="middle" width="24">
-                                                                                    <a href="https://twitter.com/Corelogstwt" target="_blank"><img src="https://ci5.googleusercontent.com/proxy/-SgR5D3-bPp1julTBdSE5457JLji6LNVwzZc_IzhWv_glCJmaIYrbdmJKf7oglfkeHHhMOEnTfkjdEFyTdW4nZ7I9uQz-CPztcyuJwCec3wpBJjvTFOFzAkhm_xj1bBX=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" height="24" width="24" class="CToWUd"></a>
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="https://twitter.com/Corelogstwt" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
                                                                                 </td>
 
 
@@ -746,17 +1251,17 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
 
 
 
-                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                 <tbody><tr>
-                                                    <td valign="top" style="padding-right:10px;padding-bottom:9px">
-                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                    <td valign="top" style="padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                             <tbody><tr>
-                                                                <td align="left" valign="middle" style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px">
-                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse:collapse">
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                                         <tbody><tr>
 
-                                                                                <td align="center" valign="middle" width="24">
-                                                                                    <a href="https://www.facebook.com/corelogs.page" target="_blank"><img src="https://ci4.googleusercontent.com/proxy/X9MqCnSCvb5f1PshSVntsSqqm9dNg_ie7HbGsGn_ezsyhoBi1KL0re94Q0I4KPY2mGVpcW3dKRZwm_0bekmhL_IFCF7C82_1xXG2ZkrezDWf6kPh_gik805bm8zRcbMSMw=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" height="24" width="24" class="CToWUd"></a>
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="https://www.facebook.com/corelogs.page" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
                                                                                 </td>
 
 
@@ -772,17 +1277,17 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
 
 
 
-                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                 <tbody><tr>
-                                                    <td valign="top" style="padding-right:0;padding-bottom:9px">
-                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                    <td valign="top" style="padding-right: 0;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                             <tbody><tr>
-                                                                <td align="left" valign="middle" style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px">
-                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse:collapse">
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                                                         <tbody><tr>
 
-                                                                                <td align="center" valign="middle" width="24">
-                                                                                    <a href="http://www.corelogs.com" target="_blank"><img src="https://ci3.googleusercontent.com/proxy/_uFbA8j5252fdnk4T1_dJcIe3YicShHtrxPXTNzgU81-5pFJl2KE13IBBm4-vmLNjsIyoC7sNVtQSpq--CaF3PHuhb6igzEEPH4WYLOOxYKIPOBarWCqgaZCobMK=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" height="24" width="24" class="CToWUd"></a>
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="http://www.corelogs.com" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
                                                                                 </td>
 
 
@@ -796,7 +1301,11 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
                                             </tbody></table>
 
 
-
+                                    <!--[if mso]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
                                 </td>
                             </tr>
                         </tbody></table>
@@ -810,14 +1319,498 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
             </td>
         </tr>
     </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;border-collapse:collapse;table-layout:fixed!important">
-    <tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+                        </table>
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>
+
+
+Thanks
+Surya Prakash
+Founder
+CoreLogs
+'''
+
+# test_mail
+Template17 = u'''
+Hi {0},
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+	<head>
+		<!-- NAME: 1:2:1 COLUMN - BANDED -->
+		<!--[if gte mso 15]>
+		<xml>
+			<o:OfficeDocumentSettings>
+			<o:AllowPNG/>
+			<o:PixelsPerInch>96</o:PixelsPerInch>
+			</o:OfficeDocumentSettings>
+		</xml>
+		<![endif]-->
+		<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>*|#CaptureYourTeam with CoreLogs & win cash prizes|*</title>
+
+    <style type="text/css">
+		p{{
+			margin:10px 0;
+			padding:0;
+		}}
+		table{{
+			border-collapse:collapse;
+		}}
+		h1,h2,h3,h4,h5,h6{{
+			display:block;
+			margin:0;
+			padding:0;
+		}}
+		img,a img{{
+			border:0;
+			height:auto;
+			outline:none;
+			text-decoration:none;
+		}}
+		body,#bodyTable,#bodyCell{{
+			height:100%;
+			margin:0;
+			padding:0;
+			width:100%;
+		}}
+		#outlook a{{
+			padding:0;
+		}}
+		img{{
+			-ms-interpolation-mode:bicubic;
+		}}
+		table{{
+			mso-table-lspace:0pt;
+			mso-table-rspace:0pt;
+		}}
+		.ReadMsgBody{{
+			width:100%;
+		}}
+		.ExternalClass{{
+			width:100%;
+		}}
+		p,a,li,td,blockquote{{
+			mso-line-height-rule:exactly;
+		}}
+		a[href^=tel],a[href^=sms]{{
+			color:inherit;
+			cursor:default;
+			text-decoration:none;
+		}}
+		p,a,li,td,body,table,blockquote{{
+			-ms-text-size-adjust:100%;
+			-webkit-text-size-adjust:100%;
+		}}
+		.ExternalClass,.ExternalClass p,.ExternalClass td,.ExternalClass div,.ExternalClass span,.ExternalClass font{{
+			line-height:100%;
+		}}
+		a[x-apple-data-detectors]{{
+			color:inherit !important;
+			text-decoration:none !important;
+			font-size:inherit !important;
+			font-family:inherit !important;
+			font-weight:inherit !important;
+			line-height:inherit !important;
+		}}
+		.templateContainer{{
+			max-width:600px !important;
+		}}
+		a.mcnButton{{
+			display:block;
+		}}
+		.mcnImage{{
+			vertical-align:bottom;
+		}}
+		.mcnTextContent{{
+			word-break:break-word;
+		}}
+		.mcnTextContent img{{
+			height:auto !important;
+		}}
+		.mcnDividerBlock{{
+			table-layout:fixed !important;
+		}}
+		body,#bodyTable{{
+			background-color:#FAFAFA;
+		}}
+		#bodyCell{{
+			border-top:0;
+		}}
+		h1{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:26px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h2{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:22px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h3{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:20px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h4{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:18px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		#templatePreheader{{
+			background-color:#FAFAFA;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:9px;
+		}}
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{{
+			color:#656565;
+			font-family:Helvetica;
+			font-size:12px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p a{{
+			color:#656565;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateHeader{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:0;
+		}}
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateHeader .mcnTextContent a,#templateHeader .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateUpperBody{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}}
+		#templateUpperBody .mcnTextContent,#templateUpperBody .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateUpperBody .mcnTextContent a,#templateUpperBody .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateColumns{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}}
+		#templateColumns .columnContainer .mcnTextContent,#templateColumns .columnContainer .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateColumns .columnContainer .mcnTextContent a,#templateColumns .columnContainer .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateLowerBody{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:2px solid #EAEAEA;
+			padding-top:0;
+			padding-bottom:9px;
+		}}
+		#templateLowerBody .mcnTextContent,#templateLowerBody .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateLowerBody .mcnTextContent a,#templateLowperBody .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateFooter{{
+			background-color:#FAFAFA;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:9px;
+		}}
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{{
+			color:#656565;
+			font-family:Helvetica;
+			font-size:12px;
+			line-height:150%;
+			text-align:center;
+		}}
+		#templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{{
+			color:#656565;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+	@media only screen and (min-width:768px){{
+		.templateContainer{{
+			width:600px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		body,table,td,p,a,li,blockquote{{
+			-webkit-text-size-adjust:none !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		body{{
+			width:100% !important;
+			min-width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#bodyCell{{
+			padding-top:10px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.columnWrapper{{
+			max-width:100% !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImage{{
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnShareContent,.mcnCaptionTopContent,.mcnCaptionBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcnImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionRightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRightImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCardRightTextContentContainer{{
+			max-width:100% !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnBoxedTextContentContainer{{
+			min-width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupContent{{
+			padding:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnCaptionLeftContentOuter .mcnTextContent,.mcnCaptionRightContentOuter .mcnTextContent{{
+			padding-top:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardTopImageContent,.mcnCaptionBlockInner .mcnCaptionTopContent:last-child .mcnTextContent{{
+			padding-top:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardBottomImageContent{{
+			padding-bottom:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupBlockInner{{
+			padding-top:0 !important;
+			padding-bottom:0 !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupBlockOuter{{
+			padding-top:9px !important;
+			padding-bottom:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnTextContent,.mcnBoxedTextContentColumn{{
+			padding-right:18px !important;
+			padding-left:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardLeftImageContent,.mcnImageCardRightImageContent{{
+			padding-right:18px !important;
+			padding-bottom:0 !important;
+			padding-left:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcpreview-image-uploader{{
+			display:none !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h1{{
+			font-size:22px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h2{{
+			font-size:20px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h3{{
+			font-size:18px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h4{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnBoxedTextContentContainer .mcnTextContent,.mcnBoxedTextContentContainer .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templatePreheader{{
+			display:block !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateUpperBody .mcnTextContent,#templateUpperBody .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateColumns .columnContainer .mcnTextContent,#templateColumns .columnContainer .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateLowerBody .mcnTextContent,#templateLowerBody .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}</style></head>
+    <body style="height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;">
+        <center>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;background-color: #FAFAFA;">
+                <tr>
+                    <td align="center" valign="top" id="bodyCell" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;border-top: 0;">
+                        <!-- BEGIN TEMPLATE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tr>
+								<td align="center" valign="top" id="templatePreheader" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="preheaderContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
         <tr>
-            <td style="min-width:100%;padding:10px 18px 25px">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;border-top-width:2px;border-top-style:solid;border-top-color:#eeeeee;border-collapse:collapse">
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="366" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                     <tbody><tr>
-                        <td>
-                            <span></span>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-left: 18px;padding-bottom: 9px;padding-right: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: left;">
+
+                            #CaptureYourTeam & Win exciting prizes
+                        </td>
+                    </tr>
+                </tbody></table>
+
+                <table align="right" border="0" cellpadding="0" cellspacing="0" width="197" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: left;">
+
+                            <a href="http://www.corelogs.com/" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">View this email in your browser</a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -825,25 +1818,1287 @@ Ask, Answer &amp; Write on CoreLogs to help others and make your mark on interne
             </td>
         </tr>
     </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
-
 </table></td>
 										</tr>
-									</tbody></table>
-
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
 								</td>
                             </tr>
-                        </tbody></table>
+							<tr>
+								<td align="center" valign="top" id="templateHeader" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 0;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="headerContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnCaptionBlockOuter">
+        <tr>
+            <td class="mcnCaptionBlockInner" valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td valign="top" class="mcnCaptionRightContentInner" style="padding: 0 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <tbody><tr>
+                    <td class="mcnCaptionRightImageContent" valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+                        <img alt="" src="http://www.corelogs.com/images/thumbnails/corelogs_logo.jpg" width="176" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+
+
 
                     </td>
                 </tr>
             </tbody></table>
+            <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="352" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <tbody><tr>
+                    <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+                        <span style="font-size:22px">CoreLogs</span>.com is a platform for SAE related collegiate clubs to get connected to each other and the Engineers, experts & Industrialists across the world. Visit <a href="http://www.corelogs.com/forum/" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">The Engineer's Forum</a> to ask & answer Technical questions.
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateUpperBody" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 0;padding-bottom: 0;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="bodyContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+
+                            <h1 style="display: block;margin: 0;padding: 0;color: #202020;font-family: Helvetica;font-size: 26px;font-style: normal;font-weight: bold;line-height: 125%;letter-spacing: normal;text-align: left;">Capture Your Team and win exciting prizes</h1>
+
+<p style="margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;"><span style="font-size:22px; line-height:20.8px">CoreLogs</span><span style="line-height:20.8px">.com brings a facebook event </span><a class="_58cn" data-ft="{{"tn":"*N","type":104}}" href="https://www.facebook.com/hashtag/captureyourteam?source=feed_text&story_id=1635510520046599" style="color: #3B5998;cursor: pointer;text-decoration: none;font-family: helvetica, arial, sans-serif;font-size: 14px;line-height: 19.32px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;font-weight: normal;"><span aria-label="hashtag" class="_58cl" style="color: #627AAD;">#</span><span class="_58cm">CAPTUREYOURTEAM?</span></a><span style="color: #141823;font-family: helvetica,arial,sans-serif;font-size: 14px;line-height: 19.32px;"> for the SAE related Teams across India. You send us a pic of your car, we upload it from our facebook page. The teams with maximum likes win exciting prizes. Visit our <a href="https://www.facebook.com/corelogs.page" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">facebook page</a> for <a href="https://www.facebook.com/notes/corelogs/rules-and-regulations-for-online-event/1635293750068276" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">details and rules</a>.<br>
+You can send us the image at <a href="mailto:info@corelogs.com?subject=Paticipation%20in%20%23captureyourteam" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">info@corelogs.com</a> by 30th November. <strong>The sooner the better.<br>
+It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</strong></span></p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateColumns" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 0;padding-bottom: 0;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+                                        <tr>
+                                            <td align="center" valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+												<!--[if gte mso 9]>
+												<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+												<tr>
+												<td align="center" valign="top" width="300" style="width:300px;">
+												<![endif]-->
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" class="columnWrapper" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+													<tr>
+														<td valign="top" class="columnContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnImageCardBlockOuter">
+        <tr>
+            <td class="mcnImageCardBlockInner" valign="top" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+<table align="right" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardBottomContent" width="100%" style="background-color: #404040;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 0px;padding-right: 0px;padding-bottom: 0;padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/baja.JPG" width="264" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+
+
+        </td>
+    </tr>
+    <tr>
+        <td class="mcnTextContent" valign="top" style="padding: 9px 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;line-height: 150%;" width="246">
+            BAja SAE India & Baja Student India
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+													</tr>
+												</table>
+												<!--[if gte mso 9]>
+												</td>
+												<td align="center" valign="top" width="300" style="width:300px;">
+												<![endif]-->
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" class="columnWrapper" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+													<tr>
+														<td valign="top" class="columnContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnImageCardBlockOuter">
+        <tr>
+            <td class="mcnImageCardBlockInner" valign="top" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardBottomContent" width="100%" style="background-color: #404040;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 0px;padding-right: 0px;padding-bottom: 0;padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/fsae.JPG" width="264" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+
+
+        </td>
+    </tr>
+    <tr>
+        <td class="mcnTextContent" valign="top" style="padding: 9px 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;line-height: 150%;" width="246">
+            Supra SAE India & Formula Student India
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+													</tr>
+												</table>
+												<!--[if gte mso 9]>
+												</td>
+												</tr>
+												</table>
+												<![endif]-->
+											</td>
+										</tr>
+									</table>
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateLowerBody" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 2px solid #EAEAEA;padding-top: 0;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="bodyContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+
+                            Through this event we want to emphasize how important it is to bring a culture of sharing and open source movement in Core Segment of Engineering. Let's Speed up the pace of development by following the principle of open source movement & knowledge sharing.<br>
+The IT industry & the startup world learnt about <strong>Lean</strong> from the Core Segment of Engineering. Now Its our chance to learn about <strong>Open Source Technology </strong>from them<strong>.<br>
+Ask, Answer & Write on CoreLogs to help others and make your mark on internet.</strong>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnButtonBlockOuter">
+        <tr>
+            <td style="padding-top: 0;padding-right: 18px;padding-bottom: 18px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" valign="top" align="center" class="mcnButtonBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #2BAADF;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody>
+                        <tr>
+                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial;font-size: 16px;padding: 15px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                <a class="mcnButton " title="Visit CoreLogs" href="http://www.corelogs.com" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Visit CoreLogs</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+                            <tr>
+								<td align="center" valign="top" id="templateFooter" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="footerContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnFollowBlockOuter">
+        <tr>
+            <td align="center" valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td align="center" style="padding-left: 9px;padding-right: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContent" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <tbody><tr>
+                    <td align="center" valign="top" style="padding-top: 9px;padding-right: 9px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody><tr>
+                                <td valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <!--[if mso]>
+                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="524">
+                                    <tr>
+                                    <td align="left" valign="top" width="524">
+                                    <![endif]-->
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="https://twitter.com/Corelogstwt" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="https://www.facebook.com/corelogs.page" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right: 0;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="http://www.corelogs.com" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+                                    <!--[if mso]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+                        </table>
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
         </center>
-    <img src="https://ci4.googleusercontent.com/proxy/ct_zxr3LLMPnfSlsneOV1ereoYzjdduwA2RTmFMy9NTI7jm3w67yco9WgoF37MpqftUaztQuky3YwkQ5JQTeTs5ydXm0aosjZdqBXPae5kdelA8Al1shjP5iZ3wQa9o4uI0OjI_wfl6slMWH0lJvDeQmhVnph5SLNkuftui0zxg=s0-d-e1-ft#http://corelogs.us12.list-manage.com/track/open.php?u=f4abfd921eb96255e46134f8f&amp;id=e5d3fc15c2&amp;e=965faa2986" height="1" width="1" class="CToWUd"></div><div class="yj6qo"></div><div class="adL">
-</div></div></div>
+    </body>
+</html>
 
 Thanks
 Surya Prakash
-Founder
-CoreLogs
 '''
+
+# list_mail
+Template18 = u'''
+Hi {0},
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+	<head>
+		<!-- NAME: 1:2:1 COLUMN - BANDED -->
+		<!--[if gte mso 15]>
+		<xml>
+			<o:OfficeDocumentSettings>
+			<o:AllowPNG/>
+			<o:PixelsPerInch>96</o:PixelsPerInch>
+			</o:OfficeDocumentSettings>
+		</xml>
+		<![endif]-->
+		<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>*|#CaptureYourTeam with CoreLogs & win cash prizes|*</title>
+
+    <style type="text/css">
+		p{{
+			margin:10px 0;
+			padding:0;
+		}}
+		table{{
+			border-collapse:collapse;
+		}}
+		h1,h2,h3,h4,h5,h6{{
+			display:block;
+			margin:0;
+			padding:0;
+		}}
+		img,a img{{
+			border:0;
+			height:auto;
+			outline:none;
+			text-decoration:none;
+		}}
+		body,#bodyTable,#bodyCell{{
+			height:100%;
+			margin:0;
+			padding:0;
+			width:100%;
+		}}
+		#outlook a{{
+			padding:0;
+		}}
+		img{{
+			-ms-interpolation-mode:bicubic;
+		}}
+		table{{
+			mso-table-lspace:0pt;
+			mso-table-rspace:0pt;
+		}}
+		.ReadMsgBody{{
+			width:100%;
+		}}
+		.ExternalClass{{
+			width:100%;
+		}}
+		p,a,li,td,blockquote{{
+			mso-line-height-rule:exactly;
+		}}
+		a[href^=tel],a[href^=sms]{{
+			color:inherit;
+			cursor:default;
+			text-decoration:none;
+		}}
+		p,a,li,td,body,table,blockquote{{
+			-ms-text-size-adjust:100%;
+			-webkit-text-size-adjust:100%;
+		}}
+		.ExternalClass,.ExternalClass p,.ExternalClass td,.ExternalClass div,.ExternalClass span,.ExternalClass font{{
+			line-height:100%;
+		}}
+		a[x-apple-data-detectors]{{
+			color:inherit !important;
+			text-decoration:none !important;
+			font-size:inherit !important;
+			font-family:inherit !important;
+			font-weight:inherit !important;
+			line-height:inherit !important;
+		}}
+		.templateContainer{{
+			max-width:600px !important;
+		}}
+		a.mcnButton{{
+			display:block;
+		}}
+		.mcnImage{{
+			vertical-align:bottom;
+		}}
+		.mcnTextContent{{
+			word-break:break-word;
+		}}
+		.mcnTextContent img{{
+			height:auto !important;
+		}}
+		.mcnDividerBlock{{
+			table-layout:fixed !important;
+		}}
+		body,#bodyTable{{
+			background-color:#FAFAFA;
+		}}
+		#bodyCell{{
+			border-top:0;
+		}}
+		h1{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:26px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h2{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:22px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h3{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:20px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		h4{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:18px;
+			font-style:normal;
+			font-weight:bold;
+			line-height:125%;
+			letter-spacing:normal;
+			text-align:left;
+		}}
+		#templatePreheader{{
+			background-color:#FAFAFA;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:9px;
+		}}
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{{
+			color:#656565;
+			font-family:Helvetica;
+			font-size:12px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p a{{
+			color:#656565;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateHeader{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:0;
+		}}
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateHeader .mcnTextContent a,#templateHeader .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateUpperBody{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}}
+		#templateUpperBody .mcnTextContent,#templateUpperBody .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateUpperBody .mcnTextContent a,#templateUpperBody .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateColumns{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:0;
+			padding-top:0;
+			padding-bottom:0;
+		}}
+		#templateColumns .columnContainer .mcnTextContent,#templateColumns .columnContainer .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateColumns .columnContainer .mcnTextContent a,#templateColumns .columnContainer .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateLowerBody{{
+			background-color:#FFFFFF;
+			border-top:0;
+			border-bottom:2px solid #EAEAEA;
+			padding-top:0;
+			padding-bottom:9px;
+		}}
+		#templateLowerBody .mcnTextContent,#templateLowerBody .mcnTextContent p{{
+			color:#202020;
+			font-family:Helvetica;
+			font-size:16px;
+			line-height:150%;
+			text-align:left;
+		}}
+		#templateLowerBody .mcnTextContent a,#templateLowperBody .mcnTextContent p a{{
+			color:#2BAADF;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+		#templateFooter{{
+			background-color:#FAFAFA;
+			border-top:0;
+			border-bottom:0;
+			padding-top:9px;
+			padding-bottom:9px;
+		}}
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{{
+			color:#656565;
+			font-family:Helvetica;
+			font-size:12px;
+			line-height:150%;
+			text-align:center;
+		}}
+		#templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{{
+			color:#656565;
+			font-weight:normal;
+			text-decoration:underline;
+		}}
+	@media only screen and (min-width:768px){{
+		.templateContainer{{
+			width:600px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		body,table,td,p,a,li,blockquote{{
+			-webkit-text-size-adjust:none !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		body{{
+			width:100% !important;
+			min-width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#bodyCell{{
+			padding-top:10px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.columnWrapper{{
+			max-width:100% !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImage{{
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnShareContent,.mcnCaptionTopContent,.mcnCaptionBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcnImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionRightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRightImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCardRightTextContentContainer{{
+			max-width:100% !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnBoxedTextContentContainer{{
+			min-width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupContent{{
+			padding:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnCaptionLeftContentOuter .mcnTextContent,.mcnCaptionRightContentOuter .mcnTextContent{{
+			padding-top:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardTopImageContent,.mcnCaptionBlockInner .mcnCaptionTopContent:last-child .mcnTextContent{{
+			padding-top:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardBottomImageContent{{
+			padding-bottom:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupBlockInner{{
+			padding-top:0 !important;
+			padding-bottom:0 !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageGroupBlockOuter{{
+			padding-top:9px !important;
+			padding-bottom:9px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnTextContent,.mcnBoxedTextContentColumn{{
+			padding-right:18px !important;
+			padding-left:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnImageCardLeftImageContent,.mcnImageCardRightImageContent{{
+			padding-right:18px !important;
+			padding-bottom:0 !important;
+			padding-left:18px !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcpreview-image-uploader{{
+			display:none !important;
+			width:100% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h1{{
+			font-size:22px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h2{{
+			font-size:20px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h3{{
+			font-size:18px !important;
+			line-height:125% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		h4{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		.mcnBoxedTextContentContainer .mcnTextContent,.mcnBoxedTextContentContainer .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templatePreheader{{
+			display:block !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateUpperBody .mcnTextContent,#templateUpperBody .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateColumns .columnContainer .mcnTextContent,#templateColumns .columnContainer .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateLowerBody .mcnTextContent,#templateLowerBody .mcnTextContent p{{
+			font-size:16px !important;
+			line-height:150% !important;
+		}}
+
+}}	@media only screen and (max-width: 480px){{
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{{
+			font-size:14px !important;
+			line-height:150% !important;
+		}}
+
+}}</style></head>
+    <body style="height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;">
+        <center>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;background-color: #FAFAFA;">
+                <tr>
+                    <td align="center" valign="top" id="bodyCell" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;border-top: 0;">
+                        <!-- BEGIN TEMPLATE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tr>
+								<td align="center" valign="top" id="templatePreheader" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="preheaderContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="366" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-left: 18px;padding-bottom: 9px;padding-right: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: left;">
+
+                            #CaptureYourTeam & Win exciting prizes
+                        </td>
+                    </tr>
+                </tbody></table>
+
+                <table align="right" border="0" cellpadding="0" cellspacing="0" width="197" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: left;">
+
+                            <a href="http://www.corelogs.com/" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">View this email in your browser</a>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateHeader" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 0;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="headerContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnCaptionBlockOuter">
+        <tr>
+            <td class="mcnCaptionBlockInner" valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td valign="top" class="mcnCaptionRightContentInner" style="padding: 0 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <tbody><tr>
+                    <td class="mcnCaptionRightImageContent" valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+                        <img alt="" src="http://www.corelogs.com/images/thumbnails/corelogs_logo.jpg" width="176" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+
+
+
+                    </td>
+                </tr>
+            </tbody></table>
+            <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="352" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <tbody><tr>
+                    <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+                        <span style="font-size:22px">CoreLogs</span>.com is a platform for SAE related collegiate clubs to get connected to each other and the Engineers, experts & Industrialists across the world. Visit <a href="http://www.corelogs.com/forum/" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">The Engineer's Forum</a> to ask & answer Technical questions.
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateUpperBody" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 0;padding-bottom: 0;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="bodyContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+
+                            <h1 style="display: block;margin: 0;padding: 0;color: #202020;font-family: Helvetica;font-size: 26px;font-style: normal;font-weight: bold;line-height: 125%;letter-spacing: normal;text-align: left;">Capture Your Team and win exciting prizes</h1>
+
+<p style="margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;"><span style="font-size:22px; line-height:20.8px">CoreLogs</span><span style="line-height:20.8px">.com brings a facebook event </span><a class="_58cn" data-ft="{{"tn":"*N","type":104}}" href="https://www.facebook.com/hashtag/captureyourteam?source=feed_text&story_id=1635510520046599" style="color: #3B5998;cursor: pointer;text-decoration: none;font-family: helvetica, arial, sans-serif;font-size: 14px;line-height: 19.32px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;font-weight: normal;"><span aria-label="hashtag" class="_58cl" style="color: #627AAD;">#</span><span class="_58cm">CAPTUREYOURTEAM?</span></a><span style="color: #141823;font-family: helvetica,arial,sans-serif;font-size: 14px;line-height: 19.32px;"> for the SAE related Teams across India. You send us a pic of your car, we upload it from our facebook page. The teams with maximum likes win exciting prizes. Visit our <a href="https://www.facebook.com/corelogs.page" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">facebook page</a> for <a href="https://www.facebook.com/notes/corelogs/rules-and-regulations-for-online-event/1635293750068276" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">details and rules</a>.<br>
+You can send us the image at <a href="mailto:info@corelogs.com?subject=Paticipation%20in%20%23captureyourteam" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-weight: normal;text-decoration: underline;">info@corelogs.com</a> by 30th November. <strong>The sooner the better.<br>
+It is for Baja, Supra/ Formula student India, efficycle, supermileage Teams.</strong></span></p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateColumns" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 0;padding-top: 0;padding-bottom: 0;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+                                        <tr>
+                                            <td align="center" valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+												<!--[if gte mso 9]>
+												<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+												<tr>
+												<td align="center" valign="top" width="300" style="width:300px;">
+												<![endif]-->
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" class="columnWrapper" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+													<tr>
+														<td valign="top" class="columnContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnImageCardBlockOuter">
+        <tr>
+            <td class="mcnImageCardBlockInner" valign="top" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+<table align="right" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardBottomContent" width="100%" style="background-color: #404040;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 0px;padding-right: 0px;padding-bottom: 0;padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/baja.JPG" width="264" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+
+
+        </td>
+    </tr>
+    <tr>
+        <td class="mcnTextContent" valign="top" style="padding: 9px 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;line-height: 150%;" width="246">
+            BAja SAE India & Baja Student India
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+													</tr>
+												</table>
+												<!--[if gte mso 9]>
+												</td>
+												<td align="center" valign="top" width="300" style="width:300px;">
+												<![endif]-->
+												<table align="left" border="0" cellpadding="0" cellspacing="0" width="300" class="columnWrapper" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+													<tr>
+														<td valign="top" class="columnContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnImageCardBlockOuter">
+        <tr>
+            <td class="mcnImageCardBlockInner" valign="top" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardBottomContent" width="100%" style="background-color: #404040;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class="mcnImageCardBottomImageContent" align="left" valign="top" style="padding-top: 0px;padding-right: 0px;padding-bottom: 0;padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+
+            <img alt="" src="http://www.corelogs.com/images/thumbnails/fsae.JPG" width="264" style="max-width: 552px;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+
+
+        </td>
+    </tr>
+    <tr>
+        <td class="mcnTextContent" valign="top" style="padding: 9px 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;line-height: 150%;" width="246">
+            Supra SAE India & Formula Student India
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+													</tr>
+												</table>
+												<!--[if gte mso 9]>
+												</td>
+												</tr>
+												</table>
+												<![endif]-->
+											</td>
+										</tr>
+									</table>
+								</td>
+                            </tr>
+							<tr>
+								<td align="center" valign="top" id="templateLowerBody" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-top: 0;border-bottom: 2px solid #EAEAEA;padding-top: 0;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="bodyContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+
+                            Through this event we want to emphasize how important it is to bring a culture of sharing and open source movement in Core Segment of Engineering. Let's Speed up the pace of development by following the principle of open source movement & knowledge sharing.<br>
+The IT industry & the startup world learnt about <strong>Lean</strong> from the Core Segment of Engineering. Now Its our chance to learn about <strong>Open Source Technology </strong>from them<strong>.<br>
+Ask, Answer & Write on CoreLogs to help others and make your mark on internet.</strong>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnButtonBlockOuter">
+        <tr>
+            <td style="padding-top: 0;padding-right: 18px;padding-bottom: 18px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" valign="top" align="center" class="mcnButtonBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #2BAADF;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody>
+                        <tr>
+                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial;font-size: 16px;padding: 15px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                <a class="mcnButton " title="Visit CoreLogs" href="http://www.corelogs.com" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Visit CoreLogs</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+                            <tr>
+								<td align="center" valign="top" id="templateFooter" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;border-top: 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+									<!--[if gte mso 9]>
+									<table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+									<tr>
+									<td align="center" valign="top" width="600" style="width:600px;">
+									<![endif]-->
+									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+										<tr>
+                                			<td valign="top" class="footerContainer" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class="mcnFollowBlockOuter">
+        <tr>
+            <td align="center" valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td align="center" style="padding-left: 9px;padding-right: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContent" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <tbody><tr>
+                    <td align="center" valign="top" style="padding-top: 9px;padding-right: 9px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody><tr>
+                                <td valign="top" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <!--[if mso]>
+                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="524">
+                                    <tr>
+                                    <td align="left" valign="top" width="524">
+                                    <![endif]-->
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="https://twitter.com/Corelogstwt" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="https://www.facebook.com/corelogs.page" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+
+
+                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign="top" style="padding-right: 0;padding-bottom: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnFollowContentItemContainer">
+                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                            <tbody><tr>
+                                                                <td align="left" valign="middle" style="padding-top: 5px;padding-right: 10px;padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <tbody><tr>
+
+                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                                    <a href="http://www.corelogs.com" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display: block;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                                                                                </td>
+
+
+                                                                        </tr>
+                                                                    </tbody></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+
+                                    <!--[if mso]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+										</tr>
+									</table>
+									<!--[if gte mso 9]>
+									</td>
+									</tr>
+									</table>
+									<![endif]-->
+								</td>
+                            </tr>
+                        </table>
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>
+Thanks
+SP
+'''
+

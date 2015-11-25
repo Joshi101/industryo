@@ -1,5 +1,6 @@
+{% load filter %}
 <div class="comment" property='comment' typeof="Comment">
-		<span property='text'>{{comment | urlize }}</span>
+		<span property='text'>{{comment.comment| urlize |new_tab|safe  }}</span>
 			 --{% include "snippets/joint_name.html" with user=comment.user %}
 			<time property='dateCreated' class="text-muted">{{comment.date}}</time>
 </div>

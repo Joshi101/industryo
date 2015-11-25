@@ -41,6 +41,8 @@ form{
 
 .navbar-fixed-top .navbar-collapse{
 	max-height: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .navbar-nav > li {
@@ -141,19 +143,34 @@ form{
 }
 
 .top_info_name {
-  
-}
-
-.top_info_points {
-  font-size: 10px;
-
-  padding: 2px 2px;
-
-  color: #8fd;
+  display: inline-block;
+  height: 20px;
+  overflow: hidden;
+  font-size: 12px;
 }
 
 .top_user_info .dropdown-menu {
   top: 115%;
+}
+
+
+.top_info_icon{
+  float: right;
+  
+}
+
+.top_info_points{
+  //display: block;
+  font-size: 9px;
+
+  padding: 0 1px 0 2px;
+  margin: 0 3px;
+  
+  position: absolute;
+  right: 13px;
+  top: 28px;
+  color: #4ca;
+  line-height: 12px;
 }
 
 @media (min-width: 768px) {
@@ -164,23 +181,29 @@ form{
   .navbar-inverse .navbar-nav > li > .top_info_box {
     position: relative;
 
-    margin: 0 0;
-    padding: 10px 15px 20px;
+    padding: 2px 10px 2px;
     background-color: #333;
     text-align: center;
   }
+  
+  .top_info_icon{
+    float: none;
+  }
+  
   .top_info_points {
-    line-height: 10px;
+    //line-height: 14px;
+    //height: 12px;
+    margin-left: -8px;
+    margin-right: 0;
 
-    position: absolute;
-    top: 34px;
-    left: 0;
+    position: initial;
+    vertical-align: middle;
+    //top: 4px;
+    //left: 0;
 
-    display: block;
-
-    width: 100%;
-
-    background-color: #333;
+    display: inline-block;
+    //color: #064;
+    border-bottom: 1px solid #999;
   }
 
   .top_user_info .wp .top_info_points {

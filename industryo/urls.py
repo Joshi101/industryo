@@ -35,6 +35,9 @@ urlpatterns = patterns('',
     url(r'^q_tag/$', 'forum.views.question_tagged', name='q_tag'),
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
     url(r'^searchperson/$', 'userprofile.views.search_person', name='searchperson'),
+
+    url(r'^send_list/$', 'home.views.send_list', name='send_list'),
+    url(r'^send_test/$', 'home.views.send_test', name='send_test'),
     url(r'^send_an_email/$', 'home.views.send_an_email', name='send_an_email'),
     url(r'^send_set_wp_email/$', 'home.views.send_set_wp_email', name='send_set_wp_email'),
 

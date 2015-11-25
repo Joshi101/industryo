@@ -33,16 +33,14 @@ def notify(request):
         r_html = {}
         r_elements = []
         user = request.user
-        unread_all = Notification.objects.filter(to_user=user, is_read=False)
+        unread_all = Notification.objects.filter(to_user=user, is_read=True)
         c = unread_all.count()
         unread = unread_all[:5]
         for notification in unread:
             notification.is_read = True
             notification.save()
-            print(notification)
         r_elements = ['hover_box']
         r_html['hover_box'] = render_to_string('activities/notify_box.html', {'unread': unread, 'count':c})
-        print('b')
         response['html'] = r_html
         response['elements'] = r_elements
         return HttpResponse(json.dumps(response), content_type="application/json")

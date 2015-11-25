@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def set_tags_short(request, slug):
-    print('lololoo')
     if request.method == 'POST':
         p = Products.objects.get(slug=slug)
         response = {}
@@ -19,13 +18,22 @@ def set_tags_short(request, slug):
         user = request.user
         wp = user.userprofile.primary_workplace
         value = request.POST.get('tag')
-        p.set_tags(value)
+        t = p.set_tags(value)
         # new_interest = t
         # r_elements = ['tag_container']
         # r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
         # response['html'] = r_html
         # response['elements'] = r_elements
         # response['prepend'] = True
+        # return HttpResponse(json.dumps(response), content_type="application/json")
+
+        new_interest = t
+        r_elements = ['info_field_value']
+        r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
+        print(r_html['info_field_value'])
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = False
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)

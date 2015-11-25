@@ -38,7 +38,7 @@ class Tags(models.Model):
         super(Tags, self).save(*args, **kwargs)
 
     def get_logo(self):
-        default_image = 'images/thumbnails/tag.JPG'
+        default_image = '/images/thumbnails/tag.JPG'
         if self.logo:
             image_url = '/images/'+str(self.logo.image_thumbnail)
             return image_url
@@ -50,6 +50,8 @@ class Tags(models.Model):
             return "Asset"
         elif self.type == 'C':
             return "City"
+        elif self.type == 'S':
+            return "Industry Segment"
         elif self.type == 'E':
             return "Event"
         elif self.type == 'I':

@@ -1,9 +1,10 @@
+{% load filter %}
 <div class="feed_box feed ajax_papa">
 	<div class="text-center vote_box">
 		{% include "snippets/like_box.html" with node=node %}
 	</div>
 	<div class="feed_box_body">
-		<pre>{{ node.post | urlize }}</pre>
+		<pre>{{ node.post | urlize |new_tab|safe }}</pre>
 
 		{% if node.get_images %}
 			<div class="summary_fig">

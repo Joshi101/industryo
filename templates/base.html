@@ -1,5 +1,6 @@
 {% load staticfiles %}
 
+
 <!DOCTYPE html>
 <!--
     This is the 'base' template, never loaded
@@ -21,7 +22,7 @@
     {% block title %}Corelogs{% endblock title %}
   </title>
     
-  <link rel="icon" href="{% static 'css/icon3.png' %}">
+  <link rel="icon" href="{% static 'css/icon6.png' %}">
   
   <!-- google fonts -->
   <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans|Nova+Flat'>
@@ -56,7 +57,7 @@
   {% block back %}
   {% endblock back %}
   {% block top %}
-    {% include "snippets/top_navigation.html" with what='Questions' %}
+    
   {% endblock top %}
   <div id="{% block page_id %}{% endblock page_id %}" class="body">
     {% block body %}
@@ -83,7 +84,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-4 foot_desc">
         <div class="foot_logo">
-          <img src="">
+          <img src="{% static 'css/cl_logo_wh.png' %}">
         </div>
         <p class="text-justify">
           CoreLogs is a website for the entire core segment of Engineering. At CoreLogs, we aim to create an open platform for the people of small &amp; medium scale manufacturing industries to connect with each other, and also with the engineers &amp; managers from large scale industries. It is also a platform for college students, research scholars &amp; auto-mobile
