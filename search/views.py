@@ -203,7 +203,3 @@ def workplace_search(request):
         return render(request, 'search/results.html', locals())
     else:
         return render(request, 'search/search.html')
-
-
-
-#

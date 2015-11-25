@@ -5,7 +5,7 @@
 }
 
 .navbar-nav{
-  margin: 0 -15px;
+  margin: 0;
 }
 
 .label{
@@ -73,6 +73,7 @@
 
 .dropdown-menu{
   border: 0;
+  border-radius: 0px;
 }
 
 .list-group-item{
@@ -108,7 +109,7 @@
   display: block;
 
   opacity: 1;
-  background: url(cover_back_default.jpg);
+  background: url(makeinindia.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -129,19 +130,10 @@
 
 .cover_page {
   position: relative;
-
-  display: none;
-
-  height: 0;
+  
+  //background-color: rgba(255,255,255,1);
 }
 
-#default {
-  display: block;
-
-  height: auto;
-  background-color: rgba(255,255,255,0.2);
-  box-shadow: 0 0 10px 10px rgba(255,255,255,0.2);
-}
 
 #cover li {
   list-style: none;
@@ -151,35 +143,51 @@
   margin-bottom: 10px;
 }
 
+#cover label{
+  font-size: 15px;
+  
+  //height: 42px;
+  padding: 10px 15px 0 0;
+}
+
+.cover_form .form-group{
+  margin-bottom: 0;
+}
+
 #cover input {
   font-size: 15px;
 
   max-width: 250px;
-  height: 40px;
+  height: 42px;
   margin: auto;
   padding: 0 15px;
 
   border: 0;
-  border-bottom: 1px solid rgba(16, 144, 112, .2);
+  border-bottom: 1px solid rgba(16, 144, 112, 0.45);
   border-radius: 0;
-  box-shadow: 0 0 0 rgba(10, 90, 70, .2) inset;
+  box-shadow: 0 0 0 rgba(10, 90, 70, 0.2) inset;
+  background: transparent;
 }
 
 #cover .errorlist{
 	padding: 0;
 }
 
-#cover .btn {
+#cover .form-group .btn {
   display: block;
 
   width: 100%;
-  max-width: 250px;
+  max-width: 220px;
   height: 40px;
-  margin: auto;
   margin-top: 15px;
+  margin-bottom: 15px;
 
   border: 0;
   border-radius: 0;
+}
+
+#cover .modal .btn{
+  //margin:0;
 }
 
 .cover_desc {
@@ -190,23 +198,47 @@
 
   overflow: hidden;
 
-  margin-bottom: 30px;
   padding: 15px 30px;
+  //margin-bottom: 20px;
 
-  color: #eee;
-  background-color: rgba(55, 55, 55, .9);
-  box-shadow: 0 0 3px rgba(55, 55, 55, .3) inset;
+  color: #000;
+  background-color: rgba(255,255,255, 0.7);
+  
+  //box-shadow: 0 0 3px rgba(55, 55, 55, .3) inset;
 }
 
-#lsi.cover_body,
-#team.cover_body,
-#sme.cover_body {
-  overflow-x: hidden;
+.cover_desc h3{
+  padding-bottom: 10px;
+  border-bottom: 1px solid #179;
+  font-size: 1em;
+}
 
-  padding: 10px;
+.cover_body{
+  background: rgba(255,255,255,0.75);
+  //background: rgba(0,0,0,0.7);
+  padding: 15px 30px;
+}
 
-  color: #bbb;
-  background-color: rgba(55, 55, 55, .75);
+.cover_body a:hover{
+  color: #197;
+}
+
+.cover_form h4{
+  line-height: 25px;
+  min-height: 50px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 1000px){
+  .cover_form .signup{
+    border-left: 1px solid #197;
+  }
+}
+
+
+.cover_body .stylize{
+  color: #197;
+  //border-bottom: 1px solid #197;
 }
 
 #cover_bottom_title {
@@ -247,15 +279,17 @@
 }
 
 .cover_form {
-  max-width: 400px;
+  width: 100%;
+  color: #333;
   padding-bottom: 50px;
 }
 
 .cover_form form {
-  padding: 0 0;
+  padding: 0 25px;
+  border-color: rgba(16, 144, 112, 0.2);
 }
 
-#signup h3,
+/**#signup h3,
 #login h3 {
   font-family: 'Nova Flat', cursive;
 
@@ -278,34 +312,54 @@
   margin-left: -10px;
   padding-right: 200px;
   padding-left: 10px;
-}
-
-#login h3 {
-  margin-right: -10px;
-  margin-left: -200px;
-  padding-right: 10px;
-  padding-left: 200px;
-}
+}**/
 
 .socialaccount_providers {
   list-style: none;
 }
 
-.socialaccount_providers img {
-  display: block;
+.socialaccount_providers li{
+ margin-bottom: 15px; 
+}
 
-  max-width: 100%;
-  height: 40px;
-  margin: auto;
-  margin-bottom: 10px;
+.socialaccount_providers a{
+  //display: block;
+  color: #444;
+  height: 34px;
+}
+
+.socialaccount_providers a:hover, .socialaccount_providers a:focus{
+  color: #197;
+  text-decoration: none;
+}
+
+.socialaccount_providers span{
+  //height: 32px;
+  //line-height: 32px;
+  
+  border-bottom: 1px solid #777;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.socialaccount_providers img {
+  //display: block;
+  margin-right: 2px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #555;
+  border-radius: 5px;
 }
 
 .socialaccount_providers img:hover {
-  opacity: .75;
+  opacity: 0.9;
 }
 
 #login .forgot_pass  a {
-  color: #000;
+  //color: #000;
+  display: block;
+  font-size: 0.75em;
 }
 
 .default {
@@ -371,6 +425,10 @@ pre {
   //z-index: -1;
 }
 
+#top_search .form-group{
+  margin-bottom: 0;
+}
+
 #top_search .has-error .form-control{
   border: 1px solid #CCC;
   box-shadow: 0 0 0;
@@ -390,15 +448,17 @@ pre {
   left: -15px;
   top: 45px;
   z-index: 1000;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 #top_search .d_menu{
   top: -5px;
   width: 300px;
-  left: -80px;
+  left: -38px;
 }
 
 @media (min-width: 1000px){
   #top_search form{
+    display: block;
     width: 300px;
     margin: auto;
     position: relative;
@@ -434,16 +494,22 @@ pre {
 }
 
 #top_search .d_menu img{
-  height: 100%;
+  height: 20px;
   margin-right: 5px;
+  position: relative;
+  top: -1px;
 }
 
+#top_search .list-group-item{
+  padding: 7px 10px;
+}
 #search_typ .dropdown-menu .fa{
-  margin-right: 5px;
+  //margin-right: 5px;
 }
 
 #search_typ .btn{
   border-right: 0;
+  padding: 5px;
 }
 
 #notifications .badge {
@@ -733,8 +799,8 @@ pre {
 .feed_box_body img {
   display: block;
 
-  width: 100px;
-  max-height: 100px;
+  width: 128px;
+  max-height: 128px;
 
   border: 1px solid rgba(55, 55, 55, .3);
   box-shadow: 0 0 2px rgba(55, 55, 55, .3);
@@ -843,7 +909,7 @@ pre {
 
   text-align: justify;
 
-  color: #555;
+  color: #333;
 }
 
 .feed_box_body > pre {
@@ -1001,14 +1067,13 @@ pre {
 }
 
 .comment {
-  font-size: 0.9em;
+  font-size: 0.8em;
   padding-top: 5px;
   padding-left: 50px;
+  color: #666;
 }
 
 .comment p {
-  font-size: 12px;
-
   margin-bottom: 0;
   padding: 5px 0 2px;
 
@@ -1162,9 +1227,9 @@ footer {
   position: relative;
   padding-bottom: 10px;
   border-top: 1px solid #fff;
-  margin-top: 10px;
+  //margin-top: 10px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(35, 35, 35, 0.95);
   color: #fff;
 }
 
@@ -1272,11 +1337,11 @@ footer .connect li{
 
 
 .name_workplace {
-  color: #000;
+  //color: #000;
 }
 
 .name_user {
-  color: #000;
+  //color: #000;
 }
 
 .same {
@@ -1500,7 +1565,11 @@ div[data-role='editor-toolbar'] {
   float: left;
 
   width: 40px;
+  height: 40px;
   margin-right: 5%;
+  overflow: hidden;
+  
+  text-overflow: 
 
   border: 1px solid #eee;
 }
@@ -1800,10 +1869,19 @@ footer{
 }
 
 footer .foot_desc{
-  padding: 20px 20px;
+  padding: 20px 20px 0;
   text-align: justify;
   color: #ccc;
-  font-size: 0.9em;
+  font-size: 0.95em;
+}
+
+footer .foot_logo{
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+footer .foot_logo img{
+  width: 75px;
 }
 
 footer .foot_links li{
@@ -2212,13 +2290,16 @@ footer .contact li{
   line-height: 1.5;
 }
 
-#top_search .d_search .dropdown{
+#top_search .dropdown-menu{
   top: 35px;
+  padding-bottom: 0;
+  padding-top: 0;
 }
 
 #top_search .d_search .input_tags{
   margin:0;
 }
+
 
 .invite_form{
   position: relative;
@@ -2226,4 +2307,19 @@ footer .contact li{
   margin: 10px auto;
   padding: 10px;
   border-bottom: 1px solid #eee;
+}
+
+#search_toggle{
+  position: absolute;
+  right: 0px;
+  margin-right: 15px;
+  top: 46px;
+  background-color: #333;
+  color: #fff;
+}
+
+@media (min-width:768px){
+  #search_toggle{
+    display: none;
+  }
 }

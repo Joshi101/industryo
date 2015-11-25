@@ -12,11 +12,15 @@ from django.utils.timezone import now
 
 class Images(models.Model):
     image = ProcessedImageField(upload_to='main',
-                                          processors=[ResizeToCover(500, 500)],
+                                          processors=[ResizeToCover(640, 640)],
                                           format='JPEG',
                                           options={'quality': 100})
     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-                                          processors=[SmartResize(200, 200)],
+                                          processors=[SmartResize(128, 128)],
+                                          format='JPEG',
+                                          options={'quality': 100})
+    image_thumbnail_sm = ProcessedImageField(upload_to='thumbnails',
+                                          processors=[SmartResize(64, 64)],
                                           format='JPEG',
                                           options={'quality': 100})
     # caption = models.CharField(max_length=255)

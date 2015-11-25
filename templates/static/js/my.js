@@ -434,6 +434,7 @@ if ($('.paginator').length) {
                         'overflow-y': 'hidden'
                     });*/
                     $pg.before(response);
+                    $('[data-toggle="tooltip"]').tooltip();
                     /*var height_after = $pg.parent()[0].scrollHeight;
                     $pg_parent.animate({
                         'height': height_after
@@ -1297,7 +1298,7 @@ $(function () {
         $("#unread-count").text(data);
       },
       complete: function () {
-        window.setTimeout(check_messages, 60000);
+        window.setTimeout(check_messages, 180000);
       }
     });
   };
@@ -1381,10 +1382,13 @@ $('.nav-pills').on('click', 'li', function(){
 
 $('.select_dropdown').on('click', '.dropdown-menu a', function(){
     console.log($(this).text());
+    $(this).addClass('current');
+    $(this).closest('.dropdown-menu').find('.current').removeClass('current');
     var what = $(this).find('.value').text();
     var what_fa = $(this).find('i').attr('class');
     var sd = $('.select_dropdown .dropdown-toggle');
     sd.find('.value').text(what);
+    sd.attr('title','Search '+what);
     sd.find('i').attr('class', what_fa);
     sd.closest('form').find('.what').val(what.toLowerCase());
     var s_url = '/search/'+what.toLowerCase();
@@ -1394,4 +1398,25 @@ $('.select_dropdown').on('click', '.dropdown-menu a', function(){
 $('#top_search').on('focus', '.d_input', function(){
     type = $('#top_search').find('.what').val().toLowerCase();
     $(this).closest('.d_search').find('.d_type').val(type);
+    $(this).closest('form').tooltip('hide');
 });
+
+$('#top_search').on('keydown', '.d_input', function(){
+    $(this).closest('form').tooltip('hide');
+});
+
+$(function(){
+    var what = $('#search_typ').find('.dropdown-toggle .value').text().toLowerCase();
+    $('#search_typ .dropdown-menu').find('li').each(function(){
+        var typ = $(this).find('.value').text().toLowerCase();
+        if (typ == what) {
+            console.log('matched')
+            var what_i = $(this).find('i').attr('class');
+            $('#search_typ').find('.dropdown-toggle i').attr('class', what_i);
+        }
+    });
+});
+
+$('#top_nav_toggle').on('click', function(){
+    $('#top_search').toggle();
+})
