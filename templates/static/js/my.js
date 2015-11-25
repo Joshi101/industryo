@@ -9,7 +9,7 @@ var top_nav_width, win_width, win_height, foot_height;
 
 /* function to initialize some global parameters */
 function measure() {
-    top_nav_width = $('.navbar-fixed-top').outerHeight(true);
+    top_nav_width = $('#top_nav').outerHeight(true);
     win_width = $(window).width();
     win_height = $(window).height();
     foot_height = $('footer').outerHeight(true);

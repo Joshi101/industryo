@@ -4,6 +4,10 @@
   min-height: 40px;
 }
 
+.navbar-inverse{
+  background: rgba(0,0,0,0.7);
+}
+
 .navbar-nav{
   margin: 0;
 }
@@ -130,6 +134,7 @@
 
 .cover_page {
   position: relative;
+  padding-top: 40px;
   
   //background-color: rgba(255,255,255,1);
 }
@@ -137,6 +142,22 @@
 
 #cover li {
   list-style: none;
+}
+
+.cover_body .list-group-item{
+  background-color: transparent;
+  border: 0;
+}
+
+.cover_body .fa-li{
+  position: relative;
+  left: 0;
+  top: 0;
+  color: #197;
+}
+
+.cover_features{
+  padding: 20px 10px;
 }
 
 #cover .socialaccount_providers .list-group {
@@ -198,11 +219,11 @@
 
   overflow: hidden;
 
-  padding: 15px 30px;
+  padding: 15px 30px 0;
   //margin-bottom: 20px;
 
   color: #000;
-  background-color: rgba(255,255,255, 0.7);
+  background-color: rgba(255,255,255, 0.75);
   
   //box-shadow: 0 0 3px rgba(55, 55, 55, .3) inset;
 }
@@ -216,7 +237,7 @@
 .cover_body{
   background: rgba(255,255,255,0.75);
   //background: rgba(0,0,0,0.7);
-  padding: 15px 30px;
+  padding: 0px 30px 15px;
 }
 
 .cover_body a:hover{
@@ -225,12 +246,12 @@
 
 .cover_form h4{
   line-height: 25px;
-  min-height: 50px;
+  //min-height: 50px;
   margin-bottom: 15px;
 }
 
 @media (min-width: 1000px){
-  .cover_form .signup{
+  .cover_form_extra{
     border-left: 1px solid #197;
   }
 }
@@ -282,6 +303,8 @@
   width: 100%;
   color: #333;
   padding-bottom: 50px;
+  border-bottom: 1px solid #179;
+  
 }
 
 .cover_form form {
