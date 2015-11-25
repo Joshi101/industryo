@@ -4,6 +4,10 @@
   min-height: 40px;
 }
 
+.navbar-inverse{
+  background: rgba(0,0,0,0.7);
+}
+
 .navbar-nav{
   margin: 0;
 }
@@ -130,6 +134,7 @@
 
 .cover_page {
   position: relative;
+  padding-top: 40px;
   
   //background-color: rgba(255,255,255,1);
 }
@@ -202,7 +207,7 @@
   //margin-bottom: 20px;
 
   color: #000;
-  background-color: rgba(255,255,255, 0.7);
+  background-color: rgba(255,255,255, 0.75);
   
   //box-shadow: 0 0 3px rgba(55, 55, 55, .3) inset;
 }
@@ -225,7 +230,7 @@
 
 .cover_form h4{
   line-height: 25px;
-  min-height: 50px;
+  //min-height: 50px;
   margin-bottom: 15px;
 }
 

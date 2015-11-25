@@ -84,6 +84,10 @@ form{
   background-color: #ddd;
 }
 
+.navbar{
+  margin-bottom: 0;
+}
+
 /* generic styles */
 
 .a_alt:hover {
