@@ -27,7 +27,7 @@ class Products(models.Model):
     target_segment = models.CharField(max_length=4, null=True, blank=True)
     admin_score = models.FloatField(default=1)
     score = models.FloatField(default=0)
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:

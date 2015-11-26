@@ -22,7 +22,7 @@ class Images(models.Model):
     image_thumbnail_sm = ProcessedImageField(upload_to='thumbnails',
                                           processors=[SmartResize(64, 64)],
                                           format='JPEG',
-                                          options={'quality': 100})
+                                          options={'quality': 100}, null=True, blank=True)
     # caption = models.CharField(max_length=255)
     time = models.TimeField(auto_now_add=True)
     # slug = models.SlugField(max_length=20, null=True)

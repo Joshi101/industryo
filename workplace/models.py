@@ -19,6 +19,8 @@ class Workplace(models.Model):
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
 
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
     verified = models.BooleanField(default=False)
     slug = models.SlugField(max_length=255)
     address = models.CharField(max_length=255, null=True, blank=True)
@@ -304,6 +306,8 @@ class WpTags(models.Model):
                  ('A', 'Asset'), ('O', 'Operation'), ('M', 'Material'), ('P', 'ParentInstitution'),
                  ('N', 'None'), ('T', 'Topic/Subject'))
     category = models.CharField(max_length=1, choices=tag_types, null=True)
+
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         db_table = 'WpTags'

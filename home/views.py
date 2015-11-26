@@ -214,10 +214,10 @@ def send_test(request):
 
 @login_required
 def send_an_email(request):
-    # userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
-    userprofiles = UserProfile.objects.filter(id__lte=2)
+    userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
+    # userprofiles = UserProfile.objects.filter(id__lte=1)
     for u in userprofiles:
-        tasks.luck(u.id, n=16)
+        tasks.text_mail(u.id, n=16)
     return redirect('/')
 
     # content = '''

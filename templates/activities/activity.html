@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body%}
+<div class="container">
+<div class="col-md-3">
+	<a href="/internal/details/?q=ub" class="list-group-item active">
+	Users in SMEs
+	</a>
+	<a href="/internal/details/?q=ua" class="list-group-item">
+	Users in Large Industries
+	</a>
+	<a href="/internal/details/?q=uc" class="list-group-item">
+    Users in Teams
+    </a>
+	<a href="/internal/details/?q=uo" class="list-group-item">
+    Users in Educational Institutions
+    </a>
+	<a href="/internal/details/?q=u" class="list-group-item">
+    Users - No Workplace
+    </a>
+	<a href="/internal/details/?q=wb" class="list-group-item">
+    Workplace - SMEs
+    </a>
+	<a href="/internal/details/?q=wa" class="list-group-item">
+    Workplace - Large Industries
+    </a>
+	<a href="/internal/details/?q=wc" class="list-group-item">
+    Workplace - Teams
+    </a>
+	<a href="/internal/details/?q=wo" class="list-group-item">
+    Workplace - Educational Institutions
+    </a>
+</div>
+<div class="col-md-7">
+<h2>{{text}}</h2>
+  <ol type="1">  
+	{% for u in lis %}
+		
+		<li>{{u}} - </li>
+		
+	{% endfor %}  
+  </ol>
+
+</div>
+{% endblock body %}
