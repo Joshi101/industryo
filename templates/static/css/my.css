@@ -217,8 +217,9 @@
   }
 }
 
-#cover .errorlist{
-	padding: 0;
+.cover_form .errorlist{
+	padding: 5px 0;
+  margin-bottom: 0;
 }
 
 #cover .form-group .btn {
@@ -254,6 +255,12 @@
   //color: ;
   //background-color: rgba(255,255,255, 0.5);
   //box-shadow: 0 0 3px rgba(55, 55, 55, .3) inset;
+}
+
+@media (max-width:768px){
+  .cover_desc h1{
+    font-size: 28px;
+  }
 }
 
 .cover_desc .content{
