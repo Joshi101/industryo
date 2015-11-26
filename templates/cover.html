@@ -11,8 +11,20 @@
 {% endblock back %}
 
 {% block top %}
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-
+	<nav id="cover_top_nav" class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="{% url 'home' %}"><img class="navbar-header-img" src="{% static 'css/icon6_inv.png' %}">ORELOGS</a>
+	    </div>
+	    <ul class="nav navbar-nav navbar-right pull-right">
+	    	<li>
+	    		<a data-target="#login_modal" data-toggle="modal">
+            <span class=""><strong>Login</strong></span>
+            <span class="fa fa-sign-in fa-fw"></span>
+          </a>
+	    	</li>
+	    </ul>
+    </div>
 	</nav>
 {% endblock top %}
 
@@ -20,139 +32,119 @@
 
 {% block body %}
 <div class="cover_page">
-	<div class="container-fluid cover_desc">
-		<h1>Digitalize Manufacturing Industries with CoreLogs</h1>
-		<h3><a class="btn btn-success" data-target="#login_modal" data-toggle="modal">Login</a>&nbsp;, <span class="stylize">Discuss</span>, Explore and be part of a new digital world of SMEs, we have kept it easy :D</h3>
-		<div id="signup_modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		    	<div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title stylize text-center">Create a New Account</h4>
-		      </div>
-		      <div class="modal-body">
-		        <form class="form-horizontal signup" method="POST" action="{% url 'account_signup' %}" role='form'>
-				    	{% csrf_token %}
-				    	<div class="form-group">
-				    		<label class="control-label col-sm-4">Username:</label>
-					      <input id="id_username" class="form-control col-sm-8" type="text" placeholder="Keep it unique ..!" name="username" maxlength="30" autofocus="autofocus">
-				      </div>
-				      <div class="form-group">
-				      	<label class="control-label col-sm-4">Email:</label>
-					      <input id="id_email" class="form-control col-sm-8" type="email" placeholder="Keep it genuine ..!" name="email">
-				      </div>
-				      <div class="form-group">
-				      	<label class="control-label col-sm-4">Password:</label>
-				    		<input id="id_password1" class="form-control col-sm-8" type="password" placeholder="Keep it strong ..!" name="password1">
-			    		</div>
-			    		<div class="form-group">
-			    			<label class="control-label col-sm-4">Confirm Password:</label>
-				    		<input id="id_password2" class="form-control col-sm-8" type="password" placeholder="Keep it same ..!" name="password2">
-			    		</div>
-				      {% if redirect_field_value %}
-				      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-				      {% endif %}
-				      <div class="form-group">
-				        <div class="col-md-8 col-md-offset-4">
-				          <button class="primaryAction btn btn-primary" type="submit">Register</button>
-				        </div>
-				      </div>
-				      {% csrf_token %}
-				    </form>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	</div>
-	<div class="container-fluid cover_body">
-		<div class="cover_form row">
-			<form class="form-horizontal col-md-6" method="POST" action="{% url 'account_login' %}">
-		    {% if socialaccount.providers %}
-		    <div class="socialaccount_ballot">
-		    	<h3><strong>Sign up</strong></h3>
-		    	<p class="text-info">Use one of your existing accounts</p>
-		      <ul class="socialaccount_providers list-group">
-		        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-	        	<p class="text-info">Or alternatively, create a new account using you email-address</p>
-		        <li>
-			        <a data-target="#signup_modal" data-toggle="modal">
-					    	<img src="{% static 'css/icon6.png' %}">
-					    	<span>Sign up with email</span>
-				    	</a>
-			    	</li>
-		      </ul>
-		    </div>
-		    {% include "socialaccount/snippets/login_extra.html" %}
-		    {% endif %}
-	    	<div id="login_modal" class="modal fade" role="dialog">
-				  <div class="modal-dialog modal-sm">
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				    	<div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title stylize text-center">Log in</h4>
-				      </div>
-				      <div class="modal-body">
-				        {% if socialaccount.providers %}
-						    <div class="socialaccount_ballot">
-						      <ul class="socialaccount_providers list-group">
-						        {% include "socialaccount/snippets/provider_list.html" with process="login" signup="no" %}
-					        	<p class="text-info">Or, if you have a CoreLogs account use your username to login</p>
-						        <!-- <li>
-						        							        <a data-target="#signup_modal" data-toggle="modal">
-						        									    	<img src="{% static 'css/icon6.png' %}">
-						        									    	<span>Login with email</span>
-						        								    	</a>
-						        							    	</li> -->
-						      </ul>
-						    </div>
-						    {% include "socialaccount/snippets/login_extra.html" %}
-						    {% endif %}
-					      {% csrf_token %}
-    		    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-    		    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
+	<div class="cover_desc">
+		<div class="content">
+			<h1>Digitalize Manufacturing Industries with CoreLogs</h1>
+			<!-- <a class="btn btn-success" data-target="#login_modal" data-toggle="modal">Login</a> -->
+			<h2>Signup, <span class="stylize">Discuss</span>, Explore and be part of a new digital world of SMEs, we have kept it easy :D</h2>
+			<div id="signup_modal" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			    	<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title stylize text-center">Create a New Account</h4>
+			      </div>
+			      <div class="modal-body">
+			        <form class="form-horizontal signup" method="POST" action="{% url 'account_signup' %}" role='form'>
+					    	{% csrf_token %}
+					    	<div class="form-group">
+					    		<label class="control-label col-sm-4">Username:</label>
+						      <input id="id_username" class="form-control col-sm-8" type="text" placeholder="Keep it unique ..!" name="username" maxlength="30" autofocus="autofocus">
+					      </div>
+					      <div class="form-group">
+					      	<label class="control-label col-sm-4">Email:</label>
+						      <input id="id_email" class="form-control col-sm-8" type="email" placeholder="Keep it genuine ..!" name="email">
+					      </div>
+					      <div class="form-group">
+					      	<label class="control-label col-sm-4">Password:</label>
+					    		<input id="id_password1" class="form-control col-sm-8" type="password" placeholder="Keep it strong ..!" name="password1">
+				    		</div>
+				    		<div class="form-group">
+				    			<label class="control-label col-sm-4">Confirm Password:</label>
+					    		<input id="id_password2" class="form-control col-sm-8" type="password" placeholder="Keep it same ..!" name="password2">
+				    		</div>
 					      {% if redirect_field_value %}
-					      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
 					      {% endif %}
 					      <div class="form-group">
-					        <div class="col-sm-12">
-					          <button class="primaryAction btn btn-primary center-block" type="submit">Sign in</button>
+					        <div class="col-md-8 col-md-offset-4">
+					          <button class="primaryAction btn btn-primary" type="submit">Register</button>
 					        </div>
 					      </div>
-					      <div class="form-group text-center">
-					        <a class="secondaryAction col-sm-12" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+					      {% csrf_token %}
+					    </form>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="cover_form">
+				<form class="form-horizontal col-md-6" method="POST" action="{% url 'account_login' %}">
+			    {% if socialaccount.providers %}
+			    <div class="socialaccount_ballot">
+			    	<h3><strong>Sign up</strong></h3>
+			    	<h4 class="text-info">Use one of your existing accounts</h4>
+			      <ul class="socialaccount_providers list-group">
+			        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+		        	<h4 class="text-info">Or alternatively, create a new account using you email-address</h4>
+			        <li>
+				        <a data-target="#signup_modal" data-toggle="modal">
+						    	<i class="fa fa-fw fa-envelope"></i>
+						    	<span>Sign up with email</span>
+					    	</a>
+				    	</li>
+			      </ul>
+			    </div>
+			    {% include "socialaccount/snippets/login_extra.html" %}
+			    {% endif %}
+		    	<div id="login_modal" class="modal fade" role="dialog">
+					  <div class="modal-dialog modal-sm">
+					    <!-- Modal content-->
+					    <div class="modal-content">
+					    	<div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        <h2 class="modal-title stylize text-center"><strong>Log in</strong></h2>
 					      </div>
-				        <!-- <script src="{{ STATIC_URL }}js/messages.typehead.js"></script> -->
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-		    <!-- <div class="col-md-4 text-center col-md-offset-1 login">
-		    	<h4>Blow a kiss<br><span class="stylize">Log in with your CoreLogs account</span></h4>
-		      {% csrf_token %}
-		    		    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-		    		    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
-		      {% if redirect_field_value %}
-		      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-		      {% endif %}
-		      <div class="form-group">
-		        <div class="col-sm-12 text-center">
-		          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
-		        </div>
-		      </div>
-		      <div class="form-group forgot_pass">
-		        <a class="secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
-		      </div>
-		    		      </div> -->
-    	</form>
+					      <div class="modal-body">
+					        {% if socialaccount.providers %}
+							    <div class="socialaccount_ballot">
+							      <ul class="socialaccount_providers list-group">
+							        {% include "socialaccount/snippets/provider_list.html" with process="login" signup="no" %}
+							      </ul>
+							    </div>
+							    {% include "socialaccount/snippets/login_extra.html" %}
+							    {% endif %}
+							    <p class="text-info text-center">Or, if you have a CoreLogs account use your username to login</p>
+						      {% csrf_token %}
+	    		    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+	    		    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
+						      {% if redirect_field_value %}
+						      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+						      {% endif %}
+						      <div class="form-group">
+						        <div class="col-sm-12">
+						          <button class="primaryAction btn btn-primary center-block" type="submit">Sign in</button>
+						        </div>
+						      </div>
+						      <div class="form-group text-center">
+						        <a class="secondaryAction col-sm-12" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+						      </div>
+					        <!-- <script src="{{ STATIC_URL }}js/messages.typehead.js"></script> -->
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+	    	</form>
     	<div class="cover_form_extra col-md-6">
     		
     	</div>
     </div>
+		</div>
+	</div>
+	<div class="container-fluid cover_body">
     <div class="cover_features">
 			<h3>Users from Small, Medium &amp; Large Scale Industries</h3>
 			<ul class="list-group">
@@ -170,59 +162,6 @@
 			</ul>
 		</div>
 	</div>
-
-<!-- 	<div class="container cover_body">
-	<div id="login" class="text-center pull-left cover_form">
-		<h3><span>Sign In</span></h3>
-		<form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
-	    {% if socialaccount.providers %}
-	    <div class="socialaccount_ballot">
-	      <ul class="socialaccount_providers list-group">
-	        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-	      </ul>
-	    </div>
-	    {% include "socialaccount/snippets/login_extra.html" %}
-	    {% endif %}
-			<h4>CoreLogs account</h4>
-      {% csrf_token %}
-    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-    		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <div class="form-group">
-        <div class="col-sm-12 text-center">
-          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
-        </div>
-      </div>
-      <div class="form-group forgot_pass">
-        <a class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
-      </div>
-    </form>
-    </div>
-	<div id="signup" class="text-center pull-right cover_form">
-    <h3><span>Create a new account</span></h3>
-    <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}" role='form'>
-    	{% csrf_token %}
-      <input id="id_username" class="form-control" type="text" placeholder="Username" name="username" maxlength="30" autofocus="autofocus">
-      <input id="id_email" class="form-control" type="email" placeholder="Email" name="email">
-    		<input id="id_password1" class="form-control" type="password" placeholder="Password" name="password1">
-    		<input id="id_password2" class="form-control" type="password" placeholder="Password (Again)" name="password2">
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-      {% endif %}
-      <div class="form-group">
-        <div class="col-sm-12 text-center">
-          <button class="primaryAction btn btn-primary" type="submit">Register</button>
-        </div>
-      </div>
-      {% csrf_token %}
-    </form>
-    </div>
-</div> -->
-	<!-- <div class="container-fluid cover_desc">
-		<h2>CoreLogs is a platform for small &amp; Medium scale industries to connect with each other and with the Engineers from large scale industries thereby helping each other.</h2>
-	</div> -->
 </div>
 {% endblock body %}
 

@@ -10,8 +10,8 @@
 
 {% block body %}
   <div id="cover" class="container">
-    <div id="login" class="text-center center-block cover_form">
-      <h3><span>Sign In</span></h3>
+    <div id="login" class="center-block cover_form">
+      <h3 class="text-center"><span>Sign In</span></h3>
       <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
         {% if socialaccount.providers %}
         <div class="socialaccount_ballot">
@@ -31,17 +31,15 @@
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         <div class="form-group">
-          <div class="col-sm-12 text-center">
-            <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
-          </div>
+          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
         </div>
-        <div class="form-group">
-          <a id="forgot_pass" class="button secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+        <div class="text-center form-group">
+          <p><a class="secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a></p>
+          <p>
+            If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
+          </p>
         </div>
       </form>
-      <p>
-        If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
-      </p>
     </div>
   </div>
 {% endblock body %}
