@@ -205,6 +205,11 @@
   text-align: center;
 }
 
+.modal form{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 @media (min-width:768px) {
   #cover label{
     font-size: 15px;
@@ -232,6 +237,12 @@
 
   border: 0;
   border-radius: 0;
+}
+
+@media (min-width:768px){
+  #signup_modal .form-group .btn{
+   margin: 15px 0; 
+  }
 }
 
 #cover .modal .btn{
@@ -357,7 +368,7 @@
 }
 
 .cover_form form {
-  padding: 25px;
+  padding: 15px 25px;
   border-color: rgba(16, 144, 112, 0.2);
 }
 
@@ -391,28 +402,43 @@
 }
 
 .socialaccount_providers li{
-  height: 30px;
+  
   margin-bottom: 10px;
   text-align: left;
 }
 
 .socialaccount_providers a{
-  //display: block;
-  color: #444;
-  height: 34px;
+  display: inline-block;
+  color: #fff;
+  height: 35px;
+  line-height: 35px;
+  width: 200px;
+}
+
+.socialaccount_providers .facebook{
+  background: #46a;
+}
+
+.socialaccount_providers .google{
+  background: #e54;
+}
+
+.socialaccount_providers .email{
+  color: #eee;
+  background: rgba(0,0,0,0.75);
 }
 
 .socialaccount_providers a:hover, .socialaccount_providers a:focus{
-  color: #197;
+  color: #ddf;
   text-decoration: none;
 }
 
 .socialaccount_providers i{
   position: relative;
-  width: 1.5em;
+  width: 2em;
   margin-right: 3px;
   font-size: 18px;
-  padding: 5px 0 7px;
+  padding: 5px 0;
   //border-bottom: 1px solid #777;
   border-right: 1px solid #aaa;
   //top: 5px;
@@ -422,13 +448,11 @@
 
 .socialaccount_providers span{
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
   
-  border-bottom: 1px solid #aaa;
-  padding-bottom: 6px;
+  
+  //padding-bottom: 6px;
   //padding-left: 0px;
-  padding-right: 5px;
+  //padding-right: 5px;
 }
 
 .socialaccount_providers img {
@@ -442,10 +466,6 @@
 
 .socialaccount_providers img:hover {
   opacity: 0.9;
-}
-
-.socialaccount_providers span:hover{
-  border-bottom: 1px solid #777;
 }
 
 #login .forgot_pass  a {
