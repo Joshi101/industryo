@@ -12,7 +12,7 @@
 
 {% block top %}
 	<nav id="cover_top_nav" class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
+		<div class="container">
 	    <div class="navbar-header">
 	      <a class="navbar-brand" href="{% url 'home' %}"><img class="navbar-header-img" src="{% static 'css/icon6_inv.png' %}">ORELOGS</a>
 	    </div>
@@ -68,7 +68,7 @@
 					      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
 					      {% endif %}
 					      <div class="form-group">
-					        <div class="col-md-8 col-md-offset-4">
+					        <div class="col-sm-8 col-sm-offset-4">
 					          <button class="primaryAction btn btn-primary" type="submit">Register</button>
 					        </div>
 					      </div>
@@ -88,7 +88,7 @@
 			        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
 		        	<h4 class="text-info">Or alternatively, create a new account using you email-address</h4>
 			        <li>
-				        <a data-target="#signup_modal" data-toggle="modal">
+				        <a class="email" data-target="#signup_modal" data-toggle="modal">
 						    	<i class="fa fa-fw fa-envelope"></i>
 						    	<span>Sign up with email</span>
 					    	</a>
@@ -132,20 +132,20 @@
 					        <!-- <script src="{{ STATIC_URL }}js/messages.typehead.js"></script> -->
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-default center-block" data-dismiss="modal">Close</button>
 					      </div>
 					    </div>
 					  </div>
 					</div>
 	    	</form>
-    	<div class="cover_form_extra col-md-6">
-    		
-    	</div>
+	    	<div class="cover_form_extra col-md-6">
+	    		
+	    	</div>
     </div>
 		</div>
 	</div>
-	<div class="container-fluid cover_body">
-    <div class="cover_features">
+	<!-- <div class="container-fluid cover_body">
+	    <div class="cover_features">
 			<h3>Users from Small, Medium &amp; Large Scale Industries</h3>
 			<ul class="list-group">
 				<li class="list-group-item"><i class="fa-li fa fa-cog fa-spin"></i>You get a company profile page which will be the front page of your company on internet.</li>
@@ -161,7 +161,7 @@
 				<li class="list-group-item"><i class="fa-li fa fa-cog fa-spin"></i>Get connected to the world of Engineers &amp; Industrialists.</li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 </div>
 {% endblock body %}
 
