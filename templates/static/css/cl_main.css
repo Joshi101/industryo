@@ -70,7 +70,7 @@ form{
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus,
 .navbar-inverse .navbar-nav > li > a.current {
-  color: #197;
+  background-color: #197;
 }
 
 @media (min-width: 768px) {

@@ -64,6 +64,11 @@ def test_mail(id, n):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
+
+@background(schedule=60)
+def send_one(id, n):
+    print("allah allah")
+
 @background(schedule=60)
 def list_mail(id, n):
 

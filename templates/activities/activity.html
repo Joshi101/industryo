@@ -4,43 +4,90 @@
 {% block body%}
 <div class="container">
 <div class="col-md-3">
-	<a href="/internal/details/?q=ub" class="list-group-item active">
+	<a href="/internal/details/?q=ub" class="list-group-item {% if s == "ub" %}active{% endif %}">
 	Users in SMEs
 	</a>
-	<a href="/internal/details/?q=ua" class="list-group-item">
+	<a href="/internal/details/?q=ua" class="list-group-item {% if s == "ua" %}active{% endif %}">
 	Users in Large Industries
 	</a>
-	<a href="/internal/details/?q=uc" class="list-group-item">
+	<a href="/internal/details/?q=uc" class="list-group-item {% if s == "uc" %}active{% endif %}">
     Users in Teams
     </a>
-	<a href="/internal/details/?q=uo" class="list-group-item">
+	<a href="/internal/details/?q=uo" class="list-group-item {% if s == "uo" %}active{% endif %}">
     Users in Educational Institutions
     </a>
-	<a href="/internal/details/?q=u" class="list-group-item">
+	<a href="/internal/details/?q=u" class="list-group-item {% if s == "u" %}active{% endif %}">
     Users - No Workplace
     </a>
-	<a href="/internal/details/?q=wb" class="list-group-item">
+	<a href="/internal/details/?q=wb" class="list-group-item {% if s == "wb" %}active{% endif %}">
     Workplace - SMEs
     </a>
-	<a href="/internal/details/?q=wa" class="list-group-item">
+	<a href="/internal/details/?q=wa" class="list-group-item {% if s == "wa" %}active{% endif %}">
     Workplace - Large Industries
     </a>
-	<a href="/internal/details/?q=wc" class="list-group-item">
+	<a href="/internal/details/?q=wc" class="list-group-item {% if s == "wc" %}active{% endif %}">
     Workplace - Teams
     </a>
-	<a href="/internal/details/?q=wo" class="list-group-item">
+	<a href="/internal/details/?q=wo" class="list-group-item {% if s == "wo" %}active{% endif %}">
     Workplace - Educational Institutions
+    </a>
+	</a>
+	<a href="/internal/details/?q=p" class="list-group-item {% if s == "p" %}active{% endif %}">
+    Products listed
+    </a>
+	<a href="/internal/details/?q=wpt" class="list-group-item {% if s == "wpt" %}active{% endif %}">
+    Workplace_tags created
     </a>
 </div>
 <div class="col-md-7">
-<h2>{{text}}</h2>
+{% if lis %}
+<h2>{{text}} ({{c}})</h2>
+{% if tm == "q" %}<a href="/internal/send/?q=set_wp_all" class="tag" class ="pull-right"><span class="value">Send mail to all</span></a>{% endif %}
+  {% if tt == "p" %}
   <ol type="1">  
 	{% for u in lis %}
 		
-		<li>{{u}} - </li>
+		<li>{% if u.image %}+ {% endif %}{{u.product}} <b class="pull-right"> {{u.producer}}</b> {% for tag in u.get_tags %}
+		<a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>{% endfor %} </li>
 		
 	{% endfor %}  
   </ol>
+  {% elif tt == "wpt" %}
+  <ol type="1">  
+	{% for u in lis %}
+		
+		<li>{{u.workplace}} <b class="pull-right"> {{u.tags}}</b> <i>( {{u.get_category_display}})</i> </li>
+		
+	{% endfor %}  
+  </ol>
+  {% elif tt == "w" %}
+  <ol type="1">  
+	{% for u in lis %}
+		
+		<li>{{u.name}} <b class="pull-right">  {{u.get_count}}</b> </li>
+		
+	{% endfor %}  
+  </ol>
+  
+  {% else %}
 
+  <ol type="1">  
+	{% for u in lis %}
+		
+		<li>{{u.userprofile}} <b class="pull-right">{{u.userprofile.get_provider}}</b>
+		<a href="/internal/send/?q=set_wp&id={{u.id}}" class="tag" class ="pull-right"><span class="value">Send mail</span></a>
+		<span class="value hide">{{u.id}}</span>
+		</li>
+		
+	{% endfor %}  
+  </ol>
+  {% endif %}
+{% else %}
+	<li><a href="/internal/send/" class="tag" class ="pull-right"><span class="value">Send a test mail to sprksh.j</span></a></li>
+
+
+{% endif %}
 </div>
+
+
 {% endblock body %}

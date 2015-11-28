@@ -48,6 +48,15 @@ class UserProfile(models.Model):
         w = self.workplaces.all()
         return w
 
+    def get_provider(self):
+        try:
+            a = SocialAccount.objects.get(user=self)
+            provider = a.provider
+        except Exception:
+            provider = "email"
+        return provider
+
+
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:

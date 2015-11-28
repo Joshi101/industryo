@@ -12,7 +12,8 @@
 {% endif %}
 <li>
   <a class="socialaccount_provider {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-  	<img src="/images/{{provider.name}}.png">
+  	
+  	<i class="fa fa-fw fa-{{provider.name|lower}}"></i>
   	<span>{% if signup == "no" %}Log in{% else %}Sign up{% endif %} with {{provider.name}}</span>
 	</a>
 </li>
