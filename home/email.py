@@ -14,11 +14,9 @@ from datetime import datetime, timedelta, time, date
 @login_required
 def send(request):
     if 'q' in request.GET:
-        print("baba")
         s = request.GET.get('q')
         if s == 'set_wp':
             id = request.GET.get('id')
-            print(id)
             tasks.send_one(id, n=16)
         elif s == 'set_wp_all':
             todaydate = date.today()
@@ -26,17 +24,67 @@ def send(request):
             enddate = startdate - timedelta(days=200)
             lis = User.objects.filter(date_joined__range=[enddate, startdate], userprofile__primary_workplace=None)
             for i in lis:
-                print(i.id)
                 tasks.send_one(i.id, n=16)
 
     return redirect("/internal/details/?q=u")
 
 @login_required
-def send_an_email(request):
-    userprofiles = UserProfile.objects.filter(primary_workplace__workplace_type='C')
-    # userprofiles = UserProfile.objects.filter(id__lte=1)
-    for u in userprofiles:
-        tasks.text_mail(u.id, n=16)
+def send_mail(request):
+    if 'q' in request.GET:
+        s = request.GET.get('q')
+        if s == "met":
+            u = User.objects.get(id=1)
+            tasks.send_text_mail(u.id, 22)
+        elif s == "meh":
+            u = User.objects.get(id=1)
+            tasks.send_html_mail(u.id, 22)
+        elif s == "alt":
+            users = User.objects.all()
+            for u in users:
+                tasks.send_text_mail(u.id, 22)
+        elif s == "alh":
+            users = User.objects.all()
+            for u in users:
+                tasks.send_html_mail(u.id, 22)
+        elif s == "at":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
+            for u in users:
+                tasks.send_text_mail(u.id, 22)
+        elif s == "ah":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
+            for u in users:
+                tasks.send_html_mail(u.id, 22)
+        elif s == "bt":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
+            for u in users:
+                tasks.send_text_mail(u.id, 22)
+        elif s == "bh":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
+            for u in users:
+                tasks.send_html_mail(u.id, 22)
+        elif s == "ct":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
+            for u in users:
+                tasks.send_text_mail(u.id, 22)
+        elif s == "ch":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
+            for u in users:
+                tasks.send_html_mail(u.id, 22)
+        elif s == "ot":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
+            for u in users:
+                tasks.send_text_mail(u.id, 22)
+        elif s == "oh":
+            users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
+            for u in users:
+                tasks.send_html_mail(u.id, 22)
+        elif s == "lt":
+            for u in list:
+                tasks.send_list_text_mail(u, 22)
+        elif s == "lh":
+            for u in list:
+                tasks.send_list_html_mail(u, 22)
+
     return redirect('/')
 
 

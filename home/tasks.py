@@ -24,55 +24,20 @@ def bhakk(id, n):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-    # try:
-    #     send_mail('CoreLogs- background test', content, 'site.corelogs@gmail.com', ['sprksh.j@gmail.com'])
-    # except Exception:
-    #     pass
-
-# @background(schedule=60)
-def luck(id, n):
-    user = User.objects.get(id=id)
-    if user.email:
-        user_email = user.email
-    else:
-        user_email = 'rohit9gag@gmail.com'
-    if user.first_name:
-        name = user.get_full_name()
-    else:
-        name = user.username
-    template = Template16
-    html_content = template.format(name)
-    subject, from_email, to = '#CaptureYourTeam with CoreLogs & Win Cash Prizes', 'sp@corelogs.com', user_email
-    text_content = '#CaptureYourTeam with CoreLogs & Win Cash Prizes'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-    # template = Template16
-    # content = template.format(name)
-    # send_mail('#CaptureYourTeam with CoreLogs & win Cash prizes', content, 'sp@corelogs.com', [user_email])
 
 @background(schedule=60)
-def test_mail(id, n):
+def send_text_mail(id, n):
     u = User.objects.get(id=id)
-    user_email = 'sprksh.j@gmail.com'
+    user_email = u.email
 
-    template = Template20
-    html_content = template
-    subject, from_email, to = 'CoreLogs, The  i j bikjkh for Industries', 'sp@corelogs.com', user_email
-    text_content = 'The Platform for Small scale Industries'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    content = Template19.format(u.userprofile)
 
+    send_mail('#CaptureYourTeam with CoreLogs', content, 'sp@corelogs.com', [user_email])
 
 @background(schedule=60)
-def send_one(id, n):
-    print("allah allah")
-
-@background(schedule=60)
-def list_mail(id, n):
-
-    user_email = id
+def send_html_mail(id, n):
+    u = User.objects.get(id=id)
+    user_email = u.email
 
     template = Template19
     html_content = template.format('Sir / Madam')
@@ -83,13 +48,29 @@ def list_mail(id, n):
     msg.send()
 
 @background(schedule=60)
-def text_mail(id, n):
-    u = User.objects.get(id=id)
-    user_email = 'sprksh.j@gmail.com'
+def send_list_text_mail(mail, n):
+    mail = mail
 
-    content = Template19.format(u.userprofile)
+    subject = ""
 
-    send_mail('#CaptureYourTeam with CoreLogs', content, 'sp@corelogs.com', [user_email])
+    content = Template19
+    send_mail(subject, content, 'sp@corelogs.com', [mail])
+
+@background(schedule=60)
+def send_list_html_mail(mail, n):
+
+    user_email = mail
+
+    subject = ""
+
+    template = Template19
+    html_content = template.format('Sir / Madam')
+    from_email, to = 'sp@corelogs.com', user_email
+    text_content = '#CaptureYourTeam with CoreLogs & Win Cash Prizes'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
 
 @background(schedule=60)
 def notify_user(id, n):
