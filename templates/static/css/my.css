@@ -2,6 +2,7 @@
 
 .navbar{
   min-height: 40px;
+  border: 0;
 }
 
 .navbar-inverse{
@@ -94,13 +95,14 @@
 
 .navbar-header-img{
   position: relative;
-  top: -7px;
-  height: 36px;
+  top: -5px;
+  height: 32px;
   float: left;
 }
 
 #cover_top_nav .navbar-header{
   float: left;
+  margin-right: 15px;
 }
 
 #cover_top_nav .navbar-brand{
@@ -111,7 +113,19 @@
 }
 
 #cover_top_nav .nav > li > a{
-  padding: 15px 10px;
+  font-family: "Calibri";
+  padding: 15px 0px 13px 10px;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+#cover_top_nav .nav > li > a span:last-child{
+  border-right: 1px solid #333;
+  padding-right: 10px;
+}
+
+#cover_top_nav .nav > li:last-child > a span:last-child{
+  border:0;
 }
 
 .cover_back {
@@ -309,9 +323,36 @@
   //margin-bottom: 15px;
 }
 
+.cover_form_extra{
+  border-top: 1px solid #179;
+  margin: 25px 0;
+  padding: 20px 40px 0;
+}
+
+.cover_form_extra .row{
+  margin-bottom: 10px;
+}
+
+.cover_form_extra .fa-5x{
+  width: 75px;
+  height: 75px;
+  font-size: 75px;
+  line-height: 75px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.cover_form_extra .level2{
+  position: relative;
+  top: 100px;
+  margin:auto;
+}
+
 @media (min-width: 1000px){
   .cover_form_extra{
-    border-left: 1px solid #197;
+    border-left: 1px solid #179;
+    border-top: 0;
+    padding-top: 0;
   }
 }
 
