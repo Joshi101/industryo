@@ -56,7 +56,7 @@
   <ol type="1">  
 	{% for u in lis %}
 		
-		<li>{{u.workplace}} <b class="pull-right"> {{u.tags}}</b> <i>( {{u.get_category_display}})</i> </li>
+		<li><a href="{% url 'workplace:workplace_profile' u.workplace.slug %}">{{u.workplace}}</a> <b class="pull-right"> {{u.tags}}</b> <i>( {{u.get_category_display}})</i> </li>
 		
 	{% endfor %}  
   </ol>
@@ -64,7 +64,7 @@
   <ol type="1">  
 	{% for u in lis %}
 		
-		<li>{{u.name}} <b class="pull-right">  {{u.get_count}}</b> </li>
+		<li><a href="{% url 'workplace:workplace_profile' u.slug %}">{{u.name}}</a> {{u.get_tags_count}} <b class="pull-right">  {{u.get_count}}</b> </li>
 		
 	{% endfor %}  
   </ol>
@@ -74,7 +74,7 @@
   <ol type="1">  
 	{% for u in lis %}
 		
-		<li>{{u.userprofile}} <b class="pull-right">{{u.userprofile.get_provider}}</b>
+		<li><a href="{% url 'user:profile' u.username %}">{{u.userprofile}}</a> <b class="pull-right">{{u.userprofile.get_provider}}</b>
 		<a href="/internal/send/?q=set_wp&id={{u.id}}" class="tag" class ="pull-right"><span class="value">Send mail</span></a>
 		<span class="value hide">{{u.id}}</span>
 		</li>

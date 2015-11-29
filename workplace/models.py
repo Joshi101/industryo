@@ -284,6 +284,11 @@ class Workplace(models.Model):
         count = ups.count()
         return count
 
+    def get_tags_count(self):
+        a = self.wptags.all()
+        count = len(a)
+        return count
+
     def get_members(self):
         ups = self.userprofile_set.all()
         return ups

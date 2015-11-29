@@ -37,7 +37,7 @@ def details(request):
         s = request.GET.get('q')
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
-        enddate = startdate - timedelta(days=200)
+        enddate = startdate - timedelta(days=10)
         users = User.objects.filter(date_joined__range=[enddate, startdate])
         workplaces = Workplace.objects.filter(date__range=[enddate, startdate])
         if s == 'ub':
@@ -83,7 +83,7 @@ def details(request):
             lis = Products.objects.filter(date__range=[enddate, startdate])
             text = "Products registered"
             tt = "p"
-        elif s =='wpt':
+        elif s == 'wpt':
             lis = WpTags.objects.filter(date__range=[enddate, startdate])
             text = "Workplace Tags created"
             tt = "wpt"
