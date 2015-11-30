@@ -656,7 +656,7 @@ pre {
   float: right;
   height: 50px;
   padding-top: 7px;
-  min-width: 250px;
+  //min-width: 250px;
   width: 40%;
 }
 

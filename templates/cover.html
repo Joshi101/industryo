@@ -14,26 +14,26 @@
 <div id="top_sec">
 	<div id="pre_nav" class="container-fluid pre_nav">
     <a href="{% url 'home' %}"><img class="brand_img" width="50px" height="50px" alt="CoreLogs" src="{% static 'css/icon6_inv.png' %}"><span class="orelogs">ORELOGS</span></a>
+    <a id="search_toggle" class="btn btn-default">
+      <i class="fa fa-search"></i>
+    </a>
     <div id="top_search">
-      <a id="search_toggle" class="btn btn-default">
-        <i class="fa fa-search"></i>
-      </a>
       <form id="top_search_form" class="collapse in" action="{% url 'search' %}" role="form" title="Search {{what}}" data-toggle="tooltip" data-placement="bottom">
         <div class="form-group">
           <div class="input-group ">
             <span id="search_typ" class="input-group-btn">
               <div class="dropdown select_dropdown" data-name="what">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <i class=""></i>
-                  <span class="value hide">{{what|capfirst}}</span>
+                  <i class="fa fa-question-circle fa-fw"></i>
+                  <span class="value hide">Questions</span>
                   <span class="caret"></span>
                 </button>
                 <ul class="list-group dropdown-menu">
                   <li>
-                    <a class="list-group-item"><i class="fa fa-tasks fa-fw"></i>&nbsp;<span class="value">Questions</span></a>
+                    <a class="list-group-item"><i class="fa fa-question-circle fa-fw"></i>&nbsp;<span class="value">Questions</span></a>
                   </li>
                   <li>
-                    <a class="list-group-item"><i class="fa fa-book fa-fw"></i>&nbsp;<span class="value">Articles</span></a>
+                    <a class="list-group-item"><i class="fa fa-newspaper-o fa-fw"></i>&nbsp;<span class="value">Articles</span></a>
                   </li>
                   <li>
                     <a class="list-group-item"><i class="fa fa-tag fa-fw"></i>&nbsp;<span class="value">Tags</span></a>

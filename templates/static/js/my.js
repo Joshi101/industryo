@@ -1424,7 +1424,7 @@ $('#top_nav_toggle').on('click', function(){
 $('#search_toggle').on('click', function(){
     $(this).hide();
     if($('#pre_nav .orelogs').outerWidth(true)){
-        $('#top_search').animate({'left':'0%'});
+        $('#top_search').animate({'left':'0%','min-width':'250px'});
         $('#pre_nav .orelogs').animate({'width':0});
     }
 })
