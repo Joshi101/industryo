@@ -1,6 +1,56 @@
-<nav id="top_nav" class="navbar navbar-inverse navbar-fixed-top">
-  <div class="">
-    <div id="top_search" class="">
+{% load staticfiles %}
+
+  <div id="pre_nav" class="container-fluid pre_nav">
+    <a href="{% url 'home' %}"><img class="brand_img" width="50px" height="50px" alt="CoreLogs" src="{% static 'css/icon6_inv.png' %}"><span class="orelogs">ORELOGS</span></a>
+    <div id="top_search">
+      <a id="search_toggle" class="btn btn-default">
+        <i class="fa fa-search"></i>
+      </a>
+      <form id="top_search_form" class="collapse in" action="{% url 'search' %}" role="form" title="Search {{what}}" data-toggle="tooltip" data-placement="bottom">
+        <div class="form-group">
+          <div class="input-group ">
+            <span id="search_typ" class="input-group-btn">
+              <div class="dropdown select_dropdown" data-name="what">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                  <i class=""></i>
+                  <span class="value hide">{{what|capfirst}}</span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="list-group dropdown-menu">
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-tasks fa-fw"></i>&nbsp;<span class="value">Questions</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-book fa-fw"></i>&nbsp;<span class="value">Articles</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-tag fa-fw"></i>&nbsp;<span class="value">Tags</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-users fa-fw"></i>&nbsp;<span class="value">Users</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-building fa-fw"></i>&nbsp;<span class="value">Workplaces</span></a>
+                  </li>
+                  <li>
+                    <a class="list-group-item"><i class="fa fa-cubes fa-fw"></i>&nbsp;<span class="value">Products</span></a>
+                  </li>
+                </ul>
+              </div>
+            </span>
+            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
+            <span class="input-group-btn">
+              <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+        </div>
+        <input class="what" type="hidden" name="what" value="{{what}}">
+      </form>
+    </div>
+  </div>
+<nav id="top_nav" class="navbar navbar-inverse">
+  <div class="nav_2" data-spy="affix" data-offset-top="50">
+    <!-- <div id="top_search" class="">
       <a id="search_toggle" href="#top_search_form" class="btn btn-default btn-sm" data-toggle="collapse">
         <i class="fa fa-search"></i>
       </a>
@@ -44,8 +94,8 @@
         </div>
         <input class="what" type="hidden" name="what" value="{{what}}">
       </form>
-    </div>
-    <ul class="nav navbar-nav">
+    </div> -->
+    <ul class="nav navbar-nav nav_left">
       <li>
         <a class="nav_a_home" href="{% url 'home' %}">
           <span class="fa fa-home fa-fw"></span>
