@@ -721,6 +721,7 @@ pre {
 #search_toggle{
   display: none;
   //float: right;
+  padding: 6px 10px;
 }
 
 @media(max-width:768px){
@@ -730,12 +731,15 @@ pre {
     
   }
   #search_toggle{
-    position: fixed;
-    top: 7px;
+    position: absolute;
+    top: 8px;
     right: 15px;
     display: block;
     float: right;
     border-radius: 5px;
+    height: 32px;
+    line-height: 18px;
+    color: #555;
   }
 }
 
@@ -755,7 +759,7 @@ pre {
 
 #search_typ .btn{
   border-right: 0;
-  //padding: 5px;
+  padding: 6px;
 }
 
 #notifications .badge {
@@ -777,7 +781,7 @@ pre {
   overflow-x: hidden;
 
   position: relative;
-  padding-top: 20px;
+  //padding-top: 20px;
 }
 /* cover.html */
 
