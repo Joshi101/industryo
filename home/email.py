@@ -34,58 +34,58 @@ def send_mail(request):
         s = request.GET.get('q')
         if s == "met":
             u = User.objects.get(id=1)
-            tasks.send_text_mail(u.id, 22)
+            tasks.send_text_mail(u.id, n=22)
         elif s == "meh":
             u = User.objects.get(id=1)
-            tasks.send_html_mail(u.id, 22)
+            tasks.send_html_mail(u.id, n=22)
         elif s == "alt":
             users = User.objects.all()
             for u in users:
-                tasks.send_text_mail(u.id, 22)
+                tasks.send_text_mail(u.id, n=22)
         elif s == "alh":
             users = User.objects.all()
             for u in users:
-                tasks.send_html_mail(u.id, 22)
+                tasks.send_html_mail(u.id, n=22)
         elif s == "at":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
             for u in users:
-                tasks.send_text_mail(u.id, 22)
+                tasks.send_text_mail(u.id, n=22)
         elif s == "ah":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
             for u in users:
-                tasks.send_html_mail(u.id, 22)
+                tasks.send_html_mail(u.id, n=22)
         elif s == "bt":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
             for u in users:
-                tasks.send_text_mail(u.id, 22)
+                tasks.send_text_mail(u.id, n=22)
         elif s == "bh":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
             for u in users:
-                tasks.send_html_mail(u.id, 22)
+                tasks.send_html_mail(u.id, n=22)
         elif s == "ct":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
             for u in users:
-                tasks.send_text_mail(u.id, 22)
+                tasks.send_text_mail(u.id, n=22)
         elif s == "ch":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
             for u in users:
-                tasks.send_html_mail(u.id, 22)
+                tasks.send_html_mail(u.id, n=22)
         elif s == "ot":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
             for u in users:
-                tasks.send_text_mail(u.id, 22)
+                tasks.send_text_mail(u.id, n=22)
         elif s == "oh":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
             for u in users:
-                tasks.send_html_mail(u.id, 22)
+                tasks.send_html_mail(u.id, n=22)
         elif s == "lt":
             for u in list:
-                tasks.send_list_text_mail(u, 22)
+                tasks.send_list_text_mail(u, n=22)
         elif s == "lh":
             for u in list:
-                tasks.send_list_html_mail(u, 22)
+                tasks.send_list_html_mail(u, n=22)
 
-    return redirect('/')
+    return redirect('/internal/activity')
 
 
 def send_set_wp_email(request):
