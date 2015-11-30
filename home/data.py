@@ -37,7 +37,7 @@ def details(request):
         s = request.GET.get('q')
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
-        enddate = startdate - timedelta(days=10)
+        enddate = startdate - timedelta(days=6)
         users = User.objects.filter(date_joined__range=[enddate, startdate])
         workplaces = Workplace.objects.filter(date__range=[enddate, startdate])
         if s == 'ub':

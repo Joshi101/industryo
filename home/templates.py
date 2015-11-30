@@ -1,3 +1,33 @@
+Template_text_sme_invite = u'''
+Hi,
+
+We are glad to inform you www.corelogs.com has been launched for small & medium scale Industries finally.
+
+Let's Digitize the small & Medium scale Industries. Let's Make In India.
+
+CoreLogs is the platform for Industries and aims to provide one stop solutions to the people in small, medium & large scale Industries.
+It is a website where you can connect to other industries, engineers from large industries, the engineering and industrial experts across the globe.
+
+To enlist a few:
+
+1. You register your company and get a company profile page which will serve as the front page of your company on internet.
+2. You can list all your products & services or find relevant products for your industry all for free.
+3. You get the access to an Engineering forum where you can ask technical or operational problems you might be facing.
+4. We allow free interaction among our users and you can connect with all engineering & industrial experts.
+5. Enlist the capabilities, the materials that you work on, the machinery you posses and get better visibility on internet.
+
+It is purely free and neutral platform and you can rely on us
+
+We hope to see you soon on www.corelogs.com and hope that you find it useful as did many small & medium scale industry owners.
+
+Thanks for your time.
+Surya Prakash
+Founder
+CoreLogs
+
+'''
+
+
 Template_sme_invite = u'''
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
