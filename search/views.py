@@ -56,7 +56,7 @@ def searchq(request):
     if len(querystring) >= 3:
         terms = querystring.split(' ')
     if not terms:
-        return HttpResponse('Keep Typing..')
+        return render(request, 'search/list.html')
 
     query = None
     what = request.GET.get('the_type')
