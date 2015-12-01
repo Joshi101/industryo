@@ -192,6 +192,7 @@
                 <span class="fa fa-sign-out inline_fa"></span>
               </a>
             </li>
+            {% if user.userprofile.get_all_workplaces %}
             <li class="divider"></li>
             {% for works in user.userprofile.get_all_workplaces %}
             <li>
@@ -201,6 +202,7 @@
               </a>
             </li>
             {% endfor %}
+            {% endif %}
           </ul>
         </li>
       </ul>
