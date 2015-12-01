@@ -1,7 +1,7 @@
 Template_text_sme_invite = u'''
 Hi,
 
-We are glad to inform you www.corelogs.com has been launched for small & medium scale Industries finally.
+We are glad to inform you www.corelogs.com has been launched for small & medium scale Industries.
 
 Let's Digitize the small & Medium scale Industries. Let's Make In India.
 
@@ -16,14 +16,11 @@ To enlist a few:
 4. We allow free interaction among our users and you can connect with all engineering & industrial experts.
 5. Enlist the capabilities, the materials that you work on, the machinery you posses and get better visibility on internet.
 
-It is purely free and neutral platform and you can rely on us
+It is purely free and neutral platform.
 
 We hope to see you soon on www.corelogs.com and hope that you find it useful as did many small & medium scale industry owners.
 
 Thanks for your time.
-Surya Prakash
-Founder
-CoreLogs
 
 '''
 
