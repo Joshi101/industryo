@@ -6,7 +6,7 @@
 }
 
 .navbar-inverse{
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.89);
 }
 
 .navbar-nav{
@@ -96,6 +96,7 @@
 .pre_nav{
   background: rgba(0,0,0,0.89);
   height: 50px;
+  border-bottom: 1px solid rgba(0,0,0,0.09);
 }
 
 .pre_nav > a{
@@ -134,7 +135,7 @@
 }
 
 .navbar-right{
-  float: right;
+  //float: right;
 }
 
 .navbar.affix{
@@ -177,8 +178,8 @@
 
 @media (max-width:768px){
   #top_sec .container-fluid{
-    margin-left: -15px;
-    margin-right: -5px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -360,7 +361,7 @@
 }
 
 .cover_desc .content{
-  padding: 0 15px 0;
+  padding: 10px 15px 0;
   background-color: rgba(255,255,255,0.75);
 }
 
@@ -661,20 +662,20 @@ pre {
 }
 
 #top_search .form-control{
-  color: #333;
-  background: rgba(255,255,255,0.85);
-  border-color: rgba(0,0,0,0.3);
+  color: #777;
+  background: rgba(0,0,0,0.15);
+  border-color: rgba(22,22,22,0.25);
 }
 
 #top_search .btn{
-  color: #222;
-  background: rgba(255,255,255,0.85);
-  border-color: rgba(0,0,0,0.3);
+  color: #aaa;
+  background: rgba(0,0,0,0.15);
+  border-color: rgba(22,22,22,0.25);
 }
 
 #search_typ .btn{
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 #top_search .form-group{
@@ -682,12 +683,12 @@ pre {
 }
 
 #top_search .has-error .form-control{
-  border-color: rgba(0,0,0,0.3);
+  border-color: rgba(22,22,22,0.25);
   box-shadow: 0 0 0;
 }
 
 #top_search .form-control:focus, #top_search .has-error .form-control:focus{
-  border-color: rgba(0,0,0,0.3);
+  border-bottom-color: rgba(16,144,112,0.3);
   outline: 0px none;
   box-shadow: 0px 0px 0px;
 }
@@ -708,8 +709,8 @@ pre {
 }
 
 #top_search .input-group-btn > .btn{
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 #top_search .d_menu{
@@ -727,7 +728,9 @@ pre {
 @media(max-width:768px){
   #top_search {
     position: relative;
-    left: 100%;
+    width: 0%;
+    margin-right: 15px;
+    overflow: hidden;
     
   }
   #search_toggle{
@@ -736,10 +739,12 @@ pre {
     right: 15px;
     display: block;
     float: right;
-    border-radius: 5px;
+    //border-radius: 5px;
     height: 32px;
     line-height: 18px;
-    color: #555;
+    //color: #555;
+    background: rgba(0,0,0,0.15);
+    border-color: rgba(0,0,0,0.19);
   }
 }
 

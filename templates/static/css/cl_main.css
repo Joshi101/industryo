@@ -127,6 +127,7 @@ form{
 
 .navbar-inverse .navbar-nav > li > .top_info_box {
   color: #aaa;
+  font-weight: 500;
 }
 
 @media (min-width: 768px) {
@@ -140,7 +141,7 @@ form{
 .navbar-inverse .navbar-nav > li > .top_info_box:hover,
 .navbar-inverse .top_user_info > li > .top_info_box:focus {
   color: #179;
-  background-color: #333;
+  background-color: rgba(0,0,0,0.19);
 }
 
 .navbar-collapse li {
@@ -152,6 +153,13 @@ form{
   height: 20px;
   overflow: hidden;
   font-size: 12px;
+}
+
+@media(min-width:768px){
+  .top_info_name{
+    position: relative;
+    top: -2px;
+  }
 }
 
 .top_user_info .dropdown-menu {
@@ -187,7 +195,7 @@ form{
     position: relative;
 
     padding: 2px 10px 2px;
-    background-color: #333;
+    background-color: rgba(0,0,0,0.09);
     text-align: center;
   }
   
@@ -198,7 +206,7 @@ form{
   .top_info_points {
     //line-height: 14px;
     //height: 12px;
-    margin-left: -8px;
+    margin-left: -9px;
     margin-right: 0;
 
     position: initial;
@@ -208,7 +216,7 @@ form{
 
     display: inline-block;
     //color: #064;
-    border-bottom: 1px solid #999;
+    //border-bottom: 1px solid #999;
   }
 
   .top_user_info .wp .top_info_points {
@@ -298,3 +306,24 @@ form{
 #form_ask{
   margin-bottom: 10px;
 }
+
+/**.modal { 
+    position: fixed; 
+    top: 3%; 
+    right: 3%; 
+    left: 3%; 
+    width: auto; 
+    margin: 0; 
+}
+.modal-body { 
+    height: 60%; 
+}
+
+and in bootstrap.css
+
+.modal-body { 
+    max-height: 350px; 
+    padding: 15px; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+ }**/
