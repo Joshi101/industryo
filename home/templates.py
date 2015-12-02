@@ -16,7 +16,7 @@ To enlist a few:
 4. We allow free interaction among our users and you can connect with all engineering & industrial experts.
 5. Enlist the capabilities, the materials that you work on, the machinery you posses and get better visibility on internet.
 
-It is purely free and neutral platform.
+It is purely free and neutral platform. Right now we already have thousands of engineers from multiple large industries already registered.
 
 We hope to see you soon on www.corelogs.com and hope that you find it useful as did many small & medium scale industry owners.
 
@@ -24,7 +24,11 @@ Thanks for your time.
 
 '''
 
-
+Template_rich_text = u'''
+<div id=":13u" class="ii gt m151614f55a2ef173 adP adO"><div id=":13t" class="a3s" style="overflow: hidden;"><div dir="ltr"><div>Hi,</div><div><br></div><div>We are glad to inform you <a href="http://www.corelogs.com" target="_blank"><b>www.corelogs.com</b></a> has been launched for small &amp; medium scale Industries.</div><div><br></div><div><b>Let's Digitize the Manufacturing Segment Industries. Let's Make In India.</b></div><div><br></div><div>CoreLogs is the platform for Industries and aims to provide one stop solutions to the people in small, medium &amp; large scale Industries.</div><div>It is a website where you can connect to other industries, engineers from large industries, the engineering and industrial experts across the globe.</div><div><br></div><div>To enlist a few:</div><div><br></div><div><ol><li>You register your company and get a company profile which serves as the front page of your company on internet.</li><li>You can list all your products &amp; services or find relevant products for your industry all for free.</li><li>You get the access to an <b><a href="http://www.corelogs.com/forum" target="_blank">Engineering Forum</a></b> where you can ask technical or operational problems you might be facing.</li><li>We allow free interaction among our users and you can connect with all engineering &amp; industrial experts.</li><li>Enlist the capabilities, the materials that you work on, the machinery you posses and get better visibility on internet.</li></ol></div><div><br></div><div>It is a completely free and neutral platform. Right now we already have thousands of engineers from multiple large industries already registered.</div><div><br></div><div>We hope to see you soon on <b><a href="http://www.corelogs.com" target="_blank">www.corelogs.com</a></b> and hope that you find it useful as did many small &amp; medium scale industry owners.</div><div><br></div><div>Thanks for your time.</div><div><div><div dir="ltr"><div><b>--<br>Surya Prakash.<br>Founder</b></div><div><a href="http://www.corelogs.com" target="_blank"><b>CoreLogs</b></a><div class="yj6qo"></div><div class="adL"><br><br></div></div></div></div></div><div class="adL">
+</div></div><div class="adL">
+</div></div></div>
+'''
 Template_sme_invite = u'''
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">

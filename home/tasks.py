@@ -42,7 +42,7 @@ def send_html_mail(id, n):
     u = User.objects.get(id=id)
     user_email = u.email
 
-    template = Template_sme_invite
+    template = Template_rich_text
 
     subject = "CoreLogs invites Automotive Component Manufacturers Association (ACMA) members"
 
@@ -60,20 +60,20 @@ def send_list_text_mail(mail, n):
     subject = "CoreLogs Invites you & your company to the best Ecosystem of SMEs on Internet"
 
     content = Template_text_sme_invite
-    send_mail(subject, content, 'admin@corelogs.com', [mail])
+    send_mail(subject, content, 'rohit9gag@gmail.com', [mail])
 
 @background(schedule=60)
 def send_list_html_mail(mail, n):
 
     user_email = mail
 
-    subject = "CoreLogs Invites the Chakan Industrial area to the greatest Ecosystem of SMEs on Internet"
+    subject = "Get the front page of your Manufacturing Industry on Internet with CoreLogs"
 
-    template = Template_sme_invite
+    template = Template_rich_text
     html_content = template
     from_email, to = 'sp@corelogs.com', user_email
-    text_content = 'CoreLogs invites the Chakan Industrial area to the greatest website for SMEs. We invite you to www.corelogs.com'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    text_content = 'CoreLogs Invites you & your company to the best Ecosystem of SMEs on Internet. We invite you to www.corelogs.com'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, user_email)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
