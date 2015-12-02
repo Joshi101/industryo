@@ -276,11 +276,11 @@ if (d_check){
 
 /*$(".body").on('blur', '.d_input', d_input_blur);*/
 
-$("body").on('mouseenter', '.d_menu .dropdown-menu', function() {
+$("body").on('mouseover', '.d_menu .dropdown-menu', function() {
     console.log('lop')
     $(".d_input").off('blur');
 });
-$('body').on('mouseleave', '.d_menu .dropdown-menu', function() {
+$('body').on('mouseout', '.d_menu .dropdown-menu', function() {
     $(".d_input").on('blur', d_input_blur);
 });
 

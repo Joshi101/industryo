@@ -656,7 +656,6 @@ pre {
 
 
 #top_search {
-  
   font-family: 'Calibri';
   float: right;
   height: 50px;
@@ -720,6 +719,8 @@ pre {
   top: 89px;
   bottom: 15px;
   overflow: hidden;
+  
+  z-index: 1000;
 }
 
 
@@ -728,6 +729,7 @@ pre {
   padding: 0;
   background: transparent;
   box-shadow: 0 0 0;
+  z-index: 1001;
 }
 
 #top_search .d_search .dropdown-menu{
@@ -739,7 +741,7 @@ pre {
   float: right;
   height: 100%;
   overflow-y: auto;
-  z-index: 100;
+  //z-index: 1000;
 }
 
 @media(max-width:768px){
@@ -765,7 +767,6 @@ pre {
     width: 0%;
     margin-right: 15px;
     overflow: hidden;
-    
   }
   #search_toggle{
     position: absolute;
@@ -1215,7 +1216,8 @@ pre {
 
 .feed_box_body > pre {
   margin-bottom: 0;
-  padding: 7px 0;
+  padding: 7px 5px;
+  font-size: 13px;
 
   word-wrap: break-word;
 }
