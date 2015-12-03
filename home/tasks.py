@@ -67,7 +67,7 @@ def send_list_html_mail(mail, n):
 
     user_email = mail
 
-    subject = "Get the front page of your Manufacturing Industry on Internet with CoreLogs"
+    subject = "Get the front page of your SME on Internet with CoreLogs"
 
     template = Template_rich_text
     html_content = template
