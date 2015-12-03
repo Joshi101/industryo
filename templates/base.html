@@ -59,7 +59,7 @@
   {% block top %}
     {% include "snippets/top_navigation.html" with what="Questions" %}
   {% endblock top %}
-  <div id="{% block page_id %}{% endblock page_id %}" class="body">
+  <div id="{% block page_id %}{% endblock page_id %}" class="body" data-spy="affix" data-offset-top="50">
     {% block body %}
     <div class="container-fluid">
       <div class="row">
