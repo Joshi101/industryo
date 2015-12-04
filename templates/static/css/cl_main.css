@@ -134,14 +134,14 @@ form{
   .navbar-inverse .navbar-nav > li > .top_info_box {
     max-width: 120px;
     max-height: 40px;
-    overflow: hidden;
+    //overflow: hidden;
   }
 }
 
 .navbar-inverse .navbar-nav > li > .top_info_box:hover,
 .navbar-inverse .top_user_info > li > .top_info_box:focus {
   color: #179;
-  background-color: rgba(0,0,0,0.19);
+  background-color: rgba(0,0,0,0.15);
 }
 
 .navbar-collapse li {
@@ -163,7 +163,7 @@ form{
 }
 
 .top_user_info .dropdown-menu {
-  top: 115%;
+  top: 100%;
 }
 
 
@@ -176,11 +176,11 @@ form{
   //display: block;
   font-size: 9px;
 
-  padding: 0 1px 0 2px;
-  margin: 0 3px;
+  //padding: 0 1px 0 2px;
+  //margin: 0 3px;
   
   position: absolute;
-  right: 13px;
+  right: 8px;
   top: 28px;
   color: #4ca;
   line-height: 12px;
@@ -203,10 +203,16 @@ form{
     float: none;
   }
   
+  .top_info_box .fa{
+    position: absolute;
+    top: 45px;
+    margin: 0;
+    color: #333;
+  }
+  
   .top_info_points {
     //line-height: 14px;
     //height: 12px;
-    margin-left: -9px;
     margin-right: 0;
 
     position: initial;

@@ -134,9 +134,19 @@
   float: left;
 }
 
+.navbar-collapse.in{
+  max-height: 400px;
+}
+
+@media(max-height:500px){
+  .navbar-collapse.in{
+    max-height: 250px;
+  }
+}
+
 @media(max-width:768px){
   .navbar-right{
-    margin-right: 5px;
+    //margin-right: 5px;
   }
 }
 
@@ -145,6 +155,10 @@
   background: rgba(0,0,0,0.9);
   width: 100%;
   z-index: 999;
+}
+
+.body.affix{
+  padding-top: 40px;
 }
 
 .navbar-header-img{
@@ -168,6 +182,7 @@
   padding: 10px 10px 8px 10px;
   font-weight: 900;
   font-size: 14px;
+  height: 40px;
 }
 
 .nav li > a{
@@ -180,6 +195,10 @@
 
 @media (max-width:768px){
   #top_sec .container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .navbar-inverse .nav > li > a{
     padding-left: 0;
     padding-right: 0;
   }
@@ -720,13 +739,13 @@ pre {
   bottom: 15px;
   overflow: hidden;
   
-
+  //z-index: 1000;
 }
 
 
 
 #top_search .dropdown-menu{
-  padding: 0;
+  //padding: 0;
   background: transparent;
   box-shadow: 0 0 0;
   z-index: 1001;
@@ -2289,7 +2308,8 @@ footer .contact li{
 
 
 .d_search .open .dropdown-menu {
-    display: block;
+  display: block;
+  padding: 0;
 }
 
 .d_search .input-group textarea:focus{
