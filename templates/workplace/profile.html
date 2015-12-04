@@ -5,7 +5,9 @@
 
 {% load filter %}
 
-{% block title %} CoreLogs | {{ workplace.name }} {% endblock title %}
+{% block title %}{{ workplace.name }} | CoreLogs{% endblock title %}
+
+{% block meta_description %}{{workplace.about}}{% endblock meta_description %}
 
 {% block page_id %}workplace{% endblock page_id %}
 

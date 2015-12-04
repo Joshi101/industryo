@@ -20,7 +20,7 @@ function measure() {
 function body_slide() {
     console.log(win_height, top_nav_width, foot_height)
     $('.body').stop().animate({
-        'margin-top': top_nav_width,
+        //'margin-top': top_nav_width,
         'min-height': (win_height - top_nav_width - foot_height)
     });
 }

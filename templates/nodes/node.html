@@ -7,6 +7,8 @@
 	{{ node.title }}
 {% endblock title %}
 
+{% block meta_description %}{{ node.post|truncatewords:25 }}{% endblock meta_description %}
+
 {% block content %}
 <div id="article" class="feed_box feed ajax_andar">
 	{% include "snippets/figure_modal.html" %}

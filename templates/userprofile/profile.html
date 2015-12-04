@@ -5,7 +5,9 @@
 
 {% load filter %}
 
-{% block title %} CoreLogs | {{ userprofile }} {% endblock title %}
+{% block title %}{{ userprofile }} | CoreLogs{% endblock title %}
+
+{% block meta_description %}{{page_user.userprofile.experience}}{% endblock meta_description %}
 
 {% block left %}
 	<div id="img_profile_box">
