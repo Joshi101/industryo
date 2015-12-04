@@ -67,8 +67,10 @@ function doneTyping() {
             }
         });
     }
-    if (query !== '')
+    if (query !== ''){
         $d_search.find('.dropdown').addClass('open');
+        $d_search.find('.d_menu').css('z-index','1000');
+    }
 }
 
 var typingTimer; //timer identifier
@@ -136,6 +138,7 @@ $("body").on('click', '.one_list .option', function(event) {
         .children('span').text(value);
     $d_search.find('.d_input').addClass('hide');
     $this.closest('.dropdown').removeClass('open');
+    $d_search.find('.d_menu').css('z-index','auto');
 });
 
 $('body').on('click', '.many_list .option', function(event) {
@@ -152,6 +155,7 @@ $('body').on('click', '.many_list .option', function(event) {
     console.log('asd');
     $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
     $this.closest('.dropdown').removeClass('open');
+    $d_search.find('.d_menu').css('z-index','auto');
     $('.d_search').find('.d_input').val('');
 });
 
@@ -167,6 +171,7 @@ $('body').on('click', '.d_search .create', function(){
     $d_search.find('.d_value').val(pre_value + value);
     $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
     $(this).closest('.dropdown').removeClass('open');
+    $d_search.find('.d_menu').css('z-index','auto');
     $('.d_search').find('.d_input').val('');
 });
 
@@ -186,6 +191,7 @@ $('body').on('click', '.d_search .create_new', function(){
             .children('span').text(value);
         $d_search.find('.d_input').addClass('hide');
         $d_search.find('.dropdown').removeClass('open');
+        $d_search.find('.d_menu').css('z-index','auto');
     });
 });
 
@@ -265,6 +271,7 @@ var d_check = true;
 function d_input_blur() {
 if (d_check){
     $(this).closest('.d_search').find('.dropdown').removeClass('open');
+    $d_search.find('.d_menu').css('z-index','auto');
     console.log('okkk');
     var $this = $(this);
     var value = $(this).closest('.d_search').find('.d_value').val();
@@ -288,8 +295,10 @@ $("body").on('focus', '.d_input', function() {
     d_check = true;
     var $this = $(this);
     var query = $this.val();
-    if (query !== '')
+    if (query !== ''){
         $(this).closest('.d_search').find('.dropdown').addClass('open');
+        $d_search.find('.d_menu').css('z-index','1000');
+    }
 });
 
 // function to submit form ajaxly
@@ -1424,3 +1433,11 @@ $('#search_toggle').on('click', function(){
         $('#pre_nav .orelogs').animate({'width':0});
     }
 })
+
+/*$('#top_search').on('show.bs.dropdown', '.dropdown', function(){
+    $('#top_search .d_menu').css('z-index','1000');
+});
+
+$('#top_search').on('hidden.bs.dropdown', '.dropdown', function(){
+    $('#top_search .d_menu').css('z-index','auto');
+});*/
