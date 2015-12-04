@@ -145,7 +145,7 @@
             <span class="fa fa-envelope inline_fa fa-fw"></span>
           </a>
         </li>
-        <li title="Your workplace profile" data-toggle="tooltip" data-placement="bottom">
+        <li>
           {% if user.userprofile.primary_workplace %}
             <a id="top_wp" class="top_info_box wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
               <div class="top_info_icon">
@@ -160,7 +160,7 @@
             <a id="top_wp" class="top_info_box wp" href="{% url 'set' %}" style="background-color: #222; color: #179">Set Your Workplace</a>
           {% endif %}
         </li>
-        <li title="Your personal profile" data-toggle="tooltip" data-placement="bottom">
+        <li>
           <a id="top_usr" class="top_info_box usr" href="{% url 'user:profile' user.username %}">
             <div class="top_info_icon">
               <i class="fa fa-user inline_fa fa-fw"></i>
