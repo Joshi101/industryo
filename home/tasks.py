@@ -43,8 +43,8 @@ def send_html_mail(id, n):
     user_email = u.email
     up = u.userprofile
 
-    template = Template_LSI_all
-    subject = "[CoreLogs] A request from all Engineers"
+    template = Template_SME_all
+    subject = "[CoreLogs] The Growing Ecosystem of SMEs"
 
     html_content = template.format(up)
     from_email, to = 'sp@corelogs.com', user_email
