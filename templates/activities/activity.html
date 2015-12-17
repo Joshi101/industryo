@@ -47,7 +47,7 @@
   <ol type="1">  
 	{% for u in lis reversed %}
 		
-		<li>{% if u.image %}+ {% endif %}<a href="{% url 'products:product' u.slug %}>{{u.product}}</a> <b class="pull-right"> {{u.producer}}</b> {% for tag in u.get_tags %}
+		<li>{% if u.image %}+ {% endif %}<a href="{% url 'products:product' u.slug %}">{{u.product}}</a> <b class="pull-right"> {{u.producer}}</b> {% for tag in u.get_tags %}
 		<a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>{% endfor %} </li>
 		
 	{% endfor %}  
@@ -99,6 +99,8 @@
 	<a href="/internal/send_mail/?q=nh" class="tag" class ="pull-right"><span class="value">Send a html mail to No wp</span></a></li>
 	<li><a href="/internal/send_mail/?q=lt" class="tag" class ="pull-right"><span class="value">Send a text mail to list</span></a>
 	<a href="/internal/send_mail/?q=lh" class="tag" class ="pull-right"><span class="value">Send a html mail to list</span></a></li>
+	<li><a href="/internal/send_mail/?q=rant" class="tag" class ="pull-right"><span class="value">Send a text mail to random function</span></a>
+	<a href="/internal/send_mail/?q=ranh" class="tag" class ="pull-right"><span class="value">Send a html mail to random function</span></a></li>
 
 {% endif %}
 </div>

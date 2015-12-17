@@ -20,7 +20,7 @@ def bhakk(id, n):
     if n == 15:
         template = Template15
         html_content = template.format(name)
-    subject, from_email, to = 'CoreLogs The platform for teams', 'sp@corelogs.com', user_email
+    subject, from_email, to = 'CoreLogs The platform for teams', 'info@corelogs.com', user_email
     text_content = 'This is an important message.'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
@@ -48,8 +48,8 @@ def send_html_mail(id, n):
     else:
         # template = Template_SME_all
         # subject = "CoreLogs- The Ecosystem of Industrialists and SMEs"
-        template = Template_set_wp
-        subject = "[CoreLogs] - You Did Not Tell Us Where Do You Work"
+        template = n
+        subject = "[CoreLogs] - Answr Your Own Question"
     html_content = template.format(up)
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs requests all members from Industries to invite a few friends and also small & medium scale Indudstries'
@@ -63,21 +63,21 @@ def send_list_text_mail(mail, n):
 
     subject = "CoreLogs Invites you & your company to the best Ecosystem of SMEs on Internet"
 
-    content = Template_text_sme_invite
+    content = Template_final_sme_invite
     send_mail(subject, content, 'rohit9gag@gmail.com', [mail])
 
 @background(schedule=60)
 def send_list_html_mail(mail, n):
 
-    user_email = mail
+    user_email = [mail]
 
-    subject = "CoreLogs- The Ecosystem of Industrialists and SMEs"
+    subject = "CoreLogs- The free digital marketing solution for SMEs"
 
-    template = Template_new_sme_invite
+    template = Template_final_sme_invite
     html_content = template
-    to = user_email
+    from_email, to = 'info@corelogs.com', user_email
     text_content = 'CoreLogs Invites you & your company to the best Ecosystem of SMEs on Internet. We invite you to www.corelogs.com'
-    msg = EmailMultiAlternatives(subject, text_content, user_email)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, user_email)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
