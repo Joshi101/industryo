@@ -48,8 +48,8 @@ def send_html_mail(id, n):
     else:
         # template = Template_SME_all
         # subject = "CoreLogs- The Ecosystem of Industrialists and SMEs"
-        template = n
-        subject = "[CoreLogs] - Answr Your Own Question"
+        template = Template_SME_2
+        subject = "[CoreLogs] - List your Products & Services Today"
     html_content = template.format(up)
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs requests all members from Industries to invite a few friends and also small & medium scale Indudstries'
