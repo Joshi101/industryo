@@ -44,12 +44,12 @@ def send_html_mail(id, n):
     up = u.userprofile
     if n == 25:
         template = Template_set_wp
-        subject = "[CoreLogs] - You Did Not Tell Us Where Do You Work"
+        subject = "[CoreLogs] - How we are planning to revolutionize the world of SMEs and Engineers"
     else:
         # template = Template_SME_all
         # subject = "CoreLogs- The Ecosystem of Industrialists and SMEs"
-        template = Template_SME_2
-        subject = "[CoreLogs] - List your Products & Services Today"
+        template = Template_LSI_all
+        subject = "[CoreLogs] - How we are planning to revolutionize the world of SMEs and Engineers"
     html_content = template.format(up)
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs requests all members from Industries to invite a few friends and also small & medium scale Indudstries'
