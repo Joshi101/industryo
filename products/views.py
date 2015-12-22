@@ -6,7 +6,7 @@ from userprofile.models import UserProfile
 import json
 from nodes.models import Images
 from django.contrib.auth.decorators import login_required
-# from activities.models import Enquiry
+from activities.models import Enquiry
 
 
 @login_required
@@ -149,31 +149,30 @@ def random(request):
     return render(request, 'snippets/right/products.html', {'products': products})
 
 
-# def enquire(request):
-#     if request.user.is_authenticated():
-#         if request.method == 'POST':
-#             p = request.POST.get('pid')
-#             user = request.user
-#             message = request.POST.get('message')
-#
-#             prod = Products.objects.get(id=p)
-#             e = Enquiry.objects.create(product=prod, user=user, message=message)
-#
-#
-#     else:
-#         if request.method == 'POST':
-#             email = request.POST.get('email')
-#             name = request.POST.get('name')
-#             company = request.POST.get('company')
-#             p = request.POST.get('pid')
-#             message = request.POST.get('message')
-#
-#             prod = Products.objects.get(id=p)
-#             e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
-#
-#
-#
+def enquire(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            p = request.POST.get('pid')
+            user = request.user
+            message = request.POST.get('message')
 
+            prod = Products.objects.get(id=p)
+            e = Enquiry.objects.create(product=prod, user=user, message=message)
+            user.userprofile.notify_inquired(prod)
+
+
+    else:
+        if request.method == 'POST':
+            email = request.POST.get('email')
+            name = request.POST.get('name')
+            company = request.POST.get('company')
+            p = request.POST.get('pid')
+            message = request.POST.get('message')
+
+            prod = Products.objects.get(id=p)
+            e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
+            up = prod.user.userprofile
+            up.userprofile.notify_inquired(prod)
 
 
 

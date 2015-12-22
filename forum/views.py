@@ -203,17 +203,13 @@ def votedown(request):
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
             vote.delete()
-            print('123456')
             user.userprofile.unotify_a_downvoted(answer)
-            print('123457')
             answer.votes += 1
             answer.save()
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
-            print('123458')
             user.userprofile.notify_a_downvoted(answer)
-            print('123459')
             answer.votes -= 1
             answer.save()
         return HttpResponse()

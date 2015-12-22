@@ -23,8 +23,7 @@ class Workplace(models.Model):
 
     verified = models.BooleanField(default=False)
     slug = models.SlugField(max_length=255)
-    address = models.CharField(max_length=255, null=True, blank=True)
-    contact = models.CharField(max_length=255, null=True, blank=True)
+
     about = models.TextField(null=True, blank=True)
     points = models.IntegerField(default=0)
     logo = models.ForeignKey('nodes.Images', null=True, blank=True)
@@ -37,6 +36,17 @@ class Workplace(models.Model):
     product_details = models.TextField(max_length=5000, null=True, blank=True)
 
     wptags = models.ManyToManyField(Tags, through='WpTags', related_name='wptags')
+
+    ##
+    website = models.URLField(null=True, blank=True)
+    fb_page = models.URLField(null=True, blank=True)
+    linkedin_page = models.URLField(null=True, blank=True)
+    office_mail_id = models.EmailField(null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    contact = models.CharField(max_length=255, null=True, blank=True)
+    mobile_contact1 = models.CharField(max_length=20, null=True, blank=True)
+    mobile_contact2 = models.CharField(max_length=20, null=True, blank=True)
+    contact_person = models.ForeignKey(User, null=True, blank=True)
 
     class Meta:
         db_table = 'Workplace'

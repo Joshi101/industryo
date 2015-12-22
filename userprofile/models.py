@@ -27,6 +27,9 @@ class UserProfile(models.Model):
     interests = models.ManyToManyField(Tags, blank=True)
     approved = models.BooleanField(default=True)
 
+    mobile_contact = models.CharField(max_length=20, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+
     class Meta:
         db_table = 'userprofile'
 
@@ -329,6 +332,14 @@ class UserProfile(models.Model):
     #                      from_user=self.user,
     #                      to_user=user,
     #                      node=node).save()
+
+    def notify_inquired(self, product):
+        users = product.producer.get_members
+        for user in users:
+            Notification.objects.create(notification_type=Notification.Inquired,
+                                        from_user=self.user,
+                                        to_user=user,
+                                        product=product)
 
     def get_workplace_points(self):
         members = UserProfile.objects.filter(primary_workplace=self.primary_workplace)

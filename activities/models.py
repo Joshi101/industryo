@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import escape
-# from products.models import Products
+
 
 class Activity(models.Model):
     user = models.ForeignKey(User)
@@ -29,19 +29,20 @@ class Activity(models.Model):
         return self.activity
 
 
-# class Enquiry(models.Model):
-#     user = models.ForeignKey(User, null=True, blank=True)
-#     email = models.EmailField(max_length=30, null=True, blank=True)
-#     name = models.CharField(max_length=30, null=True, blank=True)
-#     company = models.CharField(max_length=30, null=True, blank=True)
-#
-#     product = models.ForeignKey(Products)
-#     date = models.DateTimeField(auto_now_add=True)
-#     message = models.CharField(max_length=100)
-#     seen = models.BooleanField(default=False)
-#
-#     def __str__(self):
-#         return self.product
+class Enquiry(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
+    email = models.EmailField(max_length=30, null=True, blank=True)
+    name = models.CharField(max_length=30, null=True, blank=True)
+    company = models.CharField(max_length=30, null=True, blank=True)
+
+    product = models.ForeignKey('products.Products')
+    workplace = models.ForeignKey('workplace.Workplace', null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    message = models.CharField(max_length=1000)
+    seen = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.message
 
 
 class Notification(models.Model):
@@ -56,6 +57,7 @@ class Notification(models.Model):
     # FOLLOWS = 'F'
     VotedUp = 'U'
     VotedDown = 'D'
+    Inquired = 'I'
 
     NOTIFICATION_TYPES = (
         (LIKED, 'Liked'),
@@ -68,6 +70,7 @@ class Notification(models.Model):
         (VotedDown, 'VotedDown'),
         (ANSWERED, 'Answered'),
         (JOINED, 'Joined'),
+        (Inquired, 'Inquired'),
     )
     _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/nodes/{2}/">{3}</a>'            # working
     _COMMENTED_N_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/nodes/{2}/">{3}</a>'            # working
@@ -85,6 +88,10 @@ class Notification(models.Model):
     _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/forum/{2}/">{3}</a>'            # working
     _VotedDownA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your answer: <a href="/forum/{2}/">{3}</a>'            # working
     _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to the question: <a href="/forum/{2}/">{3}</a>'            # working
+    _Inquired_User_Template = u'''<a href="/user/{0}/">{1}</a> from <a href="/workplaces/{2}/">{3}</a> enquired about
+                              a product from your Company <a href="/products/{4}/">{5}</a>'''
+    _Inquired_Anon_Template = u'''<a href="/user/{0}/">{1}</a> from <a href="/workplaces/{2}/">{3}</a> enquired about
+                              a product from your Company <a href="/products/{4}/">{5}</a>'''
 
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')
@@ -242,6 +249,25 @@ class Notification(models.Model):
                 self.question.slug,
                 escape(self.get_summary(self.question.title))
                 )
+        elif self.notification_type == 'I':
+            if self.user:
+                return self._Inquired_User_Template.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.userprofile),
+                    self.workplace.slug,
+                    escape(self.workplace.name),
+                    self.product.slug,
+                    escape(self.product.name)
+                    )
+            else:
+                return self._Inquired_Anon_Template.format(
+                    escape(self.from_user.username),
+                    escape(self.from_user.userprofile),
+                    self.workplace.slug,
+                    escape(self.workplace.name),
+                    self.product.slug,
+                    escape(self.product.name)
+                    )
 
         else:
             return "Oops! something went wrong."

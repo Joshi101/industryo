@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from activities.models import Notification
+from activities.models import Notification, Enquiry
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 import json
 from workplace.models import Workplace
+from products.models import Products
 
 
 # @login_required
@@ -16,6 +17,7 @@ def notifications(request):
         notification.is_read = True
         notification.save()
     return render(request, 'activities/notifications.html', {'read': read, 'unread': unread})
+
 
 def count_notify(request):
     if request.method == 'GET':
@@ -63,6 +65,24 @@ def check_notifications(request):
     notifications = Notification.objects.filter(to_user=user, is_read=False)[:5]
     return HttpResponse(len(notifications))
 # Create your views here.
+
+
+
+
+@login_required
+def enquiry_all(request):
+    user = request.user
+    company = user.userprofile.primary_workplace
+    enquiries = Enquiry.objects.filter(workplace=company)
+
+
+
+def enquiry(request):
+    id = request.GET.get('id')
+    enquiry = Enquiry.objects.get(id=id)
+
+    return re
+
 
 
 

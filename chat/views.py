@@ -89,15 +89,12 @@ def send(request):
 
 @login_required
 def users(request):
-    print('jklop')
     users = User.objects.filter(is_active=True)
-    print('jkldsvdwp')
     dump = []
     template = u'{0} ({1})'
     for user in users:
         dump.append(user.username)
     data = json.dumps(dump)
-    print('wskkkkkkdwp')
     return HttpResponse(data, content_type='application/json')
 
 @login_required
