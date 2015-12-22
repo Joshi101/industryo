@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}{{product}}{% endblock title %}
+{% block title %}{{product}} | CoreLogs{% endblock title %}
+
+{% block meta_description %}{{ product.description }}{% endblock meta_description %}
 
 {% block content %}
   {% include "snippets/img_upload_modal.html" with url='products:change_image' url_slug=product.id form=prod_img_form.image %}

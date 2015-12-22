@@ -3,7 +3,9 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
-{% block title %} CoreLogs | {{tag}} {% endblock title %}
+{% block title %}{{tag}} | CoreLogs{% endblock title %}
+
+{% block meta_description %}{{ tag.description }}{% endblock meta_description %}
 
 {% block left %}
 	<div id="img_profile_box">

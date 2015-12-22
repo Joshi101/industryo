@@ -2,7 +2,9 @@
 {% load filter %}
 {% load staticfiles %}
 
-{% block title %} {{q.title}}- {% for tag in q.get_tags %} {{tag}} {% endfor %} {% endblock title %}
+{% block title %}{{q.title}}{% endblock title %}
+
+{% block meta_description %}{{ q.question|truncatewords:25 }}{% endblock meta_description %}
 
 {% block pg_schema %}{% endblock pg_schema %}
 
