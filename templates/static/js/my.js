@@ -855,17 +855,34 @@ $('.hover_ajax').on({
 $(document).ready(function() {
     //fetches notifications
     count_notifications();
+    count_messages();
 
 });
 
 function count_notifications() {
     $.ajax({
-        url: count_url,
+        url: 'count_notify',
         type: 'GET',
 
         success: function(response) {
             if (response.count)
                 $('#notifications .badge').text(response.count);
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+        }
+    });
+}
+
+function count_messages() {
+    $.ajax({
+        url: '/messages/check/',
+        type: 'GET',
+
+        success: function(response) {
+            console.log(response.count, 'itna message')
+            if (response.count)
+                $('#messages .badge').text(response.count);
         },
         error: function(xhr, errmsg, err) {
             console.log(errmsg, err);

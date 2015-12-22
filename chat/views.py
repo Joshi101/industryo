@@ -87,6 +87,7 @@ def send(request):
     else:
         return redirect('/')
 
+
 @login_required
 def users(request):
     print('jklop')
@@ -100,10 +101,12 @@ def users(request):
     print('wskkkkkkdwp')
     return HttpResponse(data, content_type='application/json')
 
+
 @login_required
 def check(request):
-    count = Message.objects.filter(user=request.user, is_read=False).count()
-    return HttpResponse(count)
+    response = {}
+    response['count'] = Message.objects.filter(user=request.user, is_read=False).count()
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 # @login_required

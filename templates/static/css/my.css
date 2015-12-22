@@ -832,7 +832,7 @@ pre {
   padding: 6px;
 }
 
-#notifications .badge {
+#notifications .badge, #messages .badge {
   font-size: 11px;
   line-height: 15px;
 
