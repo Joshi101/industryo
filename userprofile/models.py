@@ -333,13 +333,14 @@ class UserProfile(models.Model):
     #                      to_user=user,
     #                      node=node).save()
 
-    def notify_inquired(self, product):
-        users = product.producer.get_members
-        for user in users:
+    def notify_inquired(self, e):
+        users = e.product.producer.get_members()
+        print(users)
+        for u in users:
             Notification.objects.create(notification_type=Notification.Inquired,
                                         from_user=self.user,
-                                        to_user=user,
-                                        product=product)
+                                        to_user=u.user,
+                                        enquiry=e)
 
     def get_workplace_points(self):
         members = UserProfile.objects.filter(primary_workplace=self.primary_workplace)
