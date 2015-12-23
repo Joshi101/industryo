@@ -60,15 +60,26 @@
       <textarea name="description" form="prod_desc_form" rows="3" class="form-control edit_capabilities hide"></textarea>
     </div>
   </div>
-  <h3 class="text-muted text-center">
-	{% if request.user.userprofile in members %}
-	<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
-	{% include "products/new_modal.html" %}
-	{% else %}
-	<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Send an Enquiry</a>
-	{% include "products/new_modal.html" %}
-	{% endif %}
-</h3>
+  <h3 class="text-muted ajax_andar text-center">
+    {% if request.user.userprofile in members %}
+  	<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
+  	{% include "products/new_modal.html" %}
+  	{% else %}
+    <a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
+    <div class="collapse">
+      <form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
+      {% csrf_token %}
+        <div class="form-group">
+          <input class="form-control input-sm" name="name" placeholder="name of your colleague" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control input-sm" type="email" name="email" placeholder="email of your colleague" required>
+        </div>
+        <button class="btn btn-primary form-ajax"><i class='fa fa-plus-circle fa-lg inline_fa'> Invite</i></button>
+      </form>
+    </div>
+    {% endif %}
+  </h3>
 
   
 {% endblock %}

@@ -5,5 +5,5 @@
 }
 
 #cover input:focus {
-  animation:input-shadow ease-in-out 2s infinite;
+  //animation:input-shadow ease-in-out 2s infinite;
 }

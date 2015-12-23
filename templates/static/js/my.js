@@ -1415,7 +1415,8 @@ $('.select_dropdown').on('click', '.dropdown-menu a', function(){
     var sd = $('.select_dropdown .dropdown-toggle');
     sd.find('.value').text(what);
     sd.find('i').attr('class', what_fa);
-    sd.closest('form').attr('title','Search '+what).find('.what').val(what.toLowerCase());
+    sd.closest('form').find('.d_input').attr('placeholder','Search '+ what + ' ...');
+    sd.closest('form').find('.what').val(what.toLowerCase());
     var s_url = '/search/'+what.toLowerCase();
     /*sd.closest('form').attr('action',s_url);*/
 });
