@@ -73,15 +73,26 @@ def check_notifications(request):
 def enquiry_all(request):
     user = request.user
     company = user.userprofile.primary_workplace
-    enquiries = Enquiry.objects.filter(workplace=company)
+    products = Products.objects.filter(producer=company)
+    enquiries = []
+    for p in products:
+        e = Enquiry.objects.filter(product=p)
+        if e:
+            enquiries.append(e)
+    # enquiries = Enquiry.objects.filter(workplace=company)
+    print(enquiries)
+
+    return render(request, 'enquiry/e_box.html', {
+        'enquiries': enquiries,
+        })
 
 
 
-def enquiry(request):
-    id = request.GET.get('id')
+def enquiry(request, slug):
+    id = request.GET.get('slug')
     enquiry = Enquiry.objects.get(id=id)
 
-    return re
+    return render()
 
 
 

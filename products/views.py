@@ -158,8 +158,8 @@ def enquire(request):
 
             prod = Products.objects.get(id=p)
             e = Enquiry.objects.create(product=prod, user=user, message=message)
-            user.userprofile.notify_inquired(prod)
-
+            user.userprofile.notify_inquired(e)
+            return redirect('/products/'+prod.slug)
 
     else:
         if request.method == 'POST':
@@ -172,7 +172,8 @@ def enquire(request):
             prod = Products.objects.get(id=p)
             e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
             up = prod.user.userprofile
-            up.userprofile.notify_inquired(prod)
+            up.notify_inquired(e)
+            return redirect('/products/'+prod.slug)
 
 
 

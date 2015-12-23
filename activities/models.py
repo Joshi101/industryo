@@ -90,8 +90,8 @@ class Notification(models.Model):
     _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to the question: <a href="/forum/{2}/">{3}</a>'            # working
     _Inquired_User_Template = u'''<a href="/user/{0}/">{1}</a> from <a href="/workplaces/{2}/">{3}</a> enquired about
                               a product from your Company <a href="/products/{4}/">{5}</a>'''
-    _Inquired_Anon_Template = u'''<a href="/user/{0}/">{1}</a> from <a href="/workplaces/{2}/">{3}</a> enquired about
-                              a product from your Company <a href="/products/{4}/">{5}</a>'''
+    _Inquired_Anon_Template = u'''{0}, Mail: {1} from {2} enquired about
+                              a product from your Company <a href="/products/{3}/">{4}</a>'''
 
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')
@@ -99,6 +99,8 @@ class Notification(models.Model):
     node = models.ForeignKey('nodes.Node', null=True, blank=True)
     question = models.ForeignKey('forum.Question', null=True, blank=True)
     answer = models.ForeignKey('forum.Answer', null=True, blank=True)
+
+    enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
 
     notification_type = models.CharField(max_length=1, choices=NOTIFICATION_TYPES)
     is_read = models.BooleanField(default=False)
@@ -250,23 +252,22 @@ class Notification(models.Model):
                 escape(self.get_summary(self.question.title))
                 )
         elif self.notification_type == 'I':
-            if self.user:
+            if self.enquiry.user:
                 return self._Inquired_User_Template.format(
                     escape(self.from_user.username),
                     escape(self.from_user.userprofile),
-                    self.workplace.slug,
-                    escape(self.workplace.name),
-                    self.product.slug,
-                    escape(self.product.name)
+                    self.enquiry.user.userprofile.primary_workplace.slug,
+                    escape(self.enquiry.user.userprofile.primary_workplace),
+                    self.enquiry.product.slug,
+                    escape(self.enquiry.product.product)
                     )
             else:
                 return self._Inquired_Anon_Template.format(
-                    escape(self.from_user.username),
-                    escape(self.from_user.userprofile),
-                    self.workplace.slug,
-                    escape(self.workplace.name),
-                    self.product.slug,
-                    escape(self.product.name)
+                    self.enquiry.name,
+                    self.enquiry.email,
+                    self.enquiry.company,
+                    escape(self.enquiry.product.slug),
+                    self.enquiry.product.product,
                     )
 
         else:
