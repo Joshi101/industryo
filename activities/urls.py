@@ -8,7 +8,5 @@ urlpatterns = patterns('',
     url(r'^send_mail/$', 'home.email.send_mail', name='send_mail'),
     url(r'^send_html/$', 'home.email.send_html', name='send_html'),
 
-    url(r'^enquiry_all/$', 'activities.views.enquiry_all', name='enquiry_all'),
-    url(r'^enquiry/^(?P<slug>[^/]+)/$', 'activities.views.enquiry', name='enquiry'),
 
 )

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+  <div class="container">
+    <div class="row" style="margin-top: 1em">
+      <div class="col-md-3">
+		{% for enq in enquiries %}
+		<a href="{% url 'products:enqui' enq.id %}"
+		class="list-group-item">
+		<span class="name">{{ enq.product }}</span>
+		<span class="pull-right">{% if enquiry.name %}{{ enq.name }}{% else %}{{enq.user.userprofile}}{% endif %}</span>
+		</a>
+		{% endfor %}
+
+	  </div>
+      <div class="col-md-9">
+        {% block container %}
+		{% if enquiry %}
+		Enquirer:
+			{% if enquiry.user %}
+			<li>Name: <a href="{% url 'user:profile' enquiry.user.username %}">
+			<span class="name">{{ enquiry.user.userprofile }}</span>
+			</a></li>
+			<li>Company: <a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
+			<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>
+			</a></li>
+			{% else %}
+			<li>Name: {{ enquiry.name }}</li>
+			<li>email: {{enquiry.email}}</li>
+			<li>Company: {{enquiry.company}}</li>
+			{% endif %}
+		<li>Message : {{enquiry.message}}</li>
+		
+		{% endif %}
+        {% endblock container %}
+      </div>
+    </div>
+  </div>
+{% endblock body %}
