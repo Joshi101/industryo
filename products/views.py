@@ -177,4 +177,30 @@ def enquire(request):
 
 
 
+
+
+@login_required
+def enquiry_all(request):
+    user = request.user
+    company = user.userprofile.primary_workplace
+
+    enquiries = Enquiry.objects.filter(product__producer=company)
+
+    return render(request, 'enquiry/enquiry.html', {
+        'enquiries': enquiries,
+        })
+
+
+def enquiry(request, id):
+    iid = int(id)
+    user = request.user
+    company = user.userprofile.primary_workplace
+    enquiries = Enquiry.objects.filter(product__producer=company)
+    enquiry = Enquiry.objects.get(id=iid)
+
+    return render(request, 'enquiry/enquiry.html', {
+        'enquiries': enquiries,
+        'enquiry': enquiry,
+        })
+
 # Create your views here.

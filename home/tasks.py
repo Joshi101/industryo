@@ -2,7 +2,6 @@ from background_task import background
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from activities.models import Notification
-
 from django.core.mail import EmailMultiAlternatives
 from .templates import *
 

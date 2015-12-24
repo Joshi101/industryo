@@ -1,16 +1,6 @@
 from django.shortcuts import render, redirect, render_to_response, RequestContext
-from nodes.models import Node
-from nodes.forms import UploadImageForm
-from userprofile.models import UserProfile
 from workplace.models import Workplace, WpTags
-from forum.models import Question
-from tags.models import Tags
 from products.models import Products
-from itertools import chain
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from operator import attrgetter
-from activities.models import Notification
-from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date

@@ -12,12 +12,8 @@ from allauth.account.forms import LoginForm, ResetPasswordKeyForm
 from allauth.account.forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from operator import attrgetter
-from activities.models import Notification
-from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from home import tasks
-from django.core.mail import EmailMultiAlternatives
 
 
 def home(request):
