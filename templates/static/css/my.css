@@ -2650,14 +2650,78 @@ footer .contact li{
 }
 
 .article_form .title_input{
-  font-size: 20px;
+  font-size: 24px;
   font-family: 'Tahoma';
   letter-spacing: 1px;
-  height: 50px;
-  
+  height: 40px;
+  padding: 0 12px;
 }
 
 .open_input:focus{
   background-color: #fff;
   box-shadow: 0 0 0;
+}
+
+.enquiry_short{
+  border-width: 1px 0 1px;
+  border-style: solid;
+  border-color: #eee;
+}
+
+.enquiry_short .prod{
+  color: #111;
+  font-size: 15px;
+}
+
+.enquiry_short time{
+  padding-top: 2px;
+  float: right;
+  color: #888;
+}
+
+.enquiry_short:first-child{
+  border-radius: 0;
+}
+
+.enquiry_short .enq_msg{
+  margin-top: 5px;
+  height: 20px;
+  font-family: Calibri;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #197;
+}
+
+.enquiry_long {
+  background-color: #fff;
+  padding: 10px 15px;
+}
+
+.enquiry_long h4{
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+.enquiry_long .enq_msg{
+  font-family: Calibri;
+  color: #197;
+  padding: 15px 0 17px;
+  font-size: 18px;
+  line-height: 20px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.enquiry_long .enq_user{
+  font-size: 13px;
+  color: #555;
+}
+
+.enquiry_long .enq_user h4{
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
 }

@@ -119,6 +119,7 @@ def edit_desc(request, id):
     else:
         return redirect('/products/'+p.slug)
 
+
 @login_required
 def change_image(request, id):
     form = SetLogoForm(request.POST, request.FILES)
@@ -150,33 +151,25 @@ def random(request):
 
 
 def enquire(request):
-    if request.user.is_authenticated():
-        if request.method == 'POST':
+    if request.method == 'POST':
+        if request.user.is_authenticated():
             p = request.POST.get('pid')
             user = request.user
             message = request.POST.get('message')
-
             prod = Products.objects.get(id=p)
             e = Enquiry.objects.create(product=prod, user=user, message=message)
             user.userprofile.notify_inquired(e)
-            return redirect('/products/'+prod.slug)
-
-    else:
-        if request.method == 'POST':
+        else:
             email = request.POST.get('email')
             name = request.POST.get('name')
             company = request.POST.get('company')
             p = request.POST.get('pid')
             message = request.POST.get('message')
-
             prod = Products.objects.get(id=p)
             e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
             up = prod.user.userprofile
             up.notify_inquired(e)
-            return redirect('/products/'+prod.slug)
-
-
-
+        return redirect('/products/'+prod.slug)
 
 
 @login_required
@@ -198,8 +191,7 @@ def enquiry(request, id):
     enquiries = Enquiry.objects.filter(product__producer=company)
     enquiry = Enquiry.objects.get(id=iid)
 
-    return render(request, 'enquiry/enquiry.html', {
-        'enquiries': enquiries,
+    return render(request, 'enquiry/enquiry_details.html', {
         'enquiry': enquiry,
         })
 
