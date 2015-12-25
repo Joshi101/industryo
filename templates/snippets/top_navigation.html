@@ -38,7 +38,7 @@
                 </ul>
               </div>
             </span>
-            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search ..." parent="accordion" tags=None %}
+            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True no_tags=True placeholder="Search "|add:what|add:" ..." parent="accordion" tags=None %}
             <span class="input-group-btn">
               <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
             </span>

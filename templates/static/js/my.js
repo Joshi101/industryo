@@ -21,7 +21,7 @@ function body_slide() {
     console.log(win_height, top_nav_width, foot_height)
     $('.body').stop().animate({
         //'margin-top': top_nav_width,
-        'min-height': (win_height - top_nav_width - foot_height)
+        'min-height': (win_height - top_nav_width)
     });
 }
 
@@ -729,10 +729,10 @@ $('.article_form button[type="button"]').click(function(event) {
         $(this).next().val('true');
     }
     var $this = $(this).closest('form');
-    checkValidity();
+    //checkValidity();
     var $editor = $this.find('#editor');
     var content = $editor.html();
-    $editor.next().val(content);
+    //$editor.next().val(content);
     console.log('k');
     $this.find('button[type="submit"]').trigger('click');
 });
@@ -1367,7 +1367,7 @@ $(function () {
     url: '/messages/users/',
     cache: false,
     success: function (data) {
-      $('#to').typeahead({
+      /*$('#to').typeahead({
         hint: true,
         highlight: true,
         minLength: 1
@@ -1376,7 +1376,7 @@ $(function () {
         name: 'data',
         displayKey: 'value',
         source: substringMatcher(data)
-      });
+      });*/
     }
   });
 });

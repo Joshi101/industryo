@@ -99,6 +99,12 @@
   border-bottom: 1px solid rgba(0,0,0,0.09);
 }
 
+@media (max-width:786px){
+  .pre_nav{
+    padding: 0;
+  }
+}
+
 .pre_nav > a{
   color: #ddd;
   display: inline-block;
@@ -689,6 +695,7 @@ pre {
   color: #777;
   background: rgba(0,0,0,0.15);
   border-color: rgba(22,22,22,0.25);
+  border-radius: 0;
 }
 
 #top_search .btn{
@@ -855,6 +862,7 @@ pre {
 
   position: relative;
   //padding-top: 20px;
+  padding-bottom: 20px;
 }
 /* cover.html */
 
@@ -2626,4 +2634,30 @@ footer .contact li{
   margin: 10px auto;
   padding: 10px;
   border-bottom: 1px solid #eee;
+}
+
+.editor-container .placeholder{
+  color: #8a9;
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-family: 'Calibri';
+}
+
+.open_input{
+  border: 0;
+  background-color: transparent;
+  border-bottom: 1px solid #ccc;
+}
+
+.article_form .title_input{
+  font-size: 20px;
+  font-family: 'Tahoma';
+  letter-spacing: 1px;
+  height: 50px;
+  
+}
+
+.open_input:focus{
+  background-color: #fff;
+  box-shadow: 0 0 0;
 }

@@ -1,85 +1,97 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% load bootstrap %}
-{% load bootstrap3 %}
+{% load staticfiles %}
 
-{% block content %}
-	<form id="form_ask" class="article_form" enctype="multipart/form-data" action="" method="POST" role="form" enctype="multipart/form-data">
-		{% csrf_token %}
-		<div class="form-group">
-			<label class="control-label">Type of the Question</label>
-			<select class="form-control" name="category" required>
-				<option value="">Select an Option</option>
-				<option value="0">General</option>
-				<option value="1">Technical</option>
-			</select>
-		</div>
-		<div class="form-group">
-      <label class="control-label">Title of the Question</label>
-      <input class="form-control" id="id_title" maxlength="255" name="title" type="text" placeholder="A brief introduction to the question you want to ask" required/>
-		</div>
-		<div class="form-group">
-      <label class="control-label">Details of the Question</label>
-			{% include "snippets/richtext_toolbar.html" %}
-	    <div id="editor" class="empty" ><div class="text-muted"></div></div>
-			<input type="hidden" name="question" autocomplete=off >
-		</div>
-		<div class="form-group">
-			<div class="hide">
-      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-					<input id="id_image_0" type="file" name="image0">
-    		</span>
-  		</div>
-      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-      	<span class="glyphicon glyphicon-camera"></span> Add Photo
-    	</span>
-		</div>
-		<div class="form-group">
-			<div class="img_pre hide" data-index=0>
+{% block head_css %}
+  <link rel="stylesheet" type="text/css" href={% static 'quill/quill.snow.css' %}>
+{% endblock head_css %}
+
+
+{% block body %}
+<div class="container">
+	<div class="col-sm-9">
+		<form id="form_ask" class="article_form" enctype="multipart/form-data" action="" method="POST" role="form" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="form-group">
+				<label class="control-label">Type of the Question</label>
+				<select class="form-control" name="category" required>
+					<option value="">Select an Option</option>
+					<option value="0">General</option>
+					<option value="1">Technical</option>
+				</select>
 			</div>
+			<div class="form-group">
+	      <label class="control-label">Title</label>
+	      <input class="form-control open_input title_input" id="id_title" maxlength="255" name="title" type="text" placeholder="A brief introduction to the question you want to ask" required/>
+			</div>
+			<div class="form-group">
+		    <div class="advanced-wrapper">
+					{% include "snippets/richtext_toolbar.html" %}
+			    <div class="editor-container">
+			    	<label class="placeholder">Describe your question here ...</label>
+			    </div>
+			    <input id="post" type="hidden" name="question">
+			  </div>
+			</div>
+			<div class="form-group">
+				<div class="hide">
+	      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+						<input id="id_image_0" type="file" name="image0">
+	    		</span>
+	  		</div>
+	      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+	      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+	    	</span>
+			</div>
+			<div class="form-group">
+				<div class="img_pre hide" data-index=0>
+				</div>
+			</div>
+			<div class="form-group">
+	      <label class="control-label" for="id_tags">Topics under which Question Falls</label>
+	      {% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Relevent tags build a quality question" %}
+			  <p class="help-block">
+	        Press Enter to select or create a tag
+	      </p>
+			</div>
+			<div class="checkbox">
+			  <label><input type="checkbox" name="anonymous" value="true">Ask as Anynonymous</label>
+			</div>
+	    <button type="button" class="btn btn-primary">Ask</button>
+	    <button type="submit" class="hidden"></button>
+		</form>
+		<div class="well">
+			<p>You can also Answer your own Question later if you get the answer from some other source or solve it yourself.</p>
+			<p>See <a href="{% url 'forum:why_should_i_answer' %}">why should you answer on CoreLogs</a></p>
 		</div>
-		<div class="form-group">
-      <label class="control-label" for="id_tags">Topics under which Question Falls</label>
-      {% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Relevent tags build a quality question" %}
-		  <p class="help-block">
-        Press Enter to select or create a tag
-      </p>
-		</div>
-		<div class="checkbox">
-		  <label><input type="checkbox" name="anonymous" value="true">Ask as Anynonymous</label>
-		</div>
-    <button type="button" class="btn btn-primary">Ask</button>
-    <button type="submit" class="hidden"></button>
-	</form>
-	<div class="well">
-		<p>You can also Answer your own Question later if you get the answer from some other source or solve it yourself.</p>
-		<p>See <a href="{% url 'forum:why_should_i_answer' %}">why should you answer on CoreLogs</a></p>
 	</div>
-{% endblock %}
-
-{% block right %}
-	<div class="side_help">
-    <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">How &amp; What to Ask</a><br>
-		<small>CoreLogs - The Engineer's Forum</small></h3>
-		<ul>
-	  {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical &amp; Industry related questions.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i><b>The title must give a brief introduction of the question.</b></li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Provide necessary details so that others may better understand the exact problem you are facing. People not familiar with Baja &amp; Formula may also answer.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>If your question is about baja, tag <b>Baja</b>, if it's about formula, tag <b>Formula</b></li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own questions too so that other might find it useful later.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
-		{% else %}
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical &amp; Industry related questions.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i><b>The title must give a brief introduction of the question.</b></li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Provide necessary details so that others may better understand the exact problem you are facing.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own questions too so that other might find it useful later.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
-		{% endif %}
-		</ul>
-  </div>
-{% endblock %}
+	<div id="right" class="col-sm-3">
+		<div class="side_help">
+	    <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">How &amp; What to Ask</a><br>
+			<small>CoreLogs - The Engineer's Forum</small></h3>
+			<ul>
+		  {% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical &amp; Industry related questions.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i><b>The title must give a brief introduction of the question.</b></li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>Provide necessary details so that others may better understand the exact problem you are facing. People not familiar with Baja &amp; Formula may also answer.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>If your question is about baja, tag <b>Baja</b>, if it's about formula, tag <b>Formula</b></li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own questions too so that other might find it useful later.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
+			{% else %}
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical &amp; Industry related questions.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>For informations related to dealers and parts, post on the homepage instead.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i><b>The title must give a brief introduction of the question.</b></li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>Provide necessary details so that others may better understand the exact problem you are facing.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Questions with appropriate topics for classification.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>You can answer your own questions too so that other might find it useful later.</li>
+				<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to explain your question</li>
+			{% endif %}
+			</ul>
+	  </div>
+	</div>
+</div>
+<script type="text/javascript" src={% static 'quill/quill.js' %}></script>
+<script type="text/javascript" src={% static 'quill/advanced.js' %}></script>
+{% endblock body %}

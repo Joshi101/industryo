@@ -1,9 +1,11 @@
 <div class="d_search has-feedback">
+{% if not no_tags %}
   <div class="input_tags">
   {% for tag in tags %}
     <div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
   {% endfor %}
   </div>
+{% endif %}
   <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">
   <span class="form-control-feedback">
     <i class="fa fa-pulse fa-spinner fback_wait hide"></i>
