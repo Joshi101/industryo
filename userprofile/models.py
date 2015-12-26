@@ -59,7 +59,6 @@ class UserProfile(models.Model):
             provider = "email"
         return provider
 
-
     def get_profile_image(self):
         default_image = '/images/thumbnails/user.JPG'
         if self.profile_image:
@@ -82,7 +81,6 @@ class UserProfile(models.Model):
                     return default_image
 
     def set_interests(self, interests):
-        print('wow')
         if interests:
             workplace_tags = interests.split(',')
             li = []
@@ -157,17 +155,14 @@ class UserProfile(models.Model):
             tasks.notify_user(a.id, n=3)
 
     def notify_n_commented(self, node):           # working 4
-        print('shava')
         if self.user != node.user:
             a = Notification.objects.create(notification_type=Notification.COMMENTED,
                                             from_user=self.user,
                                             to_user=node.user,
                                             node=node)
             tasks.notify_user(a.id, n=4)
-            print('dava')
 
     def notify_also_n_commented(self, node):           # working 5
-        print('balle')
         comments = node.get_all_comments()
         users = []
         for comment in comments:
@@ -180,7 +175,6 @@ class UserProfile(models.Model):
                                             to_user=User(id=user),
                                             node=node)
             tasks.notify_user(a.id, n=5)
-            print('walle')
 
     def notify_also_q_commented(self, question):           # working 6
         comments = question.get_comment_count()
@@ -350,6 +344,7 @@ class UserProfile(models.Model):
         self.primary_workplace.points = points
         self.primary_workplace.save()
         return points
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

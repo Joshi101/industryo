@@ -7,6 +7,4 @@ urlpatterns = patterns('',
     url(r'^send/$', 'home.email.send', name='send'),
     url(r'^send_mail/$', 'home.email.send_mail', name='send_mail'),
     url(r'^send_html/$', 'home.email.send_html', name='send_html'),
-
-
 )

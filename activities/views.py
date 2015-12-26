@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from workplace.models import Workplace
 from products.models import Products
+from datetime import datetime, timedelta, time, date
 
 
 # @login_required
@@ -65,6 +66,15 @@ def check_notifications(request):
     notifications = Notification.objects.filter(to_user=user, is_read=False)[:5]
     return HttpResponse(len(notifications))
 # Create your views here.
+
+
+# def check_notifications(request):
+#     todaydate = date.today()
+#     startdate = todaydate + timedelta(days=1)
+#     enddate = startdate - timedelta(days=6)
+#     notifications = Notification.objects.filter(date__range=[enddate, startdate])
+#
+#
 
 
 

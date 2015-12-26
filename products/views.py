@@ -176,9 +176,6 @@ def enquire(request):
             return redirect('/products/'+prod.slug)
 
 
-
-
-
 @login_required
 def enquiry_all(request):
     user = request.user

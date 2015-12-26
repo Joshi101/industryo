@@ -5,9 +5,6 @@ from django.conf import settings
 from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'industryo.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
@@ -36,11 +33,6 @@ urlpatterns = patterns('',
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
     url(r'^searchperson/$', 'userprofile.views.search_person', name='searchperson'),
 
-    # url(r'^send_list/$', 'home.views.send_list', name='send_list'),
-    # url(r'^send_test/$', 'home.views.send_test', name='send_test'),
-    # url(r'^send_an_email/$', 'home.views.send_an_email', name='send_an_email'),
-    # url(r'^send_set_wp_email/$', 'home.views.send_set_wp_email', name='send_set_wp_email'),
-
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^forum/', include('forum.urls', namespace='forum')),
     url(r'^user/', include('userprofile.urls', namespace='user')),
@@ -65,6 +57,8 @@ urlpatterns = patterns('',
     url(r'^sitemap/questions$', 'home.views.questions'),
     url(r'^sitemap/articles$', 'home.views.articles'),
     url(r'^sitemap/products$', 'home.views.products'),
+
+    url(r'^exec/$', 'home.commands.task_exec'),
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
