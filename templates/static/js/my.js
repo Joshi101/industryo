@@ -1468,7 +1468,7 @@ function lazyImages(){
         console.log($(this).data('src') + 'loading');
         var $this = $(this);
         var src = $this.data('src');
-        //$this.attr('src',src);
+        $this.attr('src',src);
         $this.removeClass('lazy_img');
     });
 }
