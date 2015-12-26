@@ -444,6 +444,7 @@ if ($('.paginator').length) {
                     });*/
                     $pg.before(response);
                     $('[data-toggle="tooltip"]').tooltip();
+                    lazyImages();
                     /*var height_after = $pg.parent()[0].scrollHeight;
                     $pg_parent.animate({
                         'height': height_after
@@ -1288,6 +1289,7 @@ $(document).ready(function(){
             success: function(response) {
                 $this.html(response);
                 console.log('home_right load hua');
+                lazyImages();
             },
 
             error: function(xhr, errmsg, err) {
@@ -1393,6 +1395,7 @@ $('.ajax_a').on('click', function(event){
             console.log(response)
             $(target).find('.content').html(response);
             $(target).find('.loading').addClass('hide');
+            lazyImages();
         },
         error: function(xhr, errmsg, err) {
             console.log(errmsg, err);
@@ -1459,3 +1462,15 @@ $('#search_toggle').on('click', function(){
 $('#top_search').on('hidden.bs.dropdown', '.dropdown', function(){
     $('#top_search .d_menu').css('z-index','auto');
 });*/
+
+function lazyImages(){
+    $('.lazy_img').each(function(){
+        console.log($(this).data('src') + 'loading');
+        var $this = $(this);
+        var src = $this.data('src');
+        //$this.attr('src',src);
+        $this.removeClass('lazy_img');
+    });
+}
+
+$(lazyImages);

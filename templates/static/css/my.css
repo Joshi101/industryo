@@ -207,7 +207,7 @@
     padding-right: 0;
   }
   .navbar-inverse .nav > li > a{
-    padding-left: 0;
+    //padding-left: 0;
     padding-right: 0;
   }
 }
@@ -841,7 +841,7 @@ pre {
   padding: 6px;
 }
 
-#notifications .badge {
+#notifications .badge, #messages .badge{
   font-size: 11px;
   line-height: 15px;
 
@@ -852,6 +852,13 @@ pre {
   padding: 0 5px;
 
   border-radius: 10px;
+}
+
+@media (max-width: 768px){
+  #notifications .badge, #messages .badge{
+    bottom: 15px;
+    
+  }
 }
 
 .body {
@@ -1832,6 +1839,7 @@ div[data-role='editor-toolbar'] {
   padding: 5px;
 
   list-style: none;
+  text-align: left;
 }
 
 .notify_box .glyphicon {
@@ -1902,6 +1910,7 @@ div[data-role='editor-toolbar'] {
 
   width: 40px;
   height: 40px;
+  line-height: 40px;
   margin-right: 5%;
   overflow: hidden;
   
@@ -2625,6 +2634,10 @@ footer .contact li{
 .side_product div{
   height: 20px;
   overflow: hidden;
+  display: inline-block;
+  white-space:nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
 }
 
 
@@ -2724,4 +2737,13 @@ footer .contact li{
   padding-bottom: 5px;
   margin-bottom: 5px;
   border-bottom: 1px solid #eee;
+}
+
+.fa-newspaper-o{
+  position: relative;
+  top: 1px;
+}
+
+.side_product{
+  //display: inline-block;
 }

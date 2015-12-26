@@ -5,24 +5,14 @@
 <!--
     This is the 'base' template, never loaded
 -->
-<html lang="en">
+<html>
 <head vocab="http://schema.org/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{% block meta_description %}A platform for the entire core segment of engineering{% endblock meta_description %}">
-  <meta name="keywords" content="{% block meta_keywords %}CoreLogs, Industry, SME, Engineers, Baja, Formula, Mechanical, Manufacturing{% endblock meta_keywords %}">
+  <meta name="keywords" content="{% block meta_keywords %}Core, Industry, SME, Engineers, Baja, Formula, Mechanical, Manufacturing{% endblock meta_keywords %}">
   <!-- og protocol for social sites -->
-  <meta property="og:site_name" content="CoreLogs">
-  <meta property="og:title" content="{% block meta_og_title %}CoreLogs{% endblock %}">
-  <meta name="description" content="{% block meta_og_description %}A platform for the entire core segment of engineering{% endblock meta_og_description %}">
-  <meta property="og:url" content="http://www.corelogs.com{{ request.path }}">
-  <meta property="og:type" content="{% block meta_og_type %}website{% endblock meta_og_type %}">
-  {% block meta_og_type_extra %}
-  {% endblock meta_og_type_extra %}
-  <meta property="og:image" content="http://www.corelogs.com{% block meta_og_image %}{% static 'css/screenshot.jpg' %}{% endblock %}">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="675">
+  <meta property="og:image" content="{% block meta_og_image %}{% static 'css/screenshot.jpg' %}{% endblock %}">
   <!-- facebook domain insight -->
   <meta property="fb:app_id" content="1584559205143714">
   <meta property="fb:admins" content="100001247536612">
@@ -46,21 +36,19 @@
   <!-- custom files (remove from here and inhertit at next level) -->
   <link rel="stylesheet" type="text/css" href={% static 'css/aRt.css' %}>
   {% endblock head_css %}
-  
+
   <!-- third party -->
-  <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
-  <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.js' %}></script>
-  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   {% block head_js %}
   <!-- not basic implement at sublevels -->
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
   <script type="text/javascript" src={% static 'js/autosize.js' %}></script>
   <script type="text/javascript" src={% static 'js/bootstrap-wysiwyg.js' %}></script>
-  <script type="text/javascript" src={% static 'js/jquery.hotkeys.js' %}></script>
+ <script type="text/javascript" src={% static 'js/jquery.hotkeys.js' %}></script>
 
   <script>
-    var count_url = "{% url 'count_notify' %}";
-    var msg_count_url = "{% url 'messages:check_message' %}";
+    var count_url = {% url 'count_notify' %};
   </script>
   {% endblock head_js %}
 </head>
@@ -126,13 +114,13 @@
     			<a class="text-link" href="{% url 'sitemap' %}">Sitemap</a>
     			</li>
     			<li>
-    			<a class="text-link" href="/about">Careers</a>
+    			<a class="text-link" href="/careers">Careers</a>
     			</li>
     			<li>
     			<a class="text-link" href="/contact">Contact Us</a>
     			</li>
     			<li>
-    			<a class="text-link" href="/about">Terms and Privacy</a>
+    			<a class="text-link" href="/privacy">Terms and Privacy</a>
     			</li>
   			</ul>
       </div>

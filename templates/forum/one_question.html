@@ -10,14 +10,14 @@
 			</div>
 		</a>
 		{% if q.question %}
-		<div class="summary_body">{{ q.question|truncatewords:25|safe }}</div>
+		<div class="summary_body">{{ q.question|truncatewords_html:25|safe }}</div>
 		{% endif %}
 		{% if q.get_images %}
 		<div class="summary_fig">
 			{% for image in q.get_images %}
 			<figure>
 			  <a>
-					<img src="/images/{{image.image}}" alt="Image {{ forloop.counter }}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+					<img src="/images/image.png" data-src="/images/{{image.image}}" alt="Image {{ forloop.counter }}" class="call_car pressme lazy_img" data-toggle='modal' data-target='#figure_modal'>
 			  </a>
 			</figure>
 			{% endfor %}

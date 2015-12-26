@@ -1,11 +1,11 @@
 <div class="side_head">Products</div>
-<ul class="pd_list">
+<ul class="pd_list row">
 {% for product in products %}
-	<li class="side_product">
-		<a href="{% url 'products:product' product.slug %}">
-			<img src="{{product.get_image_thumbnail}}" alt="CoreLogs-{{product}}">
-			<div class="text-center">{{product}}</div>
-		</a>
-	</li>
+		<li class="side_product col-sm-6">
+			<a href="{% url 'products:product' product.slug %}">
+				<img class="lazy_img" src="/images/product.png" data-src="{{product.get_image_thumbnail}}" alt="{{product}}">
+				<div class="text-center">{{product}}</div>
+			</a>
+		</li>
 {% endfor %}
 </ul>
