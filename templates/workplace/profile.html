@@ -1,30 +1,33 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
-{% load bootstrap %}
-
 {% load filter %}
 
-{% block title %}{{ workplace.name }} | CoreLogs{% endblock title %}
+{% block meta_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_description %}
 
-{% block meta_description %}{{workplace.about}}{% endblock meta_description %}
+{% block meta_og_title %}{{workplace.name}}{% endblock meta_og_title %}
+{% block meta_og_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_og_description %}
+{% block meta_og_image %}{{workplace.get_logo}}{% endblock meta_og_image %}
+{% block meta_og_image_dim %}
+<meta property="og:image:width" content="128">
+<meta property="og:image:height" content="128">
+{% endblock meta_og_image_dim %}
+
+{% block title %}{{workplace.name}} | CoreLogs{% endblock title %}
+
 
 {% block page_id %}workplace{% endblock page_id %}
-
 
 {% block top %}
   {% include "snippets/top_navigation.html" with what='Products' %}
 {% endblock top %}
 
 {% block left %}
-	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
-		<img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{workplace.name}}" property='logo' typeof='ImageObject'>
+	<div id="img_profile_box">
+		<img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{workplace.name}}">
     {% if user.userprofile.primary_workplace == workplace %}
     <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
     {% endif %}
   </div>
-	<div class="account">
-	</div>
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
 {% endblock left %}
 
@@ -36,10 +39,10 @@
         <small class="text-muted">( {{ workplace.get_type }} )</small>
       </header>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-        <div class="info_field_value" property='addressRegion'>
+        <div class="info_field_value">
 		      City:
           {% for tag in tags1 %}
-            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value" property='addressRegion'>{{tag}}</span></a>
 		      {% endfor %}
         </div>
         {% if user.userprofile in members %}

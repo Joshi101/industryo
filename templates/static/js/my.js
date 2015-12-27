@@ -821,7 +821,7 @@ $('.hover_ajax').on({
             });
             return;
         }
-        $this.data('active', 'yes');
+        //$this.data('active', 'yes');
         var url = $this.data('url');
         console.log(url);
         $.ajax({
@@ -832,13 +832,12 @@ $('.hover_ajax').on({
                 console.log(response);
                 for (i = 0; i < response.elements.length; i++) {
                     $this.find('.hover_box').html(response.html[response.elements[i]]);
-                    $('.body').on('click', function() {
-                        list.css({
-                            'display': 'none'
-                        });
-                        $this.data('active', 'no');
-                        count_notifications();
-                    });
+                    /*$('.body').on('click', function() {
+                        $this.find('.dropdown').removeClass('open');
+                        //$this.data('active', 'no');
+                        //count_notifications();
+                        $('.body').off('click');
+                    });*/
                 }
             },
 
@@ -847,9 +846,10 @@ $('.hover_ajax').on({
                 console.log(errmsg, err);
             }
         });
-        list.css({
+        /*list.css({
             'display': 'block'
-        });
+        });*/
+        //$this.find('.dropdown').addClass('open');
     }
 });
 

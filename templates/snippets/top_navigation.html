@@ -83,14 +83,15 @@
     <div id="topNavbar" class="collapse navbar-collapse">
       {% if user.is_authenticated %}
       <ul class="nav navbar-nav navbar-right top_user_info">
-        <li id="notifications" class="hover_ajax" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
+        <li id="notifications" class="hover_ajax dropdown" title="Notifications" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <span class="badge"></span>
           <a class="dropdown-toggle" data-toggle="dropdown">
             <span class="mob_only">Notifications</span>
             <span class="fa fa-bell inline_fa fa-fw"></span>
           </a>
-          <div class="dropdown">
-            <div class="dropdown-menu hover_box">
+          <div class="dropdown-menu hover_box">
+            <div class="loading">
+              <i class="fa fa-spin fa-circle-o-notch"></i>
             </div>
           </div>
         </li>
