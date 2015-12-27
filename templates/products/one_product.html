@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="prod_img">
-    <img src="{{product.get_image}}" alt="CoreLogs-{{ product }}-{{product.producer}}">
+    <img src="/images/product.png" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img">
     {% if user == product.user %}
     <a class="text-center" data-toggle='modal' data-target='#img_upload_modal'><i class="fa fa-wrench inline_fa"></i>Change Image</a>
     {% endif %}

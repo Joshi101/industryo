@@ -9,12 +9,12 @@
 				<i class="fa fa-newspaper-o sign"></i>
 			</div>
 		</a>
-		<div class="summary_body">{{ node.get_summary|safe|truncatechars:200 }}</div>
+		<div class="summary_body">{{ node.get_summary|truncatechars_html:200|safe }}</div>
 		{% if node.get_images %}
 		<div class="summary_fig">
 			{% for image in node.get_images %}
 			<figure>
-				<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+				<img src="/images/image.png" data-src="/images/{{image.image}}" class="call_car pressme lazy_img" data-toggle='modal' data-target='#figure_modal'>
 			</figure>
 			{% endfor %}
 		</div>

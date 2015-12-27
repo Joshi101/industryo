@@ -18,7 +18,7 @@
 
 {% block left %}
 	<div id="img_profile_box" typeof='Organization' resource='#workplace'>
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" alt="CoreLogs-{{ workplace.get_type }}-{{workplace}}" property='logo' typeof='ImageObject'>
+		<img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{workplace.name}}" property='logo' typeof='ImageObject'>
     {% if user.userprofile.primary_workplace == workplace %}
     <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
     {% endif %}
