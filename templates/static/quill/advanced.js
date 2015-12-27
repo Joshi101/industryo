@@ -18,15 +18,17 @@ editor = new Quill('.advanced-wrapper .editor-container', {
 $('.ql-editor').on('focus', function(){
   if ($('.placeholder').length) {
     editor.setHTML('');
-    $(this).focus();
+    editor.focus();
   }
 });
 
 $('.ql-editor').on('blur', function(){
-  console.log(editor.getLength());
-  if (editor.getLength() <= 1) {
-    editor.setHTML('<label class="placeholder">Start Writing here ...</label>');
-  }
+  setTimeout(function(){
+    console.log(editor.getLength());
+    if (editor.getLength() <= 1) {
+      editor.setHTML('<label class="placeholder">Start Writing here ...</label>');
+    }
+  }, 500);
 });
 
 editor.on('text-change', function(delta, source) {

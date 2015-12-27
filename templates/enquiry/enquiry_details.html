@@ -1,0 +1,20 @@
+<div class="enquiry_long">
+	<h4>You recieved the following enquiry on <a href="{% url 'products:product' enquiry.product.slug %}">{{enquiry.product}}</a></span></h4>
+	<p class="enq_msg">{{enquiry.message}}</p>
+	<div class="enq_user">
+		<h4>From</h4>
+		{% if enquiry.user %}
+		<div>User: <a href="{% url 'user:profile' enquiry.user.username %}">
+		<span class="name">{{ enquiry.user.userprofile }}</span>
+		</a>
+		</div>
+		<div>Company: <a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
+		<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>
+		</a></div>
+		{% else %}
+		<div>User: {{ enquiry.name }}</div>
+		<div>Email: {{enquiry.email}}</div>
+		<div>Company: {{enquiry.company}}</div>
+		{% endif %}
+	</div>
+</div>

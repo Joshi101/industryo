@@ -129,9 +129,9 @@
 .ql-container {
   box-sizing: border-box;
   cursor: text;
-  font-family: 'Tahoma', Helvetica, 'Arial', sans-serif;
+  font-family: 'Georgia', serif;
   word-spacing: 2px;
-  font-size: 13px;
+  font-size: 15px;
   height: 100%;
   line-height: 1.42;
   margin: 0px;

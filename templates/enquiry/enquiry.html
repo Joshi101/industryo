@@ -4,36 +4,29 @@
 {% block body %}
   <div class="container">
     <div class="row" style="margin-top: 1em">
-      <div class="col-md-3">
-		{% for enq in enquiries %}
-		<a href="{% url 'products:enqui' enq.id %}"
-		class="list-group-item">
-		<span class="name">{{ enq.product }}</span>
-		<span class="pull-right">{% if enquiry.name %}{{ enq.name }}{% else %}{{enq.user.userprofile}}{% endif %}</span>
-		</a>
-		{% endfor %}
-
-	  </div>
-      <div class="col-md-9">
-        {% block container %}
-		{% if enquiry %}
-		Enquirer:
-			{% if enquiry.user %}
-			<li>Name: <a href="{% url 'user:profile' enquiry.user.username %}">
-			<span class="name">{{ enquiry.user.userprofile }}</span>
-			</a></li>
-			<li>Company: <a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
-			<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>
-			</a></li>
-			{% else %}
-			<li>Name: {{ enquiry.name }}</li>
-			<li>email: {{enquiry.email}}</li>
-			<li>Company: {{enquiry.company}}</li>
-			{% endif %}
-		<li>Message : {{enquiry.message}}</li>
-		
-		{% endif %}
-        {% endblock container %}
+      <div class="col-sm-6">
+      	<div class="enquiries list-group">
+					{% for enq in enquiries %}
+					<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
+						<div>
+							<span class="prod">{{ enq.product }}</span>
+							<time><small>{{ enq.date }}</small></time>
+						</div>
+						<div class="enq_msg">
+							{{ enq.message }}
+						</div>
+					</a>
+					{% endfor %}
+				</div>
+	  	</div>
+      <div class="col-sm-6">
+				<div id="enq_details">
+					<div class="loading hide">
+		        <i class="fa fa-spin fa-circle-o-notch"></i>
+		      </div>
+		      <div class="content">
+					</div>
+				</div>
       </div>
     </div>
   </div>
