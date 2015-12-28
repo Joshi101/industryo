@@ -1809,18 +1809,21 @@ div[data-role='editor-toolbar'] {
 
 .hover_box {
   width: 400px;
-  padding: 5px 10px;
+  min-height: 50px;
+  padding: 0 10px;
 }
 
 .notify_box {
   font-size: 11px;
+  color: #777;
 }
 
 .notify_box h5 {
   font-size: 12px;
+  color: #999;
 
   margin: 0;
-  padding: 5px;
+  padding: 10px;
 
   text-align: center;
 }
@@ -1831,15 +1834,6 @@ div[data-role='editor-toolbar'] {
 
 .notify_box h5:last-of-type {
   border-top: 1px solid #ddd;
-}
-
-.notify_box li {
-  margin: 7px;
-  margin-left: 20px;
-  padding: 5px;
-
-  list-style: none;
-  text-align: left;
 }
 
 .notify_box .glyphicon {
@@ -2746,4 +2740,8 @@ footer .contact li{
 
 .side_product{
   //display: inline-block;
+}
+
+.green{
+  color: #197;
 }

@@ -337,3 +337,26 @@ and in bootstrap.css
     overflow-y: auto; 
     -webkit-overflow-scrolling: touch; 
  }**/
+
+.notify_box li {
+  margin: 0 7px;
+  //margin-left: 20px;
+  padding: 10px;
+  list-style: none;
+  text-align: left;
+}
+
+.notify_box li:last-of-type{
+  border-bottom: 0;
+}
+
+.notify_box .unread li{
+  background-color: #eee;
+}
+
+
+@media(max-width:768px){
+  .notify_box li{
+    text-align: center;
+  }
+}
