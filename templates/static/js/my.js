@@ -1404,7 +1404,7 @@ $('.ajax_a').on('click', function(event){
     });
 });
 
-$('.nav-pills').on('click', 'li', function(){
+$('.nav_flex').on('click', 'li', function(){
     $(this).addClass('active');
     $(this).siblings('li').removeClass('active');
 })
