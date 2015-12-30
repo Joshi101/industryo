@@ -1300,7 +1300,7 @@ $(document).ready(function(){
     });
 });
 
-$('.show_edit').on('click', function(){
+$('.ajax_andar').on('click', '.show_edit', function(){
     var $form = $(this).parent().find('.d_edit');
     $form.removeClass('hide');
     $(this).addClass('hide');
@@ -1308,7 +1308,7 @@ $('.show_edit').on('click', function(){
     $(this).closest('.info_field').find('.info_field_value').addClass('hide');
 });
 
-$('.done_edit').on('click', function(){
+$('.ajax_andar').on('click', '.done_edit', function(){
     var $form = $(this).parent().find('.d_edit');
     ajax_form($form);
     $form.addClass('hide');
@@ -1392,7 +1392,7 @@ $('.ajax_a').on('click', function(event){
     $.ajax({
         url: url,
         success: function (response) {
-            console.log(response)
+            console.log(response);
             $(target).find('.content').html(response);
             $(target).find('.loading').addClass('hide');
             lazyImages();
@@ -1464,13 +1464,40 @@ $('#top_search').on('hidden.bs.dropdown', '.dropdown', function(){
 });*/
 
 function lazyImages(){
-    $('.lazy_img').each(function(){
+    $('.lazy_img').each(function(index, el){
         console.log($(this).data('src') + 'loading');
         var $this = $(this);
+        var change = true;
+        var old_src = $this.attr('src');
         var src = $this.data('src');
-        $this.attr('src',src);
+        var $farzi = $('.farzi');
+        $farzi.append('<img id="lazyimg" src=' + src + ' >');
+        var $farzi_now = $farzi.children('#lazyimg');
+        $farzi_now.on('load', function() {
+            console.log(index +' loaded ');
+            change = true;
+            changeSource($this, change, src);
+        });
+        if($farzi_now.prop('complete')){
+            console.log(index + 'already loaded');
+            change = true;
+            changeSource($this, change, src);
+        }
+        $farzi_now.on('error', function() {
+            console.log(index +' not loaded');
+            change = false;
+            changeSource($this, change, src);
+        });
+        $farzi_now.attr('id', '');
         $this.removeClass('lazy_img');
     });
 }
 
 $(lazyImages);
+
+function changeSource($this, change, src){
+    if (change) {
+        
+        $this.attr('src',src);
+    };
+}   
