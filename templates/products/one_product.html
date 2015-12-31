@@ -9,6 +9,7 @@
   <div class="row info_head" typeof='Organization' resource='#workplace'>
     <div class="col-sm-8 info_left">
       <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ product }}</h1>
+	  Cost: ({{product.cost}})
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
           {% for tag in tags %}
@@ -29,6 +30,7 @@
         {% endif %}
       </div>
     </div>
+	
     <div class="col-sm-4">
       <div class="info_labels">
 	  <a href="{% url 'workplace:workplace_profile' product.producer.slug %}" class="tag"><span class="value">{{product.producer}}</span></a>
@@ -39,7 +41,7 @@
     </div>
   </div>
   <div class="prod_img">
-    <img src="/images/product.png" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img">
+    <img src="{{product.get_image}}" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img">
     {% if user == product.user %}
     <a class="text-center" data-toggle='modal' data-target='#img_upload_modal'><i class="fa fa-wrench inline_fa"></i>Change Image</a>
     {% endif %}

@@ -12,8 +12,10 @@
 				<p class="detail_body content_about_w" property='description'>{% if workplace.about %}{{workplace.about|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted">Add a breif description of your workplace for the rest of the world</i>{% endif %}</p>
 				<textarea name="about" form="about_w" rows="3" class="form-control replacer edit_about_w hide"></textarea>
 			</div>
-    </div>
-		
+		</div>
+	</div>
+	
+	<div class="panel panel-default ajax_andar ajax_papa" typeof='Organization' resource='#workplace'>
     <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
     	<div class="info_field_label">
     		City :
@@ -107,6 +109,24 @@
 				Contact : 
 			</div>
       <div class="info_field_value">
+	      {{workplace.contact}}
+      </div>
+      {% if user.userprofile in members %}
+      <div class="info_field_edit">
+        <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+        <form class="d_edit hide" action="" method="POST" role="form">
+          {% csrf_token %}
+        </form>
+        <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+      </div>
+      {% endif %}
+    </div>
+	
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+			<div class="info_field_label">
+				Mobile Contact 1 : 
+			</div>
+      <div class="info_field_value">
 	      {{workplace.mobile_contact1}}
       </div>
       {% if user.userprofile in members %}
@@ -119,4 +139,94 @@
       </div>
       {% endif %}
     </div>
+	
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+			<div class="info_field_label">
+				Mobile Contact 2 : 
+			</div>
+      <div class="info_field_value">
+	      {{workplace.mobile_contact2}}
+      </div>
+      {% if user.userprofile in members %}
+      <div class="info_field_edit">
+        <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+        <form class="d_edit hide" action="" method="POST" role="form">
+          {% csrf_token %}
+        </form>
+        <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+      </div>
+      {% endif %}
+    </div>
+	
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+			<div class="info_field_label">
+				Mobile Contact 2 : 
+			</div>
+      <div class="info_field_value">
+	      {{workplace.mobile_contact1}}
+      </div>
+      {% if user.userprofile in members %}
+      <div class="info_field_edit">
+        <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+        <form class="d_edit hide" action="" method="POST" role="form">
+          {% csrf_token %}
+        </form>
+        <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+      </div>
+      {% endif %}
+    </div>
+	
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+			<div class="info_field_label">
+				Office E-Mail : 
+			</div>
+      <div class="info_field_value">
+	      {{workplace.office_mail_id}}
+      </div>
+      {% if user.userprofile in members %}
+      <div class="info_field_edit">
+        <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+        <form class="d_edit hide" action="" method="POST" role="form">
+          {% csrf_token %}
+        </form>
+        <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+      </div>
+      {% endif %}
+    </div>
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+			<div class="info_field_label">
+				LinkedIn Page : 
+			</div>
+      <div class="info_field_value">
+	      {{workplace.linkedin_page}}
+      </div>
+      {% if user.userprofile in members %}
+      <div class="info_field_edit">
+        <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+        <form class="d_edit hide" action="" method="POST" role="form">
+          {% csrf_token %}
+        </form>
+        <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+      </div>
+      {% endif %}
+    </div>
+	
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+			<div class="info_field_label">
+				Facebook Page : 
+			</div>
+      <div class="info_field_value">
+	      {{workplace.fb_page}}
+      </div>
+      {% if user.userprofile in members %}
+      <div class="info_field_edit">
+        <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
+        <form class="d_edit hide" action="" method="POST" role="form">
+          {% csrf_token %}
+        </form>
+        <a class="done_edit hide"><i class="fa fa-check-square inline_fa"></i></a>
+      </div>
+      {% endif %}
+    </div>
+	
 	</div>

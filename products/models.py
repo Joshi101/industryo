@@ -30,7 +30,9 @@ class Products(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
 
+    #new
     cost = models.CharField(max_length=50, null=True, blank=True)
+    # offer = models.CharField(max_length=500, null=True, blank=True)
 
     class Meta:
         db_table = 'Products'

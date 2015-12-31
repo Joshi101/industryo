@@ -50,6 +50,7 @@ def add_product(request):
         r_elements = []
         product = request.POST.get('product')
         description = request.POST.get('description')
+        cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         li = []
 
@@ -69,7 +70,7 @@ def add_product(request):
         user = request.user
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
-        p = Products.objects.create(product=product, producer=workplace, description=description, user=user)
+        p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
         p.set_tags(tags)
         p.set_target_segments(li)
         if image0:
@@ -107,7 +108,6 @@ def delete(request):
 
 @login_required
 def edit_desc(request, id):
-    print('dsds')
     p = Products.objects.get(id=id)
     user = request.user
     workplace = user.userprofile.primary_workplace
