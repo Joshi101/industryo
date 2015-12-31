@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
 
     url(r'^set_about/$', 'workplace.views.set_about', name='set_about'),
+    url(r'^set_details/$', 'workplace.views.set_details', name='set_details'),
 
     url(r'^fodder/$', 'workplace.views.fodder', name='fodder'),
     url(r'^todder/$', 'workplace.views.todder', name='todder'),

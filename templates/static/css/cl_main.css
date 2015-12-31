@@ -33,6 +33,7 @@ form{
 .form-control{
   border-radius: 1px;
   box-shadow: 0 0 0;
+  font-size: 13px;
 }
 
 .btn{

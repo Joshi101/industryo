@@ -36,6 +36,7 @@
     <div class="col-sm-8 info_left">
       <header class="info_title">
         <h2 class="text-uppercase" property='name'>{{ workplace.name }}</h2>
+        <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
         <small class="text-muted">( {{ workplace.get_type }} )</small>
       </header>
     </div>
@@ -61,9 +62,6 @@
     </div>
   </div>
   {% endblock workplace_section %}
-  <div class="farzi" style="display:none;">
-  
-  </div>
 {% endblock %}
 
 {% block right %}
