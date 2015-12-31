@@ -191,16 +191,37 @@ def workplace_profile(request, slug):
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
-    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
-    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
-    articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
+    # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    # answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
+    # feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
+    # articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
+
     return render(request, 'workplace/profile.html', locals())
 
 
 def workplace_about(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    tags = workplace.get_tags()
+    type = workplace.workplace_type
+    if type == 'C':
+        tags1 = tags['city']
+        a_type = 'C'
+        tags2 = tags['institution']
+        b_type = 'P'
+    elif type == 'B':
+        tags1 = tags['city']
+        a_type = 'C'
+        tags2 = tags['segments']
+        b_type = 'S'
+    elif type == 'A':
+        tags1 = tags['city']
+        a_type = 'C'
+        tags2 = tags['segments']
+        b_type = 'S'
+    elif type == 'O':
+        tags1 = tags['city']
+        a_type = 'C'
     # member_count = members.count()
     # workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/snip_about.html', locals())

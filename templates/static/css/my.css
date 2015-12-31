@@ -852,7 +852,8 @@ pre {
 
 .nav_2{
   background-color: #fff;
-  box-shadow: 0 1px 2px #555 inset ;
+  box-shadow: 0 1px 1px #555 inset ;
+  border-bottom: 1px solid #999;
 }
 
 .nav_2 .navbar-nav > li > a{
@@ -2383,10 +2384,11 @@ footer .contact li{
   line-height: 20px;
   display: inline-block;
   padding: 0 5px;
-  background-color: #eee;
-  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+  border: 1px solid #fafafa;
   margin: 0 5px 5px 0;
-    font-size: 85%;
+  font-family: 'Calibri';
+    //font-size: 85%;
     color: #179;
     text-align: center;
     white-space: nowrap;
@@ -2396,7 +2398,7 @@ footer .contact li{
 .tag:hover{
   //color: #777;
   //background-color: #eee;
-  border-color: #777;
+  border-color: #999;
 }
 
 .tag .close{
@@ -2444,18 +2446,41 @@ footer .contact li{
 
 .info_title h2{
   margin-top: 0;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
+  display: inline-block;
+}
+
+.info_title .verified{
+  
+}
+
+.info_title small{
+  display: block;
 }
 
 .info_field{
   position: relative;
   border-bottom: 1px solid #eee;
-  margin-bottom: 10px;
+  margin: 10px;
+  padding-bottom: 10px;
   padding-right: 20px;
+  font-size: 13px;
+}
+
+.info_field_label{
+  display: table-cell;
+  color: #777;
+  min-width: 75px;
 }
 
 .info_field_value{
-  margin-right: 50px;
+  display: table-cell;
+}
+
+.info_field .tag{
+  font-size: 100%;
+  font-weight: 700;
+  //color: #333;
 }
 
 .show_edit, .done_edit{

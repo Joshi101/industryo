@@ -1,0 +1,38 @@
+<nav>
+  <ul id="wp_nav" class="nav nav_flex">
+    <li class="active">
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:about' workplace.slug %}">About</a>
+    </li>
+
+    {% if type == 'A' %}
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}">Products/ Services</a>
+    </li>
+    {% elif type == 'B' %}
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}">Products/ Services</a>
+    </li>
+    {% elif type == 'C' %}
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}">Our Cars</a>
+    </li>
+    {% endif %}
+
+    {% if type == 'C' %}
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}">Events</a>
+    </li>
+    {% elif type != 'O' %}
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}">Capabilities</a>
+    </li>
+    {% endif %}
+
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}">People</a>
+    </li>    
+    <li>
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}">Dashboard</a>
+    </li>
+  </ul>
+</nav>

@@ -2,10 +2,10 @@
 	<a href="{% url 'tags:get_tag' a.slug %}" class="tag"><span class="value">{{a}}</span></a>
 {% empty %}
   {% if workplace.workplace_type == 'A' %}
-	Add segments (Automobile/ Aerospace/ Consultancy/ Manufacturing etc.)
+	Add segments <br> (Automobile/ Aerospace/ Consultancy/ Manufacturing etc.)
   {% elif workplace.workplace_type == 'B' %}
-	Add segments (Manufacturing/ Automobile/ Aerospace/ Consultancy etc.)
+	Add segments <br> (Manufacturing/ Automobile/ Aerospace/ Consultancy etc.)
   {% elif workplace.workplace_type == 'C' %}
-	Add segments (Baja/ Formula/ Efficycle/ AeroDesign etc.)
+	Add segments <br> (Baja/ Formula/ Efficycle/ AeroDesign etc.)
   {% endif %}
 {% endfor %}

@@ -48,38 +48,21 @@
       </div>
     </div>
   </div>
-  <nav>
-    <ul id="wp_nav" class="nav nav_flex">
-    {% block workplace_nav %}
-    	<li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:about' workplace.slug %}">About</a></li>
-      {% if type == 'A' %}
-      <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}">Products/ Services</a></li>
-      {% elif type == 'B' %}
-      <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}">Products/ Services</a></li>
-      {% elif type == 'C' %}
-      <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}">Our Cars</a></li>
-      {% endif %}
-      {% if type == 'C' %}
-      <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}">Events</a></li>
-      {% elif type != 'O' %}
-      <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}">Capabilities</a></li>
-      {% endif %}
-      <li><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}">People</a></li>    
-      <li class="active"><a class="ajax_a" data-toggle="tab" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}">Dashboard</a></li>
-    {% endblock workplace_nav %}
-    </ul>
-  </nav>
-  <div class="tab-content ajax_papa ajax_andar">
+
+  {% include "workplace/snippets/wp_nav_items.html" with workplace=workplace type=type %}
+
   {% block workplace_section %}
-    <div id="wp_content" class="tab-pane fade in active">
-      <div class="loading hide">
-        <i class="fa fa-spin fa-circle-o-notch"></i>
-      </div>
-      <div class="content">
-        {% include "workplace/snip_dashboard.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
-      </div>
+  <div id="wp_content" class="ajax_papa ajax_andar">
+    <div class="loading hide">
+      <i class="fa fa-spin fa-circle-o-notch"></i>
     </div>
+    <div class="content">
+      {% include "workplace/snip_about.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+    </div>
+  </div>
   {% endblock workplace_section %}
+  <div class="farzi" style="display:none;">
+  
   </div>
 {% endblock %}
 

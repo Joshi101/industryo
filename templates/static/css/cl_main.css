@@ -141,7 +141,7 @@ form{
 .navbar-inverse .navbar-nav > li > .top_info_box:hover,
 .navbar-inverse .top_user_info > li > .top_info_box:focus {
   color: #179;
-  background-color: rgba(0,0,0,0.15);
+  background-color: rgba(0,0,0,0.1);
 }
 
 .navbar-collapse li {
@@ -195,7 +195,7 @@ form{
     position: relative;
 
     padding: 2px 10px 2px;
-    background-color: rgba(0,0,0,0.09);
+    background-color: rgba(0,0,0,0.1);
     text-align: center;
   }
   
@@ -359,4 +359,10 @@ and in bootstrap.css
   .notify_box li{
     text-align: center;
   }
+}
+
+.thmb_sm, .thmb_md, .thmb_lg{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
