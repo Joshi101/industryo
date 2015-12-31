@@ -330,6 +330,49 @@ def set_about(request):
     else:
         return redirect('/workplace/'+wp.slug)
 
+
+@login_required
+def edit_links(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    if request.method == 'POST':
+        response = {}
+        website = request.POST.get('website')
+        fb_page = request.POST.get('fb_page')
+        linkedin_page = request.POST.get('linkedin_page')
+        wp.website = website
+        wp.fb_page = fb_page
+        wp.linkedin_page = linkedin_page
+        wp.save()
+        w = user.userprofile.primary_workplace
+        return HttpResponse()
+    else:
+        return redirect('/workplace/'+wp.slug)
+
+
+@login_required
+def edit_contacts(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    if request.method == 'POST':
+        response = {}
+        office_mail = request.POST.get('office_mail')
+        contact = request.POST.get('contact')
+        mobile_1 = request.POST.get('mobile_1')
+        mobile_2 = request.POST.get('mobile_2')
+        address = request.POST.get('address')
+        wp.office_mail_id = office_mail
+        wp.contact = contact
+        wp.mobile_contact1 = mobile_1
+        wp.mobile_contact2 = mobile_2
+        wp.address = address
+        wp.save()
+        w = user.userprofile.primary_workplace
+        return HttpResponse()
+    else:
+        return redirect('/workplace/'+wp.slug)
+
+
 @login_required
 def set_capabilities(request):
     user = request.user

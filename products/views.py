@@ -7,6 +7,7 @@ import json
 from nodes.models import Images
 from django.contrib.auth.decorators import login_required
 from activities.models import Enquiry
+from datetime import datetime, timedelta, time, date
 
 
 @login_required
@@ -151,14 +152,18 @@ def random(request):
 
 
 def enquire(request):
+    yesterday = datetime.date.today() - datetime.timedelta(days=1)
     if request.method == 'POST':
         if request.user.is_authenticated():
             p = request.POST.get('pid')
             user = request.user
             message = request.POST.get('message')
             prod = Products.objects.get(id=p)
-            e = Enquiry.objects.create(product=prod, user=user, message=message)
-            user.userprofile.notify_inquired(e)
+            e = Enquiry.objects.filter(user=user, date__gt=yesterday)
+            if not e.count() < 5:
+                e = Enquiry.objects.create(product=prod, user=user, message=message)
+                user.userprofile.notify_inquired(e)
+                # send_mail
         else:
             email = request.POST.get('email')
             name = request.POST.get('name')
@@ -166,9 +171,12 @@ def enquire(request):
             p = request.POST.get('pid')
             message = request.POST.get('message')
             prod = Products.objects.get(id=p)
-            e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
-            up = prod.user.userprofile
-            up.notify_inquired(e)
+            e = Enquiry.objects.filter(email=email, date__gt=yesterday)
+            if not e.count() < 5:
+                e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
+                up = prod.user.userprofile
+                up.notify_inquired(e)
+                # send_mail
 
         return redirect('/products/'+prod.slug)
 

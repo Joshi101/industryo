@@ -24,6 +24,10 @@ urlpatterns = patterns('',
     url(r'^feeds/$', 'workplace.views.workplace_feeds', name='feed'),
     url(r'^articles/$', 'workplace.views.workplace_articles', name='articles'),
     url(r'^side_panel/$', 'workplace.views.side_panel', name='side_panel'),
+
+    url(r'^edit_links/$', 'workplace.views.edit_links', name='edit_links'),     # ye
+    url(r'^edit_contacts/$', 'workplace.views.edit_contacts', name='edit_contacts'),        # aur ye
+
     url(r'^about/(?P<slug>[^/]+)/$', 'workplace.views.workplace_about', name='about'),
     url(r'^dashboard/(?P<slug>[^/]+)/$', 'workplace.views.workplace_dash', name='dashboard'),
     url(r'^capabilities/(?P<slug>[^/]+)/$', 'workplace.views.workplace_capabilities', name='capabilities'),
@@ -31,7 +35,6 @@ urlpatterns = patterns('',
     url(r'^products/(?P<slug>[^/]+)/$', 'workplace.views.workplace_products', name='products'),
     url(r'^get_top_scorers/(?P<slug>[^/]+)/$', 'workplace.views.get_top_scorers', name='get_top_scorers'),
     url(r'^invite_colleague/$', 'workplace.views.invite_colleague', name='invite_colleague'),
-
 
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
 
