@@ -172,22 +172,19 @@ def workplace_profile(request, slug):
     type = workplace.workplace_type
     if type == 'C':
         tags1 = tags['city']
-        a_type = 'C'
-        tags2 = tags['institution']
+        tags2 = tags['segments']
+        tags3 = tags['institution']
         b_type = 'P'
     elif type == 'B':
         tags1 = tags['city']
-        a_type = 'C'
         tags2 = tags['segments']
         b_type = 'S'
     elif type == 'A':
         tags1 = tags['city']
-        a_type = 'C'
         tags2 = tags['segments']
         b_type = 'S'
     elif type == 'O':
         tags1 = tags['city']
-        a_type = 'C'
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
@@ -206,22 +203,18 @@ def workplace_about(request, slug):
     type = workplace.workplace_type
     if type == 'C':
         tags1 = tags['city']
-        a_type = 'C'
         tags2 = tags['institution']
         b_type = 'P'
     elif type == 'B':
         tags1 = tags['city']
-        a_type = 'C'
         tags2 = tags['segments']
         b_type = 'S'
     elif type == 'A':
         tags1 = tags['city']
-        a_type = 'C'
         tags2 = tags['segments']
         b_type = 'S'
     elif type == 'O':
         tags1 = tags['city']
-        a_type = 'C'
     # member_count = members.count()
     # workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/snip_about.html', locals())
@@ -347,10 +340,38 @@ def set_about(request):
         wp.about = about
         wp.save()
         w = user.userprofile.primary_workplace
-        return HttpResponse()
+        HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/workplace/'+wp.slug)
 
+
+@login_required
+def set_details(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    if request.method == 'POST':
+        print('set details now')
+        response = {}
+        website = request.POST.get('website')
+        address = request.POST.get('address')
+        contact = request.POST.get('contact')
+        contact1 = request.POST.get('contact1')
+        email = request.POST.get('email')
+        linkedin = request.POST.get('linkedin')
+        fb = request.POST.get('fb')
+        
+        wp.website = website
+        wp.address = address
+        wp.contact = contact
+        wp.contact1 = contact1
+        wp.office_mail_id = email
+        wp.linkedin_page = linkedin
+        wp.fb_page = fb
+        wp.save()
+        
+        HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        return redirect('/workplace/'+wp.slug)
 
 @login_required
 def edit_links(request):

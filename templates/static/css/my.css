@@ -71,7 +71,6 @@
 .navbar-toggle{
   padding: 5px 10px;
   margin: 4px 15px;
-  color: #fff;
   border-color: #fff;
   border-radius: 2px;
 }
@@ -2109,17 +2108,11 @@ div[data-role='editor-toolbar'] {
   border-radius: 0;
   border-top-right-radius: 3px;
   border-bottom-left-radius: 2px;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .little_edit:hover {
   color: #197;
-}
-
-textarea.replacer {
-  margin-top: 20px;
-
-  border-radius: 2px;
 }
 
 .detail_body {
@@ -2463,18 +2456,61 @@ footer .contact li{
   border-bottom: 1px solid #eee;
   margin: 10px;
   padding-bottom: 10px;
-  padding-right: 20px;
   font-size: 13px;
+}
+
+.info_field:last-child{
+  border-bottom: 0;
 }
 
 .info_field_label{
   display: table-cell;
   color: #777;
-  min-width: 75px;
+  min-width: 100px;
+  vertical-align: top;
 }
 
-.info_field_value{
+.info_field_label .fa{
+  position: absolute;
+  right: 0px;
+  top: 3px;
+}
+
+.info_field .colon{
   display: table-cell;
+  color: #888;
+  padding: 0 15px 0 0;
+}
+
+.info_field_value, .info_field_edit{
+  display: table-cell;
+  //padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  //min-width: 250px;
+  vertical-align: middle;
+}
+
+.info_field_edit .form-control{
+  padding: 0 5px 5px;
+  height: initial;
+  width: 75%;
+  color: #555;
+}
+
+.info_field_edit .form-control:focus, .info_field_edit .form-control:active{
+  color: #555;
+  width: 90%;
+}
+
+.info_field.v2{
+  border: 0;
+  padding: 5px;
+}
+
+.info_field.v2 .info_field_value, .info_field.v2 .info_field_edit{
+  display: block;
+  padding: 0;
 }
 
 .info_field .tag{
@@ -2838,4 +2874,41 @@ footer .contact li{
 
 .nav_flex .active > a:hover, .nav_flex .active > a:focus{
   background-color: #197;
+}
+
+.info_title .fa{
+  position: relative;
+  bottom: 15px;
+  font-size: 11px;
+  left: 3px;
+  color: #197;
+}
+
+.btn_alt{
+  background: transparent;
+  border: 0;
+}
+
+.info_form .btn_alt{
+  color: #179;
+  font-size: 13px;
+  border-bottom: 1px solid #179;
+  padding-bottom: 2px;
+}
+
+.info_field_grp form{
+  text-align: right;
+  padding-bottom: 7px;
+}
+
+.info_field .changing{
+  animation-name: changing;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes changing {
+  0% {color: #bbb;}
+  50% {color: #eee;}
+  100% {color: #bbb;}
 }

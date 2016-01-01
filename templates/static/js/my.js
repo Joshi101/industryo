@@ -1230,9 +1230,9 @@ if($('#set_workplace').length){
     
 function ajax_form($this){
     var $papa = $this.closest('.ajax_papa');
-    var $form = $this.closest('form');
+    var $form = $this;
     console.log($form.serialize());
-    console.log('gaiyyo')
+    console.log('a form is being submitted ajaxly');
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -1250,7 +1250,6 @@ function ajax_form($this){
                     $papa.find('#' + response.inputs[i]).val(response.value[response.inputs[i]]);
                     var cl = $papa.find('#' + response.inputs[i]).attr('class');
                     if (cl.indexOf('d_input') >= 0) {
-                        console.log('OKAY');
                         $papa.find('#' + response.inputs[i]).before('<div class="alert"><a class="close">&times;</a><strong>' + response.value[response.inputs[i]] + '</strong></div>').addClass('hide').next().val(response.value[response.inputs[i]]);
 
                     }
@@ -1260,9 +1259,7 @@ function ajax_form($this){
                 if (response.prepend) {
                     for (i = 0; i < response.elements.length; i++) {
                         $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
-                        console.log(response.elements[i], response.html[response.elements[i]]);
                     }
-                    console.log('yoho');
                 } else {
                     for (i = 0; i < response.elements.length; i++) {
                         $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
@@ -1476,17 +1473,17 @@ function lazyImages(){
         $farzi_now.on('load', function() {
             console.log(index +' loaded ');
             change = true;
-            changeSource($this, change, src);
+            changeSource($this, change, src, $farzi_now);
         });
         if($farzi_now.prop('complete')){
             console.log(index + 'already loaded');
             change = true;
-            changeSource($this, change, src);
+            changeSource($this, change, src, $farzi_now);
         }
         $farzi_now.on('error', function() {
             console.log(index +' not loaded');
             change = false;
-            changeSource($this, change, src);
+            changeSource($this, change, src, $farzi_now);
         });
         $farzi_now.attr('id', '');
         $this.removeClass('lazy_img');
@@ -1495,9 +1492,33 @@ function lazyImages(){
 
 $(lazyImages);
 
-function changeSource($this, change, src){
-    if (change) {
-        
+function changeSource($this, change, src, $farzi_now){
+    if (change) {    
         $this.attr('src',src);
     };
+    $farzi_now.remove();
 }   
+
+$('.body').on('click', '.field_edit', function(){
+    var $this = $(this);
+    $this.addClass('hide').siblings('.save').removeClass('hide');
+    var $info_grp = $this.closest('.info_field_grp');
+    $info_grp.find('.info_field_value').addClass('hide');
+    $info_grp.find('.info_field_edit').removeClass('hide');
+});
+
+$('.body').on('click', '.info_field_grp .save', function(){
+    var $this = $(this);
+    $this.addClass('hide').siblings('.saving').removeClass('hide');
+    var $form = $this.closest('form');
+    ajax_form($form);
+    var $info_grp = $this.closest('.info_field_grp');
+    $info_grp.find('.info_field_value').removeClass('hide');
+    $info_grp.find('.changed').find('.info_field_value').addClass('changing');
+    $info_grp.find('.info_field_edit').addClass('hide');
+});
+
+$('.body').on('change', '.info_field .form-control', function(){
+    $(this).closest('.info_field').addClass('changed');
+    console.log('input value changed');
+});
