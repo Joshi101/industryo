@@ -1559,3 +1559,28 @@ function changeComplete($form){
     $info_grp.find('.changing').removeClass('changing').removeClass('change').addClass('changed');
     $info_grp.find('.saving').addClass('hide').siblings('.field_edit').removeClass('hide'); 
 }
+
+$('body').on('click','.info_field_edit .close', function(){
+    console.log('delete this tag')
+    deleteWPTag($(this).closest('.tag'));
+});
+
+function deleteWPTag($tag){
+    var url = '/workplace/delete_tag/';
+    var del = $tag.find('.value').text();
+    console.log(del, url);
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            delete: del
+        },
+        success: function(response) {
+            console.log('deleted tag ',del);
+            //$this.tooltip("hide").parent().remove();
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+        }
+    });
+}

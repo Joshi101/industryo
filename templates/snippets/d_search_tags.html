@@ -1,7 +1,9 @@
 <div class="d_search has-feedback">
 {% if not no_tags %}
   <div class="input_tags new_val">
-    {% include "snippets/tags.html" with tags=tags %}
+  {% for tag in tags %}
+    <div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+  {% endfor %}
   </div>
 {% endif %}
   <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">

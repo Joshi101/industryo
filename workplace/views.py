@@ -445,20 +445,24 @@ def set_product_details(request):
     else:
         return redirect('/workplace/'+wp.slug)
 
+
 @login_required
 def delete_tag(request):
-    if request.method == 'GET':
+    print('tag to be deleted')
+    if request.method == 'POST':
+        print('tag to be deleted')
         user = request.user
         up = user.userprofile
         wp = user.userprofile.primary_workplace
-        delete = request.GET['delete']
-        response = {}
+        delete = request.POST.get('delete')
         t = Tags.objects.get(tag=delete)
         try:
             WpTags.objects.get(tags=t, workplace=wp).delete()
+            print('workplace tag removed')
         except:
             up.interests.remove(t)
-        return HttpResponse(json.dumps(response), content_type="application/json")
+            print('userprofile tag removed')
+        return HttpResponse()
 # def delete_tags
 
 
