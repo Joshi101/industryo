@@ -2377,8 +2377,8 @@ footer .contact li{
   line-height: 20px;
   display: inline-block;
   padding: 0 5px;
-  background-color: #f7f7f7;
-  border: 1px solid #fafafa;
+  background-color: #eee;
+  border: 1px solid #f7f7f7;
   margin: 0 5px 5px 0;
   font-family: 'Calibri';
     //font-size: 85%;
@@ -2489,6 +2489,16 @@ footer .contact li{
   width: 100%;
   //min-width: 250px;
   vertical-align: middle;
+}
+
+@media(max-width:500px){
+  .info_field_value, .info_field_edit{
+    display: block;
+    margin-top: 5px;    
+  }
+  .info_field .colon{
+    display: none;
+  }
 }
 
 .info_field_edit .form-control{
@@ -2901,14 +2911,17 @@ footer .contact li{
   padding-bottom: 7px;
 }
 
-.info_field .changing{
+.info_field_grp .changing .info_field_value{
   animation-name: changing;
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
 
 @keyframes changing {
-  0% {color: #bbb;}
-  50% {color: #eee;}
-  100% {color: #bbb;}
+  //0% {color: #bbb;}
+  //50% {color: #eee;}
+  //100% {color: #bbb;}
+  0% {opacity: 0.75;}
+  50% {opacity: 0.25;}
+  100% {opacity: 0.75;}
 }

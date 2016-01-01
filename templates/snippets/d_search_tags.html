@@ -1,9 +1,7 @@
 <div class="d_search has-feedback">
 {% if not no_tags %}
-  <div class="input_tags">
-  {% for tag in tags %}
-    <div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-  {% endfor %}
+  <div class="input_tags new_val">
+    {% include "snippets/tags.html" with tags=tags %}
   </div>
 {% endif %}
   <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">
@@ -21,5 +19,5 @@
     </div>
   </div>
   <input class="d_type" name="type" value="{% if type %}{{type}}{% else %}All{% endif %}" type="hidden">
-  <input class="d_value" name={% if name %}{{name}}{% else %}{{search}}{% endif %} value="{% for tag in tags %}{{tag}}{% if not forloop.last %},{% endif %}{% endfor %}" type="hidden" autocomplete=off>
+  <input class="d_value" {% if form %}form={{form}}{% endif %} name={% if name %}{{name}}{% else %}{{search}}{% endif %} value="{% for tag in tags %}{{tag}}{% if not forloop.last %},{% endif %}{% endfor %}" type="hidden" autocomplete=off>
 </div>

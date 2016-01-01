@@ -533,7 +533,7 @@ $('#form_feed .btn, .img_pre').on({
     }
 });
 
-$('.ajax_andar').on('click', '.delete', function() {
+$('body').on('click', '.delete', function() {
     var $this = $(this);
     var from = $this.data('delete');
     var url = '/workplace/delete_tag';
@@ -579,7 +579,7 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
     }
 });
 
-$('.fake_btn').click(function() {
+$('body').on('click', '.fake_btn', function() {
     var btn = $(this).data('btn');
 
     $(btn).trigger('click');
@@ -1471,17 +1471,17 @@ function lazyImages(){
         $farzi.append('<img id="lazyimg" src=' + src + ' >');
         var $farzi_now = $farzi.children('#lazyimg');
         $farzi_now.on('load', function() {
-            console.log(index +' loaded ');
+            //console.log(index +' loaded ');
             change = true;
             changeSource($this, change, src, $farzi_now);
         });
         if($farzi_now.prop('complete')){
-            console.log(index + 'already loaded');
+            //console.log(index + 'already loaded');
             change = true;
             changeSource($this, change, src, $farzi_now);
         }
         $farzi_now.on('error', function() {
-            console.log(index +' not loaded');
+            //console.log(index +' not loaded');
             change = false;
             changeSource($this, change, src, $farzi_now);
         });
@@ -1511,14 +1511,51 @@ $('.body').on('click', '.info_field_grp .save', function(){
     var $this = $(this);
     $this.addClass('hide').siblings('.saving').removeClass('hide');
     var $form = $this.closest('form');
-    ajax_form($form);
+    ajax_form_2($form);
     var $info_grp = $this.closest('.info_field_grp');
     $info_grp.find('.info_field_value').removeClass('hide');
-    $info_grp.find('.changed').find('.info_field_value').addClass('changing');
+    $info_grp.find('.change').addClass('changing');
     $info_grp.find('.info_field_edit').addClass('hide');
 });
 
 $('.body').on('change', '.info_field .form-control', function(){
-    $(this).closest('.info_field').addClass('changed');
+    $(this).closest('.info_field').addClass('change');
     console.log('input value changed');
 });
+
+function ajax_form_2($this){
+    var $papa = $this.closest('.ajax_papa');
+    var $form = $this;
+    console.log($form.serialize());
+    console.log('a form is being submitted ajaxly');
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+        success: function(response) {
+            changeComplete($form);
+            console.log('ajax form submission complete !');
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+        }
+    });
+}
+
+function changeComplete($form){
+    var $info_grp = $form.closest('.info_field_grp');
+    $info_grp.find('.changing').each(function(index, el) {
+        $this = $(el);
+        var $new_val = $this.find('.new_val');
+        if (!$new_val.attr('name')){
+            console.log('new_val is not a form element');
+            new_val = $this.find('.new_val').html();
+        }
+        else
+            new_val = $this.find('.new_val').val();
+        $this.find('.info_field_value').html(new_val);
+        console.log('content replaced successfully ',new_val);
+    });
+    $info_grp.find('.changing').removeClass('changing').removeClass('change').addClass('changed');
+    $info_grp.find('.saving').addClass('hide').siblings('.field_edit').removeClass('hide'); 
+}

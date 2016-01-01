@@ -335,12 +335,10 @@ def set_about(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        response = {}
         about = request.POST.get('about')
         wp.about = about
         wp.save()
-        w = user.userprofile.primary_workplace
-        HttpResponse(json.dumps(response), content_type="application/json")
+        return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
 
@@ -359,7 +357,13 @@ def set_details(request):
         email = request.POST.get('email')
         linkedin = request.POST.get('linkedin')
         fb = request.POST.get('fb')
-        
+        city = request.POST.get('city')
+        segement = request.POST.get('segement')
+
+        if city:
+            t1 = wp.set_city(city)
+        if segement:
+            t2 = wp.set_segments(segement)
         wp.website = website
         wp.address = address
         wp.contact = contact
@@ -370,7 +374,7 @@ def set_details(request):
         wp.save()
         print(wp.website,wp.address,wp.contact,wp.contact1,wp.office_mail_id,wp.linkedin_page,wp.fb_page)
         
-        HttpResponse(json.dumps(response), content_type="application/json")
+        return HttpResponse()
     else:
         return redirect('/workplace/'+wp.slug)
 

@@ -1,6 +1,6 @@
 {% load filter %}
 	
-	<div id="about_wp" class="info_field_grp ajax_andar">
+	<div id="about_wp" class="info_field_grp ajax_andar ajax_papa">
 		{% if user.userprofile in members %}
 		<form id="about_wp_form" class="info_form" action="{% url 'workplace:set_about' %}" method="POST">
 			<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
@@ -15,7 +15,7 @@
 					{% if workplace.about %}{{workplace.about|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>{% endif %}
 				</div>
 				<div class="info_field_edit hide">
-					<textarea name="about" form="about_wp_form" rows="3" class="form-control">{{workplace.about}}</textarea>
+					<textarea name="about" form="about_wp_form" rows="3" class="form-control new_val new_val">{{workplace.about}}</textarea>
 				</div>
 			</div>
 		</div>
@@ -25,6 +25,7 @@
 		{% if user.userprofile in members %}
 		<form id="details_wp_form" class="info_form" action="{% url 'workplace:set_details' %}" method="POST">
 			<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+			<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
 			<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
 			{% csrf_token %}
 		</form>
@@ -43,7 +44,7 @@
 	      </div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-          {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 name='city' %}
+          {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 name='city' form='details_wp_form' %}
 	      </div>
 	      {% endif %}
 	    </div>
@@ -69,7 +70,7 @@
 	      </div>
 	      {% if user.userprofile in members %}	
 	      <div class="info_field_edit hide">
-	        {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 name='segement' %}
+	        {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 name='segement' form='details_wp_form' %}
 	      </div>
 		    {% endif %}
 	    </div>
@@ -99,7 +100,7 @@
 	      <div class="info_field_value">{{workplace.website}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="website" form="details_wp_form" class="form-control open_input" value="{{workplace.website}}">
+					<input name="website" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.website}}">
 	      </div>
 	      {% endif %}
 	    </div>
@@ -110,7 +111,7 @@
 	      <div class="info_field_value">{{workplace.address}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="address" form="details_wp_form" class="form-control open_input" value="{{workplace.address}}">
+					<input name="address" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.address}}">
 	      </div>
 	      {% endif %}
 	    </div>
@@ -121,7 +122,7 @@
 	      <div class="info_field_value">{{workplace.contact}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="contact" form="details_wp_form" class="form-control open_input" value="{{workplace.contact}}">
+					<input name="contact" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.contact}}">
 	      </div>
 	      {% endif %}
 	    </div>
@@ -132,7 +133,7 @@
 	      <div class="info_field_value">{{workplace.mobile_contact1}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="contact1" form="details_wp_form" class="form-control open_input" value="{{workplace.contact1}}">
+					<input name="contact1" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.contact1}}">
 	      </div>
 	      {% endif %}
 	    </div>
@@ -143,7 +144,7 @@
 	      <div class="info_field_value">{{workplace.office_mail_id}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="email" form="details_wp_form" class="form-control open_input" value="{{workplace.office_mail_id}}">
+					<input name="email" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.office_mail_id}}">
 	      </div>
 	      {% endif %}
 	    </div>
@@ -153,20 +154,23 @@
 	      <div class="info_field_value">{{workplace.linkedin_page}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="linkedin" form="details_wp_form" class="form-control open_input" value="{{workplace.linkedin_page}}">
+					<input name="linkedin" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.linkedin_page}}">
 	      </div>
 	      {% endif %}
 	    </div>
 		
 			<div class="info_field ajax_papa">
-				<div class="info_field_label"><span class="fa fa-facebook fa-fw"></span>Facebook Page</div>
+				<div class="info_field_label"><span class="fa fa-facebook-official fa-fw"></span>Facebook Page</div>
 				<span class="colon">:</span>
 	      <div class="info_field_value">{{workplace.fb_page}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="fb" form="details_wp_form" class="form-control open_input" value="{{workplace.fb_page}}">
+					<input name="fb" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.fb_page}}">
 	      </div>
 	      {% endif %}
 	    </div>
 		</div>
+		<script type="text/javascript">
+			$('.d_input').addClass('open_input');
+		</script>
 	</div>
