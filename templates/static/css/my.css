@@ -92,6 +92,23 @@
  * Date: 07-07-2015
  */
 
+img{
+  color: #999;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.thmb_sm, .thmb_md, .thmb_lg{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.thmb_md{
+  width: 96px;
+  height: 96px;
+}
+
 .pre_nav{
   background: rgba(0,0,0,0.85);
   height: 50px;
@@ -2819,7 +2836,7 @@ footer .contact li{
 .enquiry_long .enq_msg{
   font-family: Calibri;
   color: #197;
-  padding: 15px 0 17px;
+  padding: 15px 0 17px 20px;
   font-size: 18px;
   line-height: 20px;
   border-top: 1px solid #eee;
@@ -2827,9 +2844,17 @@ footer .contact li{
   margin-bottom: 15px;
 }
 
+.enquiry_long .enq_hand{
+  position: relative;
+  top: 38px;
+  font-size: 12px;
+  color: #999;
+}
+
 .enquiry_long .enq_user{
   font-size: 13px;
   color: #555;
+  line-height: 20px;
 }
 
 .enquiry_long .enq_user h4{
@@ -2924,4 +2949,9 @@ footer .contact li{
   0% {opacity: 0.75;}
   50% {opacity: 0.25;}
   100% {opacity: 0.75;}
+}
+
+.enquiry_long img{
+  border: 1px solid #999;
+  //margin-bottom: 20px;
 }

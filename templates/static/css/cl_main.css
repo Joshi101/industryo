@@ -361,9 +361,3 @@ and in bootstrap.css
     text-align: center;
   }
 }
-
-.thmb_sm, .thmb_md, .thmb_lg{
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}

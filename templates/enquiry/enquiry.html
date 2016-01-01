@@ -4,6 +4,15 @@
 {% block body %}
   <div class="container">
     <div class="row" style="margin-top: 1em">
+    	<div class="col-sm-6">
+				<div id="enq_details">
+					<div class="loading hide">
+		        <i class="fa fa-spin fa-circle-o-notch"></i>
+		      </div>
+		      <div class="content">
+					</div>
+				</div>
+      </div>
       <div class="col-sm-6">
       	<div class="enquiries list-group">
 					{% for enq in enquiries %}
@@ -19,15 +28,6 @@
 					{% endfor %}
 				</div>
 	  	</div>
-      <div class="col-sm-6">
-				<div id="enq_details">
-					<div class="loading hide">
-		        <i class="fa fa-spin fa-circle-o-notch"></i>
-		      </div>
-		      <div class="content">
-					</div>
-				</div>
-      </div>
     </div>
   </div>
 {% endblock body %}
