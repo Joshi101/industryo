@@ -1,7 +1,22 @@
 <h3 class="text-muted text-center">
 	{% if request.user.userprofile in members %}
+	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+	<div class="">
+		<p class="detail_body content_about_w" property='description'>
+	{% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
+	You can list the cars/items your team has made over the years with a little description abou them. Also, If your team wants to rent or sell some 
+	particular item, you can list them too one by one with proper details and description.
+	{% else %}
+	List the products manufactured in your company or services provided by your company one by one. You can list any number of products.
+	If you are not manufacturing for open market then also you can list any kind of components so that the people interested in your company may get to know 
+	the kind of products you manufacture. The Queries about the products by a potential customer will appear directly in your email inbox.
+	{% endif %}
+		</p><textarea name="about" form="about_w" rows="3" class="form-control replacer edit_about_w hide"></textarea>
+	</div>
+	</div>
 	<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add Products</a>
 	{% endif %}
+	
 </h3>
 {% include "products/new_modal.html" %}
 <ul id="products_list" class="row products_list">

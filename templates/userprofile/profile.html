@@ -28,17 +28,17 @@
 			</header>
       <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
         <div class="info_field_value" property='addressRegion'>
-					{% if userprofile.primary_workplace %}
-					<h3 class="acc_detail"><a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h3>
-					<h3 class="acc_detail"><small class='small_mid'>Working as: {{ page_user.userprofile.job_position }}</small></h3>
-					{% else %}
-						{% if page_user == request.user %}
-						<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
-						{% else %}
-						<h4 class="acc_detail">No Workplace Defined</h4>
-						{% endif %}
-					{% endif %}
-				</div>
+			{% if userprofile.primary_workplace %}
+			<h3 class="acc_detail"><a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h3>
+			<h3 class="acc_detail"><small class='small_mid'>Working as: {{ page_user.userprofile.job_position }}</small></h3>
+			{% else %}
+				{% if page_user == request.user %}
+				<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
+				{% else %}
+				<h4 class="acc_detail">No Workplace Defined</h4>
+				{% endif %}
+			{% endif %}
+		</div>
       </div>
     </div>
     <div class="col-sm-4">

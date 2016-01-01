@@ -372,7 +372,6 @@ def set_details(request):
         wp.linkedin_page = linkedin
         wp.fb_page = fb
         wp.save()
-        print(wp.website,wp.address,wp.contact,wp.contact1,wp.office_mail_id,wp.linkedin_page,wp.fb_page)
         
         return HttpResponse()
     else:
@@ -525,7 +524,6 @@ def workplace_data(request):
 
 # @background(schedule=60)
 def invite_colleague(request):
-    print('wala')
     user =request.user
     userprofile = user.userprofile
     workplace = user.userprofile.primary_workplace
@@ -548,9 +546,7 @@ CoreLogs
     subject = u'''{0} invites you to CoreLogs.'''.format(userprofile)
     try:
         send_mail(subject, content, 'sp@corelogs.com', [user_email])
-        print('llll')
     except Exception:
         pass
-    print('mmmm')
 
     return HttpResponse()

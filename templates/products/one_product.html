@@ -36,7 +36,7 @@
 	  <a href="{% url 'workplace:workplace_profile' product.producer.slug %}" class="tag"><span class="value">{{product.producer}}</span></a>
       </div>
       <div class="info_labels">
-        <a href="{% url 'user:profile' product.producer.slug %}" class="tag"><span class="value">{{product.user.username}}</span></a>
+        <a href="{% url 'user:profile' product.user.username %}" class="tag"><span class="value">{{product.user.userprofile}}</span></a>
       </div>
     </div>
   </div>
@@ -87,13 +87,8 @@
     <a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
 	{% include "products/new_modal.html" %}
 	{% else %}
-	  {% if request.user.is_authenticated %}
 	  <a data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
 	  {% include "enquiry/new_auth_modal.html" %}
-	  {% else %}
-	  <a data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
-	  {% include "enquiry/new_unauth_modal.html" %}
-	  {% endif %}
 	{% endif %}
   </h3>
 

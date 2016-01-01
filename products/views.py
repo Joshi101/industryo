@@ -8,6 +8,7 @@ from nodes.models import Images
 from django.contrib.auth.decorators import login_required
 from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
+from django.core.mail import send_mail
 
 
 @login_required
@@ -152,7 +153,7 @@ def random(request):
 
 
 def enquire(request):
-    yesterday = datetime.date.today() - datetime.timedelta(days=1)
+    yesterday = date.today() - timedelta(days=1)
     if request.method == 'POST':
         if request.user.is_authenticated():
             p = request.POST.get('pid')
@@ -160,10 +161,11 @@ def enquire(request):
             message = request.POST.get('message')
             prod = Products.objects.get(id=p)
             e = Enquiry.objects.filter(user=user, date__gt=yesterday)
-            if not e.count() < 5:
+            if e.count() < 5:
                 e = Enquiry.objects.create(product=prod, user=user, message=message)
                 user.userprofile.notify_inquired(e)
-                # send_mail
+                send_enq_mail(e)
+
         else:
             email = request.POST.get('email')
             name = request.POST.get('name')
@@ -172,11 +174,11 @@ def enquire(request):
             message = request.POST.get('message')
             prod = Products.objects.get(id=p)
             e = Enquiry.objects.filter(email=email, date__gt=yesterday)
-            if not e.count() < 5:
+            if e.count() < 5:
                 e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message)
                 up = prod.user.userprofile
                 up.notify_inquired(e)
-                # send_mail
+                send_enq_mail(e)
 
         return redirect('/products/'+prod.slug)
 
@@ -203,5 +205,37 @@ def enquiry(request, id):
     return render(request, 'enquiry/enquiry_details.html', {
         'enquiry': enquiry,
         })
+
+
+def send_enq_mail(e):
+    user = e.product.user
+    user_email = user.email
+    product = e.product
+    name = user.userprofile
+    product_url = 'www.corelogs.com/products/'+product.slug
+    enquiry_url = 'www.corelogs.com/products/enquiry'
+    template = u'''
+    Hi {0},
+
+    You have got an enquiry about the product <a href="{1}">{2}</a>.
+
+    To see the details of the enquiry, please visit <a href="{3}">This Link</a>.
+
+    We wish you success. Thanks.
+
+    Team CoreLogs
+    '''
+
+    content = template.format(name, product_url, product, enquiry_url)
+    subject = u'''[CoreLogs] Enquiry about {0}'''.format(product)
+    try:
+        send_mail(subject, content, 'sp@corelogs.com', [user_email])
+    except Exception:
+        pass
+
+    return 'a'
+
+
+
 
 # Create your views here.
