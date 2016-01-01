@@ -9,7 +9,8 @@
 			</form>
 			{% endif %}
 			<div class="">
-				<p class="detail_body content_about_w" property='description'>{% if workplace.about %}{{workplace.about|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted">Add a breif description of your workplace for the rest of the world</i>{% endif %}</p>
+				<p class="detail_body content_about_w" property='description'>{% if workplace.about %}{{workplace.about|urlize|new_tab|safe}}{% elif user.userprofile in members %}
+				<i class="text-muted">Add a breif description of your Company / Team / College. It might contain the vision, mission, </i>{% endif %}</p>
 				<textarea name="about" form="about_w" rows="3" class="form-control replacer edit_about_w hide"></textarea>
 			</div>
 		</div>

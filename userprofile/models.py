@@ -296,7 +296,9 @@ class UserProfile(models.Model):
             a = Notification.objects.create(notification_type=Notification.ALSO_JOINED,
                                             from_user=self.user,
                                             to_user=userprofile.user,)
-            tasks.notify_user(a.id, n=12)
+
+            if userprofiles.count() < 3:
+                tasks.notify_user(a.id, n=12)
 
     def notify_answered(self, question):           # working 13
         if self.user != question.user:
@@ -304,6 +306,7 @@ class UserProfile(models.Model):
                                             from_user=self.user,
                                             to_user=question.user,
                                             question=question)
+
             tasks.notify_user(a.id, n=13)
         answers = question.get_answers()
         answerers = []
@@ -329,12 +332,12 @@ class UserProfile(models.Model):
 
     def notify_inquired(self, e):
         users = e.product.producer.get_members()
-        print(users)
         for u in users:
             Notification.objects.create(notification_type=Notification.Inquired,
                                         from_user=self.user,
                                         to_user=u.user,
                                         enquiry=e)
+            # tasks.notify_user(a.id, n=14)
 
     def get_workplace_points(self):
         members = UserProfile.objects.filter(primary_workplace=self.primary_workplace)

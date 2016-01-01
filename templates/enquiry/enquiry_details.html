@@ -1,5 +1,8 @@
 <div class="enquiry_long">
 	<h4>You recieved the following enquiry on <a href="{% url 'products:product' enquiry.product.slug %}">{{enquiry.product}}</a></span></h4>
+  <div class="prod_img">
+    <img src="{{enquiry.product.get_image}}" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img">
+  </div>
 	<p class="enq_msg">{{enquiry.message}}</p>
 	<div class="enq_user">
 		<h4>From</h4>
@@ -8,12 +11,18 @@
 		<span class="name">{{ enquiry.user.userprofile }}</span>
 		</a>
 		</div>
+		Send Reply to {{enquiry.product.user.userprofile}}
+	  	<div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
+	    	<a class="a_modal"><i class="fa fa-envelope fa-2x" data-toggle='modal' data-target='#msg_modal'></i></a>
+	  	</div>
+		
 		<div>Company: <a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
 		<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>
 		</a></div>
 		{% else %}
 		<div>User: {{ enquiry.name }}</div>
 		<div>Email: {{enquiry.email}}</div>
+		<a href="mailto:{{enquiry.email}}">Send an email to the Enquirer</a>
 		<div>Company: {{enquiry.company}}</div>
 		{% endif %}
 	</div>
