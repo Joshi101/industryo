@@ -4,7 +4,7 @@ from forum.models import Question
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from home import tasks
-from django.core.mail import EmailMultiAlternatives
+# from django.core.mail import EmailMultiAlternatives
 from datetime import datetime, timedelta, time, date
 from .templates import *
 
@@ -26,6 +26,10 @@ def send(request):
 
     return redirect("/internal/details/?q=u")
 
+
+@login_required
+def send_html(request):
+    pass
 @login_required
 def send_mail(request):
     if 'q' in request.GET:

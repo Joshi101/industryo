@@ -28,20 +28,28 @@ def profile(request, username):
 def set_details(request):
     form = UserDetailsForm(request.POST)
     user = request.user
+    up = user.userprofile
     if request.method == 'POST':
         if not form.is_valid():
             return render(request, 'userprofile/details.html', {'form': form})
         else:
             first_name = form.cleaned_data.get('first_name')
             last_name = form.cleaned_data.get('last_name')
+            mobile_contact = form.cleaned_data.get('phone_no')
+            email = form.cleaned_data.get('email')
             user.first_name = first_name
             user.last_name = last_name
+            up.mobile_contact = mobile_contact
+            up.email = email
+            up.save()
             user.save()
             return redirect('/workplace/'+user.userprofile.primary_workplace.slug)
     else:
         form = UserDetailsForm(instance=user, initial={
             'first_name': user.first_name,
             'last_name': user.last_name,
+            'phone_no': up.mobile_contact,
+            'email': up.email,
             })
         return render(request, 'userprofile/details.html', {'form': form})
 

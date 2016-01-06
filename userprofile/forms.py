@@ -27,6 +27,8 @@ class EditProfileForm(forms.ModelForm):
 class UserDetailsForm(forms.ModelForm):
     first_name = forms.CharField(max_length=50, required=True)
     last_name = forms.CharField(max_length=50)
+    phone_no = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'your mobile contact'}))
+    email = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'your work email id'}))
 
     class Meta:
         model = User

@@ -31,6 +31,7 @@ class Products(models.Model):
     modified = models.DateTimeField(auto_now=True, null=True)
 
     #new
+    status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
     cost = models.CharField(max_length=50, null=True, blank=True)
     # offer = models.CharField(max_length=500, null=True, blank=True)
 
@@ -61,7 +62,6 @@ class Products(models.Model):
                 t.count +=1
                 t.save()
             self.tags = li
-        return li
 
     def get_tags(self):
         tags = self.tags.all()
@@ -87,15 +87,24 @@ class Products(models.Model):
         l = len(li)
         if l == 1:
             q = li[0]
+            self.target_segment = q
+            self.target_segment = q
         elif l == 2:
             q = li[0] + li[1]
+            self.target_segment = q
+            self.target_segment = q
+
         elif l == 3:
             q = li[0] + li[1] + li[2]
-        else:
+            self.target_segment = q
+            self.target_segment = q
+        elif l == 4:
             q = li[0] + li[1] + li[2] + li[3]
-        self.target_segment = q
+            self.target_segment = q
+            self.target_segment = q
+        else:
+            pass
         self.save()
-        return q
 
 
 
