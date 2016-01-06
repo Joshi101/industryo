@@ -53,6 +53,7 @@ def add_product(request):
         description = request.POST.get('description')
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
+        status = request.POST.get('status')
         li = []
 
         a = request.POST.get('A')
@@ -77,11 +78,17 @@ def add_product(request):
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
             p.set_tags(tags)
             p.set_target_segments(li)
+
         if image0:
+            print('DIL KA KARAR KHO GAYA')
             i = Images()
             x = i.upload_image(image=image0, user=user)
             p.image = x
             p.save()
+        print('DIL KA KARAR MIL GAYA')
+        if status:
+                p.status = status
+                p.save()
         r_elements = ['products_list']
         r_html['products_list'] = render_to_string('workplace/one_product.html', {'product': p})
         response['html'] = r_html
