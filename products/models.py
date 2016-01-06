@@ -106,6 +106,15 @@ class Products(models.Model):
             pass
         self.save()
 
+    def get_status(self):
+        if self.status == '0':
+            status = 'Showcase Item'
+        elif self.status == '1':
+            status = 'For Sale'
+        else:
+            status = 'For Rent'
+        return status
+
 
 
 

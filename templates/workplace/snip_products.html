@@ -15,12 +15,16 @@
 	</div>
 	</div>
 	<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add Products</a>
+	{% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
 	<a data-toggle='modal' data-target='#prod_modal_rent'><i class="fa fa-opencart inline_fa"></i>Add Items to Rent</a>
+	<a data-toggle='modal' data-target='#prod_modal_car'><i class="fa fa-opencart inline_fa"></i>Add a Car</a>
+	{% endif %}
 	{% endif %}
 	
 </h3>
 {% include "products/new_modal.html" %}
 {% include "products/new_modal_rent.html" %}
+{% include "products/new_modal_car.html" %}
 <ul id="products_list" class="row products_list">
 {% for product in products %}
 	<li class="product col-sm-4">
