@@ -54,7 +54,6 @@ def set_workplace(request):
         else:
             user = request.user
             workplace = form.cleaned_data.get('workplace')
-            # print(workplace)
             primary_workplace = Workplace.objects.get(name=workplace)
             user.userprofile.notify_also_joined(primary_workplace)
             job_position = form.cleaned_data.get('job_position')
@@ -65,19 +64,12 @@ def set_workplace(request):
             o, created = Workplaces.objects.get_or_create(userprofile=userprofile, workplace=primary_workplace, job_position=job_position)
 
             t = userprofile.primary_workplace.workplace_type
-
-            # welcome = u'{0} has started working in {1}.'.format(user, primary_workplace)
-            # node = Node(user=User.objects.get(pk=1), post=welcome)   #, tags=t
-            # node.save()
             if user.first_name:
                 return redirect('/workplace/'+primary_workplace.slug)
             else:
                 return redirect('/details/')
     else:
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
-
-
-# def change_workplace(request):        # new
 
 
 def search_workplace(request):                  # for searching the workplace
@@ -188,10 +180,6 @@ def workplace_profile(request, slug):
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     workplace_logo_form = SetLogoForm()
-    # questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    # answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
-    # feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
-    # articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
 
     return render(request, 'workplace/profile.html', locals())
 
@@ -348,7 +336,6 @@ def set_details(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     if request.method == 'POST':
-        print('set details now')
         response = {}
         website = request.POST.get('website')
         address = request.POST.get('address')
@@ -448,7 +435,6 @@ def set_product_details(request):
 
 @login_required
 def delete_tag(request):
-    print('tag to be deleted')
     if request.method == 'POST':
         print('tag to be deleted')
         user = request.user
@@ -458,10 +444,8 @@ def delete_tag(request):
         t = Tags.objects.get(tag=delete)
         try:
             WpTags.objects.get(tags=t, workplace=wp).delete()
-            print('workplace tag removed')
         except:
             up.interests.remove(t)
-            print('userprofile tag removed')
         return HttpResponse()
 # def delete_tags
 
