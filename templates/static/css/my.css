@@ -2077,15 +2077,19 @@ div[data-role='editor-toolbar'] {
 #products_list {
   //padding-left: 7px;
   margin-top: 40px;
+  list-style: none;
 }
 
 .product{
-  list-style: none;
   text-align: center;
   padding-top: 10px;
   margin: 10px 0px;
   background-color: #fff;
   //border: 1px solid #ddd;
+}
+
+.product a:hover{
+  text-decoration: none;
 }
 
 .product .image{
@@ -2104,6 +2108,8 @@ div[data-role='editor-toolbar'] {
 .product .product_name{
   font-size: 21px;
   border-bottom: 1px solid #197;
+  margin: 0 10px;
+  padding-bottom: 5px;
   //display: inline-block;
 }
 
