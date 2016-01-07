@@ -132,15 +132,16 @@ class Node(models.Model):
 
     def set_tags(self, tags):
         if tags:
-
             question_tags = tags.split(',')
             li = []
             for m in question_tags:
                 try:
                     t = Tags.objects.get(tag=m)
+                    print(t)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='T')
+                        print('pata nahi aisa kahe hua')
                 li.append(t)
                 t.count +=1
                 t.save()

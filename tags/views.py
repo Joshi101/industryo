@@ -29,6 +29,7 @@ def create_tag(request):
 
 def search_tag(request):
     if request.method == 'GET':
+        print('jab jab tere pass main aaya')
         tag = request.GET['the_query']
         type = request.GET['the_type']
         if len(tag) >= 2:

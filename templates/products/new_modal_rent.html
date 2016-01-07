@@ -9,6 +9,18 @@
       <div class="modal-body">
         <form  action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
           {% csrf_token %}
+		  <div class="form-group">
+            <h4>Sell or Rent</h4>
+            <div class="checkbox">
+              <label><input type="radio" name="status" value="0">Showcase</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="radio" name="status" value="1">To Sell</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="radio" name="status" value="2">To Rent</label>
+            </div>
+          </div>
           <div class="form-group">
             <label class="control-label">Name of Item</label>
             <input class="form-control" placeholder="One Product at a time" name="product">
@@ -26,7 +38,7 @@
             <input class="form-control" placeholder="Cost per Unit" name="cost">
           </div>
           <div class="form-group">
-            <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
+            <label class="control-label" for="id_tags">Tags: Categories under which the Item fall</label>
             {% include "snippets/d_search_tags.html" with search="tag" type="D" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
           </div>
           <div class="form-group">
@@ -43,7 +55,7 @@
             <div class="img_pre hide" data-index=0>
             </div>
           </div>
-          <div class="fprm-group">
+          <div class="form-group">
             <h4>Select Your Target Customers</h4>
             <div class="checkbox">
               <label><input type="checkbox" name="A" value="A">SMEs &amp; Small Businesses</label>

@@ -109,6 +109,11 @@ img{
   height: 96px;
 }
 
+.thmb_lg{
+  width: 120px;
+  height: 120px;
+}
+
 .pre_nav{
   background: rgba(0,0,0,0.85);
   height: 50px;
@@ -2070,50 +2075,60 @@ div[data-role='editor-toolbar'] {
 
 
 #products_list {
-  padding-left: 7px;
+  //padding-left: 7px;
   margin-top: 40px;
-}
-
-.product {
-  float: left;
-  overflow: hidden;
-
-  width: 50%;
-  height: 100px;
-  margin-bottom: 20px;
-
   list-style: none;
 }
 
-.product img {
-  float: left;
-
-  height: 100px;
-  margin-right: 7px;
-
-  border: 1px solid #ccc;
+.product{
+  text-align: center;
+  padding-top: 10px;
+  margin: 10px 0px;
+  background-color: #fff;
+  //border: 1px solid #ddd;
 }
 
-.product_name {
-  font-weight: bold;
-  line-height: 25px;
-
-  color: #333;
+.product a:hover{
+  text-decoration: none;
 }
 
-.product_desc {
-  margin-left: 105px;
-  padding: 5px 0 12px;
-  line-height: 16px;
+.product .image{
+  margin-bottom: 5px;
+}
+
+.product .thmb_lg{
+  border: 1px solid #eee;
+}
+
+.product .thmb_lg{
+  margin: auto;
+}
+
+
+.product .product_name{
+  font-size: 21px;
+  border-bottom: 1px solid #197;
+  margin: 0 10px;
+  padding-bottom: 5px;
+  //display: inline-block;
+}
+
+.product .product_desc{
   font-size: 13px;
-  height: 50px;
+  line-height: 18px;
   color: #777;
-  border-top: 1px solid #eee;
+  //text-align: justify;
+  padding: 10px;
+  //border-bottom: 1px solid #eee;
+  max-height: 75px;
+  background-color: #fff;
 }
 
-.product .tags{
-  padding-top: 2px;
-  height: 25px;
+.product .product_tags{
+  padding: 5px 0 5px;
+  font-size: 13px;
+  background-color: #fff;
+  //text-align: left;
 }
 
 .little_edit {
@@ -2483,7 +2498,7 @@ footer .contact li{
 .info_field_label{
   display: table-cell;
   color: #777;
-  min-width: 100px;
+  min-width: 120px;
   vertical-align: top;
 }
 
@@ -2942,6 +2957,11 @@ footer .contact li{
   animation-iteration-count: infinite;
 }
 
+.info_field_value .placeholder{
+  color: #999;
+  font-style: italic;
+}
+
 @keyframes changing {
   //0% {color: #bbb;}
   //50% {color: #eee;}
@@ -2954,4 +2974,11 @@ footer .contact li{
 .enquiry_long img{
   border: 1px solid #999;
   //margin-bottom: 20px;
+}
+
+.info{
+  font-size: 13px;
+  text-align: justify;
+  color: #555;
+  background-color: #E9EDF7;
 }

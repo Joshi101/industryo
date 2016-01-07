@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
 from products.models import Products
@@ -80,21 +80,21 @@ def add_product(request):
             p.set_target_segments(li)
 
         if image0:
-            print('DIL KA KARAR KHO GAYA')
             i = Images()
             x = i.upload_image(image=image0, user=user)
             p.image = x
             p.save()
-        print('DIL KA KARAR MIL GAYA')
         if status:
-                p.status = status
-                p.save()
+            p.status = status
+            p.save()
         r_elements = ['products_list']
         r_html['products_list'] = render_to_string('workplace/one_product.html', {'product': p})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
         return redirect('/products/'+p.slug)
+        # url = '/workplace/products/'+workplace.slug
+        # return HttpResponseRedirect(url)
         # return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return render(request, 'products/add_product.html')
@@ -104,7 +104,7 @@ def product(request, slug):
 
     product = Products.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
-    tags = product.tags.all()
+    tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     return render(request, 'products/one_product.html', locals())
 

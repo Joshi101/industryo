@@ -54,10 +54,11 @@ class Products(models.Model):
             li = []
             for m in question_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag=m) # iexact
+                    print(t)
                 except Exception:
                     if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='T')
+                        t = Tags.objects.create(tag=m, type='D')
                 li.append(t)
                 t.count +=1
                 t.save()
