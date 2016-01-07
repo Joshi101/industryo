@@ -44,7 +44,7 @@
 	      </div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-          {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 name='city' form='details_wp_form' %}
+          {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 name='city' d_form='details_wp_form' %}
 	      </div>
 	      {% endif %}
 	    </div>
@@ -70,7 +70,7 @@
 	      </div>
 	      {% if user.userprofile in members %}	
 	      <div class="info_field_edit hide">
-	        {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 name='segement' form='details_wp_form' %}
+	        {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 name='segement' d_form='details_wp_form' %}
 	      </div>
 		    {% endif %}
 	    </div>
@@ -100,7 +100,7 @@
 	      <div class="info_field_value">{{workplace.website|urlize|new_tab|safe}}</div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-					<input name="website" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.website}}">
+					<input name="website" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.website|default:''}}" placeholder="Url to the website of your company">
 	      </div>
 	      {% endif %}
 	    </div>

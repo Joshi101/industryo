@@ -36,7 +36,9 @@
     <div class="col-sm-8 info_left">
       <header class="info_title">
         <h2 class="text-uppercase" property='name'>{{ workplace.name }}</h2>
+        {% if workplace.verified %}
         <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
+        {% endif %}
         <small class="text-muted">( {{ workplace.get_type }} )</small>
       </header>
     </div>
