@@ -54,7 +54,7 @@ class Products(models.Model):
             li = []
             for m in question_tags:
                 try:
-                    t = Tags.objects.get(tag=m) # iexact
+                    t = Tags.objects.get(tag__iexact=m) # iexact
                     print(t)
                 except Exception:
                     if len(m) > 2:

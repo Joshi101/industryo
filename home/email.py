@@ -39,7 +39,7 @@ def send_mail(request):
             tasks.send_text_mail(u.id, n=22)
         elif s == "meh":
             u = User.objects.get(id=1)
-            tasks.send_html_mail(u.id, n=22)
+            tasks.send_html_mail(u.id, n=33)
         elif s == "alt":
             users = User.objects.all()
             for u in users:
@@ -67,7 +67,7 @@ def send_mail(request):
         elif s == "ct":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
             for u in users:
-                tasks.send_text_mail(u.id, n=22)
+                tasks.send_text_mail(u.id, n=33)
         elif s == "ch":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
             for u in users:

@@ -52,7 +52,7 @@ class Question(models.Model):
             for m in question_tags:
                 if m:
                     try:
-                        t = Tags.objects.get(tag=m)
+                        t = Tags.objects.get(tag__iexact=m)
                     except Exception:
                         if len(m) > 2:
                             t = Tags.objects.create(tag=m, type='T')

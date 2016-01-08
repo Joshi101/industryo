@@ -44,14 +44,18 @@ def send_html_mail(id, n):
     if n == 25:
         template = Template_set_wp
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
+        html_content = template.format(up)
+    elif n == 33:
+        template = Temp_Teams_rent
+        subject = "CoreLogs Invites teams to rent Components and safety equipment"
+        html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
     else:
-        # template = Template_SME_all
-        # subject = "CoreLogs- The Ecosystem of Industrialists and SMEs"
         template = Template_Team_all
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
-    html_content = template.format(up)
+        html_content = template.format(up)
+
     from_email, to = 'sp@corelogs.com', user_email
-    text_content = 'CoreLogs requests all members from Industries to invite a few friends and also small & medium scale Indudstries'
+    text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
