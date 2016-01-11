@@ -9,17 +9,31 @@
       <div class="modal-body">
         <form  action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
           {% csrf_token %}
+		  <div class="form-group">
+            <h4>Sell or Rent</h4>
+			{% if workplace.workplace_type == 'C' %}
+            <div class="checkbox">
+              <label><input type="radio" name="status" value="0">Showcase (Items Like Cars, Buggies you have made)</label>
+            </div>
+			{% endif %}
+            <div class="checkbox">
+              <label><input type="radio" name="status" value="1">To Sell</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="radio" name="status" value="2">To Rent</label>
+            </div>
+          </div>
           <div class="form-group">
             <label class="control-label">Name of product</label>
             <input class="form-control" placeholder="One Product at a time" name="product">
           </div>
           <div class="form-group">
             <label class="control-label">Description of the product</label>
-            <textarea class="form-control" rows="3" placeholder="One Product at a time" name="description"></textarea>
+            <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
           </div>
 		  <div class="form-group">
             <label class="control-label">Cost of product</label>
-            <input class="form-control" placeholder="Cost per Unit" name="cost">
+            <input class="form-control" placeholder="Cost per Unit Eg. Rs20,000 for a pair. or Rs. 2000/month rent" name="cost">
           </div>
           <div class="form-group">
             <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>

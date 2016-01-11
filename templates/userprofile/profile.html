@@ -9,6 +9,10 @@
 
 {% block meta_description %}{{page_user.userprofile.experience}}{% endblock meta_description %}
 
+{% block top %}
+  {% include "snippets/top_navigation.html" with what='Users' %}
+{% endblock top %}
+
 {% block left %}
 	<div id="img_profile_box">
 		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{page_user.userprofile.get_profile_image}}" alt="CoreLogs_Profile-{{userprofile}}"/>

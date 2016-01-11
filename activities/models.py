@@ -42,6 +42,8 @@ class Enquiry(models.Model):
     message = models.CharField(max_length=1000)
     seen = models.BooleanField(default=False)
 
+    phone_no = models.CharField(max_length=30, null=True, blank=True)
+
     def __str__(self):
         return self.message
 

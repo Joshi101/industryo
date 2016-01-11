@@ -18,14 +18,14 @@
       <i class="fa fa-search"></i>
     </a>
     <div id="top_search">
-      <form id="top_search_form" class="collapse in" action="{% url 'search' %}" role="form" title="Search Questions">
+      <form id="top_search_form" class="collapse in" action="{% url 'search' %}" role="form" title="Search Progucts">
         <div class="form-group">
           <div class="input-group ">
             <span id="search_typ" class="input-group-btn">
               <div class="dropdown select_dropdown" data-name="what">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                   <i class="fa fa-question-circle fa-fw"></i>
-                  <span class="value hide">Questions</span>
+                  <span class="value hide">Products</span>
                   <span class="caret"></span>
                 </button>
                 <ul class="list-group dropdown-menu">
@@ -50,7 +50,7 @@
                 </ul>
               </div>
             </span>
-            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search Questions ..." parent="accordion" tags=None %}
+            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True placeholder="Search Products..." parent="accordion" tags=None %}
             <span class="input-group-btn">
               <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
             </span>

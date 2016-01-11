@@ -10,10 +10,11 @@
 		{% if enquiry.user %}
 		<div>
 			User: 
-			<a href="{% url 'user:profile' enquiry.user.username %}">
+			<a href="{% url 'user:profile' enquiry.user.username %}" target="_blank">
 				<span class="name">{{ enquiry.user.userprofile }}</span>
 			</a>
 		</div>
+		<div>Phone Number: {{enquiry.phone_no}}</div>
 		<div>
 			Company: 
 			<a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
@@ -23,13 +24,14 @@
 		<div title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
 			<a data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
 				Send a Reply to {{enquiry.product.user.userprofile}}
-	    	<span class="fa fa-envelope pull-right inline_fa"></span>
+	    	<span class="fa fa-envelope pull-right inline_fa fa-2x"></span>
     	</a>
   	</div>
 		{% else %}
 		<div>User: {{ enquiry.name }}</div>
 		<div>Email: {{enquiry.email}}</div>
-		<a href="mailto:{{enquiry.email}}">Send an email to the Enquirer</a>
+		<div>Phone Number{{enquiry.phone_no}}</div>
+		<a href="mailto:{{enquiry.email}}" target="_blank">Send an email to the Enquirer</a>
 		<div>Company: {{enquiry.company}}</div>
 		{% endif %}
 	</div>

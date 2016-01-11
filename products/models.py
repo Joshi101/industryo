@@ -54,10 +54,11 @@ class Products(models.Model):
             li = []
             for m in question_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m) # iexact
+                    print(t)
                 except Exception:
                     if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='T')
+                        t = Tags.objects.create(tag=m, type='D')
                 li.append(t)
                 t.count +=1
                 t.save()
@@ -105,6 +106,15 @@ class Products(models.Model):
         else:
             pass
         self.save()
+
+    def get_status(self):
+        if self.status == '0':
+            status = 'Showcase Item'
+        elif self.status == '1':
+            status = 'For Sale'
+        else:
+            status = 'For Rent'
+        return status
 
 
 

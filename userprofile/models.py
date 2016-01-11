@@ -86,7 +86,7 @@ class UserProfile(models.Model):
             li = []
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='T')

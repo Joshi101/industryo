@@ -12,7 +12,7 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
-from background_task import background
+from home import tasks
 
 @login_required
 def workplace_register(request):
@@ -64,6 +64,7 @@ def set_workplace(request):
             o, created = Workplaces.objects.get_or_create(userprofile=userprofile, workplace=primary_workplace, job_position=job_position)
 
             t = userprofile.primary_workplace.workplace_type
+            tasks.send_html_mail(user.id, n=88)
             if user.first_name:
                 return redirect('/workplace/'+primary_workplace.slug)
             else:

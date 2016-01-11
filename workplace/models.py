@@ -67,12 +67,11 @@ class Workplace(models.Model):
             li = []
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='M')
                 li.append(t)
-                print(t)
                 t.count += 1
                 t.save()
             for t in li:
@@ -88,12 +87,11 @@ class Workplace(models.Model):
             li = []
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='S')
                 li.append(t)
-                print(t)
                 t.count += 1
                 t.save()
             for t in li:
@@ -107,10 +105,9 @@ class Workplace(models.Model):
         if operations:
             workplace_tags = operations.split(',')
             li = []
-            print('setting operations')
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='O')
@@ -147,7 +144,7 @@ class Workplace(models.Model):
             li = []
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='A')
@@ -167,7 +164,7 @@ class Workplace(models.Model):
             li = []
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                     print('tag exists')
                 except Exception:
                     if len(m) > 2:
@@ -195,7 +192,7 @@ class Workplace(models.Model):
             print('here')
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='C')
@@ -216,7 +213,7 @@ class Workplace(models.Model):
             li = []
             for m in workplace_tags:
                 try:
-                    t = Tags.objects.get(tag=m)
+                    t = Tags.objects.get(tag__iexact=m)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='E')

@@ -15,7 +15,7 @@
       </div>
       <div class="col-sm-6">
       	<div class="enquiries list-group">
-					{% for enq in enquiries %}
+					{% for enq in enquiries reversed %}
 					<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
 						<div>
 							<span class="prod">{{ enq.product }}</span>
