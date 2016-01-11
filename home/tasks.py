@@ -5,25 +5,6 @@ from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
 from .templates import *
 
-@background(schedule=60)
-def bhakk(id, n):
-    user = User.objects.get(id=id)
-    if user.email:
-        user_email = user.email
-    else:
-        user_email = 'rohit9gag@gmail.com'
-    if user.first_name:
-        name = user.get_full_name()
-    else:
-        name = user.username
-    if n == 15:
-        template = Template15
-        html_content = template.format(name)
-    subject, from_email, to = 'CoreLogs The platform for teams', 'info@corelogs.com', user_email
-    text_content = 'This is an important message.'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
 
 @background(schedule=60)
 def send_text_mail(id, n):
@@ -48,6 +29,23 @@ def send_html_mail(id, n):
     elif n == 33:
         template = Temp_Teams_rent
         subject = "CoreLogs Invites teams to rent Components and safety equipment"
+        html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
+
+    elif n == 50:       # message
+        template = Temp_message
+        subject = "[CoreLogs] You have received a new Message"
+        html_content = template.format(up)
+
+    elif n == 88:
+        if u.userprofile.primary_workplace.workplace_type == 'A':
+            template = Temp_post_set_a
+        elif u.userprofile.primary_workplace.workplace_type == 'B':
+            template = Temp_post_set_b
+        elif u.userprofile.primary_workplace.workplace_type == 'C':
+            template = Temp_post_set_c
+        else:       # u.userprofile.primary_workplace.workplace_type == 'O':
+            template = Temp_post_set_o
+        subject = "[CoreLogs] Your Workplace Profile"
         html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
     else:
         template = Template_Team_all
@@ -103,7 +101,6 @@ def notify_user(id, n):
     answer = notification.answer
 
     from_user = notification.from_user
-
 
     if n == 1:
         template = Template1

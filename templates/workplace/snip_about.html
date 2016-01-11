@@ -115,7 +115,7 @@
 	      </div>
 	      {% endif %}
 	    </div>
-
+		{% if not workplace.workplace_type == 'O' %}
 			<div class="info_field ajax_papa">
 				<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 1</div>
 				<span class="colon">:</span>
@@ -126,7 +126,9 @@
 	      </div>
 	      {% endif %}
 	    </div>
+		{% endif %}
 		
+		{% if not workplace.workplace_type == 'O' %}
 			<div class="info_field ajax_papa">
 				<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 2</div>
 				<span class="colon">:</span>
@@ -137,7 +139,9 @@
 	      </div>
 	      {% endif %}
 	    </div>
+		{% endif %}
 		
+		{% if not workplace.workplace_type == 'O' %}
 			<div class="info_field ajax_papa">
 				<div class="info_field_label"><span class="fa fa-envelope-o fa-fw"></span>E-Mail (office)</div>
 				<span class="colon">:</span>
@@ -148,6 +152,7 @@
 	      </div>
 	      {% endif %}
 	    </div>
+		{% endif %}
 			<div class="info_field ajax_papa">
 				<div class="info_field_label"><span class="fa fa-linkedin fa-fw"></span>LinkedIn Page</div>
 				<span class="colon">:</span>

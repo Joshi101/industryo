@@ -71,7 +71,7 @@ def send_mail(request):
         elif s == "ch":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
             for u in users:
-                tasks.send_html_mail(u.id, n=22)
+                tasks.send_html_mail(u.id, n=33)
         elif s == "ot":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
             for u in users:
