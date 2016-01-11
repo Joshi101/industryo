@@ -45,6 +45,7 @@ def set_tags_short(request, slug):
 
 
 def add_product(request):
+    print('product will be added now')
     if request.method == 'POST':
         response = {}
         r_value = {}
@@ -56,6 +57,8 @@ def add_product(request):
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         status = request.POST.get('status')
+        index = request.POST.get('i')
+        print(index, 'ye printo')
         li = []
 
         a = request.POST.get('A')
@@ -75,8 +78,8 @@ def add_product(request):
 
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
-        if len(pro)>3:
-            product=pro
+        if len(pro) > 3:
+            product = pro
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
             p.set_tags(tags)
             p.set_target_segments(li)
@@ -89,15 +92,16 @@ def add_product(request):
         if status:
             p.status = status
             p.save()
+        print('product is added')
         r_elements = ['products_list']
-        r_html['products_list'] = render_to_string('workplace/one_product.html', {'product': p})
+        r_html['products_list'] = render_to_string('products/one_product.html', {'product': p, 'index': index})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
-        return redirect('/products/'+p.slug)
+        # return redirect('/products/'+p.slug)
         # url = '/workplace/products/'+workplace.slug
         # return HttpResponseRedirect(url)
-        # return HttpResponse(json.dumps(response), content_type="application/json")
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return render(request, 'products/add_product.html')
 
@@ -108,7 +112,7 @@ def product(request, slug):
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
-    return render(request, 'products/one_product.html', locals())
+    return render(request, 'products/product.html', locals())
 
 
 def delete(request):
@@ -298,7 +302,7 @@ def int_add_product(request):
             p.status = status
             p.save()
         r_elements = ['products_list']
-        r_html['products_list'] = render_to_string('workplace/one_product.html', {'product': p})
+        r_html['products_list'] = render_to_string('workplace/product.html', {'product': p})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
@@ -313,7 +317,7 @@ def int_product(request, slug):
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tags = product.tags.all()
     prod_img_form = SetLogoForm()
-    return render(request, 'activities/p/one_product.html', locals())
+    return render(request, 'activities/p/product.html', locals())
 
 @login_required
 def int_change_image(request, id):

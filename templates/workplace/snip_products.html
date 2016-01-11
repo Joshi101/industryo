@@ -9,16 +9,12 @@
 		<p>The Queries about the products by a potential customer will appear directly in your email inbox.</p>
 		{% endif %}
 	</div>
-
 </div>
-<h3 class="text-muted text-center">
-	
-</h3>
 
 {% include "products/new_modal.html" %}
 
-<ul id="products_list" class="products_list">
-	<li class="col-xs-6">
+<div>
+	<div class="col-xs-6">
 		<div class="product">
 			<div class="image">
 				<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-plus fa-3x"></i></a>
@@ -27,8 +23,8 @@
 				<div class="product_name"><a data-toggle='modal' data-target='#prod_modal'>Add Items to Sell</a></div>
 			</div>
 		</div>
-	</li>
-	<li class="col-xs-6">
+	</div>
+	<div class="col-xs-6">
 		<div class="product">
 			<div class="image">
 				<a  data-toggle='modal' data-target='#prod_modal'><i class="fa fa-inr fa-3x"></i></a>	
@@ -37,24 +33,16 @@
 				<div class="product_name"><a data-toggle='modal' data-target='#prod_modal'>Add Items to Rent</a></div>
 			</div>
 		</div>
-	</li>
+	</div>
+</div>
 {% endif %}
+
+<ul id="products_list" class="products_list">
+	<div class="clearfix"></div>
 {% for product in products %}
-	<li class="col-xs-6">
-		<div class="product">
-			<div class="image">
-				<img class="thmb_lg" src="{{product.get_image}}" alt="{{product}}">
-			</div>
-			<div class="details">
-				<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
-				<div class="product_desc">{{ product.description |truncatewords_html:10}}</div>
-				<div class="product_tags tags">
-					{% for tag in product.get_tags %}
-						<a href="{% url 'tags:get_tag' tag.slug %}"><span class="tag">{{tag}}</span></a>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</li>
+	{% include "products/one_product.html" with product=product %}
+	{% if forloop.counter|divisibleby:2 %}
+	<div class="clearfix"></div>
+	{% endif %}
 {% endfor %}
 </ul>

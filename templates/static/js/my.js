@@ -369,6 +369,7 @@ $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
         processData: false,
 
         success: function(response) {
+            console.log('the form with the file succesfully submited')
             $form.find('.form-control').val('');
             if (response.fields) {
                 for (i = 0; i < response.fields.length; i++) {
@@ -393,10 +394,11 @@ $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
                 }
             }
             $form.find('.close').trigger('click');
+            $form.find('.index').val(parseInt($form.find('.index').val()) + 1);
+            $form.closest('.modal').modal('hide');
         },
 
         error: function(xhr, errmsg, err) {
-            $this.next().next().find(".d_list").html("<li><a class='tag_multiple'>Sorry, unable to fetch results. Try later.</a></li>");
             console.log(errmsg, err);
         }
     });

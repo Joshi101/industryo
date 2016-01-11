@@ -44,7 +44,7 @@
 	      </div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-          {% include "snippets/d_search_tags.html" with search="tag" type=a_type tags=tags1 name='city' d_form='details_wp_form' %}
+          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags1 name='city' d_form='details_wp_form' %}
 	      </div>
 	      {% endif %}
 	    </div>
@@ -70,7 +70,7 @@
 	      </div>
 	      {% if user.userprofile in members %}	
 	      <div class="info_field_edit hide">
-	        {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags2 name='segement' d_form='details_wp_form' %}
+	        {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=tags2 name='segement' d_form='details_wp_form' %}
 	      </div>
 		    {% endif %}
 	    </div>
