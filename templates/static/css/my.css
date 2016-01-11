@@ -85,6 +85,12 @@
   border-bottom: 1px solid #eee;
 }
 
+.fa-newspaper-o{
+  position: relative;
+  top: 1px;
+}
+
+
 /* cover */
 /*
  * Stylesheet for the cover page of CoreLogs
@@ -2353,6 +2359,7 @@ footer .contact li{
 
 #figure_modal figure{
   height: 100%;
+  background-color: #fff;
 }
 
 #figure_modal .modal-body img{
@@ -2877,11 +2884,6 @@ footer .contact li{
   padding-bottom: 5px;
   margin-bottom: 5px;
   border-bottom: 1px solid #eee;
-}
-
-.fa-newspaper-o{
-  position: relative;
-  top: 1px;
 }
 
 .side_product{
