@@ -2118,14 +2118,16 @@ div[data-role='editor-toolbar'] {
   line-height: 18px;
   color: #777;
   //text-align: justify;
-  padding: 10px;
+  padding: 0 10px;
+  margin: 10px 0;
   //border-bottom: 1px solid #eee;
-  max-height: 75px;
+  max-height: 55px;
   background-color: #fff;
+  overflow: hidden;
 }
 
 .product .product_tags{
-  padding: 5px 0 5px;
+  padding: 0;
   font-size: 13px;
   background-color: #fff;
   //text-align: left;
