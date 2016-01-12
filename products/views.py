@@ -212,8 +212,8 @@ def enquiry_all(request):
 def enquiry(request, id):
     iid = int(id)
     user = request.user
-    company = user.userprofile.primary_workplace
-    enquiries = Enquiry.objects.filter(product__producer=company)
+    # company = user.userprofile.primary_workplace
+    # enquiries = Enquiry.objects.filter(product__producer=company)
     enquiry = Enquiry.objects.get(id=iid)
 
     return render(request, 'enquiry/enquiry_details.html', {
