@@ -257,11 +257,7 @@ def send_enq_mail(e):
 
 def int_add_product(request):
     if request.method == 'POST':
-        response = {}
-        r_value = {}
-        r_inputs = []
-        r_html = {}
-        r_elements = []
+
         pro = request.POST.get('product')
         description = request.POST.get('description')
         cost = request.POST.get('cost')
@@ -299,12 +295,8 @@ def int_add_product(request):
         if status:
             p.status = status
             p.save()
-        r_elements = ['products_list']
-        r_html['products_list'] = render_to_string('workplace/product.html', {'product': p})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        return redirect('/internal/products/'+p.slug)
+
+        return redirect('/')
         # return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return render(request, 'activities/p/add_product.html')
