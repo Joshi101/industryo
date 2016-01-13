@@ -106,6 +106,10 @@ def add_product(request):
         return render(request, 'products/add_product.html')
 
 
+def set_details(request, id):
+    pass
+
+
 def product(request, slug):
 
     product = Products.objects.get(slug=slug)

@@ -1,104 +1,130 @@
 {% extends "base.html" %}
 
+{% load filter %}
+
 {% block title %}{{product}} | CoreLogs{% endblock title %}
 
 {% block meta_description %}{{ product.description }}{% endblock meta_description %}
 
-{% block content %}
-  {% include "snippets/img_upload_modal.html" with url='products:change_image' url_slug=product.id form=prod_img_form.image %}
-  <div class="row info_head" typeof='Organization' resource='#workplace'>
-    <div class="col-sm-8 info_left">
-      <h1 id="wp_name" class="info_title text-uppercase" property='name'>{{ product }}</h1>
-	  Cost: ({{product.cost}})
-	  <p>Status: {{product.get_status}}</p>
-      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-        <div class="info_field_value" property='addressRegion'>
-          {% for tag in tagss %}
-            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag">{{tag}}</a>
-          {% empty %}
-            <span class="none text-muted">Add Product tags for categorization</span>
-          {% endfor %}
-        </div>
-        {% if user == product.user %}
-        <div class="info_field_edit">
-          <a class="show_edit"><i class="fa fa-wrench inline_fa"></i></a>
-          <form class="edit_{{category}} d_edit hide" action="{% url 'products:set_tags_short' product.slug %}" method="POST" role="form">
-            {% csrf_token %}
-            {% include "snippets/d_search_tags.html" with search="tag" type="D" placeholder="Add upto 5 tags" %}
-          </form>
-          <a class="done_edit hide"><i class="fa fa-check-square fa-2x inline_fa"></i></a>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-	
-    <div class="col-sm-4">
-      <div class="info_labels">
-	  <a href="{% url 'workplace:workplace_profile' product.producer.slug %}" class="tag"><span class="value">{{product.producer}}</span></a>
-      </div>
-      <div class="info_labels">
-        <a href="{% url 'user:profile' product.user.username %}" class="tag"><span class="value">{{product.user.userprofile}}</span></a>
-      </div>
-    </div>
-  </div>
-  <div class="prod_img">
-    <img src="{{product.get_image}}" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img">
-    {% if user == product.user %}
-    <a class="text-center" data-toggle='modal' data-target='#img_upload_modal'><i class="fa fa-wrench inline_fa"></i>Change Image</a>
-    {% endif %}
-  </div>
-  <div class="panel panel-default ajax_andar ajax_papa">
-    <div class="panel-heading">
-      <h3 class="text-muted detail_head">
-        Product Description
-        {% if request.user == product.user %}
-        <form id="prod_desc_form" class="pull-right" action="{% url 'products:edit_desc' product.id %}" method="POST">
-          <button data-content="capabilities_w" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
-        </form>
-        {% endif %}
-      </h3>
-    </div>
-    <div class="panel-body">
-      <p class="detail_body content_capabilities_w">{{ product.description }}</p>
-      <textarea name="description" form="prod_desc_form" rows="3" class="form-control edit_capabilities hide"></textarea>
-    </div>
-  </div>
-  <!-- <h3 class="text-muted ajax_andar text-center">
-    {% if request.user.userprofile in members %}
-    <a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
-    
-    {% else %}
-    <a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
-    <div class="collapse">
-      <form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
-      {% csrf_token %}
-        <div class="form-group">
-          <input class="form-control input-sm" name="name" placeholder="name of your colleague" required>
-        </div>
-        <div class="form-group">
-          <input class="form-control input-sm" type="email" name="email" placeholder="email of your colleague" required>
-        </div>
-        <button class="btn btn-primary form-ajax"><i class='fa fa-plus-circle fa-lg inline_fa'> Invite</i></button>
-      </form>
-    </div>
-    {% endif %}
-  </h3> -->
-  <h3 class="text-muted text-center">
-	{% if request.user.userprofile in members %}
-    <a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-plus fa-3x"></i>Add More Products</a>
-	
-	{% else %}
-	  <a data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
-	  
-	{% endif %}
-  </h3>
-{% include "products/new_modal.html" %}
-{% include "enquiry/new_auth_modal.html" %}
-  
-{% endblock %}
+{% block page_id %}product{% endblock page_id %}
 
-{% block right %}
-	<div class="side_show">
-		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
+{% block body %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-9">
+      {% block content %}
+        {% include "snippets/img_upload_modal.html" with url='products:change_image' url_slug=product.id form=prod_img_form.image %}
+        <div class="row info_head">
+          <div class="col-sm-8 info_left">
+            <header class="info_title">
+              <h2 class="text-uppercase" property='name'>{{ product }}</h2>
+                <div class="text-muted">( <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a> )</div>
+            </header>
+          </div>
+          <div class="col-sm-4">
+            <div class="info_labels">
+              <span class="label label-success">{{product.get_status}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="details_prod" class="info_field_grp ajax_andar col-md-6">
+          {% if user.userprofile in members %}
+          <form id="details_prod_form" class="info_form" action="{% url 'products:set_details' product.id %}" method="POST">
+            <button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+            <button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+            <button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+            {% csrf_token %}
+          </form>
+          {% endif %}
+          <div class="panel panel-default">
+            <div class="info_field ajax_papa">
+              <div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Tags</div>
+              <span class="colon">:</span>
+              <div class="info_field_value">
+                {% if tags1 %}
+                {% include "snippets/tags.html" with tags=tagss %}
+                {% else %}
+                <span class="placeholder">Add Product tags for categorization</span>
+                {% endif %}
+              </div>
+              {% if user.userprofile in members %}
+              <div class="info_field_edit hide">
+                {% include "snippets/d_search_tags.html" with search="tag" tags=tagss name='prod_tag' d_form='details_prod_form' %}
+              </div>
+              {% endif %}
+            </div>
+            <div class="info_field ajax_papa">
+              <div class="info_field_label"><span class="fa fa-globe fa-fw"></span>Cost</div>
+              <span class="colon">:</span>
+              <div class="info_field_value">{{product.cost}}</div>
+              {% if user.userprofile in members %}
+              <div class="info_field_edit hide">
+                <input name="website" form="details_prod_form" class="form-control new_val open_input" value="{{product.cost|default:''}}" placeholder="Cost per unit">
+              </div>
+              {% endif %}
+            </div>
+            <div class="info_field v2 ajax_papa">
+              <div class="info_field_value">
+                {% if workplace.about %}{{product.description|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of the product for the rest of the world</i>{% endif %}
+              </div>
+              <div class="info_field_edit hide">
+                <textarea name="desc" form="details_prod_form" rows="3" class="form-control new_val new_val">{{product.description}}</textarea>
+              </div>
+            </div>
+          </div>
+          <div class="info_labels">
+            Uploaded by <a href="{% url 'user:profile' product.user.username %}" class="tag"><span class="value">{{product.user.userprofile}}</span></a>
+          </div>
+        </div>
+
+        <div class="prod_img col-md-6">
+          {% if user == product.user %}
+          <a class="text-center btn-alt pull-right" data-toggle='modal' data-target='#img_upload_modal'><i class="fa fa-wrench inline_fa"></i>Change Image</a>
+          {% endif %}
+          <img src="/images/product.png" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img">
+        </div>
+        <!-- <h3 class="text-muted ajax_andar text-center">
+          {% if request.user.userprofile in members %}
+          <a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
+          
+          {% else %}
+          <a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
+          <div class="collapse">
+            <form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
+            {% csrf_token %}
+              <div class="form-group">
+                <input class="form-control input-sm" name="name" placeholder="name of your colleague" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control input-sm" type="email" name="email" placeholder="email of your colleague" required>
+              </div>
+              <button class="btn btn-primary form-ajax"><i class='fa fa-plus-circle fa-lg inline_fa'> Invite</i></button>
+            </form>
+          </div>
+          {% endif %}
+        </h3> -->
+
+        <h3 class="text-muted text-center">
+        <br>
+        {% if request.user.userprofile in members %}
+          <a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-plus"></i>&nbsp; Add More Products</a>
+        {% else %}
+          <a data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</a>
+        {% endif %}
+        </h3>
+        {% include "products/new_modal.html" %}
+        {% include "enquiry/new_auth_modal.html" %}    
+      {% endblock %}
+      </div>
+
+      <div id="right" class="col-sm-12 col-md-3">
+      {% block right %}
+        <div class="side_show">
+          <div class="ajax_load" data-url="{% url 'products:random' %}"></div>
+        </div>
+      {% endblock right %}
+      </div>
+    </div>
   </div>
-{% endblock right %}
+{% endblock body %}

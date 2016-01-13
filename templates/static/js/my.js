@@ -396,6 +396,7 @@ $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
             $form.find('.close').trigger('click');
             $form.find('.index').val(parseInt($form.find('.index').val()) + 1);
             $form.closest('.modal').modal('hide');
+            lazyImages();
         },
 
         error: function(xhr, errmsg, err) {

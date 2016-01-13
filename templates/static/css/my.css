@@ -2473,8 +2473,15 @@ footer .contact li{
 
 .info_title h2{
   margin-top: 0;
+  padding-bottom: 5px;
   margin-bottom: 7px;
   display: inline-block;
+  border-bottom: 1px solid #eee;
+}
+
+#product .info_head{
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .info_title .verified{
@@ -2743,20 +2750,20 @@ footer .contact li{
 
 .prod_img{
   margin-bottom: 20px;
+  text-align: right;
 }
 
 .prod_img a{
   display: block;
   width: 100%;
   max-width: 400px;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .prod_img img{
   width: 100%;
   border: 1px solid #ccc;
   max-width: 400px;
-  display: block;
 }
 
 .prod_desc{
