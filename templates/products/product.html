@@ -39,10 +39,20 @@
           {% endif %}
           <div class="panel panel-default">
             <div class="info_field ajax_papa">
-              <div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Tags</div>
+              <div class="info_field_label"><span class="fa fa-inr fa-fw"></span>Cost</div>
+              <span class="colon">:</span>
+              <div class="info_field_value">{{product.cost}}</div>
+              {% if user.userprofile in members %}
+              <div class="info_field_edit hide">
+                <input name="cost" form="details_prod_form" class="form-control new_val open_input" value="{{product.cost|default:''}}" placeholder="Cost per unit">
+              </div>
+              {% endif %}
+            </div>
+            <div class="info_field ajax_papa">
+              <div class="info_field_label"><span class="fa fa-tags fa-fw"></span>Tags</div>
               <span class="colon">:</span>
               <div class="info_field_value">
-                {% if tags1 %}
+                {% if tagss %}
                 {% include "snippets/tags.html" with tags=tagss %}
                 {% else %}
                 <span class="placeholder">Add Product tags for categorization</span>
@@ -54,19 +64,9 @@
               </div>
               {% endif %}
             </div>
-            <div class="info_field ajax_papa">
-              <div class="info_field_label"><span class="fa fa-globe fa-fw"></span>Cost</div>
-              <span class="colon">:</span>
-              <div class="info_field_value">{{product.cost}}</div>
-              {% if user.userprofile in members %}
-              <div class="info_field_edit hide">
-                <input name="website" form="details_prod_form" class="form-control new_val open_input" value="{{product.cost|default:''}}" placeholder="Cost per unit">
-              </div>
-              {% endif %}
-            </div>
             <div class="info_field v2 ajax_papa">
               <div class="info_field_value">
-                {% if workplace.about %}{{product.description|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of the product for the rest of the world</i>{% endif %}
+                {% if product.description %}{{product.description|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of the product for the rest of the world</i>{% endif %}
               </div>
               <div class="info_field_edit hide">
                 <textarea name="desc" form="details_prod_form" rows="3" class="form-control new_val new_val">{{product.description}}</textarea>
@@ -106,7 +106,6 @@
         </h3> -->
 
         <h3 class="text-muted text-center">
-        <br>
         {% if request.user.userprofile in members %}
           <a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-plus"></i>&nbsp; Add More Products</a>
         {% else %}

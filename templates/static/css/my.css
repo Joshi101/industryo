@@ -2549,6 +2549,10 @@ footer .contact li{
   color: #555;
 }
 
+.v2 .info_field_edit .form-control{
+  width: 100%;
+}
+
 .info_field_edit .form-control:focus, .info_field_edit .form-control:active{
   color: #555;
   width: 90%;
@@ -2757,7 +2761,7 @@ footer .contact li{
   display: block;
   width: 100%;
   max-width: 400px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .prod_img img{

@@ -105,7 +105,23 @@ def add_product(request):
 
 
 def set_details(request, id):
-    pass
+    p = Products.objects.get(id=id)
+    user = request.user
+    workplace = user.userprofile.primary_workplace
+    if request.method == 'POST':
+        if p.producer == workplace:
+            desc = request.POST.get('desc')
+            cost = request.POST.get('cost')
+            tags = request.POST.get('prod_tag')
+            print(desc,cost,tags)
+            p.description = desc
+            p.cost = cost
+            if tags:
+                p.set_tags(tags)
+            p.save()
+            return HttpResponse()
+    else:
+        return redirect('/products/' + id)
 
 
 def product(request, slug):
