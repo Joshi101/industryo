@@ -12,6 +12,7 @@ from datetime import datetime, timedelta, time, date
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import get_connection, send_mail
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -45,7 +46,6 @@ def set_tags_short(request, slug):
 
 
 def add_product(request):
-    print('product will be added now')
     if request.method == 'POST':
         response = {}
         r_value = {}
@@ -58,7 +58,6 @@ def add_product(request):
         tags = request.POST.get('tag')
         status = request.POST.get('status')
         index = request.POST.get('i')
-        print(index, 'ye printo')
         li = []
 
         a = request.POST.get('A')
@@ -92,7 +91,6 @@ def add_product(request):
         if status:
             p.status = status
             p.save()
-        print('product is added')
         r_elements = ['products_list']
         r_html['products_list'] = render_to_string('products/one_product.html', {'product': p, 'index': index})
         response['html'] = r_html
@@ -220,8 +218,8 @@ def enquiry_all(request):
 def enquiry(request, id):
     iid = int(id)
     user = request.user
-    company = user.userprofile.primary_workplace
-    enquiries = Enquiry.objects.filter(product__producer=company)
+    # company = user.userprofile.primary_workplace
+    # enquiries = Enquiry.objects.filter(product__producer=company)
     enquiry = Enquiry.objects.get(id=iid)
 
     return render(request, 'enquiry/enquiry_details.html', {
@@ -315,6 +313,7 @@ def int_add_product(request):
     else:
         return render(request, 'activities/p/add_product.html')
 
+
 def int_product(request, slug):
 
     product = Products.objects.get(slug=slug)
@@ -348,4 +347,40 @@ def int_edit_desc(request, id):
         return redirect('/internal/products/'+p.slug)
     else:
         return redirect('/products/'+p.slug)
+
+
+def all_products(request):
+
+    if 'q' in request.GET:
+        querystring = request.GET.get('q')
+        if querystring == 'A':
+            p = Products.objects.filter(target_segment__contains='A')
+        if querystring == 'B':
+            p = Products.objects.filter(target_segment__contains='B')
+        if querystring == 'C':
+            p = Products.objects.filter(target_segment__contains='C')
+        if querystring == 'O':
+            p = Products.objects.filter(target_segment__contains='O')
+
+    else:
+        p = Products.objects.all()
+
+    paginator = Paginator(p, 20)
+    page = request.GET.get('page')
+    # workplaces = Workplace.objects.all().order_by('?')[:5]
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list})
+    else:
+            # return render(request, 'home.html', {'result_list': result_list})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list})
+
 # Create your views here.

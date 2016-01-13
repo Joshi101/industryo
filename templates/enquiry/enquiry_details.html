@@ -15,12 +15,14 @@
 			</a>
 		</div>
 		<div>Phone Number: {{enquiry.phone_no}}</div>
+		{% if enquiry.user.userprofile.primary_workplace %}
 		<div>
 			Company: 
 			<a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
 				<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>	
 			</a>
 		</div>
+		{% endif %}
 		<div title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
 			<a data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
 				Send a Reply to {{enquiry.product.user.userprofile}}
