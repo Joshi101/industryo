@@ -4,6 +4,7 @@ from nodes.forms import SetLogoForm
 from products.models import Products
 from userprofile.models import UserProfile
 from django.contrib.auth.models import User
+from tags.models import Tags
 import json
 from nodes.models import Images
 from django.contrib.auth.decorators import login_required
@@ -113,7 +114,6 @@ def set_details(request, id):
             desc = request.POST.get('desc')
             cost = request.POST.get('cost')
             tags = request.POST.get('prod_tag')
-            print(desc,cost,tags)
             p.description = desc
             p.cost = cost
             if tags:
@@ -127,9 +127,17 @@ def set_details(request, id):
 def product(request, slug):
 
     product = Products.objects.get(slug=slug)
+    producer = product.producer
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
+    all = Products.objects.filter(producer=producer)
+    all_list = list(all)
+    c = all_list.index(product)
+    if not len(all_list) == c+1:
+        next = all_list[c+1]
+    if not c == 0:
+        previous = all_list[c-1]
     return render(request, 'products/product.html', locals())
 
 
@@ -237,6 +245,8 @@ def enquiry(request, id):
     # company = user.userprofile.primary_workplace
     # enquiries = Enquiry.objects.filter(product__producer=company)
     enquiry = Enquiry.objects.get(id=iid)
+    enquiry.seen = True
+    enquiry.save()
 
     return render(request, 'enquiry/enquiry_details.html', {
         'enquiry': enquiry,
@@ -358,7 +368,8 @@ def int_edit_desc(request, id):
 
 
 def all_products(request):
-
+    tags = []
+    tags2 = []
     if 'q' in request.GET:
         querystring = request.GET.get('q')
         if querystring == 'A':
@@ -366,7 +377,19 @@ def all_products(request):
         if querystring == 'B':
             p = Products.objects.filter(target_segment__contains='B')
         if querystring == 'C':
-            p = Products.objects.filter(target_segment__contains='C')
+            # p = Products.objects.filter(target_segment__contains='C')
+            li1 = [590, 591, 581, 582, 586, 587, 243, 218]
+            tags = Tags.objects.filter(pk__in=li1)
+            if 't' in request.GET:
+                i = request.GET.get('t')
+                t = Tags.objects.get(id=i)
+                p = Products.objects.filter(tags=t).distinct()
+                c1 = p.count()
+                
+
+
+            else:
+                p = Products.objects.filter(tags__in=tags).distinct()
         if querystring == 'O':
             p = Products.objects.filter(target_segment__contains='O')
 
@@ -375,7 +398,6 @@ def all_products(request):
 
     paginator = Paginator(p, 20)
     page = request.GET.get('page')
-    # workplaces = Workplace.objects.all().order_by('?')[:5]
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -386,9 +408,8 @@ def all_products(request):
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags})
     else:
-            # return render(request, 'home.html', {'result_list': result_list})
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags})
 
 # Create your views here.

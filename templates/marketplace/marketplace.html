@@ -14,6 +14,13 @@
 	  <li><a href="/forum/q_tags/">Search Tags</a></li>
 	  
 	</ul>
+	{% if tags %}
+	<ul class="nav nav-pills">
+	{% for t in tags %}
+		<li><a href="/products?q=C&t={{t.id}}">{{t}}</a></li>
+	{% endfor %}
+	</ul>
+	{% endif %}
   <ul id="products_list" class="products_list">
 	<div class="clearfix"></div>
 {% for product in result_list %}
