@@ -2360,6 +2360,8 @@ footer .contact li{
 #figure_modal .modal-body img{
   max-height: 100%;
   max-width: 100%;
+  width: auto;
+  height: auto;
   display: block;
   margin: auto;
 }
@@ -2479,9 +2481,8 @@ footer .contact li{
   border-bottom: 1px solid #eee;
 }
 
-#product .info_head{
-  padding-left: 15px;
-  padding-right: 15px;
+.product_status{
+  margin-bottom: 10px;
 }
 
 .info_title .verified{
@@ -2752,28 +2753,53 @@ footer .contact li{
   position: relative;
 }
 
-.prod_img{
-  margin-bottom: 20px;
-  text-align: right;
+.prod_details{
+  border: 1px solid #e9e9e9;
+  padding: 10px;
+  margin: 0;
+  background: #fff;
 }
 
-.prod_img a{
-  display: block;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 10px;
+.prod_img{
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.prod_img button{
+  margin-bottom: 5px;
 }
 
 .prod_img img{
   width: 100%;
-  border: 1px solid #ccc;
-  max-width: 400px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  max-width: 256px;
+  display: block;
+  margin: auto;
 }
 
 .prod_desc{
   border-top: 1px solid #eee;
   padding-top: 10px;
   margin-bottom: 20px;
+}
+
+.uploaded_by{
+  font-size: 13px;
+  text-align: right;
+  color: #555;
+}
+
+.more_products{
+  padding-top: 15px;
+  line-height: 25px;
+}
+
+.more_products h3{
+  font-size: 18px;
+  line-height: 25px;
+  margin: 0px;
 }
 
 .side_product div{
@@ -2950,9 +2976,14 @@ footer .contact li{
 .btn_alt{
   background: transparent;
   border: 0;
+  color: #179;
 }
 
-.info_form .btn_alt{
+.btn_alt:hover, .btn_alt:focus{
+  color: #197;
+}
+
+.info_form .btn_alt, .prod_img .btn_alt{
   color: #179;
   font-size: 13px;
   border-bottom: 1px solid #179;
