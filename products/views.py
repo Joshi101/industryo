@@ -319,11 +319,6 @@ def int_add_product(request):
         if status:
             p.status = status
             p.save()
-        r_elements = ['products_list']
-        r_html['products_list'] = render_to_string('workplace/product.html', {'product': p})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
         return redirect('/internal/products/'+p.slug)
         # return HttpResponse(json.dumps(response), content_type="application/json")
     else:

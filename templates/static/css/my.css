@@ -2791,6 +2791,13 @@ footer .contact li{
   color: #555;
 }
 
+.prod_action{
+  border: 1px solid #eee;
+  border-top: 0;
+  background: #fff;
+  padding: 10px 0 20px;
+}
+
 .more_products{
   padding-top: 15px;
   line-height: 25px;
