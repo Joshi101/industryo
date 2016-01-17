@@ -21,6 +21,14 @@
 	{% endfor %}
 	</ul>
 	{% endif %}
+	
+	{% if tags2 %}
+	<ul class="nav nav-pills">
+	{% for h in tags2 %}
+		<li><a href="/products?q=C&t={{n}}&q3={{h.id}}">{{h}}</a></li>
+	{% endfor %}
+	</ul>
+	{% endif %}
   <ul id="products_list" class="products_list">
 	<div class="clearfix"></div>
 {% for product in result_list %}

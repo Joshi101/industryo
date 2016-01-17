@@ -370,6 +370,8 @@ def int_edit_desc(request, id):
 def all_products(request):
     tags = []
     tags2 = []
+    n = None
+    m = None
     if 'q' in request.GET:
         querystring = request.GET.get('q')
         if querystring == 'A':
@@ -377,15 +379,21 @@ def all_products(request):
         if querystring == 'B':
             p = Products.objects.filter(target_segment__contains='B')
         if querystring == 'C':
-            # p = Products.objects.filter(target_segment__contains='C')
+
             li1 = [590, 591, 581, 582, 586, 587, 243, 218]
             tags = Tags.objects.filter(pk__in=li1)
             if 't' in request.GET:
                 i = request.GET.get('t')
                 t = Tags.objects.get(id=i)
-                p = Products.objects.filter(tags=t).distinct()
-                c1 = p.count()
-                
+                n = i
+                p = Products.sell_teams.filter(tags=t)
+                tags2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+                if 'q3' in request.GET:
+                    j = request.GET.get('t')
+                    t1 = Tags.objects.get(id__in=[i, j])
+                    m = j
+                    p = Products.sell_teams.filter(tags=t1)
+
 
 
             else:
@@ -408,8 +416,8 @@ def all_products(request):
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
 # Create your views here.
