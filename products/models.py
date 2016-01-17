@@ -6,6 +6,24 @@ from workplace.models import Workplace
 from django.contrib.auth.models import User
 
 
+class SellTeamManager(models.Manager):
+    def get_queryset(self):
+        return super(SellTeamManager, self).get_queryset().\
+            filter(target_segment__contains='C', status=1)      # .order_by('-score', '-date')
+
+
+class RentTeamManager(models.Manager):
+    def get_queryset(self):
+        return super(RentTeamManager, self).get_queryset().\
+            filter(target_segment__contains='C', status=2)
+
+
+class SellSMEManager(models.Manager):
+    def get_queryset(self):
+        return super(SellSMEManager, self).get_queryset().\
+            filter(target_segment__contains='B', status=1)
+
+
 class Products(models.Model):
     product = models.CharField(max_length=50)
     producer = models.ForeignKey(Workplace)
@@ -34,6 +52,11 @@ class Products(models.Model):
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
     cost = models.CharField(max_length=50, null=True, blank=True)
     # offer = models.CharField(max_length=500, null=True, blank=True)
+
+    objects = models.Manager()
+    sell_teams = SellTeamManager()
+    rent_team = RentTeamManager()
+    sell_SME = SellSMEManager()
 
     class Meta:
         db_table = 'Products'
