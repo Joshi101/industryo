@@ -5,15 +5,24 @@
 {% block meta_description %}Marketplace{% endblock meta_description %}
 
 {% block body %}
+	<nav>
+		<ul id="" class="nav nav_flex">
+			<li><a href="/products?q=C">Teams</a></li>
+		  <li><a href="/products?q=B">SMEs</a></li>
+		  <li><a href="/products?q=O">College Students</a></li>
+		  <li><a href="/products?q=A">Engineers</a></li>
+		  <li><a href="/products?q=unanswered">Unanswered</a></li>
+		  <li><a href="/forum/q_tags/">Search Tags</a></li>
+		</ul>
+	</nav>
+	
+	{% if tags %}
 	<ul class="nav nav-pills">
-	  <li><a href="/products?q=C">Teams</a></li>
-	  <li><a href="/products?q=B">SMEs</a></li>
-	  <li><a href="/products?q=O">College Students</a></li>
-	  <li><a href="/products?q=A">Engineers</a></li>
-	  <li><a href="/products?q=unanswered">Unanswered</a></li>
-	  <li><a href="/forum/q_tags/">Search Tags</a></li>
-	  
+	{% for t in tags %}
+		<li><a href="/products?q=C&t={{t.id}}">{{t}}</a></li>
+	{% endfor %}
 	</ul>
+	{% endif %}
   <ul id="products_list" class="products_list">
 	<div class="clearfix"></div>
 {% for product in result_list %}

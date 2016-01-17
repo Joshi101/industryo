@@ -97,9 +97,9 @@
           {% include "enquiry/new_auth_modal.html" %}    
         </div>
         <div class="more_products row">
-          <a class="col-xs-3 text-left"><span class="fa fa-chevron-left inline_fa"></span>Previous</a>
+          <a class="col-xs-3 text-left" {% if previous %} href="{% url 'products:product' previous.slug %}" {% endif %}><span class="fa fa-chevron-left inline_fa"></span>Previous</a>
           <h3 class="text-muted col-xs-6 text-center">More Products from <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a></h3>
-          <a class="col-xs-3 text-right">Next<span class="fa fa-chevron-right inline_fa"></span></a>
+          <a class="col-xs-3 text-right" {% if next %} href="{% url 'products:product' next.slug %}" {% endif %}>Next<span class="fa fa-chevron-right inline_fa"></span></a>
         </div>
       {% endblock %}
       </div>
