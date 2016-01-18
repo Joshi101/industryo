@@ -1,0 +1,4 @@
+{% for product in result_list %}
+				{% include "marketplace/one_product.html" with product=product %}
+				{% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+{% endfor %}

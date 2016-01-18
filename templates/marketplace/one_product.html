@@ -1,4 +1,4 @@
-<li class="col-xs-6 col-sm-4">
+<li class="col-xs-6 col-sm-3">
 	<div class="product">
 		<div class="image">
 			<img class="thmb_lg lazy_img" src="/images/product.png" data-src="{{product.get_image}}" alt="{{product}}">
@@ -6,9 +6,9 @@
 		<div class="details">
 			<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
 			<div class="product_desc">{{ product.description |truncatewords_html:10}}</div>
-			<div class="product_tags tags">
-				{% include "snippets/tags.html" with tags=product.get_tags %}
-			</div>
+			{{product.cost}}
+			<button class="btn_alt" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle inline_fa"></i>Send an Enquiry</button>
 		</div>
 	</div>
 </li>
+{% include "enquiry/new_auth_modal.html" %}

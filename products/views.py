@@ -419,7 +419,7 @@ def all_products(request):
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
+        return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
     else:
         return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
