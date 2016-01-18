@@ -92,7 +92,7 @@ class Products(models.Model):
         return tags
 
     def get_image(self):
-        default_image = '/images/main/product.jpg'
+        default_image = '/images/main/product.png'
         if self.image:
             image_url = '/images/'+str(self.image.image)
             return image_url
@@ -100,7 +100,7 @@ class Products(models.Model):
             return default_image
 
     def get_image_thumbnail(self):
-        default_image = '/images/main/product.jpg'
+        default_image = '/images/main/product.png'
         if self.image:
             image_url = '/images/'+str(self.image.image_thumbnail)
             return image_url

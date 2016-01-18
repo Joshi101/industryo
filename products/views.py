@@ -369,6 +369,7 @@ def int_edit_desc(request, id):
 def all_products(request):
     tags = []
     tags2 = []
+    tags3 = []
     n = None
     m = None
 
@@ -393,7 +394,7 @@ def all_products(request):
                 t = Tags.objects.get(id=i)
                 n = i
                 p = Products.sell_teams.filter(tags=t)
-                tags2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+                tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
                     j = request.GET.get('t')
                     t1 = Tags.objects.get(id__in=[i, j])
