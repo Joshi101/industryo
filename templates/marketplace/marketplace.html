@@ -1,43 +1,91 @@
 {% extends "base.html" %}
 
+{% load index %}
+
 {% block title %}Marketpkace | CoreLogs{% endblock title %}
 
 {% block meta_description %}Marketplace{% endblock meta_description %}
 
+{% block page_id %}marketplace{% endblock page_id %}
+
 {% block body %}
-	<nav>
-		<ul id="" class="nav nav_flex">
-			<li><a href="/products?q=C">Teams</a></li>
-		  <li><a href="/products?q=B">SMEs</a></li>
-		  <li><a href="/products?q=O">College Students</a></li>
-		  <li><a href="/products?q=A">Engineers</a></li>
-		  <li><a href="/products?q=unanswered">Unanswered</a></li>
-		  <li><a href="/forum/q_tags/">Search Tags</a></li>
+	<nav class="container">
+		<ul id="marketplace_top" class="nav nav_flex drop_menu">
+			<li class="dropdown l1">
+				<a class="dropdown-toggle" data-toggle="dropdown">Teams</a>
+			    <ul class="dropdown-menu">
+			    {% for t1 in tags %}
+			    	<li class="dropdown l2">
+			    		<a class="dropdown-toggle" data-toggle="dropdown">{{t1}} <span class="fa fa-chevron-right"></span></a>
+			    		<ul class="dropdown-menu">
+			    		{% for t2 in tags2|index:forloop.counter0 %}
+								<li>
+					    		<a href="/products?q=C&t={{t2.id}}">{{t2}}</a>
+				    		</li>
+			    		{% endfor %}
+			    		</ul>
+		    		</li>
+			    {% endfor %}
+		    	</ul>
+			</li>
+		  <li class="dropdown">
+	  		<a href="/products?q=B">SMEs</a>
+  		    <ul class="dropdown-menu">
+		    	</ul>
+  		</li>
+		  <li class="dropdown">
+	  		<a href="/products?q=O">College Students</a>
+  		    <ul class="dropdown-menu">
+		    	</ul>
+  		</li>
+		  <li class="dropdown">
+	  		<a href="/products?q=A">Engineers</a>
+  		    <ul class="dropdown-menu">
+		    	</ul>
+  		</li>
+		  <li class="dropdown">
+	  		<a href="/products?q=unanswered">Unanswered</a>
+  		    <ul class="dropdown-menu">
+		    	</ul>
+  		</li>
+		  <li class="dropdown">
+	  		<a href="/forum/q_tags/">Search Tags</a>
+  		    <ul class="dropdown-menu">
+		    	</ul>
+  		</li>
 		</ul>
 	</nav>
 	
-	{% if tags %}
-	<ul class="nav nav-pills">
-	{% for t in tags %}
-		<li><a href="/products?q=C&t={{t.id}}">{{t}}</a></li>
-	{% endfor %}
-	</ul>
-	{% endif %}
-	
-	{% if tags2 %}
-	<ul class="nav nav-pills">
-	{% for h in tags2 %}
-		<li><a href="/products?q=C&t={{n}}&q3={{h.id}}">{{h}}</a></li>
-	{% endfor %}
-	</ul>
-	{% endif %}
-  <ul id="products_list" class="products_list">
-	<div class="clearfix"></div>
-{% for product in result_list %}
-	{% include "marketplace/one_product.html" with product=product %}
-	{% if forloop.counter|divisibleby:4 %}
-	<div class="clearfix"></div>
-	{% endif %}
-{% endfor %}
-</ul>
+	<div class="container">
+	  <ul id="products_list" class="products_list">
+			<div class="row">
+			{% for product in result_list %}
+				{% include "marketplace/one_product.html" with product=product %}
+				{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+			{% endfor %}
+			</div>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		$('.drop_menu').on({
+			mouseenter: function(event){
+				$(this).siblings('.active').removeClass('active');
+				$(this).addClass('active');
+				event.stopPropagation();
+				if ($(this).attr('class').indexOf('open') < 0) {
+					$(this).find('.dropdown-toggle').first().dropdown('toggle');
+					console.log('drop',$(this).attr('class'));
+				}
+				if ($(this).attr('class').indexOf('l2') >= 0) {
+					$(this).closest('.l1').addClass('open');
+					console.log('level2');
+				}
+			},
+			mouseleave: function(){
+
+			}
+		}, '.dropdown');
+	</script>
+
 {% endblock %}

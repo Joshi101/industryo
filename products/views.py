@@ -371,6 +371,14 @@ def all_products(request):
     tags2 = []
     n = None
     m = None
+
+    li1 = [590, 591, 581, 582, 586, 587, 243, 218]
+    tags = Tags.objects.filter(pk__in=li1)
+    i = 0
+    for t in tags:
+        p = Products.sell_teams.filter(tags=t)
+        t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+        tags2.append(t2)
     if 'q' in request.GET:
         querystring = request.GET.get('q')
         if querystring == 'A':
@@ -378,7 +386,6 @@ def all_products(request):
         if querystring == 'B':
             p = Products.objects.filter(target_segment__contains='B')
         if querystring == 'C':
-
             li1 = [590, 591, 581, 582, 586, 587, 243, 218]
             tags = Tags.objects.filter(pk__in=li1)
             if 't' in request.GET:
@@ -392,9 +399,6 @@ def all_products(request):
                     t1 = Tags.objects.get(id__in=[i, j])
                     m = j
                     p = Products.sell_teams.filter(tags=t1)
-
-
-
             else:
                 p = Products.objects.filter(tags__in=tags).distinct()
         if querystring == 'O':

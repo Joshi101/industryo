@@ -7,10 +7,9 @@ from django import template
 register = template.Library()
 
 
-def new_tab(text):
-    return text.replace('<a ', '<a target="_blank" ')
-new_tab = register.filter(new_tab)
-
+def index(List, i):
+    return List[int(i)]
+index = register.filter(index)
 
 # from django import template
 # from django.template.defaultfilters import stringfilter
