@@ -335,7 +335,7 @@ def int_product(request, slug):
 
     product = Products.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
-    tags = product.tags.all()
+    tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     return render(request, 'activities/p/product.html', locals())
 
@@ -364,6 +364,23 @@ def int_edit_desc(request, id):
         return redirect('/internal/products/'+p.slug)
     else:
         return redirect('/products/'+p.slug)
+
+
+def set_int_details(request, id):
+    p = Products.objects.get(id=id)
+    user = p.user
+    if request.method == 'POST':
+        desc = request.POST.get('desc')
+        cost = request.POST.get('cost')
+        tags = request.POST.get('prod_tag')
+        p.description = desc
+        p.cost = cost
+        if tags:
+            p.set_tags(tags)
+        p.save()
+        return HttpResponse()
+    else:
+        return redirect('/products/' + id)
 
 
 def all_products(request):
