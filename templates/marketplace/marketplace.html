@@ -38,34 +38,23 @@
   		    <ul class="dropdown-menu">
 		    	</ul>
   		</li>
-		  <li class="dropdown">
-	  		<a href="/products?q=A">Engineers</a>
-  		    <ul class="dropdown-menu">
-		    	</ul>
-  		</li>
-		  <li class="dropdown">
-	  		<a href="/products?q=unanswered">Unanswered</a>
-  		    <ul class="dropdown-menu">
-		    	</ul>
-  		</li>
-		  <li class="dropdown">
-	  		<a href="/forum/q_tags/">Search Tags</a>
-  		    <ul class="dropdown-menu">
-		    	</ul>
-  		</li>
+		
 		</ul>
 	</nav>
 	
 	<div class="container">
 	  <ul id="products_list" class="products_list">
 			<div class="row">
+
 			{% include 'marketplace/20_products.html' with result_list=result_list %}
 			<div class="paginator" data-next_page="2">
 		<h5>Loading more content</h5>
 		<i class="fa fa-spin fa-circle-o-notch"></i>
 	</div>
+
 			</div>
 		</ul>
+		{% include "snippets/figure_modal.html" %}
 	</div>
 
 	<script type="text/javascript">

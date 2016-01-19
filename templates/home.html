@@ -2,18 +2,25 @@
 
 {% block content %}
 <div id="home" class="ajax_papa">
+	<ul class="nav nav-pills">
+	<li><a href="/">Home</a></li>
+	  <li><a href="/forum/category?q=sae">Teams</a></li>
+	  <li><a href="/forum/category?q=sme">SME</a></li>
+	  <li><a href="/forum/category?q=scholar">Scholars</a></li>
+	  <li><a href="/forum/category?q=lsi">Engineers</a></li>
+	  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
+	  <li><a href="/forum/q_tags/">Search Tags</a></li>
+	  
+	</ul>	
 	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-xs-6 text-center">
-					<a class="btn btn-primary" href="{% url 'forum:ask' %}">Ask a Question</a>
-				</div>
-				<div class="col-xs-6 text-center">
-					<a class="btn btn-primary" href="{% url 'nodes:write' %}">Write an Article</a>
-				</div>
-			</div>
+		<div class="panel-body row">
+			<p class="text-justify text-muted col-sm-8">"Let your Curiousity defeat your laziness..."</p>
+			<p class="text-right col-sm-4">
+				<a href="{% url 'forum:ask' %}"><i class="fa fa-lightbulb-o inline_fa"></i>Ask a Question</a>
+			</p>
 		</div>
 	</div>
+	
 	<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
 		<div class="input-group">
 			<span class="input-group-addon">

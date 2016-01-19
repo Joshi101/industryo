@@ -6,22 +6,22 @@ from workplace.models import Workplace
 from django.contrib.auth.models import User
 
 
-class SellTeamManager(models.Manager):
+class SellManager(models.Manager):
     def get_queryset(self):
-        return super(SellTeamManager, self).get_queryset().\
-            filter(target_segment__contains='C', status=1)      # .order_by('-score', '-date')
+        return super(SellManager, self).get_queryset().\
+            filter(status=1).order_by('-date')     # .order_by('-score', '-date')
 
 
-class RentTeamManager(models.Manager):
+class RentManager(models.Manager):
     def get_queryset(self):
-        return super(RentTeamManager, self).get_queryset().\
-            filter(target_segment__contains='C', status=2)
+        return super(RentManager, self).get_queryset().\
+            filter(status=2).order_by('-date')
 
 
 class SellSMEManager(models.Manager):
     def get_queryset(self):
         return super(SellSMEManager, self).get_queryset().\
-            filter(target_segment__contains='B', status=1)
+            filter(target_segment__contains='B', status=1).order_by('-date')
 
 
 class Products(models.Model):
@@ -54,8 +54,8 @@ class Products(models.Model):
     # offer = models.CharField(max_length=500, null=True, blank=True)
 
     objects = models.Manager()
-    sell_teams = SellTeamManager()
-    rent_team = RentTeamManager()
+    sell = SellManager()
+    rent = RentManager()
     sell_SME = SellSMEManager()
 
     class Meta:
@@ -92,7 +92,7 @@ class Products(models.Model):
         return tags
 
     def get_image(self):
-        default_image = '/images/main/product.jpg'
+        default_image = '/images/main/product.png'
         if self.image:
             image_url = '/images/'+str(self.image.image)
             return image_url
@@ -100,7 +100,7 @@ class Products(models.Model):
             return default_image
 
     def get_image_thumbnail(self):
-        default_image = '/images/main/product.jpg'
+        default_image = '/images/main/product.png'
         if self.image:
             image_url = '/images/'+str(self.image.image_thumbnail)
             return image_url

@@ -2076,18 +2076,34 @@ div[data-role='editor-toolbar'] {
 
 #products_list {
   //padding-left: 7px;
-  margin-top: 40px;
+  //margin-top: 40px;
+}
+
+.products_list{
   list-style: none;
+  background: #fff;
+  padding: 0 5px;
 }
 
 .product{
-  display: block;
-  text-align: center;
-  padding-top: 10px;
-  margin: 10px auto;
-  max-width: 250px;
-  background-color: #fff;
-  border: 1px solid #197;
+  //text-align: center;
+  margin: 20px;
+  //max-width: 250px;
+  overflow: hidden;
+  //background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+}
+
+.product .flex{
+  display: flex;
+  align-items: center;
+}
+
+.product:hover .details{
+  //box-shadow: 0 0 2px 2px #ccc;
+  //background-color: #eee;
 }
 
 .product a:hover{
@@ -2095,44 +2111,79 @@ div[data-role='editor-toolbar'] {
 }
 
 .product .image{
-  margin-bottom: 5px;
+  max-height: 150px;
+  width: 150px;
+  padding: 10px;
+  text-align: center;
+  //background: #eee;
 }
 
 .product .thmb_lg{
   margin: auto;
-  max-height: 120px;
-    max-width: 100%;
+  max-height: 130px;
+  max-width: 130px;
   width: auto;
   height: auto;
 }
 
 
+.product .details{
+  flex-grow: 1;
+  //border-left: 1px solid #eee;
+  padding: 5px;
+  font-size: 12px;
+}
+
 .product .product_name{
-  font-size: 21px;
+  font-size: 15px;
   border-bottom: 1px solid #197;
-  margin: 0 10px;
-  padding-bottom: 5px;
+  margin: 0;
+  margin-bottom: 2px;
+  padding: 0 5px 5px;
   //display: inline-block;
 }
 
-.product .product_desc{
-  font-size: 13px;
+
+.product p{
+  display: block;
   line-height: 18px;
-  color: #777;
-  //text-align: justify;
-  padding: 0 10px;
-  margin: 10px 0;
-  //border-bottom: 1px solid #eee;
-  max-height: 55px;
-  background-color: #fff;
+  height: 28px;
+  color: #555;
+  padding: 5px;
+  margin: 0;
+  border-bottom: 1px solid #eee;
   overflow: hidden;
 }
 
+.product .details .pull-right{
+  clear: both;
+}
+
+.product .by{
+  color: #999;
+}
+
+.product .by a{
+  color: #197;
+}
+
+.product .details .status{
+  border: 0;
+}
+
 .product .product_tags{
-  padding: 0 0;
+  padding: 2px 5px;
+  height: 25px;
   font-size: 13px;
-  //border-top: 1px solid #ccc;
-  //text-align: left;
+  background: #e5e5e5;
+  text-align: right;
+}
+
+.product .product_tags .tag{
+  margin-bottom: 3px;
+  background: transparent;
+  border: 0;
+  color: #179;
 }
 
 .little_edit {
@@ -2335,7 +2386,7 @@ footer .contact li{
 
 
 #figure_modal .modal-content{
-  background-color: rgba(0,0,0,0.50);
+  background-color: #f9f9f9;
   min-height: 100%;
   border-radius: 0;
 }
@@ -2353,6 +2404,8 @@ footer .contact li{
   bottom: 0;
   width: 100%;
   padding: 5px;
+  border-top: 0;
+  text-align: center;
 }
 
 #figure_modal figure{

@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', 'home.views.home', name='home'),
 
+    url(r'^marketplace$', 'products.views.all_products', name='marketplace'),
+
     url(r'^notifications/$', 'activities.views.notifications', name='notifications'),
     url(r'^notify/$', 'activities.views.notify', name='notify'),
     url(r'^count_notify/$', 'activities.views.count_notify', name='count_notify'),

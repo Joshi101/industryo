@@ -1,13 +1,29 @@
-<li class="col-xs-6 col-sm-3">
+<li class="col-sm-6 col-lg-6">
 	<div class="product">
-		<div class="image">
-			<img class="thmb_lg lazy_img" src="/images/product.png" data-src="{{product.get_image}}" alt="{{product}}">
-		</div>
-		<div class="details">
-			<div class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></div>
-			<div class="product_desc">{{ product.description |truncatewords_html:10}}</div>
-			{{product.cost}}
-			<button class="btn_alt" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle inline_fa"></i>Send an Enquiry</button>
+		<div class="flex">
+			<div class="image">
+				<img class="thmb_lg lazy_img call_car pressme" src="/images/product.png" data-src="{{product.get_image}}" alt="{{product}}"  data-toggle='modal' data-target='#figure_modal'>
+			</div>
+			<div class="details">
+				<h4 class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></h4>
+				<p class="product_desc">{{ product.description |truncatewords_html:20|default:"No description available"}}</p>
+				<p class="by pull-right">
+					by <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a>
+				</p>
+				<p class="pull-right">
+					{% if product.cost %}
+					<span class="fa fa-inr"></span> {{product.cost}}
+					{% else %}
+					Price unavailable
+					{% endif %}
+				</p>
+				<p class="pull-right status">
+					<span class="label label-success">{{product.get_status}}</span>
+				</p>
+				<p>
+				<button class="btn_alt" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle inline_fa"></i>Send an Enquiry</button>
+				</p>
+			</div>
 		</div>
 	</div>
 </li>

@@ -1205,7 +1205,8 @@ $(document).ready(function(){
   autosize($('textarea'));
 });
 
-$('.call_car').on('click', function(){
+$('.body').on('click', '.call_car', function(){
+    console.log('image bada ho ja')
     var $this = $(this);
     var $feed = $this.closest('.feed_box_body');
     var title = $feed.find('.summary_title').text();

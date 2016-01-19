@@ -369,6 +369,7 @@ def int_edit_desc(request, id):
 def all_products(request):
     tags = []
     tags2 = []
+    tags3 = []
     n = None
     m = None
 
@@ -376,15 +377,15 @@ def all_products(request):
     tags = Tags.objects.filter(pk__in=li1)
     i = 0
     for t in tags:
-        p = Products.sell_teams.filter(tags=t)
+        p = Products.sell.filter(tags=t, target_segment__contains='C')
         t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
         tags2.append(t2)
     if 'q' in request.GET:
         querystring = request.GET.get('q')
         if querystring == 'A':
-            p = Products.objects.filter(target_segment__contains='A')
+            p = Products.sell.filter(target_segment__contains='A')
         if querystring == 'B':
-            p = Products.objects.filter(target_segment__contains='B')
+            p = Products.sell.filter(target_segment__contains='B')
         if querystring == 'C':
             li1 = [590, 591, 581, 582, 586, 587, 243, 218]
             tags = Tags.objects.filter(pk__in=li1)
@@ -393,19 +394,19 @@ def all_products(request):
                 t = Tags.objects.get(id=i)
                 n = i
                 p = Products.sell_teams.filter(tags=t)
-                tags2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+                tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
                     j = request.GET.get('t')
                     t1 = Tags.objects.get(id__in=[i, j])
                     m = j
-                    p = Products.sell_teams.filter(tags=t1)
+                    p = Products.sell.filter(tags=t1, target_segment__contains='C')
             else:
-                p = Products.objects.filter(tags__in=tags).distinct()
+                p = Products.sell.filter(tags__in=tags).distinct()
         if querystring == 'O':
-            p = Products.objects.filter(target_segment__contains='O')
+            p = Products.sell.filter(target_segment__contains='O')
 
     else:
-        p = Products.objects.all()
+        p = Products.sell.all()
 
     paginator = Paginator(p, 20)
     page = request.GET.get('page')
