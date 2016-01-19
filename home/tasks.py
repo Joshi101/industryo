@@ -27,14 +27,19 @@ def send_html_mail(id, n):
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
         html_content = template.format(up)
     elif n == 33:
-        template = Temp_Teams_rent
-        subject = "CoreLogs Invites teams to rent Components and safety equipment"
-        html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
+        template = Temp_launch_marketplace
+        subject = "Announcing Launch of CoreLogs Marketplace for SAE Teams"
+        html_content = template.format(up)
 
     elif n == 50:       # message
         template = Temp_message
         subject = "[CoreLogs] You have received a new Message"
         html_content = template.format(up)
+
+    elif n == 44:       # message
+        template = Temp_send_p_list
+        subject = "Send us a list of your products and find Buyers"
+        html_content = template.format(up, up.primary_workplace.slug, up.primary_workplace)
 
     elif n == 88:
         if u.userprofile.primary_workplace.workplace_type == 'A':
