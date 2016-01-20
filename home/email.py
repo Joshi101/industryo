@@ -15,14 +15,14 @@ def send(request):
         s = request.GET.get('q')
         if s == 'set_wp':
             id = request.GET.get('id')
-            tasks.send_one(id, n=16)
+            tasks.send_html_mail(id, n=52)
         elif s == 'set_wp_all':
             todaydate = date.today()
             startdate = todaydate + timedelta(days=1)
-            enddate = startdate - timedelta(days=6)
+            enddate = startdate - timedelta(days=30)
             lis = User.objects.filter(date_joined__range=[enddate, startdate], userprofile__primary_workplace=None)
             for i in lis:
-                tasks.send_one(i.id, n=16)
+                tasks.send_html_mail(i.id, n=52)
 
     return redirect("/internal/details/?q=u")
 
@@ -39,7 +39,7 @@ def send_mail(request):
             tasks.send_text_mail(u.id, n=22)
         elif s == "meh":
             u = User.objects.get(id=1)
-            tasks.send_html_mail(u.id, n=44)
+            tasks.send_html_mail(u.id, n=52)
         elif s == "alt":
             users = User.objects.all()
             for u in users:

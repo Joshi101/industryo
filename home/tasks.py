@@ -23,7 +23,7 @@ def send_html_mail(id, n):
     user_email = u.email
     up = u.userprofile
     if n == 25:
-        template = Template_set_wp
+        template = Temp_set_wp
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
         html_content = template.format(up)
     elif n == 33:
@@ -34,6 +34,11 @@ def send_html_mail(id, n):
     elif n == 50:       # message
         template = Temp_message
         subject = "[CoreLogs] You have received a new Message"
+        html_content = template.format(up)
+
+    elif n == 52:       # message
+        template = Temp_set_wp
+        subject = "[CoreLogs] Set Your Workplace (Company) on CoreLogs"
         html_content = template.format(up)
 
     elif n == 44:       # message

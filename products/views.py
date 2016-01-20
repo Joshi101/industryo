@@ -390,7 +390,7 @@ def all_products(request):
     n = None
     m = None
 
-    li1 = [590, 591, 581, 582, 586, 587, 243, 218]
+    li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
     tags = Tags.objects.filter(pk__in=li1)
     i = 0
     for t in tags:
@@ -404,13 +404,13 @@ def all_products(request):
         if querystring == 'B':
             p = Products.sell.filter(target_segment__contains='B')
         if querystring == 'C':
-            li1 = [590, 591, 581, 582, 586, 587, 243, 218]
+            li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
             tags = Tags.objects.filter(pk__in=li1)
             if 't' in request.GET:
                 i = request.GET.get('t')
                 t = Tags.objects.get(id=i)
                 n = i
-                p = Products.sell.filter(tags=t)
+                # p = Products.sell.filter(tags=t)
                 tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
                     j = request.GET.get('t')
