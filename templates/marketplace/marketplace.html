@@ -12,22 +12,20 @@
 	<nav class="container">
 		<ul id="marketplace_top" class="nav drop_nav">
 			<li class="dropdown l1">
-				<a class="">SAE Teams</a>
+				<a href="/marketplace?q=C" class="">SAE Teams</a>
 				<a class="dropdown-toggle"><span class="fa fa-arrow-down"></span></a>
-		    <ul class="dropdown-menu">
-		    	<div id="market_sae" class="panel l2">
-			    {% for t1 in tags %}
-			    	
-			    		<a>{{t1}}</a>
-			    		<a href="#l2_collapse_{{forloop.counter0}}" data-toggle="collapse" data-parent="#market_sae"><span class="fa fa-plus-circle inline_fa"></span></a>
-			    		<div id="l2_collapse_{{forloop.counter0}}" class="collapse">
-			    		{% for t2 in tags2|index:forloop.counter0 %}
-				    		<a href="/marketplace?q=C&t={{t1.id}}&q3={{t2.id}}">{{t2}}</a>
-			    		{% endfor %}
-			    		</div>
-		    		
-			    {% endfor %}
-			    </div>
+		    <ul id="market_sae" class="dropdown-menu">
+		    {% for t1 in tags %}
+		    	<span class="l2 panel">
+		    		<a href="/marketplace?q=C&t={{t1.id}}">{{t1}}</a>
+		    		<a href="#l2_collapse_{{forloop.counter0}}" data-toggle="collapse" data-parent="#market_sae"><span class="fa fa-arrow-circle-down inline_fa"></span></a>
+		    		<div id="l2_collapse_{{forloop.counter0}}" class="collapse">
+		    		{% for t2 in tags2|index:forloop.counter0 %}
+			    		<a href="/marketplace?q=C&t={{t1.id}}&q3={{t2.id}}">{{t2}}</a>
+		    		{% endfor %}
+		    		</div>
+	    		</span>
+		    {% endfor %}
 	    	</ul>
 			</li>
 		  <li class="dropdown l1">
@@ -41,13 +39,11 @@
 	<div class="container">
 	  <ul id="products_list" class="products_list">
 			<div class="row">
-
 			{% include 'marketplace/20_products.html' with result_list=result_list %}
-			<div class="paginator" data-next_page="2">
-		<h5>Loading more content</h5>
-		<i class="fa fa-spin fa-circle-o-notch"></i>
-	</div>
-
+				<div class="paginator" data-next_page="2">
+					<h5>Loading more content</h5>
+					<i class="fa fa-spin fa-circle-o-notch"></i>
+				</div>
 			</div>
 		</ul>
 		{% include "snippets/figure_modal.html" %}
