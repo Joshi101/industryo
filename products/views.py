@@ -410,7 +410,7 @@ def all_products(request):
                 i = request.GET.get('t')
                 t = Tags.objects.get(id=i)
                 n = i
-                # p = Products.sell.filter(tags=t)
+                p = Products.sell.filter(tags=t)
                 tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
                     j = request.GET.get('t')
