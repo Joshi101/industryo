@@ -389,7 +389,6 @@ def all_products(request):
     tags3 = []
     n = None
     m = None
-
     li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
     tags = Tags.objects.filter(pk__in=li1)
     i = 0
@@ -413,10 +412,11 @@ def all_products(request):
                 p = Products.sell.filter(tags=t)
                 tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
-                    j = request.GET.get('t')
-                    t1 = Tags.objects.get(id__in=[i, j])
+                    j = request.GET.get('q3')
+                    t1 = Tags.objects.filter(id__in=[i, j])
                     m = j
-                    p = Products.sell.filter(tags=t1, target_segment__contains='C')
+                    for a in t1:
+                        p = Products.sell.filter(tags=t1, target_segment__contains='C')
             else:
                 p = Products.sell.filter(tags__in=tags).distinct()
         if querystring == 'O':
