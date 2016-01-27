@@ -1588,3 +1588,7 @@ function deleteWPTag($tag){
         }
     });
 }
+
+$('.enq_btn').on('click',function(){
+    $('#enquiry_modal').find('input[name="pid"]').val($(this).closest('.product').find('.id').text());
+});

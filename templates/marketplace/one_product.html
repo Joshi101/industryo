@@ -20,9 +20,9 @@
 				<p class="pull-right status">
 					<span class="label label-success">{{product.get_status}}</span>
 				</p>
-				<button class="btn_alt pull-left" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle inline_fa"></i>Send Enquiry</button>
+				<span class="hide id">{{ product.id }}</span>
+				<button class="btn_alt pull-left enq_btn" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle inline_fa"></i>Send Enquiry</button>
 			</div>
 		</div>
 	</div>
 </li>
-{% include "enquiry/new_auth_modal.html" %}
