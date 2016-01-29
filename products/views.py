@@ -413,17 +413,26 @@ def all_products(request):
                 tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
                     j = request.GET.get('q3')
-                    t1 = Tags.objects.filter(id__in=[i, j])
+                    t1 = Tags.objects.filter(id__in=[j])
                     m = j
-                    for a in t1:
-                        p = Products.sell.filter(tags=t1, target_segment__contains='C')
+                    p = Products.sell.filter(tags=t1, target_segment__contains='C')
             else:
                 p = Products.sell.filter(tags__in=tags).distinct()
         if querystring == 'O':
             p = Products.sell.filter(target_segment__contains='O')
 
     else:
-        p = Products.sell.all()
+        if request.user.is_authenticated():
+            if request.user.userprofile.primary_workplace:
+                a = request.user.userprofile.primary_workplace.workplace_type
+            else:
+                a = None
+        else:
+            a = None
+        if a:
+            p = Products.sell.filter(target_segment__contains=a)
+        else:
+            p = Products.sell.all()
 
     paginator = Paginator(p, 20)
     page = request.GET.get('page')
