@@ -6,7 +6,7 @@
 }
 
 .navbar-inverse{
-  background: rgba(0,0,0,0.89);
+  background: transparent;
 }
 
 .navbar-nav{
@@ -181,7 +181,6 @@ img{
 
 .navbar.affix{
   top: 0;
-  background: rgba(0,0,0,0.9);
   width: 100%;
   z-index: 999;
 }
@@ -2099,6 +2098,7 @@ div[data-role='editor-toolbar'] {
 
 .product .flex{
   display: flex;
+  position: relative;
   //flex-wrap: wrap;
   //align-items: center;
 }
@@ -2139,6 +2139,7 @@ div[data-role='editor-toolbar'] {
   //border-left: 1px solid #eee;
   padding: 5px;
   font-size: 12px;
+  height: 150px;
   //background: #f3f3f3;
 }
 
@@ -2161,6 +2162,10 @@ div[data-role='editor-toolbar'] {
   margin: 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
+}
+
+.product_desc {
+  position: relative;
 }
 
 .product .details .pull-right{
@@ -3220,4 +3225,84 @@ footer .contact li{
   border-radius: 0;
   padding: 5px;
   font-size: 15px;
+}
+
+.product .more, .product .less{
+  //float: right;
+  cursor: pointer;
+  //border: 1px solid #666;
+  //border-radius: 5px;
+  //border-style: none none none solid;
+  box-shadow: -25px 0px 5px 0px #fff;
+  line-height: 12px;
+  font-size: 10px;
+  padding: 1px 4px 2px;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  bottom: 5px;
+}
+
+.product .more:hover, .product .less:hover{
+  //background: #ddd;
+  color: #999;
+}
+
+.product .expanded{
+  z-index: 10;
+  margin-bottom: 20px;
+  //position: absolute;
+  //background: #fff;
+  //right: 5px;
+  //left: 155px;
+}
+
+.floating{
+  position: absolute;
+  float: right;
+  right: 15px;
+  margin-top: 10px;
+  background: #444;
+  padding: 7px 10px;
+  border-radius: 25px;
+  font-size: 15px;
+  z-index: 10;
+}
+
+.box{
+  height: 250px;
+  margin-bottom: 25px;
+  background: #fff no-repeat center;
+  background-size: contain;
+  box-shadow: 0 3px 8px rgba(112,144,112,0.75);
+  overflow: hidden;
+}
+
+.box h2{
+  text-align: center;
+  line-height: 250px;
+  background-color: rgba(0,0,0,0.45);
+  margin: 0;
+}
+
+.box h2 a{
+  color: #fff;
+}
+
+.box .details{
+  height: 200px;
+  background-color: rgba(0,0,0,0.75);
+}
+
+.box .details a{
+  display: inline-block;
+  min-width: 49%;
+  position: relative;
+  color: #eef;
+  padding: 10px;
+}
+
+.box .details .fa-cogs{
+  position: relative;
+  color: #197;
 }

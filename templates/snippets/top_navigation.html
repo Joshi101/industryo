@@ -184,4 +184,11 @@
       {% endif %}
     </div>
   </div>
+  {% if user.userprofile.primary_workplace %}
+  <div class="mob_only floating">
+    <a class="" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
+      <span class="fa fa-briefcase"></span>
+    </a>
+  </div>
+  {% endif %}
 </nav>
