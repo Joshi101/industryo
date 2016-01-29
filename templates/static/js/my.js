@@ -1592,3 +1592,19 @@ function deleteWPTag($tag){
 $('.enq_btn').on('click',function(){
     $('#enquiry_modal').find('input[name="pid"]').val($(this).closest('.product').find('.id').text());
 });
+
+$('body').on('click', '.more', function(){
+    var $this = $(this);
+    $this.parent().stop().animate({'height':'120px'}, 500, function(){
+        $this.parent().addClass('expanded');
+        $this.removeClass('more').addClass('less').html('less <span class="fa fa-chevron-up"></span>');
+    });
+});
+
+$('body').on('click', '.less', function(){
+    var $this = $(this);
+    $(this).parent().stop().animate({'height':'28px'},500, function(){
+        $this.parent().removeClass('expanded');
+        $this.removeClass('less').addClass('more').html('more <span class="fa fa-chevron-down"></span>');
+    });
+});

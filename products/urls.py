@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'home.views.home', name='home'),
 
     url(r'^$', 'products.views.all_products', name='marketplace'),
+    url(r'^home/$', 'products.views.home', name='home'),
 
     url(r'^random/$', 'products.views.random', name='random'),
     url(r'^delete/$', 'products.views.delete', name='delete'),

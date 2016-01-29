@@ -6,7 +6,7 @@
 			</div>
 			<div class="details">
 				<h4 class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></h4>
-				<p class="product_desc">{{ product.description |truncatewords_html:20|default:"No description available"}}</p>
+				<p class="product_desc"><span class="text">{{ product.description|truncatechars_html:300|default:"No description available"}}</span><span class="more">.. more <span class="fa fa-chevron-down"></span></span></p>
 				<p class="by pull-right">
 					by <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a>
 				</p>

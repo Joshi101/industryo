@@ -383,6 +383,19 @@ def set_int_details(request, id):
         return redirect('/products/' + id)
 
 
+def home(request):
+    tags = []
+    tags2 = []
+    li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
+    tags = Tags.objects.filter(pk__in=li1)
+    for t in tags:
+        p = Products.sell.filter(tags=t, target_segment__contains='C')
+        t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+        tags2.append(t2)
+
+    return render(request, 'marketplace/cover.html', {'tags': tags, 'tags2': tags2})
+
+
 def all_products(request):
     tags = []
     tags2 = []
