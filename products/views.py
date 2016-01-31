@@ -386,14 +386,47 @@ def set_int_details(request, id):
 def home(request):
     tags = []
     tags2 = []
-    li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-    tags = Tags.objects.filter(pk__in=li1)
-    for t in tags:
-        p = Products.sell.filter(tags=t, target_segment__contains='C')
-        t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-        tags2.append(t2)
+    if 'q' in request.GET:
+        querystring = request.GET.get('q')
+        if querystring == 'A':
+            li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
+            tags = Tags.objects.filter(pk__in=li1)
+            for t in tags:
+                p = Products.sell.filter(tags=t, target_segment__contains='C')
+                t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+                tags2.append(t2)
+        elif querystring == 'B':
+            return redirect('/marketplace?q=B&t=701')
+            # li1 = [701]
+            # tags = Tags.objects.filter(pk__in=li1)
+            # for t in tags:
+            #     p = Products.sell.filter(tags=t, target_segment__contains='C')
+            #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+            #     tags2.append(t2)
+        elif querystring == 'C':
+            return redirect('/marketplace?q=B')
+            # li1 = []
+            # tags = Tags.objects.filter(pk__in=li1)
+            # for t in tags:
+            #     p = Products.sell.filter(tags=t, target_segment__contains='C')
+            #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+            #     tags2.append(t2)
+        elif querystring == 'D':
+            return redirect('/marketplace?q=B')
 
-    return render(request, 'marketplace/cover.html', {'tags': tags, 'tags2': tags2})
+        elif querystring == 'E':
+            return redirect('/marketplace?q=B&t=35')
+
+        return render(request, 'marketplace/cover.html', {'tags': tags, 'tags2': tags2})
+    else:
+        li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
+        tags = Tags.objects.filter(pk__in=li1)
+        for t in tags:
+            p = Products.sell.filter(tags=t, target_segment__contains='C')
+            t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+            tags2.append(t2)
+
+        return render(request, 'marketplace/cover_pre.html', {'tags': tags, 'tags2': tags2})
 
 
 def all_products(request):
@@ -414,7 +447,14 @@ def all_products(request):
         if querystring == 'A':
             p = Products.sell.filter(target_segment__contains='A')
         if querystring == 'B':
-            p = Products.sell.filter(target_segment__contains='B')
+            if 't' in request.GET:
+                i = request.GET.get('t')
+                t = Tags.objects.get(id=i)
+                n = i
+                p = Products.sell.filter(tags=t)
+                tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+            else:
+                p = Products.sell.filter(target_segment__contains='B')
         if querystring == 'C':
             li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
             tags = Tags.objects.filter(pk__in=li1)

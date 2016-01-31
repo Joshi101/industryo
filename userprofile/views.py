@@ -126,7 +126,6 @@ def edit(request):
 
 @login_required
 def set_interests(request):
-    print('ooooooooooooo')
     if request.method == 'POST':
         response = {}
         r_html = {}

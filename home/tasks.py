@@ -82,11 +82,11 @@ def send_list_html_mail(mail, n):
 
     user_email = [mail]
 
-    subject = "CoreLogs- The free digital marketing solution for SMEs"
+    subject = "Request to feature your Products on our Marketplace."
 
-    template = Template_final_sme_invite
+    template = Temp_new_in
     html_content = template
-    from_email, to = 'info@corelogs.com', user_email
+    from_email, to = 'sprksh.j@gmail.com', user_email
     text_content = 'CoreLogs Invites you & your company to the best Ecosystem of SMEs on Internet. We invite you to www.corelogs.com'
     msg = EmailMultiAlternatives(subject, text_content, from_email, user_email)
     msg.attach_alternative(html_content, "text/html")

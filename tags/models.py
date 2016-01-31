@@ -47,6 +47,14 @@ class Tags(models.Model):
         else:
             return default_image
 
+    def get_image(self):
+        default_image = '/images/main/image.png'
+        if self.logo:
+            image_url = '/images/'+str(self.logo.image)
+            return image_url
+        else:
+            return default_image
+
     def get_type(self):
         if self.type == 'A':
             return "Asset"
