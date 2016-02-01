@@ -16,7 +16,7 @@
 	  	
 		
 	  	<div class="col-sm-4">
-	  		<div class="box" style="background-image: url(/images/sae2.png);">
+	  		<div class="box" style="background-image: url(/images/sae2.PNG);">
 	  			<h2>
 	  				<a href="/products/home?q=A">SAE Teams Related Items</a>
 	  			</h2>
@@ -28,24 +28,7 @@
 	  	</div>
 	  	
 		<div class="col-sm-4">
-	  		<div class="box" style="background-image: url(/images/rc2.png);">
-	  			<h2>
-	  				<a href="/products/home?q=B">RC Cars &amp; Components</a>
-	  			</h2>
-	  			<div class="details">
-		    		{% for t2 in tags2|index:forloop.counter0 %}
-			    			<a href="/marketplace?q=C&t={{t1.id}}&q3={{t2.id}}"><span class="fa fa-cogs inline_fa"></span>{{t2}}</a>
-		    			
-			    		{% if forloop.counter|divisibleby:2 %}
-		    			
-			    		{% endif %}
-		    		{% endfor %}
-	    		</div>
-	  		</div>
-	  	</div>
-		
-		<div class="col-sm-4">
-	  		<div class="box" style="background-image: url(/images/sme2.png);">
+	  		<div class="box" style="background-image: url(/images/sme2.PNG);">
 	  			<h2>
 	  				<a href="/products/home?q=C">Manufactured by SMEs</a>
 	  			</h2>
@@ -62,7 +45,25 @@
 	  	</div>
 		
 		<div class="col-sm-4">
-	  		<div class="box" style="background-image: url(/images/ece2.png);">
+	  		<div class="box" style="background-image: url(/images/rc2.PNG);">
+	  			<h2>
+	  				<a href="/products/home?q=B">RC Cars &amp; Components</a>
+	  			</h2>
+	  			<div class="details">
+		    		{% for t2 in tags2|index:forloop.counter0 %}
+			    			<a href="/marketplace?q=C&t={{t1.id}}&q3={{t2.id}}"><span class="fa fa-cogs inline_fa"></span>{{t2}}</a>
+		    			
+			    		{% if forloop.counter|divisibleby:2 %}
+		    			
+			    		{% endif %}
+		    		{% endfor %}
+	    		</div>
+	  		</div>
+	  	</div>
+				
+		
+		<div class="col-sm-4">
+	  		<div class="box" style="background-image: url(/images/ece2.PNG);">
 	  			<h2>
 	  				<a href="/products/home?q=D">Electronics Items</a>
 	  			</h2>
@@ -79,7 +80,7 @@
 	  	</div>
 		
 		<div class="col-sm-4">
-	  		<div class="box" style="background-image: url(/images/ser2.png);">
+	  		<div class="box" style="background-image: url(/images/ser2.PNG);">
 	  			<h2>
 	  				<a href="/products/home?q=E">Engineering & Industrial Services</a>
 	  			</h2>
