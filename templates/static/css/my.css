@@ -2591,13 +2591,14 @@ footer .contact li{
 .info_field_label{
   display: table-cell;
   color: #777;
-  min-width: 120px;
+  min-width: 150px;
   vertical-align: top;
+  padding-left: 25px;
 }
 
 .info_field_label .fa{
   position: absolute;
-  right: 0px;
+  left: 0px;
   top: 3px;
 }
 
@@ -2609,8 +2610,6 @@ footer .contact li{
 
 .info_field_value, .info_field_edit{
   display: table-cell;
-  //padding-left: 20px;
-  padding-right: 20px;
   width: 100%;
   //min-width: 250px;
   vertical-align: middle;
