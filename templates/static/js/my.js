@@ -1386,6 +1386,7 @@ $(function () {
 
 $('.ajax_a').on('click', function(event){
     event.preventDefault();
+    //window.history.pushState({ id: 35 }, 'ajax kaam', '/op/ol');
     var target = $(this).data('place');
     var url = $(this).attr('href');
     console.log(target);
@@ -1607,4 +1608,17 @@ $('body').on('click', '.less', function(){
         $this.parent().removeClass('expanded');
         $this.removeClass('less').addClass('more').html('more <span class="fa fa-chevron-down"></span>');
     });
+});
+
+$('body').on('click', '.next_nav', function(){
+    $(this).closest('.tab-content').siblings('.nav-tabs').find('.active').next().find('a').tab('show');
+});
+
+$('#add_prod_category').on('click', '.nav li a', function(){
+    $(this).tab('show');
+});
+
+$('.select_btn').on('click', function(){
+    var name = $(this).data('name');
+    $(this).closest('form').find('input[name=' + name + ']').val($(this).data('value'));
 });

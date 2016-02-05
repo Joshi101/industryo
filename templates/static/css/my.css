@@ -1127,7 +1127,7 @@ pre {
   }
   
   .nav-pills li{
-    float: left;
+    /*! float: left; */
   }
   
   .nav-pills li a {
@@ -2591,13 +2591,14 @@ footer .contact li{
 .info_field_label{
   display: table-cell;
   color: #777;
-  min-width: 120px;
+  min-width: 150px;
   vertical-align: top;
+  padding-left: 25px;
 }
 
 .info_field_label .fa{
   position: absolute;
-  right: 0px;
+  left: 0px;
   top: 3px;
 }
 
@@ -2609,8 +2610,6 @@ footer .contact li{
 
 .info_field_value, .info_field_edit{
   display: table-cell;
-  //padding-left: 20px;
-  padding-right: 20px;
   width: 100%;
   //min-width: 250px;
   vertical-align: middle;
@@ -3305,4 +3304,25 @@ footer .contact li{
 .box .details .fa-cogs{
   position: relative;
   color: #197;
+}
+
+#add_prod_category .row{
+  margin: 0;
+}
+
+#add_prod_category .nav-pills{
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+
+#add_prod_category .nav-pills li a{
+  margin: 5px 0;
+  border: 1px solid #999;
+  //border-radius: 5px;
+  padding: 7px 10px;
+}
+
+#add_product .well{
+  background: #fff;
 }

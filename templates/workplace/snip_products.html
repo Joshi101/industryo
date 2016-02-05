@@ -10,34 +10,8 @@
 		{% endif %}
 	</div>
 </div>
-
-{% include "products/new_modal.html" %}
-
-<div>
-	<div class="col-xs-6">
-		<div class="product">
-			<div class="flex">
-				<div class="image">
-					<a data-toggle='modal' data-target='#prod_modal'><i class="fa fa-plus fa-3x"></i></a>
-				</div>
-				<div class="details">
-					<div class="product_name"><a data-toggle='modal' data-target='#prod_modal'>Add Items to Sell</a></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-xs-6">
-		<div class="product">
-			<div class="flex">
-				<div class="image">
-					<a  data-toggle='modal' data-target='#prod_modal'><i class="fa fa-inr fa-3x"></i></a>	
-				</div>
-				<div class="details">
-					<div class="product_name"><a data-toggle='modal' data-target='#prod_modal'>Add Items to Rent</a></div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="text-center ">
+	<a href="{% url 'products:add_product' %}"><i class="fa fa-plus inline_fa"></i>Add Products</a>
 </div>
 {% endif %}
 
