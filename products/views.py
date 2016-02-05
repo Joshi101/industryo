@@ -504,3 +504,50 @@ def all_products(request):
         return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
 # Create your views here.
+
+
+def add_1_product(request):
+    user = request.user
+    producer = user.userprofile.primary_workplace
+
+    if request.method == 'POST':
+        pro = request.POST.get('product')
+        description = request.POST.get('description')
+        cost = request.POST.get('cost')
+        bulk = request.POST.get('bulk')
+        services = request.POST.get('services')
+
+        p = Products.objects.create(product=pro, producer=producer, description=description, cost=cost)
+        t = []
+        # If Bulk quantity Product
+
+        if bulk:
+            tag = Tags.objects.get(id=999)
+            t.append(tag)
+        elif services:
+            tag = Tags.objects.get(id=999)
+            t.append(tag)
+
+        target = request.POST.get('target')
+        if target == 1:
+            # Students, Racing Enthusiasts
+            pass
+            # list = ['SAE Team Related Items', 'Racing Enthusiasts & Automobile Accessories', ]
+        elif target == 2:
+            # Industries & SMEs
+            pass
+
+    else:
+        last_product = Products.objects.filter(producer=producer)[-1]
+        tags = last_product.tags.all()
+    return redirect('/')
+
+
+
+
+
+
+
+
+
+

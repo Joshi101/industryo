@@ -53,6 +53,8 @@ class Products(models.Model):
     cost = models.CharField(max_length=50, null=True, blank=True)
     # offer = models.CharField(max_length=500, null=True, blank=True)
 
+    # type = models.CharField(max_length=1, default=1)    # 0=single item sellable, 1=Bulk produce, 2 service
+
     objects = models.Manager()
     sell = SellManager()
     rent = RentManager()
