@@ -102,7 +102,15 @@ def add_product(request):
         # return HttpResponseRedirect(url)
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        return render(request, 'products/add_product.html')
+        tags1 = []
+        tags2 = []
+        li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
+        tags1 = Tags.objects.filter(pk__in=li1)
+        for t in tags1:
+            p = Products.sell.filter(tags=t, target_segment__contains='C')
+            t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+            tags2.append(t2)
+        return render(request, 'products/add_product.html', {'tags1': tags1, 'tags2': tags2})
 
 
 def set_details(request, id):

@@ -1612,5 +1612,13 @@ $('body').on('click', '.less', function(){
 
 $('body').on('click', '.next_nav', function(){
     $(this).closest('.tab-content').siblings('.nav-tabs').find('.active').next().find('a').tab('show');
-    console.log($(this).closest('.tab-content').siblings('.nav-tabs').find('.active').next().find('a').text());
+});
+
+$('#add_prod_category').on('click', '.nav li a', function(){
+    $(this).tab('show');
+});
+
+$('.select_btn').on('click', function(){
+    var name = $(this).data('name');
+    $(this).closest('form').find('input[name=' + name + ']').val($(this).data('value'));
 });

@@ -1127,7 +1127,7 @@ pre {
   }
   
   .nav-pills li{
-    float: left;
+    /*! float: left; */
   }
   
   .nav-pills li a {
@@ -3304,4 +3304,25 @@ footer .contact li{
 .box .details .fa-cogs{
   position: relative;
   color: #197;
+}
+
+#add_prod_category .row{
+  margin: 0;
+}
+
+#add_prod_category .nav-pills{
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+
+#add_prod_category .nav-pills li a{
+  margin: 5px 0;
+  border: 1px solid #999;
+  //border-radius: 5px;
+  padding: 7px 10px;
+}
+
+#add_product .well{
+  background: #fff;
 }
