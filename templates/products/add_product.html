@@ -10,30 +10,69 @@
 <form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
   {% csrf_token %}
   <ul class="nav nav-tabs nav-justified">
-	  <li class="active"><a data-toggle="tab" href="#add_prod_category">Select Category</a></li>
+	  <li class="active"><a data-toggle="tab" href="#add_prod_category">Categorization</a></li>
 	  <li><a data-toggle="tab" href="#add_prod_info">Product Information</a></li>
-	  <li><a data-toggle="tab" href="#add_prod_desc">Product Description</a></li>
-	  <li><a data-toggle="tab" href="#add_prod_target">Target</a></li>
 	</ul>
 	<div class="tab-content well">
 		<div id="add_prod_category" class="tab-pane active fade in">
 			<div class="form-group">
+		    <h4>Select Your Target Customers</h4>
+		    <div class="checkbox">
+		      <label><input type="checkbox" name="A" value="A">SMEs &amp; Small Businesses</label>
+		    </div>
+		    <div class="checkbox">
+		      <label><input type="checkbox" name="B" value="B">People in Large Industries</label>
+		    </div>
+		    <div class="checkbox">
+		      <label><input type="checkbox" name="C" value="C">Baja/ Formula Teams</label>
+		    </div>
+		    <div class="checkbox">
+		      <label><input type="checkbox" name="O" value="O">College Students</label>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		  <h4>Type of Product</h4>
+		    <div class="radio">
+		      <label><input type="radio" name="type" value="bulk">Bulk Item</label>
+		    </div>
+		    <div class="radio">
+		      <label><input type="radio" name="type" value="single">Single Item</label>
+		    </div>
+		    <div class="radio">
+		      <label><input type="radio" name="type" value="service">Service</label>
+		    </div>
+		  </div>
+			<div class="form-group">
+				<h4>Select a Category</h4>
 				<div class="row">
-					<ul class="nav nav-pills nav-stacked col-xs-6">
-					{% for t1 in tags1 %}
-						<li><a data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}</a></li>
-					{% endfor %}
+					<ul class="nav nav-pills">
+						<li><a data-toggle="pill" href="#cat_a">SAE Teams</a></li>
+						<li><a data-toggle="pill" href="#cat_b">Others</a></li>
 					</ul>
-					<div class="tab-content col-xs-6">
-					{% for t1 in tags1 %}
-						<div id="t1_{{t1|cut:'&'|cut:' '}}" class="tab-pane fade">
-							<ul class="nav nav-pills nav-stacked">
-							{% for t2 in tags2|index:forloop.counter0 %}
-								<li><a class="select_btn" data-name="category" data-value="{{t2.id}}">{{t2}}</a></li>
+					<div class="tab-content">
+						<div id="cat_a" class="tab-pane fade">
+							<ul class="nav nav-pills nav-stacked col-xs-6">
+							{% for t1 in tags1 %}
+								<li><a data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}</a></li>
 							{% endfor %}
 							</ul>
+							<div class="tab-content col-xs-6">
+							{% for t1 in tags1 %}
+								<div id="t1_{{t1|cut:'&'|cut:' '}}" class="tab-pane fade">
+									<ul class="nav nav-pills nav-stacked">
+									{% for t2 in tags2|index:forloop.counter0 %}
+										<li><a class="select_btn" data-name="category" data-value="{{t2.id}}">{{t2}}</a></li>
+									{% endfor %}
+									</ul>
+								</div>
+							{% endfor %}
+							</div>
 						</div>
-					{% endfor %}
+						<div id="cat_b" class="tab-pane fade">
+							<ul class="nav nav-pills nav-stacked">
+								<li><a class="select_btn" data-name="category" data-value="">Others</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<input type="hidden" name="category" value="">
@@ -54,6 +93,10 @@
 		    <input class="form-control" placeholder="Cost per Unit Eg. Rs20,000 for a pair. or Rs. 2000/month rent" name="cost">
 		  </div>
 		  <div class="form-group">
+		    <label class="control-label">Description of the product</label>
+		    <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
+		  </div>
+		  <div class="form-group">
         <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
         {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
       </div>
@@ -71,43 +114,13 @@
 		    <div class="img_pre hide" data-index=0>
 		    </div>
 		  </div>
-		  <div class="form-group">
-				<button type="button" class="next_nav btn btn-primary">Next</button>
-			</div>
+		  <button class="btn btn-primary">Submit</button>
 	  </div>
 		
 	  <!-- <div class="form-group">
 	    <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
 	    {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
 	  </div> -->
-
-	  <div id="add_prod_desc" class="tab-pane fade">
-		  <div class="form-group">
-		    <label class="control-label">Description of the product</label>
-		    <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
-		  </div>
-		  <div class="form-group">
-				<button type="button" class="next_nav btn btn-primary">Next</button>
-			</div>
-	  </div>
-	  <div id="add_prod_target" class="tab-pane fade">
-		  <div class="form-group">
-		    <h4>Select Your Target Customers</h4>
-		    <div class="checkbox">
-		      <label><input type="checkbox" name="A" value="A">SMEs &amp; Small Businesses</label>
-		    </div>
-		    <div class="checkbox">
-		      <label><input type="checkbox" name="B" value="B">People in Large Industries</label>
-		    </div>
-		    <div class="checkbox">
-		      <label><input type="checkbox" name="C" value="C">Baja/ Formula Teams</label>
-		    </div>
-		    <div class="checkbox">
-		      <label><input type="checkbox" name="O" value="O">College Students</label>
-		    </div>
-		  </div>
-	  	<button class="btn btn-primary form-ajax-filed">Submit</button>
-	  </div>
 	  <input class="index" name="i" type="hidden" value="0">
   </div>
 </form>
