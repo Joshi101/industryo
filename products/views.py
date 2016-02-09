@@ -103,14 +103,21 @@ def add_product(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         tags1 = []
-        tags2 = []
+        tags12 = []
         li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
+        li2 = [11, 12, 32, 543, 42, 99, 67]
+        li3 = [111, 121, 321, 545, 422, 199, 167]
+        li4 = [171, 131, 351, 75, 425, 194, 17]
         tags1 = Tags.objects.filter(pk__in=li1)
+        tags2 = Tags.objects.filter(pk__in=li2)
+        tags3 = Tags.objects.filter(pk__in=li3)
+        tags4 = Tags.objects.filter(pk__in=li4)
         for t in tags1:
             p = Products.sell.filter(tags=t, target_segment__contains='C')
             t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            tags2.append(t2)
-        return render(request, 'products/add_product.html', {'tags1': tags1, 'tags2': tags2})
+            tags12.append(t2)
+        return render(request, 'products/add_product.html', {'tags1': tags1, 'tags2': tags2, 'tags3': tags3, 'tags4': tags4,
+                                                             'tags12': tags12, 'tags22': tags12, 'tags32': tags12, 'tags42': tags12})
 
 
 def set_details(request, id):
