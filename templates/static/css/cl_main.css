@@ -48,6 +48,7 @@ form{
 
 .navbar-nav > li {
   float: left;
+  height: 50px;
 }
 
 @media (max-width: 768px){
@@ -71,8 +72,15 @@ form{
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus,
 .navbar-inverse .navbar-nav > li > a.current {
-  border-bottom: 2px solid #197;
+  height: 51px;
+  border-bottom: 1px solid #197;
+  color: #197;
 }
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{
+  background-color: #444;
+}
+
 
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
@@ -351,4 +359,14 @@ and in bootstrap.css
   .notify_box li{
     text-align: center;
   }
+}
+
+.nav_2 .navbar-nav > .user_top > a{
+  color: #337AB7;
+}
+
+.user_top img{
+  //border: 1px solid #eee;
+  //border-radius: 16px;
+  margin-right: 3px;
 }
