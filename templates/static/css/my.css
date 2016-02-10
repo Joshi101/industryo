@@ -98,11 +98,22 @@ img{
   overflow: hidden;
 }
 
-.thmb_sm, .thmb_md, .thmb_lg{
+.thmb_xs, .thmb_sm, .thmb_md, .thmb_lg{
   display: inline-block;
   vertical-align: middle;
   text-align: center;
 }
+
+.thmb_xs{
+  width: 20px;
+  height: 20px;
+}
+
+.thmb_sm{
+  width: 32px;
+  height: 32px;
+}
+
 
 .thmb_md{
   width: 96px;
@@ -161,6 +172,7 @@ img{
 
 .nav_left{
   float: left;
+  padding: 0 15px;
 }
 
 .navbar-collapse.in{
@@ -206,11 +218,13 @@ img{
 }
 
 .navbar-inverse .nav > li > a{
-  font-family: "Calibri";
-  padding: 10px 10px 8px 10px;
-  font-weight: 900;
+  font-family: "Roboto","Calibri";
+  //font-weight: 900;
+  //padding: 14px 10px 14px;
   font-size: 14px;
-  height: 40px;
+  padding: 0 10px;;
+  height: 50px;
+  line-height: 48px;
 }
 
 .nav .nav_2 a{
@@ -224,21 +238,21 @@ img{
   }
   .navbar-inverse .nav > li > a{
     //padding-left: 0;
-    padding-right: 0;
+    //padding-right: 0;
   }
 }
 
 .navbar .nav_left > li > a{
-  padding-right: 0;
+  //padding-right: 0;
 }
 
 .navbar .nav_left > li > a span:last-child{
-  border-right: 1px solid #333;
-  padding-right: 10px;
+  //border-right: 1px solid #333;
+  //padding-right: 10px;
 }
 
 .navbar-inverse .nav_right > li > a{
-  padding-right: 10px;
+  //padding-right: 10px;
 }
 
 .navbar .nav_left > li:last-of-type > a span:last-child{
@@ -873,12 +887,23 @@ pre {
 
 .nav_2{
   background-color: #fff;
-  box-shadow: 0 1px 1px #555 inset ;
-  border-bottom: 1px solid #999;
+  box-shadow: 0 3px 2px -2px rgba(200,200,200,0.72);
+  border-bottom: 1px solid #ddd;
+}
+
+.nav_2 .fa{
+  font-size: 16px;
+  margin-right:3px;
+  //line-height: 49px;
+}
+
+.nav_2 span{
+  vertical-align: middle;
 }
 
 .nav_2 .navbar-nav > li > a{
-  color: #337AB7;
+  color: #757575;
+  vertical-align: middle;
 }
 
 .nav_2 .navbar-nav > li > a:hover{
@@ -2544,7 +2569,7 @@ footer .contact li{
 }
 
 .inline_fa{
-  margin: 0 5px;
+  /*! margin: 0 5px; */
 }
 
 .d_search .tag{

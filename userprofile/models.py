@@ -60,7 +60,7 @@ class UserProfile(models.Model):
         return provider
 
     def get_profile_image(self):
-        default_image = '/images/thumbnails/user.JPG'
+        default_image = '/images/user_man.png'
         if self.profile_image:
             image_url = '/images/'+str(self.profile_image.image_thumbnail)
             return image_url
