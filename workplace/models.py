@@ -237,7 +237,7 @@ class Workplace(models.Model):
         return city
 
     def get_logo(self):
-        default_image = '/images/thumbnails/logo.JPG'
+        default_image = '/images/wp.png'
         if self.logo:
             image_url = '/images/'+str(self.logo.image_thumbnail)
             return image_url

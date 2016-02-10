@@ -104,7 +104,8 @@
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
           <span class="badge"></span>
           <a href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
-            <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace.name}}">
+            <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace
+            .name}}">
             <span class="abr">{{user.userprofile.primary_workplace}}</span>
           </a>
         </li>
