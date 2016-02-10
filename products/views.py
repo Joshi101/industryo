@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
 from products.models import Products
@@ -44,80 +44,6 @@ def set_tags_short(request, slug):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
-
-
-def add_product(request):
-    if request.method == 'POST':
-        response = {}
-        r_value = {}
-        r_inputs = []
-        r_html = {}
-        r_elements = []
-        pro = request.POST.get('product')
-        description = request.POST.get('description')
-        cost = request.POST.get('cost')
-        tags = request.POST.get('tag')
-        status = request.POST.get('status')
-        index = request.POST.get('i')
-        li = []
-
-        a = request.POST.get('A')
-        if a:
-            li.append('A')
-        b = request.POST.get('B')
-        if b:
-            li.append('B')
-
-        c = request.POST.get('C')
-        if c:
-            li.append('C')
-        o = request.POST.get('O')
-        if o:
-            li.append('O')
-        user = request.user
-
-        workplace = request.user.userprofile.primary_workplace
-        image0 = request.FILES.get('image0', None)
-        if len(pro) > 3:
-            product = pro
-            p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
-            p.set_tags(tags)
-            p.set_target_segments(li)
-
-        if image0:
-            i = Images()
-            x = i.upload_image(image=image0, user=user)
-            p.image = x
-            p.save()
-        if status:
-            p.status = status
-            p.save()
-        r_elements = ['products_list']
-        r_html['products_list'] = render_to_string('products/one_product.html', {'product': p, 'index': index})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        # return redirect('/products/'+p.slug)
-        # url = '/workplace/products/'+workplace.slug
-        # return HttpResponseRedirect(url)
-        return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        tags1 = []
-        tags12 = []
-        li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-        li2 = [11, 12, 32, 543, 42, 99, 67]
-        li3 = [111, 121, 321, 545, 422, 199, 167]
-        li4 = [171, 131, 351, 75, 425, 194, 17]
-        tags1 = Tags.objects.filter(pk__in=li1)
-        tags2 = Tags.objects.filter(pk__in=li2)
-        tags3 = Tags.objects.filter(pk__in=li3)
-        tags4 = Tags.objects.filter(pk__in=li4)
-        for t in tags1:
-            p = Products.sell.filter(tags=t, target_segment__contains='C')
-            t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            tags12.append(t2)
-        return render(request, 'products/add_product.html', {'tags1': tags1, 'tags2': tags2, 'tags3': tags3, 'tags4': tags4,
-                                                             'tags12': tags12, 'tags22': tags12, 'tags32': tags12, 'tags42': tags12})
 
 
 def set_details(request, id):
@@ -518,7 +444,86 @@ def all_products(request):
     else:
         return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
-# Create your views here.
+
+def add_product(request):
+    if request.method == 'POST':
+        response = {}
+        r_value = {}
+        r_inputs = []
+        r_html = {}
+        r_elements = []
+        pro = request.POST.get('product')
+        description = request.POST.get('description')
+        cost = request.POST.get('cost')
+        tags = request.POST.get('tag')
+        status = request.POST.get('status')
+        c1 = request.POST.get('c1')
+        c2 = request.POST.get('c2')
+        index = request.POST.get('i')
+        li = []
+
+        a = request.POST.get('A')
+        if a:
+            li.append('A')
+        b = request.POST.get('B')
+        if b:
+            li.append('B')
+
+        c = request.POST.get('C')
+        if c:
+            li.append('C')
+        o = request.POST.get('O')
+        if o:
+            li.append('O')
+        user = request.user
+
+        if c1:
+            print("C1 AAYA")
+        if c2:
+            print("C2 AAYA")
+
+        workplace = request.user.userprofile.primary_workplace
+        image0 = request.FILES.get('image0', None)
+        if len(pro) > 3:
+            product = pro
+            p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
+            p.set_tags(tags)
+            p.set_target_segments(li)
+
+        if image0:
+            i = Images()
+            x = i.upload_image(image=image0, user=user)
+            p.image = x
+            p.save()
+        if status:
+            p.status = status
+            p.save()
+        r_elements = ['products_list']
+        r_html['products_list'] = render_to_string('products/one_product.html', {'product': p, 'index': index})
+        response['html'] = r_html
+        response['elements'] = r_elements
+        response['prepend'] = True
+        # return redirect('/products/'+p.slug)
+        # url = '/workplace/products/'+workplace.slug
+        # return HttpResponseRedirect(url)
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        tags1 = []
+        tags12 = []
+        li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
+        li2 = [11, 12, 32, 543, 42, 99, 67]
+        li3 = [111, 121, 321, 545, 422, 199, 167]
+        li4 = [171, 131, 351, 75, 425, 194, 17]
+        tags1 = Tags.objects.filter(pk__in=li1)
+        tags2 = Tags.objects.filter(pk__in=li2)
+        tags3 = Tags.objects.filter(pk__in=li3)
+        tags4 = Tags.objects.filter(pk__in=li4)
+        for t in tags1:
+            p = Products.sell.filter(tags=t, target_segment__contains='C')
+            t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+            tags12.append(t2)
+        return render(request, 'products/add_product.html', {'tags1': tags1, 'tags2': tags2, 'tags3': tags3, 'tags4': tags4,
+                                                             'tags12': tags12, 'tags22': tags12, 'tags32': tags12, 'tags42': tags12})
 
 
 def add_1_product(request):
@@ -558,7 +563,10 @@ def add_1_product(request):
     return redirect('/')
 
 
-
+# def add_category(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         pro = request.POST.get('product')
 
 
 

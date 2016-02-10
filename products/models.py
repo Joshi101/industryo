@@ -54,6 +54,7 @@ class Products(models.Model):
     # offer = models.CharField(max_length=500, null=True, blank=True)
 
     # type = models.CharField(max_length=1, default=1)    # 0=single item sellable, 1=Bulk produce, 2 service
+    categorisation = models.CharField(max_length=10, null=True, blank=True)
 
     objects = models.Manager()
     sell = SellManager()
@@ -142,7 +143,25 @@ class Products(models.Model):
         return status
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+    level = models.CharField(max_length=1)
+    cascade = models.ForeignKey('self', null=True, blank=True)
+    alpha = models.CharField(max_length=2)
+    tag = models.ForeignKey(Tags, null=True, blank=True)
 
+    class Meta:
+        db_table = 'Category'
+
+    def __str__(self):
+        return self.category
+
+    def save(self, *args, **kwargs):
+        if not self.id:                  # Newly created object, so set slug
+            slug_str = self.name
+            unique_slugify(self, slug_str)
+            # self.slug = slugify(self.get_full_name()).__str__()
+        super(Category, self).save(*args, **kwargs)
 
 
 # Create your models here.

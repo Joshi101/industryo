@@ -46,10 +46,10 @@
 					<div class="tab-content">
 						<div id="cat_a" class="tab-pane fade">
 							<ul class="nav nav-pills nav-stacked col-xs-4">
-								<li><a class="select_btn" data-name="category" href="#cat_aa" data-value="">SAE Teams related Items</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_ab" data-value="">RC Cars & Components</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_ac" data-value="">Electronics Items</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_ad" data-value="">Items for Racing Enthusiasts</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_aa" data-value="a">SAE Teams related Items</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_ab" data-value="b">RC Cars & Components</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_ac" data-value="c">Electronics Items</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_ad" data-value="d">Items for Racing Enthusiasts</a></li>
 							
 							</ul>
 						<div class="tab-content col-xs-4">
@@ -124,13 +124,13 @@
 						</div>
 						<div id="cat_b" class="tab-pane fade">
 							<ul class="nav nav-pills nav-stacked col-xs-4">
-								<li><a class="select_btn" data-name="category" href="#cat_ba" data-value="">Automobile &amp; Aerospace Parts OEM &amp; Non OEM</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_bb" data-value="">Agricultural Products & Equipment</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_bc" data-value="">Consumer Goods</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_bd" data-value="">Industry Supplies</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_be" data-value="">Textiles and Clothing Items & Equipment</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_bf" data-value="">Industrial Machinery and Parts</a></li>
-								<li><a class="select_btn" data-name="category" href="#cat_bg" data-value="">Machine Tools &amp; Equipments</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_ba" data-value="e">Automobile &amp; Aerospace Parts OEM &amp; Non OEM</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_bb" data-value="f">Agricultural Products & Equipment</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_bc" data-value="g">Consumer Goods</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_bd" data-value="h">Industry Supplies</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_be" data-value="i">Textiles and Clothing Items & Equipment</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_bf" data-value="j">Industrial Machinery and Parts</a></li>
+								<li><a class="select_btn" data-name="c1" href="#cat_bg" data-value="k">Machine Tools &amp; Equipments</a></li>
 							</ul>
 						<div class="tab-content col-xs-4">
 						<div id="cat_aa" class="tab-pane fade">
@@ -138,7 +138,7 @@
 						<ul class="nav nav-pills nav-stacked">
 							{% for t1 in tags1 %}
 							
-								<li><a data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}</a></li>
+								<li><a data-toggle="pill" data-name="c2" data-value="a" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}</a></li>
 							{% endfor %}
 							</ul>
 						</div>
@@ -211,7 +211,8 @@
 				</div>
 				<input type="hidden" name="category" value="">
 			</div>
-			<div class="col-md-1 col-md-offset-9" class="form-group">
+			
+			<div class="form-group">
 				<div class="row">
 					<button type="button" class="next_nav btn btn-primary pull-right">Next</button>
 				</div>
