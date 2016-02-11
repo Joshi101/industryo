@@ -183,7 +183,7 @@ $('body').on('click', '.d_search .create_new', function(){
     $create.find('input[name=name]').val(value);
     var $form = $create.find('form');
     $create.on('click','button[type=submit]', function(){
-        console.log('bind hua h')
+        console.log('bind hua h');
         d_check = false;
         d_input_remove_error($d_search.find('.d_input'),true,true);
         $d_search.find('.d_value').val(value);

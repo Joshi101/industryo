@@ -40,7 +40,7 @@ form{
   border-radius: 1px;
 }
 
-.navbar-fixed-top .navbar-collapse{
+.navbar-collapse{
 	max-height: none;
   padding-left: 0;
   padding-right: 0;
