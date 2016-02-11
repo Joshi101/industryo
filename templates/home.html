@@ -1,17 +1,37 @@
 {% extends 'base.html' %}
 
+{% block left %}
+	<div class="pc_only">
+		<p>Filters</p>
+		<ul class="nav nav-pills nav-stacked pills_list">
+			<li><a href="/forum/category?q=sae">Teams</a></li>
+		  <li><a href="/forum/category?q=sme">SME</a></li>
+		  <li><a href="/forum/category?q=scholar">Scholars</a></li>
+		  <li><a href="/forum/category?q=lsi">Engineers</a></li>
+		  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
+		  <li><a href="/forum/q_tags/">Search Tags</a></li>
+		</ul>
+	</div>
+{% endblock left %}
+
 {% block content %}
 <div id="home" class="ajax_papa">
-	<ul class="nav nav-pills">
-		<li><a href="/">Home</a></li>
-		<li><a href="/forum">Forum</a></li>
-	  <li><a href="/forum/category?q=sae">Teams</a></li>
-	  <li><a href="/forum/category?q=sme">SME</a></li>
-	  <li><a href="/forum/category?q=scholar">Scholars</a></li>
-	  <li><a href="/forum/category?q=lsi">Engineers</a></li>
-	  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
-	  <li><a href="/forum/q_tags/">Search Tags</a></li>
-	</ul>	
+	<ul class="nav nav-pills nav-justified nav_justified_xs">
+		<li><a href="/forum"><span class="fa fa-question-circle inline_fa"></span>Forum</a></li>
+		<li><a href="{% url 'nodes:articles' %}"><span class="fa fa-newspaper-o inline_fa"></span>Articles</a></li>
+		<li><a><span class="fa fa-rss inline_fa"></span>Activity</a></li>
+	</ul>
+	<div class="mob_only">
+		<p>Filters</p>
+		<ul class="nav nav-pills nav-stacked pills_list">
+			<li><a href="/forum/category?q=sae">Teams</a></li>
+		  <li><a href="/forum/category?q=sme">SME</a></li>
+		  <li><a href="/forum/category?q=scholar">Scholars</a></li>
+		  <li><a href="/forum/category?q=lsi">Engineers</a></li>
+		  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
+		  <li><a href="/forum/q_tags/">Search Tags</a></li>
+		</ul>
+	</div>
 	<div class="panel panel-default">
 		<div class="panel-body row">
 			<p class="text-justify text-muted col-sm-8">"Let your Curiousity defeat your laziness..."</p>

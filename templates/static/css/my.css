@@ -65,7 +65,7 @@
 
 .navbar-toggle{
   padding: 5px 10px;
-  margin: 4px 15px;
+  margin: 9px 0;
   border-color: #fff;
   border-radius: 2px;
 }
@@ -875,23 +875,29 @@ pre {
 }
 
 .nav-pills {
+  margin-top: 5px;
   margin-bottom: 25px;
+  border-radius: 2px;
+  border: 1px solid #;
+  overflow: hidden;
 
-  border-top: 1px solid #179;
-  border-bottom: 1px solid #179;
+  /*! border-top: 1px solid #179; */
+  /*! border-bottom: 1px solid #179; */
   background-color: #fff;
+  box-shadow: 0 1px 4px -1px rgba(0,0,0,0.2);
 }
 
 .nav-pills li {
-  margin-right: -3px;
-  background-color: #fff;  
+  background-color: #fff;
 }
 
 .nav-pills li a {
   padding: 10px 20px;
-  border-radius: 0;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border-radius: 1px;
+  //border: 1px solid #eee;
+  margin: 0;
+  /*! border-left: 1px solid #ccc; */
+  /*! border-right: 1px solid #ccc; */
 }
 
 @media(max-width:768px){
@@ -899,16 +905,15 @@ pre {
     border: 0;
   }
   
-  .nav-pills li{
-    /*! float: left; */
-  }
-  
   .nav-pills li a {
     padding: 10px 5px;
     border-radius: 0;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-  } 
+  }
+  
+  .nav_justified_xs > li {
+    display: table-cell;
+    width: 1%;
+  }
 }
 
 .panel-heading {
@@ -2652,11 +2657,6 @@ footer .contact li{
   border-bottom: 1px solid #eee;
 }
 
-.fa-newspaper-o{
-  position: relative;
-  top: 1px;
-}
-
 .side_product{
   //display: inline-block;
 }
@@ -2906,8 +2906,9 @@ footer .contact li{
   float: right;
   right: 15px;
   margin-top: 10px;
-  background: #444;
+  background: #fff;
   padding: 7px 10px;
+  border: 1px solid #777;
   border-radius: 25px;
   font-size: 15px;
   z-index: 10;
@@ -2970,4 +2971,8 @@ footer .contact li{
 
 #add_product .well{
   background: #fff;
+}
+
+.navbar-toggle .fa{
+  margin: 0;
 }
