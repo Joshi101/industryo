@@ -2352,8 +2352,8 @@ footer .contact li{
   font-size: 1em;
   font-family: 'Calibri';
   color: #666;
-  background-color: #f2f2f2;
-  border: 1px solid #c0c0c0;
+  background-color: transparent;
+  /*! border: 1px solid #aaa; */
 }
 
 .side_show ul{
@@ -2975,4 +2975,27 @@ footer .contact li{
 
 .navbar-toggle .fa{
   margin: 0;
+}
+
+.left_menu .list-group-item{
+  padding: 5px;
+  background: transparent;
+  border: 0;
+}
+
+.left_menu .list-group-item a, .left_menu h3 a{
+  color: #666;
+}
+
+.left_menu a:hover{
+  text-decoration: none;
+  color: #000;
+}
+
+.left_menu h3{
+  font-size: 18px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #555;
 }

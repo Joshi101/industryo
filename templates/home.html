@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block left %}
-	<div class="pc_only">
-		<p>Filters</p>
-		<ul class="nav nav-pills nav-stacked pills_list">
-			<li><a href="/forum/category?q=sae">Teams</a></li>
-		  <li><a href="/forum/category?q=sme">SME</a></li>
-		  <li><a href="/forum/category?q=scholar">Scholars</a></li>
-		  <li><a href="/forum/category?q=lsi">Engineers</a></li>
-		  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
-		  <li><a href="/forum/q_tags/">Search Tags</a></li>
+	<div class="pc_only left_menu">
+		<h3>Filters</h3>
+		<ul class="list-group">
+			<li class="list-group-item"><a href="/forum/category?q=sae">Teams</a></li>
+		  <li class="list-group-item"><a href="/forum/category?q=sme">SME</a></li>
+		  <li class="list-group-item"><a href="/forum/category?q=scholar">Scholars</a></li>
+		  <li class="list-group-item"><a href="/forum/category?q=lsi">Engineers</a></li>
+		  <li class="list-group-item"><a href="/forum/category?q=unanswered">Unanswered</a></li>
 		</ul>
+	  <h3><a href="/forum/q_tags/">Search Tags</a></h3>
 	</div>
 {% endblock left %}
 
