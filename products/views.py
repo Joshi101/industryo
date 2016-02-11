@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
-from products.models import Products
+from products.models import Products, Category
 from userprofile.models import UserProfile
 from django.contrib.auth.models import User
 from tags.models import Tags
@@ -518,6 +518,8 @@ def add_product(request):
         tags2 = Tags.objects.filter(pk__in=li2)
         tags3 = Tags.objects.filter(pk__in=li3)
         tags4 = Tags.objects.filter(pk__in=li4)
+
+        c1 = Category.objects.filter(level=1)
         for t in tags1:
             p = Products.sell.filter(tags=t, target_segment__contains='C')
             t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
@@ -569,8 +571,20 @@ def add_1_product(request):
 #         pro = request.POST.get('product')
 
 
+def initial_category(request):
+    li = ['SAE Teams & Related Items', 'Electronics & RC Items for enthusiasts', 'Products for Racing Enthusiast', 'Industry Supplies ', 'Raw Materials for Industries', 'Clothes & Textiles', 'Industrial Chemicals', 'Agricultural & Agrotech products', 'Automobile & Aerospace Parts', 'Industrial Machinery & Parts', 'Tools & Equipments', 'Packaging', 'Material Handling Equipment', 'Industrial & Manufacturing Consultancy', 'Transport & Courier Service', 'Internet & Software Based Services', 'Installation Services']
+    li2 = ['SAE Teams & Related Items', 'Safety Equipment', 'Racing Accessories', 'Suspension Parts', 'Powertrain Parts', 'Wheel Assembly', 'Rollcage, Pipes & Tubes', 'Brakes', 'Steering System', 'Electricals & Electronics', 'Aesthetics', 'Electronics & RC Items for enthusiasts', 'RC Items', 'Arduino kits & Raspberry Pi', 'Electronics Components', 'DC Motors', 'Products for Racing Enthusiasts', 'Cars & Bike Accessories', 'Performance Boosters', 'Automobile & Aerospace Parts', 'OEM Parts', 'Plastics & Polymer Components', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Engine Components', 'Chassis & Body Building', 'Gears, Gearboxes and Related Components', 'Elecrical & Electronics Items', 'Sheet Metal Components', 'Bearing, Bushes & Related Items', 'Joints, Shafts, Couplings', 'Fiber Parts', 'Chemicals,  Dies, Paints', 'Industrial Chemicals', 'Pigments', 'Paint', 'Dies', 'Food Chemical & Preservatives', 'Tools & Equipments', 'Power Tools', 'Hand Tools', 'Measuring Equipments', 'Installation Services', 'Heating, Ventilation & Airconditioning', 'Solar Energy Installations', 'Electrical Installations', 'Machine Tools Installations', 'Engineering & Industrial Services', 'Designing ', 'Industrial Services', 'Environmental Planning', 'Simulation & Analysis Services', 'Planning & Implementation', 'Internet & Software Based Services', 'Web Designing Services', 'Software solutions', 'Online Marketing solutions', 'Raw Materials for Industries', 'Plastics & Polymers', 'Metals Metallic Components', 'Chemicals', 'Agricultural & Agrotech products', 'Agricultural Equipments', 'Agricultural Machinery', 'Insecticides & Pesticides', 'Edible Agricultural Products', 'Fertilizers & soil Additives', 'Seeds']
+    li3 = ['Safety Equipment', 'Helmet', 'Driver Suit', 'Other Wearables', 'Racing Accessories', 'Suspension Parts', 'Dampers', 'Shock Absorbers', 'Knuckles & Hubs', 'Powertrain Parts', 'Engine Accessories', 'Exhaust', 'Spares', 'Engine', 'Gearbox', 'CVT', 'DC Motor', 'Wheel Assembly', 'Tubes & Tyres', 'Rims & Tyres', 'ATV Tyres', 'Formula Tyres', 'Rollcage, Pipes & Tubes', 'AISI 1018', 'AISI 4130 Chromoly', 'AISI 4340', 'Carbon Fiber', 'Brakes', 'Calipers', 'Brake Lines', 'Master Cylinder', 'Brake Pedal & Assembly', 'Steering System', 'Steering Rack', 'Steering Wheels', 'Tie Rods', 'Electricals & Electronics', 'Switches', 'Lights', 'Aesthetics', 'Electronics & RC Items for enthusiasts', 'RC Items', 'Cars', 'Monster trucks', 'Helicopter', 'Ship', 'Plane', 'Quadcopters & Parts', 'Arduino kits & Raspberry Pi', 'Raspberry pi & spares', 'Arduino sheilds', 'Electronics Components', 'Resistors & Capacitors', 'Wireless', 'ICs', 'LCD Screens', 'Sensors', 'DC Motors', 'Stepper Motors', 'Servo motors', 'Geared Motors']
+    for i in li3:
+        try:
+            a = Category.objects.get(name=i)
+            if a:
+                k = [a]
+        except Exception:
+            b = Category.objects.create(name=i, level=3)
+            b.sub_cat = k
 
-
+    return redirect('/')
 
 
 

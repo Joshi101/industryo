@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^add_product/$', 'products.views.add_product', name='add_product'),
 
     url(r'^enquire/$', 'products.views.enquire', name='enquire'),
+    url(r'^int_c/$', 'products.views.initial_category', name='initial_category'),
 
     url(r'^enquiry_all/$', 'products.views.enquiry_all', name='enquiry_all'),
     url(r'^enquiry/(?P<id>[^/]+)/$', 'products.views.enquiry', name='enqui'),

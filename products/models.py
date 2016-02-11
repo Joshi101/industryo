@@ -144,11 +144,14 @@ class Products(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     level = models.CharField(max_length=1)
-    cascade = models.ForeignKey('self', null=True, blank=True)
+    # slug =
+    # cascade = models.ForeignKey('self', null=True, blank=True)
+    sub_cat = models.ManyToManyField('self', null=True, blank=True)
     alpha = models.CharField(max_length=2)
     tag = models.ForeignKey(Tags, null=True, blank=True)
+    # count = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'Category'
@@ -156,12 +159,12 @@ class Category(models.Model):
     def __str__(self):
         return self.category
 
-    def save(self, *args, **kwargs):
-        if not self.id:                  # Newly created object, so set slug
-            slug_str = self.name
-            unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
-        super(Category, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.id:                  # Newly created object, so set slug
+    #         slug_str = self.name
+    #         unique_slugify(self, slug_str)
+    #         # self.slug = slugify(self.get_full_name()).__str__()
+    #     super(Category, self).save(*args, **kwargs)
 
 
 # Create your models here.
