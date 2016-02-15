@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect, render_to_response, RequestContext
+from django.shortcuts import render
 from workplace.models import Workplace, WpTags
 from products.models import Products
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
+from activities.models import Enquiry
 
 
 @login_required
@@ -77,6 +78,10 @@ def details(request):
             lis = WpTags.objects.filter(date__range=[enddate, startdate])
             text = "Workplace Tags created"
             tt = "wpt"
+        elif s == 'enq':
+            lis = Enquiry.objects.filter(date__range=[enddate, startdate])
+
+            return render(request, 'activities/enquiry.html', locals())
 
         c = len(lis)
         return render(request, 'activities/activity.html', locals())

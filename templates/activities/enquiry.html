@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body%}
+<div class="container">
+<div class="col-md-3">
+	<a href="/internal/details/?q=ub" class="list-group-item {% if s == "ub" %}active{% endif %}">
+	Users in SMEs
+	</a>
+	<a href="/internal/details/?q=ua" class="list-group-item {% if s == "ua" %}active{% endif %}">
+	Users in Large Industries
+	</a>
+	<a href="/internal/details/?q=uc" class="list-group-item {% if s == "uc" %}active{% endif %}">
+    Users in Teams
+    </a>
+	<a href="/internal/details/?q=uo" class="list-group-item {% if s == "uo" %}active{% endif %}">
+    Users in Educational Institutions
+    </a>
+	<a href="/internal/details/?q=u" class="list-group-item {% if s == "u" %}active{% endif %}">
+    Users - No Workplace
+    </a>
+	<a href="/internal/details/?q=wb" class="list-group-item {% if s == "wb" %}active{% endif %}">
+    Workplace - SMEs
+    </a>
+	<a href="/internal/details/?q=wa" class="list-group-item {% if s == "wa" %}active{% endif %}">
+    Workplace - Large Industries
+    </a>
+	<a href="/internal/details/?q=wc" class="list-group-item {% if s == "wc" %}active{% endif %}">
+    Workplace - Teams
+    </a>
+	<a href="/internal/details/?q=wo" class="list-group-item {% if s == "wo" %}active{% endif %}">
+    Workplace - Educational Institutions
+    </a>
+	</a>
+	<a href="/internal/details/?q=p" class="list-group-item {% if s == "p" %}active{% endif %}">
+    Products listed
+    </a>
+	<a href="/internal/details/?q=wpt" class="list-group-item {% if s == "wpt" %}active{% endif %}">
+    Workplace_tags created
+    </a>
+    <a href="/internal/details/?q=enq" class="list-group-item {% if s == "wenq" %}active{% endif %}">
+    Enquiries
+    </a>
+</div>
+<div class="col-md-7">
+{% for e in lis %}
+  <div class="enquiry_long">
+	<h4><a href="{% url 'workplace:workplace_profile' e.product.producer.slug %}">{{e.get_producer}}</a> recieved the following enquiry on {{enquiry.product}}</span></h4>
+	<div>
+		<p class="enq_msg"><span>{{e.message}}</span></p>
+	</div>
+	<div class="enq_user">
+		<h4>From</h4>
+		{% if e.user %}
+		<div>
+			User: 
+			<a href="{% url 'user:profile' e.user.username %}" target="_blank">
+				<span class="name">{{ e.user.userprofile }}</span>
+			</a>
+		</div>
+		<div>Phone Number: {{e.phone_no}}</div>
+		{% if e.user.userprofile.primary_workplace %}
+		<div>
+			Company: 
+			<a href="{% url 'workplace:workplace_profile' e.user.userprofile.primary_workplace.slug %}">
+				<span class="name">{{ e.user.userprofile.primary_workplace }}</span>	
+			</a>
+		</div>
+		{% endif %}
+		<div title="Send a message to {{e.product.user.userprofile}}" data-toggle="tooltip">
+			<a data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
+				Send a Reply to {{e.product.user.userprofile}}
+	    	<span class="fa fa-envelope pull-right inline_fa fa-2x"></span>
+    	</a>
+  	</div>
+		{% else %}
+		<div>User: {{ e.name }}</div>
+		<div>Email: {{e.email}}</div>
+		<div>Phone Number{{e.phone_no}}</div>
+		<a href="mailto:{{e.email}}" target="_blank">Send an email to the Enquirer</a>
+		<div>Company: {{e.company}}</div>
+		{% endif %}
+	</div>
+	<div>Status: <strong>{{e.get_status}}</strong></div>
+</div>
+{% endfor %}
+</div>
+
+
+{% endblock body %}
+

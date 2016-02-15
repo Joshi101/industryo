@@ -157,7 +157,7 @@ class Category(models.Model):
         db_table = 'Category'
 
     def __str__(self):
-        return self.category
+        return self.name
 
     # def save(self, *args, **kwargs):
     #     if not self.id:                  # Newly created object, so set slug
@@ -166,5 +166,9 @@ class Category(models.Model):
     #         # self.slug = slugify(self.get_full_name()).__str__()
     #     super(Category, self).save(*args, **kwargs)
 
+    def get_sub(self):
+        sub = self.sub_cat.all()
+        print(sub)
+        return sub
 
 # Create your models here.

@@ -65,7 +65,7 @@ def set_workplace(request):
 
             t = userprofile.primary_workplace.workplace_type
             tasks.send_html_mail(user.id, n=88)
-            if user.first_name:
+            if user.userprofile.mobile_contact:
                 return redirect('/workplace/'+primary_workplace.slug)
             else:
                 return redirect('/details/')

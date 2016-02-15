@@ -94,7 +94,7 @@ def people(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         people = paginator.page(paginator.num_pages)
 
-    return render_to_response('sitemap/sitemap_user.html', {"list": people, "what": 'user'})
+    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": people, "what": 'user'})
 
 
 def workplaces(request):
@@ -110,7 +110,7 @@ def workplaces(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'workplace'})
+    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'workplace'})
 
 
 def questions(request):
@@ -126,7 +126,7 @@ def questions(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'question'})
+    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'question'})
 
 
 def tags(request):
@@ -142,7 +142,7 @@ def tags(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'tag'})
+    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'tag'})
 
 
 def articles(request):
@@ -158,7 +158,7 @@ def articles(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'article'})
+    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'article'})
 
 
 def products(request):
@@ -174,11 +174,11 @@ def products(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response('sitemap/sitemap_user.html', {"list": objects, "what": 'product'})
+    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'product'})
 
 
 def about(request):
-    return render_to_response('about.html')
+    return render_to_response(request, 'about.html')
 
 
 def search(request):

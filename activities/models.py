@@ -36,7 +36,7 @@ class Enquiry(models.Model):
     # contact = models.CharField(max_length=30, null=True, blank=True)
     company = models.CharField(max_length=30, null=True, blank=True)
 
-    product = models.ForeignKey('products.Products')
+    product = models.ForeignKey('products.Products', null=True, blank=True)
     workplace = models.ForeignKey('workplace.Workplace', null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=1000)
@@ -46,6 +46,16 @@ class Enquiry(models.Model):
 
     def __str__(self):
         return self.message
+
+    def get_producer(self):
+        producer = self.product.producer
+        return producer
+
+    def get_status(self):
+        if self.seen:
+            return "Seen"
+        else:
+            return "Waiting"
 
 
 class Notification(models.Model):
