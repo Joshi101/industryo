@@ -34,7 +34,10 @@ def workplace_register(request):
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
             if created:
                 r_elements = ['message']
-                r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name':name})
+                r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name': name})
+            node = '''<a href="www.corelogs.com/workplace/{0}>{1} is now registered on CoreLogs.
+            Have a look at its profile and members.'''.format(t.slug, t)
+            n = Node.objects.create(node=node, user=request.user, node_type='D')
             r_inputs = ['id_workplace']
             r_value['id_workplace'] = name
             response['html'] = r_html
@@ -50,7 +53,7 @@ def set_workplace(request):
     if request.method == 'POST':
         form = SetWorkplaceForm(request.POST)
         if not form.is_valid():
-            return render(request, 'userprofile/set.html', {'form_set_workplace': form,'form_create_workplace':WorkplaceForm()})
+            return render(request, 'userprofile/set.html', {'form_set_workplace': form, 'form_create_workplace':WorkplaceForm()})
         else:
             user = request.user
             workplace = form.cleaned_data.get('workplace')
@@ -65,6 +68,9 @@ def set_workplace(request):
 
             t = userprofile.primary_workplace.workplace_type
             tasks.send_html_mail(user.id, n=88)
+            node = '''<a href="www.corelogs.com/user/{0}>{1}</a> registered on CoreLogs and joined
+            <a href="www.corelogs.com/workplace/{2}>{3}</a> as {4}'''.format(user.username, userprofile, o.slug, o, userprofile.job_position)
+            n = Node.objects.create(node=node, user=request.user, node_type='D')
             if user.userprofile.mobile_contact:
                 return redirect('/workplace/'+primary_workplace.slug)
             else:

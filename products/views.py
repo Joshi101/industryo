@@ -10,10 +10,10 @@ from nodes.models import Images
 from django.contrib.auth.decorators import login_required
 from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
-from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from nodes.models import Node
 
 
 @login_required
@@ -459,28 +459,11 @@ def add_product(request):
         status = request.POST.get('status')
         c1 = request.POST.get('c1')
         c2 = request.POST.get('c2')
+        c3 = request.POST.get('c3')
         index = request.POST.get('i')
         li = []
-
-        a = request.POST.get('A')
-        if a:
-            li.append('A')
-        b = request.POST.get('B')
-        if b:
-            li.append('B')
-
-        c = request.POST.get('C')
-        if c:
-            li.append('C')
-        o = request.POST.get('O')
-        if o:
-            li.append('O')
         user = request.user
-
-        if c1:
-            print("C1 AAYA")
-        if c2:
-            print("C2 AAYA")
+        print(c1, c2, c3)
 
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
@@ -498,6 +481,17 @@ def add_product(request):
         if status:
             p.status = status
             p.save()
+
+        todaydate = date.today()
+        startdate = todaydate + timedelta(days=1)
+        enddate = startdate - timedelta(days=0)
+        node = '''I have just listed a few products on behalf of <a href="www.corelogs.com/workplace/{0}>{1}</a>.
+        Have a look at our profile for more details'''.format(workplace.slug, workplace)
+        pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
+        if len(pp) < 2:
+            n = Node.objects.create(post=node, user=user, category='D')
+            if image0:
+                n.images = [x]
         r_elements = ['products_list']
         r_html['products_list'] = render_to_string('products/one_product.html', {'product': p, 'index': index})
         response['html'] = r_html
@@ -524,67 +518,8 @@ def add_product(request):
         for j in cc:
             c3 = j.sub_cat.all()
             bb.append(c3)
-        # print(bb)
-        # tags1 = []
-        # tags12 = []
-        # li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-        # li2 = [11, 12, 32, 543, 42, 99, 67]
-        # li3 = [111, 121, 321, 545, 422, 199, 167]
-        # li4 = [171, 131, 351, 75, 425, 194, 17]
-        # tags1 = Tags.objects.filter(pk__in=li1)
-        # tags2 = Tags.objects.filter(pk__in=li2)
-        # tags3 = Tags.objects.filter(pk__in=li3)
-        # tags4 = Tags.objects.filter(pk__in=li4)
-        #
-        #
-        # for t in tags1:
-        #     p = Products.sell.filter(tags=t, target_segment__contains='C')
-        #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-        #     tags12.append(t2)
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'bb':bb, 'aa':aa, 'cc':cc})
 
-
-def add_1_product(request):
-    user = request.user
-    producer = user.userprofile.primary_workplace
-
-    if request.method == 'POST':
-        pro = request.POST.get('product')
-        description = request.POST.get('description')
-        cost = request.POST.get('cost')
-        bulk = request.POST.get('bulk')
-        services = request.POST.get('services')
-
-        p = Products.objects.create(product=pro, producer=producer, description=description, cost=cost)
-        t = []
-        # If Bulk quantity Product
-
-        if bulk:
-            tag = Tags.objects.get(id=999)
-            t.append(tag)
-        elif services:
-            tag = Tags.objects.get(id=999)
-            t.append(tag)
-
-        target = request.POST.get('target')
-        if target == 1:
-            # Students, Racing Enthusiasts
-            pass
-            # list = ['SAE Team Related Items', 'Racing Enthusiasts & Automobile Accessories', ]
-        elif target == 2:
-            # Industries & SMEs
-            pass
-
-    else:
-        last_product = Products.objects.filter(producer=producer)[-1]
-        tags = last_product.tags.all()
-    return redirect('/')
-
-
-# def add_category(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         pro = request.POST.get('product')
 
 
 def initial_category(request):

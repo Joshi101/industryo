@@ -56,6 +56,8 @@ class Products(models.Model):
     # type = models.CharField(max_length=1, default=1)    # 0=single item sellable, 1=Bulk produce, 2 service
     categorisation = models.CharField(max_length=10, null=True, blank=True)
 
+    categories = models.ManyToManyField('Category', through='Product_Categories', null=True, blank=True)
+
     objects = models.Manager()
     sell = SellManager()
     rent = RentManager()
@@ -168,7 +170,22 @@ class Category(models.Model):
 
     def get_sub(self):
         sub = self.sub_cat.all()
-        print(sub)
         return sub
+
+
+class Product_Categories(models.Model):
+    product = models.ForeignKey(Products)
+    category = models.ForeignKey(Category)
+    level = models.CharField(max_length=1)
+
+    class Meta:
+        db_table = 'Product_Categories'
+
+
+
+
+
+
+
 
 # Create your models here.
