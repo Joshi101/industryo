@@ -446,6 +446,7 @@ def all_products(request):
 
 
 def add_product(request):
+    c1_all = Category.objects.filter(level=1)
     if request.method == 'POST':
         response = {}
         r_value = {}
@@ -515,24 +516,7 @@ def add_product(request):
         # return redirect('/products/'+p.slug)
         # url = '/workplace/products/'+workplace.slug
         # return HttpResponseRedirect(url)
-        return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        c1_all = Category.objects.filter(level=1)
-        aa = []
-        bb = []
-        cc = []
-        for i in c1_all:
-            c2 = i.sub_cat.all()
-            aa.append(c2)
-            for k in c2:
-                cc.append(k)
-        for j in aa:
-            for k in j:
-                c3 = k.sub_cat.all()
-                bb.append(c3)
-        for j in cc:
-            c3 = j.sub_cat.all()
-            bb.append(c3)
+        
         # print(bb)
         # tags1 = []
         # tags12 = []
@@ -550,7 +534,7 @@ def add_product(request):
         #     p = Products.sell.filter(tags=t, target_segment__contains='C')
         #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
         #     tags12.append(t2)
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'bb':bb, 'aa':aa, 'cc':cc})
+    return render(request, 'products/add_product.html', {'c1_all': c1_all})
 
 
 def add_1_product(request):
