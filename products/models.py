@@ -168,7 +168,6 @@ class Category(models.Model):
 
     def get_sub(self):
         sub = self.sub_cat.all()
-        print(sub)
         return sub
 
 # Create your models here.

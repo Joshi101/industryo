@@ -102,17 +102,17 @@
           </a>
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
-          <span class="badge"></span>
+        {% if request.user.userprofile.primary_workplace %}
           <a href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
-            <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace
-            .name}}">
+            <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace.name}}">
             <span class="abr">{{user.userprofile.primary_workplace}}</span>
           </a>
+        {% else %}
+          <a href=""><img class="thmb_xs" src="/images/wp.png">Set Workplace</a>
+        {% endif %}
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
-          <span class="badge"></span>
           <a href="{% url 'user:profile' user.username %}">
-            <!--<span class="fa fa-user inline_fa fa-fw"></span>-->
             <img class="lazy_img thmb_xs" src="/images/user_man.png" data-src="{{user.userprofile.get_profile_image}}" alt="{{user}}">
             <span class="abr">{{user}}</span>
           </a>

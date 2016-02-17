@@ -452,12 +452,18 @@ def add_product(request):
         r_inputs = []
         r_html = {}
         r_elements = []
+        print('lop')
         pro = request.POST.get('product')
+        print(pro)
         description = request.POST.get('description')
+        print(description)
         cost = request.POST.get('cost')
+        print(cost)
         tags = request.POST.get('tag')
         status = request.POST.get('status')
         c1 = request.POST.get('c1')
+        c = request.POST.get('category')
+        print(c)
         c2 = request.POST.get('c2')
         index = request.POST.get('i')
         li = []
@@ -481,9 +487,12 @@ def add_product(request):
             print("C1 AAYA")
         if c2:
             print("C2 AAYA")
+        if c:
+            print("Category AAYA")
 
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
+        p = {}
         if len(pro) > 3:
             product = pro
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)

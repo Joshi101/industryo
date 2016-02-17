@@ -7,97 +7,94 @@
 {% block page_id %}add_product{% endblock page_id %}
 
 {% block body %}
-<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
-  {% csrf_token %}
-  <ul class="nav nav-tabs nav-justified">
-	  <li class="active"><a data-toggle="tab" href="#add_prod_category">Categorization</a></li>
-	  <li><a data-toggle="tab" href="#add_prod_info">Product Information</a></li>
-	</ul>
-	<div class="tab-content well">
-		<div id="add_prod_category" class="tab-pane active fade in">
-			
-			<div class="form-group">
-				
-					
-						<div class="tab-pane ">
-							<ul class="nav nav-pills nav-stacked col-md-3 col-md-offset-2">
-							{% for t1 in c1_all %}
-								<li><a data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}</a></li>
-							{% endfor %}
-							</ul>
-							<div class="tab-content col-md-3">
-							{% for t1 in c1_all %}
-								<div id="t1_{{t1|cut:'&'|cut:' '}}" class="tab-pane fade">
-									<ul class="nav nav-pills nav-stacked">
-									{% for t2 in aa|index:forloop.counter0 %}
-										<li><a data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '}}">{{t2}}</a></li>
-									{% endfor %}
-									</ul>
-								</div>
-							{% endfor %}
-							</div>
-								<div class="tab-content col-md-3">
-									{% for t2 in cc %}
-										<div id="t2_{{t2|cut:'&'|cut:' '}}" class="tab-pane fade">
-											<ul class="nav nav-pills nav-stacked">
-											{% for t3 in t2.get_sub %}
-												<li><a class="select_btn" data-name="category" data-value="{{t3.id}}">{{t3}}</a></li>
-											{% endfor %}
-											</ul>
-										</div>
-									{% endfor %}
-								</div>
-						</div>
-						
-					
-				
-				<input type="hidden" name="category" value="">
-			</div>
-			<div class="form-group">
+<div class="container">
+	<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
+	  {% csrf_token %}
+	  <ul class="nav nav-tabs nav-justified">
+		  <li class="active"><a data-toggle="tab" href="#add_prod_category">Categorization</a></li>
+		  <li><a data-toggle="tab" href="#add_prod_info">Product Information</a></li>
+		</ul>
+		<div class="tab-content well">
+			<div id="add_prod_category" class="tab-pane active fade in">
 				<div class="row">
-					<button type="button" class="next_nav btn btn-primary pull-right">Next</button>
+					<div class="form-group">
+						<ul class="nav nav-pills nav-stacked col-md-4">
+						{% for t1 in c1_all %}
+							<li>
+								<a {% if t1.get_sub %} data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}" {% else %} class="select_btn" data-name="category" data-value="{{t1.id}}" {% endif %}>{{t1}}</a>
+							</li>
+						{% endfor %}
+						</ul>
+						<div class="tab-content col-md-8">
+						{% for t1 in c1_all %}
+							<div id="t1_{{t1|cut:'&'|cut:' '}}" class="tab-pane fade">
+								<ul class="nav nav-pills nav-stacked col-md-6">
+								{% for t2 in t1.get_sub %}
+									<li><a {% if t2.get_sub %} data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '}}" {% else %} class="select_btn" data-name="category" data-value="{{t2.id}}" {% endif %}>{{t2}}</a></li>
+								{% endfor %}
+								</ul>
+								<div class="tab-content col-md-6">
+								{% for t2 in t1.get_sub %}
+									<div id="t2_{{t2|cut:'&'|cut:' '}}" class="tab-pane fade">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t3 in t2.get_sub %}
+											<li><a class="select_btn" data-name="category" data-value="{{t3.id}}">{{t3}}</a></li>
+										{% endfor %}
+										</ul>
+									</div>
+								{% endfor %}
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+						<input type="hidden" name="category" value="">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<button type="button" class="next_nav btn btn-primary pull-right">Next</button>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div id="add_prod_info" class="tab-pane fade">
-		  <div class="form-group">
-		    <label class="control-label">Name of product</label>
-		    <input class="form-control" placeholder="One Product at a time" name="product">
+			<div id="add_prod_info" class="tab-pane fade">
+			  <div class="form-group">
+			    <label class="control-label">Name of product</label>
+			    <input class="form-control" placeholder="One Product at a time" name="product">
+			  </div>
+			  <div class="form-group">
+			    <label class="control-label">Cost of product</label>
+			    <input class="form-control" placeholder="Cost per Unit Eg. Rs20,000 for a pair. or Rs. 2000/month rent" name="cost">
+			  </div>
+			  <div class="form-group">
+			    <label class="control-label">Description of the product</label>
+			    <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
+			  </div>
+			  <div class="form-group">
+	        <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
+	        {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
+	      </div>
+			  <div class="form-group">
+			    <div class="hide">
+			      <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+			        <input id="id_image_0" type="file" name="image0">
+			      </span>
+			    </div>
+			    <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+			      <span class="fa fa-camera"></span> Add Photo
+			    </span>
+			  </div>
+			  <div class="form-group">
+			    <div class="img_pre hide" data-index=0>
+			    </div>
+			  </div>
+			  <button class="btn btn-primary">Submit</button>
 		  </div>
-		  <div class="form-group">
-		    <label class="control-label">Cost of product</label>
-		    <input class="form-control" placeholder="Cost per Unit Eg. Rs20,000 for a pair. or Rs. 2000/month rent" name="cost">
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label">Description of the product</label>
-		    <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
-		  </div>
-		  <div class="form-group">
-        <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
-        {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
-      </div>
-		  <div class="form-group">
-		    <div class="hide">
-		      <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-		        <input id="id_image_0" type="file" name="image0">
-		      </span>
-		    </div>
-		    <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-		      <span class="fa fa-camera"></span> Add Photo
-		    </span>
-		  </div>
-		  <div class="form-group">
-		    <div class="img_pre hide" data-index=0>
-		    </div>
-		  </div>
-		  <button class="btn btn-primary">Submit</button>
+		  <!-- <div class="form-group">
+		    <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
+		    {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
+		  </div> -->
+		  <input class="index" name="i" type="hidden" value="0">
 	  </div>
-		
-	  <!-- <div class="form-group">
-	    <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
-	    {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
-	  </div> -->
-	  <input class="index" name="i" type="hidden" value="0">
-  </div>
-</form>
+	</form>
+</div>
 {% endblock body %}
