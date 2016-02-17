@@ -2958,15 +2958,33 @@ footer .contact li{
 
 #add_prod_category .nav-pills{
   background: transparent;
-  padding: 0;
+  padding: 0 10px 0 0;
   border: 0;
+  border-radius: 0;
+  box-shadow: 0 0 0;
+  border-right: 1px solid #eee;
 }
 
 #add_prod_category .nav-pills li a{
-  margin: 5px 0;
-  border: 1px solid #999;
+  font-size: 13px;
+  margin: 2px 0;
+  //border: 1px solid #999;
   //border-radius: 5px;
-  padding: 7px 10px;
+  padding: 5px 10px;
+}
+
+#add_prod_category .nav-pills > li.active > a,
+#add_prod_category .nav-pills > li.active > a:hover,
+#add_prod_category .nav-pills > li.active > a:focus {
+  color: #666;
+  background-color: rgba(93,155,210,0.5);
+}
+
+#add_prod_category .select_btn{
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  //background-color: #197;
+  //color: #fff;
 }
 
 #add_product .well{
