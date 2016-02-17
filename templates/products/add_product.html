@@ -18,19 +18,29 @@
 			<div id="add_prod_category" class="tab-pane active fade in">
 				<div class="row">
 					<div class="form-group">
-						<ul class="nav nav-pills nav-stacked col-md-4">
+						<ul class="nav nav-pills nav-stacked col-xs-4">
 						{% for t1 in c1_all %}
 							<li>
-								<a {% if t1.get_sub %} data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}" {% else %} class="select_btn" data-name="category" data-value="{{t1.id}}" {% endif %}>{{t1}}</a>
+							{% if t1.get_sub %}
+								<a data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+							{% else %}
+								<a class="select_btn" data-name="category" data-value="{{t1.id}}" data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}<span class="fa fa-fw fa-check"></span></a>
+							{% endif %}
 							</li>
 						{% endfor %}
 						</ul>
-						<div class="tab-content col-md-8">
+						<div class="tab-content col-xs-8">
 						{% for t1 in c1_all %}
 							<div id="t1_{{t1|cut:'&'|cut:' '}}" class="tab-pane fade">
-								<ul class="nav nav-pills nav-stacked col-md-6">
+								<ul class="nav nav-pills nav-stacked col-xs-6">
 								{% for t2 in t1.get_sub %}
-									<li><a {% if t2.get_sub %} data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '}}" {% else %} class="select_btn" data-name="category" data-value="{{t2.id}}" {% endif %}>{{t2}}</a></li>
+									<li>
+										{% if t2.get_sub %}
+											<a data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
+										{% else %}
+											<a class="select_btn" data-name="category" data-value="{{t2.id}}" data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '}}">{{t2}}<span class="fa fa-fw fa-check"></span></a>
+										{% endif %}
+									</li>
 								{% endfor %}
 								</ul>
 								<div class="tab-content col-md-6">
@@ -38,7 +48,9 @@
 									<div id="t2_{{t2|cut:'&'|cut:' '}}" class="tab-pane fade">
 										<ul class="nav nav-pills nav-stacked">
 										{% for t3 in t2.get_sub %}
-											<li><a class="select_btn" data-name="category" data-value="{{t3.id}}">{{t3}}</a></li>
+											<li>
+												<a class="select_btn" data-name="category" data-value="{{t3.id}}">{{t3}}<span class="fa fa-fw fa-check"></span></a>
+											</li>
 										{% endfor %}
 										</ul>
 									</div>
