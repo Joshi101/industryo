@@ -545,3 +545,13 @@ CoreLogs
         pass
 
     return HttpResponse()
+
+
+# def join_wp(request):
+#     id = request.GET.get('id')
+#     wp = Workplace.objects.get(id=id)
+
+
+
+
+

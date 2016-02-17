@@ -2965,26 +2965,51 @@ footer .contact li{
   border-right: 1px solid #eee;
 }
 
+#add_prod_category .nav-pills li{
+  background-color: transparent;
+}
+
 #add_prod_category .nav-pills li a{
   font-size: 13px;
   margin: 2px 0;
-  //border: 1px solid #999;
-  //border-radius: 5px;
-  padding: 5px 10px;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  background-color: #fafafa;
+  padding: 5px 20px 5px 10px;
 }
 
 #add_prod_category .nav-pills > li.active > a,
 #add_prod_category .nav-pills > li.active > a:hover,
 #add_prod_category .nav-pills > li.active > a:focus {
-  color: #666;
-  background-color: rgba(93,155,210,0.5);
+  color: #fafafa;
+  //background-color: rgba(93,155,210,0.5);
+  background-color: #999;
 }
 
-#add_prod_category .select_btn{
-  border: 1px solid #ddd;
-  border-radius: 15px;
+#add_prod_category .nav-pills li .select_btn{
+  border: 1px solid #eee;
+  border-radius: 7px;
   //background-color: #197;
   //color: #fff;
+}
+
+#add_prod_category .nav-pills > li.active > .select_btn,
+#add_prod_category .nav-pills > li.active > .select_btn:hover,
+#add_prod_category .nav-pills > li.active > .select_btn:focus {
+  background-color: #197;
+  color: #fff;
+}
+
+#add_prod_category .nav-pills li a .fa{
+  position: absolute;
+  right: 7px;
+  line-height: 1.42857143;
+  color: #999;
+  
+}
+
+#add_prod_category .nav-pills li .select_btn .fa{
+  color: #fafafa;
 }
 
 #add_product .well{

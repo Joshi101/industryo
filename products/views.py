@@ -462,14 +462,16 @@ def add_product(request):
         print(cost)
         tags = request.POST.get('tag')
         status = request.POST.get('status')
-        c1 = request.POST.get('c1')
+        c1 = request.POST.get('category')
         print(c1)
         c2 = request.POST.get('c2')
-        print(c2)
+        # print(c2)
         c3 = request.POST.get('c3')
-        print(c3)
+        # print(c3)
         index = request.POST.get('i')
-        li = []
+        li = [c1, c2, c3]
+        categories = Category.objects.filter(pk__in=li)
+
         user = request.user
 
         workplace = request.user.userprofile.primary_workplace
@@ -489,7 +491,7 @@ def add_product(request):
         if status:
             p.status = status
             p.save()
-
+        p.categories = categories
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
         enddate = startdate - timedelta(days=0)
