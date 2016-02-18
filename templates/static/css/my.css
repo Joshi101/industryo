@@ -275,7 +275,7 @@ img{
   list-style: none;
 }
 
-#cover input {
+#cover input, .unboxed input {
   font-size: 15px;
 
   
@@ -316,7 +316,7 @@ img{
   text-align: center;
 }
 
-#cover .form-group .btn {
+#cover .form-group .btn, .login_modal .form-group .btn {
   display: block;
 
   width: 100%;
