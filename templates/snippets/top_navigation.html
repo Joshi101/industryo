@@ -167,14 +167,13 @@
             <span>Signup</span>
             <span class="fa fa-user-plus fa-fw"></span>
           </a>
-          <div class="dropdown-menu">
-            {% include "snippets/signup_box.html" %}
-          </div>
         </li>
       </ul>
-      <form class="unboxed login_modal" method="POST" action="{% url 'account_login' %}">
+      <form class="unboxed" method="POST" action="{% url 'account_login' %}">
         {% include "snippets/login_modal.html" %}
+        {% include "snippets/signup_modal.html" %}
       </form>
+      {% include "snippets/create_acc_modal.html" %}
       {% endif %}
     </div>
   </div>
