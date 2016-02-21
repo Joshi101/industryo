@@ -455,11 +455,17 @@ def add_product(request):
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         status = request.POST.get('status')
+        li = []
         c1 = request.POST.get('category1')
+        if c1:
+            li.append(c1)
         c2 = request.POST.get('category2')
+        if c2:
+            li.append(c2)
         c3 = request.POST.get('category3')
+        if c3:
+            li.append(c3)
         index = request.POST.get('i')
-        li = [c1, c2, c3]
         categories = Category.objects.filter(pk__in=li)
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)

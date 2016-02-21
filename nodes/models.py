@@ -148,14 +148,10 @@ class Node(models.Model):
             self.tags = li
 
     def set_tag(self, id):
-        print("JAISE SATH HAIN")
-
         t = Tags.objects.get(id=id)
-        print(t)
         li = []
         li.append(t)
         self.tags = li
-        print("JAISE SATH HAIN3")
 
     def get_like_count(self):
         likes = Activity.objects.filter(node=self.pk).count()

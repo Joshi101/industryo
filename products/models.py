@@ -176,12 +176,9 @@ class Category(models.Model):
             # self.slug = slugify(self.get_full_name()).__str__()
         super(Category, self).save(*args, **kwargs)
 
-    def get_sub2(self):
-        sub = self.sub_cat.filter(level=2)
-        return sub
-
-    def get_sub3(self):
-        sub = self.sub_cat.filter(level=3)
+    def get_sub(self):
+        n = self.level
+        sub = self.sub_cat.filter(level__gt=n)
         return sub
 
 
