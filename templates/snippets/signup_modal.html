@@ -1,0 +1,33 @@
+<div id="signup_modal" class="modal fade login_modal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title stylize text-center"><strong>Sign Up</strong></h2>
+      </div>
+      <div class="modal-body">
+        {% if socialaccount.providers %}
+		    <div class="socialaccount_ballot">
+          <ul class="socialaccount_providers list-group">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </ul>
+        </div>
+		    {% include "socialaccount/snippets/login_extra.html" %}
+		    {% endif %}
+        <p class="text-info text-center">Or, create a new account using you email-address</p>
+        <ul class="socialaccount_providers list-group">
+          <li>
+            <a class="email" data-target="#create_acc_modal" data-toggle="modal">
+              <i class="fa fa-fw fa-envelope"></i>
+              <span>Sign up with email</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default center-block" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

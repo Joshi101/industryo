@@ -1613,9 +1613,25 @@ $('body').on('click', '.less', function(){
 $('body').on('click', '.next_nav', function(){
     $(this).closest('.tab-content').siblings('.nav-tabs').find('.active').next().find('a').tab('show');
 });
-
+/*
 $('#add_prod_category').on('click', '.nav li a', function(){
     $(this).tab('show');
+});*/
+
+$('#add_prod_category').on('click', '.select_btn', function(){
+    $(this).closest('form').find('.active_selection').removeClass('active_selection');
+    var cat = $(this).data('name');
+    if (cat == 'category1') {
+        $(this).closest('form').find('input[name="category2"], input[name="category3"]').val("");
+    }
+    else if (cat == 'category2') {
+        $(this).closest('form').find('input[name="category3"]').val("");
+    }
+});
+
+$('#add_prod_category').on('click', '.no_sub', function(){
+    $(this).addClass('active_selection');
+    $(this).closest('form').children('.nav-tabs').find('.active').next().find('a').tab('show');
 });
 
 $('.select_btn').on('click', function(){

@@ -69,8 +69,8 @@ def set_workplace(request):
             t = userprofile.primary_workplace.workplace_type
             tasks.send_html_mail(user.id, n=88)
             node = '''<a href="www.corelogs.com/user/{0}>{1}</a> registered on CoreLogs and joined
-            <a href="www.corelogs.com/workplace/{2}>{3}</a> as {4}'''.format(user.username, userprofile, o.slug, o, userprofile.job_position)
-            n = Node.objects.create(node=node, user=request.user, node_type='D')
+            <a href="www.corelogs.com/workplace/{2}>{3}</a> as {4}'''.format(user.username, userprofile, primary_workplace.slug, o, userprofile.job_position)
+            # n = Node.objects.create(node=node, user=request.user, node_type='D')
             if user.userprofile.mobile_contact:
                 return redirect('/workplace/'+primary_workplace.slug)
             else:

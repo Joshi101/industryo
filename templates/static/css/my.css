@@ -275,9 +275,21 @@ img{
   list-style: none;
 }
 
+.unboxed label{
+  //font-family: 'Roboto','Calibri';
+  color: #579;
+  font-weight: normal;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.unboxed textarea{
+  margin-top: 10px;
+}
+
 #cover input, .unboxed input {
   font-size: 15px;
-
   
   height: 40px;
   margin: auto;
@@ -289,7 +301,13 @@ img{
   background: transparent;
 }
 
-#login_modal input{
+.unboxed input:focus{
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: 0 0 0;
+}
+
+.login_modal input{
   text-align: center;
 }
 
@@ -305,7 +323,7 @@ img{
     //height: 42px;
     padding: 10px 15px 0 0;
   }
-  #cover input{
+  .login_modal input{
     max-width: 250px;
   }
 }
@@ -471,6 +489,7 @@ img{
   margin-right: 3px;
   font-size: 18px;
   padding: 5px 0;
+  //line-height: 35px;
   //border-bottom: 1px solid #777;
   border-right: 1px solid #aaa;
   //top: 5px;
@@ -491,7 +510,7 @@ img{
   text-align: center;
 }
 
-#login_modal .socialaccount_providers li, #login .socialaccount_providers li{
+.login_modal .socialaccount_providers li, #login .socialaccount_providers li{
   width: 200px;
   margin-left: auto;
   margin-right: auto;
@@ -717,13 +736,13 @@ pre {
   padding: 0 15px;
 }
 
-.nav_2 .fa{
+.nav_2 .navbar-nav .fa{
   font-size: 16px;
   margin-right:3px;
   //line-height: 49px;
 }
 
-.nav_2 span{
+.nav_2 .navbar-nav span{
   vertical-align: middle;
 }
 
@@ -2986,16 +3005,14 @@ footer .contact li{
   background-color: #999;
 }
 
-#add_prod_category .nav-pills li .select_btn{
+#add_prod_category .nav-pills li .no_sub{
   border: 1px solid #eee;
   border-radius: 7px;
-  //background-color: #197;
+  background-color: #dfd;
   //color: #fff;
 }
 
-#add_prod_category .nav-pills > li.active > .select_btn,
-#add_prod_category .nav-pills > li.active > .select_btn:hover,
-#add_prod_category .nav-pills > li.active > .select_btn:focus {
+#add_prod_category .nav-pills li .active_selection{
   background-color: #197;
   color: #fff;
 }
@@ -3008,7 +3025,7 @@ footer .contact li{
   
 }
 
-#add_prod_category .nav-pills li .select_btn .fa{
+#add_prod_category .nav-pills li .no_sub .fa{
   color: #fafafa;
 }
 

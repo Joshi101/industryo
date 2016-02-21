@@ -13,7 +13,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
-def ask(request):
+def ask(request, tag):
     form = AskForm(request.POST)
     if request.method == 'POST':
         if not form.is_valid():
@@ -49,7 +49,12 @@ def ask(request):
             slug = question.slug
             return HttpResponseRedirect('/forum/'+slug)
     else:
-        return render(request, 'forum/ask.html', {'form': form})
+        if tag:
+            t = []
+            t1 = Tags.objects.get(id=tag)
+            t.append(t1)
+            print(t)
+        return render(request, 'forum/ask.html', {'form': form, 't': t})
 
 
 def edit_ques(request, id):
