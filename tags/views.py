@@ -7,6 +7,8 @@ from nodes.models import Node
 from nodes.forms import SetTagLogoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from itertools import chain
+from operator import attrgetter
 
 
 def create_tag(request):
@@ -60,12 +62,30 @@ def search_interests(request):                  # for searching the workplace
 def get_tag(request, slug):
     tag = Tags.objects.get(slug=slug)
     questions = Question.objects.filter(tags=tag)
+
     workplaces = tag.wptags.all()
+    nodes = Node.feed.filter(tags=tag)
     articles = Node.article.filter(tags=tag)
     tag_logo_form = SetTagLogoForm()
     wptags = WpTags.objects.filter(tags=tag)
-
-    return render(request, 'tags/tag.html', locals())
+    all_result_list = sorted(
+        chain(nodes, questions),
+        key=attrgetter('date'), reverse=True)
+    paginator = Paginator(all_result_list, 5)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+                # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'nodes/five_nodes.html', {'result_list': result_list, 'wptags':wptags})
+    else:
+        return render(request, 'tags/tag.html', locals())
 
 
 def get_all_tags(request):

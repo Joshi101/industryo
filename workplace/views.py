@@ -547,11 +547,12 @@ CoreLogs
     return HttpResponse()
 
 
-# def join_wp(request):
-#     id = request.GET.get('id')
-#     wp = Workplace.objects.get(id=id)
-
-
-
-
+@login_required
+def join_wp(request, slug):
+    workplace = Workplace.objects.get(id=slug)
+    # a page with workplace =workplace asking whether you are sure or want to change
+    user = request.user
+    user.userprofile.primary_workplace = workplace
+    user.userprofile.save()
+    return redirect('/workplace/'+workplace.slug)
 

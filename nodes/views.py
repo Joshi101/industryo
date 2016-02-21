@@ -17,6 +17,7 @@ def post(request):
         r_html = {}
         r_elements = []
         post = request.POST.get('post')
+        tid = request.POST.get('tid')
         user = request.user
         type = user.userprofile.primary_workplace.workplace_type
         # node = Node.objects.create(post=post, user=user, w_type=type)
@@ -40,6 +41,8 @@ def post(request):
             i = Images()
             a = i.upload_image(image=image2, user=user)
             node.images.add(a)
+        if tid:
+            node.set_tag(tid)
 
         r_elements = ['feeds']
         r_html['feeds'] = render_to_string('nodes/one_node.html', {'node': node})
