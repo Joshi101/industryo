@@ -56,6 +56,8 @@ class Products(models.Model):
     # type = models.CharField(max_length=1, default=1)    # 0=single item sellable, 1=Bulk produce, 2 service
     categorisation = models.CharField(max_length=10, null=True, blank=True)
 
+    categories = models.ManyToManyField('Category', through='Product_Categories', null=True, blank=True)
+
     objects = models.Manager()
     sell = SellManager()
     rent = RentManager()
@@ -142,15 +144,23 @@ class Products(models.Model):
             status = 'For Rent'
         return status
 
+    def get_category1(self):
+        print("Tin Tin Tin")
+        c1 = self.categories.filter(level=1)
+        print(c1)
+        return c1
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=70)
     level = models.CharField(max_length=1)
-    # slug =
+    slug = models.SlugField(null=True, blank=True)
     # cascade = models.ForeignKey('self', null=True, blank=True)
     sub_cat = models.ManyToManyField('self', null=True, blank=True)
     alpha = models.CharField(max_length=2)
+    meta_des = models.CharField(max_length=160, null=True, blank=True)
     tag = models.ForeignKey(Tags, null=True, blank=True)
+    image = models.ForeignKey(Images, null=True, blank=True)
     # count = models.IntegerField(null=True, blank=True)
 
     class Meta:
@@ -159,15 +169,35 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    # def save(self, *args, **kwargs):
-    #     if not self.id:                  # Newly created object, so set slug
-    #         slug_str = self.name
-    #         unique_slugify(self, slug_str)
-    #         # self.slug = slugify(self.get_full_name()).__str__()
-    #     super(Category, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.id:                  # Newly created object, so set slug
+            slug_str = self.name
+            unique_slugify(self, slug_str)
+            # self.slug = slugify(self.get_full_name()).__str__()
+        super(Category, self).save(*args, **kwargs)
 
-    def get_sub(self):
-        sub = self.sub_cat.all()
+    def get_sub2(self):
+        sub = self.sub_cat.filter(level=2)
         return sub
+
+    def get_sub3(self):
+        sub = self.sub_cat.filter(level=3)
+        return sub
+
+
+class Product_Categories(models.Model):
+    product = models.ForeignKey(Products)
+    category = models.ForeignKey(Category)
+    level = models.CharField(max_length=1)
+
+    class Meta:
+        db_table = 'Product_Categories'
+
+
+
+
+
+
+
 
 # Create your models here.

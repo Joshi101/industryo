@@ -39,6 +39,7 @@
 									</li>
 								{% endfor %}
 								</ul>
+								<input type="hidden" name="c1" value="{{t1.id}}}">
 								<div class="tab-content col-md-6">
 								{% for t2 in t1.get_sub %}
 									<div id="t2_{{t2|cut:'&'|cut:' '}}" class="tab-pane fade">
@@ -51,8 +52,10 @@
 										</ul>
 									</div>
 								{% endfor %}
+
 								</div>
 							</div>
+
 						{% endfor %}
 						</div>
 						<input type="hidden" name="category1" value="">

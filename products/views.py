@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
-from products.models import Products, Category
+from products.models import Products, Category, Product_Categories
 from userprofile.models import UserProfile
 from django.contrib.auth.models import User
 from tags.models import Tags
@@ -10,10 +10,10 @@ from nodes.models import Images
 from django.contrib.auth.decorators import login_required
 from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
-from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from nodes.models import Node
 
 
 @login_required
@@ -447,50 +447,20 @@ def all_products(request):
 
 def add_product(request):
     c1_all = Category.objects.filter(level=1)
+    user = request.user
+    workplace = request.user.userprofile.primary_workplace
     if request.method == 'POST':
-        response = {}
-        r_value = {}
-        r_inputs = []
-        r_html = {}
-        r_elements = []
-        print('lop')
         pro = request.POST.get('product')
-        print(pro)
         description = request.POST.get('description')
-        print(description)
         cost = request.POST.get('cost')
-        print(cost)
         tags = request.POST.get('tag')
         status = request.POST.get('status')
-        c1 = request.POST.get('c1')
-        c = request.POST.get('category')
-        print(c)
-        c2 = request.POST.get('c2')
+        c1 = request.POST.get('category1')
+        c2 = request.POST.get('category2')
+        c3 = request.POST.get('category3')
         index = request.POST.get('i')
-        li = []
-
-        a = request.POST.get('A')
-        if a:
-            li.append('A')
-        b = request.POST.get('B')
-        if b:
-            li.append('B')
-
-        c = request.POST.get('C')
-        if c:
-            li.append('C')
-        o = request.POST.get('O')
-        if o:
-            li.append('O')
-        user = request.user
-
-        if c1:
-            print("C1 AAYA")
-        if c2:
-            print("C2 AAYA")
-        if c:
-            print("Category AAYA")
-
+        li = [c1, c2, c3]
+        categories = Category.objects.filter(pk__in=li)
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
         p = {}
@@ -498,86 +468,50 @@ def add_product(request):
             product = pro
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
             p.set_tags(tags)
-            p.set_target_segments(li)
-
         if image0:
             i = Images()
             x = i.upload_image(image=image0, user=user)
             p.image = x
             p.save()
-        if status:
-            p.status = status
-            p.save()
-        r_elements = ['products_list']
-        r_html['products_list'] = render_to_string('products/one_product.html', {'product': p, 'index': index})
-        response['html'] = r_html
-        response['elements'] = r_elements
-        response['prepend'] = True
-        # return redirect('/products/'+p.slug)
-        # url = '/workplace/products/'+workplace.slug
-        # return HttpResponseRedirect(url)
-        
-        # print(bb)
-        # tags1 = []
-        # tags12 = []
-        # li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-        # li2 = [11, 12, 32, 543, 42, 99, 67]
-        # li3 = [111, 121, 321, 545, 422, 199, 167]
-        # li4 = [171, 131, 351, 75, 425, 194, 17]
-        # tags1 = Tags.objects.filter(pk__in=li1)
-        # tags2 = Tags.objects.filter(pk__in=li2)
-        # tags3 = Tags.objects.filter(pk__in=li3)
-        # tags4 = Tags.objects.filter(pk__in=li4)
-        #
-        #
-        # for t in tags1:
-        #     p = Products.sell.filter(tags=t, target_segment__contains='C')
-        #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-        #     tags12.append(t2)
-    return render(request, 'products/add_product.html', {'c1_all': c1_all})
 
+        for c in categories:
+            Product_Categories.objects.create(product=p, category=c, level=c.level)
+        todaydate = date.today()
+        startdate = todaydate + timedelta(days=1)
+        enddate = startdate - timedelta(days=1)
+        node = '''We have just listed a few products on behalf of <a href="www.corelogs.com/workplace/{0}>{1}"</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
+        pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
+        if len(pp) < 2:
+            n = Node.objects.create(post=node, user=user, category='F', w_type='C')
+            if image0:
+                n.images = [x]
 
-def add_1_product(request):
-    user = request.user
-    producer = user.userprofile.primary_workplace
-
-    if request.method == 'POST':
-        pro = request.POST.get('product')
-        description = request.POST.get('description')
-        cost = request.POST.get('cost')
-        bulk = request.POST.get('bulk')
-        services = request.POST.get('services')
-
-        p = Products.objects.create(product=pro, producer=producer, description=description, cost=cost)
-        t = []
-        # If Bulk quantity Product
-
-        if bulk:
-            tag = Tags.objects.get(id=999)
-            t.append(tag)
-        elif services:
-            tag = Tags.objects.get(id=999)
-            t.append(tag)
-
-        target = request.POST.get('target')
-        if target == 1:
-            # Students, Racing Enthusiasts
-            pass
-            # list = ['SAE Team Related Items', 'Racing Enthusiasts & Automobile Accessories', ]
-        elif target == 2:
-            # Industries & SMEs
-            pass
-
+        # return HttpResponse(json.dumps(response), content_type="application/json")
+        return redirect('/products/add_product')
     else:
-        last_product = Products.objects.filter(producer=producer)[-1]
-        tags = last_product.tags.all()
-    return redirect('/')
+        p = Products.objects.filter(producer=workplace).last()
+        print(p)
+        category1 = p.get_category1
+        print(category1)
+        c1_all = Category.objects.filter(level=1)
+        aa = []
+        bb = []
+        cc = []
+        for i in c1_all:
+            c2 = i.sub_cat.all()
+            aa.append(c2)
+            for k in c2:
+                cc.append(k)
+        for j in aa:
+            for k in j:
+                c3 = k.sub_cat.all()
+                bb.append(c3)
+        for j in cc:
+            c3 = j.sub_cat.all()
+            bb.append(c3)
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'bb':bb, 'aa':aa, 'cc':cc, 'category1':category1})
 
 
-# def add_category(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         pro = request.POST.get('product')
 
 
 def initial_category(request):

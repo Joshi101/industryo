@@ -42,6 +42,10 @@ class Enquiry(models.Model):
     message = models.CharField(max_length=1000)
     seen = models.BooleanField(default=False)
 
+    response_made = models.BooleanField(default=False)
+    enquirer_comment = models.CharField(max_length=200, null=True, blank=True)
+    producer_comment = models.CharField(max_length=200, null=True, blank=True)
+
     phone_no = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):

@@ -26,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^articles/$', 'workplace.views.workplace_articles', name='articles'),
     url(r'^side_panel/$', 'workplace.views.side_panel', name='side_panel'),
 
+
+
     url(r'^edit_links/$', 'workplace.views.edit_links', name='edit_links'),     # ye
     url(r'^edit_contacts/$', 'workplace.views.edit_contacts', name='edit_contacts'),        # aur ye
 

@@ -35,6 +35,8 @@ urlpatterns = patterns('',
     url(r'^searchworkplace/$', 'workplace.views.search_workplace', name='searchworkplace'),
     url(r'^searchperson/$', 'userprofile.views.search_person', name='searchperson'),
 
+    url(r'^join_wp/(?P<slug>[^/]+)/$', 'workplace.views.join_wp', name='join_wp'),
+
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^forum/', include('forum.urls', namespace='forum')),
     url(r'^user/', include('userprofile.urls', namespace='user')),
