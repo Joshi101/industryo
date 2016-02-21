@@ -3,7 +3,9 @@
 		{% include 'nodes/one_node.html' with node=a %}
   {% elif a.category == 'A' %}
 		{% include 'nodes/one_article.html' with node=a %}
+  {% elif a.category == 'D' %}
+		{% include 'nodes/one_node.html' with node=a %}
   {% else %}
     {% include 'forum/one_question.html' with q=a %}
-	{% endif %}
+  {% endif %}
 {% endfor %}

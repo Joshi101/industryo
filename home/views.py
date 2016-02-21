@@ -18,6 +18,7 @@ from home import tasks
 
 def home(request):
     if request.user.is_authenticated():
+        a =request.GET.get('a')
         user = request.user
         if user.userprofile.primary_workplace:
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
@@ -38,7 +39,12 @@ def home(request):
             all_result_list = sorted(
                 chain(related_node, question),
                 key=attrgetter('date'), reverse=True)
-            paginator = Paginator(all_result_list, 5)
+            act = Node.objects.filter(category='D')
+            if a:
+                paginator = Paginator(act, 5)
+            else:
+                paginator = Paginator(all_result_list, 5)
+
             page = request.GET.get('page')
             try:
                 result_list = paginator.page(page)

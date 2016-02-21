@@ -35,9 +35,8 @@ def workplace_register(request):
             if created:
                 r_elements = ['message']
                 r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name': name})
-            node = '''<a href="www.corelogs.com/workplace/{0}>{1} is now registered on CoreLogs.
-            Have a look at its profile and members.'''.format(t.slug, t)
-            n = Node.objects.create(node=node, user=request.user, node_type='D')
+            node = '''<a href="/workplace/{0}">{1}</a> is now registered on CoreLogs. Have a look at its profile and members.'''.format(t.slug, t)
+            n = Node.objects.create(post=node, user=request.user, category='D', w_type=t.workplace_type)
             r_inputs = ['id_workplace']
             r_value['id_workplace'] = name
             response['html'] = r_html
@@ -68,13 +67,12 @@ def set_workplace(request):
 
             t = userprofile.primary_workplace.workplace_type
             tasks.send_html_mail(user.id, n=88)
-            node = '''<a href="www.corelogs.com/user/{0}>{1}</a> registered on CoreLogs and joined
-            <a href="www.corelogs.com/workplace/{2}>{3}</a> as {4}'''.format(user.username, userprofile, primary_workplace.slug, o, userprofile.job_position)
-            # n = Node.objects.create(node=node, user=request.user, node_type='D')
-            if user.userprofile.mobile_contact:
-                return redirect('/workplace/'+primary_workplace.slug)
-            else:
-                return redirect('/details/')
+            node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile, primary_workplace.slug, primary_workplace, userprofile.job_position)
+            n = Node.objects.create(post=node, user=request.user, category='D', w_type=t)
+            # if user.first_name:
+            return redirect('/workplace/'+primary_workplace.slug)
+            # else:
+            #     return redirect('/details/')
     else:
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
 

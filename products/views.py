@@ -485,20 +485,21 @@ def add_product(request):
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
         enddate = startdate - timedelta(days=1)
-        node = '''We have just listed a few products on behalf of <a href="www.corelogs.com/workplace/{0}>{1}"</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
+        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
         pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
         if len(pp) < 2:
-            n = Node.objects.create(post=node, user=user, category='F', w_type='C')
+            n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)
             if image0:
                 n.images = [x]
 
         # return HttpResponse(json.dumps(response), content_type="application/json")
         return redirect('/products/add_product')
     else:
-        p = Products.objects.filter(producer=workplace).last()
-        print(p)
-        category1 = p.get_category1
-        print(category1)
+        # p = Products.objects.filter(producer=workplace).last()
+        # print(p)
+        #
+        # category1 = p.get_category1
+        # print(category1)
         c1_all = Category.objects.filter(level=1)
         aa = []
         bb = []
@@ -515,7 +516,7 @@ def add_product(request):
         for j in cc:
             c3 = j.sub_cat.all()
             bb.append(c3)
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'bb':bb, 'aa':aa, 'cc':cc, 'category1':category1})
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'bb':bb, 'aa':aa, 'cc':cc})
 
 
 
