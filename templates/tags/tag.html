@@ -88,6 +88,19 @@
 	</div>
 	  
 	  <div id="workplaces" class="tab-pane fade">
+	  	{% if tag.type == "E" %}
+	  	<div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+				
+              <h4><a href="/workplace/add_tag/?t={{tag.id}}"><i class="fa fa-plus-square fa-lg"></i> Also Participating in this Event</a></h4>
+            </div>
+            <div class="panel-body">
+			
+            </div>
+          </div>
+        </div>
+        {% endif %}
 			{% if wptags %}
 			{% include 'tags/21_workplaces.html' with result_list=wptags %}
 			{% endif %}

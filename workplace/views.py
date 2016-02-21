@@ -554,3 +554,20 @@ def join_wp(request, slug):
     user.userprofile.save()
     return redirect('/workplace/'+workplace.slug)
 
+@login_required
+def add_tag(request):
+    user = request.user
+    tid = request.GET.get('t')
+    if user.userprofile.primary_workplace:
+        w = user.userprofile.primary_workplace
+        tag = Tags.objects.get(id=tid)
+        w.set_event(tag)
+        return redirect('/tags/'+tag.slug)
+
+    else:
+        return redirect('/set/')
+
+
+
+
+
