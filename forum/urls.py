@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^w/$', 'forum.views.w_questions', name='w_questions'),
     url(r'^s/$', 'forum.views.s_questions', name='s_questions'),
     url(r'^ask/(?P<tag>[^/]+)$', 'forum.views.ask', name='ask'),
+    url(r'^ask/$', 'forum.views.ask', name='ask'),
 
     url(r'^help/$', TemplateView.as_view(template_name='forum/help.html'), name='help'),
     url(r'^why_should_i_answer/$', TemplateView.as_view(template_name='forum/why_should_i_answer.html'), name='why_should_i_answer'),

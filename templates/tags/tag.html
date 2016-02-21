@@ -40,7 +40,7 @@
 	  <li><a data-toggle="tab" href="#workplaces">Workplaces</a></li>
 	</ul>
 	
-	<div class="tab-content">
+	<div class="tab-content ajax_papa">
 	<div id="activity" class="tab-pane fade in active">
 			<div class="panel panel-default">
 		<div class="panel-body row">
@@ -77,7 +77,7 @@
   	</div>
 		{% csrf_token %}
 	</form>
-	  <div class="ajax_andar feeds">
+  <div class="ajax_andar feeds">
 		{% include "snippets/figure_modal.html" %}
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}
 		<div class="paginator" data-next_page="2">
