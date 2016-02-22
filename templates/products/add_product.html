@@ -10,7 +10,7 @@
 <div class="container">
 	<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
 	  {% csrf_token %}
-	  <ul class="nav nav-tabs">
+	  <ul class="nav nav-tabs nav-justified">
 		  <li class="active"><a data-toggle="tab" href="#add_prod_category">Categorization</a></li>
 		  <li><a data-toggle="tab" href="#add_prod_info">Product Information</a></li>
 		</ul>
@@ -26,32 +26,28 @@
 						<ul class="nav nav-pills nav-stacked col-xs-4">
 						{% for t1 in c1_all %}
 							<li>
-								<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+								<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '|cut:','|cut:'.'}}">{{t1}}<span class="fa fa-fw fa-check"></span></a>
 							</li>
 						{% endfor %}
 						</ul>
 						<div class="tab-content col-xs-8">
 						{% for t1 in c1_all %}
-							<div id="t1_{{t1|cut:'&'|cut:' '}}" class="tab-pane fade">
+							<div id="t1_{{t1|cut:'&'|cut:' '|cut:','|cut:'.'}}" class="tab-pane fade">
 								<ul class="nav nav-pills nav-stacked col-xs-6">
 								{% for t2 in t1.get_sub %}
 									<li>
-										<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
-									</li>
-								{% empty %}
-									<li>
-										<a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
+										<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '|cut:','|cut:'.'}}">{{t2}}<span class="fa fa-fw fa-check"></span></a>
 									</li>
 								{% endfor %}
 								</ul>
 								<input type="hidden" name="c1" value="{{t1.id}}}">
 								<div class="tab-content col-md-6">
 								{% for t2 in t1.get_sub %}
-									<div id="t2_{{t2|cut:'&'|cut:' '}}" class="tab-pane fade">
+									<div id="t2_{{t2|cut:'&'|cut:' '|cut:','|cut:'.'}}" class="tab-pane fade">
 										<ul class="nav nav-pills nav-stacked">
 										{% for t3 in t2.get_sub %}
 											<li>
-												<a class="select_btn no_sub" data-name="category3" data-value="{{t3.id}}">{{t3}}<span class="fa fa-fw fa-check"></span></a>
+												<a class="select_btn" data-name="category3" data-value="{{t3.id}}">{{t3}}<span class="fa fa-fw fa-check"></span></a>
 											</li>
 										{% endfor %}
 										</ul>
@@ -60,7 +56,6 @@
 
 								</div>
 							</div>
-
 						{% endfor %}
 						</div>
 						<input type="hidden" name="category1" value="">
@@ -70,7 +65,7 @@
 				</div>
 				
 			</div>
-			<div id="add_prod_info" class="tab-pane fade unboxed">
+			<div id="add_prod_info" class="tab-pane fade">
 			  <div class="form-group">
 			    <label class="control-label">Name of product</label>
 			    <input class="form-control" placeholder="One Product at a time" name="product">
@@ -110,8 +105,5 @@
 		  <input class="index" name="i" type="hidden" value="0">
 	  </div>
 	</form>
-	<script type="text/javascript">
-
-	</script>
 </div>
 {% endblock body %}

@@ -145,9 +145,7 @@ class Products(models.Model):
         return status
 
     def get_category1(self):
-        print("Tin Tin Tin")
         c1 = self.categories.filter(level=1)
-        print(c1)
         return c1
 
 
