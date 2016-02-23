@@ -758,10 +758,11 @@ pre {
 #notifications .badge, #messages .badge{
   font-size: 11px;
   line-height: 15px;
+  background-color: #197;
 
   position: absolute;
-  bottom: 20px;
-  left: 27px;
+  top: 7px;
+  right: 0px;
 
   padding: 0 5px;
 
@@ -894,7 +895,7 @@ pre {
 }
 
 .nav-pills {
-  margin-top: 5px;
+  /*! margin-top: 5px; */
   margin-bottom: 25px;
   border-radius: 2px;
   border: 1px solid #;
@@ -1603,7 +1604,7 @@ footer .connect li{
 }
 
 .side_head {
-  padding: 0 5px 5px;
+  padding: 0 5px;
   font-size: 1.2em;
   margin-bottom: 10px;
   border-bottom: 1px solid #9d9d9d;
@@ -2367,7 +2368,7 @@ footer .contact li{
 
 .side_show{
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 0 10px;
   font-size: 1em;
   font-family: 'Calibri';
   color: #666;
@@ -3052,10 +3053,14 @@ footer .contact li{
   color: #000;
 }
 
-.left_menu h3{
+.left_menu h4{
   font-size: 18px;
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 10px;
   border-bottom: 1px solid #555;
+}
+
+.panel{
+  padding: 15px;
 }

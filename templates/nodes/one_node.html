@@ -5,8 +5,7 @@
 		{% include "snippets/like_box.html" with node=node %}
 	</div>
 	<div class="feed_box_body">
-		<pre>{{ node.post |new_tab|safe | urlize }}</pre>
-
+		<p>{{ node.post|new_tab|safe }}</p>
 		{% if node.get_images %}
 			<div class="summary_fig">
 			{% for image in node.get_images %}
@@ -22,7 +21,6 @@
 			{% include "snippets/joint_name.html" with user=node.user %}
 			<time property='dateCreated' class="text-muted">{{node.date}}</time>
 		</div>
-
 	</div>
 	<div class="feed_box_extra">
 		<div class="comments">			

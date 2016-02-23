@@ -487,7 +487,7 @@ def add_product(request):
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
         enddate = startdate - timedelta(days=1)
-        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
+        node = '''We have just listed a few products on behalf of <a href=/workplace/{0}>{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
         pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
         if len(pp) < 2:
             n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)

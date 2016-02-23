@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "home.html" %}
 
 {% block title %}The Engineer's Forum - CoreLogs{% endblock title %}
 
@@ -8,25 +8,15 @@
 	{% include "snippets/top_navigation.html" with what='Questions' %}
 {% endblock top %}
 
-{% block content %}
+{% block feed_body %}
 	<div class="panel panel-default">
-		<div class="panel-body row">
+		<div class="row">
 			<p class="text-justify text-muted col-sm-8">"Let your Curiousity defeat your laziness..."</p>
 			<p class="text-right col-sm-4">
 				<a href="{% url 'forum:ask' %}"><i class="fa fa-lightbulb-o inline_fa"></i>Ask a Question</a>
 			</p>
 		</div>
 	</div>
-	<ul class="nav nav-pills">
-	<li><a href="/">Home</a></li>
-	  <li><a href="/forum/category?q=sae">Teams</a></li>
-	  <li><a href="/forum/category?q=sme">SME</a></li>
-	  <li><a href="/forum/category?q=scholar">Scholars</a></li>
-	  <li><a href="/forum/category?q=lsi">Engineers</a></li>
-	  <li><a href="/forum/category?q=unanswered">Unanswered</a></li>
-	  <li><a href="/forum/q_tags/">Search Tags</a></li>
-	  
-	</ul>
 	<div class="ajax_andar feeds">
 		{% include "snippets/figure_modal.html" %}
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}
@@ -35,21 +25,4 @@
 			<i class="fa fa-spin fa-circle-o-notch"></i>
 		</div>
 	</div>
-{% endblock %}
-
-{% block right %}
-	<div class="">
-		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
-	</div>
-{% endblock right %}
-
-{% block foot %}
-	
-{% endblock foot %}
-
-{% block end_js %}
-	{{block.super}}
-	<script type="text/javascript">
-		$('.nav_a_forum').addClass('current');
-	</script>
-{% endblock end_js %}
+{% endblock feed_body %}
