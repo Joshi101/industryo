@@ -944,6 +944,7 @@ pre {
 
 .feed .feed_box_body {
   margin-top: 5px;
+  font-size: 1em;
 }
 
 .feed_box {
@@ -1237,9 +1238,9 @@ pre {
 }
 
 .comment {
-  font-size: 0.8em;
-  padding-top: 5px;
-  padding-left: 50px;
+  font-size: 0.9em;
+  padding-top: 10px;
+  padding-left: 20px;
   color: #666;
 }
 
