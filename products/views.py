@@ -278,6 +278,8 @@ def int_product(request, slug):
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
+    categories = product.categories.all()
+    c1_all = Category.objects.filter(level=1)
     return render(request, 'activities/p/product.html', locals())
 
 @login_required
