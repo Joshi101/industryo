@@ -569,11 +569,15 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
     var col = $this.siblings('.collapse');
     var text = $this.text();
     var alt = $this.data('alternate');
+    var hide = $this.data('hide');
+    if (hide){
+        $this.addClass('hidden');
+    }
     if (col.attr('class').indexOf('in') >= 0)
         col.removeClass('in');
     else {
         col.addClass('in');
-        col.find('textarea').first().focus();
+        col.find('.form-control').first().focus();
     }
     if (alt){
         console.log(alt)

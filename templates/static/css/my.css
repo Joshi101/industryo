@@ -943,8 +943,14 @@ pre {
 /* nodes (feed box) */
 
 .feed .feed_box_body {
-  margin-top: 5px;
-  font-size: 1em;
+  position: relative;
+  //margin-top: 5px;
+  //font-size: 1em;
+}
+
+.feed .sign{
+  font-size: 15px;
+  top: 7px;
 }
 
 .feed_box {
@@ -1099,6 +1105,12 @@ pre {
   color: #333;
 }
 
+.feed .summary_body{
+  font-size: 13px;
+  padding-top: 7px;
+  padding-right: 25px;
+}
+
 .feed_box_body > pre {
   margin-bottom: 0;
   padding: 7px 5px;
@@ -1143,6 +1155,11 @@ pre {
 
 .vote_box .downvote {
   color: #946;
+}
+
+.vote_box a:hover{
+  text-decoration: none;
+  color: #999;
 }
 
 .vote_box .count {
@@ -1195,7 +1212,7 @@ pre {
 }
 
 .interaction .collapse {
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 .interaction .btn {
@@ -1208,6 +1225,11 @@ pre {
   //background-color: rgba(255,255,255,1);
 }
 
+.comment time{
+  display: inline-block;
+  color: #999;
+}
+
 .comments {
   padding: 0;
 }
@@ -1215,32 +1237,47 @@ pre {
 .comment .joint_name {
   font-size: 0.9em;
   margin: 0 5px;
-  padding: 0 3px 2px;
+  padding: 0 5px 2px;
   display: inline-block;
-  background: rgba(222, 222, 222, .85);
+  background: rgba(222, 222, 222, .45);
 }
 
 .comment_form .form-control {
   font-size: 12px;
 
-  height: 30px;
+  height: 29px;
   padding: 5px 10px;
+  //border-style: none none solid none;
+  background-color: #f9f9f9;
+  //box-shadow: -2px -1px 2px -1px #ccc;
+}
 
+.comment_form textarea:focus {
+  box-shadow: 0 0 0;
+  background-color: #f5f5f5;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
 }
 
 .comment_form .btn {
   font-size: 12px;
 
-  height: 30px;
-  padding: 3px 5px;
+  height: 29px;
+  padding: 3px 10px;
 
   border-radius: 0;
+  border-color: #ccc;
+  color: #555;
+  background-color: #fafafa;
 }
 
 .comment {
-  font-size: 0.9em;
+  font-size: 12px;
   padding-top: 10px;
-  padding-left: 20px;
+  padding-left: 35px;
+  padding-right: 10px;
+  text-align: justify;
   color: #666;
 }
 

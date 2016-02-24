@@ -1,9 +1,9 @@
 <form class="comment_form" role='form' action="{% if type == 'q' %}{% url 'forum:ques_comment' %}{% elif type == 'a' %}{% url 'forum:ans_comment' %}{% elif type == 'n' %}{% url 'nodes:comment' %}{% endif %}" method="POST">
 	{% csrf_token %}
 	<div class="input-group">
-		<textarea rows="1" class="form-control" name="comment" placeholder="comment..." required></textarea>
+		<textarea rows="1" class="form-control" name="comment" placeholder="Make your comment here ..." required></textarea>
 		<span class="input-group-btn">
-			<button class='btn btn-default form-ajax'>Comment</button>
+			<button class='btn btn-default form-ajax'><span class="fa fa-paper-plane-o"></span></button>
 		</span>
 	</div>
 	<input type="hidden" name="id" value="{{ post.id }}">

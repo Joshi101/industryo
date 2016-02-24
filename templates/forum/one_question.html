@@ -6,7 +6,7 @@
 		<a href="{% url 'forum:question' q.slug %}">
 			<div class="summary_title">
 				<span property="name">{{ q.title|capfirst }}</span>
-				<i class="fa fa-question sign"></i>
+				<span class="fa fa-question sign"></span>
 			</div>
 		</a>
 		{% if q.question %}

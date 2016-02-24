@@ -1,4 +1,5 @@
-<div class="feed_box article ajax_papa">
+{% load filter %}
+<div class="feed_box summary article ajax_papa">
 	<div class="vote_box">
 		{% include "snippets/like_box.html" with node=node %}
 	</div>
@@ -38,8 +39,8 @@
 		{% endfor %}
 		</div>
 		<div class="interaction">
-			<a class="a_collapse">Comment</a>
-	    <div class="collapse row">
+			<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
+	    <div class="collapse">
 				{% include "snippets/comment_form.html" with type='n' post=node %}
 			</div>
 		</div>

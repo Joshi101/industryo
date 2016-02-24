@@ -1,11 +1,11 @@
-
 {% load filter %}
-<div class="feed_box feed ajax_papa">
+<div class="feed_box summary feed ajax_papa">
 	<div class="text-center vote_box">
 		{% include "snippets/like_box.html" with node=node %}
 	</div>
 	<div class="feed_box_body">
-		<p>{{ node.post|new_tab|safe }}</p>
+		<span class="fa fa-rss sign"></span>
+		<div class="summary_body">{{ node.post|new_tab|safe }}</div>
 		{% if node.get_images %}
 			<div class="summary_fig">
 			{% for image in node.get_images %}
@@ -29,7 +29,7 @@
 		{% endfor %}
 		</div>
 		<div class="interaction">
-			<a class="a_collapse text-muted">Write Comment</a>
+			<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
 	    <div class="collapse">
 	    	{% include "snippets/comment_form.html" with type='n' post=node %}
 			</div>
