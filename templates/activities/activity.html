@@ -53,6 +53,7 @@
 		
 		<li>{% if u.image %}+ {% endif %}<a href="{% url 'activities:int_product' u.slug %}">{{u.product}}</a> <b class="pull-right"> {{u.producer}}</b> {% for tag in u.get_tags %}
 		<a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>{% endfor %} </li>
+		{% for c in u.get_cat %}<span class="tag">{{c}}</span>{% endfor %}
 		
 	{% endfor %}  
   </ol>

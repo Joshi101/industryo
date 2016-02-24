@@ -18,7 +18,7 @@
 {% block content %}
 <div class="ajax_papa">
 	<ul class="nav nav-pills nav-justified nav_justified_xs">
-		<li><a href="/forum"><span class="fa fa-question-circle inline_fa"></span>Forum</a></li>
+		<li><a href="/forum"><span class="fa fa-question-circle inline_fa"></span>Questions</a></li>
 		<li><a href="{% url 'nodes:articles' %}"><span class="fa fa-newspaper-o inline_fa"></span>Articles</a></li>
 		<li><a href="/?a=a"><span class="fa fa-rss inline_fa"></span>Activity</a></li>
 	</ul>
@@ -34,7 +34,8 @@
 				<p>Be an active contributor, ask some questions, answer some, write articles or simply throw a feed</p>
 			</div>
 			<div class="col-sm-5">
-				<a href="{% url 'forum:ask' %}"><span class="fa fa-fw fa-lightbulb-o inline_fa"></span>Ask a Question</a><br>
+				<a href="{% url 'forum:ask' %}"><span class="fa fa-fw fa-lightbulb-o inline_fa"></span>Ask a Question</a>
+				<br>
 				<a href="{% url 'nodes:write' %}"><span class="fa fa-fw fa-pencil inline_fa"></span>Write your own Article</a>
 			</div>
 		</div>
@@ -45,7 +46,7 @@
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}
 		<div class="paginator" data-next_page="2">
 			<h5>Loading more content</h5>
-			<i class="fa fa-spin fa-circle-o-notch"></i>
+			<span class="fa fa-spin fa-circle-o-notch"></span>
 		</div>
 	</div>
 	{% endblock feed_body %}

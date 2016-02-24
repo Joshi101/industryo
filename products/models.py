@@ -145,8 +145,23 @@ class Products(models.Model):
         return status
 
     def get_category1(self):
-        c1 = self.categories.filter(level=1)
+        category1 = self.categories.get(level=1)
+        c1 = category1.id
         return c1
+
+    def get_category2(self):
+        category1 = self.categories.get(level=2)
+        c1 = category1.id
+        return c1
+
+    def get_category3(self):
+        category1 = self.categories.get(level=3)
+        c1 = category1.id
+        return c1
+
+    def get_cat(self):
+        categories = self.categories.all()
+        return categories
 
 
 class Category(models.Model):

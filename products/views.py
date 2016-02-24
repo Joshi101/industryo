@@ -279,6 +279,9 @@ def int_product(request, slug):
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     categories = product.categories.all()
+    category1 = product.get_category1()
+    category2 = product.get_category2()
+    category3 = product.get_category3()
     c1_all = Category.objects.filter(level=1)
     return render(request, 'activities/p/product.html', locals())
 
@@ -500,7 +503,7 @@ def add_product(request):
         p = Products.objects.filter(producer=workplace).last()
 
         c1_all = Category.objects.filter(level=1)
-        
+
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p})
 
 
