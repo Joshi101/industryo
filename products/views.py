@@ -497,28 +497,11 @@ def add_product(request):
         # return HttpResponse(json.dumps(response), content_type="application/json")
         return redirect('/products/add_product')
     else:
-        # p = Products.objects.filter(producer=workplace).last()
-        # print(p)
-        #
-        # category1 = p.get_category1
-        # print(category1)
+        p = Products.objects.filter(producer=workplace).last()
+
         c1_all = Category.objects.filter(level=1)
-        aa = []
-        bb = []
-        cc = []
-        for i in c1_all:
-            c2 = i.sub_cat.all()
-            aa.append(c2)
-            for k in c2:
-                cc.append(k)
-        for j in aa:
-            for k in j:
-                c3 = k.sub_cat.all()
-                bb.append(c3)
-        for j in cc:
-            c3 = j.sub_cat.all()
-            bb.append(c3)
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'bb':bb, 'aa':aa, 'cc':cc})
+        
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p})
 
 
 def initial_category(request):

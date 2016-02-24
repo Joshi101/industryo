@@ -7,6 +7,13 @@
 {% block page_id %}add_product{% endblock page_id %}
 
 {% block body %}
+{% if p %}
+	<div class="alert alert-info">
+	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
+	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}.</strong></a> Add all your products one by one.</p>
+	</div>
+{% endif %}
 <div class="container">
 	<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
 	  {% csrf_token %}

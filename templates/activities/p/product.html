@@ -72,7 +72,7 @@
                   <textarea name="desc" form="details_prod_form" rows="3" class="form-control new_val new_val">{{product.description}}</textarea>
                 </div>
                 <div class="info_field_value">
-                  {% if categories %}{% for c in categories %}{{c}}>{% endfor %}{% endif %}
+                  {% if categories %}{% for c in categories %}{{c}}<i class="fa fa-chevron-right"></i>{% endfor %}{% endif %}
                 </div>
               </div>
             </div>
