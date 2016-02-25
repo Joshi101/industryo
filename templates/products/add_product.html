@@ -8,13 +8,13 @@
 
 {% block body %}
 {% if p %}
+{% endif %}
+<div class="container">
 	<div class="alert alert-info">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
 	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}.</strong></a> Add all your products one by one.</p>
 	</div>
-{% endif %}
-<div class="container">
 	<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
 	  {% csrf_token %}
 	  <ul class="nav nav-tabs">
@@ -74,9 +74,9 @@
 						<button type="button" class="next_nav btn btn-primary pull-right">Next</button>
 					</div>
 				</div>
-				<input type="hidden" name="category1" value="">
-				<input type="hidden" name="category2" value="">
-				<input type="hidden" name="category3" value="">
+				<input type="hidden" name="category1" value="{{c1}}">
+				<input type="hidden" name="category2" value="{{c2}}">
+				<input type="hidden" name="category3" value="{{c3}}">
 			</div>
 			<div id="add_prod_info" class="tab-pane fade">
 			  <div class="form-group">
@@ -118,5 +118,14 @@
 		  <input class="index" name="i" type="hidden" value="0">
 	  </div>
 	</form>
+	{% if c1 %}
+	<script type="text/javascript">
+		$(".select_btn[data-value='{{c1}}']").tab('show').closest('li').addClass('active');
+		$(".select_btn[data-value='{{c2}}']").tab('show').closest('li').addClass('active');
+		$(".select_btn[data-value='{{c3}}']").closest('li').addClass('active');
+		var $no_sub = $('#add_prod_category').find('li.active').find('.no_sub');
+		$no_sub.addClass('active_selection').closest('.active').removeClass('active');
+	</script>
+	{% endif %}
 </div>
 {% endblock body %}
