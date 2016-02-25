@@ -48,7 +48,7 @@
                 <div class="info_field ajax_papa">
                   <div class="info_field_value">
                   {% for c in categories %}
-                    <span class="prod_category">{{c.category}}</span>
+                    <span class="prod_category">{{c}}</span>
                   {% endfor %}
                   </div>
                   {% if user.userprofile in members %}
@@ -159,7 +159,7 @@
         <div class="prod_action">
           <h3 class="text-muted text-center">
           {% if request.user.userprofile in members %}
-            <button class="btn_alt" data-toggle='modal' data-target='#prod_modal'><i class="fa fa-plus"></i>&nbsp; Add More Products</button>
+            <a href="{% url "products:add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
           {% else %}
             <button class="btn_alt" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</button>
           {% endif %}

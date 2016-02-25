@@ -45,7 +45,7 @@ def set_tags_short(request, slug):
     else:
         return redirect('/user/'+request.user.username)
 
-
+@login_required
 def set_details(request, id):
     p = Products.objects.get(id=id)
     user = request.user
@@ -64,6 +64,7 @@ def set_details(request, id):
     else:
         return redirect('/products/' + id)
 
+@login_required
 def edit_category(request, id):
     p = Products.objects.get(id=id)
     user = request.user
@@ -80,8 +81,13 @@ def edit_category(request, id):
             c3 = request.POST.get('category3')
             if c3:
                 li.append(c3)
-            print(c1,c2,c3)
-            p.save()
+            categories = Category.objects.filter(pk__in=li)
+            q = Product_Categories.objects.filter(product=p)
+            if q:
+                q.delete()
+            for c in categories:
+
+                Product_Categories.objects.create(product=p, category=c, level=c.level)
             return HttpResponse()
     else:
         return redirect('/products/' + id)
@@ -94,7 +100,8 @@ def product(request, slug):
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
-    categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
+    # categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
+    categories = product.categories.all()
     all = Products.objects.filter(producer=producer)
     all_list = list(all)
     c = all_list.index(product)
@@ -249,64 +256,64 @@ def send_enq_mail(e):
     msg.send()
     connection.close()
 
-
+@login_required
 def int_add_product(request):
+    c1_all = Category.objects.filter(level=1)
     if request.method == 'POST':
-
         pro = request.POST.get('product')
         description = request.POST.get('description')
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         status = request.POST.get('status')
-        li = []
-
-        a = request.POST.get('A')
-        if a:
-            li.append('A')
-        b = request.POST.get('B')
-        if b:
-            li.append('B')
-
-        c = request.POST.get('C')
-        if c:
-            li.append('C')
-        o = request.POST.get('O')
-        if o:
-            li.append('O')
         u = request.POST.get('person')
         user = User.objects.get(username=u)
         workplace = user.userprofile.primary_workplace
+        li = []
+        c1 = request.POST.get('category1')
+        if c1:
+            li.append(c1)
+        c2 = request.POST.get('category2')
+        if c2:
+            li.append(c2)
+        c3 = request.POST.get('category3')
+        if c3:
+            li.append(c3)
+        index = request.POST.get('i')
+        categories = Category.objects.filter(pk__in=li)
         image0 = request.FILES.get('image0', None)
+        p = {}
         if len(pro) > 3:
             product = pro
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
             p.set_tags(tags)
-            p.set_target_segments(li)
         if image0:
             i = Images()
             x = i.upload_image(image=image0, user=user)
             p.image = x
             p.save()
-        if status:
-            p.status = status
-            p.save()
-        return redirect('/')
-        # return HttpResponse(json.dumps(response), content_type="application/json")
+
+        for c in categories:
+            Product_Categories.objects.create(product=p, category=c, level=c.level)
+
+        return redirect('/internal/add_product')
     else:
-        return render(request, 'activities/p/add_product.html')
+        p = Products.objects.last()
 
+        c1_all = Category.objects.filter(level=1)
 
+        return render(request, 'activities/p/add_product.html', {'c1_all': c1_all, 'p': p})
+
+@login_required
 def int_product(request, slug):
-
+    c1_all = Category.objects.filter(level=1)
     product = Products.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     categories = product.categories.all()
-    category1 = product.get_category1()
-    category2 = product.get_category2()
-    category3 = product.get_category3()
-    c1_all = Category.objects.filter(level=1)
+    # category1 = product.get_category1()
+    # category2 = product.get_category2()
+    # category3 = product.get_category3()
     return render(request, 'activities/p/product.html', locals())
 
 @login_required
@@ -335,7 +342,7 @@ def int_edit_desc(request, id):
     else:
         return redirect('/products/'+p.slug)
 
-
+@login_required
 def set_int_details(request, id):
     p = Products.objects.get(id=id)
     user = p.user
@@ -351,6 +358,31 @@ def set_int_details(request, id):
         return HttpResponse()
     else:
         return redirect('/products/' + id)
+
+@login_required
+def int_edit_category(request, id):
+    p = Products.objects.get(id=id)
+    if request.method == 'POST':
+            li = []
+            c1 = request.POST.get('category1')
+            if c1:
+                li.append(c1)
+            c2 = request.POST.get('category2')
+            if c2:
+                li.append(c2)
+            c3 = request.POST.get('category3')
+            if c3:
+                li.append(c3)
+            categories = Category.objects.filter(pk__in=li)
+            q = Product_Categories.objects.filter(product=p)
+            if q:
+                q.delete()
+            for c in categories:
+
+                Product_Categories.objects.create(product=p, category=c, level=c.level)
+            return HttpResponse()
+    else:
+        return redirect('/internal/products/' + id)
 
 
 def home(request):
@@ -514,7 +546,7 @@ def add_product(request):
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
         enddate = startdate - timedelta(days=1)
-        node = '''We have just listed a few products on behalf of <a href=/workplace/{0}>{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
+        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
         pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
         if len(pp) < 2:
             n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)

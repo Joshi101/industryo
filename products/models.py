@@ -145,18 +145,27 @@ class Products(models.Model):
         return status
 
     def get_category1(self):
-        category1 = self.categories.get(level=1)
-        c1 = category1.id
+        try:
+            category1 = self.categories.get(level=1)
+            c1 = category1.id
+        except Exception:
+            c1 = None
         return c1
 
     def get_category2(self):
-        category1 = self.categories.get(level=2)
-        c1 = category1.id
+        try:
+            category1 = self.categories.get(level=2)
+            c1 = category1.id
+        except Exception:
+            c1 = None
         return c1
 
     def get_category3(self):
-        category1 = self.categories.get(level=3)
-        c1 = category1.id
+        try:
+            category1 = self.categories.get(level=3)
+            c1 = category1.id
+        except Exception:
+            c1 = None
         return c1
 
     def get_cat(self):

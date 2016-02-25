@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^send_html/$', 'home.email.send_html', name='send_html'),
 
     url(r'^products/(?P<id>[^/]+)/edit_desc/$', 'products.views.int_edit_desc', name='int_edit_desc'),
+    url(r'^products/(?P<id>[^/]+)/edit_category/$', 'products.views.int_edit_category', name='int_edit_category'),
     url(r'^(?P<id>[^/]+)/set_details/$', 'products.views.set_int_details', name='set_int_details'),
     url(r'^products/(?P<id>[^/]+)/change_image/$', 'products.views.int_change_image', name='int_change_image'),
     url(r'^products/(?P<slug>[^/]+)/$', 'products.views.int_product', name='int_product'),
