@@ -64,14 +64,37 @@ def set_details(request, id):
     else:
         return redirect('/products/' + id)
 
+def edit_category(request, id):
+    p = Products.objects.get(id=id)
+    user = request.user
+    workplace = user.userprofile.primary_workplace
+    if request.method == 'POST':
+        if p.producer == workplace:
+            li = []
+            c1 = request.POST.get('category1')
+            if c1:
+                li.append(c1)
+            c2 = request.POST.get('category2')
+            if c2:
+                li.append(c2)
+            c3 = request.POST.get('category3')
+            if c3:
+                li.append(c3)
+            print(c1,c2,c3)
+            p.save()
+            return HttpResponse()
+    else:
+        return redirect('/products/' + id)
+
 
 def product(request, slug):
-
+    c1_all = Category.objects.filter(level=1)
     product = Products.objects.get(slug=slug)
     producer = product.producer
     members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
+    categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
     all = Products.objects.filter(producer=producer)
     all_list = list(all)
     c = all_list.index(product)
