@@ -1623,19 +1623,37 @@ $('#add_prod_category').on('click', '.nav li a', function(){
 });*/
 
 $('#add_prod_category').on('click', '.select_btn', function(){
-    $(this).closest('form').find('.active_selection').removeClass('active_selection');
+    var name = $(this).data('name');
+    $('#add_prod_category').find('input[name=' + name + ']').val($(this).data('value')).attr('data-text',$(this).text()).trigger('change');
+    $('#add_prod_category').find('.active_selection').removeClass('active_selection');
     var cat = $(this).data('name');
     if (cat == 'category1') {
-        $(this).closest('form').find('input[name="category2"], input[name="category3"]').val("");
+        $('#add_prod_category').find('input[name="category2"], input[name="category3"]').val("");
     }
     else if (cat == 'category2') {
-        $(this).closest('form').find('input[name="category3"]').val("");
+        $('#add_prod_category').find('input[name="category3"]').val("");
     }
+});
+
+$('.info_field_edit #add_prod_category').on('click', '.select_btn', function(){
+    var cat1 = $('#add_prod_category').find('input[name="category1"]').attr('data-text');
+    var cat2 = $('#add_prod_category').find('input[name="category2"]').attr('data-text');
+    var cat3 = $('#add_prod_category').find('input[name="category3"]').attr('data-text');
+    var cats = [cat1, cat2, cat3];
+    var html = '';
+    for (var i = 0; i < cats.length; i++) {
+        if(cats[i]){
+            html = html + '<span class="prod_category">'+cats[i]+'</span>'
+        }
+    }
+    console.log(html)
+    $('#add_prod_category').find('.new_val').html(html);
 });
 
 $('#add_prod_category').on('click', '.no_sub', function(){
     $(this).addClass('active_selection');
     $(this).closest('form').children('.nav-tabs').find('.active').next().find('a').tab('show');
+
 });
 
 $('.select_btn').on('click', function(){

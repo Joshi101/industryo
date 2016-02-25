@@ -28,10 +28,10 @@
 	  <p><strong>Hello {{request.user.userprofile}} !</strong> This is your Feeds page.</p>
 	  <p>Here you'll find all the questions, articles and activities at on a single page.</p>
 	</div>
-	<div class="panel panel-default">
+	<div class="well">
 		<div class="row">
-			<div class="col-sm-7 text-muted">
-				<p>Be an active contributor, ask some questions, answer some, write articles or simply throw a feed</p>
+			<div class="col-sm-7">
+				Be an active contributor, ask some questions, answer some, write articles or simply throw a feed
 			</div>
 			<div class="col-sm-5">
 				<a href="{% url 'forum:ask' %}"><span class="fa fa-fw fa-lightbulb-o inline_fa"></span>Ask a Question</a>
