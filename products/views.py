@@ -148,7 +148,7 @@ def enquire(request):
             if e.count() < 5:
                 e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no = phone)
                 user.userprofile.notify_inquired(e)
-                send_enq_mail(e)
+                # send_enq_mail(e)
 
         else:
             email = request.POST.get('email')
@@ -163,7 +163,7 @@ def enquire(request):
                 e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no = phone)
                 up = prod.user.userprofile
                 up.notify_inquired(e)
-                send_enq_mail(e)
+                # send_enq_mail(e)
 
         return redirect('/products/'+prod.slug)
 
@@ -174,9 +174,10 @@ def enquiry_all(request):
     company = user.userprofile.primary_workplace
 
     enquiries = Enquiry.objects.filter(product__producer=company)
+    enquiries_sent = Enquiry.objects.filter(user=user)
 
     return render(request, 'enquiry/enquiry.html', {
-        'enquiries': enquiries,
+        'enquiries': enquiries, 'enquiries_sent': enquiries_sent,
         })
 
 

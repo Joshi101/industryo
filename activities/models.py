@@ -41,7 +41,7 @@ class Enquiry(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=1000)
     seen = models.BooleanField(default=False)
-
+    reply = models.CharField(max_length=1000, null=True, blank=True)
     response_made = models.BooleanField(default=False)
     enquirer_comment = models.CharField(max_length=200, null=True, blank=True)
     producer_comment = models.CharField(max_length=200, null=True, blank=True)
