@@ -71,6 +71,9 @@ def edit_category(request, id):
     workplace = user.userprofile.primary_workplace
     if request.method == 'POST':
         if p.producer == workplace:
+            response = {}
+            r_html = {}
+            r_elements = []
             li = []
             c1 = request.POST.get('category1')
             if c1:
@@ -81,14 +84,24 @@ def edit_category(request, id):
             c3 = request.POST.get('category3')
             if c3:
                 li.append(c3)
+# <<<<<<< HEAD
             categories = Category.objects.filter(pk__in=li)
             q = Product_Categories.objects.filter(product=p)
             if q:
                 q.delete()
             for c in categories:
-
                 Product_Categories.objects.create(product=p, category=c, level=c.level)
             return HttpResponse()
+# =======
+#             print(c1,c2,c3)
+#             p.save()
+#             r_elements = ['info_field_value']
+#             r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
+#             response['html'] = r_html
+#             response['elements'] = r_elements
+#             response['prepend'] = False
+#             return HttpResponse(json.dumps(response), content_type="application/json")
+# >>>>>>> arvind/master
     else:
         return redirect('/products/' + id)
 
@@ -554,7 +567,7 @@ def add_product(request):
                 n.images = [x]
 
         # return HttpResponse(json.dumps(response), content_type="application/json")
-        return redirect('/products/add_product')
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p, 'c1': c1, 'c2': c2, 'c3': c3})
     else:
         p = Products.objects.filter(producer=workplace).last()
 
