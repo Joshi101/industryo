@@ -38,7 +38,7 @@ def send_html_mail(id, n):
 
     elif n == 52:       # message
         template = Temp_set_wp
-        subject = "[CoreLogs] Set Your Workplace (Company) on CoreLogs"
+        subject = "Tell us the Official name of your company"
         html_content = template.format(up)
 
     elif n == 44:       # message
