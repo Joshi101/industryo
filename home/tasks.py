@@ -27,9 +27,9 @@ def send_html_mail(id, n):
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
         html_content = template.format(up)
     elif n == 33:
-        template = Temp_launch_marketplace
+        template = Template_Team_all
         subject = "Announcing Launch of CoreLogs Marketplace for SAE Teams"
-        html_content = template.format(up)
+        html_content = template.format(up, up.primary_workplace.slug, up.primary_workplace)
 
     elif n == 50:       # message
         template = Temp_message
@@ -42,7 +42,7 @@ def send_html_mail(id, n):
         html_content = template.format(up)
 
     elif n == 44:       # message
-        template = Temp_send_p_list
+        template = Template_SME_all
         subject = "[CoreLogs] Lets Grow Together"
         html_content = template.format(up, up.primary_workplace.slug, up.primary_workplace)
 

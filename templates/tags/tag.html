@@ -44,7 +44,7 @@
 	<div id="activity" class="tab-pane fade in active">
 			<div class="panel panel-default">
 		<div class="panel-body row">
-			<p class="text-justify text-muted col-sm-8">"Let your Curiousity defeat your laziness..."</p>
+			<p class="text-justify text-muted col-sm-8">Ask anything related to {{tag}}..</p>
 			<p class="text-right col-sm-4">
 				<a href="{% url 'forum:ask' tag.id %}"><i class="fa fa-lightbulb-o inline_fa"></i>Ask a Question</a>
 			</p>
@@ -59,7 +59,7 @@
 				</a>
 			</span>
 			<input type="hidden" name="tid" value="{{ tag.id }}">
-			<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Post a feed..(it's not a question)" required></textarea>
+			<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Start a discussion about {{tag}}" required></textarea>
 			<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file input-group-addon seamless_r img_pre_in'>
 				<i class="fa fa-camera"></i>
 				<input id="id_image_0" type="file" name="image0">
