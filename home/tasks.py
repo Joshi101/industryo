@@ -43,7 +43,7 @@ def send_html_mail(id, n):
 
     elif n == 44:       # message
         template = Temp_send_p_list
-        subject = "Send us a list of your products and find Buyers"
+        subject = "[CoreLogs] Lets Grow Together"
         html_content = template.format(up, up.primary_workplace.slug, up.primary_workplace)
 
     elif n == 88:
