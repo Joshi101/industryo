@@ -15,6 +15,11 @@
 	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
 	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}.</strong></a> Add all your products one by one.</p>
 	</div>
+	<form id="new_category_form" action="{% url 'products:new_category' %}" method="POST" role="form" enctype="multipart/form-data">
+		<input type="hidden" name="new_category_1" value="">
+		<input type="hidden" name="new_category_2" value="">
+		<input type="hidden" name="new_category_3" value="">
+	</form>
 	<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
 	  {% csrf_token %}
 	  <ul class="nav nav-tabs">
@@ -46,6 +51,22 @@
 										<a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
 									</li>
 								{% endfor %}
+									<li>
+										<a class="new_category" href="#l2_new_category_{{forloop.counter}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+									</li>
+									<div id="l2_new_category_{{forloop.counter}}" class="collapse" style="padding: 10px">
+										<div class="form-group">
+											<input class="form-control" type="text" value="" placeholder="Name of the new category">
+										</div>
+										<div class="panel info">
+											<div class="panel-body bg-warning">
+												<span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+											</div>
+										</div>
+										<div class="form-group text-center">
+											<button type="button" class="btn btn-sm new_category_btn" data-level=2>Add</button>
+										</div>
+									</div>
 								</ul>
 								<div class="tab-content col-md-6">
 								{% for t2 in t1.get_sub %}
@@ -60,6 +81,22 @@
 												<a class="no_sub">{{t2}}<span class="fa fa-fw fa-check"></span></a>
 											</li>
 										{% endfor %}
+											<li>
+												<a class="new_category" href="#l3_new_category_{{forloop.counter}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+											</li>
+											<div id="l3_new_category_{{forloop.counter}}" class="collapse" style="padding: 10px">
+												<div class="form-group">
+													<input class="form-control" type="text" value="" placeholder="Name of the new category">
+												</div>
+												<div class="panel info">
+													<div class="panel-body bg-warning">
+														<span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+													</div>
+												</div>
+												<div class="form-group text-center">
+													<button type="button" class="btn btn-sm new_category_btn" data-level=3>Add</button>
+												</div>
+											</div>
 										</ul>
 									</div>
 								{% endfor %}
