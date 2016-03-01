@@ -52,9 +52,9 @@
 									</li>
 								{% endfor %}
 									<li>
-										<a class="new_category" href="#l2_new_category_{{forloop.counter}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+										<a class="new_category" href="#l2_new_category_{{t1.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
 									</li>
-									<div id="l2_new_category_{{forloop.counter}}" class="collapse" style="padding: 10px">
+									<div id="l2_new_category_{{t1.id}}" class="collapse" style="padding: 10px">
 										<div class="form-group">
 											<input class="form-control" type="text" value="" placeholder="Name of the new category">
 										</div>
@@ -82,9 +82,9 @@
 											</li>
 										{% endfor %}
 											<li>
-												<a class="new_category" href="#l3_new_category_{{forloop.counter}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+												<a class="new_category" href="#l3_new_category_{{t2.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
 											</li>
-											<div id="l3_new_category_{{forloop.counter}}" class="collapse" style="padding: 10px">
+											<div id="l3_new_category_{{t2.id}}" class="collapse" style="padding: 10px">
 												<div class="form-group">
 													<input class="form-control" type="text" value="" placeholder="Name of the new category">
 												</div>
