@@ -65,6 +65,10 @@ def set_details(request, id):
         return redirect('/products/' + id)
 
 @login_required
+def new_category(request, id):
+    pass
+
+@login_required
 def edit_category(request, id):
     p = Products.objects.get(id=id)
     user = request.user

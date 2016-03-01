@@ -3129,3 +3129,12 @@ footer .contact li{
 .prod_category:last-of-type{
   color: #179;
 }
+
+#add_prod_category .nav-pills li .new_category{
+  margin: 10px 5px;
+  //padding-left: 5px;
+  //padding-right: 15px;
+  //border-radius: 2px;
+  background-color: #ddd;
+  color: #666;
+}

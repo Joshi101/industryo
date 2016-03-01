@@ -1520,7 +1520,8 @@ $('.body').on('click', '.info_field_grp .save', function(){
     var $this = $(this);
     $this.addClass('hide').siblings('.saving').removeClass('hide');
     var $form = $this.closest('form');
-    ajax_form_2($form);
+    ajax_form_2($form, changeComplete);
+    /*changeComplete($form)*/
     var $info_grp = $this.closest('.info_field_grp');
     $info_grp.find('.info_field_value').removeClass('hide');
     $info_grp.find('.change').addClass('changing');
@@ -1532,7 +1533,9 @@ $('.body').on('change', '.info_field .form-control', function(){
     console.log('input value changed');
 });
 
-function ajax_form_2($this){
+
+
+function ajax_form_2($this, callback){
     var $papa = $this.closest('.ajax_papa');
     var $form = $this;
     console.log($form.serialize());
@@ -1542,8 +1545,8 @@ function ajax_form_2($this){
         type: $form.attr('method'),
         data: $form.serialize(),
         success: function(response) {
-            changeComplete($form);
             console.log('ajax form submission complete !');
+            callback($form, response);
         },
         error: function(xhr, errmsg, err) {
             console.log(errmsg, err);
@@ -1551,7 +1554,7 @@ function ajax_form_2($this){
     });
 }
 
-function changeComplete($form){
+function changeComplete($form, response){
     var $info_grp = $form.closest('.info_field_grp');
     $info_grp.find('.changing').each(function(index, el) {
         $this = $(el);
@@ -1653,8 +1656,30 @@ $('.info_field_edit #add_prod_category').on('click', '.select_btn', function(){
 $('#add_prod_category').on('click', '.no_sub', function(){
     $(this).addClass('active_selection');
     $(this).closest('form').children('.nav-tabs').find('.active').next().find('a').tab('show');
-
 });
+
+$('#add_prod_category').on('click', '.new_category_btn', function(){
+    var value = $(this).closest('.collapse').find('input').val();
+    $(this).addClass('current');
+    var $new_cat_form = $('#new_category_form');
+    $('#new_category_form').find('input').each(function(){
+        $(this).val('');
+    });
+    if ($(this).data('level') == 2){
+        $new_cat_form.find('input[name=new_category_2]').val(value);
+        $new_cat_form.find('input[name=new_category_1]').val($('#add_prod_category').find('input[name="category1"]').val());
+    }
+    else if ($(this).data('level') == 3){
+        $new_cat_form.find('input[name=new_category_3]').val(value);
+        $new_cat_form.find('input[name=new_category_2]').val($('#add_prod_category').find('input[name="category2"]').val());
+        $new_cat_form.find('input[name=new_category_1]').val($('#add_prod_category').find('input[name="category1"]').val());
+    }
+    ajax_form_2($new_cat_form, newCategory);
+});
+
+function newCategory($form, response){
+    
+}
 
 $('.select_btn').on('click', function(){
     var name = $(this).data('name');
