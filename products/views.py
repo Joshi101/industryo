@@ -65,8 +65,30 @@ def set_details(request, id):
         return redirect('/products/' + id)
 
 @login_required
-def new_category(request, id):
-    pass
+def new_category(request):
+    print("e hua na baat")
+    if request.method == 'POST':
+        # for key in request.POST:
+        #     value = request.POST[key]
+        #     # for key in request.POST.iteritems():
+        #     print(key)
+        #     print(value)
+        id = request.POST.get('new_category_1')
+        c2 = request.POST.get('new_category_2')
+        c3 = request.POST.get('new_category_3')
+        if not c3:
+            id = request.POST.get('new_category_1')
+            c = Category.objects.get(id=id)
+            a, created = Category.objects.get_or_create(name=c2, level=2)
+            c.sub_cat.add(a)
+        elif c3:
+            id = request.POST.get('new_category_2')
+            c = Category.objects.get(id=id)
+            b, created = Category.objects.get_or_create(name=c3, level=3)
+            c.sub_cat.add(b)
+        return redirect('/products/add_product')
+    else:
+        print("FTFTFTF")
 
 @login_required
 def edit_category(request, id):
@@ -607,6 +629,20 @@ def initial_category(request):
             b.sub_cat = k
 
     return redirect('/')
+
+
+def c_r(request):
+    id = request.GET.get('id')
+    pc = Product_Categories.objects.last()
+    p = pc.product
+    q = Product_Categories.objects.filter(product=p)
+    if id:
+        pro = Products.objects.get(id=id)
+
+        for t in q:
+            Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
+
+    return redirect('/internal/details/?q=p')
 
 
 

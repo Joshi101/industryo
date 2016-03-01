@@ -53,8 +53,8 @@
 		
 		<li>{% if u.image %}+ {% endif %}<a href="{% url 'activities:int_product' u.slug %}">{{u.product}}</a> <b class="pull-right"> {{u.producer}}</b> {% for tag in u.get_tags %}
 		<a href="{% url 'tags:get_tag' tag.slug %}" class="tag"><span class="value">{{tag}}</span></a>{% endfor %} </li>
-		{% for c in u.get_cat %}<span class="tag">{{c}}</span>{% endfor %}
-		
+		{% if u.get_cat %}{% for c in u.get_cat %}<span class="tag">{{c}}</span>{% endfor %}{% else %}
+		<a href="{% url 'products:c_r' %}?id={{u.id}}" class="tag"><span class="value"><b>Category_Repeat</b></span></a>{% endif %}
 	{% endfor %}  
   </ol>
   {% elif tt == "wpt" %}
@@ -109,10 +109,5 @@
 
 {% endif %}
 </div>
-
 <a href="{% url "activities:int_add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add Products</a>
-
-{% include "activities/p/new_modal.html" %}
-
 {% endblock body %}
-

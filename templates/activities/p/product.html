@@ -43,9 +43,12 @@
               <div class="prod_categories">
                 <div class="info_field ajax_papa">
                   <div class="info_field_value">
-                  {% for c in categories %}
+                  {% if categories %}{% for c in categories %}
                     <span class="prod_category">{{c}}</span>
                   {% endfor %}
+                  {% else %}
+                  <a href="{% url 'products:c_r' %}?id={{product.id}}" class="tag"><span class="value"><b>Category_Repeat</b></span></a>
+                  {% endif %}
                   </div>
                   <div class="info_field_edit hide">
                     <div id="add_prod_category" class="row">

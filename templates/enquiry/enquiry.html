@@ -18,7 +18,7 @@
 	  	<li><a data-toggle="tab" href="#sent">Sent</a></li>
 	  </ul>
 	  <div id="received" class="col-sm-6 fade in active">
-      	<div class="enquiries list-group">
+      			<div class="enquiries list-group">
 					{% for enq in enquiries reversed %}
 					<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
 						<div>

@@ -203,6 +203,12 @@ class Category(models.Model):
         sub = self.sub_cat.filter(level__gt=n)
         return sub
 
+    def set_sub(self, c):
+        print("dsasadasdAS")
+        f= [c]
+        self.sub_cat = f
+        return c
+
 
 class Product_Categories(models.Model):
     product = models.ForeignKey(Products)

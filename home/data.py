@@ -73,7 +73,7 @@ def details(request):
         elif s == 'p':
             lis = Products.objects.all()
             # lis = Products.objects.filter(date__range=[enddate, startdate])
-            text = "Products isted"
+            text = "Products Listed"
             tt = "p"
         elif s == 'wpt':
             lis = WpTags.objects.filter(date__range=[enddate, startdate])

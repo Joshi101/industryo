@@ -197,7 +197,6 @@ class Workplace(models.Model):
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='C')
                 li.append(t)
-                print(t)
                 t.count += 1
                 t.save()
             for t in li:
