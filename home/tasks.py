@@ -28,7 +28,7 @@ def send_html_mail(id, n):
         html_content = template.format(up)
     elif n == 33:
         template = Template_Team_all
-        subject = "Announcing Launch of CoreLogs Marketplace for SAE Teams"
+        subject = "CoreLogs partnering up with Mega ATV Championship for the Event"
         html_content = template.format(up, up.primary_workplace.slug, up.primary_workplace)
 
     elif n == 50:       # message

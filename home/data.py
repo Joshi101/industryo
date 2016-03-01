@@ -71,7 +71,8 @@ def details(request):
             tt = "w"
 
         elif s == 'p':
-            lis = Products.objects.filter(date__range=[enddate, startdate])
+            lis = Products.objects.all()
+            # lis = Products.objects.filter(date__range=[enddate, startdate])
             text = "Products isted"
             tt = "p"
         elif s == 'wpt':
