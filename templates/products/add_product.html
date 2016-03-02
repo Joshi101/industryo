@@ -36,17 +36,17 @@
 						<ul class="nav nav-pills nav-stacked col-xs-4">
 						{% for t1 in c1_all %}
 							<li>
-								<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '|cut:','|cut:'.'}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+								<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
 							</li>
 						{% endfor %}
 						</ul>
 						<div class="tab-content col-xs-8">
 						{% for t1 in c1_all %}
-							<div id="t1_{{t1|cut:'&'|cut:' '|cut:','|cut:'.'}}" class="tab-pane fade">
+							<div id="category_{{t1.id}}" class="tab-pane fade">
 								<ul class="nav nav-pills nav-stacked col-xs-6">
 								{% for t2 in t1.get_sub %}
 									<li>
-										<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '|cut:','|cut:'.'}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
+										<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#category_{{t2.id}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
 									</li>
 								{% empty %}
 									<li>
@@ -54,9 +54,9 @@
 									</li>
 								{% endfor %}
 									<li>
-										<a class="new_category" href="#l2_new_category_{{forloop.counter}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+										<a class="new_category" href="#new_category_{{t1.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
 									</li>
-									<div id="l2_new_category_{{forloop.counter}}" class="collapse" style="padding: 10px">
+									<div id="new_category_{{t1.id}}" class="collapse" style="padding: 10px">
 										<div class="form-group">
 											<input class="form-control" type="text" value="" placeholder="Name of the new category">
 										</div>
@@ -72,7 +72,7 @@
 								</ul>
 								<div class="tab-content col-md-6">
 								{% for t2 in t1.get_sub %}
-									<div id="t2_{{t2|cut:'&'|cut:' '|cut:','|cut:'.'}}" class="tab-pane fade">
+									<div id="category_{{t2.id}}" class="tab-pane fade">
 										<ul class="nav nav-pills nav-stacked">
 										{% for t3 in t2.get_sub %}
 											<li>
@@ -84,9 +84,9 @@
 											</li>
 										{% endfor %}
 											<li>
-												<a class="new_category" href="#l3_new_category_{{forloop.counter}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+												<a class="new_category" href="#new_category_{{t2.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
 											</li>
-											<div id="l3_new_category_{{forloop.counter}}" class="collapse" style="padding: 10px">
+											<div id="new_category_{{t2.id}}" class="collapse" style="padding: 10px">
 												<div class="form-group">
 													<input class="form-control" type="text" value="" placeholder="Name of the new category">
 												</div>

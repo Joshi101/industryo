@@ -84,9 +84,13 @@ def new_category(request):
         elif c3:
             id = request.POST.get('new_category_2')
             c = Category.objects.get(id=id)
-            b, created = Category.objects.get_or_create(name=c3, level=3)
-            c.sub_cat.add(b)
-        return redirect('/products/add_product')
+            a, created = Category.objects.get_or_create(name=c3, level=3)
+            c.sub_cat.add(a)
+        response = {}
+        response['id'] = a.id
+        response['name'] = a.name
+        print(response)
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         print("FTFTFTF")
 
