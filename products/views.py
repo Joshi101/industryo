@@ -66,7 +66,6 @@ def set_details(request, id):
 
 @login_required
 def new_category(request):
-    print("e hua na baat")
     if request.method == 'POST':
         # for key in request.POST:
         #     value = request.POST[key]
@@ -89,7 +88,6 @@ def new_category(request):
         response = {}
         response['id'] = a.id
         response['name'] = a.name
-        print(response)
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         print("FTFTFTF")
@@ -646,7 +644,7 @@ def c_r(request):
         for t in q:
             Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
 
-    return redirect('/internal/details/?q=p')
+    return redirect('/internal/activity/?q=p')
 
 
 
