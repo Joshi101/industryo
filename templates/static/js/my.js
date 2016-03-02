@@ -1678,7 +1678,17 @@ $('#add_prod_category').on('click', '.new_category_btn', function(){
 });
 
 function newCategory($form, response){
-    
+    var level = $('.new_category_btn.current').attr('data-level');
+    console.log(response, level);
+    if (level == 2){
+        $('.new_category_btn.current').closest('ul').prepend('<li><a class="select_btn added_now" data-name="category' + level + '" data-value="' + response.id + '" data-toggle="pill" href="#category_' + response.id + '">' + response.name + '<span class="fa fa-fw fa-chevron-right"></span></a></li>');
+        $('.new_category_btn.current').closest('.tab-pane').find('.tab-content').prepend('<div id="category_' + response.id + '" class="tab-pane fade"><ul class="nav nav-pills nav-stacked"><li><a class="no_sub">' + response.name + '<span class="fa fa-fw fa-check"></span></a></li><li><a class="new_category" href="#new_category_' + response.id + '" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a></li><div id="new_category_' + response.id + '" class="collapse" style="padding: 10px"><div class="form-group"><input class="form-control" type="text" value="" placeholder="Name of the new category"></div><div class="panel info"><div class="panel-body bg-warning"><span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.</div></div><div class="form-group text-center"><button type="button" class="btn btn-sm new_category_btn" data-level=2>Add</button></div></div>');
+        $('.added_now').tab('show').removeClass('added_now');
+    }
+    else
+        $('.new_category_btn.current').closest('ul').prepend('<li><a class="select_btn no_sub" data-name="category' + level + '" data-value="' + response.id + '">' + response.name + '<span class="fa fa-fw fa-check"></span></a></li>');
+    $('.new_category_btn.current').closest('ul').find('.new_category').trigger('click');
+    $('.new_category_btn.current').removeClass('current');
 }
 
 $('.select_btn').on('click', function(){
