@@ -10,11 +10,13 @@
 {% if p %}
 {% endif %}
 <div class="container">
+	{% if p %}
 	<div class="alert alert-info">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
 	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}.</strong></a> Add all your products one by one.</p>
 	</div>
+	{% endif %}
 	<form id="new_category_form" action="{% url 'products:new_category' %}" method="POST" role="form" enctype="multipart/form-data">
 		<input type="hidden" name="new_category_1" value="">
 		<input type="hidden" name="new_category_2" value="">
