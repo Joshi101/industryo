@@ -1,6 +1,5 @@
 {% load staticfiles %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head vocab="http://schema.org/">
@@ -20,8 +19,8 @@
   <meta property="og:image" content="http://www.corelogs.com{% block meta_og_image %}{% static 'css/screenshot.jpg' %}{% endblock %}">
   <meta property="og:image:type" content="image/jpeg">
   {% block meta_og_image_dim %}
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="675">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="600">
   {% endblock meta_og_image_dim %}
   
   <!-- facebook domain insight -->
@@ -67,8 +66,6 @@
 </head>
 
 <body vocab="http://schema.org/"  typeof="{% block pg_schema %}{% endblock pg_schema %}">
-  {% block back %}
-  {% endblock back %}
   {% block top %}
     {% include "snippets/top_navigation.html" with what="Products" %}
   {% endblock top %}

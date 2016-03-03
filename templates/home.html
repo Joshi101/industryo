@@ -26,7 +26,7 @@
 	<div class="alert alert-info">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	  <p><strong>Hello {{request.user.userprofile}} !</strong> This is your Feeds page.</p>
-	  <p>Here you'll find all the questions, articles and activities at on a single page.</p>
+	  <p>Here you'll find all the questions, articles and activities on a single page.</p>
 	</div>
 	<div class="well">
 		<div class="row">
@@ -68,6 +68,6 @@
 {% block end_js %}
 	{{block.super}}
 	<script type="text/javascript">
-		$('.nav_a_home').addClass('current');
+		$('#top_nav_feed').addClass('current');
 	</script>
 {% endblock end_js %}

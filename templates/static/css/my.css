@@ -264,7 +264,7 @@ img{
 }
 
 .cover_page {
-  position: relative;
+  /*! position: relative; */
   //padding-top: 50px;
   
   //background-color: rgba(255,255,255,1);
@@ -780,10 +780,10 @@ pre {
   font-family: 'Open Sans','Helvetica Neue';
   min-height: 100%;
   overflow-x: hidden;
-  margin-top: 25px;
+  /*! margin-top: 25px; */
 
   position: relative;
-  //padding-top: 20px;
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 /* cover.html */
@@ -2129,7 +2129,9 @@ footer .contact li{
 
 #figure_modal .modal-header{
   min-height: 45px;
-  background-color: #fff;
+  /*! background-color: #fff; */
+  border-bottom: 0;
+  text-align: center;
 }
 
 #figure_modal .modal-body{
