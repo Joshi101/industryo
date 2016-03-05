@@ -1638,7 +1638,7 @@ $('#add_prod_category').on('click', '.select_btn', function(){
     }
 });
 
-$('.info_field_edit #add_prod_category').on('click', '.select_btn', function(){
+$('#add_prod_category').on('click', '.select_btn', function(){
     var cat1 = $('#add_prod_category').find('input[name="category1"]').attr('data-text');
     var cat2 = $('#add_prod_category').find('input[name="category2"]').attr('data-text');
     var cat3 = $('#add_prod_category').find('input[name="category3"]').attr('data-text');
@@ -1655,7 +1655,21 @@ $('.info_field_edit #add_prod_category').on('click', '.select_btn', function(){
 
 $('#add_prod_category').on('click', '.no_sub', function(){
     $(this).addClass('active_selection');
-    $(this).closest('form').children('.nav-tabs').find('.active').next().find('a').tab('show');
+    var cat1 = $('#add_prod_category').find('input[name="category1"]').attr('data-text');
+    var cat2 = $('#add_prod_category').find('input[name="category2"]').attr('data-text');
+    var cat3 = $('#add_prod_category').find('input[name="category3"]').attr('data-text');
+    var cats = [cat1, cat2, cat3];
+    html = '';
+    for (var i = 0; i < cats.length; i++) {
+        if(cats[i]){
+            if(i){
+                html = html + '<span class="fa fa-chevron-right inline_fa"></span>';
+            }
+            html = html + '<span>' + cats[i] + '</span>';
+        }
+    }
+    $("#selected_category").html(html);
+    
 });
 
 $('#add_prod_category').on('click', '.new_category_btn', function(){
@@ -1695,3 +1709,42 @@ $('.select_btn').on('click', function(){
     var name = $(this).data('name');
     $(this).closest('form').find('input[name=' + name + ']').val($(this).data('value'));
 });
+
+$('.ajx_form').on('click', function(e){
+    e.preventDefault();
+    ajx_form($(this).closest('form'), prodSuccess, showFailureModal);
+})
+
+function ajx_form($form, onSuccess, onFailure){
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+
+        success: function(response) {
+            onSuccess($form, response);
+        },
+
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+            onFailure($form);
+        }
+    });
+}
+
+function prodSuccess($form, response){
+    showSuccessModal($form);
+    $('#add_product > .container').find('.alert').alert("close");
+    $('#add_product > .container').prepend(response.alert);
+}
+
+function showSuccessModal($form){
+    var id = $form.attr('id');
+    $("#" + id + "_succModal").modal();
+    $form.find('input:visible, textarea').val('');
+}
+
+function showFailureModal($form){
+    var id = $form.attr('id');
+    $("#" + id + "_errModal").modal();
+}

@@ -7,29 +7,45 @@
 {% block page_id %}add_product{% endblock page_id %}
 
 {% block body %}
-{% if p %}
-{% endif %}
 <div class="container">
 	{% if p %}
 	<div class="alert alert-info">
 	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
-	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}.</strong></a> Add all your products one by one.</p>
+	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}</strong></a>. Continue adding more products</p>
 	</div>
 	{% endif %}
 	<form id="new_category_form" action="{% url 'products:new_category' %}" method="POST" role="form" enctype="multipart/form-data">
-		<input type="hidden" name="new_category_1" value="">
-		<input type="hidden" name="new_category_2" value="">
-		<input type="hidden" name="new_category_3" value="">
+		<input type="hidden" name="new_category_1" value="" autocomplete="off">
+		<input type="hidden" name="new_category_2" value="" autocomplete="off">
+		<input type="hidden" name="new_category_3" value="" autocomplete="off">
 	</form>
-	<form action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
-	  {% csrf_token %}
-	  <ul class="nav nav-tabs">
-		  <li class="active"><a data-toggle="tab" href="#add_prod_category">Categorization</a></li>
-		  <li><a data-toggle="tab" href="#add_prod_info">Product Information</a></li>
-		</ul>
-		<div class="tab-content well">
-			<div id="add_prod_category" class="tab-pane active fade in">
+	<form id="add_product_form" action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-10">
+					<div style="margin-bottom: 5px;"><strong>Category of the Product</strong></div>
+					<div id="selected_category" style="color: #999;">
+					{% if c %}
+					{% for category in c %}
+						<span>{{category.category}}</span>
+					{% if not forloop.last %}
+						<span class="fa fa-chevron-right inline_fa"></span>
+					{% endif %}
+					{% endfor %}
+					{% else %}
+						Select a Category for your Product
+					{% endif %}
+					</div>
+				</div>
+				<div class="col-sm-2 text-right">
+					<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#add_prod_category">{% if c %}Change{%else %}Select{% endif %}</button>
+				</div>
+			</div>
+			<div id="add_prod_category" class="collapse">
+				<input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
+				<input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
+				<input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
 				<div class="row">
 					<div class="hidden new_val"></div>
 					<div class="form-group">
@@ -108,55 +124,65 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<button type="button" class="next_nav btn btn-primary pull-right">Next</button>
-					</div>
-				</div>
-				<input type="hidden" name="category1" value="{{c1}}">
-				<input type="hidden" name="category2" value="{{c2}}">
-				<input type="hidden" name="category3" value="{{c3}}">
 			</div>
-			<div id="add_prod_info" class="tab-pane fade">
-			  <div class="form-group">
-			    <label class="control-label">Name of product</label>
-			    <input class="form-control" placeholder="One Product at a time" name="product">
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label">Cost of product</label>
-			    <input class="form-control" placeholder="Cost per Unit Eg. Rs20,000 for a pair. or Rs. 2000/month rent" name="cost">
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label">Description of the product</label>
-			    <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
-			  </div>
-			  <div class="form-group">
-	        <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
-	        {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
-	      </div>
-			  <div class="form-group">
-			    <div class="hide">
-			      <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-			        <input id="id_image_0" type="file" name="image0">
-			      </span>
-			    </div>
-			    <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-			      <span class="fa fa-camera"></span> Add Photo
-			    </span>
-			  </div>
-			  <div class="form-group">
-			    <div class="img_pre hide" data-index=0>
-			    </div>
-			  </div>
-			  <button class="btn btn-primary">Submit</button>
+		</div>
+	  {% csrf_token %}
+		<div id="add_prod_info" class="well">
+		  <div class="form-group">
+		    <label class="control-label">Name of product</label>
+		    <input class="form-control" placeholder="One Product at a time" name="product">
 		  </div>
-		  <!-- <div class="form-group">
-		    <label class="control-label" for="id_tags">Tags: Categories under which the Product might fall</label>
-		    {% include "snippets/d_search_tags.html" with search="tag" type="D" no_create="True" placeholder="Relevent tags help your product reach out to the right market (Add upto 5 tags)" %}
-		  </div> -->
-		  <input class="index" name="i" type="hidden" value="0">
-	  </div>
+		  <div class="form-group">
+		    <label class="control-label">Cost of product</label>
+		    <input class="form-control" placeholder="Cost per Unit Eg. Rs20,000 for a pair. or Rs. 2000/month rent" name="cost">
+		  </div>
+		  <div class="form-group">
+		    <label class="control-label">Description of the product</label>
+		    <textarea class="form-control" rows="3" placeholder="Tell the details, If Renting, from what time to what time it is available" name="description"></textarea>
+		  </div>
+		  <div class="form-group">
+		    <div class="hide">
+		      <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+		        <input id="id_image_0" type="file" name="image0">
+		      </span>
+		    </div>
+		    <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+		      <span class="fa fa-camera"></span> Add Photo
+		    </span>
+		  </div>
+		  <div class="form-group">
+		    <div class="img_pre hide" data-index=0>
+		    </div>
+		  </div>
+		  <div class="form-group text-right">
+		  	<button type="button" class="btn btn-primary ajx_form">Submit</button>
+	  	</div>
+  	</div>
 	</form>
+	<div id="add_product_form_succModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <p class="text-success text-center">Product added successfully!</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div id="add_product_form_errModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <p class="text-danger text-center">Sorry! Something went wrong. Try again later.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	{% if c1 %}
 	<script type="text/javascript">
 		$(".select_btn[data-value='{{c1}}']").tab('show').closest('li').addClass('active');

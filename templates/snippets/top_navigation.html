@@ -52,15 +52,21 @@
   <div class="nav_2">
     <ul class="nav navbar-nav nav_left">
       <li>
-        <a class="nav_a_home" href="{% url 'home' %}">
+        <a id="top_nav_feed" href="{% url 'home' %}">
           <span class="fa fa-sticky-note-o fa-fw"></span>
           <span>Feed</span>
         </a>
       </li>
       <li>
-        <a class="nav_a_forum" href="{% url 'products:home' %}">
+        <a id="top_nav_marketplace" href="{% url 'products:home' %}">
           <span class="fa fa-cubes"></span>
           <span>Marketplace</span>
+        </a>
+      </li>
+      <li>
+        <a id="top_nav_tags" href="/forum/q_tags/">
+          <span class="fa fa-tags"></span>
+          <span>Tags</span>
         </a>
       </li>
       <!--
@@ -154,7 +160,7 @@
           </ul>
         </li>
       </ul>
-      {% elif request.path != '/' and request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
+      {% elif request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
       <ul class="nav navbar-nav navbar-right nav_right">
         <li class="pull-right">
           <a class="" data-target="#login_modal" data-toggle="modal">

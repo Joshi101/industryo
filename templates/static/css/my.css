@@ -264,7 +264,7 @@ img{
 }
 
 .cover_page {
-  position: relative;
+  /*! position: relative; */
   //padding-top: 50px;
   
   //background-color: rgba(255,255,255,1);
@@ -359,7 +359,7 @@ img{
 .cover_desc {
   //font-family: 'Open Sans', sans-serif;
   //font-size: 20px;
-  background: url(makeinindia.png);
+  
   background-repeat: no-repeat;
   //background-attachment: fixed;
   background-position: center top;
@@ -383,7 +383,6 @@ img{
 
 .cover_desc .content{
   padding: 10px 15px 0;
-  background-color: rgba(255,255,255,0.75);
 }
 
 .cover_desc > .content > h2{
@@ -780,10 +779,10 @@ pre {
   font-family: 'Open Sans','Helvetica Neue';
   min-height: 100%;
   overflow-x: hidden;
-  margin-top: 25px;
+  /*! margin-top: 25px; */
 
   position: relative;
-  //padding-top: 20px;
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 /* cover.html */
@@ -2129,7 +2128,9 @@ footer .contact li{
 
 #figure_modal .modal-header{
   min-height: 45px;
-  background-color: #fff;
+  /*! background-color: #fff; */
+  border-bottom: 0;
+  text-align: center;
 }
 
 #figure_modal .modal-body{
@@ -3137,4 +3138,10 @@ footer .contact li{
   //border-radius: 2px;
   background-color: #ddd;
   color: #666;
+}
+
+#add_prod_category{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
 }
