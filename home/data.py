@@ -75,6 +75,12 @@ def details(request):
             # lis = Products.objects.filter(date__range=[enddate, startdate])
             text = "Products Listed"
             tt = "p"
+
+        elif s == 'pp':
+            lis = Products.objects.filter(categories=None)
+            # lis = Products.objects.filter(date__range=[enddate, startdate])
+            text = "Products Listed"
+            tt = "p"
         elif s == 'wpt':
             lis = WpTags.objects.filter(date__range=[enddate, startdate])
             text = "Workplace Tags created"
