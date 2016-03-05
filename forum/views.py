@@ -23,11 +23,10 @@ def ask(request, tag=None):
             title = form.cleaned_data.get('title')
             user = request.user
             anonymous = request.POST.get('anonymous')
-            category = request.POST.get('category')
             if anonymous:
-                question = Question(question=question, title=title, user=user, anonymous=True, category=category)
+                question = Question(question=question, title=title, user=user, anonymous=True)
             else:
-                question = Question(question=question, title=title, user=user, category=category)
+                question = Question(question=question, title=title, user=user)
             question.save()
             image0 = request.FILES.get('image0', None)
             image1 = request.FILES.get('image1', None)
