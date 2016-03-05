@@ -1,0 +1,6 @@
+{% if p %}
+	<div class="alert alert-info">
+	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}</strong></a>. Continue adding more products</p>
+	</div>
+{% endif %}

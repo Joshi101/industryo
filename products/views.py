@@ -593,15 +593,15 @@ def add_product(request):
             n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)
             if image0:
                 n.images = [x]
-
-        # return HttpResponse(json.dumps(response), content_type="application/json")
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p, 'c1': c1, 'c2': c2, 'c3': c3})
+        response = {}
+        response['alert'] = render_to_string('products/add_prod_alert.html', { 'p': p})
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         p = Products.objects.filter(producer=workplace).last()
-
+        c = Product_Categories.objects.filter(product=p.id).order_by('level')
         c1_all = Category.objects.filter(level=1)
 
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p})
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p, 'c': c})
 
 
 def initial_category(request):

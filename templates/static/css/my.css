@@ -359,7 +359,7 @@ img{
 .cover_desc {
   //font-family: 'Open Sans', sans-serif;
   //font-size: 20px;
-  background: url(makeinindia.png);
+  
   background-repeat: no-repeat;
   //background-attachment: fixed;
   background-position: center top;
@@ -383,7 +383,6 @@ img{
 
 .cover_desc .content{
   padding: 10px 15px 0;
-  background-color: rgba(255,255,255,0.75);
 }
 
 .cover_desc > .content > h2{
@@ -3139,4 +3138,10 @@ footer .contact li{
   //border-radius: 2px;
   background-color: #ddd;
   color: #666;
+}
+
+#add_prod_category{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
 }
