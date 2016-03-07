@@ -1,152 +1,115 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
-{% load bootstrap %}
 
+{% block title %}Set your workplace{% endblock title %}
 
-{% block page %}pg_set{% endblock page %}
+{% block page_id %}pg_set{% endblock page_id %}
 
-{% block content %}
-<div class="w_650">
-	<div class="panel-group ajax_andar ajax_papa" id="accordion">
-	  <div class="panel panel-default">
-	    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
-	      <div class="panel-body">
-	      	<h4 class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span>Register Your Company or College/ Team</h4>
-			<p class="well text-justify text-info">If you cannot find it, click on "Create Now" in the DropDown Menu to Register it</p>
-			
-	      	<form class="validate" action="" method="POST" role="form">
-						{% csrf_token %}
-						<div class="form-group">
-            	<label class="control-label" for="id_workplace">Company / College / Team</label>
-            	<i class="fa fa-exclamation fback_warn text-danger hide pull-right"></i>
-            	<p class="fback_msg text-danger text-right hide">Select an option from the dropdown menu</p>
-            	{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..." parent="accordion" %}
-						</div>
-						<div class="form-group">
-            	<label class="control-label" for="id_job_position">Working As</label>
-          		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post'>
-						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>
-					<div class="message">
-					</div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="panel panel-default">
-	    <div id="create_workplace" class="panel-collapse collapse">
-	      <div class="panel-body">
-	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please write the full official name of your Company / Industry (eg. Tata Motors Pvt. Ltd.)
-			This will be considered as the official Name of your Company / Team / College for further uses.</p>
-	      	<form action="{% url 'register' %}" method="POST" role="form">
-						{% csrf_token %}
-	      		<div class="form-group">
-            	<label class="control-label  " for="id_name">Name of Company/ College/ SAE Team</label>
-        			<div class=" ">
-            		<input class=" form-control" id="id_name" maxlength="50" name="name" placeholder="Enter the name of your Enterprise/Group" type="text">
-        			</div>
-						</div>
-						<div class="form-group">
-            	<label class="control-label">What is it</label>
-        			<div class="">
-                <div class="radio">
-                  <label>
-                    <input class="regDropDown" id="id_workplace_type_0" name="workplace_type" value="A" type="radio">
-                    Large Scale Industry
-                  </label>
-                </div>    
-                <div class="radio">
-                  <label>
-                    <input class="regDropDown" id="id_workplace_type_1" name="workplace_type" value="B" type="radio">
-                    Small &amp; Medium Scale Enterprise
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input class="regDropDown" id="id_workplace_type_2" name="workplace_type" value="C" type="radio">
-                    SAE Collegiate Club
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input class="regDropDown" id="id_workplace_type_3" name="workplace_type" value="O" type="radio">
-                    Educational Institution
-                  </label>
-                </div>
-        			</div>
-						</div>
-						<button type="submit" class="btn btn-success form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
-						<button type="button" class="btn btn-danger" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
-					</form>
-	      </div>
-	    </div>
-	  </div>
+{% block body %}
+<div class="container">
+	<div class="jumbotron">
+		<p class="text-center">Hello {{request.user}}! <strong><span class="text-success">Where you work</span></strong> and <strong><span class="text-success">your name</span></strong>, thats all we ask, and you are set to <strong><span class="text-success">go!</span></strong></p>
 	</div>
-	<!-- <div class="panel-group ajax_andar ajax_papa" id="accordion2">
-	  <div class="panel panel-default">
-	    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
-	      <div class="panel-body">
-	      	<p class="well text-justify text-info"><span class="glyphicon glyphicon-info-sign"></span> Select or create the Educational Institution / SAE Team/ Company you belong to.</p>
-	      	<form action="" method="POST" role="form">
-						{% csrf_token %}
-						{% comment %}
-						{{ form_set_workplace|bootstrap }}
-						{% endcomment %}
-						<div class="form-group">
-	            	<label class="control-label  " for="id_workplace">Workplace</label>
-	            	<div style="display:inline-block;padding-left:10px;" class="text-muted"> ( Search for your Institution, Team or Company)</div>
-	        			<div class=" ">
-	          			<div class="d_search has-feedback" data-results="single">
-	        					<input autocomplete="off" class="form-control d_input" data-create="create_new" data-results="single" data-search="workplace" id="id_workplace" maxlength="100" name="" placeholder="Search for your Company, Team or Institution ..." type="text">
-	          				<input name="workplace" value="" type="hidden">
-	          				<div class="dropdown">
-	          					<ul class="dropdown-menu d_list"></ul>
-	        					</div>
-	        					<span class="form-control-feedback">
-	        						<i class="fa fa-pulse fa-spinner fback_working hide"></i>
-	        						<i class="fa fa-check text-success fback_ok hide"></i>
-	        						<i class="fa fa-exclamation text-warning fback_warn hide"></i>
-	      						</span>
-	      					</div>
-	        			</div>
+	<div class="w_650">
+		<div class="text-center">
+			<h1 class="text-info text-center" style="margin-bottom: 40px;">You are associated with a</h1>
+			<form id="wp_set_form" class="validate" action="" method="POST" role="form">
+				<div class="form-group">
+					<button type="button" class="btn btn_trans btn-lg" value="ed">Educational Institute</button>
+					<button type="button" class="btn btn_trans btn-lg" value="sa">SAE Team</button>
+					<button type="button" class="btn btn_trans btn-lg" value="sm">Small &amp; Medium Scale Industry</button>
+					<button type="button" class="btn btn_trans btn-lg" value="ls">Large Scale Industry</button>
+				</div>
+				<div id="wp_set_search" class="form-group">
+	    		{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..." parent="accordion" %}
+    		</div>
+    	</form>
+		</div>
+		<div class="panel-group ajax_andar ajax_papa" id="accordion">
+		  <div class="panel panel-default">
+		    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
+		      <div class="panel-body">
+				<p class="well text-justify text-info">If you cannot find it, click on "Create Now" in the DropDown Menu to Register it</p>
+				
+		      	<form class="validate" action="" method="POST" role="form">
+							{% csrf_token %}
+							<div class="form-group">
+	            	<label class="control-label" for="id_workplace">Company / College / Team</label>
+	            	<i class="fa fa-exclamation fback_warn text-danger hide pull-right"></i>
+	            	<p class="fback_msg text-danger text-right hide">Select an option from the dropdown menu</p>
+	            	{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..." parent="accordion" %}
+							</div>
+							<div class="form-group">
+	            	<label class="control-label" for="id_job_position">Working As</label>
+	          		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post'>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+						<div class="message">
 						</div>
-						<div class="form-group">
-	            	<label class="control-label  " for="id_job_position">Job position</label>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="panel panel-default">
+		    <div id="create_workplace" class="panel-collapse collapse">
+		      <div class="panel-body">
+		      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please write the full official name of your Company / Industry (eg. Tata Motors Pvt. Ltd.)
+				This will be considered as the official Name of your Company / Team / College for further uses.</p>
+		      	<form action="{% url 'register' %}" method="POST" role="form">
+							{% csrf_token %}
+		      		<div class="form-group">
+	            	<label class="control-label  " for="id_name">Name of Company/ College/ SAE Team</label>
 	        			<div class=" ">
-	            		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" type="text">
+	            		<input class=" form-control" id="id_name" maxlength="50" name="name" placeholder="Enter the name of your Enterprise/Group" type="text">
 	        			</div>
-						</div>
-						<button type="submit" class="btn btn-primary" disabled>Submit</button>
-					</form>
-					<div class="message">
-					</div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="panel panel-default">
-	    <div id="create_workplace" class="panel-collapse collapse">
-	      <div class="panel-body">
-	      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please put the official name of the College/Company/Team using Capitals appropriately (eg. UTC Aerospace Systems).</p>
-	      	<form action="{% url 'register' %}" method="POST" role="form">
-						{% csrf_token %}
-						{{ form_create_workplace|bootstrap }}
-						<button type="submit" class="btn btn-success form-ajax" data-toggle="collapse" data-parent="#accordion2" href="#set_workplace">Create</button>
-						<button type="button" class="btn btn-danger" data-toggle="collapse" data-parent="#accordion2" href="#set_workplace">Back</button>
-					</form>
-	      </div>
-	    </div>
-	  </div> -->
+							</div>
+							<div class="form-group">
+	            	<label class="control-label">What is it</label>
+	        			<div class="">
+	                <div class="radio">
+	                  <label>
+	                    <input class="regDropDown" id="id_workplace_type_0" name="workplace_type" value="A" type="radio">
+	                    Large Scale Industry
+	                  </label>
+	                </div>    
+	                <div class="radio">
+	                  <label>
+	                    <input class="regDropDown" id="id_workplace_type_1" name="workplace_type" value="B" type="radio">
+	                    Small &amp; Medium Scale Enterprise
+	                  </label>
+	                </div>
+	                <div class="radio">
+	                  <label>
+	                    <input class="regDropDown" id="id_workplace_type_2" name="workplace_type" value="C" type="radio">
+	                    SAE Collegiate Club
+	                  </label>
+	                </div>
+	                <div class="radio">
+	                  <label>
+	                    <input class="regDropDown" id="id_workplace_type_3" name="workplace_type" value="O" type="radio">
+	                    Educational Institution
+	                  </label>
+	                </div>
+	        			</div>
+							</div>
+							<button type="submit" class="btn btn-success form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
+							<button type="button" class="btn btn-danger" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
+						</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
-{% endblock content %}
+</div>
+{% endblock body %}
 
-{% block right %}
-    <div class="side_help">
+
+    <!--<div class="side_help">
     	<ul>
 				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an Engineer, find or create your company</li>
 				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an student, find or create your Educational Institution</li>
 				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are from an SAE or other collegiate club, find or create your Team</li>
 				<li><i class="fa fa-hand-o-right fa_li_style"></i>In the team profile you can provide the parent institution for the Team</li>
 			</ul>
-    </div>
-{% endblock right %}
+    </div>-->
