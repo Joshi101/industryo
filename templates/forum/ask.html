@@ -12,17 +12,10 @@
 	<div class="col-sm-9">
 		<form id="form_ask" class="article_form" enctype="multipart/form-data" action="" method="POST" role="form" enctype="multipart/form-data">
 			{% csrf_token %}
+			
 			<div class="form-group">
-				<label class="control-label">Type of the Question</label>
-				<select class="form-control" name="category" required>
-					<option value="">Select an Option</option>
-					<option value="0">General</option>
-					<option value="1">Technical</option>
-				</select>
-			</div>
-			<div class="form-group">
-	      <label class="control-label">Title</label>
-	      <input class="form-control open_input title_input" id="id_title" maxlength="255" name="title" type="text" placeholder="A brief introduction to the question you want to ask" required/>
+	      <label class="control-label"><h3>Title - A brief introduction to the question you want to ask</h3></label>
+	      <input class="form-control open_input title_input" id="id_title" maxlength="255" name="title" type="text" placeholder="" required/>
 			</div>
 			<div class="form-group">
 		    <div class="advanced-wrapper">
