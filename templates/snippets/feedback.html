@@ -1,0 +1,40 @@
+<div id="feedback">
+	<h3 class="h3"><span class="fa fa-bullhorn inline_fa"></span><span class="">Got a feedback?</span></h3>
+	<form id="feedback_form" action="{% url 'feedback' %}">
+		<div class="form-group">
+			<textarea class="form-control" name="feedback" placeholder="Your feedback here ..." autocomplete="off"></textarea>
+		</div>
+		{% if user.is_authenticated %}
+		<div class="form-group">
+			<input class="form-control" type="email" name="email" value="" placeholder="your email id">
+		</div>
+		{% endif %}
+		<div class="form-group text-right">
+	  	<button type="button" class="btn btn-primary btn-xs ajx_form">Send</button>
+  	</div>
+	</form>
+</div>
+<div id="feedback_form_succModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="text-success text-center">Feedback recieved successfully! If required, we'll get back to you asap.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="feedback_form_errModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="text-danger text-center">Sorry! Something went wrong. Try again later.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

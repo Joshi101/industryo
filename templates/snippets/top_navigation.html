@@ -53,7 +53,7 @@
     <ul class="nav navbar-nav nav_left">
       <li>
         <a id="top_nav_feed" href="{% url 'home' %}">
-          <span class="fa fa-sticky-note-o fa-fw"></span>
+          <span class="fa fa-sticky-note-o"></span>
           <span>Feed</span>
         </a>
       </li>
@@ -69,14 +69,6 @@
           <span>Tags</span>
         </a>
       </li>
-      <!--
-      <li>
-        <a class="nav_a_articles" href="{% url 'nodes:articles' %}">
-          <span class="fa fa-newspaper-o fa-fw"></span>
-          <span>Articles</span>
-        </a>
-      </li>
-      -->
     </ul>
     {% if user.is_authenticated or request.path != '/' %}
     <ul class="nav navbar-nav navbar-right nav_right">
@@ -91,7 +83,7 @@
         <li id="notifications" class="hover_ajax dropdown" title="" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <span class="badge"></span>
           <a class="dropdown-toggle" data-toggle="dropdown">
-            <span class="fa fa-bell-o inline_fa fa-fw"></span>
+            <span class="fa fa-bell-o"></span>
             <span class="">Notifications</span>
           </a>
           <div class="dropdown-menu hover_box">
@@ -103,7 +95,7 @@
         <li id="messages" title="" data-toggle="tooltip" data-placement="bottom">
           <span class="badge"></span>
           <a href="{% url 'messages:inbox' %}">
-            <span class="fa fa-envelope-o inline_fa fa-fw"></span>
+            <span class="fa fa-envelope-o"></span>
             <span class="">Messages</span>
           </a>
         </li>
@@ -165,13 +157,13 @@
         <li class="pull-right">
           <a class="" data-target="#login_modal" data-toggle="modal">
             <span class="text-info">Login</span>
-            <span class="fa fa-sign-in fa-fw text-info"></span>
+            <span class="fa fa-sign-in text-info"></span>
           </a>
         </li>
         <li class="pull-right">
           <a class="" data-target="#signup_modal" data-toggle="modal">
             <span>Signup</span>
-            <span class="fa fa-user-plus fa-fw"></span>
+            <span class="fa fa-user-plus"></span>
           </a>
         </li>
       </ul>
