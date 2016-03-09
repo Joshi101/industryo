@@ -56,7 +56,11 @@ def set_workplace(request):
         else:
             user = request.user
             workplace = form.cleaned_data.get('workplace')
+            
+            # try:
             primary_workplace = Workplace.objects.get(name=workplace)
+            # except Exception:
+            #     primary_workplace = Workplace.objects.create(name=workplace, workplace_type=workplace_type)
             user.userprofile.notify_also_joined(primary_workplace)
             job_position = form.cleaned_data.get('job_position')
             userprofile = UserProfile.objects.get(user=user)
