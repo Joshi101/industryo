@@ -1748,3 +1748,13 @@ function showFailureModal($form){
     var id = $form.attr('id');
     $("#" + id + "_errModal").modal();
 }
+
+$("#wp_set_form").on('click','button[type=button]', function(){
+    $("#wp_set_search").css('display', 'block');
+    console.log($("#wp_set_search").offset().top);
+    $('html, body').animate({
+        scrollTop: ($("#wp_set_search").offset().top - 200)
+    }, 1000);
+    $("#wp_set_search .d_input").focus();
+    $("#wp_set_search .d_value").val($(this).val());
+});

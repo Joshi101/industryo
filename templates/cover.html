@@ -9,77 +9,72 @@
 {% block page_id %}cover{% endblock page_id %}
 
 {% block body %}
-<div class="cover_page">
-	<div class="cover_desc container">
-		<div class="content">
-			<h1>Digitize SMEs with CoreLogs</h1>
-			<h1>Join the Network of SMEs on Internet, Free &amp; Neutral</h1>
+<div class="cover_desc container">
+	<div class="content">
+		<header class="page-header">
+			<h1>Digitalize Your Indistrial Network with CoreLogs</h1>
 			<!-- <a class="btn btn-success" data-target="#login_modal" data-toggle="modal">Login</a> -->
 			<h2>Signup yourself, <span class="stylize">Register / join your company</span>, and be part of a new digital world of SMEs</h2>
-			{% include "snippets/create_acc_modal.html" %}
-			<div class="cover_form row">
-				<form class="form-horizontal col-md-6" method="POST" action="{% url 'account_login' %}">
-			    {% if socialaccount.providers %}
-			    <div class="socialaccount_ballot">
-			    	<h3><strong>Sign up</strong></h3>
-			      <ul class="socialaccount_providers list-group">
-			        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-		        	<h4 class="text-info">Or, Sign up with your email-address</h4>
-			        <li>
-				        <a class="email" data-target="#create_acc_modal" data-toggle="modal">
-						    	<i class="fa fa-fw fa-envelope"></i>
-						    	<span>Sign up with email</span>
-					    	</a>
-				    	</li>
-			      </ul>
-			    </div>
-			    {% include "socialaccount/snippets/login_extra.html" %}
-			    {% endif %}
-		    	{% include "snippets/login_modal.html" %}
-	    	</form>
-	    	<div class="cover_form_extra col-md-6">
-					<div class="row">
-						<div class="col-xs-4 text-right">
-							<i class="fa fa-cog fa-5x fa-spin"></i>
-						</div>
-						<div class="col-xs-4 text-center">
-						</div>
-						<div class="col-xs-4 text-right">
-						</div>
+		</header>
+		{% include "snippets/create_acc_modal.html" %}
+		<div class="cover_form row">
+			<form class="form-horizontal col-md-6" method="POST" action="{% url 'account_login' %}">
+		    {% if socialaccount.providers %}
+		    <div class="socialaccount_ballot">
+		    	<h3><strong>Sign up yourself</strong></h3>
+		      <ul class="socialaccount_providers list-group">
+		        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+	        	<h4 class="text-info">Or, sign up with email-address</h4>
+		        <li>
+			        <a class="email" data-target="#create_acc_modal" data-toggle="modal">
+					    	<i class="fa fa-fw fa-envelope"></i>
+					    	<span>Sign up with email</span>
+				    	</a>
+			    	</li>
+		      </ul>
+		    </div>
+		    {% include "socialaccount/snippets/login_extra.html" %}
+		    {% endif %}
+	    	{% include "snippets/login_modal.html" %}
+    	</form>
+    	<div class="cover_form_extra col-md-6">
+				<div class="row">
+					<div class="col-xs-4 text-right">
+						<i class="fa fa-cog fa-5x fa-spin"></i>
 					</div>
-					<div class="row">
-						<div class="col-xs-4">
-						</div>
-						<div class="col-xs-4 text-center">
-							<i class="fa fa-caret-right fa-5x"></i>
-						</div>
-						<div class="col-xs-4">
-							<i class="fa fa-cog fa-5x fa-spin"></i>
-						</div>
+					<div class="col-xs-4 text-center">
 					</div>
-					<div class="row">
-						<div class="col-xs-4 text-right">
-							<i class="fa fa-cog fa-5x fa-spin"></i>
-						</div>
-						<div class="col-xs-4 text-center">
-						</div>
-						<div class="col-xs-4 text-right">
-						</div>
+					<div class="col-xs-4 text-right">
 					</div>
-	    	</div>
-		</div>
-		<div class="row">
-			
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+					</div>
+					<div class="col-xs-4 text-center">
+						<i class="fa fa-caret-right fa-5x"></i>
+					</div>
+					<div class="col-xs-4">
+						<i class="fa fa-cog fa-5x fa-spin"></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 text-right">
+						<i class="fa fa-cog fa-5x fa-spin"></i>
+					</div>
+					<div class="col-xs-4 text-center">
+					</div>
+					<div class="col-xs-4 text-right">
+					</div>
+				</div>
+    	</div>
+	</div>
+	<div class="row">
+		<div class="jumbotron">
+			<p class="text-center">CoreLogs is a platform, with a goal to create a industrial network, where everyone from any field of the industry can find any information narrowed down to his domain.<br></p>
+			<p><span class="fa fa-user fa-5x"></span><span class="xl_text">2500 +</span> users</p>
+			<p class="text-right">from <span class="xl_text">900</span> organisations<span class="fa fa-bank fa-5x"></span></p>
+			<p><span class="fa fa-cubes fa-5x"></span>listing <span class="xl_text">650</span> products</p>
 		</div>
 	</div>
 </div>
 {% endblock body %}
-
-{% comment %}
-{% block end_js %}
-<script type="text/javascript" src={% static 'js/cl_cover.js' %}></script>
-<script type="text/javascript">
-	$('.nav_a_home').addClass('current');
-</script>
-{% endblock end_js %}
-{% endcomment %}

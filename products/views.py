@@ -575,8 +575,9 @@ def add_product(request):
         if len(pro) > 3:
             product = pro
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
-            p.set_tags(tags)
+            print("HHHHHHHHHHHHHHHHHHHHHHH")
         if image0:
+            print("HHHHHHHHHHHHHHHHHHHHHHH")
             i = Images()
             x = i.upload_image(image=image0, user=user)
             p.image = x
@@ -598,7 +599,10 @@ def add_product(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         p = Products.objects.filter(producer=workplace).last()
-        c = Product_Categories.objects.filter(product=p.id).order_by('level')
+        if p:
+            c = Product_Categories.objects.filter(product=p.id).order_by('level')
+        else:
+            c = None
         c1_all = Category.objects.filter(level=1)
 
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p, 'c': c})
