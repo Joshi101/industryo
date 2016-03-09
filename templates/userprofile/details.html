@@ -2,13 +2,26 @@
 {% load bootstrap %}
 
 
-{% block content %}
-<div class="content-block">
-	<h3 class="text-center">Just the least of personal detail</h3>
-	<form id="form_add_type" class="forms_home" action="/details/" method="POST" role="form">
+{% block body %}
+<div class="container">
+	<div class="w_650">
+	<div class="panel info_lg">
+		<div class="panel-body">
+			<p class="text-center">
+				Hello <strong>{{request.user}}</strong> ..!<br>
+				No, this is not the page where you've to fill out a long boring form.<br>
+				<span class="badge">1</span><strong><span class="">Where you work</span></strong> and <span class="badge">2</span><strong><span class="text-success">your name</span></strong>, thats all for now, and you are set to <strong><span class="text-success">go!</span></strong>
+			</p>
+		</div>
+	</div>
+	<header class="page-header">
+		<h2 class="text-center">A Few Personal Details</h2>
+	</header>
+	<form id="form_add_type" class="form_lg" action="/details/" method="POST" role="form">
 		{{ form|bootstrap }}
 		{% csrf_token %}
 		<input type="submit" value="submit" class="submit_main btn btn-primary">
 	</form>
 </div>
+{% include "snippets/feedback.html" %}
 {% endblock %}

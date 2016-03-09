@@ -18,7 +18,7 @@
 }
 
 .page-header {
-  margin: 0 0 5px;
+  margin: 0 0 25px;
   border-bottom: 1px solid rgba(16,144,112,0.51);
   /*! padding-bottom: 0; */
 }
@@ -167,7 +167,7 @@ img{
 }
 
 .nav_left{
-  /*! float: left; */
+  float: left;
   //padding: 0 15px;
 }
 
@@ -1954,8 +1954,8 @@ footer .connect li{
   border-bottom-left-radius: 2px;
 }
 
-.info p:last-child {
-  margin-bottom: 0;
+.info p:last-child, .info_lg p:last-child {
+  margin-bottom: 5px;
 }
 
 .d_edit {
@@ -2817,11 +2817,20 @@ footer .contact li{
   //margin-bottom: 20px;
 }
 
-.info{
-  font-size: 13px;
-  text-align: justify;
-  color: #555;
-  background-color: #E9EDF7;
+.info_lg{
+  font-size: 15px;
+  color: #eee;
+  background-color: #35353c;
+  border: 1px solid #333;
+  box-shadow: 0 0 0;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.info_lg .badge{
+  margin: 0 5px;
+  background-color: #666;
+  
 }
 
 #marketplace_top{
@@ -3201,11 +3210,68 @@ footer .contact li{
 }
 
 #wp_set_search{
-  margin-top: 50px;
-  display: none;
+  margin-top: 0px;
+  opacity: 0;
 }
 
-#wp_set_search .form-control{
-  height: 50px;
-  font-size: 20px;
+.form_lg{
+  margin-bottom: 50px;
+}
+
+.form_lg label{
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.form_lg .form-control{
+  height: 40px;
+  font-size: 16px;
+  /*! margin-bottom: 25px; */
+}
+
+.form_lg .form-control:focus{
+  box-shadow: 0 0 0;
+  border-color: transparent transparent #179;
+  border-bottom-style: dashed;
+}
+
+.text-success{
+  color: #197;
+}
+
+#feedback{
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  z-index: 9999;
+  background-color: #333;
+  padding: 5px 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  color: #ccc;
+  height: 40px;
+  width: 175px;
+  overflow: hidden;
+}
+
+#feedback h3{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#feedback form{
+  margin-top: 10px;
+  opacity: 0;
+}
+
+#feedback .form-group{
+  margin-bottom: 5px;
+}
+
+.img_preview img{
+  width: 250px;
+  height: auto;
+  //border: 2px solid #eee;
 }

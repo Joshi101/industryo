@@ -8,108 +8,47 @@
 
 {% block body %}
 <div class="container">
-	<div class="jumbotron">
-		<p class="text-center">Hello {{request.user}}! <strong><span class="text-success">Where you work</span></strong> and <strong><span class="text-success">your name</span></strong>, thats all we ask, and you are set to <strong><span class="text-success">go!</span></strong></p>
-	</div>
 	<div class="w_650">
-		<div class="text-center">
-			<h1 class="text-info text-center" style="margin-bottom: 40px;">You are associated with a</h1>
-			<form id="wp_set_form" class="validate" action="" method="POST" role="form">
-				<div class="form-group">
-					<button type="button" class="btn btn_trans btn-lg" value="ed">Educational Institute</button>
-					<button type="button" class="btn btn_trans btn-lg" value="sa">SAE Team</button>
+	<div class="panel info_lg">
+		<div class="panel-body">
+			<p class="text-center">
+				Hello <strong>{{request.user}}</strong> ..!<br>
+				No, this is not the page where you've to fill out a long boring form.<br>
+				<span class="badge">1</span><strong><span class="text-success">Where you work</span></strong> and <span class="badge">2</span><strong><span class="">your name</span></strong>, thats all for now, and you are set to <strong><span class="text-success">go!</span></strong>
+			</p>
+		</div>
+	</div>
+		<div class="">
+			<header class="page-header">
+				<h2 class="text-center">You Work At A</h2>
+			</header>
+			<form id="wp_set_form" class="form_lg" action="" method="POST" role="form">
+				{% csrf_token %}
+				<div class="form-group text-center">
 					<button type="button" class="btn btn_trans btn-lg" value="sm">Small &amp; Medium Scale Industry</button>
 					<button type="button" class="btn btn_trans btn-lg" value="ls">Large Scale Industry</button>
+					<button type="button" class="btn btn_trans btn-lg" value="sa">SAE Team</button>
+					<button type="button" class="btn btn_trans btn-lg" value="ed">Educational Institute</button>
+					<div class="help-block"><span class="fa fa-support inline_fa"></span>select the type of your workplace</div>
 				</div>
 				<div id="wp_set_search" class="form-group">
-	    		{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..." parent="accordion" %}
+					<div class="form-group">
+						<label class="control-label" for="id_job_position">Name</label>
+		    		{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..."%}
+		    		<div class="help-block"><span class="fa fa-support inline_fa"></span>select your workplace from the dropdown, or if its not listed simply type the name of your new workplace and continue</div>
+	    		</div>
+	    		<div class="form-group">
+	        	<label class="control-label" for="id_job_position">Working as</label>
+	      		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post'>
+					</div>
+					<div class="form-group text-center">
+	    			<input type="submit" value="Submit" class="btn btn-primary">
+	    		</div>
     		</div>
     	</form>
 		</div>
-		<div class="panel-group ajax_andar ajax_papa" id="accordion">
-		  <div class="panel panel-default">
-		    <div id="set_workplace" class="panel-collapse collapse in ajax-andar">
-		      <div class="panel-body">
-				<p class="well text-justify text-info">If you cannot find it, click on "Create Now" in the DropDown Menu to Register it</p>
-				
-		      	<form class="validate" action="" method="POST" role="form">
-							{% csrf_token %}
-							<div class="form-group">
-	            	<label class="control-label" for="id_workplace">Company / College / Team</label>
-	            	<i class="fa fa-exclamation fback_warn text-danger hide pull-right"></i>
-	            	<p class="fback_msg text-danger text-right hide">Select an option from the dropdown menu</p>
-	            	{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..." parent="accordion" %}
-							</div>
-							<div class="form-group">
-	            	<label class="control-label" for="id_job_position">Working As</label>
-	          		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post'>
-							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
-						</form>
-						<div class="message">
-						</div>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="panel panel-default">
-		    <div id="create_workplace" class="panel-collapse collapse">
-		      <div class="panel-body">
-		      	<p class="well text-info"><span class="glyphicon glyphicon-info-sign"></span> Please write the full official name of your Company / Industry (eg. Tata Motors Pvt. Ltd.)
-				This will be considered as the official Name of your Company / Team / College for further uses.</p>
-		      	<form action="{% url 'register' %}" method="POST" role="form">
-							{% csrf_token %}
-		      		<div class="form-group">
-	            	<label class="control-label  " for="id_name">Name of Company/ College/ SAE Team</label>
-	        			<div class=" ">
-	            		<input class=" form-control" id="id_name" maxlength="50" name="name" placeholder="Enter the name of your Enterprise/Group" type="text">
-	        			</div>
-							</div>
-							<div class="form-group">
-	            	<label class="control-label">What is it</label>
-	        			<div class="">
-	                <div class="radio">
-	                  <label>
-	                    <input class="regDropDown" id="id_workplace_type_0" name="workplace_type" value="A" type="radio">
-	                    Large Scale Industry
-	                  </label>
-	                </div>    
-	                <div class="radio">
-	                  <label>
-	                    <input class="regDropDown" id="id_workplace_type_1" name="workplace_type" value="B" type="radio">
-	                    Small &amp; Medium Scale Enterprise
-	                  </label>
-	                </div>
-	                <div class="radio">
-	                  <label>
-	                    <input class="regDropDown" id="id_workplace_type_2" name="workplace_type" value="C" type="radio">
-	                    SAE Collegiate Club
-	                  </label>
-	                </div>
-	                <div class="radio">
-	                  <label>
-	                    <input class="regDropDown" id="id_workplace_type_3" name="workplace_type" value="O" type="radio">
-	                    Educational Institution
-	                  </label>
-	                </div>
-	        			</div>
-							</div>
-							<button type="submit" class="btn btn-success form-ajax" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Create</button>
-							<button type="button" class="btn btn-danger" data-toggle="collapse" data-parent="#accordion" href="#set_workplace">Back</button>
-						</form>
-		      </div>
-		    </div>
-		  </div>
-		</div>
 	</div>
 </div>
+{% include "snippets/feedback.html" %}
 {% endblock body %}
 
-
-    <!--<div class="side_help">
-    	<ul>
-				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an Engineer, find or create your company</li>
-				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are an student, find or create your Educational Institution</li>
-				<li><i class="fa fa-hand-o-right fa_li_style"></i>If you are from an SAE or other collegiate club, find or create your Team</li>
-				<li><i class="fa fa-hand-o-right fa_li_style"></i>In the team profile you can provide the parent institution for the Team</li>
-			</ul>
-    </div>-->

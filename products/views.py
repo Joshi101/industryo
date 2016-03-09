@@ -557,6 +557,7 @@ def add_product(request):
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         status = request.POST.get('status')
+        print('productwa')
         li = []
         c1 = request.POST.get('category1')
         if c1:
@@ -571,6 +572,7 @@ def add_product(request):
         categories = Category.objects.filter(pk__in=li)
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
+        print(image0)
         p = {}
         if len(pro) > 3:
             product = pro

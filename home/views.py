@@ -16,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 from home import tasks
 
 
+def feedback(request):
+    pass
+
 def home(request):
     if request.user.is_authenticated():
         a =request.GET.get('a')

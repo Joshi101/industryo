@@ -134,9 +134,10 @@ $("body").on('click', '.one_list .option', function(event) {
         value = $this.find('.option_value').text();
     d_input_remove_error($this,true,true);
     $d_search.find('.d_value').val(value);
-    $d_search.find('.one_value').removeClass('hide')
+    $d_search.find('.d_input').val(value);
+    /*$d_search.find('.one_value').removeClass('hide')
         .children('span').text(value);
-    $d_search.find('.d_input').addClass('hide');
+    $d_search.find('.d_input').addClass('hide');*/
     $this.closest('.dropdown').removeClass('open');
     $d_search.find('.d_menu').css('z-index','auto');
 });
@@ -1710,10 +1711,33 @@ $('.select_btn').on('click', function(){
     $(this).closest('form').find('input[name=' + name + ']').val($(this).data('value'));
 });
 
-$('.ajx_form').on('click', function(e){
+$('#add_product_form').on('click', '.ajx_form', function(e){
     e.preventDefault();
-    ajx_form($(this).closest('form'), prodSuccess, showFailureModal);
-})
+    ajx_form_file($(this).closest('form'), prodSuccess, showFailureModal);
+});
+
+
+function ajx_form_file($form, onSuccess, onFailure){
+    var formData = new FormData($form[0]);
+    console.log($form,formData)
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        success: function(response) {
+            onSuccess($form, response);
+        },
+
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+            onFailure($form);
+        }
+    });
+}
 
 function ajx_form($form, onSuccess, onFailure){
     $.ajax({
@@ -1734,7 +1758,7 @@ function ajx_form($form, onSuccess, onFailure){
 
 function prodSuccess($form, response){
     showSuccessModal($form);
-    $('#add_product > .container').find('.alert').alert("close");
+    $('#add_product > .container').find('.alert-info').alert("close");
     $('#add_product > .container').prepend(response.alert);
 }
 
@@ -1742,6 +1766,8 @@ function showSuccessModal($form){
     var id = $form.attr('id');
     $("#" + id + "_succModal").modal();
     $form.find('input:visible, textarea').val('');
+    $form.find('[type=file]').val('');
+    $form.find('.img_preview img').attr('src', '');
 }
 
 function showFailureModal($form){
@@ -1750,11 +1776,54 @@ function showFailureModal($form){
 }
 
 $("#wp_set_form").on('click','button[type=button]', function(){
-    $("#wp_set_search").css('display', 'block');
+    $("#wp_set_form").find('.active').removeClass('active');
+    $("#wp_set_search").animate({'opacity':'1'}, 1000);
     console.log($("#wp_set_search").offset().top);
     $('html, body').animate({
         scrollTop: ($("#wp_set_search").offset().top - 200)
     }, 1000);
-    $("#wp_set_search .d_input").focus();
     $("#wp_set_search .d_value").val($(this).val());
+    $(this).addClass('active');
+    $("#wp_set_search .d_input").focus();
+});
+
+$('#feedback').on('click', 'h3', function(){
+    if($(this).attr('class').indexOf('active') >= 0){
+        $(this).removeClass('active');
+        $("#feedback form").animate({opacity: '0'}, 800, function(){
+            $("#feedback").animate({width: '175px', height:'40px'}, 500);
+        });
+    }
+    else{
+        $(this).addClass('active');
+        $("#feedback").animate({width: '250px', height:'175px'}, 800, function(){
+            $("#feedback").css({height: 'auto'});
+            $("#feedback form").animate({opacity: '1'}, 500);
+        });
+        console.log('not active');
+    }
+});
+
+$('#feedback').on('click', '.ajx_form', function(){
+    $(this).addClass('active');
+    $("#feedback form").animate({opacity: '0'}, 800, function(){
+        $("#feedback").animate({width: '175px', height:'40px'}, 500);
+    });
+    ajx_form($(this).closest('form'), showSuccessModal, showFailureModal);
+});
+
+$('.file_in_single').on('change', function(){
+    var value = $(this).val();
+    var id = $(this).attr('id');
+    var file = this.files[0];
+    if (value){
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            $('#' + id + '_preview').find('img').attr('src', reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
+    else{
+        $('#' + id + '_preview').find('img').attr('src', '');
+    }
 });
