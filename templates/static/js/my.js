@@ -99,7 +99,7 @@ function d_input_show_error($this,sign,msg){
 $('body').on('keydown', '.d_input', function(event) {
     $(".d_input").on('blur', d_input_blur);
     var $this = $(this);
-    /*d_input_remove_error($this,true,false);*/
+    d_input_remove_error($this,true,false);
     d_this = $this;
     $d_search = $this.closest('.d_search');
     if (event.keyCode == '13') {
