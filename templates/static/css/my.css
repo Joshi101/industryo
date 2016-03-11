@@ -3227,13 +3227,38 @@ footer .contact li{
   height: 40px;
   font-size: 16px;
   /*! margin-bottom: 25px; */
+  position: relative;
+  //box-shadow: 0 -5px 10px -5px;
 }
 
 .form_lg .form-control:focus{
-  box-shadow: 0 0 0;
+  
+  box-shadow: 0 -5px 10px -7px #999;
   border-color: transparent transparent #179;
   border-bottom-style: dashed;
+  border-bottom-width: 2px;
+  
 }
+
+.shadow_in{
+  position: relative;
+}
+
+.shadow_right_bottom::after {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    top: 15px;
+    right: 10px;
+    left: auto;
+    width: 60%;
+    bottom: 20%;
+    max-width: 300px;
+    background: #aaa;
+    box-shadow: 0 -15px 10px #ccc;
+    transform: rotate(-3deg);
+}
+
 
 .text-success{
   color: #197;
@@ -3274,4 +3299,20 @@ footer .contact li{
   width: 250px;
   height: auto;
   //border: 2px solid #eee;
+}
+
+.form-control::-webkit-input-placeholder {
+   color: #bbb;
+}
+
+.form-control:-moz-placeholder { /* Firefox 18- */
+   color: #bbb;  
+}
+
+.form-control::-moz-placeholder {  /* Firefox 19+ */
+   color: #bbb;  
+}
+
+.form-control:-ms-input-placeholder {  
+   color: #bbb;  
 }

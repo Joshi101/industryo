@@ -25,16 +25,17 @@
 			<form id="wp_set_form" class="form_lg" action="" method="POST" role="form">
 				{% csrf_token %}
 				<div class="form-group text-center">
-					<button type="button" class="btn btn_trans btn-lg" value="sm">Small &amp; Medium Scale Industry</button>
-					<button type="button" class="btn btn_trans btn-lg" value="ls">Large Scale Industry</button>
-					<button type="button" class="btn btn_trans btn-lg" value="sa">SAE Team</button>
-					<button type="button" class="btn btn_trans btn-lg" value="ed">Educational Institute</button>
+					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="B">Small &amp; Medium Scale Industry</button>
+					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="A">Large Scale Industry</button>
+					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="C">SAE Team</button>
+					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="O">Educational Institute</button>
 					<div class="help-block"><span class="fa fa-support inline_fa"></span>select the type of your workplace</div>
 				</div>
+				<input class="d_type_ext" type="hidden" name="workplace_type" value="">
 				<div id="wp_set_search" class="form-group">
 					<div class="form-group">
-						<label class="control-label" for="id_job_position">Name</label>
-		    		{% include "snippets/d_search.html" with search="workplace" placeholder="Search for your Company, Team or Institution ..."%}
+						<label class="control-label" for="id_workplace">Name of your workplace</label>
+	    			{% include "snippets/d_search.html" with search="workplace" type="All" placeholder="Search for your Company, Team or Institution ..." %}
 		    		<div class="help-block"><span class="fa fa-support inline_fa"></span>select your workplace from the dropdown, or if its not listed simply type the name of your new workplace and continue</div>
 	    		</div>
 	    		<div class="form-group">

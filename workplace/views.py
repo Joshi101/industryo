@@ -55,15 +55,17 @@ def set_workplace(request):
             return render(request, 'userprofile/set.html', {'form_set_workplace': form, 'form_create_workplace':WorkplaceForm()})
         else:
             user = request.user
+            userprofile = UserProfile.objects.get(user=user)
             workplace = form.cleaned_data.get('workplace')
-            
-            # try:
-            primary_workplace = Workplace.objects.get(name=workplace)
-            # except Exception:
-            #     primary_workplace = Workplace.objects.create(name=workplace, workplace_type=workplace_type)
+
+            w_type = request.POST.get('workplace_type')
+            pre_workplace = request.POST.get('pre_workplace')
+            if workplace == pre_workplace:
+                primary_workplace = Workplace.objects.get(name=workplace)
+            else:
+                primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
             user.userprofile.notify_also_joined(primary_workplace)
             job_position = form.cleaned_data.get('job_position')
-            userprofile = UserProfile.objects.get(user=user)
             userprofile.primary_workplace = primary_workplace
             userprofile.job_position = job_position
             userprofile.save()
@@ -84,8 +86,10 @@ def set_workplace(request):
 def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
-        if len(w)>=2:
-            o = Workplace.objects.filter(name__icontains=w)[:5]
+        w_type = request.GET['the_type']
+        print(w, w_type)
+        if len(w) >= 2:
+            o = Workplace.objects.filter(name__icontains=w, workplace_type=w_type)[:5]
             return render(request, 'tags/list_wp.html', {'objects': o})
         else:
             return HttpResponse('Keep Typing..')
