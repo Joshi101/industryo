@@ -1,7 +1,7 @@
 {% for o in objects %}
 	<li class="list-group-item option"><span class="option_value">{{o}}</span> <span class="text-muted option_type">({{o.get_workplace_type_display}})</span></li>
 {% empty %}
-	<li class="list-group-item option text-warning">No existing workplace found</li>
+	<li class="list-group-item option"><span class="text-info option_type">Wow! You seem to be the first one from <span class="option_value text-success">{{query}}</span> :-)</span><br><span class="text-muted option_type">Type the name in full and continue, we'll create it for you</span></li>
 {% endfor %}
 	{% comment %}
 	{% ifequal create "create_new" %}

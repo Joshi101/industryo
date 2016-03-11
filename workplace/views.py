@@ -87,7 +87,7 @@ def search_workplace(request):                  # for searching the workplace
         print(w, w_type)
         if len(w) >= 2:
             o = Workplace.objects.filter(name__icontains=w, workplace_type=w_type)[:5]
-            return render(request, 'tags/list_wp.html', {'objects': o})
+            return render(request, 'tags/list_wp.html', {'objects': o, 'query': w})
         else:
             return HttpResponse('Keep Typing..')
     else:
