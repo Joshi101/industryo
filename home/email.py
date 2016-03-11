@@ -32,6 +32,10 @@ def send_html(request):
     pass
 @login_required
 def send_mail(request):
+    if request.method == 'POST':
+        s = request.POST.get('q')
+        body = request.POST.get('mail')
+        print(s, body)
     if 'q' in request.GET:
         s = request.GET.get('q')
         if s == "met":
