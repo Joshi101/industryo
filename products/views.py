@@ -600,10 +600,12 @@ def add_product(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         p = Products.objects.filter(producer=workplace).last()
-        c = Product_Categories.objects.filter(product=p.id).order_by('level')
+        c = {}
+        if p:
+            c = Product_Categories.objects.filter(product=p.id).order_by('level')
         c1_all = Category.objects.filter(level=1)
 
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p, 'c': c})
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_all, 'c1_2': {}, 'c1_3': {}, 'p': p, 'c': c})
 
 
 def initial_category(request):
