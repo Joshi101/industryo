@@ -47,38 +47,36 @@ def workplace_register(request):
     else:
         return redirect('/set/')
 
+
 @login_required
 def set_workplace(request):
     if request.method == 'POST':
-        form = SetWorkplaceForm(request.POST)
-        if not form.is_valid():
-            return render(request, 'userprofile/set.html', {'form_set_workplace': form, 'form_create_workplace':WorkplaceForm()})
+        print('post ho ra')
+        user = request.user
+        userprofile = UserProfile.objects.get(user=user)
+        workplace = request.POST.get('workplace')
+        w_type = request.POST.get('workplace_type')
+        pre_workplace = request.POST.get('pre_workplace')
+        print(pre_workplace, workplace)
+        if workplace == pre_workplace:
+            primary_workplace = Workplace.objects.get(name=workplace)
         else:
-            user = request.user
-            userprofile = UserProfile.objects.get(user=user)
-            workplace = form.cleaned_data.get('workplace')
+            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
+        user.userprofile.notify_also_joined(primary_workplace)
+        job_position = request.POST.get('job_position')
+        userprofile.primary_workplace = primary_workplace
+        userprofile.job_position = job_position
+        userprofile.save()
+        o, created = Workplaces.objects.get_or_create(userprofile=userprofile, workplace=primary_workplace, job_position=job_position)
 
-            w_type = request.POST.get('workplace_type')
-            pre_workplace = request.POST.get('pre_workplace')
-            if workplace == pre_workplace:
-                primary_workplace = Workplace.objects.get(name=workplace)
-            else:
-                primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
-            user.userprofile.notify_also_joined(primary_workplace)
-            job_position = form.cleaned_data.get('job_position')
-            userprofile.primary_workplace = primary_workplace
-            userprofile.job_position = job_position
-            userprofile.save()
-            o, created = Workplaces.objects.get_or_create(userprofile=userprofile, workplace=primary_workplace, job_position=job_position)
-
-            t = userprofile.primary_workplace.workplace_type
-            tasks.send_html_mail(user.id, n=88)
-            node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile, primary_workplace.slug, primary_workplace, userprofile.job_position)
-            n = Node.objects.create(post=node, user=request.user, category='D', w_type=t)
-            # if user.first_name:
-            return redirect('/workplace/'+primary_workplace.slug)
-            # else:
-            #     return redirect('/details/')
+        t = userprofile.primary_workplace.workplace_type
+        tasks.send_html_mail(user.id, n=88)
+        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile, primary_workplace.slug, primary_workplace, userprofile.job_position)
+        n = Node.objects.create(post=node, user=request.user, category='D', w_type=t)
+        # if user.first_name:
+        return redirect('/workplace/'+primary_workplace.slug)
+        # else:
+        #     return redirect('/details/')
     else:
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
 
