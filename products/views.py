@@ -14,6 +14,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
+from operator import itemgetter
+
 
 
 @login_required
@@ -557,7 +559,6 @@ def add_product(request):
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         status = request.POST.get('status')
-        print('productwa')
         li = []
         c1 = request.POST.get('category1')
         if c1:
@@ -572,14 +573,11 @@ def add_product(request):
         categories = Category.objects.filter(pk__in=li)
         workplace = request.user.userprofile.primary_workplace
         image0 = request.FILES.get('image0', None)
-        print(image0)
         p = {}
         if len(pro) > 3:
             product = pro
             p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
-            print("HHHHHHHHHHHHHHHHHHHHHHH")
         if image0:
-            print("HHHHHHHHHHHHHHHHHHHHHHH")
             i = Images()
             x = i.upload_image(image=image0, user=user)
             p.image = x
@@ -597,17 +595,27 @@ def add_product(request):
             if image0:
                 n.images = [x]
         response = {}
-        response['alert'] = render_to_string('products/add_prod_alert.html', { 'p': p})
+        response['alert'] = render_to_string('products/add_prod_alert.html', {'p': p})
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         p = Products.objects.filter(producer=workplace).last()
+
+        c = {}
         if p:
             c = Product_Categories.objects.filter(product=p.id).order_by('level')
-        else:
-            c = None
         c1_all = Category.objects.filter(level=1)
+        c1_1 = itemgetter(0, 1, 2)(c1_all)
+        c1_2 = itemgetter(3, 4, 13)(c1_all)
+        c1_3 = itemgetter(2, 5)(c1_all)
+        c1_4 = itemgetter(6, 7, 12, 13)(c1_all)
+        c1_5 = itemgetter(9, 8, 6)(c1_all)
+        c1_6 = itemgetter(10, 11)(c1_all)
+        # c1_7 = itemgetter(6, 7, 12)(c1_all)
+        c1_8 = itemgetter(13, 14, 15)(c1_all)
 
-        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'p': p, 'c': c})
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
+                                                             'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
+                                                             'c1_8': c1_8, 'p': p, 'c': c})
 
 
 def initial_category(request):

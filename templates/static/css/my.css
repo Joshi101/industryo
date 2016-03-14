@@ -1112,6 +1112,7 @@ pre {
   font-size: 1.2em;
   padding-top: 7px;
   padding-right: 25px;
+  max-height: initial;
 }
 
 .feed_box_body > pre {
@@ -3315,4 +3316,20 @@ footer .contact li{
 
 .form-control:-ms-input-placeholder {  
    color: #bbb;  
+}
+
+.c1_group_title{
+  display: block;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-left: -10px;
+}
+
+.c1_group_title:hover, .c1_group_title:focus{
+  text-decoration: none;
+}
+
+.c1_group_title.current{
+  border-color: #197;
 }

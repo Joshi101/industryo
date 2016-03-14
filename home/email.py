@@ -32,73 +32,55 @@ def send_html(request):
     pass
 @login_required
 def send_mail(request):
-    if 'q' in request.GET:
-        s = request.GET.get('q')
-        if s == "met":
+    if request.method == 'POST':
+        s = request.POST.get('q')
+        subject = request.POST.get('subject')
+        arguments = request.POST.get('arguments')
+        body = request.POST.get('mail')
+        print(s, body, subject, arguments)
+        if s == "meh":
             u = User.objects.get(id=1)
-            tasks.send_text_mail(u.id, n=22)
-        elif s == "meh":
-            u = User.objects.get(id=1)
-            tasks.send_html_mail(u.id, n=33)
-        elif s == "alt":
-            users = User.objects.all()
-            for u in users:
-                tasks.send_text_mail(u.id, n=22)
+            tasks.send_html_mail(u.id, n=body, subject=subject)
+        elif s == 'set_wp_all':
+            todaydate = date.today()
+            startdate = todaydate + timedelta(days=1)
+            enddate = startdate - timedelta(days=100)
+            lis = User.objects.filter(date_joined__range=[enddate, startdate], userprofile__primary_workplace=None)
+            for i in lis:
+                tasks.send_html_mail(i.id, n=body, subject=subject)
+        # elif s == 'set_wp':
+        #     id = request.GET.get('id')
+        #     tasks.send_html_mail(id, n=52)
         elif s == "alh":
             users = User.objects.all()
             for u in users:
-                tasks.send_html_mail(u.id, n=22)
-        elif s == "at":
-            users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
-            for u in users:
-                tasks.send_text_mail(u.id, n=22)
+                tasks.send_html_mail(u.id, n=body, subject=subject)
         elif s == "ah":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
             for u in users:
-                tasks.send_html_mail(u.id, n=22)
-        elif s == "bt":
-            users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
-            for u in users:
-                tasks.send_text_mail(u.id, n=22)
+                tasks.send_html_mail(u.id, n=body, subject=subject)
         elif s == "bh":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
             for u in users:
-                tasks.send_html_mail(u.id, n=44)
-        elif s == "ct":
-            users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
-            for u in users:
-                tasks.send_text_mail(u.id, n=33)
+                tasks.send_html_mail(u.id, n=body, subject=subject)
         elif s == "ch":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
             for u in users:
-                tasks.send_html_mail(u.id, n=33)
-        elif s == "ot":
-            users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
-            for u in users:
-                tasks.send_text_mail(u.id, n=22)
+                tasks.send_html_mail(u.id, n=body, subject=subject)
         elif s == "oh":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
             for u in users:
-                tasks.send_html_mail(u.id, n=22)
-        elif s == "nt":
-            users = User.objects.filter(userprofile__primary_workplace=None)
-            for u in users:
-                tasks.send_text_mail(u.id, n=22)
+                tasks.send_html_mail(u.id, n=body, subject=subject)
         elif s == "nh":
             users = User.objects.filter(userprofile__primary_workplace=None)
             for u in users:
-                tasks.send_html_mail(u.id, n=25)
-        elif s == "rant":
-            questions = Question.objects.filter(answered=False)
-            for q in questions:
-                tasks.send_text_mail(q.user.id, n=25)
+                tasks.send_html_mail(u.id, n=body, subject=subject)
         elif s == "ranh":
             questions = Question.objects.filter(answered=False)
             for q in questions:
                 tasks.send_html_mail(q.user.id, n=Template_answer_your_own_question.format(q.user.userprofile, q.slug, q.title))
-        elif s == "lt":
-            for u in list11:
-                tasks.send_list_text_mail(u, n=22)
+
+
         elif s == "lh":
             # pi = []
             for u in list_new:

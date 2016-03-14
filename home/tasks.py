@@ -18,13 +18,13 @@ def send_text_mail(id, n):
     send_mail(subject, content, 'sp@corelogs.com', [user_email])
 
 @background(schedule=60)
-def send_html_mail(id, n):
+def send_html_mail(id, n, subject):
     u = User.objects.get(id=id)
     user_email = u.email
     up = u.userprofile
-    if n == 25:
-        template = Temp_set_wp
-        subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
+    if len(n)> 20:
+        template = n
+        subject = subject   # "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
         html_content = template.format(up)
     elif n == 33:
         template = Template_Team_all
