@@ -50,7 +50,7 @@
 					<div class="hidden new_val"></div>
 					<div class="form-group">
 						<div class="col-xs-4">
-							<a href="#c1_1" class="c1_group_title" data-toggle="collapse">Category 1 <span class="fa fa-chevron-down pull-right"></span></a>
+							<a href="#c1_1" class="c1_group_title" data-toggle="collapse">SAE Competition Related Items for Students <span class="fa fa-chevron-down pull-right"></span></a>
 							<div id="c1_1" class="collapse c1_group">
 								<ul class="nav nav-pills nav-stacked">
 								{% for t1 in c1_1 %}
@@ -60,7 +60,7 @@
 								{% endfor %}
 								</ul>
 							</div>
-							<a href="#c1_2" class="c1_group_title" data-toggle="collapse">Category 2 <span class="fa fa-chevron-down pull-right"></span></a>
+							<a href="#c1_2" class="c1_group_title" data-toggle="collapse">Mechanical, Automobile & Aerospace Parts <span class="fa fa-chevron-down pull-right"></span></a>
 							<div id="c1_2" class="collapse c1_group">
 								<ul class="nav nav-pills nav-stacked">
 								{% for t1 in c1_2 %}
@@ -70,10 +70,51 @@
 								{% endfor %}
 								</ul>
 							</div>
-							<a href="#c1_3" class="c1_group_title" data-toggle="collapse">Category 3 <span class="fa fa-chevron-down pull-right"></span></a>
+							<a href="#c1_3" class="c1_group_title" data-toggle="collapse">Electrical & Electronics Components & Products <span class="fa fa-chevron-down pull-right"></span></a>
 							<div id="c1_3" class="collapse c1_group">
 								<ul class="nav nav-pills nav-stacked">
 								{% for t1 in c1_3 %}
+									<li>
+										<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+									</li>
+								{% endfor %}
+								</ul>
+							</div>
+							<a href="#c1_4" class="c1_group_title" data-toggle="collapse">Industrial Machinery & Raw Materials <span class="fa fa-chevron-down pull-right"></span></a>
+							<div id="c1_4" class="collapse c1_group">
+								<ul class="nav nav-pills nav-stacked">
+								{% for t1 in c1_4 %}
+									<li>
+										<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+									</li>
+								{% endfor %}
+								</ul>
+							</div>
+							<a href="#c1_5" class="c1_group_title" data-toggle="collapse">Chemicals & Construction Related Items <span class="fa fa-chevron-down pull-right"></span></a>
+							<div id="c1_5" class="collapse c1_group">
+								<ul class="nav nav-pills nav-stacked">
+								{% for t1 in c1_5 %}
+									<li>
+										<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+									</li>
+								{% endfor %}
+								</ul>
+							</div>
+							<a href="#c1_6" class="c1_group_title" data-toggle="collapse">Agricultural Products & Textile Products <span class="fa fa-chevron-down pull-right"></span></a>
+							<div id="c1_6" class="collapse c1_group">
+								<ul class="nav nav-pills nav-stacked">
+								{% for t1 in c1_6 %}
+									<li>
+										<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+									</li>
+								{% endfor %}
+								</ul>
+							</div>
+							
+							<a href="#c1_8" class="c1_group_title" data-toggle="collapse">Services & Consultancy for SMEs <span class="fa fa-chevron-down pull-right"></span></a>
+							<div id="c1_8" class="collapse c1_group">
+								<ul class="nav nav-pills nav-stacked">
+								{% for t1 in c1_8 %}
 									<li>
 										<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
 									</li>

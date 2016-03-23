@@ -9,15 +9,6 @@
 {% block body %}
 <div class="container">
 	<div class="w_650">
-	<div class="panel info_lg">
-		<div class="panel-body">
-			<p class="text-center">
-				Hello <strong>{{request.user}}</strong> ..!<br>
-				No, this is not the page where you've to fill out a long boring form.<br>
-				<span class="badge">1</span><strong><span class="text-success">Where you work</span></strong> and <span class="badge">2</span><strong><span class="">your name</span></strong>, thats all for now, and you are set to <strong><span class="text-success">go!</span></strong>
-			</p>
-		</div>
-	</div>
 		<div class="">
 			<header class="page-header">
 				<h2 class="text-center">You Work At A</h2>
@@ -25,22 +16,21 @@
 			<form id="wp_set_form" class="form_lg" action="" method="POST" role="form">
 				{% csrf_token %}
 				<div class="form-group text-center">
-					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="B">Small &amp; Medium Scale Industry</button>
-					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="A">Large Scale Industry</button>
-					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="C">SAE Team</button>
-					<button type="button" class="btn btn_trans btn-lg select_btn" data-name="workplace_type" data-value="O">Educational Institute</button>
+					<button type="button" class="btn btn_trans btn-lg" value="B">Small or Medium Scale Enterprise</button>
+					<button type="button" class="btn btn_trans btn-lg" value="A">Large Scale Industry</button>
+					<button type="button" class="btn btn_trans btn-lg" value="C">SAE Team</button>
+					<button type="button" class="btn btn_trans btn-lg" value="O">Educational Institution</button>
 					<div class="help-block"><span class="fa fa-support inline_fa"></span>select the type of your workplace</div>
 				</div>
-				<input class="d_type_ext" type="hidden" name="workplace_type" value="">
 				<div id="wp_set_search" class="form-group">
 					<div class="form-group">
-						<label class="control-label" for="id_workplace">Name of your workplace</label>
-	    			{% include "snippets/d_search.html" with search="workplace" type="All" placeholder="Search for your Company, Team or Institution ..." %}
-		    		<div class="help-block"><span class="fa fa-support inline_fa"></span>select your workplace from the dropdown, or if its not listed simply type the name of your new workplace and continue</div>
+						<label class="control-label" for="id_job_position">Name of the Workplace</label>
+		    		{% include "snippets/d_search.html" with search="workplace" placeholder="Type the name of your Company, Team or Institution ..."%}
+		    		
 	    		</div>
 	    		<div class="form-group">
 	        	<label class="control-label" for="id_job_position">Working as</label>
-	      		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post'>
+	      		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post' required/>
 					</div>
 					<div class="form-group text-center">
 	    			<input type="submit" value="Submit" class="btn btn-primary">

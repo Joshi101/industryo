@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from home import tasks
+from itertools import chain
+from operator import attrgetter
 
 @login_required
 def workplace_register(request):
@@ -47,6 +49,7 @@ def workplace_register(request):
     else:
         return redirect('/set/')
 
+
 @login_required
 def set_workplace(request):
     if request.method == 'POST':
@@ -56,11 +59,10 @@ def set_workplace(request):
         workplace = request.POST.get('workplace')
         w_type = request.POST.get('workplace_type')
         pre_workplace = request.POST.get('pre_workplace')
-        print(pre_workplace, workplace)
         if workplace == pre_workplace:
-            primary_workplace = Workplace.objects.get(name=workplace)
+            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
         else:
-            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
+            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
         user.userprofile.notify_also_joined(primary_workplace)
         job_position = request.POST.get('job_position')
         userprofile.primary_workplace = primary_workplace
@@ -227,7 +229,25 @@ def workplace_dash(request, slug):
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
     articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
-    return render(request, 'workplace/snip_dashboard.html', locals())
+    # return render(request, 'workplace/snip_dashboard.html', locals())
+    all_result_list = sorted(
+        chain(feeds, questions, answers, articles),
+        key=attrgetter('date'), reverse=True)
+    paginator = Paginator(all_result_list, 5)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+                # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+    else:
+        return render(request, 'workplace/snip_dashboard.html', locals())
 
 
 def workplace_capabilities(request, slug):

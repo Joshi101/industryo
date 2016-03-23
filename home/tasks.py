@@ -4,26 +4,41 @@ from django.core.mail import send_mail
 from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
 from .templates import *
-
+from ast import literal_eval
 
 @background(schedule=60)
-def send_text_mail(id, n):
+def send_html_mail_post(id, n, subject, arguments):
     u = User.objects.get(id=id)
     user_email = u.email
+    up = u.userprofile
+    print(arguments)
+    # arg = literal_eval(arguments)
+    # print(arg)
+    # if arguments == 1:
+    #     arg = (up)
+    # elif arguments ==2:
+    #     arg = (up, up.primary_workplace)
+    # else:
+    #     arg = (up, up.primary_workplace, up.primary_workplace.slug)
 
-    subject = ""
+    template = n
+    subject = subject   # "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
+    html_content = template.format(arguments)
 
-    content = Template19.format(u.userprofile)
-
-    send_mail(subject, content, 'sp@corelogs.com', [user_email])
+    from_email, to = 'sp@corelogs.com', user_email
+    text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
 
 @background(schedule=60)
 def send_html_mail(id, n):
     u = User.objects.get(id=id)
     user_email = u.email
     up = u.userprofile
-    if n == 25:
-        template = Temp_set_wp
+
+    if n == 22:
+        template = n
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
         html_content = template.format(up)
     elif n == 33:
@@ -68,14 +83,6 @@ def send_html_mail(id, n):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-@background(schedule=60)
-def send_list_text_mail(mail, n):
-    mail = mail
-
-    subject = "CoreLogs Invites you & your company to the best Ecosystem of SMEs on Internet"
-
-    content = Template_final_sme_invite
-    send_mail(subject, content, 'rohit9gag@gmail.com', [mail])
 
 @background(schedule=60)
 def send_list_html_mail(mail, n):

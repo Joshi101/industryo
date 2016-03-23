@@ -21,11 +21,10 @@
 			<form class="form-horizontal col-md-6" method="POST" action="{% url 'account_login' %}">
 		    {% if socialaccount.providers %}
 		    <div class="socialaccount_ballot">
-		    	<h3><strong>Sign up</strong></h3>
-		    	<h4 class="text-info">Use one of your existing accounts</h4>
+		    	<h3><strong>Sign up yourself</strong></h3>
 		      <ul class="socialaccount_providers list-group">
 		        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-	        	<h4 class="text-info">Or, create a new account using you email-address</h4>
+	        	<h4 class="text-info">Or, sign up with email-address</h4>
 		        <li>
 			        <a class="email" data-target="#create_acc_modal" data-toggle="modal">
 					    	<i class="fa fa-fw fa-envelope"></i>

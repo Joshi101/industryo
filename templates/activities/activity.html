@@ -22,11 +22,17 @@
 		<a href="/internal/details/?q=enq" class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
 	</div>
 	<div class="col-md-9">
-		{% if lis %}
+
+	  <form action="/internal/send_mail/" method="POST">
+			{% csrf_token %}
+
+
+	{% if lis %}
 		<h2>{{text}} ({{c}})</h2>
 		{% if tm == "q" %}
 		<a href="/internal/send/?q=set_wp_all" class="tag" class ="pull-right"><span class="value">Send mail to all</span></a>
-		{% endif %}
+		<button type="submit" value="set_wp_all" name="q">Send mail to all- Form</button>
+	{% endif %}
   	{% if tt == "p" %}
 	  <ol type="1">  
 		{% for u in lis reversed %}
@@ -73,14 +79,19 @@
 				<a href="{% url 'user:profile' u.username %}">{{u.userprofile}}</a>
 				<strong class="pull-right">{{u.userprofile.get_provider}}</strong>
 				<a href="/internal/send/?q=set_wp&id={{u.id}}" class="tag"><span class="value">Send mail</span></a>
+				<button type="submit" value="set_wp&{{u.id}}" name="q">Send mail- Form</button>
 				<span class="value hide">{{u.id}}</span>
 			</li>
 		{% endfor %}  
 	  </ol>
 	  {% endif %}
-		{% else %}
-		<form action="/internal/send_mail/" method="POST">
-			{% csrf_token %}
+
+
+
+			<div class="form-group">
+	      		<label class="control-label"><h3>Subject...</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="subject" type="text" placeholder="" required/>
+			</div>
 			<div class="form-group">
 			  <div class="advanced-wrapper">
 					{% include "snippets/richtext_toolbar.html" %}
@@ -90,34 +101,53 @@
 			    <input id="post" type="hidden" name="mail">
 			  </div>
 			</div>
+			<div class="form-group">
+	      		<label class="control-label"><h3>arguments..</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="arguments" type="text" placeholder="" required/>
+			</div>
 			<ul class="list-unstyled">
 				<li>
-					<button type="submit" value="met" name="q">Send a test mail to sprksh.j</button>
-					<a href="/internal/send_mail/?q=met" class="tag"><span class="value">Send a test text mail to sprksh.j</span></a>
-					<a href="/internal/send_mail/?q=meh" class="tag"><span class="value">Send a test html mail to sprksh.j</span></a>
+					<button type="submit" value="meh" name="q">Send a test mail to sprksh.j</button>
+				</li>
+				
+		</form>
+		
+		{% else %}
+		<form action="/internal/send_mail/" method="POST">
+			{% csrf_token %}
+			<div class="form-group">
+	      		<label class="control-label"><h3>Subject...</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="subject" type="text" placeholder="" required/>
+			</div>
+			<div class="form-group">
+			  <div class="advanced-wrapper">
+					{% include "snippets/richtext_toolbar.html" %}
+			    <div class="editor-container">
+			    	<label class="placeholder">Email body ...</label>
+			    </div>
+			    <input id="post" type="hidden" name="mail">
+			  </div>
+			</div>
+			<div class="form-group">
+	      		<label class="control-label"><h3>arguments..</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="arguments" type="text" placeholder="" required/>
+			</div>
+			<ul class="list-unstyled">
+				<li>
+					<button type="submit" value="meh" name="q">Send a test mail to sprksh.j</button>
 				</li>
 				<li>
-					<button type="submit" value="alt" name="q">Send a test mail to sprksh.j</button>
-					<a href="/internal/send_mail/?q=alt" class="tag"><span class="value">Send a text mail to everybody</span></a>
-					<a href="/internal/send_mail/?q=alh" class="tag"><span class="value">Send a html mail to everybody</span></a>
+					<button type="submit" value="alh" name="q">Send a mail to all</button>
 				</li>
 				<li>
-					<button type="submit" value="at" name="q">Send a test mail to sprksh.j</button>
-					<a href="/internal/send_mail/?q=at" class="tag"><span class="value">Send a text mail to LSI users</span></a>
-					<a href="/internal/send_mail/?q=ah" class="tag"><span class="value">Send a html mail to LSI users</span></a>
+					<button type="submit" value="ah" name="q">Send a mail to LSI</button>
 				</li>
-				<li><a href="/internal/send_mail/?q=bt" class="tag"><span class="value">Send a text mail to SME users</span></a>
-				<a href="/internal/send_mail/?q=bh" class="tag"><span class="value">Send a html mail to SME users</span></a></li>
-				<li><a href="/internal/send_mail/?q=ct" class="tag"><span class="value">Send a text mail to Team Users</span></a>
-				<a href="/internal/send_mail/?q=ch" class="tag"><span class="value">Send a html mail to Team Users</span></a></li>
-				<li><a href="/internal/send_mail/?q=ot" class="tag"><span class="value">Send a text mail to Students</span></a>
-				<a href="/internal/send_mail/?q=oh" class="tag"><span class="value">Send a html mail to Students</span></a></li>
-				<li><a href="/internal/send_mail/?q=nt" class="tag"><span class="value">Send a text mail to No wp</span></a>
-				<a href="/internal/send_mail/?q=nh" class="tag"><span class="value">Send a html mail to No wp</span></a></li>
-				<li><a href="/internal/send_mail/?q=lt" class="tag"><span class="value">Send a text mail to list</span></a>
-				<a href="/internal/send_mail/?q=lh" class="tag"><span class="value">Send a html mail to list</span></a></li>
-				<li><a href="/internal/send_mail/?q=rant" class="tag"><span class="value">Send a text mail to random function</span></a>
-				<a href="/internal/send_mail/?q=ranh" class="tag" class ="pull-right"><span class="value">Send a html mail to random function</span></a></li>
+				<li><button type="submit" value="bh" name="q">Send a mail to SME</button></li>
+				<li><button type="submit" value="ch" name="q">Send a mail to Team</button></li>
+				<li><button type="submit" value="oh" name="q">Send a mail to Students</button></li>
+				<li><button type="submit" value="nh" name="q">Send a mail to No Wp</button></li>
+				<li><button type="submit" value="lh" name="q">Send a mail to List</button></li>
+				<li><button type="submit" value="ranh" name="q">Send a mail to Random Function</button></li>
 			</ul>
 		</form>
 	{% endif %}
