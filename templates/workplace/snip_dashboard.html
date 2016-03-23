@@ -16,6 +16,10 @@
 		{% for question in questions %}
 			{% include 'forum/one_question.html' with q=question %}
 		{% endfor %}
+		<div class="paginator" data-next_page="2">
+			<h5>Loading more content</h5>
+			<span class="fa fa-spin fa-circle-o-notch"></span>
+		</div>
   </div>
   <div class="tab-pane fade">
 		{% for question in answers %}
