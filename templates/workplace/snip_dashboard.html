@@ -7,7 +7,7 @@
 	<div class="ajax_andar feeds">
 		{% include "snippets/figure_modal.html" %}
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}
-		<div class="paginator" data-next_page="2">
+		<div class="paginator" data-next_page="2" data-url="{% url 'workplace:dashboard' workplace.slug %}">
 			<h5>Loading more content</h5>
 			<i class="fa fa-spin fa-circle-o-notch"></i>
 		</div>

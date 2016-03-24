@@ -408,15 +408,15 @@ var timer = true;
     timer = true;
     console.log(timer);
 },300));*/ // works., implement after performance analysis
-if ($('.paginator').length) {
-    $(window).scroll(function() {
-        //if (!timer)
-        //return;
-        //timer = false;
-        if (!load)
-            return;
-        var $this = $(this),
-            $pg = $('.paginator');
+$(window).scroll(function() {
+    //if (!timer)
+    //return;
+    //timer = false;
+    if (!load)
+        return;
+    var $this = $(this),
+        $pg = $('.paginator');
+    if ($pg.length) {
         var a = $this.scrollTop();
         var b = $this.outerHeight();
         var c = $pg.offset().top;
@@ -425,8 +425,13 @@ if ($('.paginator').length) {
         if ((a + b - c) > -10) {
             console.log('Yeah');
             load = false;
+            var pg_url = $pg.data('url');
+            console.log(pg_url);
+            if (!pg_url){
+                pg_url = window.location;
+            }
             $.ajax({
-                url: window.location,
+                url: pg_url,
                 type: "GET",
                 data: {
                     page: nxt
@@ -459,8 +464,8 @@ if ($('.paginator').length) {
                 }
             });
         }
-    });
-}
+    }
+});
 
 //profile page
 $('#img_profile_box').on({
