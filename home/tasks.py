@@ -4,26 +4,17 @@ from django.core.mail import send_mail
 from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
 from .templates import *
-from ast import literal_eval
+# from ast import literal_eval
 
 @background(schedule=60)
 def send_html_mail_post(id, n, subject, arguments):
     u = User.objects.get(id=id)
     user_email = u.email
     up = u.userprofile
-    print(arguments)
-    # arg = literal_eval(arguments)
-    # print(arg)
-    # if arguments == 1:
-    #     arg = (up)
-    # elif arguments ==2:
-    #     arg = (up, up.primary_workplace)
-    # else:
-    #     arg = (up, up.primary_workplace, up.primary_workplace.slug)
 
     template = n
     subject = subject   # "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
-    html_content = template.format(arguments)
+    html_content = template.format(*arguments)
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
