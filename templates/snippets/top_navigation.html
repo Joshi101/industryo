@@ -77,8 +77,8 @@
       </button>
     </ul>
     {% endif %}
+    {% if user.is_authenticated %}
     <div id="topNavbar" class="collapse navbar-collapse">
-      {% if user.is_authenticated %}
       <ul class="nav navbar-nav navbar-right top_user_info">
         <li id="notifications" class="hover_ajax dropdown" title="" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <span class="badge"></span>
@@ -152,28 +152,29 @@
           </ul>
         </li>
       </ul>
-      {% elif request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
-      <ul class="nav navbar-nav navbar-right nav_right">
-        <li class="pull-right">
-          <a class="" data-target="#login_modal" data-toggle="modal">
-            <span class="text-info">Login</span>
-            <span class="fa fa-sign-in text-info"></span>
-          </a>
-        </li>
-        <li class="pull-right">
-          <a class="" data-target="#signup_modal" data-toggle="modal">
-            <span>Signup</span>
-            <span class="fa fa-user-plus"></span>
-          </a>
-        </li>
-      </ul>
-      <form class="unboxed" method="POST" action="{% url 'account_login' %}">
-        {% include "snippets/login_modal.html" %}
-        {% include "snippets/signup_modal.html" %}
-      </form>
-      {% include "snippets/create_acc_modal.html" %}
-      {% endif %}
     </div>
+    {% elif request.path != '/accounts/signup/' and request.path != '/accounts/login/' %}
+    <ul class="nav navbar-nav navbar-right nav_right">
+      <li class="pull-right">
+        <a class="" data-target="#login_modal" data-toggle="modal">
+          <span class="text-info">Login</span>
+          <span class="fa fa-sign-in text-info"></span>
+        </a>
+      </li>
+      <!-- <li class="pull-right">
+        <a data-target="#signup_modal" data-toggle="modal">
+          <span>Signup</span>
+          <span class="fa fa-user-plus"></span>
+        </a>
+      </li> -->
+    </ul>
+    <form class="unboxed" method="POST" action="{% url 'account_login' %}">
+      {% include "snippets/login_modal.html" %}
+      {% include "snippets/signup_modal.html" %}
+    </form>
+    {% include "snippets/create_acc_modal.html" %}
+    {% endif %}
+    <div class="spacer" style="clear: both;"></div>
   </div>
   {% if user.userprofile.primary_workplace %}
   <div class="mob_only floating">
