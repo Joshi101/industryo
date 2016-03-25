@@ -1786,7 +1786,7 @@ $("#wp_set_form").on('click','button[type=button]', function(){
     $('html, body').animate({
         scrollTop: ($("#wp_set_search").offset().top - 200)
     }, 1000);
-    $("#wp_set_search .d_value").val($(this).val());
+    $("#wp_set_search .d_type").val($(this).val());
     $(this).addClass('active');
     $("#wp_set_search .d_input").focus();
 });

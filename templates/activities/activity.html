@@ -25,6 +25,7 @@
 
 	  <form action="/internal/send_mail/" method="POST">
 			{% csrf_token %}
+			<input type="hidden" value="{{u.id}}" name="user_id"></input>
 
 
 	{% if lis %}
