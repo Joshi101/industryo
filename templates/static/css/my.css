@@ -2064,7 +2064,7 @@ footer .connect i{
 
 footer{
   position: relative;
-  z-index: 999;
+  z-index: 9;
   font-size: 12px;
   top: 100%;
 }
