@@ -30,6 +30,8 @@
 }
 
 .tooltip-inner {
+  font-family: 'Calibri';
+
   opacity: 1;
   color: #eee;
   border-radius: 0;
@@ -149,11 +151,10 @@ img{
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
+  font-family: 'Open Sans';
   letter-spacing: 2px;
   overflow: hidden;
   vertical-align: middle;
-  /*! font-family: "Trade Winds"; */
-  /*! font-weight: 500; */
 }
 
 .brand_img{
@@ -197,14 +198,13 @@ img{
 }
 
 .navbar-inverse .nav > li > a{
-  /*! font-family: "Trade Winds"; */
+  font-family: "Roboto","Calibri";
   //font-weight: 900;
   //padding: 14px 10px 14px;
-  /*! font-size: 14px; */
+  font-size: 14px;
   padding: 0 10px;;
   height: 50px;
   line-height: 48px;
-  font-weight: 500;
 }
 
 @media (max-width:768px){
@@ -277,6 +277,7 @@ img{
 }
 
 .unboxed label{
+  //font-family: 'Roboto','Calibri';
   color: #579;
   font-weight: normal;
   padding: 0 10px;
@@ -357,6 +358,9 @@ img{
 }
 
 .cover_desc {
+  //font-family: 'Open Sans', sans-serif;
+  //font-size: 20px;
+  
   background-repeat: no-repeat;
   //background-attachment: fixed;
   background-position: center top;
@@ -557,6 +561,7 @@ pre {
 
 
 #top_search {
+  font-family: 'Calibri';
   float: right;
   height: 50px;
   padding-top: 7px;
@@ -742,13 +747,12 @@ pre {
 }
 
 .nav_2 .navbar-nav span{
-  /*! vertical-align: middle; */
+  vertical-align: middle;
 }
 
 .nav_2 .navbar-nav > li > a{
   color: #757575;
   vertical-align: middle;
-  font-size: 13px;
 }
 
 .nav_2 .navbar-nav > li > a:hover{
@@ -777,6 +781,7 @@ pre {
 }
 
 .body {
+  font-family: 'Open Sans','Helvetica Neue';
   min-height: 100%;
   overflow-x: hidden;
   /*! margin-top: 25px; */
@@ -942,22 +947,21 @@ pre {
 
 .feed .feed_box_body {
   position: relative;
-  /*! //margin-top: 5px; */
-  /*! //font-size: 1em; */
+  //margin-top: 5px;
+  //font-size: 1em;
 }
 
 .feed .sign{
   font-size: 15px;
   top: 7px;
-  right: 10px;
 }
 
 .feed_box {
   margin: 15px 0 15px 30px;
-  /*! padding: 0 15px; */
+  padding: 0 7px;
 
   background: #fff;
-  box-shadow: 0 0 2px rgba(220, 220, 220, 1);
+  box-shadow: 0 0 2px rgba(230, 230, 230, 1);
 }
 
 .feed_box_heading {
@@ -973,23 +977,22 @@ pre {
 }
 
 .feed_box_body {
-  /*! font-size: 12px; */
+  font-size: 12px;
 
-  margin-bottom: 5px;
-  padding: 7px 10px;
+  margin-bottom: 10px;
+  padding: 0;
 }
 
 .feed_box_extra {
-  /*! margin: 0 -7px; */
+  margin: 0 -7px;
 
   border-top: 1px dashed #eee;
-  background-color: #fcfcfc;
 }
 
 .feed_box_body figure {
   display: inline-block;
 
-  /*! width: 33%; */
+  width: 33%;
   margin-top: 0;
   padding: 0;
 }
@@ -997,8 +1000,8 @@ pre {
 .feed_box_body img {
   display: block;
 
-  /*! width: 128px; */
-  max-height: 150px;
+  width: 128px;
+  height: 128px;
   
   line-height: 128px;
 
@@ -1011,21 +1014,18 @@ pre {
 
 .article_title {
   position: relative;
-  font-size: 32px;
+  font-family: 'Tahoma';
+  font-size: 25px;
   
   color: #444;
   overflow: hidden;
 
-  margin-bottom: 25px;
-  padding: 0 5px 10px;
+  margin-bottom: 30px;
+  padding: 7px 0;
 
   border-bottom: 1px solid #9d9d9d;
 
   //background-color: rgba(0,0,0,.1);
-  margin-top: 0;
-  /*! font-family: Lora; */
-  font-weight: 500;
-  letter-spacing: 1px;
 }
 
 
@@ -1035,38 +1035,36 @@ pre {
 }
 
 .article_body {
-  line-height: 150%;
-  font-size: 16px;
+  line-height: 200%;
+  font-size: 1.35em;
+  font-family:  Georgia;
+  
 
   margin-bottom: 10px;
 
   text-align: left;
-  font-family: "Open Sans";
-  padding: 0 5px;
 }
 
 .summary_title {
   position: relative;
-  font-size: 16px;
+  font-size: 15px;
 
   overflow: hidden;
 
-  padding: 0 20px 5px 0;
+  padding: 7px 2px 5px;
 
   border-bottom: 1px solid #eee;
-  margin-bottom: 7px;
-  font-weight: 500;
 }
 
 .post_title{
-  padding: 0 5px 10px;
+  padding: 10px 25px 10px 0;
   position: relative;
   
   border-bottom: 1px solid #ddd;
 }
 
 .post_title h1{
-  font-size: 1.65em;
+  font-size: 2em;
   margin: 0;
 }
 
@@ -1075,7 +1073,6 @@ pre {
   line-height: 1.5;
   right: 0;
   color: #197;
-  /*! top: 0; */
 }
 
 .summary_title:hover {
@@ -1089,33 +1086,33 @@ pre {
 }
 
 .post_body {
-  font-size: 15px;
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
+  font-size: 13px;
+
   padding: 10px 5px 0;
+
+  text-align: justify;
 
   color: #555;
 }
 
 .summary_body {
-  font-size: 13px;
+  font-family: 'Open Sans';
+  font-size: 12px;
   max-height: 150px;
 
-  /*! padding: 10px 5px 2px; */
+  padding: 10px 5px 2px;
 
-  /*! text-align: justify; */
+  text-align: justify;
 
-  color: #555;
-  font-family: "Open Sans";
-  margin-bottom: 5px;
+  color: #333;
 }
 
 .feed .summary_body{
-  font-size: 14px;
-  /*! padding-top: 7px; */
+  font-size: 1.2em;
+  padding-top: 7px;
   padding-right: 25px;
   max-height: initial;
-  white-space: pre-line;
-  color: #333;
 }
 
 .feed_box_body > pre {
@@ -1136,7 +1133,7 @@ pre {
   background-color: #efe;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
-  margin-left: -26px;
+  margin-left: -32px;
   margin-top: -1px;
   padding: 4px 5px;
   width: 25px;
@@ -1176,8 +1173,7 @@ pre {
 }
 
 .tags {
-  /*! padding: 10px 0px 2px; */
-  margin-top: 10px;
+  padding: 10px 5px 2px;
 }
 
 .tag:hover {
@@ -1192,6 +1188,7 @@ pre {
 }
 
 .a_detail {
+  font-family: 'Open Sans';
   font-size: 13px;
   font-size: 14px;
   /*max-height: 262px;*/
@@ -1242,9 +1239,9 @@ pre {
 }
 
 .comment .joint_name {
-  font-size: 11px;
-  margin: 5px 5px 0 0;
-  padding: 0 5px;
+  font-size: 0.9em;
+  margin: 0 5px;
+  padding: 0 5px 2px;
   display: inline-block;
   background: rgba(222, 222, 222, .45);
 }
@@ -1280,18 +1277,12 @@ pre {
 }
 
 .comment {
-  font-size: 12px;
-  padding-top: 5px;
-  padding-left: 50px;
+  font-size: 1em;
+  padding-top: 10px;
+  padding-left: 25px;
   padding-right: 10px;
-  /*! text-align: justify; */
+  text-align: justify;
   color: #666;
-}
-
-.comment .fa{
-  margin-left: -17px;
-  margin-right: 2px;
-  color: #aaa;
 }
 
 .comment p {
@@ -1404,6 +1395,7 @@ a {
 }
 
 footer {
+  font-family: 'Tahoma';
   position: relative;
   padding-bottom: 10px;
   border-top: 1px solid #fff;
@@ -1875,7 +1867,7 @@ footer .connect li{
 
 .product p{
   display: block;
-  line-height: 19px;
+  line-height: 18px;
   height: 28px;
   color: #555;
   padding: 5px;
@@ -2021,7 +2013,7 @@ h4 > .edit_post:hover {
 }
 
 .edit_post {
-  margin-bottom: 5px;
+  overflow: hidden;
 }
 
 #login_to_write {
@@ -2057,6 +2049,7 @@ h4 > .edit_post:hover {
 }
 
 footer h3{
+  font-family: 'Tahoma';
   font-size: 14px;
   padding-bottom: 7px;
   color:#ccc;
@@ -2125,7 +2118,6 @@ footer .contact li{
 
 .author{
   text-align: right;
-  font-size: 13px;
 }
 
 .author time{
@@ -2214,19 +2206,19 @@ footer .contact li{
 }
 
 .tag{
-  font-size: 12px;
-  font-weight: 500;
+  //font-size: 0.9em;
   line-height: 20px;
   display: inline-block;
   padding: 0 5px;
   background-color: #eee;
   border: 1px solid #f7f7f7;
   margin: 0 5px 5px 0;
-  color: #179;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  
+  font-family: 'Calibri';
+    //font-size: 85%;
+    color: #179;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
 }
 
 .tag:hover{
@@ -2398,6 +2390,7 @@ footer .contact li{
   margin-bottom: 10px;
   padding: 10px;
   font-size: 1em;
+  font-family: 'Calibri';
   text-align: justify;
   color: #666;
   background-color: #dff0d8;
@@ -2418,9 +2411,10 @@ footer .contact li{
 }
 
 .side_show{
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   padding: 0 10px;
   font-size: 1em;
+  font-family: 'Calibri';
   color: #666;
   background-color: transparent;
   /*! border: 1px solid #aaa; */
@@ -2633,6 +2627,7 @@ footer .contact li{
   color: #8a9;
   font-size: 20px;
   letter-spacing: 2px;
+  font-family: 'Calibri';
 }
 
 .open_input{
@@ -2643,6 +2638,7 @@ footer .contact li{
 
 .article_form .title_input{
   font-size: 24px;
+  font-family: 'Tahoma';
   letter-spacing: 1px;
   height: 40px;
   padding: 0 12px;
@@ -2677,6 +2673,7 @@ footer .contact li{
 .enquiry_short .enq_msg{
   margin-top: 5px;
   height: 20px;
+  font-family: Calibri;
   text-overflow: ellipsis;
   overflow: hidden;
   color: #197;
@@ -2694,6 +2691,7 @@ footer .contact li{
 }
 
 .enquiry_long .enq_msg{
+  font-family: Calibri;
   color: #197;
   padding: 15px 0 17px 20px;
   font-size: 18px;
@@ -3112,7 +3110,7 @@ footer .contact li{
   font-size: 18px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #555;
 }
 
@@ -3334,39 +3332,4 @@ footer .contact li{
 
 .c1_group_title.current{
   border-color: #197;
-}
-
-.node{
-  margin-left: 15px;
-  border-left: 1px solid #eee;
-  border-bottom: 0;
-  margin-bottom: 25px;
-  background-color: #fff;
-  box-shadow: 0 3px 8px -2px rgba(0, 0, 0, .25);
-  padding: 15px 15px 0;
-}
-
-.node_fig{
-  padding: 5px;
-}
-
-.node_fig figure img{
-  max-width: 100%;
-}
-
-.node .vote_box{
-  margin-left: -41px;
-  margin-top: 5px;
-}
-
-.node_body{
-  margin-bottom: 10px;
-}
-
-.node_extra{
-  margin-left: -15px;
-  margin-right: -15px;
-  
-  border-top: 1px dashed #eee;
-  background-color: #fcfcfc;
 }

@@ -9,78 +9,62 @@
 
 {% block meta_description %}{{ node.post|truncatewords:25 }}{% endblock meta_description %}
 
-{% block content %}
-<div id="article" class="feed_box feed ajax_andar">
-	{% include "snippets/figure_modal.html" %}
-	<div class="feed_box_heading">
-		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
-		<span class='pull-right text-muted'><small>{{ node.date }}</small></span>
-	</div>
-	<div class="ajax_papa">
-		<div class="text-center vote_box ajax_papa">
-			{% include "snippets/like_box.html" with node=node %}
-		</div>
-		<div class="feed_box_body">
-			{% if node.category == 'F' %}
-				<pre class="text-justify">{{ node.post|new_tab|safe }}</pre>
-			{% else %}
-				<h4 class="article_title">
-					<span>{{ node.title }}</span>
-					{% if node.user.pk == request.user.pk %}
-					<a class="edit_post pull-right" href="{% url 'nodes:edit' node.id %}"><small><span class="glyphicon glyphicon-cog"></span> Edit</small></a>
+{% block body %}
+<div class="container">
+	<div class="col-sm-9">
+		<div id="article" class="ajax_andar node">
+			{% include "snippets/figure_modal.html" %}
+			<div class="ajax_papa">
+				{% if node.user.pk == request.user.pk %}
+				<div class="edit_post">
+					<a href="{% url 'nodes:edit' node.id %}"><span class="fa fa-pencil"></span> Edit</a>
+				</div>
+				{% endif %}
+				<div class="node_body">
+					<div class="text-center vote_box ajax_papa">
+						{% include "snippets/like_box.html" with node=node %}
+					</div>
+					<h1 class="article_title">{{ node.title }}</h1>
+					<div class="article_body">{{ node.post|new_tab|safe }}</div>
+					{% if node.get_images %}
+					<div class="node_fig">
+						{% for image in node.get_images %}
+						<figure>
+							<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+						</figure>
+						{% endfor %}
+					</div>
 					{% endif %}
-				</h4>
-				<div class="article_body">{{ node.post|new_tab|safe }}</div>
-				{% if node.get_images %}
-				<div class="summary_fig">
-					{% for image in node.get_images %}
-					<figure>
-						<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
-					</figure>
-					{% endfor %}
+					{% if node.get_tags %}
+					<div class="tags">
+						{% for tag in node.get_tags %}
+							<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+						{% endfor %}
+					</div>
+					{% endif %}
+					<div class="text-right author">
+						{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted"> {{node.date}} </time>
+					</div>
 				</div>
-				{% endif %}
-				{% if node.get_tags %}
-				<div class="tags">
-					{% for tag in node.get_tags %}
-						<a href="{% url "tags:get_tag" tag.slug %}"><span class="label label-info">{{tag}}</span></a>
+				<div class="node_extra">
+					<div class="comments">
+					{%  for c in node.get_all_comments %}
+						{% include "snippets/comment.html" with comment=c %}
 					{% endfor %}
-				</div>
-				{% endif %}
-			{% endif %}
-		{% if node.get_image %}
-			<figure>
-				<img src="{{node.get_image}}">
-			</figure>
-		{% endif %}
-		
-			<div class="text-right author">
-				{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted"> {{node.date}} </time>
-			</div>
-		</div>
-		<div class="feed_box_extra">
-			<div class="comments">
-			{%  for c in node.get_all_comments %}
-				{% include "snippets/comment.html" with comment=c %}
-			{% endfor %}
 
-			</div>
-			<div class="interaction">
-				<a class="a_collapse text-muted">Write Comment</a>
-		    <div class="collapse row">
-					{% include "snippets/comment_form.html" with type='n' post=node %}
+					</div>
+					<div class="interaction">
+						<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
+				    <div class="collapse">
+							{% include "snippets/comment_form.html" with type='n' post=node %}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-{% endblock content %}
-
-{% block right %}
-	<div class="">
+	<div class="col-sm-3">
 		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
 	</div>
-	<div class="side_show">
-		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
-  </div>
-{% endblock right %}
+</div>
+{% endblock body %}
