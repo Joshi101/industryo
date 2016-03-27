@@ -10,12 +10,8 @@
 {% block meta_description %}{{ node.post|truncatewords:25 }}{% endblock meta_description %}
 
 {% block content %}
-<div id="article" class="feed_box feed ajax_andar">
+<div id="article" class="ajax_andar node">
 	{% include "snippets/figure_modal.html" %}
-	<div class="feed_box_heading">
-		{% include "snippets/joint_name.html" with user=node.user anony=node.anonymous %}
-		<span class='pull-right text-muted'><small>{{ node.date }}</small></span>
-	</div>
 	<div class="ajax_papa">
 		<div class="text-center vote_box ajax_papa">
 			{% include "snippets/like_box.html" with node=node %}
