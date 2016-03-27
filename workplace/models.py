@@ -229,8 +229,12 @@ class Workplace(models.Model):
     def set_event(self, tag):
         try:
             e = WpTags.objects.get(workplace=self, tags=tag, category='E')
+            e.count += 1
+            e.save()
         except Exception:
             e = WpTags.objects.create(workplace=self, tags=tag, category='E')
+            e.count += 1
+            e.save()
 
     def set_logo(self, image, user):
         i = Images()

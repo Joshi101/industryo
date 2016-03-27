@@ -37,7 +37,6 @@ def send_mail(request):
         subject = request.POST.get('subject')
         arguments = request.POST.get('arguments')
         body = request.POST.get('mail')
-        print(subject, body, arguments)
         if s == "meh":
             u = User.objects.get(id=1)
             tasks.send_html_mail_post(u.id, n=body, subject=subject, arguments=arguments)

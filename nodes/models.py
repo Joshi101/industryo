@@ -141,7 +141,6 @@ class Node(models.Model):
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='T')
-                        print('pata nahi aisa kahe hua')
                 li.append(t)
                 t.count +=1
                 t.save()
@@ -151,6 +150,8 @@ class Node(models.Model):
         t = Tags.objects.get(id=id)
         li = []
         li.append(t)
+        t.count += 1
+        t.save()
         self.tags = li
 
     def get_like_count(self):

@@ -29,8 +29,9 @@ def workplace_register(request):
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             name = form.cleaned_data.get('name')
-            if len(name)>4:
-                workplace_type = form.cleaned_data.get('workplace_type')
+            if name:
+                if len(name)>4:
+                    workplace_type = form.cleaned_data.get('workplace_type')
             else:
                 return HttpResponse('The name should have at least 5 characters')
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
@@ -53,16 +54,16 @@ def workplace_register(request):
 @login_required
 def set_workplace(request):
     if request.method == 'POST':
-        print('post ho ra')
         user = request.user
         userprofile = UserProfile.objects.get(user=user)
         workplace = request.POST.get('workplace')
         w_type = request.POST.get('workplace_type')
         pre_workplace = request.POST.get('pre_workplace')
-        if workplace == pre_workplace:
+        if len(pre_workplace)>3:
             primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
         else:
-            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
+            return HttpResponse('The name should have at least 4 characters')
+            # pass # (send this in display)
         user.userprofile.notify_also_joined(primary_workplace)
         job_position = request.POST.get('job_position')
         userprofile.primary_workplace = primary_workplace
