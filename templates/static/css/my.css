@@ -748,6 +748,7 @@ pre {
 .nav_2 .navbar-nav > li > a{
   color: #757575;
   vertical-align: middle;
+  font-size: 13px;
 }
 
 .nav_2 .navbar-nav > li > a:hover{
@@ -1015,7 +1016,7 @@ pre {
   color: #444;
   overflow: hidden;
 
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   padding: 0 5px 10px;
 
   border-bottom: 1px solid #9d9d9d;
@@ -1058,14 +1059,14 @@ pre {
 }
 
 .post_title{
-  padding: 10px 25px 10px 0;
+  padding: 0 5px 10px;
   position: relative;
   
   border-bottom: 1px solid #ddd;
 }
 
 .post_title h1{
-  font-size: 2em;
+  font-size: 1.65em;
   margin: 0;
 }
 
@@ -1088,11 +1089,9 @@ pre {
 }
 
 .post_body {
-  font-size: 13px;
-
+  font-size: 15px;
+  font-family: "Open Sans";
   padding: 10px 5px 0;
-
-  text-align: justify;
 
   color: #555;
 }
@@ -1137,7 +1136,7 @@ pre {
   background-color: #efe;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
-  margin-left: -25px;
+  margin-left: -26px;
   margin-top: -1px;
   padding: 4px 5px;
   width: 25px;
@@ -1283,7 +1282,7 @@ pre {
 .comment {
   font-size: 12px;
   padding-top: 5px;
-  padding-left: 45px;
+  padding-left: 50px;
   padding-right: 10px;
   /*! text-align: justify; */
   color: #666;
@@ -1292,6 +1291,7 @@ pre {
 .comment .fa{
   margin-left: -17px;
   margin-right: 2px;
+  color: #aaa;
 }
 
 .comment p {
@@ -1875,7 +1875,7 @@ footer .connect li{
 
 .product p{
   display: block;
-  line-height: 18px;
+  line-height: 19px;
   height: 28px;
   color: #555;
   padding: 5px;
@@ -2021,7 +2021,7 @@ h4 > .edit_post:hover {
 }
 
 .edit_post {
-  overflow: hidden;
+  margin-bottom: 5px;
 }
 
 #login_to_write {
@@ -2418,7 +2418,7 @@ footer .contact li{
 }
 
 .side_show{
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   padding: 0 10px;
   font-size: 1em;
   color: #666;
@@ -3338,13 +3338,35 @@ footer .contact li{
 
 .node{
   margin-left: 15px;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #eee;
+  border-bottom: 0;
   margin-bottom: 25px;
+  background-color: #fff;
+  box-shadow: 0 3px 8px -2px rgba(0, 0, 0, .25);
+  padding: 15px 15px 0;
+}
+
+.node_fig{
+  padding: 5px;
+}
+
+.node_fig figure img{
+  max-width: 100%;
 }
 
 .node .vote_box{
-  background-color: transparent;
-  margin-top: 7px;
+  margin-left: -41px;
+  margin-top: 5px;
+}
+
+.node_body{
+  margin-bottom: 10px;
+}
+
+.node_extra{
+  margin-left: -15px;
+  margin-right: -15px;
   
+  border-top: 1px dashed #eee;
+  background-color: #fcfcfc;
 }
