@@ -33,6 +33,7 @@ def feedback(request):
 If you solve it, kindly mail back on {2}
 '''
     content = template.format(userprofile, feedback, user_email)
+    print(content)
     subject = u'''{0} sent a feedback'''.format(userprofile)
     try:
         send_mail(subject, content, 'sp@corelogs.com', [user_email])
