@@ -183,4 +183,11 @@
     </a>
   </div>
   {% endif %}
+  {% if user.userprofile.primary_workplace.workplace_type == 'C' %}
+  <div class="mob_only floating">
+    <a class="" href="{% url 'tags:get_tag' 'nirman-mechjunction' %}">
+      <span class="fa fa-briefcase"></span>
+    </a>
+  </div>
+  {% endif %}
 </nav>

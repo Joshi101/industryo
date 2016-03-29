@@ -165,11 +165,9 @@ class Workplace(models.Model):
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag__iexact=m)
-                    print('tag exists')
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='P')
-                    print('tag created')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -189,7 +187,6 @@ class Workplace(models.Model):
         if city:
             workplace_tags = city.split(',')
             li = []
-            print('here')
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag__iexact=m)

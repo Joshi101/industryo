@@ -489,12 +489,17 @@ def side_panel(request):
 
 
 def fodder(request):
-    ob = WpTags.objects.all()
-    for o in ob:
-        if o.tags:
-            o.category = o.tags.type
-            o.save()
+    ob = Workplace.objects.all()
 
+    for o in ob:
+        m = o.get_members()
+        s =0
+        for i in m:
+            p = i.points
+            s +=p
+
+        o.points = s
+        o.save()
     return redirect('/')
 
 
