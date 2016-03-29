@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from workplace.models import Workplace, WpTags
-from products.models import Products
+from products.models import Products, Category
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
@@ -75,6 +75,12 @@ def details(request):
             # lis = Products.objects.filter(date__range=[enddate, startdate])
             text = "Products Listed"
             tt = "p"
+
+        elif s == 'c':
+            lis = Category.objects.all()
+            # lis = Products.objects.filter(date__range=[enddate, startdate])
+            text = "Categories"
+            tt = "c"
 
         elif s == 'pp':
             lis = Products.objects.filter(categories=None)

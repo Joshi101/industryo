@@ -204,10 +204,22 @@ class Category(models.Model):
         return sub
 
     def set_sub(self, c):
-        print("dsasadasdAS")
         f= [c]
         self.sub_cat = f
         return c
+
+    def get_parent_cat(self):
+        n = self.level
+        sub = self.sub_cat.filter(level__lt=n)
+        return sub
+
+    def get_logo(self):
+        default_image = '/images/thumbnails/image.png'
+        if self.image:
+            image_url = '/images/'+str(self.image.image_thumbnail)
+            return image_url
+        else:
+            return default_image
 
 
 class Product_Categories(models.Model):

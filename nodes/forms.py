@@ -40,6 +40,15 @@ class SetTagLogoForm(forms.ModelForm):
         fields = ['image']
 
 
+class SetCategoryLogoForm(forms.ModelForm):
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class':'cropit-image-input'}))
+
+    class Meta:
+        model = Images
+        exclude = ['slug', 'user', 'image_thumbnail', 'time']
+        fields = ['image']
+
+
 class SetProductImage(forms.ModelForm):
     image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'cropit-image-input'}))
 

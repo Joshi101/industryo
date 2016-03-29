@@ -18,6 +18,7 @@ from django.core.mail import send_mail
 
 
 def feedback(request):
+    print( "aaya aayaaaya  aaya")
     user =request.user
     userprofile = user.userprofile
     workplace = user.userprofile.primary_workplace

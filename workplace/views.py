@@ -57,10 +57,10 @@ def set_workplace(request):
         user = request.user
         userprofile = UserProfile.objects.get(user=user)
         workplace = request.POST.get('workplace')
-        w_type = request.POST.get('workplace_type')
+        w_type = request.POST.get('type')
         pre_workplace = request.POST.get('pre_workplace')
         if len(pre_workplace)>3:
-            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
+            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
         else:
             return HttpResponse('The name should have at least 4 characters')
             # pass # (send this in display)
@@ -87,7 +87,6 @@ def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
         w_type = request.GET['the_type']
-        print(w, w_type)
         if len(w) >= 2:
             o = Workplace.objects.filter(name__icontains=w, workplace_type=w_type)[:5]
             return render(request, 'tags/list_wp.html', {'objects': o, 'query': w})
