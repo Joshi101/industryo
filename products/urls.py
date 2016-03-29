@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^new_category/$', 'products.views.new_category', name='new_category'),
     url(r'^(?P<id>[^/]+)/change_image/$', 'products.views.change_image', name='change_image'),
     url(r'^(?P<slug>[^/]+)/$', 'products.views.product', name='product'),
+    url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category', name='category'),
     url(r'^(?P<slug>[^/]+)/set_tags_short/$', 'products.views.set_tags_short', name='set_tags_short'),
 
 )

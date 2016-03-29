@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     primary_workplace = models.ForeignKey(Workplace, null=True, blank=True)
-    workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps')
+    workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps', null=True, blank=True)
 
     GenderChoices = (('M', 'Male'), ('F', 'Female'),)
     gender = models.CharField(max_length=1, choices=GenderChoices, null=True, blank=True)
@@ -366,7 +366,7 @@ post_save.connect(create_user_profile, sender=User)
 class Workplaces(models.Model):
     workplace = models.ForeignKey(Workplace)
     userprofile = models.ForeignKey(UserProfile, related_name='up')
-    job_position = models.CharField(max_length=255, null=True)
+    job_position = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'workplaces'

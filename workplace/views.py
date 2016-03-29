@@ -29,8 +29,9 @@ def workplace_register(request):
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             name = form.cleaned_data.get('name')
-            if len(name)>4:
-                workplace_type = form.cleaned_data.get('workplace_type')
+            if name:
+                if len(name)>4:
+                    workplace_type = form.cleaned_data.get('workplace_type')
             else:
                 return HttpResponse('The name should have at least 5 characters')
             t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
@@ -53,16 +54,16 @@ def workplace_register(request):
 @login_required
 def set_workplace(request):
     if request.method == 'POST':
-        print('post ho ra')
         user = request.user
         userprofile = UserProfile.objects.get(user=user)
         workplace = request.POST.get('workplace')
-        w_type = request.POST.get('workplace_type')
+        w_type = request.POST.get('type')
         pre_workplace = request.POST.get('pre_workplace')
-        if workplace == pre_workplace:
-            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
+        if len(pre_workplace)>3:
+            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
         else:
-            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=workplace)
+            return HttpResponse('The name should have at least 4 characters')
+            # pass # (send this in display)
         user.userprofile.notify_also_joined(primary_workplace)
         job_position = request.POST.get('job_position')
         userprofile.primary_workplace = primary_workplace
@@ -86,7 +87,6 @@ def search_workplace(request):                  # for searching the workplace
     if request.method == 'GET':
         w = request.GET['the_query']
         w_type = request.GET['the_type']
-        print(w, w_type)
         if len(w) >= 2:
             o = Workplace.objects.filter(name__icontains=w, workplace_type=w_type)[:5]
             return render(request, 'tags/list_wp.html', {'objects': o, 'query': w})
@@ -489,12 +489,17 @@ def side_panel(request):
 
 
 def fodder(request):
-    ob = WpTags.objects.all()
-    for o in ob:
-        if o.tags:
-            o.category = o.tags.type
-            o.save()
+    ob = Workplace.objects.all()
 
+    for o in ob:
+        m = o.get_members()
+        s =0
+        for i in m:
+            p = i.points
+            s +=p
+
+        o.points = s
+        o.save()
     return redirect('/')
 
 

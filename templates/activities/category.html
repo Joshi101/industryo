@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block title %}{{tag}} | CoreLogs{% endblock title %}
+
+{% block meta_description %}{{ tag.description }}{% endblock meta_description %}
+
+{% block left %}
+	<div id="img_profile_box">
+		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{category.get_logo}}" alt="CoreLogs-{{category}}">
+		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
+    </div>
+  {% include "snippets/img_upload_modal.html" with url='nodes:set_category_logo' url_slug=category.slug form=tag_logo_form.image %}
+{% endblock left %}
+
+{% block content %}
+<div class="panel-body">
+	<div class="col-sm-7">
+	<h4 class=" text-uppercase">{{ category }}</h4>
+	</div>
+</div>
+<div class="panel-body">
+	{% if category.level == '1' %}
+	{% elif category.level == '2' %}
+	{% for a in category.get_parent_cat %}
+	<a href="{% url 'activities:int_category' a.slug %}">{{a}}</a>
+	{% endfor %}
+	{% elif category.level == '3' %}
+	{% for a in category.get_parent_cat %}
+	{% for b in a.get_parent_cat %}
+	<a href="{% url 'activities:int_category' b.slug %}">{{b}}</a>
+	{% endfor %}
+	<a href="{% url 'activities:int_category' a.slug %}">{{a}}</a>
+	{% endfor %}
+	{% endif %}
+</div>
+
+{% endblock content %}

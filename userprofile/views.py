@@ -167,6 +167,7 @@ def set_interests(request):
     else:
         return redirect('/user/'+request.user.username)
 
+
 def delete_interest(request):
     if request.method == 'GET':
         user = request.user

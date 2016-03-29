@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response, RequestContext
+from django.shortcuts import render, redirect, render_to_response, RequestContext, HttpResponse
 from nodes.models import Node
 from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
@@ -14,10 +14,35 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from operator import attrgetter
 from django.contrib.auth.decorators import login_required
 from home import tasks
+from django.core.mail import send_mail
 
 
 def feedback(request):
-    pass
+    print( "aaya aayaaaya  aaya")
+    user =request.user
+    userprofile = user.userprofile
+    workplace = user.userprofile.primary_workplace
+    user_email = request.POST.get('email')
+    feedback = request.POST.get('feedback')
+
+    template = u'''Hi Dude,
+
+{0} has sent a Feedback.
+:
+{1}
+
+If you solve it, kindly mail back on {2}
+'''
+    content = template.format(userprofile, feedback, user_email)
+    print(content)
+    subject = u'''{0} sent a feedback'''.format(userprofile)
+    try:
+        send_mail(subject, content, 'sp@corelogs.com', [user_email])
+    except Exception:
+        pass
+
+    return HttpResponse()
+
 
 def home(request):
     if request.user.is_authenticated():

@@ -20,6 +20,7 @@
 		<a href="/internal/details/?q=p" class="list-group-item {% if s == "p" %}active{% endif %}">Products listed</a>
 		<a href="/internal/details/?q=wpt" class="list-group-item {% if s == "wpt" %}active{% endif %}">Workplace_tags created</a>
 		<a href="/internal/details/?q=enq" class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
+		<a href="/internal/details/?q=c" class="list-group-item {% if s == "c" %}active{% endif %}">Categories</a>
 	</div>
 	<div class="col-md-9">
 
@@ -70,6 +71,14 @@
 				<a href="{% url 'workplace:workplace_profile' u.slug %}">{{u.name}}</a>
 				{{u.get_tags_count}}
 				<strong class="pull-right">{{u.get_count}}</strong>
+			</li>
+		{% endfor %}  
+	  </ol>
+	  {% elif tt == "c" %}
+	  <ol type="1">  
+		{% for u in lis %}
+			<li>
+				<a href="{% url 'activities:int_category' u.slug %}">{{u}}</a>
 			</li>
 		{% endfor %}  
 	  </ol>

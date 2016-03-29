@@ -7,7 +7,7 @@ from activities.models import Activity, Notification
 import json
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from products.models import Products
+from products.models import Products, Category
 
 @login_required
 def post(request):
@@ -190,6 +190,24 @@ def set_tag_logo(request, slug):
             tag.logo = i
             tag.save()
             return redirect('/tags/'+tag.slug)
+    else:
+        return render(request, 'nodes/set_logo.html', {'form': form})
+
+
+@login_required
+def set_category_logo(request, slug):
+    form = SetCategoryLogoForm(request.POST, request.FILES)
+    user = request.user
+    category = Category.objects.get(slug=slug)
+    if request.method == 'POST':
+        if not form.is_valid():
+            return redirect('/internal/category/'+slug)
+        else:
+            image = form.cleaned_data.get('image')
+            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
+            category.image = i
+            category.save()
+            return redirect('/internal/category/'+category.slug)
     else:
         return render(request, 'nodes/set_logo.html', {'form': form})
 

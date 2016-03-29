@@ -165,11 +165,9 @@ class Workplace(models.Model):
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag__iexact=m)
-                    print('tag exists')
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='P')
-                    print('tag created')
                 li.append(t)
                 print(t)
                 t.count += 1
@@ -189,7 +187,6 @@ class Workplace(models.Model):
         if city:
             workplace_tags = city.split(',')
             li = []
-            print('here')
             for m in workplace_tags:
                 try:
                     t = Tags.objects.get(tag__iexact=m)
@@ -229,8 +226,12 @@ class Workplace(models.Model):
     def set_event(self, tag):
         try:
             e = WpTags.objects.get(workplace=self, tags=tag, category='E')
+            e.count += 1
+            e.save()
         except Exception:
             e = WpTags.objects.create(workplace=self, tags=tag, category='E')
+            e.count += 1
+            e.save()
 
     def set_logo(self, image, user):
         i = Images()

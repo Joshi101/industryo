@@ -661,4 +661,14 @@ def c_r(request):
     return redirect('/internal/activity/?q=p')
 
 
+def int_category(request, slug):
+    category = Category.objects.get(slug=slug)
+    # products = Products.objects.filter()
+    return render(request, 'products/category.html', locals())
+
+
+def category(request, slug):
+    category = Category.objects.get(slug=slug)
+    # products = Products.objects.filter()
+    return render(request, 'products/category.html', locals())
 
