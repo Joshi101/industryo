@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head_css %}
+  <link rel="stylesheet" type="text/css" href={% static 'quill/quill.snow.css' %}>
+{% endblock head_css %}
+
+{% block body%}
+<div class="container">
+	<div class="col-md-3">
+		<a href="/internal/details/?q=ub" class="list-group-item {% if s == "ub" %}active{% endif %}">Users in SMEs</a>
+		<a href="/internal/details/?q=ua" class="list-group-item {% if s == "ua" %}active{% endif %}">Users in Large Industries</a>
+		<a href="/internal/details/?q=uc" class="list-group-item {% if s == "uc" %}active{% endif %}">Users in Teams</a>
+		<a href="/internal/details/?q=uo" class="list-group-item {% if s == "uo" %}active{% endif %}">Users in Educational Institutions</a>
+		<a href="/internal/details/?q=u" class="list-group-item {% if s == "u" %}active{% endif %}">Users - No Workplace</a>
+		<a href="/internal/details/?q=wb" class="list-group-item {% if s == "wb" %}active{% endif %}">Workplace - SMEs</a>
+		<a href="/internal/details/?q=wa" class="list-group-item {% if s == "wa" %}active{% endif %}">Workplace - Large Industries</a>
+		<a href="/internal/details/?q=wc" class="list-group-item {% if s == "wc" %}active{% endif %}">Workplace - Teams</a>
+		<a href="/internal/details/?q=wo" class="list-group-item {% if s == "wo" %}active{% endif %}">Workplace - Educational Institutions</a>
+		<a href="/internal/details/?q=p" class="list-group-item {% if s == "p" %}active{% endif %}">Products listed</a>
+		<a href="/internal/details/?q=wpt" class="list-group-item {% if s == "wpt" %}active{% endif %}">Workplace_tags created</a>
+		<a href="/internal/details/?q=enq" class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
+		<a href="/internal/details/?q=c" class="list-group-item {% if s == "c" %}active{% endif %}">Categories</a>
+	</div>
+	<div class="col-md-9">
+		<form action="/internal/change_wp_u/" method="POST">
+			{% csrf_token %}
+			<div class="form-group">
+	      		<label class="control-label"><h3>Users.</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="u" type="text" placeholder="" required/>
+			</div>
+			<div class="form-group">
+	      		<label class="control-label"><h3>workplace</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="w" type="text" placeholder="" required/>
+			</div>
+			<ul class="list-unstyled">
+				<li>
+					<button type="submit" value="meh" name="q">APply the function to change the wp</button>
+				</li>
+				
+			</ul>
+		</form>
+	</div>
+
+<a href="{% url "activities:int_add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add Products</a>
+
+<script type="text/javascript" src={% static 'quill/quill.js' %}></script>
+<script type="text/javascript" src={% static 'quill/advanced.js' %}></script>
+{% endblock body %}

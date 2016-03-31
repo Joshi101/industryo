@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from workplace.models import Workplace, WpTags
 from products.models import Products, Category
 from django.contrib.auth.decorators import login_required
@@ -102,3 +102,18 @@ def details(request):
         return render(request, 'activities/activity.html', locals())
 
 
+def change_wp_u(request):
+    if request.method == 'POST':
+        u = request.POST.get('u')
+        w = request.POST.get('w')
+        print(w)
+        workplace = Workplace.objects.get(slug=w)
+        us = u.split(', ')
+        for use in us:
+            user = User.objects.get(username=use)
+            user.userprofile.primary_workplace = workplace
+            user.userprofile.save()
+        return redirect('/')
+
+    else:
+        return render(request, 'activities/input.html', locals())
