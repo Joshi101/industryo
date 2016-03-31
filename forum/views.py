@@ -80,7 +80,6 @@ def edit_ques(request, id):
             a = i.upload_image(image=image2, user=user)
             q.images.add(a)
         tags = request.POST.get('tag')
-        print('a'+tags+'b')
         q.set_tags(tags)
         slug = q.slug
         return HttpResponseRedirect('/forum/'+slug)

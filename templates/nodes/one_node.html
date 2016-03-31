@@ -4,7 +4,7 @@
 		{% include "snippets/like_box.html" with node=node %}
 	</div>
 	<div class="feed_box_body">
-		<span class="fa fa-rss sign"></span>
+		<a class="fa fa-rss sign" href="{% url 'nodes:node' node.slug %}"></a>
 		<div class="summary_body">{{ node.post|new_tab|safe|urlize }}</div>
 		{% if node.get_images %}
 			<div class="summary_fig">
@@ -12,7 +12,7 @@
 			<figure class="call_car">
 				<a>
 					<img src="/images/image.png" data-src="/images/{{image.image}}" class="call_car pressme lazy_img" data-toggle='modal' data-target='#figure_modal'>
-			  </a>
+			    </a>
 			</figure>
 			{% endfor %}
 		</div>

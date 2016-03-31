@@ -24,8 +24,15 @@
 					<div class="text-center vote_box ajax_papa">
 						{% include "snippets/like_box.html" with node=node %}
 					</div>
+					{% if node.category == 'A' %}
 					<h1 class="article_title">{{ node.title }}</h1>
+					{% endif %}
+					{% if node.category == 'A' %}
 					<div class="article_body">{{ node.post|new_tab|safe }}</div>
+					{% else %}
+					<div class="article_body">{{ node.post|new_tab|safe|urlize }}</div>
+					{% endif %}
+					
 					{% if node.get_images %}
 					<div class="node_fig">
 						{% for image in node.get_images %}
