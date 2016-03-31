@@ -106,7 +106,6 @@ def change_wp_u(request):
     if request.method == 'POST':
         u = request.POST.get('u')
         w = request.POST.get('w')
-        print(w)
         workplace = Workplace.objects.get(slug=w)
         us = u.split(', ')
         for use in us:
