@@ -12,86 +12,9 @@
 <!--
 
 -->
-<div class="container">
+<div class="container-fluid">
 	{% include "snippets/create_acc_modal.html" %}
 	<div class="cover_desc">
-		<div class="cover_dig">
-		<!--
-			<h2>It's easier than ever <span class="pc_only">at CoreLogs</span>...</h2>
-			-->
-			<div class="note_group">
-				<div class="note">
-					<span class="fa fa-user-plus"></span>
-					<h3><a class="btn btn-primary mob_only" href="#signup">Sign Up</a><span class="pc_only">Sign Up</span></h3>
-				</div>
-				<div class="mid_note">
-					<span class="fa fa-hand-o-right"></span>
-				</div>
-				<div class="note">
-					<span class="fa fa-briefcase"></span>
-					<h3>Register Your Workplace</h3>
-				</div>
-			</div>
-			<h2 class="first" style="border-top: 1px solid #eee">Join <strong>CoreLogs</strong> Now</h2>
-			<div id="cover_slide">
-				<div id="silde_1" class="slides">
-					<h2 style="border-bottom: 1px solid #eee"><strong>Small &amp; Medium Scale Enterprise ?</strong></h2>
-					<div class="note_group">
-						<div class="note">
-							<span class="fa fa-cubes"></span>
-							<h3>List Products</h3>
-						</div>
-						<div class="mid_note">
-							<span class="fa fa-hand-o-right"></span>
-						</div>
-						<div class="note">
-							<span class="fa fa-share"></span>
-							<h3>Get Enquiries</h3>
-						</div>
-					</div>
-					<div class="note_group">
-						<div class="note">
-							<span class="fa fa-list-alt"></span>
-							<h3>Provide Details</h3>
-						</div>
-						<div class="mid_note">
-							<span class="fa fa-hand-o-right"></span>
-						</div>
-						<div class="note">
-							<span class="fa fa-search-plus"></span>
-							<h3>Appear in Search Results</h3>
-						</div>
-					</div>
-				</div>
-				<div class="spacer" style="clear: both;"></div>
-				<div id="silde_2" class="slides">
-					<h2 style="border-bottom: 1px solid #eee"><strong>Engineering Student ?</strong></h2>
-					<div class="note_group">
-						<div class="note">
-							<span class="fa fa-question"></span>
-							<h3>Ask Questions</h3>
-						</div>
-						<div class="mid_note">
-							<span class="fa fa-hand-o-right"></span>
-						</div>
-						<div class="note">
-							<span class="fa fa-share"></span>
-							<h3>Get Answers</h3>
-						</div>
-					</div>
-					<div class="note_group">
-						<div class="note">
-							<span class="fa fa-list-alt"></span>
-							<h3>Read Articles</h3>
-						</div>
-						<div class="note">
-							<span class="fa fa-search"></span>
-							<h3>Search for Industrial Products</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="cover_form">
 			<form id="signup" class="form-horizontal" method="POST" action="{% url 'account_login' %}">
 		    {% if socialaccount.providers %}
@@ -116,6 +39,89 @@
 	    	{% include "snippets/login_modal.html" %}
 	  	</form>
   	</div>
+  	<div class="more_below">
+  		<span class="fa fa-angle-double-down fa-2x mob_only"></span>
+		</div>
+		<div class="cover_dig">
+		<!--
+			<h2>It's easier than ever <span class="pc_only">at CoreLogs</span>...</h2>
+			-->
+			<div class="cover_halo">
+				<div class="row">
+					<div class="col-xs-4 text-left">
+					</div>
+					<div class="col-xs-4 text-center">
+						<img width="64px" height="64px" alt="CoreLogs" src="{% static 'css/icon6_inv.png' %}">
+					</div>
+					<div class="col-xs-4 text-right">
+					</div>
+				</div>
+			</div>
+			<div id="cover_slide">
+				<div id="silde_1" class="slides">
+					<header>
+						<h2 class="first">It's Easier than ever for <strong>Small &amp; Medium Scale Enterprises</strong></h2>
+						<h2>Join <strong>CoreLogs</strong> Now</h2>
+					</header>
+					<div class="note_group">
+						<div class="note">
+							<h3>Sign Up</h3>
+							<span class="fa fa-user-plus"></span>
+							<p>Be a part of a network dedicated to industrialists</p>
+						</div>
+						<div class="mid_note">
+							<span class="fa fa-long-arrow-right"></span>
+						</div>
+						<div class="note">
+							<h3>Register Workplace</h3>
+							<span class="fa fa-briefcase"></span>
+							<p>Get a free Workplace Profile along with a large number of other SMEs</p>
+						</div>
+					</div>
+					<div class="note_group">
+						<div class="note">
+							<h3>List Products</h3>
+							<span class="fa fa-cubes"></span>
+							<p>What your company manufactures, sells or rents and get them featured in the marketplace</p>
+						</div>
+						<div class="mid_note">
+							<span class="fa fa-long-arrow-right"></span>
+						</div>
+						<div class="note">
+							<h3>Get Enquiries</h3>
+							<span class="fa fa-share"></span>
+							<p>Recieve enquiries on our products directly in your inbox and connect to your enquiries directly</p>
+						</div>
+					</div>
+				</div>
+				<div id="silde_2" class="slides">
+					<h2 style="border-bottom: 1px solid #eee"><strong>Engineering Student ?</strong></h2>
+					<div class="note_group">
+						<div class="note">
+							<span class="fa fa-question"></span>
+							<h3>Ask Questions</h3>
+						</div>
+						<div class="mid_note">
+							<span class="fa fa-long-arrow-right"></span>
+						</div>
+						<div class="note">
+							<span class="fa fa-share"></span>
+							<h3>Get Answers</h3>
+						</div>
+					</div>
+					<div class="note_group">
+						<div class="note">
+							<span class="fa fa-list-alt"></span>
+							<h3>Read Articles</h3>
+						</div>
+						<div class="note">
+							<span class="fa fa-search"></span>
+							<h3>Search for Industrial Products</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
   	<!--<div class="cover_form_extra">
 			<div class="row">
 				<div class="col-xs-4 text-right">
@@ -151,7 +157,7 @@
 <div class="paper">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-4 text-left">
 				<span class="fa fa-cog fa-2x fa-spin"></span>
 			</div>
 			<div class="col-xs-4 text-center">
@@ -162,17 +168,6 @@
 			</div>
 		</div>
 		<h1>CoreLogs is a platform, with a goal to create an industrial network, where anyone from any field of the industry can find any information narrowed down to their domain</h1>
-		<div class="row">
-			<div class="col-xs-4">
-				<span class="fa fa-cog fa-2x fa-spin"></span>
-			</div>
-			<div class="col-xs-4 text-center">
-				
-			</div>
-			<div class="col-xs-4 text-right">
-				<span class="fa fa-cog fa-2x fa-spin"></span>
-			</div>
-		</div>
 	</div>
 </div>
 <!--

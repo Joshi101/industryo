@@ -288,10 +288,10 @@ img{
 #cover .paper{
   background: url(texture1.jpg);
   margin: 50px 0;
-  border-top: 1px solid #197;
-  border-bottom: 1px solid #197;
+  /*! border-top: 1px solid #197; */
+  /*! border-bottom: 1px solid #197; */
   background-position: center center;
-  padding: 40px 0;
+  padding: 40px;
 }
 
 @media (min-width:768px) {
@@ -394,20 +394,30 @@ img{
 }
 
 .cover_form {
-  border: 1px solid #ddd;
+  /*! border: 3px solid #197; */
   padding: 0px 25px 5px;
   /*! float: right; */
   /*! text-align: center; */
-  /*! box-shadow: 2px -2px 10px -4px #aaa; */
-  width: 250px;
+  /*! box-shadow: 0 0 10px -6px #999; */
+  width: 280px;
   /*! margin-top: 50px; */
+  margin: 0 35px 0 25px;
 }
 
 @media (max-width: 768px){
   .cover_form{
     border: 0;
-    padding: 5px 30px;
+    padding: 5px 25px;
     float: none;
+    text-align: center;
+    margin: auto;
+  }
+  .cover_form h3{
+    margin-top: 10px;
+  }
+  .cover_desc .more_below{
+    text-align: center;
+    margin: 25px 0 50px;;
   }
 }
 
@@ -490,6 +500,7 @@ img{
     justify-content: space-between;
     align-items: flex-start;
     padding: 25px 0;
+    flex-direction: row-reverse;
   }
 }
 
@@ -500,18 +511,28 @@ img{
   /*! flex-wrap: wrap; */
   flex-grow: 1;
   /*! align-items: flex-start; */
+  border-right: 1px solid #ddd;
+}
+
+.cover_halo{
+  margin: 0 15px 30px;
 }
 
 .cover_dig h2{
   font-size: 1.8em;
   font-weight: 300;
   margin-top: 0;
-  color: #555;
+  color: #666;
   /*! word-spacing: 5px; */
   /*! letter-spacing: 2px; */
   /*! border-bottom: 1px solid #eee; */
   padding-bottom: 15px;
   margin-bottom: 15px;
+}
+
+.cover_dig header{
+  /*! margin: 7px 7px 0; */
+  /*! box-shadow: 0 0 10px -8px #999; */
 }
 
 .cover_dig h2 strong{
@@ -522,7 +543,7 @@ img{
   padding-top: 15px;
   padding-bottom: 10px;
   margin-bottom: 0;
-  margin-top: 15px;
+  margin-top: 0;
 }
 
 .cover_dig .note_group{
@@ -533,7 +554,7 @@ img{
 .cover_dig .note{
   /*! flex-grow: 1; */
   display: inline-block;
-  width: 40%;
+  width: 200px;
   min-width: 150px;
   vertical-align: top;
   /*! color: #179; */
@@ -549,7 +570,7 @@ img{
 .cover_dig .mid_note{
   display: inline-block;
   position: relative;
-  top: 27px;
+  top: 100px;
   color: #179;
   padding: 0 5px;
 }
@@ -557,10 +578,20 @@ img{
 .cover_dig .note .fa{
   color: #197;
   font-size: 3em;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 100%;
+  margin: 10px 0;
+}
+
+.cover_dig .note p{
+  color: #777;
 }
 
 .cover_dig .note h3{
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 500;
   margin-top: 10px;
   line-height: 1.25;
@@ -583,6 +614,7 @@ img{
   .cover_dig .mid_note{
     top: 19px;
     padding: 0;
+    display: none;
   }
   .cover_dig .note h3{
     font-size: 14px;
@@ -701,17 +733,19 @@ pre {
   border-bottom-right-radius: 5px;
 }
 
+#top_search .d_search .dropdown{
+  top: 44px;
+}
+
 #top_search .d_menu{
-  position: fixed;
+  /*! position: fixed; */ /*
   width: 100%;
-  /*! padding-right: 15px; */
-  padding-left: 15px;
-  right: 0;
-  top: 99px;
-  bottom: 15px;
-  overflow: hidden;
-  
-  //z-index: 1000;
+  */ /* padding-right: 15px; */tyr
+  /*! padding-left: 15px; */
+  /*! right: 0; */
+  /*! top: 99px; */
+  /*! bottom: 15px; */
+  z-index: 1000;
 }
 
 
@@ -720,20 +754,22 @@ pre {
   //padding: 0;
   background: transparent;
   box-shadow: 0 0 0;
-  z-index: 1001;
-  top: 37px;
+  //z-index: 1001;
+  //top: 37px;
 }
 
 #top_search .d_search .dropdown-menu{
-  top: 0;
-  right: 15px;
+  /*! top: 0; */
+  /*! right: 15px; */
   left: auto;
-  min-width: 275px;
-  max-width: 75%;
+  /*! min-width: 275px; */
+  width: 100%;
   float: right;
-  height: 100%;
+  /*! height: 100%; */
   overflow-y: auto;
   //z-index: 1000;
+  margin-bottom: 0;
+  border: 1px solid #555;
 }
 
 @media(max-width:768px){
@@ -787,11 +823,11 @@ pre {
 
 #top_search .d_list{
   position: relative;
-  box-shadow: 0px 0px 5px -2px #999;
+  /*! box-shadow: 0px 0px 5px -2px #999; */
   //padding: 15px 20px 15px 10px ;
-  padding-top:1px;
+  /*! padding-top:1px; */
   background-color: #fff;
-  border: 1px solid #ddd;
+  /*! border: 1px solid #ddd; */
   /*! left: 10px; */
   
 }
@@ -3283,7 +3319,7 @@ footer .contact li{
   font-weight: 400;
   text-align: center;
   line-height: 25px;
-  margin: 30px;
+  margin: 20px;
 }
 
 @media(max-width:768px){
