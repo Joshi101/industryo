@@ -5,7 +5,11 @@
 {% if what == "workplaces" %}
 	{% for q in query|slice:":10" %}
 	<a href="{% url 'workplace:workplace_profile' q.slug %}">
-		<li class="list-group-item option">{{ q.name }}</li>
+		<li class="list-group-item option">
+			<img src="{{ q.get_logo }}">
+			<span class="name">{{ q.name }}</span>
+			<span class="details">{{ q.get_type }}</span>
+		</li>
 	</a>
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>
@@ -13,7 +17,11 @@
 {% elif what == "users" %}
 	{% for q in query|slice:":10" %}
 	<a href="{% url 'user:profile' q.username %}">
-		<li class="list-group-item option"><img src="{{q.userprofile.get_profile_image}}">{{ q.userprofile }}</li>
+		<li class="list-group-item option">
+			<img src="{{q.userprofile.get_profile_image}}">
+			<span class="name">{{ q.userprofile }}</span>
+			<span class="details">{{ q.userprofile.job_position }} at {{ q.userprofile.primary_workplace }}</span>
+		</li>
 	</a>
 	{% empty %}
 	<li class="list-group-item option">Sorry, no results found</li>
@@ -49,14 +57,3 @@
 	<li class="list-group-item option">Sorry, no results found</li>
 	{% endfor %}
 {% endif %}
-	{% comment %}
-	{% ifequal create "create" %}
-	<li class="list-group-item-info"><a class="create"><span class="glyphicon glyphicon-plus"></span> Create now</a></li>
-	{% endifequal %}
-	{% ifequal create "create_new" %}
-	<li class="list-group-item-info"><a class='create_new' data-toggle="collapse" data-parent=""><span class="glyphicon glyphicon-plus"></span> Create new</a></li>
-	{% endifequal %}
-	{% ifequal create "" %}
-	<li class="no-select">Sorry, no match found</li>
-	{% endifequal %}
-	{% endcomment %}
