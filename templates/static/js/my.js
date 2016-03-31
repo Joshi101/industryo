@@ -1847,3 +1847,8 @@ $('.c1_group_title').on('click', function(){
         $(this).find('.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
     }
 });
+
+var cover_slide = $('#cover_slide');
+if(cover_slide){
+    slideTimer = setTimeout(animateSlide, SlideInterval);
+}
