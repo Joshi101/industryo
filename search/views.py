@@ -9,6 +9,7 @@ from nodes.models import Node
 
 
 def search(request):
+    print('GGGGGGGGGGGGGGGGGGGHHHHHHHHHHH')
     querystring = request.GET.get('pre_q').strip()
     terms = None
     if len(querystring) >= 3:
@@ -50,7 +51,7 @@ def search(request):
     return render(request, 'search/results.html', locals())
 
 
-def searchq(request):
+def searchq(request):   # active
     querystring = request.GET.get('the_query').strip()
     terms = None
     if len(querystring) >= 3:
@@ -63,25 +64,49 @@ def searchq(request):
     if what == 'questions':
         for term in terms:
             q = Question.objects.filter(Q(title__icontains=term) | Q(question__icontains=term))
+            if query is None:
+                query = q
+            else:
+                query = query & q
     elif what == 'articles':
         for term in terms:
             q = Node.article.filter(Q(title__icontains=term) | Q(post__icontains=term))
+            if query is None:
+                query = q
+            else:
+                query = query & q
     elif what == 'tags':
         for term in terms:
             q = Tags.objects.filter(Q(tag__icontains=term) | Q(description__icontains=term))
+            if query is None:
+                query = q
+            else:
+                query = query & q
     elif what == 'users':
         for term in terms:
             q = User.objects.filter(Q(first_name__icontains=term) | Q(last_name__icontains=term) | Q(username__icontains=term))
+            if query is None:
+                query = q
+            else:
+                query = query & q
     elif what == 'workplaces':
         for term in terms:
             q = Workplace.objects.filter(name__icontains=term)
+            if query is None:
+                query = q
+            else:
+                query = query & q
     elif what == 'products':            
         for term in terms:
             q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
-    if query is None:
-        query = q
-    else:
-        query = query & q
+            if query is None:
+                query = q
+            else:
+                query = query & q
+    # if query is None:
+    #     query = q
+    # else:
+    #     query = query & q
     return render(request, 'search/list.html', {'query': query, 'what': what})
 
 

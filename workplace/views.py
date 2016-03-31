@@ -15,6 +15,7 @@ from django.core.mail import send_mail
 from home import tasks
 from itertools import chain
 from operator import attrgetter
+import re
 
 @login_required
 def workplace_register(request):
@@ -84,16 +85,26 @@ def set_workplace(request):
 
 
 def search_workplace(request):                  # for searching the workplace
-    if request.method == 'GET':
-        w = request.GET['the_query']
-        w_type = request.GET['the_type']
-        if len(w) >= 2:
-            o = Workplace.objects.filter(name__icontains=w, workplace_type=w_type)[:5]
-            return render(request, 'tags/list_wp.html', {'objects': o, 'query': w})
-        else:
-            return HttpResponse('Keep Typing..')
+    w = request.GET['the_query']
+    w_type = request.GET['the_type']
+    q = None
+    if len(w) >= 2:
+        terms = w.split(' ')
     else:
-        return render(request, 'tags/list_wp.html')
+        return HttpResponse('Keep Typing..')
+
+    for term in terms:
+        o = Workplace.objects.filter(name__icontains=term, workplace_type=w_type)
+        if q is None:
+            q = o
+        else:
+            q = q & o
+    # if len(q)<4:      # for searcing indian institute of tech.. on typing iit
+    #     if len(w)<4:
+    #         for a in w:
+    #             Workplace.objects.filter()
+    #         print('WWWWWWWW')
+    return render(request, 'tags/list_wp.html', {'objects': q, 'query': w})
 
 
 @login_required

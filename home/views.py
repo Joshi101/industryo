@@ -22,8 +22,8 @@ def feedback(request):
     user =request.user
     userprofile = user.userprofile
     workplace = user.userprofile.primary_workplace
-    user_email = request.POST.get('email')
-    feedback = request.POST.get('feedback')
+    user_email = request.GET.get('email')
+    feedback = request.GET.get('feedback')
 
     template = u'''Hi Dude,
 
@@ -37,7 +37,7 @@ If you solve it, kindly mail back on {2}
     print(content)
     subject = u'''{0} sent a feedback'''.format(userprofile)
     try:
-        send_mail(subject, content, 'sp@corelogs.com', [user_email])
+        send_mail(subject, content, 'sp@corelogs.com', ['sprksh.j@gmail.com'])
     except Exception:
         pass
 
