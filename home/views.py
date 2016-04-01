@@ -56,8 +56,9 @@ def home(request):
                 related_node = Node.feed.filter(w_type__in=['A', 'B']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             elif t == 'C':
-                related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
-                question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
+                return redirect('/tags/nirman-mechjunction/')
+                # related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
+                # question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             else:  # t == 'O':
                 related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
