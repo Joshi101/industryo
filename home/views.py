@@ -18,12 +18,10 @@ from django.core.mail import send_mail
 
 
 def feedback(request):
-    print( "aaya aayaaaya  aaya")
     user =request.user
     userprofile = user.userprofile
-    workplace = user.userprofile.primary_workplace
-    user_email = request.POST.get('email')
-    feedback = request.POST.get('feedback')
+    user_email = request.GET.get('email')
+    feedback = request.GET.get('feedback')
 
     template = u'''Hi Dude,
 
@@ -34,10 +32,9 @@ def feedback(request):
 If you solve it, kindly mail back on {2}
 '''
     content = template.format(userprofile, feedback, user_email)
-    print(content)
     subject = u'''{0} sent a feedback'''.format(userprofile)
     try:
-        send_mail(subject, content, 'sp@corelogs.com', [user_email])
+        send_mail(subject, content, 'sp@corelogs.com', ['sprksh.j@gmail.com'])
     except Exception:
         pass
 
@@ -59,8 +56,9 @@ def home(request):
                 related_node = Node.feed.filter(w_type__in=['A', 'B']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             elif t == 'C':
-                related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
-                question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
+                return redirect('/tags/nirman-mechjunction/')
+                # related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
+                # question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')
             else:  # t == 'O':
                 related_node = Node.feed.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
                 question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t).select_related('user__userprofile')

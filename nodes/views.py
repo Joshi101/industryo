@@ -339,7 +339,32 @@ def delete(request):
 def edit_node(request):
     id = request.GET.get('id')
     node = Node.objects.get(id=id)
-    return render(request, 'nodes/articles.html', locals())
+    if request.method == 'POST':
+        user = request.user
+        node.post = request.POST['post']
+        node.title = request.POST['title']
+        node.save()
+        image0 = request.FILES.get('image0', None)
+        image1 = request.FILES.get('image1', None)
+        image2 = request.FILES.get('image2', None)
+        if image0:
+            i = Images()
+            a = i.upload_image(image=image0, user=user)
+            node.images.add(a)
+        if image1:
+            i = Images()
+            a = i.upload_image(image=image1, user=user)
+            node.images.add(a)
+        if image2:
+            i = Images()
+            a = i.upload_image(image=image2, user=user)
+            node.images.add(a)
+        tags = request.POST.get('tag')
+        node.set_tags(tags)
+        slug = node.slug
+        return HttpResponseRedirect('/nodes/'+slug)
+    else:
+        return render(request, 'nodes/articles.html', locals())
 
 
 def delete_node_image(request):
