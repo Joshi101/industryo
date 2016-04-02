@@ -1,5 +1,5 @@
 {% load filter %}
-	
+
 	<div id="about_wp" class="info_field_grp ajax_andar ajax_papa">
 		{% if user.userprofile in members %}
 		<form id="about_wp_form" class="info_form" action="{% url 'workplace:set_about' %}" method="POST">
@@ -12,7 +12,13 @@
 		<div class="panel panel-default">
 			<div class="info_field v2 ajax_papa">
 				<div class="info_field_value">
-					{% if workplace.about %}{{workplace.about|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>{% endif %}
+					{% if workplace.about %}
+						{{workplace.about|urlize|new_tab|safe}}
+					{% elif user.userprofile in members %}
+						<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>
+					{% else %}
+						<i class="text-muted text-center center-block">No Description Available</i>
+					{% endif %}
 				</div>
 				<div class="info_field_edit hide">
 					<textarea name="about" form="about_wp_form" rows="3" class="form-control new_val new_val">{{workplace.about}}</textarea>

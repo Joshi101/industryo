@@ -52,24 +52,22 @@
     </div>
   </div>
 
-  {% include "workplace/snippets/wp_nav_items.html" with workplace=workplace type=type %}
-
-  {% block workplace_section %}
-  <div id="wp_content" class="ajax_papa ajax_andar">
-    <div class="loading hide">
-      <i class="fa fa-spin fa-circle-o-notch"></i>
+  <div class="row wp_body">
+    <div class="col-sm-3 col-md-2">
+      {% include "workplace/snippets/wp_nav_items.html" with workplace=workplace type=type %}
     </div>
-    <div class="content">
-      {% include "workplace/snip_about.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+    <div class="col-sm-8">
+      {% block workplace_section %}
+      <div id="wp_content" class="ajax_papa ajax_andar">
+        <div class="loading hide">
+          <i class="fa fa-spin fa-spinner"></i>
+        </div>
+        <div class="content">
+          {% include "workplace/snip_about.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+        </div>
+      </div>
+      {% endblock workplace_section %}
     </div>
-  </div>
-  {% endblock workplace_section %}
-
-  <div class="side_show">
-    <div class="ajax_load" data-url="{% url 'workplace:get_top_scorers' workplace.slug %}"></div>
-  </div>
-  <div class="side_show">
-		<div class="ajax_load" data-url="{% url 'products:random' %}"></div>
   </div>
 </div>
 {% endblock body %}

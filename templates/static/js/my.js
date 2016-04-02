@@ -1860,3 +1860,8 @@ function animateSlide(){
         'min-height': (win_height - top_nav_width)
     });
 }
+
+$("body").on('click', '.active_li a', function(){
+    $('.active_li').find('.active').removeClass('active');
+    $(this).closest('li').addClass('active');
+});
