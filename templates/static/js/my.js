@@ -32,6 +32,7 @@ $(window).on('resize', measure);
 
 /* handling input for dynamiac search inputs */
 function doneTyping() {
+    d_on = true;
     var $this = d_this;
     var $d_search = $this.closest('.d_search');
     var query = $this.val(),
@@ -40,8 +41,13 @@ function doneTyping() {
     console.log(type);
     if (!type)
         type = '';
+    if (query.length < 3){
+        console.log('e to chotu h');
+        d_on = false;
+    }
     if (d_on) {
         //d_on = false;
+        $d_search.find('.create').addClass('hide');
         $this.siblings('.form-control-feedback').children('.fback_wait').removeClass('hide');
         console.log(query, search, type);
         $.ajax({
@@ -57,6 +63,7 @@ function doneTyping() {
                 $d_search.find('.dropdown')
                     .find(".d_list").html(result);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
+                $d_search.find('.create').removeClass('hide');
             },
             error: function(xhr, errmsg, err) {
                 //d_on = true;
