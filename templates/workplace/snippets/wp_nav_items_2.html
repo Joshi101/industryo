@@ -31,12 +31,13 @@
     <li>
       <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}"><span class="fa inline_fa fa-users"></span>People</a>
     </li>
-    <li {% if type != 'C' %} class="active" {% endif %}>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
-    </li>
-    {% if type == 'C' %}
+    {% if type == 'B' %}
     <li class="active">
       <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-dashboard"></span>Dashboard</a>
+    </li>
+    {% else %}
+    <li class="active">
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
     </li>
     {% endif %}
   </ul>
