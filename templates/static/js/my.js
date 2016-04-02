@@ -1397,7 +1397,7 @@ $(function () {
   });
 });
 
-$('.ajax_a').on('click', function(event){
+$('body').on('click', '.ajax_a', function(event){
     event.preventDefault();
     //window.history.pushState({ id: 35 }, 'ajax kaam', '/op/ol');
     var target = $(this).data('place');
