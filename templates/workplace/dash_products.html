@@ -1,0 +1,15 @@
+{% if request.user.userprofile in members %}
+<div class="panel info">
+	<div class="panel-body">
+		{% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
+		<p>You can list the cars/items your team has made over the years with a little description abou them. Also, If your team wants to rent or sell some particular item, you can list them too one by one with proper details and description.</p>
+		{% else %}
+		<p>List the products manufactured in your company or services provided by your company one by one. You can list any number of products.</p>
+		<p>The Queries about the products by a potential customer will appear directly in your email inbox.</p>
+		{% endif %}
+	</div>
+</div>
+<div class="text-center ">
+	<a href="{% url 'products:add_product' %}"><i class="fa fa-plus inline_fa"></i>Add Products</a>
+</div>
+{% endif %}
