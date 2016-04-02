@@ -25,7 +25,7 @@
 <div class="container-fluid">
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
   <div id="info_head" class="row info_head" typeof='Organization' resource='#workplace'>
-    <div class="col-sm-3 col-md-2">
+    <div class="col-sm-2 col-md-2">
       <div id="img_profile_box">
         <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{workplace.name}}">
         {% if user.userprofile.primary_workplace == workplace %}
@@ -42,7 +42,7 @@
         <small class="text-muted">( {{ workplace.get_type }} )</small>
       </header>
     </div>
-    <div class="col-sm-2 col-md-3">
+    <div class="col-sm-2">
       <div class="info_labels">
         <span class="label label-default">{{workplace.points}} points</span>
       </div>
@@ -53,17 +53,19 @@
   </div>
 
   <div class="row wp_body">
-    <div class="col-sm-3 col-md-2">
-      {% include "workplace/snippets/wp_nav_items.html" with workplace=workplace type=type %}
-    </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-sm-offset-2">
+      {% include "workplace/snippets/wp_nav_items_2.html" with workplace=workplace type=type %}
       {% block workplace_section %}
       <div id="wp_content" class="ajax_papa ajax_andar">
         <div class="loading hide">
           <i class="fa fa-spin fa-spinner"></i>
         </div>
         <div class="content">
-          {% include "workplace/snip_about.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+          {% if type == 'C' %}
+            {% include "workplace/snip_dashboard.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+          {% else %}
+            {% include "workplace/snip_activity.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+          {% endif %}
         </div>
       </div>
       {% endblock workplace_section %}

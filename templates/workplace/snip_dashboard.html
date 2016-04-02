@@ -1,15 +1,31 @@
 <div class="panel panel-success info">
 	<div class="panel-body bg-info">
-		<p class="text-center">Find everything related to <b>{{ workplace.name }}</b> at a single place.</p>
+		<p class="text-center">This is the Dashboard for {{ workplace.name }}</p>
 	</div>
 </div>
-<div class="tab-content ajax_papa">
-	<div class="ajax_andar feeds">
-		{% include "snippets/figure_modal.html" %}
-		{% include 'nodes/five_nodes.html' with result_list=result_list %}
-		<div class="paginator" data-next_page="2" data-url="{% url 'workplace:dashboard' workplace.slug %}">
-			<h5>Loading more content</h5>
-			<i class="fa fa-spin fa-circle-o-notch"></i>
+<div class="row">
+	<div class="col-sm-4">
+		<div id="dash_side">
+			<a class="ajax_a" data-place="#dash_content" href="">
+				Products
+			</a>
+			<a class="ajax_a" data-place="#dash_content" href="">
+				People
+			</a>
+			<a class="ajax_a" data-place="#dash_content" href="">
+				Operations
+			</a>
+			<a class="ajax_a" data-place="#dash_content" href="">
+				Assets
+			</a>
+			<a class="ajax_a" data-place="#dash_content" href="">
+				Segements
+			</a>
+		</div>
+	</div>
+	<div class="col-sm-8">
+		<div id="dash_content">
+			
 		</div>
 	</div>
 </div>

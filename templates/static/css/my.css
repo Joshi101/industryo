@@ -943,7 +943,7 @@ pre {
 
 .body {
   min-height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   /*! margin-top: 25px; */
 
   position: relative;
@@ -2575,6 +2575,8 @@ footer .contact li{
 .left_menu{
   list-style: none;
   /*! padding: 20px 0; */
+  margin: auto;
+  max-width: 220px;
 }
 
 .left_menu li{
@@ -2752,7 +2754,7 @@ footer .contact li{
 #wp_content{
   position: relative;
   /*! border-top: 1px solid #ddd; */
-  padding-top: 10px;
+  /*! padding-top: 10px; */
 }
 
 .loading{
@@ -3684,4 +3686,19 @@ footer .contact li{
   left: 0;
   right: 0;
   visibility: visible;
+}
+
+#dash_side a{
+  display: block;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+}
+
+#dash_side a:hover, #dash_side a:active, #dash_side a:focus, #dash_side a:hover{
+  text-decoration: none;
 }
