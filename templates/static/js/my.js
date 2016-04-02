@@ -363,6 +363,7 @@ $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
     var $papa = $this.closest('.ajax_papa');
     var $form = $this.closest('form');
     var formData = new FormData($form[0]);
+    console.log(formData)
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -730,14 +731,14 @@ $('.answer_form button[type="button"]').click(function(event) {
         $(this).next().val('true');
     }
     var $this = $(this).closest('form');
-    checkValidity();
-    var $editor = $this.find('#editor');
+    /*checkValidity();*/
+    /*var $editor = $this.find('#editor');
     var content = $editor.html();
-    $editor.next().val(content);
+    $editor.next().val(content);*/
     $this.find('.form-ajax-filed').trigger('click');
     console.log('yaha hain bhaiya');
     $('#write_answer').trigger('click');
-    $editor.html('');
+    /*$editor.html('');*/
 });
 
 $('.article_form button[type="button"]').click(function(event) {

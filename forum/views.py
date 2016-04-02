@@ -221,10 +221,12 @@ def votedown(request):
 @login_required
 def reply(request):
     if request.method == 'POST':
+        print("idhar aaye")
         response = {}
         r_html = {}
         r_elements = []
-        ans = request.POST['answer']
+        ans = request.POST.get('answer')
+        print("idha naih",ans)
         user = request.user
         id = request.POST['id']
         question = Question.objects.get(id=id)
