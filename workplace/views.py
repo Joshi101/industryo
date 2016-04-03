@@ -221,6 +221,16 @@ def workplace_dash(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
+    products = Products.objects.filter(producer=workplace.pk)
+    product_count = products.count()
+    workplace_logo_form = SetLogoForm()
+    return render(request, 'workplace/snip_dashboard.html', locals())
+
+
+def workplace_activity(request, slug):
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
     workplace_logo_form = SetLogoForm()
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')

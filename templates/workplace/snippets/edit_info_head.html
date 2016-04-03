@@ -1,4 +1,0 @@
-<form class="edit_{{category}} d_edit hide" action="{% url 'workplace:set_tags_short' %}" method="POST" role="form">
-	{% csrf_token %}
-		{% include "snippets/d_search_tags.html" with search="tag" type=type tags=tags %}
-</form>

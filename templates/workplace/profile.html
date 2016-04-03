@@ -62,7 +62,7 @@
         </div>
         <div class="content">
           {% if type == 'B' %}
-            {% include "workplace/snip_dashboard.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+            {% include "workplace/snip_dashboard.html" with workplace=workplace %}
           {% else %}
             {% include "workplace/snip_activity.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
           {% endif %}

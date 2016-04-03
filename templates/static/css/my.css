@@ -691,8 +691,8 @@ pre {
   background: rgba(0,0,0,0.3);
   border-color: rgba(22,22,22,0.75);
   border-radius: 0;
-  font-weight: 500;
-  letter-spacing: 1px;
+  font-weight: 700;
+  /*! letter-spacing: 1px; */
 }
 
 #top_search .btn{
@@ -2861,6 +2861,11 @@ footer .contact li{
   margin: 10px auto;
   padding: 10px;
   border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.invite_form input{
+  text-align: center;
 }
 
 .editor-container .placeholder{
@@ -3038,6 +3043,7 @@ footer .contact li{
 .info_field_value .placeholder{
   color: #999;
   font-style: italic;
+  /*! font-weight: 300; */
 }
 
 @keyframes changing {
@@ -3351,7 +3357,7 @@ footer .contact li{
 }
 
 .panel{
-  /*! padding: 15px; */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .prod_categories{
@@ -3691,9 +3697,10 @@ footer .contact li{
 }
 
 #dash_side ul{
-  background: transparent;
+  background: #fafafa;
   border-width: 1px;
   box-shadow: 0 0 0;
+  margin-bottom: 0;
 }
 
 #dash_side li{
@@ -3714,9 +3721,10 @@ footer .contact li{
 #dash_side li:last-of-type{
   border-bottom: 1px solid #dddddd;
 }
-
-#dash_side li.active{
-  border-right: 0;
+@media(min-width:768px){
+  #dash_side li.active{
+    border-right: 0;
+  }
 }
 
 #dash_side a{
@@ -3748,9 +3756,51 @@ footer .contact li{
   background: #fff;
   margin-left: -30px;
   padding-left: 40px;
-  padding-right: 10px;
+  padding-right: 15px;
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #dddddd;
   /*! border-right: 1px solid #dddddd; */
+  margin-right: -15px;
+}
+
+.form_head{
+  margin-bottom: 20px;
+}
+
+#dash_content h4{
+  font-size: 1.5em;
+}
+
+#dash_content .number{
+  font-size: 2em;
+}
+
+.dashboard{
+  background: #fff;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.dashboard .col-sm-4{
+  padding-left: 0;
+}
+
+#error_page{
+  text-align: center;
+  background: url(texture1.jpg);
+}
+
+#error_page h1{
+  font-size: 60px;
+  margin-bottom: 50px;
+  
+  margin-top: 40px;
+}
+
+#error_page p{
+  font-family: "Lora";
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 50px;
 }
