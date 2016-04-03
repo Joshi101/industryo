@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 
-{% block content %}
-Perhaps you entered a wrong url
-{% endblock %}
+{% block title %}Corelogs, Platform for SMEs{% endblock title %}
+
+{% block page_id %}error_page{% endblock page_id %}
+
+{% block top %}
+  {% include "snippets/top_navigation.html" with what="Products" %}
+{% endblock top %}
+
+{% block body %}
+<div class="container">
+	  <h1>Sorry, that page doesn’t exist!</h1>
+	  <p>The link you followed may be broken, or the page may have been removed.</p>
+	  <a href="/">
+	    <img width="64px" height="64px" alt="CoreLogs" src="{% static 'css/icon6_inv.png' %}">
+	  </a>
+</div>
+{% endblock body %}

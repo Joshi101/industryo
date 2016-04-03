@@ -1,7 +1,7 @@
 body {
   background-color: #fdfdfd;
   overflow-x: hidden;
-  font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 ul {
@@ -14,6 +14,10 @@ a:hover, a:focus{
 
 form{
   //margin-bottom: 10px;
+}
+
+h5{
+  font-size: 16px;
 }
 
 /* un-bootstrap */
@@ -34,7 +38,8 @@ form{
 .form-control{
   border-radius: 1px;
   box-shadow: 0 0 0;
-  padding: 8px 10px;
+  /*! padding: 8px 10px; */
+  font-family: "Open Sans";
 }
 
 .btn{

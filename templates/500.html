@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
-{% block content %}
-<li>its our fault</li>
-{% endblock %}
+{% load staticfiles %}
+
+{% block title %}Corelogs, Platform for SMEs{% endblock title %}
+
+{% block page_id %}error_page{% endblock page_id %}
+
+{% block top %}
+  {% include "snippets/top_navigation.html" with what="Products" %}
+{% endblock top %}
+
+{% block body %}
+<div class="container">
+	  <h1>Oops!!</h1>
+	  <p>Something went wrong at the Core. Get back later ...</p>
+	  <a href="/">
+	    <img width="64px" height="64px" alt="CoreLogs" src="{% static 'css/icon6_inv.png' %}">
+	  </a>
+</div>
+{% endblock body %}
