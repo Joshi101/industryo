@@ -234,12 +234,15 @@ def workplace_dash(request, slug):
     else:
         n=5
 
-    li = [workplace.mobile_contact1, workplace.mobile_contact1, workplace.website, workplace.fb_page,
+    li = [workplace.contact, workplace.mobile_contact1, workplace.website, workplace.fb_page,
           workplace.linkedin_page, workplace.address, workplace.office_mail_id]
-    
-    print(a)
+    a = list(filter(lambda x: x!='None', li))
+    b = list(filter(lambda x: x!=None, a))
+    m = len(b)
+    print(m)
 
-
+    o = workplace.get_tags.operations
+    print(len(o))
 
     return render(request, 'workplace/snip_dashboard.html', locals())
 
@@ -408,7 +411,7 @@ def set_details(request):
         wp.website = website
         wp.address = address
         wp.contact = contact
-        wp.contact1 = contact1
+        wp.mobile_contact1 = contact1
         wp.office_mail_id = email
         wp.linkedin_page = linkedin
         wp.fb_page = fb
