@@ -3743,3 +3743,14 @@ footer .contact li{
   margin-bottom: 5px;
   height: 3px;
 }
+
+#dash_content{
+  background: #fff;
+  margin-left: -30px;
+  padding-left: 40px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #dddddd;
+  /*! border-right: 1px solid #dddddd; */
+}
