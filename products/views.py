@@ -664,11 +664,32 @@ def c_r(request):
 def int_category(request, slug):
     category = Category.objects.get(slug=slug)
     # products = Products.objects.filter()
-    return render(request, 'products/category.html', locals())
+    return render(request, 'activities/category.html', locals())
 
 
-def category(request, slug):
+def category(request, slug):        # Products
     category = Category.objects.get(slug=slug)
-    # products = Products.objects.filter()
-    return render(request, 'products/category.html', locals())
+    products = Products.objects.filter(categories=category)
+    # print(products)
+    return render(request, 'products/category_products.html', locals())
+    # paginator = Paginator(products, 20)
+    # page = request.GET.get('page')
+    # try:
+    #     result_list = paginator.page(page)
+    # except PageNotAnInteger:
+    #         # If page is not an integer, deliver first page.
+    #     result_list = paginator.page(1)
+    # except EmptyPage:
+    #             # If page is out of range (e.g. 9999), deliver last page of results.
+    #     return
+    #     # result_list = paginator.page(paginator.num_pages)
+    # if page:
+    #     return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'category': category})
+    # else:
+    #     return render(request, 'products/category_products.html', {'result_list': result_list, 'category': category})
 
+def category_wp(request, slug):        # Products
+    category = Category.objects.get(slug=slug)
+    products = Products.objects.filter(categories=category)
+    # workplaces =
+    return render(request, 'products/category_workplace.html', locals())

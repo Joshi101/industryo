@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block title %} CoreLogs | Tags {% endblock title %}
+
+{% block content %}	
+	{% include 'forum/20_tags.html' with result_list=result_list %}	
+	<div class="paginator" data-next_page="2">
+		<h5>Loading more content</h5>
+		<i class="fa fa-spin fa-circle-o-notch"></i>
+	</div>
+{% endblock content %}
+
+{% block right %}
+	<div class="">
+		<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
+	</div>
+{% endblock right %}
