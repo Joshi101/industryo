@@ -1,9 +1,5 @@
 <div class="panel panel-success info">
-	<div class="panel-body bg-info">
-		<p class="text-center">This is the Dashboard. {% if user.userprofile in members %}<strong>Review and Update you {{ workplace.name }} Profile in a Jiffy.</strong>{% else %}Get a quick Review of {{ workplace.name }}.{% endif %}<br>
-		Visit other sections for detailed info!</p>
 	</div>
-</div>
 <div class="row dashboard">
 	<div class="col-sm-4">
 		<div id="dash_side">
@@ -24,7 +20,7 @@
 				</li>
 				<li>
 					<a data-toggle="pill" href="#dash_people">
-						Your Network
+						My Colleagues
 						{% if user.userprofile in members %}
 			      <div class="prog">
 			        <span class="progress-text">7 people</span>
@@ -52,7 +48,7 @@
 				</li>
 				<li>
 					<a data-toggle="pill" href="">
-						Assets
+						Assets or Machinery
 						{% if user.userprofile in members %}
 			      <div class="prog">
 			        <span class="progress-text">7 assets</span>
@@ -69,7 +65,21 @@
 						Segements
 						{% if user.userprofile in members %}
 			      <div class="prog">
-			        <span class="progress-text">7 operations</span>
+			        <span class="progress-text">My Company lies in</span>
+			        <div class="progress">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
+			          </div>
+			        </div>
+			      </div>
+			      {% endif %}
+					</a>
+				</li>
+				<li>
+					<a data-toggle="pill" href="">
+						Operations
+						{% if user.userprofile in members %}
+			      <div class="prog">
+			        <span class="progress-text">My Company Performs</span>
 			        <div class="progress">
 			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
 			          </div>

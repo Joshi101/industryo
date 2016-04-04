@@ -41,6 +41,25 @@
 			</ul>
 		</form>
 	</div>
+	<div class="col-md-9">
+		<form action="/internal/change_p_o/" method="POST">
+			{% csrf_token %}
+			<div class="form-group">
+	      		<label class="control-label"><h3>The one who uploaded</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="u" type="text" placeholder="" required/>
+			</div>
+			<div class="form-group">
+	      		<label class="control-label"><h3>The one who should</h3></label>
+	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="w" type="text" placeholder="" required/>
+			</div>
+			<ul class="list-unstyled">
+				<li>
+					<button type="submit" value="meh" name="q">APply the function to change the wp</button>
+				</li>
+				
+			</ul>
+		</form>
+	</div>
 
 <a href="{% url "activities:int_add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add Products</a>
 

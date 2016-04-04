@@ -1,0 +1,20 @@
+<div class="row">
+      {% for cat in result_list %}
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a href="{% url 'products:category' cat.slug %}">{{cat}}</a>
+            </div>
+            <div class="panel-body">
+			  {% if cat.sub_cat %}
+          {% for c in cat.get_sub %}
+              <li><a href="{% url 'products:category' c.slug %}">{{c}}</a></li>
+			    {% endfor %}
+			  
+			  {% endif %}
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% endfor %}
+    </div>

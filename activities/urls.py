@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^send_html/$', 'home.email.send_html', name='send_html'),
 
     url(r'^change_wp_u/$', 'home.data.change_wp_u', name='change_wp_u'),
+    url(r'^change_p_o/$', 'home.data.change_p_o', name='change_p_o'),
 
     url(r'^products/(?P<id>[^/]+)/edit_desc/$', 'products.views.int_edit_desc', name='int_edit_desc'),
     url(r'^products/(?P<id>[^/]+)/edit_category/$', 'products.views.int_edit_category', name='int_edit_category'),

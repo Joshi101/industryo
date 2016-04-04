@@ -116,3 +116,19 @@ def change_wp_u(request):
 
     else:
         return render(request, 'activities/input.html', locals())
+
+
+def change_p_o(request):
+    if request.method == 'POST':
+        u = request.POST.get('u')
+        w = request.POST.get('w')
+        uploader = User.objects.get(username=u)
+        to_be_uploader = User.objects.get(username=w)
+        p = Products.objects.get(user=uploader)
+        for prod in p:
+            prod.user = to_be_uploader
+            prod.save()
+        return redirect('/')
+
+    else:
+        return render(request, 'activities/input.html', locals())
