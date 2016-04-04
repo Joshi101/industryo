@@ -688,6 +688,7 @@ def category(request, slug):        # Products
     # else:
     #     return render(request, 'products/category_products.html', {'result_list': result_list, 'category': category})
 
+
 def category_wp(request, slug):        # Products
     category = Category.objects.get(slug=slug)
     products = Products.objects.filter(categories=category)
