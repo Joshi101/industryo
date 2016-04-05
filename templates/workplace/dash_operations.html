@@ -1,0 +1,26 @@
+{% load filter %}
+
+<div id="cap_options_wp" class="info_field_grp ajax_andar">
+	<form id="cap_options_wp_form" class="info_form" action="{% url 'workplace:set_tags' %}" method="POST">
+		<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+		<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+		<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+		{% csrf_token %}
+	</form>
+	<div class="panel panel-default">
+    <div class="info_field ajax_papa">
+    	<div class="info_field_label"><span class="fa fa-magic fa-fw"></span>Operations</div>
+    	<span class="colon">:</span>
+    	<div class="info_field_value">
+      	{% if workplace.get_tags.operations %}
+      	{% include "snippets/tags.html" with tags=workplace.get_tags.operations %}
+      	{% else %}
+      	<span class="placeholder">Add the Operations performed at your Workplace</span>
+      	{% endif %}
+      </div>
+      <div class="info_field_edit hide">
+        {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' d_form='cap_options_wp_form' %}
+      </div>
+    </div>
+  </div>
+</div>

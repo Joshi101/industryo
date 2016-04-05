@@ -11,7 +11,7 @@
 		{% endif %}
 		<div class="panel panel-default">
 			<div class="info_field v2 ajax_papa">
-				<div class="info_field_value">
+				<div class="info_field_value ">
 					{% if workplace.about %}
 						{{workplace.about|urlize|new_tab|safe}}
 					{% elif user.userprofile in members %}
@@ -42,26 +42,26 @@
 	    	<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>City</div>
 	    	<span class="colon">:</span>
 	      <div class="info_field_value">
-	      	{% if tags1 %}
-	      	{% include "snippets/tags.html" with tags=tags1 %}
+	      	{% if workplace.get_tags.city %}
+	      	{% include "snippets/tags.html" with tags=workplace.get_tags.city %}
 	      	{% else %}
 	      	<span class="placeholder">Add the City you are based at</span>
 	      	{% endif %}
 	      </div>
 	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags1 name='city' d_form='details_wp_form' %}
+          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' d_form='details_wp_form' %}
 	      </div>
 	      {% endif %}
 	    </div>
 
-	  	{% if b_type %}
+	  	{% if workplace.workplace_type != 'O' %}
 	    <div class="info_field ajax_papa">
 	    	<div class="info_field_label"><span class="fa fa-tags fa-fw"></span>Segments</div>
 	      <span class="colon">:</span>
 	      <div class="info_field_value">
-	      	{% if tags2 %}
-		      	{% include "snippets/tags.html" with tags=tags2 %}
+	      	{% if workplace.get_tags.segments %}
+		      	{% include "snippets/tags.html" with tags=workplace.get_tags.segments %}
 	      	{% else %}
 	      	<span class="placeholder">
 					  {% if workplace.workplace_type == 'A' %}
@@ -74,30 +74,30 @@
 				  </span>
 				  {% endif %}
 	      </div>
-	      {% if user.userprofile in members %}	
+	      {% if user.userprofile in members %}
 	      <div class="info_field_edit hide">
-	        {% include "snippets/d_search_tags.html" with search="tag" type='S' no_create="True" tags=tags2 name='segement' d_form='details_wp_form' %}
+	        {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segments name='segement' d_form='details_wp_form' %}
 	      </div>
 		    {% endif %}
 	    </div>
-			{% if b_type == 'P' %}
+	    {% endif %}
+			{% if workplace.workplace_type == 'C' %}
 			<div class="info_field ajax_papa">
 	    	<div class="info_field_label">Parent Institution</div>
 	    	<span class="colon">:</span>
 	      <div class="info_field_value">
-	      	{% if tags3 %}
-		      	{% include "snippets/tags.html" with tags=tags3 %}
+	      	{% if workplace.get_tags.institution %}
+		      	{% include "snippets/tags.html" with tags=workplace.get_tags.institution %}
 	      	{% else %}
 	      	<span class="placeholder">Add your parent institution</span>
 				  {% endif %}
 	      </div>
 	      {% if user.userprofile in members %}	
 	      <div class="info_field_edit hide">
-          {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags3 name='institution' %}
+          {% include "snippets/d_search_tags.html" with search="tag" type='P' tags=workplace.get_tags.institution name='institution' %}
 	      </div>
 		    {% endif %}
 	    </div>
-	    {% endif %}
 	    {% endif %}
 			
 			<div class="info_field ajax_papa">

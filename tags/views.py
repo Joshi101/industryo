@@ -33,14 +33,11 @@ def search_tag(request):
     if request.method == 'GET':
         tag = request.GET['the_query']
         type = request.GET['the_type']
-        if len(tag) >= 2:
-            if type == 'All':
-                o = Tags.objects.filter(tag__icontains=tag)[:6]
-            else:
-                o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
-            return render(request, 'tags/list.html', {'objects': o})
+        if type == 'All':
+            o = Tags.objects.filter(tag__icontains=tag)[:6]
         else:
-            return render(request, 'tags/list.html', {'objects': 'short'})
+            o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
+        return render(request, 'tags/list.html', {'objects': o})
     else:
         return render(request, 'tags/list.html')
 

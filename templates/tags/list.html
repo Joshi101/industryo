@@ -1,18 +1,5 @@
-{% if objects == 'short'  %}
-	<li class="list-group-item option">Keep typing ...</li>
-{% else %}
-	{% for o in objects %}
-		<li class="list-group-item option"><span class="option_value">{{o}}</span> <span class="text-muted option_type">({{o.get_workplace_type_display}})</span></li>
-	{% endfor %}
-{% endif %}
-	{% comment %}
-	{% ifequal create "create" %}
-	<li class="list-group-item-info"><a class="create"><span class="glyphicon glyphicon-plus"></span> Create now</a></li>
-	{% endifequal %}
-	{% ifequal create "create_new" %}
-	<li class="list-group-item-info"><a class='create_new' data-toggle="collapse" data-parent=""><span class="glyphicon glyphicon-plus"></span> Create new</a></li>
-	{% endifequal %}
-	{% ifequal create "" %}
-	<li class="no-select">Sorry, no match found</li>
-	{% endifequal %}
-	{% endcomment %}
+{% for o in objects %}
+	<li class="list-group-item option"><span class="option_value">{{o}}</span></li>
+{% empty %}
+	<li class="list-group-item text-danger disabled">No items found matching your query !</li>
+{% endfor %}

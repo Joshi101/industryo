@@ -4,6 +4,7 @@ from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, Se
 from workplace.models import *
 from nodes.models import Node
 from products.models import Products
+from tags.models import Tags
 from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
 from userprofile.models import User, UserProfile, Workplaces
@@ -125,7 +126,10 @@ def set_tags(request):
             t = wp.set_materials(materials)
         if assets:
             t = wp.set_assets(assets)
-        return HttpResponse()
+        response = {}
+        response['tag'] = render_to_string('snippets/tags.html', {'tags': t})
+
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         return redirect('/user/'+request.user.username)
 
@@ -188,6 +192,8 @@ def workplace_profile(request, slug):
         tags1 = tags['city']
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
+    products = Products.objects.filter(producer=workplace.pk)
+    product_count = products.count()
     workplace_logo_form = SetLogoForm()
 
     return render(request, 'workplace/profile.html', locals())
@@ -222,6 +228,8 @@ def workplace_dash(request, slug):
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
+    r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
+    print(r_assets)
     product_count = products.count()
     workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/snip_dashboard.html', locals())
