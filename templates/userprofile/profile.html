@@ -1,120 +1,138 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
-{% load bootstrap %}
-
 {% load filter %}
 
 {% block title %}{{ userprofile }} | CoreLogs{% endblock title %}
 
-{% block meta_description %}{{page_user.userprofile.experience}}{% endblock meta_description %}
+{% block meta_description %}{{page_user.userprofile.experience|truncatechars_html:75}}{% endblock meta_description %}
+
+{% block meta_og_title %}{{userprofile}}{% endblock meta_og_title %}
+{% block meta_og_description %}{{ page_user.userprofile.experience|truncatechars_html:75 }}{% endblock meta_og_description %}
+{% block meta_og_image %}{{page_user.userprofile.get_profile_image}}{% endblock meta_og_image %}
+{% block meta_og_image_dim %}
+  <meta property="og:image:width" content="128">
+  <meta property="og:image:height" content="128">
+{% endblock meta_og_image_dim %}
+
+{% block page_id %}userprofile{% endblock page_id %}
 
 {% block top %}
   {% include "snippets/top_navigation.html" with what='Users' %}
 {% endblock top %}
 
-{% block left %}
-	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{page_user.userprofile.get_profile_image}}" alt="CoreLogs_Profile-{{userprofile}}"/>
-		{% if page_user == user %}
-		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
-		{% endif %}
-	</div>
+{% block body %}
+<div class="container-fluid">
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_profile_image' form=profile_image_form.image %}
-{% endblock left %}
-
-{% block content %}
 	{% include "messages/new_modal.html" with url='messages:new' %}
-	<div id="info_head" class="row info_head" typeof='Organization' resource='#workplace'>
-    <div class="col-sm-8 info_left">
+	<div id="info_head" class="row info_head">
+		<div class="col-sm-2 col-md-2">
+			<div id="img_profile_box">
+				<img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/user_man.png" data-src="{{page_user.userprofile.get_profile_image}}" alt="{{userprofile}}">
+				{% if page_user == user %}
+				<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal' href="#">Change Image</a>
+				{% endif %}
+			</div>
+		</div>
+    <div class="col-sm-7 info_left">
     	<header class="info_title">
       	<h2 class="text-uppercase" property='name'>{{ userprofile }}</h2>
 			</header>
-      <div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-        <div class="info_field_value" property='addressRegion'>
 			{% if userprofile.primary_workplace %}
-			<h3 class="acc_detail"><a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h3>
-			<h3 class="acc_detail"><small class='small_mid'>Working as: {{ page_user.userprofile.job_position }}</small></h3>
+			<h3 class="acc_detail">{{ page_user.userprofile.job_position }} at <a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h3>
 			{% else %}
-				{% if page_user == request.user %}
-				<h4 class="acc_detail"><a href="{% url "set" %}" class="no_a">Set your Workplace</a></h4>
-				{% else %}
-				<h4 class="acc_detail">No Workplace Defined</h4>
-				{% endif %}
+			<h4 class="acc_detail">No Workplace Defined</h4>
 			{% endif %}
-		</div>
-      </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="info_labels">
         <span class="label label-default">{{userprofile.points}} points</span>
       </div>
 			{% if user.is_authenticated %}
 	  	<div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
-	    	<a class="a_modal"><i class="fa fa-envelope fa-2x" data-toggle='modal' data-target='#msg_modal'></i></a>
+	    	<a class="a_modal" data-toggle='modal' data-target='#msg_modal'><span class="fa fa-envelope"></span>&nbsp; Send a Message</a>
 	  	</div>
 			{% endif %}
   	</div>
- </div>
+ 	</div>
   
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#about">About</a></li>
-    <li><a data-toggle="tab" href="#activity">Activity</a></li>
-  </ul>
-
-  <div class="tab-content">
-    <div id="about" class="tab-pane fade in active">
-      <div class="panel panel-default ajax_andar ajax_papa">
-				<div class="panel-heading">
-					<h3 class="text-muted detail_head">
-						Experience(A small Introduction)
-						{% ifequal page_user request.user %}
-						<form id="experience" class="pull-right" action="{% url 'user:set_experience' %}" method="POST">
-							<button data-content="experience" data-save='' class="btn btn-default btn-xs detail_edit pull-right" name="">Edit</button>
+  <div class="row wp_body">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+		  <ul class="nav nav-tabs">
+		    <li class="active"><a data-toggle="tab" href="#about">About</a></li>
+		    <li><a data-toggle="tab" href="#activity">Activity</a></li>
+		  </ul>
+		  <div class="tab-content">
+		    <div id="about" class="tab-pane fade in active">
+		    	<div id="exp_userp" class="info_field_grp ajax_andar ajax_papa">
+						{% if page_user == request.user %}
+						<form id="exp_userp_form" class="info_form" action="{% url 'user:set_experience' %}" method="POST">
+							<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+							<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+							<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+							{% csrf_token %}
 						</form>
-						{% endifequal %}
-					</h3>
-				</div>
-				<div class="panel-body">
-					<div class="detail_body content_experience">{{page_user.userprofile.experience}}</div>
-					<textarea name="experience" form="experience" rows="3" class="form-control edit_experience hide"></textarea>
-				</div>
-			</div>
-
-			<div class="panel panel-default ajax_andar ajax_papa">
-				<div class="panel-heading">
-					<h3 class="text-muted detail_head">
-						Interests
-						{% ifequal page_user request.user %}
-						(Add your Engineering related intersts)
-						<button data-content="interest" data-save='' class="btn btn-default btn-xs detail_add pull-right" name="">Add</button>
-						{% endifequal %}
-					</h3>
-					
-					<form class="edit_interest d_edit hide" action="{% url 'user:set_interests' %}" method="POST" role="form">
-						{% csrf_token %}
-						{% include "snippets/d_search_tags.html" with search="tag" type="All"  placeholder="Start typing your interest topics" %}
-					</form>
-				</div>
-				<div class="panel-body">
-					<div class="detail_body">
-						{% for interest in page_user.userprofile.get_interests %}
-							{% include 'snippets/one_interest.html' with interest=interest %}
-						{% endfor %}
+						{% endif %}
+						<div class="panel panel-default">
+							<div class="info_field ajax_papa">
+								<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Experience</div>
+	    					<span class="colon">:</span>
+								<div class="info_field_value ">
+									{% if page_user.userprofile.experience %}
+										{{page_user.userprofile.experience|urlize|new_tab|safe}}
+									{% elif user.userprofile in members %}
+										<span class="placeholder">Add a breif description about you for the rest of the world</span>
+									{% else %}
+										<span class="placeholder">No Description Available</span>
+									{% endif %}
+								</div>
+								<div class="info_field_edit hide">
+									<textarea name="experience" form="exp_userp_form" rows="3" class="form-control new_val">{{page_user.userprofile.experience}}</textarea>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-    </div>
-    <div id="activity" class="tab-pane fade ajax_andar ajax_papa">
-  		<div class="ajax_andar feeds">
-		{% include "snippets/figure_modal.html" %}
-		{% include 'nodes/five_nodes.html' with result_list=result_list %}
-		<div class="paginator" data-next_page="2">
-			<h5>Loading more content</h5>
-			<i class="fa fa-spin fa-circle-o-notch"></i>
-		</div>
-		</div> 
-    </div>
-    
+					<div id="interest_userp" class="info_field_grp ajax_andar ajax_papa">
+						{% if page_user == request.user %}
+						<form id="interest_userp_form" class="info_form" action="{% url 'user:set_interests' %}" method="POST">
+							<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+							<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+							<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+							{% csrf_token %}
+						</form>
+						{% endif %}
+						<div class="panel panel-default">
+					    <div class="info_field ajax_papa">
+					    	<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Interests</div>
+					    	<span class="colon">:</span>
+					      <div class="info_field_value">
+					      	{% if page_user.userprofile.get_interests %}
+					      	{% include "snippets/tags.html" with tags=page_user.userprofile.get_interests %}
+					      	{% else %}
+					      	<span class="placeholder">Add your interests in the field of Engineering</span>
+					      	{% endif %}
+					      </div>
+					      {% if page_user == request.user %}
+					      <div class="info_field_edit hide">
+				          {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=page_user.userprofile.get_interests name='interests' d_form='interest_userp_form' %}
+					      </div>
+					      {% endif %}
+					    </div>
+			    	</div>
+					</div>
+		    </div>
+
+		    <div id="activity" class="tab-pane fade ajax_andar ajax_papa">
+		  		<div class="ajax_andar feeds">
+						{% include "snippets/figure_modal.html" %}
+						{% include 'nodes/five_nodes.html' with result_list=result_list %}
+						<div class="paginator" data-next_page="2">
+							<h5>Loading more content</h5>
+							<i class="fa fa-spin fa-circle-o-notch"></i>
+						</div>
+					</div> 
+		    </div>
+		  </div>
+	  </div>
   </div>
-{% endblock %}
+</div>
+{% endblock body %}

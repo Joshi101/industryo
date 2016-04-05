@@ -2186,8 +2186,8 @@ footer .connect li{
 #last_feed {
   padding: 15px 5px;
 
-  border-top: 1px solid #333;
-  border-bottom: 1px solid;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 h4 > .edit_post:hover {

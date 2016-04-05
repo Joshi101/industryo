@@ -154,7 +154,7 @@ def set_interests(request):
         user = request.user
         up = user.userprofile
         type = request.POST.get('type')
-        value = request.POST.get('tag')
+        value = request.POST.get('interests')
         if value:
             t = up.set_interests(value)
         new_interest = t
