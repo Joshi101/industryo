@@ -136,11 +136,9 @@ $("body").on('click', '.one_list .option', function(event) {
         $d_search = $this.closest('.d_search'),
         value = $this.find('.option_value').text();
     d_input_remove_error($this,true,true);
-    $d_search.find('.d_value').val(value);
+    $d_search.find('.d_value').val(value).trigger('change');
     $d_search.find('.d_input').val(value);
-    /*$d_search.find('.one_value').removeClass('hide')
-        .children('span').text(value);
-    $d_search.find('.d_input').addClass('hide');*/
+    
     $this.closest('.dropdown').removeClass('open');
     $d_search.find('.d_menu').css('z-index','auto');
 });
@@ -154,7 +152,7 @@ $('body').on('click', '.many_list .option', function(event) {
     var pre_value = $d_search.find('.d_value').val();        
     if (pre_value !== '')
         pre_value += ',';
-    $d_search.find('.d_value').val(pre_value + value);
+    $d_search.find('.d_value').val(pre_value + value).trigger('change');
     console.log('asd');
     $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
     $this.closest('.dropdown').removeClass('open');
@@ -164,14 +162,14 @@ $('body').on('click', '.many_list .option', function(event) {
 
 $('body').on('click', '.d_search .create', function(){
     d_check = false;
-    console.log('ab create to hoga')
+    console.log('ab create to hoga');
     var $d_search = $(this).closest('.d_search'),
         value = $d_search.find('.d_input').val();
     d_input_remove_error($(this),true,true);
     var pre_value = $d_search.find('.d_value').val();
     if (pre_value !== '')
         pre_value += ',';
-    $d_search.find('.d_value').val(pre_value + value);
+    $d_search.find('.d_value').val(pre_value + value).trigger('change');
     $d_search.find('.input_tags').append('<div class="tag"><a class="close">&times;</a><span class="value">' + value +'</span></div>');
     $(this).closest('.dropdown').removeClass('open');
     $d_search.find('.d_menu').css('z-index','auto');
@@ -1873,3 +1871,28 @@ $("body").on('click', '.active_li a', function(){
     $('.active_li').find('.active').removeClass('active');
     $(this).closest('li').addClass('active');
 });
+
+$('body').on('change', '.dashboard .form_instant .d_value', function(){
+    ajx_form($(this).closest('form'), tagAdded, showFailureModal);
+});
+
+$('body').on('click', '.suggestions .add_now', function(){
+    var $form = $($(this).closest('.suggestions').data('form'));
+    $form.find('.d_value').val($(this).closest('.tag_suggest_box').find('.value').text());
+    ajx_form($form, tagAdded, showFailureModal);
+});
+
+function tagAdded($form, response){
+    showSuccessModal($form);
+    console.log(response.tag);
+    var tag_c = parseInt($form.data('targettags'));
+    var count_c = parseInt($form.data('targetcount'));
+    console.log(tag_c,count_c);
+    for (var i = tag_c; i >= 0; i--) {
+        $($form.data('target')+"_tags_"+i).append(response.tag);
+    }
+    for (var i = count_c; i >= 0; i--) {
+        count = parseInt($($form.data('target')+"_count_"+i).text()) + 1;
+        $($form.data('target')+"_count_"+i).text(count);
+    }
+}

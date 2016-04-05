@@ -1,0 +1,11 @@
+{% for tag in tags %}
+	<div class="tag_suggest">
+		<div class="tag_suggest_box">
+			<a class="add_now"><span class="fa fa-plus inline_fa"></span>Add Now</a>
+			<img class="lazy_img" src="/images/image.png" data-src="{{tag.logo}}" alt="{{tag}}">
+		<div class="tag_suggest_title">
+			<a class="value" href="{% url 'tags:get_tag' tag.slug %}" title="{% if tag.description %}{{tag.description|truncatewords:25}}{% else %}No description available{% endif %}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+		</div>
+		</div>
+	</div>
+{% endfor %}

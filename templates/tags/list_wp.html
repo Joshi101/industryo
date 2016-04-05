@@ -7,11 +7,3 @@
 {% empty %}
 	<li class="list-group-item option"><span class="text-info option_type">Wow! You seem to be the first one from <span class="option_value text-success">{{query}}</span> :-)</span><br><span class="text-muted option_type">Type the name in full and continue, we'll create it for you</span></li>
 {% endfor %}
-	{% comment %}
-	{% ifequal create "create_new" %}
-	<li class="list-group-item-info"><a class='create_new' data-toggle="collapse" data-parent=""><span class="glyphicon glyphicon-plus"></span> Create new</a></li>
-	{% endifequal %}
-	{% ifequal create "" %}
-	<li class="no-select">Sorry, no match found</li>
-	{% endifequal %}
-	{% endcomment %}	

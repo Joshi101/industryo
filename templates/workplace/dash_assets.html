@@ -1,0 +1,50 @@
+<div class="panel info">
+	<div class="panel-body">
+		<h4>Assets at {{workplace.name}}</h4>
+		<span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
+		<div id="assets_dash_tags_1" class="tags_detailed">
+			{% if workplace.get_tags.assets %}
+	  		{% include "snippets/tags.html" with tags=workplace.get_tags.assets %}
+	  	{% endif %}
+		</div>
+	</div>
+</div>
+<div class="panel info">
+	<div class="panel-body">
+		<h5 class="form_head">Add all the Assets belonging to <strong>{{workplace.name}}</strong></h5>
+		<form id="assets_dash_form" class="form_lg form_instant" action="{% url 'workplace:set_tags' %}" method="POST" data-target="#assets_dash" data-targettags="1" data-targetcount="2">
+		  {% include "snippets/d_search.html" with search="tag" type='A' no_tags=True name='assets' placeholder="Search for Assets &amp; Machinery" %}
+			{% csrf_token %}
+		</form>
+	</div>
+</div>
+<div class="suggestions_box">
+	<div class="heading">Suggested Assets for your Workplace</div>
+	<div class="suggestions" data-form="#assets_dash_form">
+		{% include "snippets/tags_suggest.html" with tags=r_assets %}
+	</div>
+</div>
+<div id="assets_dash_form_succModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="text-success text-center">Asset added successfully!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="assets_dash_form_errModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="text-danger text-center">Sorry! Something went wrong. Try again later.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

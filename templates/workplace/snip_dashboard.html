@@ -1,10 +1,8 @@
-<div class="panel panel-success info">
-	</div>
 <div class="row dashboard">
 	<div class="col-sm-4">
 		<div id="dash_side">
 			<ul class="nav nav-pills nav-stacked">
-				<li class="active">
+				<li>
 					<a data-toggle="pill" href="#dash_info">
 						Basic Info
 						{% if user.userprofile in members %}
@@ -20,10 +18,10 @@
 				</li>
 				<li>
 					<a data-toggle="pill" href="#dash_people">
-						My Colleagues
+						My Network
 						{% if user.userprofile in members %}
 			      <div class="prog">
-			        <span class="progress-text">7 people</span>
+			        <span class="progress-text">{{member_count}} people</span>
 			        <div class="progress">
 			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
 			          </div>
@@ -37,7 +35,7 @@
 						Products Listing
 						{% if user.userprofile in members %}
 			      <div class="prog">
-			        <span class="progress-text">7 products added</span>
+			        <span class="progress-text">{{product_count}} products added</span>
 			        <div class="progress">
 			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
 			          </div>
@@ -46,12 +44,12 @@
 			      {% endif %}
 					</a>
 				</li>
-				<li>
-					<a data-toggle="pill" href="">
+				<li class="active">
+					<a data-toggle="pill" href="#dash_assets">
 						Assets or Machinery
 						{% if user.userprofile in members %}
 			      <div class="prog">
-			        <span class="progress-text">7 assets</span>
+			        <span id="assets_dash_count_2" class="progress-text">{{workplace.get_tags.assets|length}} assets</span>
 			        <div class="progress">
 			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
 			          </div>
@@ -61,8 +59,8 @@
 					</a>
 				</li>
 				<li>
-					<a data-toggle="pill" href="">
-						Segements
+					<a data-toggle="pill" href="#dash_segments">
+						Segments
 						{% if user.userprofile in members %}
 			      <div class="prog">
 			        <span class="progress-text">My Company lies in</span>
@@ -75,7 +73,7 @@
 					</a>
 				</li>
 				<li>
-					<a data-toggle="pill" href="">
+					<a data-toggle="pill" href="#dash_operations">
 						Operations
 						{% if user.userprofile in members %}
 			      <div class="prog">
@@ -94,7 +92,7 @@
 	<div class="col-sm-8">
 		<div id="dash_content">
 			<div class="tab-content">
-			  <div id="dash_info" class="tab-pane fade in active">
+			  <div id="dash_info" class="tab-pane fade">
 			    {% include "workplace/dash_about.html" %}
 			  </div>
 			  <div id="dash_people" class="tab-pane fade">
@@ -102,6 +100,15 @@
 			  </div>
 			  <div id="dash_products" class="tab-pane fade">
 			    {% include "workplace/dash_products.html" %}
+			  </div>
+			  <div id="dash_assets" class="tab-pane fade in active">
+			    {% include "workplace/dash_assets.html" %}
+			  </div>
+			  <div id="dash_segments" class="tab-pane fade">
+			    {% include "workplace/dash_segments.html" %}
+			  </div>
+			  <div id="dash_operations" class="tab-pane fade">
+			    {% include "workplace/dash_operations.html" %}
 			  </div>
 			</div>
 		</div>
