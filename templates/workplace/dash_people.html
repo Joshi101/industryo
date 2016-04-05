@@ -1,15 +1,18 @@
 {% if user.userprofile in members %}
 	<div class="panel info">
 		<div class="panel-body">
-			<h4>Members at {{workplace.name}}</h4>
 			<span class="number text-success">{{member_count}}</span>
+			{% if member_count == 1 %}<p>Member registered (Only You) from your {{workplace.get_type_short}}</p>
+			{% else %}<p>Members registered from your {{workplace.get_type_short}}</p>
+			{% endif %}
+			<p>Other People from Your {{workplace.get_type_short}} can also be a part like you and help you maintain the Profile. Invite them.</p>
 		</div>
 	</div>
 	<div class="panel info">
 		<div class="panel-body">
-			<h5 class="form_head text-center">
-				Invite your colleagues to join <strong>{{ workplace.name }} at CoreLogs</strong>
-			</h5>
+			<h4 class="form_head text-center">
+				Invite your colleagues to be a part of this Group</strong>
+			</h4>
 			<form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
 			{% csrf_token %}
 				<div class="form-group">

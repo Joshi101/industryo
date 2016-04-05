@@ -316,6 +316,84 @@ class Workplace(models.Model):
         elif self.workplace_type == 'O':
             return "Educational Institution"
 
+    def get_type_short(self):
+        if self.workplace_type == 'A':
+            return "Company"
+        elif self.workplace_type == 'B':
+            return "SME"
+        elif self.workplace_type == 'C':
+            return "Team"
+        elif self.workplace_type == 'O':
+            return "Institution"
+
+    def get_member_score(self):
+        member_count = self.get_count()
+        if member_count < 2:
+            n = 20
+        elif member_count in range(2, 5):
+            n = 40
+        elif member_count in range(5, 10):
+            n = 60
+        elif member_count in range(10, 20):
+            n = 80
+        else:
+            n = 100
+        return n
+
+    def get_info_score(self):
+        li = [self.contact, self.mobile_contact1, self.mobile_contact2, self.website, self.fb_page,
+          self.linkedin_page, self.address, self.office_mail_id]
+        a = list(filter(lambda x: x!='None', li))
+        b = list(filter(lambda x: x!=None, a))
+        m = len(b)
+        n = m*10
+        return n
+
+    def get_operation_score(self):
+        a = self.wptags.filter(type='O')
+        m=len(a)
+        if m < 2:
+            n = 20
+        elif m in range(2, 4):
+            n = 40
+        elif m in range(5, 8):
+            n = 60
+        elif m in range(9, 14):
+            n = 80
+        else:
+            n = 100
+        return n
+
+    def get_asset_score(self):
+        a = self.wptags.filter(type='A')
+        m=len(a)
+        if m < 2:
+            n = 20
+        elif m in range(2, 4):
+            n = 40
+        elif m in range(5, 8):
+            n = 60
+        elif m in range(9, 14):
+            n = 80
+        else:
+            n = 100
+        return n
+
+    def get_product_score(self):
+        a = self.products_set.all()
+        m=len(a)
+        if m < 2:
+            n = 20
+        elif m in range(2, 4):
+            n = 40
+        elif m in range(5, 8):
+            n = 60
+        elif m in range(9, 14):
+            n = 80
+        else:
+            n = 100
+        return n
+
 
 class WpTags(models.Model):
     workplace = models.ForeignKey(Workplace, related_name='w_tags')

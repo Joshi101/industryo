@@ -1,8 +1,12 @@
 {% if request.user.userprofile in members %}
 <div class="panel info">
 	<div class="panel-body">
-		<h4>Products Listed by {{ workplace.name }}</h4>
 		<span class="number text-success">{{product_count}}</span>
+		{% if product_count == 0 %}<p>No Products / Services listed from your {{workplace.get_type_short}}. Why?</p>
+		{% elif product_count < 5 %}<p>Only {{product_count}} products isted from your {{workplace.get_type_short}}. List More.</p>
+		{% else %}<p>Products isted from your {{workplace.get_type_short}}. List More.</p>
+		{% endif %}
+		<p>Products you list here are featured in the marketplace on which you can get direct Inquiries. Also, your {{workplace.get_type_short}} profile gets stronger<p>
 	</div>
 </div>
 <div class="text-center ">
