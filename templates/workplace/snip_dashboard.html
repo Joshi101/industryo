@@ -1,81 +1,60 @@
+{% if user.userprofile in members %}
 <div class="row dashboard">
 	<div class="col-sm-4">
 		<div id="dash_side">
 			<ul class="nav nav-pills nav-stacked">
 				<li>
 					<a data-toggle="pill" href="#dash_info">
-						Basic Info
-						{% if user.userprofile in members %}
+						My {{workplace.get_type_short}}'s Basic Info
 			      <div class="prog">
 			        <span class="progress-text">7 / 10 complete</span>
 			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="10" data-percent="20">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
 			          </div>
 			        </div>
 			      </div>
-			      {% endif %}
+					</a>
+				</li>
+				
+				<li>
+					<a data-toggle="pill" href="#dash_products">
+						Products / Services
+			      <div class="prog">
+			        <span class="progress-text">{{product_count}} products added</span>
+			        <div class="progress">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_product_score}}">
+			          </div>
+			        </div>
+			      </div>
 					</a>
 				</li>
 				<li>
 					<a data-toggle="pill" href="#dash_people">
-						My Network
-						{% if user.userprofile in members %}
+						My Colleagues
 			      <div class="prog">
 			        <span class="progress-text">{{member_count}} people</span>
 			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_member_score}}">
 			          </div>
 			        </div>
 			      </div>
-			      {% endif %}
-					</a>
-				</li>
-				<li>
-					<a data-toggle="pill" href="#dash_products">
-						Products Listing
-						{% if user.userprofile in members %}
-			      <div class="prog">
-			        <span class="progress-text">{{product_count}} products added</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
-			          </div>
-			        </div>
-			      </div>
-			      {% endif %}
 					</a>
 				</li>
 				<li class="active">
 					<a data-toggle="pill" href="#dash_assets">
 						Assets or Machinery
-						{% if user.userprofile in members %}
 			      <div class="prog">
 			        <span id="assets_dash_count_2" class="progress-text">{{workplace.get_tags.assets|length}} assets</span>
 			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_asset_score}}">
 			          </div>
 			        </div>
 			      </div>
-			      {% endif %}
-					</a>
-				</li>
-				<li>
-					<a data-toggle="pill" href="#dash_segments">
-						Segments
-						{% if user.userprofile in members %}
-			      <div class="prog">
-			        <span class="progress-text">My Company lies in</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
-			          </div>
-			        </div>
-			      </div>
-			      {% endif %}
 					</a>
 				</li>
 				<li>
 					<a data-toggle="pill" href="#dash_operations">
 						Operations
-						{% if user.userprofile in members %}
 			      <div class="prog">
 			        <span class="progress-text">My Company Performs</span>
 			        <div class="progress">
@@ -83,9 +62,21 @@
 			          </div>
 			        </div>
 			      </div>
-			      {% endif %}
 					</a>
 				</li>
+				<li>
+					<a data-toggle="pill" href="#dash_segments">
+						Segments
+			      <div class="prog">
+			        <span class="progress-text">My Company lies in</span>
+			        <div class="progress">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
+			          </div>
+			        </div>
+			      </div>
+					</a>
+				</li>
+				
 			</ul>
 		</div>
 	</div>
@@ -114,6 +105,7 @@
 		</div>
 	</div>
 </div>
+{% endif %}
 <script type="text/javascript">
 	$('.progress-bar').each(function(){
 	    var w = $(this).data("percent");

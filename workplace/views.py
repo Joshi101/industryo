@@ -171,6 +171,33 @@ def set_tags_short(request):
         return redirect('/user/'+request.user.username)
 
 
+# def workplace_profile(request, slug):
+#     workplace = Workplace.objects.get(slug=slug)
+#     tags = workplace.get_tags()
+#     type = workplace.workplace_type
+#     if type == 'C':
+#         tags1 = tags['city']
+#         tags2 = tags['segments']
+#         tags3 = tags['institution']
+#         b_type = 'P'
+#     elif type == 'B':
+#         tags1 = tags['city']
+#         tags2 = tags['segments']
+#         b_type = 'S'
+#     elif type == 'A':
+#         tags1 = tags['city']
+#         tags2 = tags['segments']
+#         b_type = 'S'
+#     elif type == 'O':
+#         tags1 = tags['city']
+#     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+#     member_count = members.count()
+#     products = Products.objects.filter(producer=workplace.pk)
+#     product_count = products.count()
+#     workplace_logo_form = SetLogoForm()
+#     workplace_dash(request, slug)
+#     return render
+
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     tags = workplace.get_tags()
@@ -195,6 +222,11 @@ def workplace_profile(request, slug):
     products = Products.objects.filter(producer=workplace.pk)
     product_count = products.count()
     workplace_logo_form = SetLogoForm()
+    member_count = members.count()
+    products = Products.objects.filter(producer=workplace.pk)
+    r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
+
+
 
     return render(request, 'workplace/profile.html', locals())
 
@@ -226,12 +258,32 @@ def workplace_about(request, slug):
 def workplace_dash(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    workplace_logo_form = SetLogoForm()
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
     print(r_assets)
+    if member_count < 2:
+        n=1
+    elif member_count in range(2,5):
+        n = 2
+    elif member_count in range(5,10):
+        n=3
+    elif member_count in range(10, 20):
+        n=4
+    else:
+        n=5
+
+    li = [workplace.contact, workplace.mobile_contact1, workplace.website, workplace.fb_page,
+          workplace.linkedin_page, workplace.address, workplace.office_mail_id]
+    a = list(filter(lambda x: x!='None', li))
+    b = list(filter(lambda x: x!=None, a))
+    m = len(b)
+    print(m)
+
+    # o = workplace.get_tags.operations
+    # print(len(o))
     product_count = products.count()
-    workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 
@@ -265,34 +317,34 @@ def workplace_activity(request, slug):
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 
-# def activity(request, slug):                              In Place of dashboard
-#     workplace = Workplace.objects.get(slug=slug)
-#     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-#     member_count = members.count()
-#     workplace_logo_form = SetLogoForm()
-#     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-#     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
-#     feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
-#     articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
-#     # return render(request, 'workplace/snip_dashboard.html', locals())
-#     all_result_list = sorted(
-#         chain(feeds, questions, answers, articles),
-#         key=attrgetter('date'), reverse=True)
-#     paginator = Paginator(all_result_list, 5)
-#     page = request.GET.get('page')
-#     try:
-#         result_list = paginator.page(page)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         result_list = paginator.page(1)
-#     except EmptyPage:
-#                 # If page is out of range (e.g. 9999), deliver last page of results.
-#         return
-#                 # result_list = paginator.page(paginator.num_pages)
-#     if page:
-#         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
-#     else:
-#         return render(request, 'workplace/snip_dashboard.html', locals())
+def activity(request, slug):                             # In Place of dashboard
+    workplace = Workplace.objects.get(slug=slug)
+    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
+    member_count = members.count()
+    workplace_logo_form = SetLogoForm()
+    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
+    answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
+    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
+    articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
+    # return render(request, 'workplace/snip_dashboard.html', locals())
+    all_result_list = sorted(
+        chain(feeds, questions, answers, articles),
+        key=attrgetter('date'), reverse=True)
+    paginator = Paginator(all_result_list, 5)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+                # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
+    else:
+        return render(request, 'workplace/snip_dashboard.html', locals())
 
 
 def workplace_capabilities(request, slug):

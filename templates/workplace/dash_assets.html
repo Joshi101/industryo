@@ -1,17 +1,13 @@
 <div class="panel info">
 	<div class="panel-body">
-		<h4>Assets at {{workplace.name}}</h4>
 		<span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
-		<div id="assets_dash_tags_1" class="tags_detailed">
-			{% if workplace.get_tags.assets %}
-	  		{% include "snippets/tags.html" with tags=workplace.get_tags.assets %}
-	  	{% endif %}
-		</div>
+		<p>Assets &amp; Machinery listed. Add more.</p>
+		<p>People can find your {{workplace.get_type_short}} based on machinery &amp; assets you list.</p>
 	</div>
 </div>
 <div class="panel info">
 	<div class="panel-body">
-		<h5 class="form_head">Add all the Assets belonging to <strong>{{workplace.name}}</strong></h5>
+		<h5 class="form_head">Add Assets / Machinery</h5>
 		<form id="assets_dash_form" class="form_lg form_instant" action="{% url 'workplace:set_tags' %}" method="POST" data-target="#assets_dash" data-targettags="1" data-targetcount="2">
 		  {% include "snippets/d_search.html" with search="tag" type='A' no_tags=True name='assets' placeholder="Search for Assets &amp; Machinery" %}
 			{% csrf_token %}
