@@ -394,6 +394,11 @@ class Workplace(models.Model):
             n = 100
         return n
 
+    def get_new_enq_count(self):
+        a = self.enquiry_set.filter(seen=False)
+        m = len(a)
+        return m
+
 
 class WpTags(models.Model):
     workplace = models.ForeignKey(Workplace, related_name='w_tags')

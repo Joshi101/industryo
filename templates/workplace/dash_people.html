@@ -2,9 +2,9 @@
 	<div class="panel info">
 		<div class="panel-body">
 			<span class="number text-success">{{member_count}}</span>
-			{% if member_count == 1 %}<p>Member registered (Only You) from your {{workplace.get_type_short}}</p>
-			{% else %}<p>Members registered from your {{workplace.get_type_short}}</p>
-			{% endif %}
+			<span class="text">{% if member_count == 1 %}Member registered (Only You) from your {{workplace.get_type_short}}
+			{% else %}Members registered from your {{workplace.get_type_short}}
+			{% endif %}</span>
 			<p>Other People from Your {{workplace.get_type_short}} can also be a part like you and help you maintain the Profile. Invite them.</p>
 		</div>
 	</div>

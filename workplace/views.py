@@ -231,8 +231,7 @@ def workplace_profile(request, slug):
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
-
-
+    # enq_count =
 
     return render(request, 'workplace/profile.html', locals())
 

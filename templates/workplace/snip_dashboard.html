@@ -1,11 +1,37 @@
+{% load filter %}
 {% if user.userprofile in members %}
 <div class="row dashboard">
 	<div class="col-sm-4">
 		<div id="dash_side">
 			<ul class="nav nav-pills nav-stacked">
 				<li>
+					<a data-toggle="pill" href="#dash_all">
+						Meter
+			      <div class="active">
+			        <div class="progress">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
+			          </div>
+			        </div>
+			      </div>
+					</a>
+				</li>
+
+				<li>
 					<a data-toggle="pill" href="#dash_info">
 						My {{workplace.get_type_short}}'s Basic Info
+			      <div class="prog">
+			        <span class="progress-text">7 / 10 complete</span>
+			        <div class="progress">
+			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
+			          </div>
+			        </div>
+			      </div>
+					</a>
+				</li>
+
+				<li>
+					<a data-toggle="pill" href="#dash_contact">
+						My {{workplace.get_type_short}}'s Contact Info
 			      <div class="prog">
 			        <span class="progress-text">7 / 10 complete</span>
 			        <div class="progress">
@@ -40,7 +66,7 @@
 			      </div>
 					</a>
 				</li>
-				<li class="active">
+				<li class="prog">
 					<a data-toggle="pill" href="#dash_assets">
 						Assets or Machinery
 			      <div class="prog">
@@ -70,8 +96,14 @@
 	<div class="col-sm-8">
 		<div id="dash_content">
 			<div class="tab-content">
+			  <div id="dash_all" class="tab-pane fade in active">
+			    {% include "workplace/dash_all.html" %}
+			  </div>
 			  <div id="dash_info" class="tab-pane fade">
 			    {% include "workplace/dash_about.html" %}
+			  </div>
+			  <div id="dash_contact" class="tab-pane fade">
+			    {% include "workplace/dash_contact.html" %}
 			  </div>
 			  <div id="dash_people" class="tab-pane fade">
 			    {% include "workplace/dash_people.html" %}
@@ -79,7 +111,7 @@
 			  <div id="dash_products" class="tab-pane fade">
 			    {% include "workplace/dash_products.html" %}
 			  </div>
-			  <div id="dash_assets" class="tab-pane fade in active">
+			  <div id="dash_assets" class="tab-pane fade">
 			    {% include "workplace/dash_assets.html" %}
 			  </div>
 			  <div id="dash_ops" class="tab-pane fade">
@@ -89,6 +121,59 @@
 		</div>
 	</div>
 </div>
+{% else %}
+<div class="panel panel-default">
+			<div class="info_field v2 ajax_papa">
+				<div class="info_field_value ">
+					{% if workplace.about %}
+						{{workplace.about|urlize|new_tab|safe}}
+					{% elif user.userprofile in members %}
+						<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>
+					{% else %}
+						<i class="text-muted text-center center-block">No Description Available</i>
+					{% endif %}
+				</div>
+				<div class="info_field_edit hide">
+					<textarea name="about" form="about_wp_form" rows="3" class="form-control new_val">{{workplace.about}}</textarea>
+				</div>
+			</div>
+		</div>
+
+<div class="panel info">
+	<div class="panel-body">
+    <h3 class="dash_stat_big">
+      <span id="assets_dash_count_1" class="number text-success">{{product_count}}</span>
+      <span class="text">Products</span>
+    </h3>
+	</div>
+</div>
+<div class="panel info">
+	<div class="panel-body">
+    <h3 class="dash_stat_big">
+      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
+      <span class="text">Assets &amp; Machinery</span>
+    </h3>
+	</div>
+</div>
+<div class="panel info">
+	<div class="panel-body">
+    <h3 class="dash_stat_big">
+      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.operations|length}}</span>
+      <span class="text">Operations</span>
+    </h3>
+	</div>
+</div>
+
+<div class="panel info">
+	<div class="panel-body">
+    <h3 class="dash_stat_big">
+      <span id="assets_dash_count_1" class="number text-success">{{member_count}}</span>
+      <span class="text">People</span>
+    </h3>
+	</div>
+</div>
+
+
 {% endif %}
 <script type="text/javascript">
 	$('.progress-bar').each(function(){
@@ -97,3 +182,4 @@
 	    $(this).css("width", w + "%");
 	});
 </script>
+
