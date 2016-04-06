@@ -120,12 +120,18 @@ def set_tags(request):
         operations = request.POST.get('operations')
         materials = request.POST.get('materials')
         assets = request.POST.get('assets')
+        city = request.POST.get('çity')
+        segment = request.POST.get('segment')
         if operations:
             t = wp.set_operations(operations)
         if materials:
             t = wp.set_materials(materials)
         if assets:
             t = wp.set_assets(assets)
+        if city:
+            t = wp.set_city(city)
+        if segment:
+            t = wp.set_segments(segment)
         response = {}
         response['tag'] = render_to_string('snippets/tags.html', {'tags': t})
 

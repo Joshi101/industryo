@@ -3360,6 +3360,10 @@ footer .contact li{
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
+.solid{
+  box-shadow: 0 0 0;
+}
+
 .prod_categories{
   //background: #f5f5f5;
   padding: 5px;
@@ -3790,8 +3794,10 @@ footer .contact li{
   font-size: 1.5em;
 }
 
-#dash_content .number{
+.dash_stat_big{
+  margin: 0;
   font-size: 2em;
+  font-family:"Lora";
 }
 
 .dashboard{
@@ -3826,6 +3832,7 @@ footer .contact li{
 .suggestions_box{
   
   padding: 10px;
+  margin-top: 15px;
 }
 
 .suggestions_box .heading{
@@ -3897,4 +3904,13 @@ footer .contact li{
   font-weight: bold;
   font-size: 14px;
   padding: 2px 7px;
+}
+
+.dash_form_box{
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.dash_form_box input{
+  text-align: center;
 }
