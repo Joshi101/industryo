@@ -31,7 +31,7 @@ urlpatterns = patterns('',
     url(r'^edit_contacts/$', 'workplace.views.edit_contacts', name='edit_contacts'),        # aur ye
 
     url(r'^about/(?P<slug>[^/]+)/$', 'workplace.views.workplace_about', name='about'),
-    url(r'^activity/(?P<slug>[^/]+)/$', 'workplace.views.workplace_activity', name='activity'),
+    url(r'^activity/(?P<slug>[^/]+)/$', 'workplace.views.activity', name='activity'),
     url(r'^dashboard/(?P<slug>[^/]+)/$', 'workplace.views.workplace_dash', name='dashboard'),
     url(r'^capabilities/(?P<slug>[^/]+)/$', 'workplace.views.workplace_capabilities', name='capabilities'),
     url(r'^members/(?P<slug>[^/]+)/$', 'workplace.views.workplace_members', name='members'),

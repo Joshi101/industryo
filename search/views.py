@@ -8,6 +8,9 @@ from forum.models import Question
 from nodes.models import Node
 
 
+def search(request):
+    pass
+
 def searchq(request):   # active
     querystring = request.GET.get('the_query').strip()
     terms = None

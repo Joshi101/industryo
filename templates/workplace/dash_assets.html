@@ -6,10 +6,12 @@
     </h3>
 	</div>
 </div>
-<div class="dash_form_box">
-  <h5 class="form_head">
+<div class="alert alert-info">
+  <p>
     Add more Assets of {{workplace.name}}. People can find your {{workplace.get_type_short}} based on the machinery &amp; assets you list.
-  </h5>
+  </p>
+</div>
+<div class="dash_form_box">
 	<form id="assets_dash_form" class="form_lg form_instant" action="{% url 'workplace:set_tags' %}" method="POST" data-target="#assets_dash" data-targettags="1" data-targetcount="2">
 	  {% include "snippets/d_search.html" with search="tag" type='A' no_tags=True name='assets' placeholder="Search for Assets &amp; Machinery" %}
 		{% csrf_token %}

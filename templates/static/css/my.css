@@ -2477,7 +2477,6 @@ footer .contact li{
   border-bottom: 1px solid #eee;
   margin: 10px;
   padding-bottom: 10px;
-  font-size: 13px;
 }
 
 .info_field:last-of-type{
@@ -2491,6 +2490,7 @@ footer .contact li{
   min-width: 150px;
   vertical-align: top;
   padding-left: 25px;
+  /*! width: 50%; */
 }
 
 .info_field_label .fa{
@@ -2508,8 +2508,9 @@ footer .contact li{
 .info_field_value, .info_field_edit{
   display: table-cell;
   width: 100%;
-  //min-width: 250px;
+  min-width: 250px;
   vertical-align: middle;
+  font-family: "PT Sans";
 }
 
 @media(max-width:500px){
@@ -3737,9 +3738,12 @@ footer .contact li{
 
 #dash_side a{
   display: block;
-  /*! margin-bottom: 20px; */
   border-bottom: 0;
-  /*! border-radius: 4px; */
+}
+
+#dash_side a.padded{
+  padding: 15px 20px;
+  font-size: 1.1em;
 }
 
 #dash_side a.active{
@@ -3785,8 +3789,12 @@ footer .contact li{
   }
 }
 
+.dashboard .alert{
+  /*! padding: 5px 15px; */
+}
+
 .form_head{
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   /*! text-align: center; */
 }
 
@@ -3796,8 +3804,15 @@ footer .contact li{
 
 .dash_stat_big{
   margin: 0;
-  font-size: 2em;
-  font-family:"Lora";
+  font-size: 1.5em;
+  /*! font-family:"Lora"; */
+}
+
+.dash_stat_big .number{
+  display: inline-block;
+  width: 25px;
+  margin-right: 5px;
+  text-align: center;
 }
 
 .dashboard{
@@ -3832,7 +3847,7 @@ footer .contact li{
 .suggestions_box{
   
   padding: 10px;
-  margin-top: 15px;
+  /*! margin-top: 15px; */
 }
 
 .suggestions_box .heading{
@@ -3908,9 +3923,15 @@ footer .contact li{
 
 .dash_form_box{
   padding: 5px 10px;
-  text-align: center;
+  /*! text-align: center; */
+  margin-bottom: 25px;
 }
 
 .dash_form_box input{
   text-align: center;
+}
+
+.info_field_pseudo .info_field_label, .info_field_pseudo .info_field_value{
+  display: block;
+  padding-left: 25px;
 }

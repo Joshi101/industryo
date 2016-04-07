@@ -1,18 +1,15 @@
 {% load filter %}
 {% if user.userprofile in members %}
+<div class="alert alert-info">
+	<p><span class="fa fa-hand-o-down"></span>&nbsp;&nbsp; Click on an option for a quick review and update of {{workplace.name}}'s profile</p>
+</div>
 <div class="row dashboard">
 	<div class="col-sm-4">
 		<div id="dash_side">
 			<ul class="nav nav-pills nav-stacked">
-				<li>
-					<a data-toggle="pill" href="#dash_all">
-						Meter
-			      <div class="active">
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
-			          </div>
-			        </div>
-			      </div>
+				<li class="active">
+					<a class="padded" data-toggle="pill" href="#dash_all">
+						<strong>Summary</strong>
 					</a>
 				</li>
 
@@ -123,56 +120,116 @@
 </div>
 {% else %}
 <div class="panel panel-default">
-			<div class="info_field v2 ajax_papa">
-				<div class="info_field_value ">
-					{% if workplace.about %}
-						{{workplace.about|urlize|new_tab|safe}}
-					{% elif user.userprofile in members %}
-						<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>
-					{% else %}
-						<i class="text-muted text-center center-block">No Description Available</i>
-					{% endif %}
-				</div>
-				<div class="info_field_edit hide">
-					<textarea name="about" form="about_wp_form" rows="3" class="form-control new_val">{{workplace.about}}</textarea>
-				</div>
+	<div class="info_field v2 ajax_papa">
+		<div class="info_field_value ">
+			{% if workplace.about %}
+				{{workplace.about|urlize|new_tab|safe}}
+			{% else %}
+				<i class="text-muted text-center center-block">No Description Available</i>
+			{% endif %}
+		</div>
+		<div class="info_field_edit hide">
+			<textarea name="about" form="about_wp_form" rows="3" class="form-control new_val">{{workplace.about}}</textarea>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-5 col-sm-push-7">
+		<div class="info_field_pseudo">
+			<div class="panel panel-default">
+				<div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-globe fa-fw"></span>Website</div>
+		      <div class="info_field_value">{{workplace.website|urlize|new_tab|safe}}</div>
+		    </div>
+		    <div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-map-signs fa-fw"></span>Address</div>
+		      <div class="info_field_value">{{workplace.address}}</div>
+		    </div>
+			{% if not workplace.workplace_type == 'O' %}
+				<div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 1</div>
+		      <div class="info_field_value">{{workplace.contact}}</div>
+		    </div>
+				<div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 2</div>
+		      <div class="info_field_value">{{workplace.mobile_contact1}}</div>
+		    </div>
+				<div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-envelope-o fa-fw"></span>E-Mail (office)</div>
+		      <div class="info_field_value">{{workplace.office_mail_id|urlize|new_tab|safe}}</div>
+		    </div>
+			{% endif %}
+				<div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-linkedin fa-fw"></span>LinkedIn Page</div>
+		      <div class="info_field_value">{{workplace.linkedin_page|urlize|new_tab|safe}}</div>
+		    </div>
+				<div class="info_field ajax_papa">
+					<div class="info_field_label"><span class="fa fa-facebook-official fa-fw"></span>Facebook Page</div>
+		      <div class="info_field_value">{{workplace.fb_page|urlize|new_tab|safe}}</div>
+		    </div>
 			</div>
 		</div>
-
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{product_count}}</span>
-      <span class="text">Products</span>
-    </h3>
+	</div>
+	<div class="col-sm-7 col-sm-pull-5">
+		<div class="panel info">
+			<div class="panel-body">
+	    	<p><span class="fa fa-map-marker fa-fw"></span>&nbsp;Cities of operatation</p>
+	      <div class="info_field_value">
+	      	{% if workplace.get_tags.city %}
+	      	{% include "snippets/tags.html" with tags=workplace.get_tags.city %}
+	      	{% else %}
+	      	<span class="placeholder">Not Available</span>
+	      	{% endif %}
+	      </div>
+	    </div>
+    </div>
+    <div class="panel info">
+			<div class="panel-body">
+	    	<p><span class="fa fa-tags fa-fw"></span>&nbsp;Segments</p>
+	      <div class="info_field_value">
+	      	{% if workplace.get_tags.segments %}
+		      	{% include "snippets/tags.html" with tags=workplace.get_tags.segments %}
+	      	{% else %}
+	      	<span class="placeholder">Not Available</span>
+	      	{% endif %}
+	      </div>
+	    </div>
+    </div>
+		<div class="panel info">
+			<div class="panel-body">
+		    <h3 class="dash_stat_big">
+		      <span id="assets_dash_count_1" class="number text-success">{{product_count}}</span>
+		      <span class="text">Products Listed</span>
+		    </h3>
+			</div>
+		</div>
+		<div class="panel info">
+			<div class="panel-body">
+		    <h3 class="dash_stat_big">
+		      <span id="assets_dash_count_1" class="number text-success">{{member_count}}</span>
+		      <span class="text">People in Company</span>
+		    </h3>
+			</div>
+		</div>
+		<div class="panel info">
+			<div class="panel-body">
+		    <h3 class="dash_stat_big">
+		      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
+		      <span class="text">Assets &amp; Machinery</span>
+		    </h3>
+			</div>
+		</div>
+		<div class="panel info">
+			<div class="panel-body">
+		    <h3 class="dash_stat_big">
+		      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.operations|length}}</span>
+		      <span class="text">Operations Performed</span>
+		    </h3>
+			</div>
+		</div>
 	</div>
 </div>
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
-      <span class="text">Assets &amp; Machinery</span>
-    </h3>
-	</div>
-</div>
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.operations|length}}</span>
-      <span class="text">Operations</span>
-    </h3>
-	</div>
-</div>
-
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{member_count}}</span>
-      <span class="text">People</span>
-    </h3>
-	</div>
-</div>
-
 
 {% endif %}
 <script type="text/javascript">

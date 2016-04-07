@@ -349,7 +349,7 @@ def activity(request, slug):                             # In Place of dashboard
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
-        return render(request, 'workplace/snip_dashboard.html', locals())
+        return render(request, 'workplace/snip_activity.html', locals())
 
 
 def workplace_capabilities(request, slug):

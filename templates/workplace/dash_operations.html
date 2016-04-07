@@ -6,10 +6,12 @@
     </h3>
   </div>
 </div>
+<div class="alert alert-info">
+  <p>
+    Add more Active Operations at {{workplace.name}}. Your {{workplace.get_type_short}} will be visible to appropriate audience based on Operations that you list.
+  </p>
+</div>
 <div class="dash_form_box">
-  <h5 class="form_head">
-    Add more Active Operations at {{workplace.name}}. Your {{workplace.get_type_short}} will be visible to based on Operations that you list.
-  </h5>
   <form id="ops_dash_form" class="form_lg form_instant" action="{% url 'workplace:set_tags' %}" method="POST" data-target="#ops_dash" data-targettags="0" data-targetcount="2">
     {% include "snippets/d_search.html" with search="tag" type='O' no_tags=True name='operations' placeholder="Search for Operations" %}
     {% csrf_token %}

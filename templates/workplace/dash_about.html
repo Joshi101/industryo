@@ -1,17 +1,17 @@
 {% load filter %}
+<div class="alert alert-info">
+	<p>Add the Cities where {{workplace.name}} operate. This helps create a suitable network.</p>
+</div>
 <div class="dash_form_box">
-  <h5 class="form_head">
-    Add the Cities where {{workplace.name}} operate. This helps create a suitable network.
-  </h5>
 	<form id="city_dash_form" class="form_lg form_instant" action="{% url 'workplace:set_details' %}" method="POST" data-target="#city_dash" data-targettags="0" data-targetcount="0">
 	  {% include "snippets/d_search.html" with search="tag" type='C' no_tags=True name='city' placeholder="Search for Cities" %}
 	  {% csrf_token %}
 	</form>
 </div>
+<div class="alert alert-info">
+	<p>Add the Segments in which {{workplace.name}} lies.</p>
+</div>
 <div class="dash_form_box">
-  <h5 class="form_head">
-    Add the Segments in which {{workplace.name}} lies.
-  </h5>
 	<form id="segment_dash_form" class="form_lg form_instant" action="{% url 'workplace:set_tags' %}" method="POST" data-target="#segment_dash" data-targettags="0" data-targetcount="0">
 	  {% include "snippets/d_search.html" with search="tag" type='S' no_tags=True name='segment' placeholder="Search for Segments" %}
 	  {% csrf_token %}
