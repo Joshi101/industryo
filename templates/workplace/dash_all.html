@@ -1,4 +1,11 @@
-
+<div class="panel info">
+	<div class="panel-body">
+		City we operate in:
+		{% for c in workplace.get_tags.city %}
+		{{c}}
+		{% endfor %}
+	</div>
+</div>
 <div class="panel info">
 	<div class="panel-body">
     <h3 class="dash_stat_big">

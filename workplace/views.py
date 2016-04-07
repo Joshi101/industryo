@@ -322,7 +322,7 @@ def workplace_activity(request, slug):
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 
-def activity(request, slug):                             # In Place of dashboard
+def woactivity(request, slug):                             # In Place of dashboard
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()
@@ -349,7 +349,7 @@ def activity(request, slug):                             # In Place of dashboard
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
-        return render(request, 'workplace/snip_dashboard.html', locals())
+        return render(request, 'workplace/snip_activity.html', locals())
 
 
 def workplace_capabilities(request, slug):

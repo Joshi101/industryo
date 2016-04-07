@@ -6,13 +6,18 @@ from products.models import Products
 from tags.models import Tags
 from forum.models import Question
 from nodes.models import Node
+from search.models import Search
 
+
+def search(request):
+    pass
 
 def searchq(request):   # active
     querystring = request.GET.get('the_query').strip()
     terms = None
     if len(querystring) >= 3:
         terms = querystring.split(' ')
+        save_last(request)
     if not terms:
         return render(request, 'search/list.html')
 
@@ -74,6 +79,27 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+def save_last(request):
+    user = request.user
+    if not user.is_authenticated():
+        user = None
+    ip = get_client_ip(request)
+    a = request.GET.get('the_query')
+    t = request.GET.get('the_type')
+    s = Search.objects.latest('date')
+    b = s.text
+    if s.type != t:
+        o = Search.objects.create(text=a, type=t, user=user, ip=ip)
+    else:
+        if len(b)> len(a):
+
+            o = Search.objects.create(text=a, type=t, user=user, ip=ip)
+        else:
+            if a.startswith(b):
+                s.text =a
+                s.save()
 
 
 def forum_search(request):
