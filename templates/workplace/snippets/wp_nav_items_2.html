@@ -1,9 +1,15 @@
 <nav>
   <ul id="wp_nav" class="nav nav_flex">
-    <li>
+    
+    {% if type == 'B' %}
+    <li class="active">
+      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-dashboard"></span>Dashboard</a>
+    </li>
+    {% else %}
+    <li class="active">
       <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:about' workplace.slug %}"><span class="fa inline_fa fa-info-circle"></span>About</a>
     </li>
-
+    {% endif %}
     {% if type == 'A' %}
     <li>
       <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Services</a>
@@ -31,14 +37,8 @@
     <li>
       <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}"><span class="fa inline_fa fa-users"></span>People</a>
     </li>
-    {% if type == 'B' %}
-    <li class="active">
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-dashboard"></span>Dashboard</a>
-    </li>
-    {% else %}
-    <li class="active">
+    <li>
       <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:activity' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
     </li>
-    {% endif %}
   </ul>
 </nav>

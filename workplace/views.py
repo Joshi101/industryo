@@ -322,7 +322,7 @@ def workplace_activity(request, slug):
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 
-def activity(request, slug):                             # In Place of dashboard
+def woactivity(request, slug):                             # In Place of dashboard
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
     member_count = members.count()

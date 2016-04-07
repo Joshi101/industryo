@@ -18,25 +18,17 @@ class Workplace(models.Model):
         (Educational_Institution, 'Educational Institution')
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
-
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
     verified = models.BooleanField(default=False)
     slug = models.SlugField(max_length=255)
-
     about = models.TextField(null=True, blank=True)
     points = models.IntegerField(default=0)
     logo = models.ForeignKey('nodes.Images', null=True, blank=True)
-
     segments = models.ManyToManyField(Tags, related_name='segments', blank=True)
-    # Team
     institution = models.ForeignKey(Tags, related_name='institution', null=True, blank=True)            # don't know why
-    # SME
     capabilities = models.TextField(max_length=5000, null=True, blank=True)
     product_details = models.TextField(max_length=5000, null=True, blank=True)
-
     wptags = models.ManyToManyField(Tags, through='WpTags', related_name='wptags')
-
     ##
     website = models.URLField(null=True, blank=True)
     fb_page = models.URLField(null=True, blank=True)
@@ -47,6 +39,8 @@ class Workplace(models.Model):
     mobile_contact1 = models.CharField(max_length=20, null=True, blank=True)
     mobile_contact2 = models.CharField(max_length=20, null=True, blank=True)
     contact_person = models.ForeignKey(User, null=True, blank=True)
+
+    # hits = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'Workplace'
