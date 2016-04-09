@@ -1,4 +1,30 @@
 {% load filter %}
+<div id="about_wp" class="info_field_grp ajax_andar ajax_papa">
+		{% if user.userprofile in members %}
+		<form id="about_wp_form" class="info_form" action="{% url 'workplace:set_about' %}" method="POST">
+			<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+			<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+			<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+			{% csrf_token %}
+		</form>
+		{% endif %}
+		<div class="panel panel-default">
+			<div class="info_field v2 ajax_papa">
+				<div class="info_field_value ">
+					{% if workplace.about %}
+						{{workplace.about|urlize|new_tab|safe}}
+					{% elif user.userprofile in members %}
+						<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>
+					{% else %}
+						<i class="text-muted text-center center-block">No Description Available</i>
+					{% endif %}
+				</div>
+				<div class="info_field_edit hide">
+					<textarea name="about" form="about_wp_form" rows="4" class="form-control new_val">{{workplace.about}}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
 <div class="alert alert-info">
 	<p>Add the Cities where {{workplace.name}} operate. This helps create a suitable network.</p>
 </div>
@@ -17,52 +43,3 @@
 	  {% csrf_token %}
 	</form>
 </div>
-
-{% comment %}
-
-Isko manage karna hai
-{% endcomment %}
-{% if b_type %}
-	    <div class="info_field ajax_papa">
-	    	<div class="info_field_label"><span class="fa fa-tags fa-fw"></span>Segments</div>
-	      <span class="colon">:</span>
-	      <div class="info_field_value">
-	      	{% if tags2 %}
-		      	{% include "snippets/tags.html" with tags=tags2 %}
-	      	{% else %}
-	      	<span class="placeholder">
-					  {% if workplace.workplace_type == 'A' %}
-						Add segments <br> (Automobile/ Aerospace/ Consultancy/ Manufacturing etc.)
-					  {% elif workplace.workplace_type == 'B' %}
-						Add segments <br> (Manufacturing/ Automobile/ Aerospace/ Consultancy etc.)
-					  {% elif workplace.workplace_type == 'C' %}
-						Add segments <br> (Baja/ Formula/ Efficycle/ AeroDesign etc.)
-					  {% endif %}
-				  </span>
-				  {% endif %}
-	      </div>
-	      {% if user.userprofile in members %}	
-	      <div class="info_field_edit hide">
-	        {% include "snippets/d_search_tags.html" with search="tag" type='S' no_create="True" tags=tags2 name='segement' d_form='details_wp_form' %}
-	      </div>
-		    {% endif %}
-	    </div>
-			{% if b_type == 'P' %}
-			<div class="info_field ajax_papa">
-	    	<div class="info_field_label">Parent Institution</div>
-	    	<span class="colon">:</span>
-	      <div class="info_field_value">
-	      	{% if tags3 %}
-		      	{% include "snippets/tags.html" with tags=tags3 %}
-	      	{% else %}
-	      	<span class="placeholder">Add your parent institution</span>
-				  {% endif %}
-	      </div>
-	      {% if user.userprofile in members %}	
-	      <div class="info_field_edit hide">
-          {% include "snippets/d_search_tags.html" with search="tag" type=b_type tags=tags3 name='institution' %}
-	      </div>
-		    {% endif %}
-	    </div>
-	    {% endif %}
-	    {% endif %}

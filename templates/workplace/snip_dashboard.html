@@ -1,8 +1,5 @@
 {% load filter %}
 {% if user.userprofile in members %}
-<div class="alert alert-info">
-	<p><span class="fa fa-hand-o-down"></span>&nbsp;&nbsp; Click on an option for a quick review and update of {{workplace.name}}'s profile</p>
-</div>
 <div class="row dashboard">
 	<div class="col-sm-4">
 		<div id="dash_side">
@@ -15,9 +12,9 @@
 
 				<li>
 					<a data-toggle="pill" href="#dash_info">
-						My {{workplace.get_type_short}}'s Basic Info
+						Basic Info
 			      <div class="prog">
-			        <span class="progress-text">7 / 10 complete</span>
+			        <span class="progress-text">City &amp; Segments</span>
 			        <div class="progress">
 			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
 			          </div>
@@ -191,7 +188,7 @@
 	      	{% if workplace.get_tags.segments %}
 		      	{% include "snippets/tags.html" with tags=workplace.get_tags.segments %}
 	      	{% else %}
-	      	<span class="placeholder">Not Available</span>
+	      	<span class="placeholder">Nothing Specified</span>
 	      	{% endif %}
 	      </div>
 	    </div>

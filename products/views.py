@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
-from products.models import Products, Category, Product_Categories
+from products.models import *
 from userprofile.models import UserProfile
 from django.contrib.auth.models import User
 from tags.models import Tags
@@ -15,6 +15,7 @@ from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
 from operator import itemgetter
+# from workplace.models import
 
 
 
@@ -213,32 +214,50 @@ def enquire(request):
     if request.method == 'POST':
         if request.user.is_authenticated():
             p = request.POST.get('pid')
+            w = request.POST.get('wid')
             user = request.user
             message = request.POST.get('message')
             phone = request.POST.get('phone')
-            prod = Products.objects.get(id=p)
             e = Enquiry.objects.filter(user=user, date__gt=yesterday)
-            if e.count() < 5:
-                e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no = phone)
-                user.userprofile.notify_inquired(e)
-                # send_enq_mail(e)
+            if p:
+                prod = Products.objects.get(id=p)
+                if e.count() < 5:
+                    e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone)
+                    user.userprofile.notify_inquired(e)
+                    # send_enq_mail(e)
+                return redirect('/products/'+prod.slug)
 
+            if not p:
+                workplace = Workplace.objects.get(id=w)
+                if e.count() < 5:
+                    e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
+                    user.userprofile.notify_inquired(e)
+                return redirect('/workplace/'+workplace.slug)
         else:
             email = request.POST.get('email')
             name = request.POST.get('name')
             company = request.POST.get('company')
             p = request.POST.get('pid')
+            w = request.POST.get('wid')
             message = request.POST.get('message')
             phone = request.POST.get('phone')
-            prod = Products.objects.get(id=p)
             e = Enquiry.objects.filter(email=email, date__gt=yesterday)
-            if e.count() < 5:
-                e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no = phone)
-                up = prod.user.userprofile
-                up.notify_inquired(e)
-                # send_enq_mail(e)
+            if p:
+                prod = Products.objects.get(id=p)
+                if e.count() < 5:
+                    e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no=phone)
+                    up = prod.user.userprofile
+                    up.notify_inquired(e)
+                    # send_enq_mail(e)
+                return redirect('/products/'+prod.slug)
+            if not p:
+                workplace = Workplace.objects.get(id=w)
+                if e.count() < 5:
+                    e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message, phone_no=phone)
+                    # up.notify_inquired(e)
+                return redirect('/workplace/'+workplace.slug)
 
-        return redirect('/products/'+prod.slug)
+
 
 
 @login_required
@@ -247,6 +266,7 @@ def enquiry_all(request):
     company = user.userprofile.primary_workplace
 
     enquiries = Enquiry.objects.filter(product__producer=company)
+    e = Enquiry.objects.filter(workplace=company)
     enquiries_sent = Enquiry.objects.filter(user=user)
 
     return render(request, 'enquiry/enquiry.html', {
