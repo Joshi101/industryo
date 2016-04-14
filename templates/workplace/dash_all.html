@@ -1,57 +1,45 @@
-<div class="panel info pull-right">
-  <a href= "{% url 'products:enquiry_all' %}">
-  <div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success"></span>
-      <span class="text">Product Inquiries</span>
-    </h3>
-  </div>
-</a>
+<div class="well">
+  <h3 class="dash_stat_big">
+    <span class="dash_stat_extra">Operating in</span>
+    <a class="dash_stat_link fake_btn" data-btn="#wp_nav_about">
+      <span id="city_dash_count_1" class="number">{{workplace.get_tags.city|length}}</span>
+      <span class="text">Cities</span>
+    </a>
+  </h3>
 </div>
 
-<div class="panel info">
-  <div class="panel-body">
-        <p><span class="fa fa-map-marker fa-fw"></span>&nbsp;Cities we Operate in</p>
-        <div class="info_field_value">
-          {% if workplace.get_tags.city %}
-          {% include "snippets/tags.html" with tags=workplace.get_tags.city %}
-          {% else %}
-          <span class="placeholder">Not Available</span>
-          {% endif %}
-    </div>
-  </div>
-</div>
-
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{product_count}}</span>
+<div class="well">
+  <h3 class="dash_stat_big">
+    <span class="dash_stat_extra">Manufacturing</span>
+    <a class="dash_stat_link fake_btn" data-btn="#wp_nav_products">
+      <span id="assets_dash_count_1" class="number">{{product_count}}</span>
       <span class="text">Products</span>
-    </h3>
-	</div>
+    </a>
+  </h3>
 </div>
-<div class="panel info">
-  <div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{member_count}}</span>
+<div class="well">
+  <h3 class="dash_stat_big">
+    <span class="dash_stat_extra"></span>
+    <a class="dash_stat_link fake_btn" data-btn="#wp_nav_people">
+      <span id="assets_dash_count_1" class="number">{{member_count}}</span>
       <span class="text">People</span>
-    </h3>
-  </div>
+    </a>
+  </h3>
 </div>
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
+<div class="well">
+  <h3 class="dash_stat_big">
+    <a class="dash_stat_link fake_btn" data-btn="#wp_nav_capabilities">
+      <span id="assets_dash_count_1" class="number">{{workplace.get_tags.assets|length}}</span>
       <span class="text">Assets &amp; Machinery</span>
-    </h3>
-	</div>
+    </a>
+  </h3>
 </div>
-<div class="panel info">
-	<div class="panel-body">
-    <h3 class="dash_stat_big">
-      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.operations|length}}</span>
+<div class="well">
+  <h3 class="dash_stat_big">
+    <a class="dash_stat_link fake_btn" data-btn="#wp_nav_capabilities">
+      <span id="assets_dash_count_1" class="number">{{workplace.get_tags.operations|length}}</span>
       <span class="text">Operations</span>
-    </h3>
-	</div>
+    </a>
+  </h3>
 </div>
 

@@ -7,6 +7,7 @@ from products.models import Products
 from tags.models import Tags
 from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
+from activities.models import Enquiry
 from userprofile.models import User, UserProfile, Workplaces
 import json
 from django.core import serializers
@@ -231,7 +232,7 @@ def workplace_profile(request, slug):
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
-    # enq_count =
+    inq_count = Enquiry.objects.filter(workplace=workplace).count()
 
     return render(request, 'workplace/profile.html', locals())
 

@@ -1,121 +1,4 @@
 {% load filter %}
-{% if user.userprofile in members %}
-<div class="row dashboard">
-	<div class="col-sm-4">
-		<div id="dash_side">
-			<ul class="nav nav-pills nav-stacked">
-				<li class="active">
-					<a class="padded" data-toggle="pill" href="#dash_all">
-						<strong>Summary</strong>
-					</a>
-				</li>
-
-				<li>
-					<a data-toggle="pill" href="#dash_info">
-						Basic Info
-			      <div class="prog">
-			        <span class="progress-text">City &amp; Segments</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
-			          </div>
-			        </div>
-			      </div>
-					</a>
-				</li>
-
-				<li>
-					<a data-toggle="pill" href="#dash_contact">
-						My {{workplace.get_type_short}}'s Contact Info
-			      <div class="prog">
-			        <span class="progress-text">7 / 10 complete</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="{{workplace.get_info_score}}" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_info_score}}">
-			          </div>
-			        </div>
-			      </div>
-					</a>
-				</li>
-				
-				<li>
-					<a data-toggle="pill" href="#dash_products">
-						Products / Services
-			      <div class="prog">
-			        <span class="progress-text">{{product_count}} Products</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_product_score}}">
-			          </div>
-			        </div>
-			      </div>
-					</a>
-				</li>
-				<li>
-					<a data-toggle="pill" href="#dash_people">
-						My Colleagues
-			      <div class="prog">
-			        <span class="progress-text">{{member_count}} People</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_member_score}}">
-			          </div>
-			        </div>
-			      </div>
-					</a>
-				</li>
-				<li class="prog">
-					<a data-toggle="pill" href="#dash_assets">
-						Assets or Machinery
-			      <div class="prog">
-			        <span class="progress-text"><span id="assets_dash_count_2">{{workplace.get_tags.assets|length}}</span> assets</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="{{workplace.get_asset_score}}">
-			          </div>
-			        </div>
-			      </div>
-					</a>
-				</li>
-				<li>
-					<a data-toggle="pill" href="#dash_ops">
-						Operations
-			      <div class="prog">
-			        <span class="progress-text"><span id="ops_dash_count_2">{{workplace.get_tags.operations|length}}</span> Operations</span>
-			        <div class="progress">
-			          <div class="progress-bar" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="10" data-percent="70">
-			          </div>
-			        </div>
-			      </div>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="col-sm-8">
-		<div id="dash_content">
-			<div class="tab-content">
-			  <div id="dash_all" class="tab-pane fade in active">
-			    {% include "workplace/dash_all.html" %}
-			  </div>
-			  <div id="dash_info" class="tab-pane fade">
-			    {% include "workplace/dash_about.html" %}
-			  </div>
-			  <div id="dash_contact" class="tab-pane fade">
-			    {% include "workplace/dash_contact.html" %}
-			  </div>
-			  <div id="dash_people" class="tab-pane fade">
-			    {% include "workplace/dash_people.html" %}
-			  </div>
-			  <div id="dash_products" class="tab-pane fade">
-			    {% include "workplace/dash_products.html" %}
-			  </div>
-			  <div id="dash_assets" class="tab-pane fade">
-			    {% include "workplace/dash_assets.html" %}
-			  </div>
-			  <div id="dash_ops" class="tab-pane fade">
-			    {% include "workplace/dash_operations.html" %}
-			  </div>
-			</div>
-		</div>
-	</div>
-</div>
-{% else %}
 <div class="panel panel-default">
 	<div class="info_field v2 ajax_papa">
 		<div class="info_field_value ">
@@ -194,6 +77,7 @@
 		      </div>
 		    </div>
 	    </div>
+	    {% if type == 'B' %}
 			<div class="panel panel-default">
 				<div class="panel-body">
 			    <h3 class="dash_stat_big">
@@ -226,16 +110,7 @@
 			    </h3>
 				</div>
 			</div>
+			{% endif %}
 		</div>
 	</div>
 </div>
-
-{% endif %}
-<script type="text/javascript">
-	$('.progress-bar').each(function(){
-	    var w = $(this).data("percent");
-	    console.log(w);
-	    $(this).css("width", w + "%");
-	});
-</script>
-
