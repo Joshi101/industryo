@@ -124,7 +124,7 @@ def change_p_o(request):
         w = request.POST.get('w')
         uploader = User.objects.get(username=u)
         to_be_uploader = User.objects.get(username=w)
-        p = Products.objects.get(user=uploader)
+        p = Products.objects.filter(user=uploader)
         for prod in p:
             prod.user = to_be_uploader
             prod.save()

@@ -100,6 +100,8 @@ def save_last(request):
             if a.startswith(b):
                 s.text =a
                 s.save()
+            else:
+                o = Search.objects.create(text=a, type=t, user=user, ip=ip)
 
 
 def forum_search(request):
