@@ -9,8 +9,10 @@
 		</form>
 		{% endif %}
 		<div class="panel panel-default">
-			<div class="info_field v2 ajax_papa">
-				<div class="info_field_value ">
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-pencil fa-fw"></span>Description</div>
+				<span class="colon">:</span>
+				<div class="info_field_value">
 					{% if workplace.about %}
 						{{workplace.about|urlize|new_tab|safe}}
 					{% elif user.userprofile in members %}

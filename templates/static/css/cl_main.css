@@ -12,8 +12,8 @@ a:hover, a:focus{
   color: #333;
 }
 
-form{
-  //margin-bottom: 10px;
+.fa{
+  line-height: 1.42857143;
 }
 
 h5{
@@ -178,7 +178,7 @@ h5{
 }
 
 .top_user_info .dropdown-menu {
-  top: 100%;
+  top: 105%;
 }
 
 

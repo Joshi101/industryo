@@ -1,43 +1,35 @@
 <nav>
   <ul id="wp_nav" class="nav nav_flex">
-    {% if type == 'B' %}
+    {% if user.userprofile in members %}
     <li class="active">
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-dashboard"></span>Dashboard</a>
+      <a id="wp_nav_dashboard" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-dashboard"></span>Dashboard</a>
     </li>
+    <li>
     {% else %}
     <li class="active">
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:about' workplace.slug %}"><span class="fa inline_fa fa-info-circle"></span>About</a>
-    </li>
     {% endif %}
-    {% if type == 'A' %}
-    <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Services</a>
+      <a id="wp_nav_about" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:about' workplace.slug %}"><span class="fa inline_fa fa-info-circle"></span>About</a>
     </li>
-    {% elif type == 'B' %}
     <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Services</a>
+      <a id="wp_nav_activity" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:activity' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
     </li>
-    {% elif type == 'C' %}
-    <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Cars</a>
-    </li>
-    {% endif %}
-
     {% if type == 'C' %}
     <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}"><span class="fa inline_fa fa-info-suitcase"></span>Events</a>
+      <a id="wp_nav_products" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Cars</a>
+    </li>
+    <li>
+      <a id="wp_nav_events" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}"><span class="fa inline_fa fa-info-suitcase"></span>Events</a>
     </li>
     {% elif type != 'O' %}
     <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}"><span class="fa inline_fa fa-suitcase"></span>Capabilities</a>
+      <a id="wp_nav_products" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Services</a>
+    </li>
+    <li>
+      <a id="wp_nav_capabilities" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}"><span class="fa inline_fa fa-suitcase"></span>Capabilities</a>
     </li>
     {% endif %}
-
     <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}"><span class="fa inline_fa fa-users"></span>People</a>
-    </li>
-    <li>
-      <a class="ajax_a" data-place="#wp_content" href="{% url 'workplace:activity' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
+      <a id="wp_nav_people" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}"><span class="fa inline_fa fa-users"></span>People</a>
     </li>
   </ul>
 </nav>

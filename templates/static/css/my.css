@@ -559,7 +559,7 @@ img{
   min-width: 150px;
   vertical-align: top;
   /*! color: #179; */
-  cursor: pointer;
+  /*! cursor: pointer; */
   /*! border-top: 1px solid #ddd; */
   padding: 15px 15px 5px;
   /*! height: 130px; */
@@ -948,7 +948,7 @@ pre {
 
   position: relative;
   padding-top: 20px;
-  margin-bottom: 25px;
+  /*! margin-bottom: 25px; */
 }
 /* cover.html */
 
@@ -1924,15 +1924,17 @@ footer .connect li{
   float: left;
 
   width: 31%;
-  height: 77px;
+  /*! height: 77px; */
   margin: 10px 1%;
   
   overflow: hidden;
   list-style: none;
+  text-align: center;
+  padding: 10px;
 }
 
 .member img {
-  float: left;
+  /*! float: left; */
 
   width: 75px;
   margin-right: 7px;
@@ -1941,12 +1943,14 @@ footer .connect li{
 }
 
 .member_name {
-  line-height: 18px;
+  /*! line-height: 18px; */
   margin-bottom: 2px;
   font-weight: bold;
   border-bottom: 1px solid #eee;
 
   color: #333;
+  padding-bottom: 2px;
+  padding-top: 5px;
 }
 
 .member_position {
@@ -2453,7 +2457,7 @@ footer .contact li{
 }
 
 .info_title h2{
-  margin-top: 5px;
+  margin-top: 10px;
   padding-bottom: 5px;
   margin-bottom: 7px;
   display: inline-block;
@@ -2468,8 +2472,10 @@ footer .contact li{
   
 }
 
-.info_title small{
-  display: block;
+.info_links a{
+  display: inline-block;
+  font-size: 1.2em;
+  width: 1.5em;
 }
 
 .info_field{
@@ -2496,7 +2502,6 @@ footer .contact li{
 .info_field_label .fa{
   position: absolute;
   left: 0px;
-  top: 3px;
 }
 
 .info_field .colon{
@@ -2524,10 +2529,13 @@ footer .contact li{
 }
 
 .info_field_edit .form-control{
-  padding: 0 5px 5px;
   height: initial;
   width: 75%;
   color: #555;
+}
+
+.info_field_edit .open_input{
+  padding: 0 5px 5px;
 }
 
 .v2 .info_field_edit .form-control{
@@ -2541,7 +2549,7 @@ footer .contact li{
 
 .info_field.v2{
   border: 0;
-  padding: 5px;
+  /*! padding: 5px; */
 }
 
 .info_field.v2 .info_field_value, .info_field.v2 .info_field_edit{
@@ -2568,6 +2576,10 @@ footer .contact li{
 .info_labels{
   margin: 5px 0;
   /*! text-align: right; */
+}
+
+.info_labels .btn{
+  margin-top: 10px;
 }
 
 .wp_body{
@@ -3804,15 +3816,29 @@ footer .contact li{
 
 .dash_stat_big{
   margin: 0;
-  font-size: 1.5em;
+  font-size: 1.25em;
   /*! font-family:"Lora"; */
 }
 
 .dash_stat_big .number{
-  display: inline-block;
-  width: 25px;
-  margin-right: 5px;
-  text-align: center;
+  /*! width: 25px; */
+  /*! margin-right: 5px; */
+  /*! text-align: center; */
+  padding: 0 3px;
+  color: #197;
+}
+
+.dash_stat_link .text{
+  border-bottom: 1px solid;
+}
+
+.dash_stat_link:hover{
+  text-decoration: none;
+}
+
+.dash_stat_link:hover .number{
+  color: #000;
+  border-bottom: 1px solid;
 }
 
 .dashboard{
@@ -3823,6 +3849,12 @@ footer .contact li{
 
 .dashboard .col-sm-4{
   padding-left: 0;
+}
+
+.dashboard .well{
+  padding: 15px;
+  background-color: #fff;
+  border-width: 0 0 1px;
 }
 
 #error_page{

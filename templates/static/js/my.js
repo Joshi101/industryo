@@ -595,7 +595,7 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
 
 $('body').on('click', '.fake_btn', function() {
     var btn = $(this).data('btn');
-
+    console.log(btn)
     $(btn).trigger('click');
 });
 

@@ -38,8 +38,19 @@
         {% if workplace.verified %}
         <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
         {% endif %}
-        <small class="text-muted">( {{ workplace.get_type }} )</small>
+        <div class="text-muted">{{ workplace.get_type }}</div>
       </header>
+      <div class="info_links">
+        {% if workplace.fb_page %}
+        <a href="{{workplace.fb_page}}"><span class="fa fa-facebook"></span></a>
+        {% endif %}
+        {% if workplace.linkedin_page %}
+        <a href="{{workplace.linkedin_page}}"><span class="fa fa-linkedin"></span></a>
+        {% endif %}
+        {% if workplace.website %}
+        <a href="{{workplace.website}}"><span class="fa fa-globe"></span></a>
+        {% endif %}
+      </div>
     </div>
     <div class="col-sm-2">
       <div class="info_labels">
@@ -48,13 +59,18 @@
       <div class="info_labels">
         <span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span>
       </div>
-    </div>
-    {% if not user.userprofile in members %}
-    <div class="col-sm-2 col-sm-offset-6">
-      <button class="btn btn-primary" data-toggle='modal' data-target='#enquiry_w_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</button>
+      {% if not user.userprofile in members %}
+      <div class="info_labels">
+        <button class="btn btn-primary btn-sm" data-toggle='modal' data-target='#enquiry_w_modal'><span class="fa fa-send-o"></span>&nbsp; Send an Enquiry</button>
+      </div>
+      {% else %}
+      <div class="info_labels">
+        <span class="label label-info"><span property='numberOfEmployees'>{{ inq_count }}</span> enquiries</span>
+      </div>
+      {% endif %}
     </div>
     {% include "enquiry/no_product_modal.html" %}
-    {% endif %}
+  </div>
 
   <div class="row wp_body">
     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
@@ -65,10 +81,10 @@
           <i class="fa fa-spin fa-spinner"></i>
         </div>
         <div class="content">
-          {% if type == 'B' %}
+          {% if user.userprofile in members %}
             {% include "workplace/snip_dashboard.html" with workplace=workplace %}
           {% else %}
-            {% include "workplace/snip_activity.html" with workplace=workplace questions=questions answers=answers feeds=feeds articles=articles %}
+            {% include "workplace/snip_about.html" with workplace=workplace %}
           {% endif %}
         </div>
       </div>
