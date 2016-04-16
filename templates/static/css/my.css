@@ -3284,13 +3284,30 @@ footer .contact li{
   margin: 0;
 }
 
+#add_prod_category .accordion .panel{
+  box-shadow: 0 0 0;
+  border-radius: 0;
+  margin: 5px 0 10px;
+  padding: 0;
+  border: 0;
+  /*! background-color: #eee; */
+  position: relative;
+}
+
+#add_prod_category .accordion .collapse{
+  
+  margin-bottom: 15px;
+}
+
 #add_prod_category .nav-pills{
   background: transparent;
-  padding: 0 10px 0 0;
+  /*! padding: 0 10px 0 0; */
   border: 0;
+  margin-bottom: 0;
   border-radius: 0;
   box-shadow: 0 0 0;
-  border-right: 1px solid #eee;
+  /*! border-right: 1px solid #eee; */
+  z-index: 99;
 }
 
 #add_prod_category .nav-pills li{
@@ -3299,19 +3316,19 @@ footer .contact li{
 
 #add_prod_category .nav-pills li a{
   font-size: 13px;
-  margin: 2px 0;
+  margin: 5px 0;
   border: 1px solid #eee;
-  border-radius: 15px;
+  border-radius: 30px;
   background-color: #fafafa;
-  padding: 5px 20px 5px 10px;
+  padding: 10px 20px 10px 15px;
 }
 
 #add_prod_category .nav-pills > li.active > a,
 #add_prod_category .nav-pills > li.active > a:hover,
 #add_prod_category .nav-pills > li.active > a:focus {
   color: #fafafa;
-  //background-color: rgba(93,155,210,0.5);
   background-color: #999;
+  border-color: #999;
 }
 
 #add_prod_category .nav-pills li .no_sub{
@@ -3405,11 +3422,8 @@ footer .contact li{
 }
 
 #add_prod_category .nav-pills li .new_category{
-  margin: 10px 5px;
-  //padding-left: 5px;
-  //padding-right: 15px;
-  //border-radius: 2px;
-  background-color: #ddd;
+  margin: 10px 0;
+  background-color: #fff;
   color: #666;
 }
 
@@ -3648,18 +3662,21 @@ footer .contact li{
 
 .c1_group_title{
   display: block;
-  border-bottom: 1px solid #ddd;
-  padding: 5px;
-  margin-bottom: 5px;
-  margin-left: -10px;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  overflow: hidden;
+  /*! color: #777; */
 }
 
 .c1_group_title:hover, .c1_group_title:focus{
   text-decoration: none;
+  /*! background-color: #eee; */
 }
 
 .c1_group_title.current{
-  border-color: #197;
+  border-color: #197 transparent transparent;
+  margin-bottom: 5px;
+  color: #999;
 }
 
 .node{

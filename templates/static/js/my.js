@@ -1844,8 +1844,21 @@ $('.d_type_ext').on('change', function(){
 });
 
 $('.c1_group_title').on('click', function(){
-    $(this).closest('.form-group').find('.current').removeClass('current');
+    var $prev = $(this).closest('.form-group').find('.current');
+    $prev.removeClass('current');
+    $prev.find('.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+    $prev.closest('.panel').find('li.active').removeClass('active');
+    /*$(this).animate({opacity: 0}, 500, function() {
+        var top = $(this).outerHeight();
+        var h = parseInt($(this).closest('.panel').find('.collapse').height());
+        $(this).closest('.panel').find('.collapse').css({
+            display: 'block',
+            height: '0',
+            overflow: 'hidden'
+        }).animate({height: h},1000);
+    });*/
     $(this).addClass('current');
+    /*$(this).closest('.panel').find('.collapse').collapse();*/
     if ($(this).find('.fa').attr('class').indexOf('down') >= 0){
         $(this).find('.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
     }
