@@ -2241,20 +2241,6 @@ h4 > .edit_post:hover {
 	height: 20px;
 }
 
-#about .container{
-  //background-color: rgba(255,255,255,0.75);
-  color: #333;
-  width: 100%;
-  text-align: left;
-}
-
-#about h2{
-  font-size: 1.3em;
-  padding-bottom: 7px;
-  border-bottom: 1px solid #aaa;
-  color: #197;
-}
-
 footer h3{
   font-size: 14px;
   padding-bottom: 7px;
@@ -4030,4 +4016,114 @@ footer .contact li{
 
 #article_pg{
   background-color: #fff;
+}
+
+.about_section{
+  width: 100%;
+  padding: 80px 15px;
+  text-align: center;
+}
+
+.about_section:nth-child(even){
+  background: #fff;
+}
+
+.about_section .content{
+  max-width: 700px;
+  margin: auto;
+}
+
+.about_section h1{
+  margin-bottom: 40px;
+  font-weight: 900;
+}
+
+.about_section p{
+  font-size: 1.4em;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.about_section .xl_p{
+  font-size: 1.6em;
+}
+
+
+.about_section h2{
+  display: inline-block;
+  font-size: 2em;
+  margin-bottom: 30px;
+  /*! padding-bottom: 7px; */
+  /*! border-bottom: 1px solid #aaa; */
+  color: #555;
+}
+
+.about_section .fa_block .fa{
+  line-height: 70px;
+  vertical-align: middle;
+  margin: 10px;
+  color: #197;
+  margin-bottom: 40px;
+}
+
+.about_section .service{
+  font-weight: 500;
+  color: #197;
+}
+
+.about_section .banner{
+  position: relative;
+}
+
+.about_section .banner p{
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+}
+
+.about_section .banner .fa{
+  
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  //border: 1px solid #eee;
+  border-radius: 60px;
+  font-size: 4em;
+  color: #ddd;
+}
+
+@media(min-width:768px){
+  .about_section .banner p{
+    padding-right: 125px;
+  }
+  .about_section .banner .fa{
+    font-size: 5em;
+    position: absolute;
+  }
+  .teammate{
+    display: inline-block;
+  }
+}
+
+.about_section .green{
+  color: #3b9;
+}
+
+.teammate{
+  padding: 25px;
+}
+
+.teammate img{
+  width: 128px;
+  height: 128px;
+  border: 5px solid #ddd;
+  border-radius: 100%;
+}
+
+.teammate h5{
+  color: #197;
+  font-size: 15px;
 }
