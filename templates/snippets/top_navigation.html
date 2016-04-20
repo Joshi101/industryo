@@ -82,7 +82,7 @@
       <ul class="nav navbar-nav navbar-right top_user_info">
         <li id="notifications" class="hover_ajax dropdown" title="" data-toggle="tooltip" data-placement="bottom" data-url="/notify" data-active='no'>
           <span class="badge"></span>
-          <a class="dropdown-toggle" data-toggle="dropdown">
+          <a id="top_nav_notifications" class="dropdown-toggle" data-toggle="dropdown">
             <span class="fa fa-bell-o"></span>
             <span class="">Notifications</span>
           </a>
@@ -94,14 +94,14 @@
         </li>
         <li id="messages" title="" data-toggle="tooltip" data-placement="bottom">
           <span class="badge"></span>
-          <a href="{% url 'messages:inbox' %}">
+          <a id="top_nav_messages" href="{% url 'messages:inbox' %}">
             <span class="fa fa-envelope-o"></span>
             <span class="">Messages</span>
           </a>
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
         {% if request.user.userprofile.primary_workplace %}
-          <a href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
+          <a id="top_nav_wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
             <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace.name}}">
             <span class="abr">{{user.userprofile.primary_workplace}}</span>
           </a>
@@ -110,7 +110,7 @@
         {% endif %}
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
-          <a href="{% url 'user:profile' user.username %}">
+          <a id="top_nav_user" href="{% url 'user:profile' user.username %}">
             <img class="lazy_img thmb_xs" src="/images/user_man.png" data-src="{{user.userprofile.get_profile_image}}" alt="{{user}}">
             <span class="abr">{{user}}</span>
           </a>

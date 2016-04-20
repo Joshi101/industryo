@@ -146,6 +146,7 @@ def product(request, slug):
     prod_img_form = SetLogoForm()
     # categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
     categories = product.categories.all()
+    print(categories)
     all = Products.objects.filter(producer=producer)
     all_list = list(all)
     c = all_list.index(product)
