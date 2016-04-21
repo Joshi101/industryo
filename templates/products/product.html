@@ -9,9 +9,9 @@
 {% block page_id %}product{% endblock page_id %}
 
 {% block body %}
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-9">
+      <div class="col-sm-12">
       {% block content %}
         {% include "snippets/img_upload_modal.html" with url='products:change_image' url_slug=product.id form=prod_img_form.image %}
         <div class="row">
@@ -125,22 +125,7 @@
                   </div>
                   {% endif %}
                 </div>
-                <div class="info_field ajax_papa">
-                  <div class="info_field_label"><span class="fa fa-tags fa-fw"></span>Tags</div>
-                  <span class="colon">:</span>
-                  <div class="info_field_value">
-                    {% if tagss %}
-                    {% include "snippets/tags.html" with tags=tagss %}
-                    {% else %}
-                    <span class="placeholder">Add Product tags for categorization</span>
-                    {% endif %}
-                  </div>
-                  {% if user.userprofile in members %}
-                  <div class="info_field_edit hide">
-                    {% include "snippets/d_search_tags.html" with search="tag" tags=tagss name='prod_tag' d_form='details_prod_form' %}
-                  </div>
-                  {% endif %}
-                </div>
+                
                 <div class="info_field v2 ajax_papa">
                   <div class="info_field_value">
                     {% if product.description %}{{product.description|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of the product for the rest of the world</i>{% endif %}
@@ -159,7 +144,7 @@
         <div class="prod_action">
           <h3 class="text-muted text-center">
           {% if request.user.userprofile in members %}
-            <a href="{% url "products:add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add More Products</a>
+            <a href="{% url "products:add_product" %}"><i class="fa fa-plus-circle inline_fa"></i>Add More Products</a>
           {% else %}
             <button class="btn_alt" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</button>
           {% endif %}
@@ -173,14 +158,6 @@
           <a class="col-xs-3 text-right" {% if next %} href="{% url 'products:product' next.slug %}" {% endif %}>Next<span class="fa fa-chevron-right inline_fa"></span></a>
         </div>
       {% endblock %}
-      </div>
-
-      <div id="right" class="col-sm-12 col-md-3">
-      {% block right %}
-        <div class="side_show">
-          <div class="ajax_load" data-url="{% url 'products:random' %}"></div>
-        </div>
-      {% endblock right %}
       </div>
     </div>
   </div>

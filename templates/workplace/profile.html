@@ -65,7 +65,9 @@
       </div>
       {% else %}
       <div class="info_labels">
-        <span class="label label-info"><span property='numberOfEmployees'>{{ inq_count }}</span> enquiries</span>
+        <a class="btn btn-info" href="{% url 'products:enquiry_all' %}">
+          <span property='numberOfEmployees'>{{ inq_count }}</span> Inquiries
+        </a>
       </div>
       {% endif %}
     </div>
@@ -92,4 +94,8 @@
     </div>
   </div>
 </div>
+
+  <script type="text/javascript">
+    $('#top_nav_wp').addClass('current');
+  </script>
 {% endblock body %}

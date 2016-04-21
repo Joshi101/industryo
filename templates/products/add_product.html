@@ -38,18 +38,19 @@
 					{% endif %}
 					</div>
 				</div>
-				<div class="col-sm-2 text-right">
-					<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#add_prod_category">{% if c %}Change{%else %}Select{% endif %}</button>
+				<div class="col-sm-2 text-right" style="padding-top: 10px">
+					<button type="button" class="btn btn-primary alt_data right_btn" data-toggle="collapse" data-target="#add_prod_category" data-alt="Done">{% if c %}Change{%else %}Select{% endif %}</button>
 				</div>
 			</div>
 			<div id="add_prod_category" class="collapse">
 				<input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
 				<input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
 				<input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
-				<div class="row">
+				<div class="">
+					<div id="prev_col" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp; Back</div>
 					<div class="hidden new_val"></div>
-					<div class="form-group">
-						<div class="col-xs-4">
+					<div class="form-group row">
+						<div id="c1_col" class="col-md-4 c_col">
 							<div id="c1_accordion" class="accordion">
 								<div class="panel">
 									<a href="#c1_1" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">SAE Competition Related Items for Students <span class="fa fa-chevron-down pull-right"></span></a>
@@ -137,36 +138,38 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-content col-xs-8">
+						<div class="tab-content col-md-8"  style="padding: 0">
 						{% for t1 in c1_all %}
 							<div id="category_{{t1.id}}" class="tab-pane fade">
-								<ul class="nav nav-pills nav-stacked col-xs-6">
-								{% for t2 in t1.get_sub %}
-									<li>
-										<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#category_{{t2.id}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
-									</li>
-								{% empty %}
-									<li>
-										<a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
-									</li>
-								{% endfor %}
-									<li>
-										<a class="new_category" href="#new_category_{{t1.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
-									</li>
-									<div id="new_category_{{t1.id}}" class="collapse" style="padding: 10px">
-										<div class="form-group">
-											<input class="form-control" type="text" value="" placeholder="Name of the new category">
-										</div>
-										<div class="panel info">
-											<div class="panel-body bg-warning">
-												<span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+								<div id="c2_col" class="col-md-6 c_col">
+									<ul class="nav nav-pills nav-stacked">
+									{% for t2 in t1.get_sub %}
+										<li>
+											<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#category_{{t2.id}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
+										</li>
+									{% empty %}
+										<li>
+											<a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
+										</li>
+									{% endfor %}
+										<li>
+											<a class="new_category" href="#new_category_{{t1.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+										</li>
+										<div id="new_category_{{t1.id}}" class="collapse" style="padding: 10px">
+											<div class="form-group">
+												<input class="form-control" type="text" value="" placeholder="Name of the new category">
+											</div>
+											<div class="panel info">
+												<div class="panel-body bg-warning">
+													<span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+												</div>
+											</div>
+											<div class="form-group text-center">
+												<button type="button" class="btn btn-sm new_category_btn" data-level=2>Add</button>
 											</div>
 										</div>
-										<div class="form-group text-center">
-											<button type="button" class="btn btn-sm new_category_btn" data-level=2>Add</button>
-										</div>
-									</div>
-								</ul>
+									</ul>
+								</div>
 								<div class="tab-content col-md-6">
 								{% for t2 in t1.get_sub %}
 									<div id="category_{{t2.id}}" class="tab-pane fade">
@@ -208,7 +211,7 @@
 			</div>
 		</div>
 	  {% csrf_token %}
-		<div id="add_prod_info" class="well">
+		<div id="add_prod_info" class="form_lg">
 		  <div class="form-group">
 		    <label class="control-label">Name of product</label>
 		    <input class="form-control" placeholder="One Product at a time" name="product">

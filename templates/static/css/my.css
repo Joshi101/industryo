@@ -142,6 +142,11 @@ img{
   }
 }
 
+
+.notify_box li > a{
+  padding: 0;
+}
+
 .pre_nav > a{
   color: #ddd;
   display: inline-block;
@@ -904,6 +909,17 @@ pre {
   font-size: 13px;
 }
 
+.nav_2 .navbar-nav .current{
+  background: #f9f9f9;
+  color: #197;
+  height: 51px;
+  border-bottom: 1px solid #197;
+}
+
+.nav_2 .navbar-nav > .active > a{
+  background: #555;
+}
+
 .nav_2 .navbar-nav > li > a:hover{
   color: #197;
 }
@@ -913,11 +929,15 @@ pre {
     padding: 0 7px;
   }
   .nav_2 .navbar-nav .fa{
-    margin: 0;
+    /*! margin: 0; */
   }
   .nav_2 .navbar-nav > li > a{
     padding: 0 7px;
   }
+}
+
+.nav_2 .navbar-toggle .fa{
+  margin: 0;
 }
 
 #notifications .badge, #messages .badge{
@@ -1192,6 +1212,7 @@ pre {
   /*! font-family: Lora; */
   font-weight: 500;
   letter-spacing: 1px;
+  /*! font-style: italic; */
 }
 
 
@@ -2220,20 +2241,6 @@ h4 > .edit_post:hover {
 	height: 20px;
 }
 
-#about .container{
-  //background-color: rgba(255,255,255,0.75);
-  color: #333;
-  width: 100%;
-  text-align: left;
-}
-
-#about h2{
-  font-size: 1.3em;
-  padding-bottom: 7px;
-  border-bottom: 1px solid #aaa;
-  color: #197;
-}
-
 footer h3{
   font-size: 14px;
   padding-bottom: 7px;
@@ -2502,6 +2509,7 @@ footer .contact li{
 .info_field_label .fa{
   position: absolute;
   left: 0px;
+  top: 3px;
 }
 
 .info_field .colon{
@@ -2848,8 +2856,9 @@ footer .contact li{
 }
 
 .more_products{
-  padding-top: 15px;
+  padding: 15px;
   line-height: 25px;
+  margin: 20px 0;
 }
 
 .more_products h3{
@@ -3232,7 +3241,7 @@ footer .contact li{
 .floating{
   position: absolute;
   float: right;
-  right: 15px;
+  right: 7px;
   margin-top: 10px;
   background: #fff;
   padding: 7px 10px;
@@ -3281,7 +3290,7 @@ footer .contact li{
 }
 
 #add_prod_category .row{
-  margin: 0;
+  /*! margin: 0; */
 }
 
 #add_prod_category .accordion .panel{
@@ -3555,6 +3564,7 @@ footer .contact li{
   /*! margin-bottom: 25px; */
   position: relative;
   //box-shadow: 0 -5px 10px -5px;
+  max-width: 720px;
 }
 
 .form_lg .form-control:focus{
@@ -3679,13 +3689,26 @@ footer .contact li{
   color: #999;
 }
 
+.c1_group_title.current.collapsed{
+  border-color: #197;
+}
+
+@media(max-width:500px){
+  #add_product_form .right_btn{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+}
+
 .node{
   margin-left: 15px;
   border-left: 1px solid #eee;
   border-bottom: 0;
   margin-bottom: 25px;
   background-color: #fff;
-  box-shadow: 0 3px 8px -2px rgba(0, 0, 0, .25);
+  /*! box-shadow: 0 3px 8px -2px rgba(0, 0, 0, .25); */
   padding: 15px 15px 0;
 }
 
@@ -3699,7 +3722,7 @@ footer .contact li{
 
 .node .vote_box{
   margin-left: -41px;
-  margin-top: 5px;
+  margin-top: 70px;
 }
 
 .node_body{
@@ -3709,7 +3732,7 @@ footer .contact li{
 .node_extra{
   margin-left: -15px;
   margin-right: -15px;
-  
+  border-right: 1px solid #eee;
   border-top: 1px dashed #eee;
   background-color: #fcfcfc;
 }
@@ -3983,4 +4006,124 @@ footer .contact li{
 .info_field_pseudo .info_field_label, .info_field_pseudo .info_field_value{
   display: block;
   padding-left: 25px;
+}
+
+#prev_col{
+  display: none;
+  margin: 20px auto;
+  max-width: 100px;
+}
+
+#article_pg{
+  background-color: #fff;
+}
+
+.about_section{
+  width: 100%;
+  padding: 80px 15px;
+  text-align: center;
+}
+
+.about_section:nth-child(even){
+  background: #fff;
+}
+
+.about_section .content{
+  max-width: 700px;
+  margin: auto;
+}
+
+.about_section h1{
+  margin-bottom: 40px;
+  font-weight: 900;
+}
+
+.about_section p{
+  font-size: 1.4em;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.about_section .xl_p{
+  font-size: 1.6em;
+}
+
+
+.about_section h2{
+  display: inline-block;
+  font-size: 2em;
+  margin-bottom: 30px;
+  /*! padding-bottom: 7px; */
+  /*! border-bottom: 1px solid #aaa; */
+  color: #555;
+}
+
+.about_section .fa_block .fa{
+  line-height: 70px;
+  vertical-align: middle;
+  margin: 10px;
+  color: #197;
+  margin-bottom: 40px;
+}
+
+.about_section .service{
+  font-weight: 500;
+  color: #197;
+}
+
+.about_section .banner{
+  position: relative;
+}
+
+.about_section .banner p{
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+}
+
+.about_section .banner .fa{
+  
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  //border: 1px solid #eee;
+  border-radius: 60px;
+  font-size: 4em;
+  color: #ddd;
+}
+
+@media(min-width:768px){
+  .about_section .banner p{
+    padding-right: 125px;
+  }
+  .about_section .banner .fa{
+    font-size: 5em;
+    position: absolute;
+  }
+  .teammate{
+    display: inline-block;
+  }
+}
+
+.about_section .green{
+  color: #3b9;
+}
+
+.teammate{
+  padding: 25px;
+}
+
+.teammate img{
+  width: 128px;
+  height: 128px;
+  border: 5px solid #ddd;
+  border-radius: 100%;
+}
+
+.teammate h5{
+  color: #197;
+  font-size: 15px;
 }
