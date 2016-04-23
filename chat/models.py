@@ -8,8 +8,8 @@ class Conversation(models.Model):
     user1 = models.ForeignKey(User, related_name='+')
     user2 = models.ForeignKey(User, related_name='+')
     last_message_from = models.ForeignKey(User, null=True, blank=True)      # 1=frm_use 2=to_user
-    # last_active = models.DateTimeField(auto_now=True, null=True)
-    # is_read = models.BooleanField(default=False)
+    last_active = models.DateTimeField(auto_now=True, null=True)
+    is_read = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Conversation'

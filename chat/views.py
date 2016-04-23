@@ -127,13 +127,17 @@ def send_message(request):
         if conversation:
             m = Message.objects.create(message=message, conversation=conversation, from_user=sender, to_user=receiver)
             conversation.last_message_from=sender
+            conversation.is_read = False
             conversation.save()
         else:
 
-            # try to get conversation
-            conversation = Conversation.objects.create(user1=sender, user2=receiver)
+            try:
+                conversation = Conversation.objects.get(Q(Q(user1=sender) | Q(user2=sender))& Q(Q(user1=receiver) | Q(user2=receiver)))
+            except Exception:
+                conversation = Conversation.objects.create(user1=sender, user2=receiver)
             m = Message.objects.create(message=message, conversation=conversation, from_user=sender, to_user=receiver)
             conversation.last_message_from=sender
+            conversation.is_read = False
             conversation.save()
             return redirect('/messages/')
         return render(request, 'snippets/partial_message.html', {'message': m})
@@ -141,9 +145,9 @@ def send_message(request):
 @login_required
 def inbox(request):
     user = request.user
-    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user))
+    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
 
-    active_conversation = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).last()
+    active_conversation = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active').last()
     messages = Message.objects.filter(conversation=active_conversation)
     return render(request, 'messages/inbox.html', {
         'messages': messages,
@@ -151,11 +155,13 @@ def inbox(request):
         'active': active_conversation
         })
 
-
+@login_required
 def messages(request, id):
     user = request.user.id
     conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user))
     active_conversation = Conversation.objects.get(id=id)
+    active_conversation.is_read = True
+    active_conversation.save()
     messages = Message.objects.filter(conversation=active_conversation)
 
     return render(request, 'messages/inbox.html', {
@@ -168,12 +174,24 @@ def messages(request, id):
 @login_required
 def check(request):
     response = {}
-    response['count'] = Message.objects.filter(to_user=request.user, is_read=False).count()
+    response['count'] = Conversation.objects.filter(Q(user1=request.user) | Q(user2=request.user)
+                                                    , is_read=False).exclude(last_message_from=request.user).count()
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
+def create_message_enquiry(message, enquirer, users):
+    m = 'You have got an <a href="/enquiry/all/">enquiry message</a>: '+message
+    for up in users:
 
-
+            try:
+                conversation = Conversation.objects.get(Q(Q(user1=enquirer) | Q(user2=enquirer))& Q(Q(user1=up.user) | Q(user2=up.user)))
+            except Exception:
+                conversation = Conversation.objects.create(user1=enquirer, user2=up.user)
+            msg = Message.objects.create(message=m, conversation=conversation, from_user=enquirer, to_user=up.user)
+            conversation.last_message_from=enquirer
+            conversation.is_read = False
+            conversation.save()
+    return
 
 
 

@@ -15,7 +15,7 @@ from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
 from operator import itemgetter
-# from workplace.models import
+from chat.views import create_message_enquiry
 
 
 
@@ -224,7 +224,9 @@ def enquire(request):
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
                     e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone)
-                    user.userprofile.notify_inquired(e)
+                    users = e.product.producer.get_members()
+                    create_message_enquiry(message, user, users)
+                    user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
                 return redirect('/products/'+prod.slug)
 
@@ -232,7 +234,9 @@ def enquire(request):
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
                     e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
-                    user.userprofile.notify_inquired(e)
+                    users = workplace.get_members()
+                    create_message_enquiry(message, user, users)
+                    user.userprofile.notify_inquired(e, users)
                 return redirect('/workplace/'+workplace.slug)
         else:
             email = request.POST.get('email')

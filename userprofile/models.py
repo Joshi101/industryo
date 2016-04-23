@@ -332,8 +332,7 @@ class UserProfile(models.Model):
     #                      to_user=user,
     #                      node=node).save()
 
-    def notify_inquired(self, e):
-        users = e.product.producer.get_members()
+    def notify_inquired(self, e, users):
         for u in users:
             Notification.objects.create(notification_type=Notification.Inquired,
                                         from_user=self.user,
