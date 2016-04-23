@@ -3,7 +3,7 @@
 
 {% block body %}
   <div class="container">
-    {% include "messages/new_modal.html" with url='messages:new' %}
+    {% include "messages/new_modal.html" with url='messages:send_message' %}
     <div class="page-header">
       <a class="btn btn-success pull-right"  data-toggle='modal' data-target='#msg_modal'><i class="fa fa-file-text-o inline_fa"></i> New message</a>
       <h1>{% block page_header %}{% endblock %}</h1>

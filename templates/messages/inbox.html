@@ -4,6 +4,8 @@
 
 {% block page_header %}Inbox{% endblock %}
 
+{% load custom %}
+
 {% block container %}
   {% if messages %}
   <ul class="conversation">
@@ -14,7 +16,8 @@
       <div style="margin-top: .3em">
         <form role="form" method="post" action="{% url 'messages:send_message' %}" id="send">
           {% csrf_token %}
-          <input type="hidden" name="to" value="{{ active }}">
+          <input type="hidden" name="person" value="{{ active|args:user|call:"get_other_user" }}">
+          <input type="hidden" name="id" value="{{ active.id }}">
           <input class="form-control" type="text" name="message" placeholder="Write a message..." maxlength="1000" autocomplete="off">
         </form>
       </div>

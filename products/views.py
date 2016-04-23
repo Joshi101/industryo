@@ -715,3 +715,23 @@ def category_wp(request, slug):        # Products
     products = Products.objects.filter(categories=category)
     # workplaces =
     return render(request, 'products/category_workplace.html', locals())
+
+
+# def set_product_contact(request):
+#     if request.method == "Post":
+#         email = request.POST.get('email')
+#         mobile = request.POST.get('mobile')
+#
+#
+#     else:
+#         pass
+
+
+
+
+
+
+
+
+
+

@@ -51,6 +51,8 @@ class UserProfile(models.Model):
         w = self.workplaces.all()
         return w
 
+# Code dependent upon django-allauth. Will change if we shift to another module
+
     def get_provider(self):
         try:
             a = SocialAccount.objects.get(user=self)

@@ -25,13 +25,13 @@ class SellSMEManager(models.Manager):
 
 
 class Products(models.Model):
-    product = models.CharField(max_length=50)
+    product = models.CharField(max_length=100)
     producer = models.ForeignKey(Workplace)
     user = models.ForeignKey(User, null=True)
     slug = models.SlugField(max_length=50)
     image = models.ForeignKey(Images, null=True, blank=True)
     tags = models.ManyToManyField(Tags, blank=True)
-    description = models.TextField(max_length=1000, null=True, blank=True)
+    description = models.TextField(max_length=10000, null=True, blank=True)
     LargeScaleIndustry = 'A'
     SME = 'B'
     SAE_Team = 'C'
@@ -47,6 +47,9 @@ class Products(models.Model):
     score = models.FloatField(default=0)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
+    #new
+    # email = models.EmailField(null=True, blank=True)
+    # mobile = models.CharField(max_length=30, null=True, blank=True)
 
     #new
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
