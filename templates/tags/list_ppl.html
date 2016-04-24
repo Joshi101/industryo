@@ -1,6 +1,9 @@
 {% for o in objects %}
 	<li class="list-group-item option">
-		<span class="option_extra">{{o.get_full_name}} <span class="text-muted">({{o.userprofile.primary_workplace}})</span></span>
-		<span class="option_value text-info pull-right">{{o.username}}</span>
+		<img class="lazy_img" src="/images/user_man.png" data-src="{{o.userprofile.get_profile_image}}">
+		<span class="option_extra">
+			<span class="name">{{ o.userprofile }} (<span class="option_value text-info">{{o.username}}</span>)</span>
+			<span class="details">{{ o.userprofile.job_position }} at {{ o.userprofile.primary_workplace }}</span>
+		</span>
 	</li>
 {% endfor %}

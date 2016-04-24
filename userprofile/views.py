@@ -13,6 +13,7 @@ from django.db.models import Q
 from itertools import chain
 from operator import attrgetter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from allauth.socialaccount.models import SocialAccount
 
 
 def profile(request, username):
@@ -29,6 +30,8 @@ def profile(request, username):
     all_result_list = sorted(
         chain(feeds, questions, answers, articles),
         key=attrgetter('date'), reverse=True)
+    accounts = SocialAccount.objects.filter(user=request.user)
+    print(accounts)
     paginator = Paginator(all_result_list, 5)
     page = request.GET.get('page')
     try:

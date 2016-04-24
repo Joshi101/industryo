@@ -140,7 +140,7 @@ def send_message(request):
             conversation.is_read = False
             conversation.save()
             return redirect('/messages/')
-        return render(request, 'snippets/partial_message.html', {'message': m})
+        return render(request, 'messages/partial_message.html', {'message': m})
 
 @login_required
 def inbox(request):
