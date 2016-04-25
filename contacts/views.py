@@ -3,6 +3,7 @@ from allauth.socialaccount.models import SocialAccount, SocialToken
 import urllib.request as urllib2
 from xml.etree import ElementTree as etree
 from allauth.socialaccount.models import SocialToken
+from .models import ContactEmails
 
 
 
@@ -18,12 +19,10 @@ def get_email_google(request):
     b = SocialToken.objects.get(account=a)
     # access = b.token
     access_token = b.token
-    url = 'https://www.google.com/m8/feeds/contacts/default/full' + '?access_token=' + access_token + '&max-results=100' +'&alt=json'
+    url = 'https://www.google.com/m8/feeds/contacts/default/full' + '?access_token=' + access_token + '&max-results=1000'
     req = urllib2.Request(url, headers={'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.30 (KHTML, like Gecko) Ubuntu/11.04 Chromium/12.0.742.112 Chrome/12.0.742.112 Safari/534.30"})
     contacts = urllib2.urlopen(req).read()
     contacts_xml = etree.fromstring(contacts)
-    # print
-    # return render(request, 'search/random_text_print.html', locals())
 
     result = []
 
@@ -31,9 +30,8 @@ def get_email_google(request):
         for address in entry.findall('{http://schemas.google.com/g/2005}email'):
             email = address.attrib.get('address')
             result.append(email)
-        for address in entry.findall('{http://schemas.google.com/g/2005}fullName'):
-            fullName = address.attrib.get('fullName')
-            result.append(fullName)
+            c = ContactEmails.object.create(email=email, provider='google', user=user)
+
     return render(request, 'search/random_text_print.html', locals())
 
 

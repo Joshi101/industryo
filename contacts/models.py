@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 
 class ContactEmails(models.Model):
     email = models.EmailField()
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=20, null=True, blank=True)
+    last_name = models.CharField(max_length=20, null=True, blank=True)
     user = models.ForeignKey(User)
     provider = models.CharField(max_length=10)      # google/facebook
-    contact_id = models.CharField(max_length=20)        # google
+    contact_id = models.CharField(max_length=255, null=True, blank=True)        # google
     sent = models.IntegerField(default=0)
     valid = models.BooleanField(default=True)
 
