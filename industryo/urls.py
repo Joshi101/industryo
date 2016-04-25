@@ -47,6 +47,7 @@ urlpatterns = patterns('',
     url(r'^products/', include('products.urls', namespace='products')),
     url(r'^messages/', include('chat.urls', namespace='messages')),
     url(r'^internal/', include('activities.urls', namespace='activities')),
+    url(r'^contacts/', include('contacts.urls', namespace='contacts')),
 
     url(r'^home/right/$', 'home.views.home_right', name='home_right'),
     url(r'^home/right_down/$', 'home.views.home_right_down', name='home_right_down'),

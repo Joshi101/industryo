@@ -8,7 +8,7 @@ from .models import ContactEmails
 
 
 
-def get_email_google(request):
+def get_google_contacts(request):
     # social = request.user.social_auth.get(provider='google-oauth2')
     user =request.user
 
