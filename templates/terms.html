@@ -1,31 +1,23 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block title %} CoreLogs | Terms Of Use {% endblock title %}
+{% block title %} CoreLogs | About Us {% endblock title %}
 
 {% block page_id %}about{% endblock page_id %}
 
-
-
 {% block body%}
-<div class="container">
-<div class="col-md-3">
-	<a href="/about" class="list-group-item">
-	About Us
-	</a>
-	<a href="/contact" class="list-group-item">
-	Contact Us
-	</a>
-	<a href="/sitemap" class="list-group-item">
-    Sitemap
-    </a>
-	<a href="/terms" class="list-group-item active">
-    Terms & Privacy
-    </a>
-	<a href="/team" class="list-group-item">
-    Our Team
-    </a>
+<div class="">
+	<div class="about_section about_centered">
+		<div class="content">
+			<h1><span class="fa fa-shield"></span>&nbsp; Terms and Privacy</h2>
+			<p>Cooperate with us, we'll share it soon.</p>
+		</div>
+	</div>
 </div>
+	
+{% endblock body %}
+
+<div class="container">
 <div class="col-md-7">
 	<h3 class="text-center">Terms of use and privacy policy</h3>
     <li><p>We store the information provided by our users like their name, contact etc.</p></li>
@@ -52,8 +44,3 @@
 	decision whether he/she wants to rent it or not to a particular person, company or team.</p></li>
 	
 </div>
-	
-	
-	
-	
-{% endblock body %}

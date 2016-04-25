@@ -272,10 +272,11 @@ def enquiry_all(request):
 
     enquiries = Enquiry.objects.filter(product__producer=company)
     e = Enquiry.objects.filter(workplace=company)
+    print(e)
     enquiries_sent = Enquiry.objects.filter(user=user)
 
     return render(request, 'enquiry/enquiry.html', {
-        'enquiries': enquiries, 'enquiries_sent': enquiries_sent,
+        'enquiries': enquiries, 'enquiries_sent': enquiries_sent, 'e':e,
         })
 
 
@@ -287,10 +288,24 @@ def enquiry(request, id):
     enquiry = Enquiry.objects.get(id=iid)
     enquiry.seen = True
     enquiry.save()
+    if enquiry.workplace:
+        return render(request, 'enquiry/enquiry_details_wp.html', {'enquiry': enquiry})
+    else:
+        return render(request, 'enquiry/enquiry_details.html', {'enquiry': enquiry})
 
-    return render(request, 'enquiry/enquiry_details.html', {
-        'enquiry': enquiry,
-        })
+
+def enquiry_sent(request, id):
+    iid = int(id)
+    user = request.user
+    # company = user.userprofile.primary_workplace
+    # enquiries = Enquiry.objects.filter(product__producer=company)
+    enquiry = Enquiry.objects.get(id=iid)
+    enquiry.seen = True
+    enquiry.save()
+    if enquiry.workplace:
+        return render(request, 'enquiry/enquiry_details_wp_sent.html', {'enquiry': enquiry})
+    else:
+        return render(request, 'enquiry/enquiry_details_sent.html', {'enquiry': enquiry})
 
 
 def send_enq_mail(e):

@@ -12,7 +12,7 @@
   {% for conversation in conversations reversed %}
     <a href="{% url 'messages:messages' conversation.id %}" 
       class="list-group-item{% if active == conversation.get_last_message %} active{% endif %}">
-      <img src="{{ u.userprofile.get_profile_image }}" class="conversation-portrait">
+      <img src="/images/user_man.png" class="conversation-portrait">
       <span class="name">{{ conversation|args:user|call:"get_other_user" }}</span>
       {% if conversation.is_read = 0 %}
       {% if not conversation.last_message_from == user %}

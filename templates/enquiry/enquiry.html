@@ -2,51 +2,95 @@
 {% load staticfiles %}
 
 {% block body %}
-  <div class="container">
-    <div class="row" style="margin-top: 1em">
-    	<div class="col-sm-6">
-				<div id="enq_details">
-					<div class="loading hide">
-		        <i class="fa fa-spin fa-circle-o-notch"></i>
-		      </div>
-		      <div class="content">
+  <div class="container" style="margin-top: 1em">
+    <ul class="nav nav-tabs">
+	  	<li class="active">
+	  		<a data-toggle="tab" href="#received"><span class="fa fa-download"></span>&nbsp; Received</a>
+  		</li>
+	  	<li>
+	  		<a data-toggle="tab" href="#sent"><span class="fa fa-upload"></span>&nbsp; Sent</a>
+  		</li>
+	  </ul>
+	  <div class="tab-content">
+		  <div id="received" class="tab-pane fade in active enquiries">
+	  		<div class="row">
+	  			<div class="col-sm-6">
+  					<h2><a href="#enq_wp" data-toggle="collapse"><span class="fa fa-building"></span>&nbsp; Inquiries on your workplace</a></h2>
+	  				<div id="enq_wp" class="list-group collapse in">
+							{% for enq in e reversed %}
+							<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
+								<div>
+									<time><small>{{ enq.date }}</small></time>
+								</div>
+								<div class="enq_msg">
+									<span class="fa fa-angle-double-right inline_fa"></span>{{ enq.message }}
+								</div>
+							</a>
+							{% endfor %}
+						</div>
+						<h2><a href="#enq_prod" data-toggle="collapse"><span class="fa fa-cubes"></span>&nbsp; Inquiries on your products</a></h2>
+						<div id="enq_prod" class="list-group collapse in">
+							{% for enq in enquiries reversed %}
+							<a class="ajax_a list-group-item enquiry_short {% if not enq.seen %}unseen{% endif %}" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
+								<div>
+									<span class="prod"><span class="fa fa-cube fa-fw"></span>&nbsp;{{ enq.product }}</span>
+									<time><small>{{ enq.date }}</small></time>
+								</div>
+								<div class="enq_msg padded">
+									<span class="fa fa-angle-double-right inline_fa"></span>{{ enq.message }}
+								</div>
+							</a>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div id="enq_details">
+							<div class="loading hide">
+					      <i class="fa fa-spin fa-circle-o-notch"></i>
+					    </div>
+					    <div class="content">
+					    	<p class="placeholder">Click on an inquiry on the left for more details</p>
+							</div>
+						</div>
+			  	</div>
+		  	</div>
+	  	</div>
+	  	<div id="sent" class="tab-pane fade enquiries">
+	  		<div class="row">
+	  			<div class="col-sm-6">
+	  				<h2>View the inquiries that you have made</h2>
+			    	<div class="list-group">
+							{% for enq in enquiries_sent reversed %}
+							<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details_sent" href="{% url 'products:enqui_sent' enq.id %}">
+								{% if enq.seen %}
+								<div class="text-right green"><span class="fa fa-eye"></span>&nbsp; seen</div>
+								{% endif %}
+								<div>
+									{% if enq.product %}
+									<span class="prod"><span class="fa fa-cube"></span>&nbsp; {{ enq.product }}</span>
+									{% else %}
+									<span class="prod"><span class="fa fa-building"></span>&nbsp; {{ enq.workplace }}</span>
+									{% endif %}
+									<time><small>{{ enq.date }}</small></time>
+								</div>
+								<div class="enq_msg padded">
+									{{ enq.message }}
+								</div>
+							</a>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div id="enq_details_sent">
+							<div class="loading hide">
+					      <i class="fa fa-spin fa-circle-o-notch"></i>
+					    </div>
+					    <div class="content">
+							</div>
+						</div>
 					</div>
 				</div>
-      </div>
-      <ul class="nav nav-tabs">
-	  	<li class="active"><a data-toggle="tab" href="#received">Received</a></li>
-	  	<li><a data-toggle="tab" href="#sent">Sent</a></li>
-	  </ul>
-	  <div id="received" class="col-sm-6 fade in active">
-      			<div class="enquiries list-group">
-					{% for enq in enquiries reversed %}
-					<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
-						<div>
-							<span class="prod">{{ enq.product }}</span>
-							<time><small>{{ enq.date }}</small></time>
-						</div>
-						<div class="enq_msg">
-							{{ enq.message }}
-						</div>
-					</a>
-					{% endfor %}
-				</div>
 	  	</div>
-	  	<div id="sent" class="col-sm-6 fade ">
-      	<div class="enquiries list-group">
-					{% for enq in enquiries_sent reversed %}
-					<a class="ajax_a list-group-item enquiry_short" data-place="#enq_details" href="{% url 'products:enqui' enq.id %}">
-						<div>
-							<span class="prod">{{ enq.product }}</span>
-							<time><small>{{ enq.date }}</small></time>
-						</div>
-						<div class="enq_msg">
-							{{ enq.message }}
-						</div>
-					</a>
-					{% endfor %}
-				</div>
-	  	</div>
-    </div>
+  	</div>
   </div>
 {% endblock body %}

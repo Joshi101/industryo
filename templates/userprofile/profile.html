@@ -48,9 +48,11 @@
         <span class="label label-default">{{userprofile.points}} points</span>
       </div>
 			{% if user.is_authenticated %}
-	  	<div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
-	    	<a class="a_modal" data-toggle='modal' data-target='#msg_modal'><span class="fa fa-envelope"></span>&nbsp; Send a Message</a>
-	  	</div>
+			<div class="info_labels" title="Send a message to {{userprofile}}" data-toggle="tooltip" data-placement="left">
+        <button class="btn btn-primary btn-sm" data-toggle='modal' data-target='#msg_modal'>
+        	<span class="fa fa-envelope"></span> Send a Message
+        </button>
+      </div>
 			{% endif %}
   	</div>
  	</div>
@@ -58,8 +60,11 @@
   <div class="row wp_body">
     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 		  <ul class="nav nav-tabs">
-		    <li class="active"><a data-toggle="tab" href="#about">About</a></li>
-		    <li><a data-toggle="tab" href="#activity">Activity</a></li>
+		    <li class="active"><a data-toggle="tab" href="#about"><span class="fa inline_fa fa-info-circle"></span>About</a></li>
+		    <li><a data-toggle="tab" href="#activity"><span class="fa inline_fa fa-rss"></span>Activity</a></li>
+		    {% if page_user == request.user %}
+		    <li><a data-toggle="tab" href="#settings"><span class="fa inline_fa fa-cog"></span>Settings</a></li>
+		    {% endif %}
 		  </ul>
 		  <div class="tab-content">
 		    <div id="about" class="tab-pane fade in active">
@@ -130,6 +135,26 @@
 							<i class="fa fa-spin fa-circle-o-notch"></i>
 						</div>
 					</div> 
+		    </div>
+
+		    <div id="settings" class="tab-pane fadee">
+		    	<h3>Profile Settings</h3>
+		    	<div class="panel panel-default">
+				    <div class="info_field ajax_papa">
+				    	<div class="info_field_label"><span class="fa fa-facebook-official fa-fw"></span>Facebook</div>
+				    	<span class="colon">:</span>
+				      <div class="info_field_value">
+				      	<span class="">Connected as {{ user.userprofile }}</span>
+				      </div>
+				    </div>
+				    <div class="info_field ajax_papa">
+				    	<div class="info_field_label"><span class="fa fa-google-plus-square fa-fw"></span>Google</div>
+				    	<span class="colon">:</span>
+				      <div class="info_field_value">
+				      	<a class="btn btn-sm btn-success">Connect Google Account</a>
+				      </div>
+				    </div>
+		    	</div>
 		    </div>
 		  </div>
 	  </div>

@@ -1,6 +1,5 @@
 <div class="enquiry_long panel panel-body">
-  <img class="thmb_md lazy_img" src="/images/product.png" data-src="{{enquiry.product.get_image}}" alt="{{enquiry.product}}-{{enquiry.product.producer}}">
-  <h3 class="text-center">This inquiry was made on <a href="{% url 'products:product' enquiry.product.slug %}">{{enquiry.product}}</a></h3>
+	<h3 class="text-center">This inquiry was made to your workplace, {{ user.userprofile.primary_workplace }}</h3>
 	<div class="enq_msg">
 		<h5>Enquiry Message:</h5>
 		<p><span>{{enquiry.message}}</span></p>
@@ -23,9 +22,9 @@
 			</a>
 		</div>
 		{% endif %}
-		<div class="reply" title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
+		<div class="reply" title="Send a message to {{enquiry.user.userprofile}}" data-toggle="tooltip">
 			<a class="btn btn-success" data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
-	    	<span class="fa fa-reply inline_fa"></span> Send a Reply to {{enquiry.product.user.userprofile}}
+	    	<span class="fa fa-reply inline_fa"></span> Send a Reply to {{enquiry.user.userprofile}}
     	</a>
   	</div>
 		{% else %}
@@ -33,8 +32,8 @@
 		<div>Email: {{enquiry.email}}</div>
 		<div>Phone Number: {{enquiry.phone_no}}</div>
 		<div>Company: {{enquiry.company}}</div>
-		<div class="reply" title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
-			<a class="btn btn-success" href="mailto:{{enquiry.email}}" target="_blank"><span class="fa fa-envelope inline_fa"></span> Send an email to the Enquirer</a>
+		<div class="reply" title="Send a message to {{enquiry.user.userprofile}}" data-toggle="tooltip">
+			<a class="btn btn-success" href="mailto:{{enquiry.email}}" target="_blank">Send an email to the Enquirer</a>
 		</div>
 		{% endif %}
 	</div>

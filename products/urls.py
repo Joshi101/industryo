@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 
     url(r'^enquiry_all/$', 'products.views.enquiry_all', name='enquiry_all'),
     url(r'^enquiry/(?P<id>[^/]+)/$', 'products.views.enquiry', name='enqui'),
+    url(r'^enquiry_sent/(?P<id>[^/]+)/$', 'products.views.enquiry_sent', name='enqui_sent'),
 
     url(r'^(?P<id>[^/]+)/set_details/$', 'products.views.set_details', name='set_details'),
     url(r'^(?P<id>[^/]+)/edit_desc/$', 'products.views.edit_desc', name='edit_desc'),
