@@ -15,7 +15,7 @@
 	</div>
 	</div>
 	<h3 class="text-center">
-		<a class="a_collapse"><i class="fa fa-plus-circle fa-lg inline_fa"></i>Invite a Colleague</a>
+		<a class="a_collapse btn btn-default"><i class="fa fa-plus-circle inline_fa"></i>Invite a Colleague</a>
 		<div class="collapse">
 			<form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
 			{% csrf_token %}
@@ -29,6 +29,9 @@
 			</form>
 		</div>
 	</h3>
+	<div class="text-center">
+		<a href="" class="btn btn-primary ajax_a"><i class="fa fa-user-plus inline_fa"></i>Invite all your Google contacts</a>
+	</div>
 {% endif %}
 <ul id="members_list">
 {% for member in members %}

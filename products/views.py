@@ -594,6 +594,7 @@ def add_product(request):
     user = request.user
     workplace = request.user.userprofile.primary_workplace
     if request.method == 'POST':
+        u_email = request.POST.get('u_email') #email of the uploader, only for the first product
         pro = request.POST.get('product')
         description = request.POST.get('description')
         cost = request.POST.get('cost')
@@ -655,7 +656,7 @@ def add_product(request):
 
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                              'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-                                                             'c1_8': c1_8, 'p': p, 'c': c})
+                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time':True})
 
 
 def initial_category(request):

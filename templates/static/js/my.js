@@ -1398,21 +1398,26 @@ $(function () {
 $('body').on('click', '.ajax_a', function(event){
     event.preventDefault();
     //window.history.pushState({ id: 35 }, 'ajax kaam', '/op/ol');
-    var target = $(this).data('place');
     var url = $(this).attr('href');
-    console.log(target);
-    $(target).find('.loading').removeClass('hide');
+    var target = $(this).data('place');
+    if (target){
+        console.log(target);
+        $(target).find('.loading').removeClass('hide');
+    }
     $.ajax({
         url: url,
         success: function (response) {
             console.log(response);
-            $(target).find('.content').html(response);
-            $(target).find('.loading').addClass('hide');
-            lazyImages();
+            if (target){
+                $(target).find('.content').html(response);
+                $(target).find('.loading').addClass('hide');
+                lazyImages();
+            }
         },
         error: function(xhr, errmsg, err) {
             console.log(errmsg, err);
-            $(target).find('.loading').addClass('hide');
+            if (target)
+                $(target).find('.loading').addClass('hide');
         }
     });
 });

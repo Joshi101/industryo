@@ -21,6 +21,17 @@
 		<input type="hidden" name="new_category_3" value="" autocomplete="off">
 	</form>
 	<form id="add_product_form" action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
+		{% if first_time %}
+		<div class="alert alert-success">
+		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
+		  <p>Seems like you are adding a product for the first time. <strong>Provide an email address on which you would like to recieve the inquiries related to the products added by you</strong>.
+		  </p>
+		  <div style="margin-top: 10px;">
+		  	<input class="form-control not_wide" name="u_email" value="" placeholder="abc@example.com">
+		  </div>
+		</div>
+		{% endif %}
 		<div class="well">
 			<div class="row">
 				<div class="col-sm-10">
@@ -39,7 +50,7 @@
 					</div>
 				</div>
 				<div class="col-sm-2 text-right" style="padding-top: 10px">
-					<button type="button" class="btn btn-primary alt_data right_btn" data-toggle="collapse" data-target="#add_prod_category" data-alt="Done">{% if c %}Change{%else %}Select{% endif %}</button>
+					<button id="change_cat_btn" type="button" class="btn btn-primary alt_data right_btn" data-toggle="collapse" data-target="#add_prod_category" data-alt="Done">{% if c %}Change{%else %}Select{% endif %}</button>
 				</div>
 			</div>
 			<div id="add_prod_category" class="collapse">
@@ -271,6 +282,11 @@
 		$(".select_btn[data-value='{{c3}}']").closest('li').addClass('active');
 		var $no_sub = $('#add_prod_category').find('li.active').find('.no_sub');
 		$no_sub.addClass('active_selection').closest('.active').removeClass('active');
+	</script>
+	{% endif %}
+	{% if not c %}
+	<script type="text/javascript">
+		$('#change_cat_btn').trigger('click');
 	</script>
 	{% endif %}
 </div>
