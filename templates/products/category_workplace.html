@@ -3,9 +3,9 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
-{% block title %}{{tag}} | CoreLogs{% endblock title %}
+{% block title %}Companies Manufacturing &amp; Selling {{category}}{% endblock title %}
 
-{% block meta_description %}{{ tag.description }}{% endblock meta_description %}
+{% block meta_description %}Find SMEs supplying Products in Categories {{category}} {% for p in category.get_sub %}{{p}}, {% endfor %}{% endblock meta_description %}
 
 {% block content %}
 <div class="panel-body">

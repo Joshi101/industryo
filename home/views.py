@@ -5,7 +5,7 @@ from userprofile.models import UserProfile
 from workplace.models import Workplace
 from forum.models import Question
 from tags.models import Tags
-from products.models import Products
+from products.models import Products, Category
 from itertools import chain
 from allauth.account.forms import AddEmailForm, ChangePasswordForm
 from allauth.account.forms import LoginForm, ResetPasswordKeyForm
@@ -126,7 +126,7 @@ def people(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         people = paginator.page(paginator.num_pages)
 
-    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": people, "what": 'user'})
+    return render(request, 'sitemap/sitemap_user.html', {"list": people, "what": 'user'})
 
 
 def workplaces(request):
@@ -142,7 +142,7 @@ def workplaces(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'workplace'})
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'workplace'})
 
 
 def questions(request):
@@ -158,7 +158,7 @@ def questions(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'question'})
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'question'})
 
 
 def tags(request):
@@ -174,7 +174,7 @@ def tags(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'tag'})
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'tag'})
 
 
 def articles(request):
@@ -190,7 +190,7 @@ def articles(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'article'})
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'article'})
 
 
 def products(request):
@@ -206,7 +206,23 @@ def products(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         objects = paginator.page(paginator.num_pages)
 
-    return render_to_response(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'product'})
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'product'})
+
+
+def categories(request):
+    all_objects = Category.objects.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'category'})
 
 
 def about(request):

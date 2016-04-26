@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^enquire/$', 'products.views.enquire', name='enquire'),
     url(r'^int_c/$', 'products.views.initial_category', name='initial_category'),
     url(r'^c_r/$', 'products.views.c_r', name='c_r'),
+    url(r'^cat_u/$', 'products.views.category_update', name='cat_u'),
 
     url(r'^enquiry_all/$', 'products.views.enquiry_all', name='enquiry_all'),
     url(r'^enquiry/(?P<id>[^/]+)/$', 'products.views.enquiry', name='enqui'),

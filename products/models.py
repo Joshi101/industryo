@@ -183,7 +183,7 @@ class Category(models.Model):
     # cascade = models.ForeignKey('self', null=True, blank=True)
     sub_cat = models.ManyToManyField('self', null=True, blank=True)
     alpha = models.CharField(max_length=2)
-    meta_des = models.CharField(max_length=160, null=True, blank=True)
+    meta_des = models.CharField(max_length=150, null=True, blank=True)
     tag = models.ForeignKey(Tags, null=True, blank=True)
     image = models.ForeignKey(Images, null=True, blank=True)
     # count = models.IntegerField(null=True, blank=True)

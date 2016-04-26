@@ -63,10 +63,9 @@ urlpatterns = patterns('',
     url(r'^sitemap/questions$', 'home.views.questions'),
     url(r'^sitemap/articles$', 'home.views.articles'),
     url(r'^sitemap/products$', 'home.views.products'),
+    url(r'^sitemap/categories$', 'home.views.categories'),
 
     url(r'^exec/$', 'home.commands.task_exec'),
-
-    url(r'^get_g_c/$', 'home.google_contacts.get_email_google'),
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),

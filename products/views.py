@@ -746,8 +746,25 @@ def category_wp(request, slug):        # Products
 #     else:
 #         pass
 
+def category_update(request):
+    category = Category.objects.all()
+    for c in category:
+        name = c.name
+        subs = c.get_sub()
+        parents = c.get_parent_cat()
+        text = ''
+        if subs:
+            for s in subs:
+                n = s.name+', '
+                text += n
+        if parents:
+            for s in parents:
+                n = s.name+','
+                text += n
 
-
+        c.meta_des = text[:140]
+        c.save()
+    return redirect('/')
 
 
 
