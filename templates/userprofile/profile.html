@@ -139,22 +139,59 @@
 
 		    <div id="settings" class="tab-pane fadee">
 		    	<h3>Profile Settings</h3>
-		    	<div class="panel panel-default">
-				    <div class="info_field ajax_papa">
-				    	<div class="info_field_label"><span class="fa fa-facebook-official fa-fw"></span>Facebook</div>
-				    	<span class="colon">:</span>
-				      <div class="info_field_value">
-				      	<span class="">Connected as {{ user.userprofile }}</span>
-				      </div>
-				    </div>
-				    <div class="info_field ajax_papa">
-				    	<div class="info_field_label"><span class="fa fa-google-plus-square fa-fw"></span>Google</div>
-				    	<span class="colon">:</span>
-				      <div class="info_field_value">
-				      	<a class="btn btn-sm btn-success">Connect Google Account</a>
-				      </div>
-				    </div>
-		    	</div>
+		    	{% load i18n %}
+		    	<h3>{% trans "Account Connections" %}</h3>
+
+{% if form.accounts %}
+<p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
+
+
+<form method="post" action="{% url 'socialaccount_connections' %}">
+{% csrf_token %}
+
+<fieldset>
+{% if form.non_field_errors %}
+<div id="errorMsg">{{ form.non_field_errors }}</div>
+{% endif %}
+
+{% for base_account in form.accounts %}
+{% with base_account.get_provider_account as account %}
+<div>
+<label for="id_account_{{ base_account.id }}">
+<input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
+<span class="socialaccount_provider {{ base_account.provider }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
+{{ account }}
+</label>
+</div>
+{% endwith %}
+{% endfor %}
+
+<div>
+<button type="submit">{% trans 'Remove' %}</button>
+</div>
+
+</fieldset>
+
+</form>
+
+{% else %}
+<p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
+{% endif %}
+
+<h4>{% trans 'Add a 3rd Party Account' %}</h4>
+
+<ul class="socialaccount_providers">
+{% include "socialaccount/snippets/provider_list.html" with process="connect" %}
+</ul>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+				
+				<h3>Workplace Settings</h3>
+				{% if userprofile.primary_workplace %}
+				Your present workplace is {{userprofile.primary_workplace}}
+				{% else %}
+				<a href ="/set">Set Your Workplace (Company/ Team/ College) 
+				{% endif %}
 		    </div>
 		  </div>
 	  </div>
@@ -165,3 +202,8 @@
 		$('#top_nav_user').addClass('current');
 	</script>
 {% endblock body %}
+
+
+
+
+

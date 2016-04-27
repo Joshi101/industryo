@@ -30,6 +30,10 @@ class UserProfile(models.Model):
     mobile_contact = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
 
+    # Product related info
+    product_email = models.EmailField(null=True, blank=True)
+    product_phone = models.CharField(max_length=25, null=True, blank=True)
+
     class Meta:
         db_table = 'userprofile'
 
@@ -51,7 +55,7 @@ class UserProfile(models.Model):
         w = self.workplaces.all()
         return w
 
-# Code dependent upon django-allauth. Will change if we shift to another module
+    # Code dependent upon django-allauth. Will change if we shift to another module
 
     def get_provider(self):
         try:
@@ -118,6 +122,12 @@ class UserProfile(models.Model):
         self.interests = t
         t.count +=1
         t.save()
+
+    def set_product_contacts(self, product_email, product_phone):
+        self.product_email = product_email
+        self.product_phone = product_phone
+        self.save()
+        return
 
     def notify_liked(self, node):           # working 1
         if self.user != node.user:

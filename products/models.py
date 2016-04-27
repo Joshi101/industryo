@@ -47,9 +47,6 @@ class Products(models.Model):
     score = models.FloatField(default=0)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
-    #new
-    # email = models.EmailField(null=True, blank=True)
-    # mobile = models.CharField(max_length=30, null=True, blank=True)
 
     #new
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
