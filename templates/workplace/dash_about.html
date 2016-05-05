@@ -10,19 +10,17 @@
 		{% endif %}
 		<div class="panel panel-default">
 			<div class="info_field ajax_papa">
-				<div class="info_field_label"><span class="fa fa-pencil fa-fw"></span>Description</div>
-				<span class="colon">:</span>
 				<div class="info_field_value">
 					{% if workplace.about %}
 						{{workplace.about|urlize|new_tab|safe}}
 					{% elif user.userprofile in members %}
-						<i class="text-muted text-center center-block">Add a breif description of your workplace for the rest of the world</i>
+						<i class="text-muted text-center center-block">Add a basic intro of your {{workplace.get_type_short}} in about 5-8 lines.</i>
 					{% else %}
 						<i class="text-muted text-center center-block">No Description Available</i>
 					{% endif %}
 				</div>
 				<div class="info_field_edit hide">
-					<textarea name="about" form="about_wp_form" rows="4" class="form-control new_val">{{workplace.about}}</textarea>
+					<textarea name="about" form="about_wp_form" rows="4" class="form-control seamless_l">{{workplace.about|default:''}}</textarea>
 				</div>
 			</div>
 		</div>

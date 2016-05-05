@@ -41,15 +41,9 @@
         <div class="text-muted">{{ workplace.get_type }}</div>
       </header>
       <div class="info_links">
-        {% if workplace.fb_page %}
-        <a href="{{workplace.fb_page}}"><span class="fa fa-facebook"></span></a>
-        {% endif %}
-        {% if workplace.linkedin_page %}
-        <a href="{{workplace.linkedin_page}}"><span class="fa fa-linkedin"></span></a>
-        {% endif %}
-        {% if workplace.website %}
-        <a href="{{workplace.website}}"><span class="fa fa-globe"></span></a>
-        {% endif %}
+        <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square"></span></a>
+        <a href="{{workplace.get_linkedin_page}}"><span class="fa fa-lg fa-linkedin-square"></span></a>
+        <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe"></span></a>
       </div>
     </div>
     <div class="col-sm-2">

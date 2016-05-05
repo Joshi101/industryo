@@ -252,7 +252,7 @@ def enquire(request):
                 if e.count() < 5:
                     e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no=phone)
                     up = prod.user.userprofile
-                    up.notify_inquired(e)
+                    # up.notify_inquired(e)
                     # send_enq_mail(e)
                 return redirect('/products/'+prod.slug)
             if not p:

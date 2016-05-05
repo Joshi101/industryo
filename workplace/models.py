@@ -116,22 +116,6 @@ class Workplace(models.Model):
                     e = WpTags.objects.create(workplace=self, tags=t, category='O')
             return li
 
-    # def set_industrial_area(self, industrial_area):
-    #     if industrial_area:
-    #         workplace_tags = industrial_area.split(',')
-    #         li = []
-    #         for m in workplace_tags:
-    #             try:
-    #                 t = Tags.objects.get(tag=m)
-    #             except Exception:
-    #                 t = Tags.objects.create(tag=m, type='I')
-    #             li.append(t)
-    #             t.count += 1
-    #             t.save()
-    #         for t in li:
-    #             WpTags.objects.create(workplace=self, tags=t, category='I')
-    #         return li
-
     def set_assets(self, assets):
         if assets:
             workplace_tags = assets.split(',')
@@ -291,6 +275,45 @@ class Workplace(models.Model):
         count = ups.count()
         return count
 
+    def update_wp_score(self):
+        ups = self.userprofile_set.all()
+        points = 0
+        for up in ups:
+            points += up.points
+        self.points = points
+        self.save()
+        return
+
+    def get_website(self):
+        w = self.website
+        if not w or w == 'None':
+            return '/'
+        elif w[0:3] == "htt":
+            return w
+        else:
+            p = 'http://'+w
+            return p
+
+    def get_fb_page(self):
+        w = self.fb_page
+        if not w or w == 'None':
+            return '/'
+        elif w[0:3] == "htt":
+            return w
+        else:
+            p = 'http://'+w
+            return p
+
+    def get_linkedin_page(self):
+        w = self.linkedin_page
+        if not w or w == 'None':
+            return '/'
+        elif w[0:3] == "htt":
+            return w
+        else:
+            p = 'http://'+w
+            return p
+
     def get_tags_count(self):
         a = self.wptags.all()
         count = len(a)
@@ -390,8 +413,15 @@ class Workplace(models.Model):
 
     def get_new_enq_count(self):
         a = self.enquiry_set.filter(seen=False)
+        # bb = self.product_set.all()
+        # for b in bb
         m = len(a)
         return m
+
+    def get_product_count(self):
+        products = self.product_set.all()
+        count = len(products)
+        return count
 
 
 class WpTags(models.Model):

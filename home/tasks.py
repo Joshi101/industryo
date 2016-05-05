@@ -5,6 +5,40 @@ from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
 from .templates import *
 # from ast import literal_eval
+from contacts.views import check_no_wp, get_google_contacts_i
+
+
+@background(schedule=40)
+def execute_view(view, id):
+    if view == 'check_no_wp':
+        check_no_wp(id)
+
+
+@background(schedule=15)
+def execute_view2(view, up,):
+    if view == 'check_no_wp':
+        check_no_wp(up)
+
+@background(schedule=60)
+def send_mail_contacts(email, body, subject):
+    subject = subject
+    user_email = email
+    html_content = body
+
+    from_email, to = 'sp@corelogs.com', user_email
+    text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+@background(schedule=60*4)
+def get_contacts(id):
+    user = User.objects.get(id=id)
+    email = user.email
+    if email[-9:] == 'gmail.com':
+        get_google_contacts_i(user)
+    else:
+        pass
 
 @background(schedule=60)
 def send_html_mail_post(id, n, subject, arguments):

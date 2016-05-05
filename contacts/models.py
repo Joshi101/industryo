@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 class ContactEmails(models.Model):
@@ -23,6 +24,39 @@ class ContactEmails(models.Model):
         a = 'https://www.google.com/m8/feeds/photos/media/{0}/{1}?access_token={2}'.format(self.user.email,
                                                                                            self.contact_id, token_id)
         return a
+
+
+class MailSend(models.Model):
+    user = models.ForeignKey(User)
+    email = models.EmailField()
+    body = models.CharField(max_length=10000, null=True)
+    subject = models.CharField(max_length=255, null=True)
+    template = models.CharField(max_length=15, null=True)
+    arguments = models.CharField(max_length=100, null=True)
+    sent = models.BooleanField(default=False)
+    reasons = models.CharField(max_length=10, null=True)
+    date = models.DateTimeField(default=datetime.now())
+
+    class Meta:
+        db_table = 'MailSend'
+
+    # send initial product upload request - 1 hour after wp register
+    # send Second product upload request - Next day
+    # send Third product upload request - two days
+    # ..
+    # send update details of products request
+    # send request to add more data like capabilities etc
+    # send request to add google contacts
+    # send enq mail day1-7
+    # send message mail
+    # send mail once wp is set, asking review.
+    # if no wp set, send , add confirmation template with set wp
+
+
+
+
+
+
 
 
 
