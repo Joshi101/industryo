@@ -252,7 +252,7 @@ def enquire(request):
                 if e.count() < 5:
                     e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no=phone)
                     up = prod.user.userprofile
-                    up.notify_inquired(e)
+                    # up.notify_inquired(e)
                     # send_enq_mail(e)
                 return redirect('/products/'+prod.slug)
             if not p:
@@ -594,7 +594,9 @@ def add_product(request):
     user = request.user
     workplace = request.user.userprofile.primary_workplace
     if request.method == 'POST':
-        u_email = request.POST.get('u_email') #email of the uploader, only for the first product
+        product_email = request.POST.get('u_email')     # email of the uploader, only for the first product
+        product_phone = request.POST.get('u_phone')     # phone of the uploader, only for the first product
+        user.userprofile.set_product_contacts(product_email=product_email, product_phone=product_phone)
         pro = request.POST.get('product')
         description = request.POST.get('description')
         cost = request.POST.get('cost')
@@ -640,6 +642,10 @@ def add_product(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         p = Products.objects.filter(producer=workplace).last()
+        if user.userprofile.product_email:
+            no_prod_con = False
+        else:
+            no_prod_con = True
 
         c = {}
         if p:
@@ -656,7 +662,8 @@ def add_product(request):
 
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                              'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time':True})
+                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
+                                                             'no_prod_con': no_prod_con})
 
 
 def initial_category(request):
@@ -746,8 +753,25 @@ def category_wp(request, slug):        # Products
 #     else:
 #         pass
 
+def category_update(request):
+    category = Category.objects.all()
+    for c in category:
+        name = c.name
+        subs = c.get_sub()
+        parents = c.get_parent_cat()
+        text = ''
+        if subs:
+            for s in subs:
+                n = s.name+', '
+                text += n
+        if parents:
+            for s in parents:
+                n = s.name+','
+                text += n
 
-
+        c.meta_des = text[:150]
+        c.save()
+    return redirect('/')
 
 
 

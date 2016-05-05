@@ -23,7 +23,7 @@ def profile(request, username):
     profile_image_form = SetProfileImageForm()
     questions = Question.objects.filter(user=page_user)
     answers = Question.objects.filter(answer__question__user=page_user)
-    feeds = Node.feed.filter(user=page_user)[:10]
+    feeds = Node.objects.filter(user=page_user, category__in=['F', 'D'])
     articles = Node.article.filter(user=page_user)
     interests = userprofile.get_interests()
     # return render(request, 'userprofile/profile.html', locals())
@@ -31,7 +31,9 @@ def profile(request, username):
         chain(feeds, questions, answers, articles),
         key=attrgetter('date'), reverse=True)
     accounts = SocialAccount.objects.filter(user=request.user)
-    print(accounts)
+    acc = []
+    for a in accounts:
+        acc.append(a.get_provider)
     paginator = Paginator(all_result_list, 5)
     page = request.GET.get('page')
     try:

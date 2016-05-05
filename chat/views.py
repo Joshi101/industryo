@@ -180,7 +180,7 @@ def check(request):
 
 
 def create_message_enquiry(message, enquirer, users):
-    m = 'You have got an <a href="/enquiry/all/">enquiry message</a>: '+message
+    m = 'You have got an <a href="/products/enquiry_all/">enquiry message</a>: '+message
     for up in users:
 
             try:

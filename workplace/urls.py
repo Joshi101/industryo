@@ -6,7 +6,6 @@ urlpatterns = patterns('',
     # url(r'^accounts/', include('allauth.urls')),
     # url(r'^$', 'home.views.home', name='home'),
 
-
     url(r'^set_about/$', 'workplace.views.set_about', name='set_about'),
     url(r'^set_details/$', 'workplace.views.set_details', name='set_details'),
 

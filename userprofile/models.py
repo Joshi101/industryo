@@ -4,10 +4,11 @@ from workplace.models import Workplace
 from django.db.models.signals import post_save
 from allauth.socialaccount.models import SocialAccount
 import hashlib
-# from nodes.models import Images
 from tags.models import Tags
 from activities.models import Notification
 from home import tasks
+# from contacts.views import get_google_contacts_i, print_arg_fn
+import json
 
 
 class UserProfile(models.Model):
@@ -15,6 +16,9 @@ class UserProfile(models.Model):
 
     primary_workplace = models.ForeignKey(Workplace, null=True, blank=True)
     workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps', null=True, blank=True)
+
+    date_joined = models.DateTimeField(auto_now_add=True, null=True)
+    workplace_type = models.CharField(max_length=1, default='N', null=True)
 
     GenderChoices = (('M', 'Male'), ('F', 'Female'),)
     gender = models.CharField(max_length=1, choices=GenderChoices, null=True, blank=True)
@@ -29,6 +33,10 @@ class UserProfile(models.Model):
 
     mobile_contact = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+
+    # Product related info
+    product_email = models.EmailField(null=True, blank=True)
+    product_phone = models.CharField(max_length=25, null=True, blank=True)
 
     class Meta:
         db_table = 'userprofile'
@@ -51,13 +59,16 @@ class UserProfile(models.Model):
         w = self.workplaces.all()
         return w
 
-# Code dependent upon django-allauth. Will change if we shift to another module
+    # Code dependent upon django-allauth. Will change if we shift to another module
 
     def get_provider(self):
-        try:
-            a = SocialAccount.objects.get(user=self)
-            provider = a.provider
-        except Exception:
+
+        a = SocialAccount.objects.filter(user=self)    # multiple socialaccounts can be connected to 1 usr
+        if len(a) > 1:
+            provider = a[0].provider + ' '+a[1].provider
+        elif len(a) == 1:
+            provider = a[0].provider
+        elif len(a) == 0:
             provider = "email"
         return provider
 
@@ -81,6 +92,14 @@ class UserProfile(models.Model):
 
                 except Exception:
                     return default_image
+
+    def set_primary_workplace(self, primary_workplace, job_position):
+        self.primary_workplace = primary_workplace
+        self.job_position = job_position
+        self.workplace_type = primary_workplace.workplace_type
+        self.save()
+        primary_workplace.update_wp_score()
+        return
 
     def set_interests(self, interests):
         if interests:
@@ -118,6 +137,12 @@ class UserProfile(models.Model):
         self.interests = t
         t.count +=1
         t.save()
+
+    def set_product_contacts(self, product_email, product_phone):
+        self.product_email = product_email
+        self.product_phone = product_phone
+        self.save()
+        return
 
     def notify_liked(self, node):           # working 1
         if self.user != node.user:
@@ -354,19 +379,17 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         up = UserProfile.objects.create(user=instance)
         up.save()
+        tasks.get_contacts(up.user.id)
+        tasks.execute_view('check_no_wp', up.user.id)
 
-#
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
-#     print("profile saved")
 
 post_save.connect(create_user_profile, sender=User)
 # post_save.connect(save_user_profile, sender=User)
 
 
 class Workplaces(models.Model):
-    workplace = models.ForeignKey(Workplace)
-    userprofile = models.ForeignKey(UserProfile, related_name='up')
+    workplace = models.ForeignKey(Workplace, null=True)
+    userprofile = models.ForeignKey(UserProfile, related_name='up', null=True)
     job_position = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:

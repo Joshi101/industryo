@@ -51,6 +51,10 @@
 		{% for ob in list %}
 		<li><a href='{% url 'products:product' ob.slug %}' class="">{{ob}}</a></li>
 		{% endfor %}
+	{% elif what == "category" %}
+		{% for ob in list %}
+		<li><a href='{% url 'products:category' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
 	{% endif %}
 <div class="pagination">
     <span class="step-links">

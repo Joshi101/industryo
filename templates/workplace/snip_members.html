@@ -30,7 +30,7 @@
 		</div>
 	</h3>
 	<div class="text-center">
-		<a href="" class="btn btn-primary ajax_a"><i class="fa fa-user-plus inline_fa"></i>Invite all your Google contacts</a>
+		<a href="{% url 'contacts:get_google_contacts' %}" class="btn btn-primary ajax_a"><i class="fa fa-user-plus inline_fa"></i>Invite your Google contacts</a>
 	</div>
 {% endif %}
 <ul id="members_list">

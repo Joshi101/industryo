@@ -21,14 +21,15 @@
 		<input type="hidden" name="new_category_3" value="" autocomplete="off">
 	</form>
 	<form id="add_product_form" action="{% url 'products:add_product' %}" method="POST" role="form" enctype="multipart/form-data">
-		{% if first_time %}
+		{% if no_prod_con %}
 		<div class="alert alert-success">
 		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
-		  <p>Seems like you are adding a product for the first time. <strong>Provide an email address on which you would like to recieve the inquiries related to the products added by you</strong>.
+		  <p>Seems like you are adding a product for the first time. <strong>Provide contact details to alert you about the inquiries related to the products</strong>.
 		  </p>
 		  <div style="margin-top: 10px;">
 		  	<input class="form-control not_wide" name="u_email" value="" placeholder="abc@example.com">
+		  	<input class="form-control not_wide" name="u_phone" value="" placeholder="+91-">
 		  </div>
 		</div>
 		{% endif %}

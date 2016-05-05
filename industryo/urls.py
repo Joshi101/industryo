@@ -26,7 +26,6 @@ urlpatterns = patterns('',
     url(r'^user_search/$', 'search.views.user_search', name='user_search'),
 
     url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': 'home'}, name='logout'),
-    url(r'^workplace/register/$', 'workplace.views.workplace_register', name='register'),
     url(r'^set/$', 'workplace.views.set_workplace', name='set'),
     url(r'^details/$', 'userprofile.views.set_details', name='details'),
 
@@ -63,10 +62,9 @@ urlpatterns = patterns('',
     url(r'^sitemap/questions$', 'home.views.questions'),
     url(r'^sitemap/articles$', 'home.views.articles'),
     url(r'^sitemap/products$', 'home.views.products'),
+    url(r'^sitemap/categories$', 'home.views.categories'),
 
     url(r'^exec/$', 'home.commands.task_exec'),
-
-    url(r'^get_g_c/$', 'home.google_contacts.get_email_google'),
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),

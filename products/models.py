@@ -47,9 +47,6 @@ class Products(models.Model):
     score = models.FloatField(default=0)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
-    #new
-    # email = models.EmailField(null=True, blank=True)
-    # mobile = models.CharField(max_length=30, null=True, blank=True)
 
     #new
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
@@ -183,7 +180,7 @@ class Category(models.Model):
     # cascade = models.ForeignKey('self', null=True, blank=True)
     sub_cat = models.ManyToManyField('self', null=True, blank=True)
     alpha = models.CharField(max_length=2)
-    meta_des = models.CharField(max_length=160, null=True, blank=True)
+    meta_des = models.CharField(max_length=150, null=True, blank=True)
     tag = models.ForeignKey(Tags, null=True, blank=True)
     image = models.ForeignKey(Images, null=True, blank=True)
     # count = models.IntegerField(null=True, blank=True)

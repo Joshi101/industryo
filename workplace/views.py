@@ -17,41 +17,6 @@ from django.core.mail import send_mail
 from home import tasks
 from itertools import chain
 from operator import attrgetter
-import re
-
-@login_required
-def workplace_register(request):
-    form = WorkplaceForm(request.POST)
-    if request.method == 'POST':
-        response = {}
-        r_value = {}
-        r_inputs = []
-        r_html = {}
-        r_elements = []
-        if not form.is_valid():
-            return HttpResponse(json.dumps(response), content_type="application/json")
-        else:
-            name = form.cleaned_data.get('name')
-            if name:
-                if len(name)>4:
-                    workplace_type = form.cleaned_data.get('workplace_type')
-            else:
-                return HttpResponse('The name should have at least 5 characters')
-            t, created = Workplace.objects.get_or_create(name=name, workplace_type=workplace_type)
-            if created:
-                r_elements = ['message']
-                r_html['message'] = render_to_string('snippets/create_wp_alert.html', {'name': name})
-            node = '''<a href="/workplace/{0}">{1}</a> is now registered on CoreLogs. Have a look at its profile and members.'''.format(t.slug, t)
-            n = Node.objects.create(post=node, user=request.user, category='D', w_type=t.workplace_type)
-            r_inputs = ['id_workplace']
-            r_value['id_workplace'] = name
-            response['html'] = r_html
-            response['elements'] = r_elements
-            response['value'] = r_value
-            response['inputs'] = r_inputs
-            return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        return redirect('/set/')
 
 
 @login_required
@@ -66,24 +31,23 @@ def set_workplace(request):
             primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
         else:
             return HttpResponse('The name should have at least 4 characters')
-            # pass # (send this in display)
         user.userprofile.notify_also_joined(primary_workplace)
         job_position = request.POST.get('job_position')
-        userprofile.primary_workplace = primary_workplace
-        userprofile.job_position = job_position
-        userprofile.save()
-        o, created = Workplaces.objects.get_or_create(userprofile=userprofile, workplace=primary_workplace, job_position=job_position)
-
+        userprofile.set_primary_workplace(primary_workplace, job_position)
+        o, created = Workplaces.objects.get_or_create(userprofile=userprofile,
+                                                      workplace=primary_workplace, job_position=job_position)
         t = userprofile.primary_workplace.workplace_type
         tasks.send_html_mail(user.id, n=88)
-        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile, primary_workplace.slug, primary_workplace, userprofile.job_position)
-        n = Node.objects.create(post=node, user=request.user, category='D', w_type=t)
-        # if user.first_name:
+        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined
+        <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
+                                                                          primary_workplace.slug, primary_workplace,
+                                                                          userprofile.job_position)
+        Node.objects.create(post=node, user=request.user, category='D', w_type=t)
         return redirect('/workplace/'+primary_workplace.slug)
-        # else:
-        #     return redirect('/details/')
+
     else:
-        return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(), 'form_create_workplace': WorkplaceForm()})
+        return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(),
+                                                        'form_create_workplace': WorkplaceForm()})
 
 
 def search_workplace(request):                  # for searching the workplace
@@ -178,33 +142,6 @@ def set_tags_short(request):
         return redirect('/user/'+request.user.username)
 
 
-# def workplace_profile(request, slug):
-#     workplace = Workplace.objects.get(slug=slug)
-#     tags = workplace.get_tags()
-#     type = workplace.workplace_type
-#     if type == 'C':
-#         tags1 = tags['city']
-#         tags2 = tags['segments']
-#         tags3 = tags['institution']
-#         b_type = 'P'
-#     elif type == 'B':
-#         tags1 = tags['city']
-#         tags2 = tags['segments']
-#         b_type = 'S'
-#     elif type == 'A':
-#         tags1 = tags['city']
-#         tags2 = tags['segments']
-#         b_type = 'S'
-#     elif type == 'O':
-#         tags1 = tags['city']
-#     members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-#     member_count = members.count()
-#     products = Products.objects.filter(producer=workplace.pk)
-#     product_count = products.count()
-#     workplace_logo_form = SetLogoForm()
-#     workplace_dash(request, slug)
-#     return render
-
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     tags = workplace.get_tags()
@@ -256,8 +193,6 @@ def workplace_about(request, slug):
         b_type = 'S'
     elif type == 'O':
         tags1 = tags['city']
-    # member_count = members.count()
-    # workplace_logo_form = SetLogoForm()
     return render(request, 'workplace/snip_about.html', locals())
 
 
@@ -268,7 +203,6 @@ def workplace_dash(request, slug):
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
-    print(r_assets)
     if member_count < 2:
         n=1
     elif member_count in range(2,5):
@@ -285,10 +219,6 @@ def workplace_dash(request, slug):
     a = list(filter(lambda x: x!='None', li))
     b = list(filter(lambda x: x!=None, a))
     m = len(b)
-    print(m)
-
-    # o = workplace.get_tags.operations
-    # print(len(o))
     product_count = products.count()
     return render(request, 'workplace/snip_dashboard.html', locals())
 
@@ -315,11 +245,8 @@ def workplace_activity(request, slug):
     a = list(filter(lambda x: x!='None', li))
     b = list(filter(lambda x: x!=None, a))
     m = len(b)
-    print(m)
 
     o = workplace.get_tags.operations
-    print(len(o))
-
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 
@@ -330,9 +257,8 @@ def activity(request, slug):                             # In Place of dashboard
     workplace_logo_form = SetLogoForm()
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
-    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')[:10]
+    feeds = Node.objects.filter(user__userprofile__primary_workplace=workplace, category__in=['F', 'D']).select_related('user')
     articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
-    # return render(request, 'workplace/snip_dashboard.html', locals())
     all_result_list = sorted(
         chain(feeds, questions, answers, articles),
         key=attrgetter('date'), reverse=True)
