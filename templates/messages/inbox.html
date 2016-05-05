@@ -29,6 +29,11 @@
 
   <script type="text/javascript">
     $('#top_nav_messages').addClass('current');
+    if ($(window).width() < 768 ){
+       $('html, body').animate({
+            scrollTop: ($(".conversation").offset().top - 90)
+        }, 500);
+    }
   </script>
 {% endblock container %}
 

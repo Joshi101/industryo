@@ -2265,6 +2265,7 @@ footer .connect i{
   display: inline-block;
   width: 35px;
   font-size: 15px;
+  line-height: 25px;
 }
 
 footer{
@@ -2503,6 +2504,7 @@ footer .contact li{
   border-bottom: 1px solid #eee;
   margin: 10px;
   padding-bottom: 10px;
+  overflow: hidden;
 }
 
 .info_field:last-of-type{
@@ -2549,7 +2551,7 @@ footer .contact li{
   }
 }
 
-.info_field_edit .form-control{
+.info_field_edit input{
   height: initial;
   width: 75%;
   color: #555;
@@ -3981,6 +3983,7 @@ footer .contact li{
   background: #fff;
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 120px;
 }
 
 .dashboard .col-sm-4{

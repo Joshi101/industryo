@@ -1951,3 +1951,11 @@ $('body').on('click','.alt_data', function(){
     $(this).attr('data-alt',$(this).text());
     $(this).text(alt);
 });
+
+$('body').on('click','#dash_side a', function(){
+    if (win_width < 768 ){
+       $('html, body').animate({
+            scrollTop: ($("#dash_content").offset().top - 90)
+        }, 1000);
+    }
+});
