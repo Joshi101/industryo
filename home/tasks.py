@@ -6,6 +6,7 @@ from django.core.mail import EmailMultiAlternatives
 from .templates import *
 # from ast import literal_eval
 from contacts.views import check_no_wp, get_google_contacts_i
+# from contacts.execution import check_executable
 
 
 @background(schedule=40)
@@ -14,10 +15,9 @@ def execute_view(view, id):
         check_no_wp(id)
 
 
-@background(schedule=15)
-def execute_view2(view, up,):
-    if view == 'check_no_wp':
-        check_no_wp(up)
+# @background(schedule=2*60)
+# def loop_view():
+#     fuck_task()
 
 @background(schedule=60)
 def send_mail_contacts(email, body, subject):

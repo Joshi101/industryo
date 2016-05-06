@@ -1,7 +1,8 @@
 from .models import MailSend
-from datetime import datetime, timedelta, time, date
-from home import tasks
+from datetime import datetime, timedelta
+from home.tasks import execute_view, send_mail_contacts
 from contacts.views import check_no_wp, check_no_products
+import pytz
 
 """Whats happening is: During creation of user profile, a task is created which checks after 5 minutes whether
     the user has set the workplace or not.
@@ -17,22 +18,24 @@ from contacts.views import check_no_wp, check_no_products
      And yes, all the mails are sent through creating tasks
 """
 
+
 def check_executable():
-    todaydate = date.today()
-    start_time = datetime.now()
-    end_time = start_time - timedelta(days=2)
+    start_time = datetime.now(pytz.utc)
+    end_time = start_time - timedelta(minutes=15)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
     for mail in mails:
 
-        """This is the segment where the mail is sent directly and no associated task is created
-        example are product intro mail, workplace intro mail,
-        perhaps review mail
-        """
-        if mail.reasons in ['pim',]:
+        if mail.reasons in ['pim', 'wim']:
+            """This is the segment where the mail is sent directly and no associated task is created
+            example are product intro mail, workplace intro mail,
+            perhaps review mail
+            """
             email = mail.email
             body = mail.body
             subject = mail.subject
-            tasks.send_mail_contacts(email, body, subject)
+            send_mail_contacts(email, body, subject)
+            mail.sent = True
+            mail.save()
         elif mail.reasons == "swp":
             """This part is for sending workplace related mails
             Here associated tasks are also created pertaining to workplace and also to check products
@@ -41,13 +44,15 @@ def check_executable():
                 email = mail.email
                 body = mail.body
                 subject = mail.subject
-                tasks.send_mail_contacts(email, body, subject)
-                tasks.execute_view('check_no_wp', mail.user.id, schedule=timedelta(days=2))
+                send_mail_contacts(email, body, subject)
+                execute_view('check_no_wp', mail.user.id, schedule=timedelta(days=2))
+                mail.sent = True
+                mail.save()
             else:
                 check_view(check_no_wp(), mail.user.userprofile)
-                if mail.user.userprofile.workplace_type in ['A', 'B']:
-                    check_view(check_no_products(), mail.user.id)
-        elif mail.reasons in ["lmp", 'pim', 'treason']:
+                # if mail.user.userprofile.workplace_type in ['A', 'B']:
+                #     check_view(check_no_products(), mail.user.id)
+        elif mail.reasons in ["lmp", 'npy']:
             '''Here, product related mails are handled
             and i think we will be adding check product data completeness or things like that
             Task for checking the same thing after few days is also created
@@ -55,11 +60,13 @@ def check_executable():
             email = mail.email
             body = mail.body
             subject = mail.subject
-            tasks.send_mail_contacts(email, body, subject)
-            tasks.execute_view('check_no_products', mail.user.id, schedule=timedelta(days=2))
+            send_mail_contacts(email, body, subject)
+            execute_view('check_no_products', mail.user.id, schedule=timedelta(days=2))
         else:
             # Arrangements for sending enquiry mail over a week
             pass
+
+    # loop_view()
 
 
 def check_view(func, arg):

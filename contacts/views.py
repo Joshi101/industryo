@@ -5,10 +5,8 @@ from xml.etree import ElementTree as etree
 from allauth.socialaccount.models import SocialToken
 from .models import ContactEmails, MailSend
 from django.contrib.auth.models import User
-# from userprofile.models import UserProfile
 from datetime import datetime, timedelta, time, date
-from workplace.models import Workplace
-# from home import tasks
+import pytz
 
 
 def get_google_contacts(request):
@@ -64,20 +62,6 @@ def get_google_contacts_i(user):
 
     return locals()
 
-#
-# def intro_wp_mail():
-#     todaydate = date.today()
-#     startdate = todaydate + timedelta(days=1)
-#     enddate = startdate - timedelta(days=6)
-#     workplace = Workplace.objects.filter(date__range=[enddate, startdate], workplace_type__in=['A', 'B'])
-#     for w in workplace:
-#         members = w.get_members()
-#         for m in members:
-#             product_day_1_mail = ''
-#             mail_body = product_day_1_mail.format(m,)
-#             time = todaydate + timedelta(hours=1)
-#             c = MailSend.objects.create(user=m.user, body=mail_body, date=time)
-
 
 def intro_user_mail():
     todaydate = date.today()
@@ -90,62 +74,66 @@ def intro_user_mail():
         time = todaydate + timedelta(hours=1)
         # c = MailSend.objects.create(user=m.user, body=mail_body, date=time)
 
+'''abbrebiations:
+lmp: List more products
+swp: Set workplace
+wim: workplace intro mail
+pim: Product intro mail
+npy: no products yet
+'''
+
 
 def check_no_wp(id):
     up = User.objects.get(id=id).userprofile
+    now_utc = datetime.now(pytz.utc)
+    now = datetime.now()
     if up.workplace_type == 'N':
         set_wp_now = 'Hi {0}, no workplace'
         mail_body = set_wp_now.format(up)
-        now = datetime.now()
-        MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='swp', date=now + timedelta(minutes=1))
-
-        # MailSend.objects.get_or_create(user=up.user, body=mail_body, reason='reason', date=now + timedelta(days=1))
-        # MailSend.objects.get_or_create(user=up.user, body=mail_body, reason='reason', date=now + timedelta(days=3))
-        # MailSend.objects.get_or_create(user=up.user, body=mail_body, reason='reason', date=now + timedelta(days=5))
+        if up.date_joined > now_utc - timedelta(hours=10):
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='swp', date=now + timedelta(minutes=1))
+        elif up.date_joined > now_utc - timedelta(days=7):
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='swp', date=now + timedelta(days=2))
     elif up.workplace_type in ['A', 'B']:
+        check_no_products(id)
         send_intro_template = 'Hi {0}, workplace_type'
-        mail_body = send_intro_template.format()
-        now = datetime.now()
-        MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='reason', date=now + timedelta(minutes=2))
-        MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='reason', date=now + timedelta(days=2))
-        wp = up.primary_workplace
-        now = datetime.now()
+        mail_body = send_intro_template.format(up)
+        if up.date_joined > now_utc - timedelta(hours=10):
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='wim', date=now + timedelta(minutes=2))
+        elif up.date_joined > now_utc - timedelta(days=7):
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='wim', date=now + timedelta(days=2))
+
         product_intro_mail = 'Hi {0}, Product intro mail'
         mail_body2 = product_intro_mail.format(up)
-        MailSend.objects.get_or_create(user=up.user, body=mail_body2, reasons='pim', date=now + timedelta(minutes=2))
-
-# def check_wp_type(up):
-#     if up.workplace_type in ['A', 'B']:
-#         send_intro_template = 'Hi {0}, workplace_type'
-#         mail_body = send_intro_template.format()
-#         now = datetime.now()
-#         MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='reason', date=now + timedelta(minutes=2))
-#         MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='reason', date=now + timedelta(days=2))
-#         wp = up.primary_workplace
-#         now = datetime.now()
-#         product_intro_mail = 'Hi {0}, Product intro mail'
-#         mail_body2 = product_intro_mail.format(up)
-#         MailSend.objects.get_or_create(user=up.user, body=mail_body2, reasons='pim', date=now + timedelta(minutes=2))
+        if up.date_joined > now_utc - timedelta(hours=10):
+            MailSend.objects.create(user=up.user, body=mail_body2, reasons='pim', date=now + timedelta(minutes=2))
 
 
 def check_no_products(id):
     up = User.objects.get(id=id).userprofile
-    wp = up.primary_workplace
-    now = datetime.now()
-    product_intro_mail = 'Hi {0}, Product intro mail'
-    mail_body = product_intro_mail.format(up)
-    MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='pim', date=now + timedelta(minutes=2))
-    if wp.get_product_count() == 0:
-        list_product_now = 'Hi {0}, no product'
-        mail_body = list_product_now.format(up)
-
-        MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='treason', date=now + timedelta(minutes=5))
-    else:
-        list_more_products = 'Hi {0}, list more products'
-        mail_body = list_more_products.format(up)
-        MailSend.objects.get_or_create(user=up.user, body=mail_body, reasons='lmp', date=now + timedelta(minutes=5))
-
-
+    if up.workplace_type in ['A', 'B']:
+        wp = up.primary_workplace
+        now = datetime.now()
+        now_utc = datetime.now(pytz.utc)
+        product_intro_mail = 'Hi {0}, Product intro mail'
+        mail_body = product_intro_mail.format(up)
+        if up.date_joined > now_utc - timedelta(hours=10):
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='pim', date=now + timedelta(minutes=2))
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='pim', date=now + timedelta(hours=23))
+        if wp.get_product_count() == 0:
+            list_product_now = 'Hi {0}, no product'
+            mail_body = list_product_now.format(up)
+            if up.date_joined > now_utc - timedelta(hours=10):
+                MailSend.objects.create(user=up.user, body=mail_body, reasons='npy', date=now + timedelta(minutes=5))
+            elif up.date_joined > now_utc - timedelta(days=7):
+                MailSend.objects.create(user=up.user, body=mail_body, reasons='npy', date=now + timedelta(days=2))
+        else:
+            list_more_products = 'Hi {0}, list more products'
+            mail_body = list_more_products.format(up)
+            if up.date_joined > now_utc - timedelta(hours=10):
+                MailSend.objects.create(user=up.user, body=mail_body, reasons='lmp', date=now + timedelta(minutes=5))
+            elif up.date_joined > now_utc - timedelta(days=7):
+                MailSend.objects.create(user=up.user, body=mail_body, reasons='lmp', date=now + timedelta(days=2))
 
 
 

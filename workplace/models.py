@@ -419,7 +419,7 @@ class Workplace(models.Model):
         return m
 
     def get_product_count(self):
-        products = self.product_set.all()
+        products = self.products_set.all()
         count = len(products)
         return count
 

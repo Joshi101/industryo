@@ -9,6 +9,7 @@ from activities.models import Notification
 from home import tasks
 # from contacts.views import get_google_contacts_i, print_arg_fn
 import json
+from datetime import datetime, timedelta
 
 
 class UserProfile(models.Model):
@@ -380,7 +381,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         up = UserProfile.objects.create(user=instance)
         up.save()
         tasks.get_contacts(up.user.id)
-        tasks.execute_view('check_no_wp', up.user.id)
+        tasks.execute_view('check_no_wp', up.user.id, schedule=timedelta(seconds=30))
 
 
 post_save.connect(create_user_profile, sender=User)
