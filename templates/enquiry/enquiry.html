@@ -93,4 +93,13 @@
 	  	</div>
   	</div>
   </div>
+  <script type="text/javascript">
+    $('body').on('click','#sent, #received', function(){
+	    if ($(window).width() < 768 ){
+	       $('html, body').animate({
+	            scrollTop: ($(this).parent().find('.content').offset().top - 90)
+	        }, 1000);
+	    }
+		});
+  </script>
 {% endblock body %}
