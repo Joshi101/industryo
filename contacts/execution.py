@@ -61,11 +61,24 @@ def check_executable():
             body = mail.body
             subject = mail.subject
             send_mail_contacts(email, body, subject)
-            execute_view('check_no_products', mail.user.id, schedule=timedelta(days=2))
-        else:
-            # Arrangements for sending enquiry mail over a week
-            pass
-
+            execute_view('check_no_products', mail.enquiry.id, schedule=timedelta(days=2))
+            mail.sent = True
+            mail.save()
+        elif mail.reasons in ['ipm', 'iwm']:
+            email = mail.email
+            body = mail.body
+            subject = mail.subject
+            send_mail_contacts(email, body, subject)
+            execute_view('check_no_inquiry', mail.enquiry.id, schedule=timedelta(days=2))
+            mail.sent = True
+            mail.save()
+        elif mail.reasons == 'jcm':
+            email = mail.email
+            body = mail.body
+            subject = mail.subject
+            send_mail_contacts(email, body, subject)
+            mail.sent = True
+            mail.save()
     # loop_view()
 
 

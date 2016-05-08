@@ -5,14 +5,18 @@ from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
 from .templates import *
 # from ast import literal_eval
-from contacts.views import check_no_wp, get_google_contacts_i
-# from contacts.execution import check_executable
+from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry, check_contact_email
+from datetime import timedelta
 
 
 @background(schedule=40)
 def execute_view(view, id):
     if view == 'check_no_wp':
         check_no_wp(id)
+    elif view == 'check_no_inquiry':
+        check_no_inquiry(id)
+    elif view == 'check_coontact_email':
+        check_contact_email(id)
 
 
 # @background(schedule=2*60)
@@ -39,6 +43,7 @@ def get_contacts(id):
         get_google_contacts_i(user)
     else:
         pass
+    execute_view(id, schedule=timedelta(hours=3))
 
 @background(schedule=60)
 def send_html_mail_post(id, n, subject, arguments):

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from activities.models import Enquiry
 
 
 class ContactEmails(models.Model):
@@ -27,7 +28,7 @@ class ContactEmails(models.Model):
 
 
 class MailSend(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True, blank=True)
     email = models.EmailField()
     body = models.CharField(max_length=10000, null=True)
     subject = models.CharField(max_length=255, null=True)
@@ -36,6 +37,7 @@ class MailSend(models.Model):
     sent = models.BooleanField(default=False)
     reasons = models.CharField(max_length=10, null=True)
     date = models.DateTimeField(default=datetime.now())
+    enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
 
     class Meta:
         db_table = 'MailSend'

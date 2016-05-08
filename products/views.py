@@ -16,7 +16,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
 from operator import itemgetter
 from chat.views import create_message_enquiry
-
+from home.tasks import execute_view
 
 
 @login_required
@@ -30,13 +30,6 @@ def set_tags_short(request, slug):
         wp = user.userprofile.primary_workplace
         value = request.POST.get('tag')
         t = p.set_tags(value)
-        # new_interest = t
-        # r_elements = ['tag_container']
-        # r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
-        # response['html'] = r_html
-        # response['elements'] = r_elements
-        # response['prepend'] = True
-        # return HttpResponse(json.dumps(response), content_type="application/json")
 
         new_interest = t
         r_elements = ['info_field_value']
@@ -115,7 +108,6 @@ def edit_category(request, id):
             c3 = request.POST.get('category3')
             if c3:
                 li.append(c3)
-# <<<<<<< HEAD
             categories = Category.objects.filter(pk__in=li)
             q = Product_Categories.objects.filter(product=p)
             if q:
@@ -123,16 +115,6 @@ def edit_category(request, id):
             for c in categories:
                 Product_Categories.objects.create(product=p, category=c, level=c.level)
             return HttpResponse()
-# =======
-#             print(c1,c2,c3)
-#             p.save()
-#             r_elements = ['info_field_value']
-#             r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
-#             response['html'] = r_html
-#             response['elements'] = r_elements
-#             response['prepend'] = False
-#             return HttpResponse(json.dumps(response), content_type="application/json")
-# >>>>>>> arvind/master
     else:
         return redirect('/products/' + id)
 
@@ -146,7 +128,6 @@ def product(request, slug):
     prod_img_form = SetLogoForm()
     # categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
     categories = product.categories.all()
-    print(categories)
     all = Products.objects.filter(producer=producer)
     all_list = list(all)
     c = all_list.index(product)
@@ -228,15 +209,18 @@ def enquire(request):
                     create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
                 return redirect('/products/'+prod.slug)
 
             if not p:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
+                    # Checking if the same person has created more than 5 inquiries that day
                     e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
                     users = workplace.get_members()
                     create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
                 return redirect('/workplace/'+workplace.slug)
         else:
             email = request.POST.get('email')
@@ -247,19 +231,23 @@ def enquire(request):
             message = request.POST.get('message')
             phone = request.POST.get('phone')
             e = Enquiry.objects.filter(email=email, date__gt=yesterday)
+
             if p:
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
+                    # Checking if the same person has created more than 5 inquiries that day
                     e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no=phone)
                     up = prod.user.userprofile
                     # up.notify_inquired(e)
                     # send_enq_mail(e)
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
                 return redirect('/products/'+prod.slug)
             if not p:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
                     e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message, phone_no=phone)
                     # up.notify_inquired(e)
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
                 return redirect('/workplace/'+workplace.slug)
 
 
@@ -272,7 +260,6 @@ def enquiry_all(request):
 
     enquiries = Enquiry.objects.filter(product__producer=company)
     e = Enquiry.objects.filter(workplace=company)
-    print(e)
     enquiries_sent = Enquiry.objects.filter(user=user)
 
     return render(request, 'enquiry/enquiry.html', {
