@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from home.tasks import execute_view, send_mail_contacts
 from contacts.views import check_no_wp, check_no_products
 import pytz
+from django.shortcuts import render, redirect
 
 """Whats happening is: During creation of user profile, a task is created which checks after 5 minutes whether
     the user has set the workplace or not.
@@ -19,7 +20,7 @@ import pytz
 """
 
 
-def check_executable():
+def check_executable(request):
     start_time = datetime.now(pytz.utc)
     end_time = start_time - timedelta(minutes=15)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
@@ -80,6 +81,7 @@ def check_executable():
             mail.sent = True
             mail.save()
     # loop_view()
+    return redirect('/')
 
 
 def check_view(func, arg):
