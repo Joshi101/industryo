@@ -1,0 +1,2 @@
+Hi {0},
+ You have set your wp. wp type.

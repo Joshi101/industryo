@@ -6,7 +6,7 @@ from activities.models import Enquiry
 
 class ContactEmails(models.Model):
     email = models.EmailField()
-    first_name = models.CharField(max_length=20, null=True, blank=True)
+    first_name = models.CharField(max_length=20, null=True, blank=True, default='')
     last_name = models.CharField(max_length=20, null=True, blank=True)
     user = models.ForeignKey(User)
     provider = models.CharField(max_length=10)      # google/facebook
@@ -36,7 +36,7 @@ class MailSend(models.Model):
     arguments = models.CharField(max_length=100, null=True)
     sent = models.BooleanField(default=False)
     reasons = models.CharField(max_length=10, null=True)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(auto_now_add=True)
     enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
 
     class Meta:

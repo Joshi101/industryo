@@ -1,0 +1,2 @@
+Hi {0},
+The social account has been connected. You havent set your wp.

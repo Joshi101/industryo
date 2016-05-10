@@ -7,7 +7,8 @@ from .templates import *
 # from ast import literal_eval
 from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry, check_contact_email
 from datetime import timedelta
-
+from django.template.loader import get_template
+from django.template.loader import render_to_string
 
 @background(schedule=40)
 def execute_view(view, id):
@@ -31,7 +32,7 @@ def send_mail_contacts(email, body, subject):
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg = EmailMultiAlternatives(subject, text_content, from_email, ['sprksh.j@gmail.com'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -57,7 +58,7 @@ def send_html_mail_post(id, n, subject, arguments):
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg = EmailMultiAlternatives(subject, text_content, from_email, ['sprksh.j@gmail.com'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -93,19 +94,20 @@ def send_html_mail(id, n):
 
     elif n == 88:
         if u.userprofile.primary_workplace.workplace_type == 'A':
-            template = Temp_post_set_a
+            template = render_to_string('emails/set_wp_now.txt', {'0': up})
         elif u.userprofile.primary_workplace.workplace_type == 'B':
             template = Temp_post_set_b
         elif u.userprofile.primary_workplace.workplace_type == 'C':
             template = Temp_post_set_c
         else:       # u.userprofile.primary_workplace.workplace_type == 'O':
+            # template = get_te
             template = Temp_post_set_o
         subject = "[CoreLogs] Your Workplace Profile"
         html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
     else:
         template = Template_Team_all
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
-        html_content = template.format(up)
+        # html_content = template.format(up)
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
