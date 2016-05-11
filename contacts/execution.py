@@ -50,7 +50,7 @@ def check_executable(request):
                 mail.sent = True
                 mail.save()
             else:
-                check_view(check_no_wp(), mail.user.userprofile)
+                check_no_wp(mail.user.id)
                 # if mail.user.userprofile.workplace_type in ['A', 'B']:
                 #     check_view(check_no_products(), mail.user.id)
         elif mail.reasons in ["lmp", 'npy']:
@@ -62,7 +62,7 @@ def check_executable(request):
             body = mail.body
             subject = mail.subject
             send_mail_contacts(email, body, subject)
-            execute_view('check_no_products', mail.enquiry.id, schedule=timedelta(days=2))
+            execute_view('check_no_products', mail.user.id, schedule=timedelta(days=2))
             mail.sent = True
             mail.save()
         elif mail.reasons in ['ipm', 'iwm']:

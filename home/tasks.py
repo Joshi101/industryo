@@ -32,7 +32,7 @@ def send_mail_contacts(email, body, subject):
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, ['sprksh.j@gmail.com'])
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [user_email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -58,7 +58,7 @@ def send_html_mail_post(id, n, subject, arguments):
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, ['sprksh.j@gmail.com'])
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [user_email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -93,17 +93,18 @@ def send_html_mail(id, n):
         html_content = template.format(up, up.primary_workplace.slug, up.primary_workplace)
 
     elif n == 88:
-        if u.userprofile.primary_workplace.workplace_type == 'A':
-            template = render_to_string('emails/set_wp_now.txt', {'0': up})
-        elif u.userprofile.primary_workplace.workplace_type == 'B':
-            template = Temp_post_set_b
-        elif u.userprofile.primary_workplace.workplace_type == 'C':
-            template = Temp_post_set_c
-        else:       # u.userprofile.primary_workplace.workplace_type == 'O':
-            # template = get_te
-            template = Temp_post_set_o
-        subject = "[CoreLogs] Your Workplace Profile"
-        html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
+        pass
+        # if u.userprofile.primary_workplace.workplace_type == 'A':
+        #     # template = render_to_string('emails/set_wp_now.txt', {'0': up})
+        # elif u.userprofile.primary_workplace.workplace_type == 'B':
+        #     template = Temp_post_set_b
+        # elif u.userprofile.primary_workplace.workplace_type == 'C':
+        #     template = Temp_post_set_c
+        # else:       # u.userprofile.primary_workplace.workplace_type == 'O':
+        #     # template = get_te
+        #     template = Temp_post_set_o
+        # subject = "[CoreLogs] Your Workplace Profile"
+        # html_content = template.format(up, up.primary_workplace, up.primary_workplace.slug)
     else:
         template = Template_Team_all
         subject = "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."

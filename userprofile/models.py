@@ -124,6 +124,22 @@ class UserProfile(models.Model):
         interests = self.interests.all()
         return interests
 
+    def get_email0(self):
+        email = self.user.email
+        return email
+
+    def get_email_prod(self):
+        if self.product_email:
+            email = self.product_email
+        elif self.workplace_type is not 'N':
+            if self.primary_workplace.office_mail_id:
+                email = self.primary_workplace.office_mail_id
+            else:
+                email = self.user.email
+        else:
+            email = self.user.email
+        return email
+
     def set_skills(self, skills):
         skills_tags = skills.split(', ')
         for m in skills_tags:

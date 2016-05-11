@@ -8,7 +8,9 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
 import pytz
 from activities.models import Enquiry
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
+from django.template import Context
+from home.templates import *
 
 
 def get_google_contacts(request):
@@ -65,17 +67,6 @@ def get_google_contacts_i(user):
     return locals()
 
 
-def intro_user_mail():
-    todaydate = date.today()
-    startdate = todaydate + timedelta(days=1)
-    enddate = startdate - timedelta(days=6)
-    users = User.objects.filter(date_joined__range=[enddate, startdate], workplace_type__in=['A', 'B'])
-    for u in users:
-        basic_intro_to_corelogs = ''
-        mail_body = basic_intro_to_corelogs.format(u,)
-        time = todaydate + timedelta(hours=1)
-        # c = MailSend.objects.create(user=m.user, body=mail_body, date=time)
-
 '''abbrebiations:
 lmp: List more products
 swp: Set workplace
@@ -93,24 +84,34 @@ def check_no_wp(id):
     now_utc = datetime.now(pytz.utc)
     now = datetime.now()
     if up.workplace_type == 'N':
-        mail_body = render_to_string('emails/set_wp_mail.html', {'0': up})
+        subject = '[CoreLogs] {0}, Register your Company'.format(up)
+        # mail_body = render_to_string('emails/set_wp_mail.html', {'0': up})
+        mail_body = set_wp_mail.format(up)
         if up.date_joined > now_utc - timedelta(hours=10):
-            MailSend.objects.create(user=up.user, body=mail_body, reasons='swp', date=now + timedelta(minutes=1))
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='swp',
+                                    date=now_utc + timedelta(minutes=1), email=up.get_email0(), subject=subject)
         elif up.date_joined > now_utc - timedelta(days=7):
-            MailSend.objects.create(user=up.user, body=mail_body, reasons='swp', date=now + timedelta(days=2))
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='swp',
+                                    date=now_utc + timedelta(days=2), email=up.get_email0(), subject=subject)
     elif up.workplace_type in ['A', 'B']:
         check_no_products(id)
         wp = up.primary_workplace
-        mail_body = render_to_string('emails/wp_intro_mail.html', {'0': up, '1': wp, '2': wp.slug})
+        # mail_body = render_to_string('emails/wp_intro_mail.html', {'0': up, '1': wp, '2': wp.slug})
+        mail_body = wp_intro_mail.format(up, wp, wp.slug)
+        subject = '[CoreLogs] The Front Page of {0} on Internet'.format(wp)
         if up.date_joined > now_utc - timedelta(hours=10):
-            MailSend.objects.create(user=up.user, body=mail_body, reasons='wim', date=now + timedelta(minutes=2))
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='wim',
+                                    date=now_utc + timedelta(minutes=2), email=up.get_email0(), subject=subject)
         elif up.date_joined > now_utc - timedelta(days=7):
-            MailSend.objects.create(user=up.user, body=mail_body, reasons='wim', date=now + timedelta(days=2))
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='wim',
+                                    date=now_utc + timedelta(days=2), email=up.get_email0(), subject=subject)
 
-        product_intro_mail = 'Hi {0}, Product intro mail'
-        mail_body2 = render_to_string('emails/product_intro_mail.html', {'0': up, '1': wp, '2': wp.slug})
+        # mail_body2 = render_to_string('emails/product_intro_mail.html', {'0': up, '1': wp, '2': wp.slug})
+        mail_body2 = product_intro_mail.format(up, wp, wp.slug)
+        subject2 = '[CoreLogs] {0}, List Products & Services among SMEs'.format(up)
         if up.date_joined > now_utc - timedelta(hours=10):
-            MailSend.objects.create(user=up.user, body=mail_body2, reasons='pim', date=now + timedelta(minutes=2))
+            MailSend.objects.create(user=up.user, body=mail_body2, reasons='pim', subject=subject2,
+                                    date=now_utc + timedelta(minutes=2), email=up.get_email0())
 
 
 def check_no_products(id):
@@ -119,24 +120,36 @@ def check_no_products(id):
         wp = up.primary_workplace
         now = datetime.now()
         now_utc = datetime.now(pytz.utc)
-        mail_body = render_to_string('emails/product_intro_mail.html', {'0': up, '1': wp, '2': wp.slug})
+        # mail_body = render_to_string('emails/product_intro_mail.html'.format(up, wp, wp.slug))
+        mail_body = product_intro_mail.format(up, wp, wp.slug)
+        subject = '[CoreLogs] {0}, List Products & Services among SMEs'.format(up)
         if up.date_joined > now_utc - timedelta(hours=10):
-            MailSend.objects.create(user=up.user, body=mail_body, reasons='pim', date=now + timedelta(minutes=2))
-            MailSend.objects.create(user=up.user, body=mail_body, reasons='pim', date=now + timedelta(hours=23))
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='pim',
+                                    date=now_utc + timedelta(minutes=2), email=up.get_email0(), subject=subject)
+            MailSend.objects.create(user=up.user, body=mail_body, reasons='pim',
+                                    date=now_utc + timedelta(hours=23), email=up.get_email0(), subject=subject)
         if wp.get_product_count() == 0:
-            mail_body = render_to_string('emails/no_products_yet.html', {'0': up, '1': wp, '2': wp.slug})
+            # mail_body = render_to_string('emails/no_products_yet.html').format(up, wp, wp.slug)
+            mail_body2 = no_products_yet.format(up, wp, wp.slug)
+            subject2 = '[CoreLogs] {0}, Nobody has listed any Product from your Company'.format(up)
             if up.date_joined > now_utc - timedelta(hours=10):
-                MailSend.objects.create(user=up.user, body=mail_body, reasons='npy', date=now + timedelta(minutes=5))
+                MailSend.objects.create(user=up.user, body=mail_body2, reasons='npy',
+                                        date=now_utc + timedelta(minutes=5), email=up.get_email_prod(), subject=subject2)
             elif up.date_joined > now_utc - timedelta(days=7):
-                MailSend.objects.create(user=up.user, body=mail_body, reasons='npy', date=now + timedelta(days=2))
+                MailSend.objects.create(user=up.user, body=mail_body2, reasons='npy',
+                                        date=now_utc + timedelta(days=2), email=up.get_email_prod(), subject=subject2)
         else:
 
-            mail_body = render_to_string('emails/no_products_yet.html', {'0': up, '1': wp.get_product_count(),
-                                                                         '2': wp.slug, '3': wp.get_product_count()})
+            # mail_body = render_to_string('emails/no_products_yet.html').format(up, wp.get_product_count(),
+            #                                                                    wp.slug, wp.get_product_count())
+            mail_body = list_more_products.format(up, wp, wp.slug, wp.get_product_count())
+            subject = '[CoreLogs] {0}, List More Products & Services'.format(up)
             if up.date_joined > now_utc - timedelta(hours=10):
-                MailSend.objects.create(user=up.user, body=mail_body, reasons='lmp', date=now + timedelta(minutes=5))
+                MailSend.objects.create(user=up.user, body=mail_body, reasons='lmp',
+                                        date=now_utc + timedelta(minutes=5), email=up.get_email_prod(), subject=subject)
             elif up.date_joined > now_utc - timedelta(days=7):
-                MailSend.objects.create(user=up.user, body=mail_body, reasons='lmp', date=now + timedelta(days=2))
+                MailSend.objects.create(user=up.user, body=mail_body, reasons='lmp',
+                                        date=now_utc + timedelta(days=2), email=up.get_email_prod(), subject=subject)
 
 
 def check_no_inquiry(id):
@@ -148,32 +161,40 @@ def check_no_inquiry(id):
             to_up = e.product.user.userprofile
             inquiry_product_mail = 'Hi {0}, You got an Inquiry'
             mail_body = inquiry_product_mail.format(to_up)
+            subject = '[CoreLogs] Important! You Got an Inquiry'
             if e.date > now_utc - timedelta(hours=10):
-                MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm', date=now + timedelta(minutes=2))
+                MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm',
+                                        date=now_utc + timedelta(minutes=2), email=to_up.get_email_prod(), subject=subject)
             elif e.date > now_utc - timedelta(days=7):
-                MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm', date=now + timedelta(hours=44))
+                MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm', subject=subject,
+                                        date=now_utc + timedelta(hours=44), email=to_up.get_email_prod())
 
         else:
             wp = e.workplace
             inquiry_workplace_mail = 'Hi {0}, You got an Inquiry about workplace'
+            subject = '[CoreLogs] Important! You Got an Inquiry'
             if wp.get_members_count() < 4:
                 members = wp.get_members()
                 for up in members:
                     if e.date > now_utc - timedelta(hours=10):
                         mail_body = inquiry_workplace_mail.format(up)
-                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', date=now + timedelta(minutes=2))
+                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject,
+                                                date=now_utc + timedelta(minutes=2), email=up.get_email_prod)
                     elif e.date > now_utc - timedelta(days=7):
                         mail_body = inquiry_workplace_mail.format(up)
-                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', date=now + timedelta(hours=44))
+                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject,
+                                                date=now_utc + timedelta(hours=44), email=up.get_email_prod)
             else:
                 members = wp.get_members()[:3]
                 for up in members:
                     if e.date > now_utc - timedelta(hours=10):
                         mail_body = inquiry_workplace_mail.format(up)
-                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', date=now + timedelta(minutes=2))
+                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject,
+                                                date=now_utc + timedelta(minutes=2), email=up.get_email_prod)
                     elif e.date > now_utc - timedelta(days=7):
                         mail_body = inquiry_workplace_mail.format(up)
-                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', date=now + timedelta(hours=44))
+                        MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject,
+                                                date=now_utc + timedelta(hours=44), email=up.get_email_prod)
 
 
 def check_contact_email(id):
@@ -181,21 +202,33 @@ def check_contact_email(id):
     up = User.objects.get(id=id).userprofile
     now_utc = datetime.now(pytz.utc)
     now = datetime.now()
+    subject = '[CoreLogs] {0} Invited You to Check it Out'
     if len(to_send)<200:
         for s in to_send:
-            mail_body = render_to_string('emails/join_corelogs_mail.html', {'0': s.first_name, '1': up})
-            MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', date=now + timedelta(minutes=2))
+            # mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, up)
+            mail_body = join_corelogs_mail.format(s.first_name, up)
+            MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm',
+                                    date=now_utc + timedelta(minutes=2), subject=subject)
     else:
         """Yield successive n-sized chunks from to_send."""
         for i in range(0, len(to_send), 100):
             to_send_n = to_send[i:i+100]
             for s in to_send_n:
-                mail_body = render_to_string('emails/join_corelogs_mail.html', {'0': s.first_name, '1': up})
-                MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', date=now + timedelta(days=i-1))
+                mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, up)
+                MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm',
+                                        date=now_utc + timedelta(days=i/100), subject=subject)
 
 
-
-
+def fuck_shit(request):
+    up = User.objects.get(id=1).userprofile
+    wp = up.primary_workplace
+    now = datetime.now()
+    now_utc = datetime.now(pytz.utc)
+    result = render_to_string('emails/product_intro_mail.html').format(up, wp, wp.slug)
+    subject = '[CoreLogs] Important! You Got an Inquiry'
+    MailSend.objects.create(user=up.user, body=result, reasons='wim',
+                                    date=now_utc + timedelta(days=2), email=up.get_email0(), subject=subject)
+    return render(request, 'search/random_text_print.html', locals())
 
 
 

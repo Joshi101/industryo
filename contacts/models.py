@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 from activities.models import Enquiry
+import pytz
 
 
 class ContactEmails(models.Model):
@@ -26,17 +27,23 @@ class ContactEmails(models.Model):
                                                                                            self.contact_id, token_id)
         return a
 
+    def get_first_name(self):
+        if self.first_name:
+            return self.first_name
+        else:
+            return ''
+
 
 class MailSend(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
-    email = models.EmailField()
-    body = models.CharField(max_length=10000, null=True)
+    email = models.EmailField(null=True, blank=True)
+    body = models.TextField(max_length=10000, null=True)
     subject = models.CharField(max_length=255, null=True)
     template = models.CharField(max_length=15, null=True)
     arguments = models.CharField(max_length=100, null=True)
     sent = models.BooleanField(default=False)
     reasons = models.CharField(max_length=10, null=True)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=datetime.now(pytz.utc))
     enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
 
     class Meta:

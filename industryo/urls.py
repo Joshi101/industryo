@@ -66,6 +66,8 @@ urlpatterns = patterns('',
 
     url(r'^exec/$', 'home.commands.task_exec'),
     url(r'^check_exec/$', 'contacts.execution.check_executable'),
+    url(r'^fuck_shit/$', 'contacts.views.fuck_shit'),
+
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
