@@ -22,7 +22,7 @@ from django.shortcuts import render, redirect
 
 def check_executable(request):
     start_time = datetime.now(pytz.utc)
-    end_time = start_time - timedelta(minutes=15)
+    end_time = start_time - timedelta(minutes=30)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
     for mail in mails:
 

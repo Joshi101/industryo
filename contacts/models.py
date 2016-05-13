@@ -37,6 +37,13 @@ class ContactEmails(models.Model):
 class MailSend(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+    '''
+    1: sp@corelogs.com
+    2: admin@corelogs.com
+    3: info@corelogs.com
+    4: marketing@corelogs.com
+    '''
+    from_email = models.CharField(max_length=1, null=True, blank=True)
     body = models.TextField(max_length=10000, null=True)
     subject = models.CharField(max_length=255, null=True)
     template = models.CharField(max_length=15, null=True)

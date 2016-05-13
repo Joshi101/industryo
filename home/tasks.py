@@ -7,8 +7,8 @@ from .templates import *
 # from ast import literal_eval
 from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry, check_contact_email
 from datetime import timedelta
-from django.template.loader import get_template
-from django.template.loader import render_to_string
+from django.core.mail import get_connection, send_mail
+
 
 @background(schedule=40)
 def execute_view(view, id):
@@ -16,35 +16,69 @@ def execute_view(view, id):
         check_no_wp(id)
     elif view == 'check_no_inquiry':
         check_no_inquiry(id)
-    elif view == 'check_coontact_email':
+    elif view == 'check_contact_email':
         check_contact_email(id)
 
 
-# @background(schedule=2*60)
-# def loop_view():
-#     fuck_task()
+# @background(schedule=60)
+# def send_mail_contacts(email, body, subject, from_email):
+#     subject = subject
+#     user_email = email
+#     html_content = body
+#     # if from_email == 'A':
+#     from_email, to = 'sp@corelogs.com', user_email
+#     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
+#     msg = EmailMultiAlternatives(subject, text_content, from_email, [user_email])
+#     msg.attach_alternative(html_content, "text/html")
+#     msg.send()
+
 
 @background(schedule=60)
-def send_mail_contacts(email, body, subject):
+def send_mail_contacts(email, body, subject, from_email):
     subject = subject
-    user_email = email
+    to = email
     html_content = body
-
-    from_email, to = 'sp@corelogs.com', user_email
+    my_host = 'smtp.zoho.com'
+    my_port = 587
+    if from_email == '1':
+        my_username = 'sp@corelogs.com'
+        my_password = 'SP@zoho.09'
+    elif from_email == '2':
+        my_username = 'admin@corelogs.com'
+        my_password = 'AD@zoho.09'
+    elif from_email == '3':
+        my_username = 'info@corelogs.com'
+        my_password = 'INFO@zoho.09'
+    elif from_email == '4':
+        my_username = 'marketing@corelogs.com'
+        my_password = 'Mark@zoho.09'
+    else:
+        my_username = 'marketing@corelogs.com'
+        my_password = 'Mark@zoho.09'
+    my_use_tls = True
+    connection = get_connection(host=my_host,
+                                port=my_port,
+                                username=my_username,
+                                password=my_password,
+                                use_tls=my_use_tls)
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [user_email])
+
+    connection.open()
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to], connection=connection)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+    connection.close()
+
 
 @background(schedule=60*4)
 def get_contacts(id):
     user = User.objects.get(id=id)
-    email = user.email
-    if email[-9:] == 'gmail.com':
+    provider = user.userprofile.get_provider()
+    if provider == 'google':
         get_google_contacts_i(user)
     else:
         pass
-    execute_view(id, schedule=timedelta(hours=3))
+    execute_view('check_contact_email', id, schedule=timedelta(hours=3))
 
 @background(schedule=60)
 def send_html_mail_post(id, n, subject, arguments):

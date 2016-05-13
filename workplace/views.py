@@ -37,7 +37,7 @@ def set_workplace(request):
         o, created = Workplaces.objects.get_or_create(userprofile=userprofile,
                                                       workplace=primary_workplace, job_position=job_position)
         t = userprofile.primary_workplace.workplace_type
-        tasks.send_html_mail(user.id, n=88)
+        # tasks.send_html_mail(user.id, n=88) # Moved to contacts
         node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined
         <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
                                                                           primary_workplace.slug, primary_workplace,
@@ -549,7 +549,6 @@ def todder(request):
     else:
         # return render(request, 'home.html', {'result_list': result_list})
         return render(request, 'workplace/workplace_tag.html', {'result_list': result_list})
-# Create your views here.
 
 
 def change_workplace(request):
