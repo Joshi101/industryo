@@ -34,27 +34,32 @@ def execute_view(view, id):
 
 
 @background(schedule=60)
-def send_mail_contacts(email, body, subject, from_email):
+def send_mail_contacts(email, body, subject, from_e):
     subject = subject
     to = email
     html_content = body
     my_host = 'smtp.zoho.com'
     my_port = 587
-    if from_email == '1':
+    if from_e == '1':
         my_username = 'sp@corelogs.com'
         my_password = 'SP@zoho.09'
-    elif from_email == '2':
+        from_email = 'sp@corelogs.com'
+    elif from_e == '2':
         my_username = 'admin@corelogs.com'
         my_password = 'AD@zoho.09'
-    elif from_email == '3':
+        from_email = 'admin@corelogs.com'
+    elif from_e == '3':
         my_username = 'info@corelogs.com'
         my_password = 'INFO@zoho.09'
-    elif from_email == '4':
+        from_email = 'info@corelogs.com'
+    elif from_e == '4':
         my_username = 'marketing@corelogs.com'
         my_password = 'Mark@zoho.09'
+        from_email = 'marketing@corelogs.com'
     else:
         my_username = 'marketing@corelogs.com'
         my_password = 'Mark@zoho.09'
+        from_email = 'marketing@corelogs.com'
     my_use_tls = True
     connection = get_connection(host=my_host,
                                 port=my_port,
