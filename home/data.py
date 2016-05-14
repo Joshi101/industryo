@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
 from activities.models import Enquiry
-
+import pytz
 
 @login_required
 def activity(request):
@@ -26,9 +26,9 @@ def activity(request):
 def details(request):
     if 'q' in request.GET:
         s = request.GET.get('q')
-        todaydate = date.today()
-        startdate = todaydate + timedelta(days=1)
-        enddate = startdate - timedelta(days=40)
+        # todaydate = date.today()
+        startdate = datetime.now(pytz.utc)
+        enddate = startdate - timedelta(days=7)
         users = User.objects.filter(date_joined__range=[enddate, startdate])
         workplaces = Workplace.objects.filter(date__range=[enddate, startdate])
         if s == 'ub':
