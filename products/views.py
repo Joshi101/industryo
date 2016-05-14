@@ -209,7 +209,7 @@ def enquire(request):
                     create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/products/'+prod.slug)
 
             if not p:
@@ -220,7 +220,7 @@ def enquire(request):
                     users = workplace.get_members()
                     create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/workplace/'+workplace.slug)
         else:
             email = request.POST.get('email')
@@ -240,14 +240,14 @@ def enquire(request):
                     up = prod.user.userprofile
                     # up.notify_inquired(e)
                     # send_enq_mail(e)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/products/'+prod.slug)
             if not p:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
                     e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message, phone_no=phone)
                     # up.notify_inquired(e)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seonds=30))
+                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/workplace/'+workplace.slug)
 
 

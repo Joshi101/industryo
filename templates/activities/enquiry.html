@@ -43,7 +43,8 @@
     </a>
 </div>
 <div class="col-md-7">
-{% for e in lis %}
+{% for e in lis reversed %}
+{% if e.product %}
   <div class="enquiry_long">
 	<h4><a href="{% url 'workplace:workplace_profile' e.product.producer.slug %}">{{e.get_producer}}</a> recieved the following enquiry on <a href="{% url 'products:product' e.product.slug %}">{{e.product}}</span></h4>
 	<div>
@@ -83,6 +84,47 @@
 	</div>
 	<div>Status: <strong>{{e.get_status}}</strong></div>
 </div>
+{% else %}
+<div class="enquiry_long">
+	<h4>You got an enquiry about your Company</h4>
+	<div>
+		<p class="enq_msg"><span>{{e.message}}</span></p>
+	</div>
+	<div class="enq_user">
+		<h4>From</h4>
+		{% if e.user %}
+		<div>
+			User: 
+			<a href="{% url 'user:profile' e.user.username %}" target="_blank">
+				<span class="name">{{ e.user.userprofile }}</span>
+			</a>
+		</div>
+		<div>Phone Number: {{e.phone_no}}</div>
+		{% if e.user.userprofile.primary_workplace %}
+		<div>
+			Company: 
+			<a href="{% url 'workplace:workplace_profile' e.user.userprofile.primary_workplace.slug %}">
+				<span class="name">{{ e.user.userprofile.primary_workplace }}</span>	
+			</a>
+		</div>
+		{% endif %}
+		<div title="Send a message to {{e.product.user.userprofile}}" data-toggle="tooltip">
+			<a data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
+				Send a Reply to {{e.product.user.userprofile}}
+	    	<span class="fa fa-envelope pull-right inline_fa fa-2x"></span>
+    	</a>
+  	</div>
+		{% else %}
+		<div>User: {{ e.name }}</div>
+		<div>Email: {{e.email}}</div>
+		<div>Phone Number{{e.phone_no}}</div>
+		<a href="mailto:{{e.email}}" target="_blank">Send an email to the Enquirer</a>
+		<div>Company: {{e.company}}</div>
+		{% endif %}
+	</div>
+	<div>Status: <strong>{{e.get_status}}</strong></div>
+</div>
+{% endif %}
 {% endfor %}
 </div>
 
