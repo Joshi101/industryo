@@ -170,11 +170,11 @@ def check_no_inquiry(id):
                                                     e.product.producer.slug, e.product.producer)
             subject = '[CoreLogs] Important! You Got an Inquiry'
             if e.date > now_utc - timedelta(minutes=10):
-                MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm', from_email='1',
+                MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm', from_email='1', enquiry=e,
                                         date=now_utc + timedelta(minutes=2), email=to_up.get_email_prod(), subject=subject)
             elif e.date > now_utc - timedelta(days=7):
                 MailSend.objects.create(user=to_up.user, body=mail_body, reasons='ipm', subject=subject, from_email='2',
-                                        date=now_utc + timedelta(hours=44), email=to_up.get_email_prod())
+                                        date=now_utc + timedelta(hours=44), email=to_up.get_email_prod(), enquiry=e)
 
         else:
             wp = e.workplace
@@ -185,22 +185,22 @@ def check_no_inquiry(id):
                     if e.date > now_utc - timedelta(minutes=10):
                         mail_body = inquiry_workplace_mail.format(up)
                         MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject, from_email='2',
-                                                date=now_utc + timedelta(minutes=2), email=up.get_email_prod)
+                                                date=now_utc + timedelta(minutes=2), email=up.get_email_prod, enquiry=e)
                     elif e.date > now_utc - timedelta(days=7):
                         mail_body = inquiry_workplace_mail.format(up)
                         MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject, from_email='2',
-                                                date=now_utc + timedelta(hours=44), email=up.get_email_prod)
+                                                date=now_utc + timedelta(hours=44), email=up.get_email_prod, enquiry=e)
             else:
                 members = wp.get_members().order_by('?')[:3]
                 for up in members:
                     if e.date > now_utc - timedelta(minutes=10):
                         mail_body = inquiry_workplace_mail.format(up)
                         MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject, from_email='2',
-                                                date=now_utc + timedelta(minutes=2), email=up.get_email_prod)
+                                                date=now_utc + timedelta(minutes=2), email=up.get_email_prod, enquiry=e)
                     elif e.date > now_utc - timedelta(days=7):
                         mail_body = inquiry_workplace_mail.format(up)
                         MailSend.objects.create(user=up.user, body=mail_body, reasons='iwm', subject=subject, from_email='2',
-                                                date=now_utc + timedelta(hours=44), email=up.get_email_prod)
+                                                date=now_utc + timedelta(hours=44), email=up.get_email_prod, enquiry=e)
 
 
 def check_contact_email(id):

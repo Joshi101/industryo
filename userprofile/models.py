@@ -63,8 +63,8 @@ class UserProfile(models.Model):
     # Code dependent upon django-allauth. Will change if we shift to another module
 
     def get_provider(self):
-
-        a = SocialAccount.objects.filter(user=self)    # multiple socialaccounts can be connected to 1 usr
+        provider = None
+        a = SocialAccount.objects.filter(user=self.user)    # multiple socialaccounts can be connected to 1 usr
         if len(a) > 1:
             provider = a[0].provider + ' '+a[1].provider
         elif len(a) == 1:
