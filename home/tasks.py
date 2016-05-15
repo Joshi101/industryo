@@ -81,9 +81,10 @@ def get_contacts(id):
     provider = user.userprofile.get_provider()
     if provider == 'google':
         get_google_contacts_i(user)
+        execute_view('check_contact_email', id, schedule=timedelta(minutes=20))
+
     else:
         pass
-    execute_view('check_contact_email', id, schedule=timedelta(hours=3))
 
 @background(schedule=60)
 def send_html_mail_post(id, n, subject, arguments):

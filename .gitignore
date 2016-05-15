@@ -61,3 +61,4 @@ target/
 industryo/settings.py
 
 .idea/
+nohup.out
