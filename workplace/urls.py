@@ -37,6 +37,7 @@ urlpatterns = patterns('',
     url(r'^products/(?P<slug>[^/]+)/$', 'workplace.views.workplace_products', name='products'),
     url(r'^get_top_scorers/(?P<slug>[^/]+)/$', 'workplace.views.get_top_scorers', name='get_top_scorers'),
     url(r'^invite_colleague/$', 'workplace.views.invite_colleague', name='invite_colleague'),
+    url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category_wp', name='category_wp'),
 
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
 

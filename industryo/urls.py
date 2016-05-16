@@ -63,6 +63,7 @@ urlpatterns = patterns('',
     url(r'^sitemap/articles$', 'home.views.articles'),
     url(r'^sitemap/products$', 'home.views.products'),
     url(r'^sitemap/categories$', 'home.views.categories'),
+    url(r'^sitemap/categories_wp$', 'home.views.categories_wp'),
 
     url(r'^exec/$', 'home.commands.task_exec'),
     url(r'^check_exec/$', 'contacts.execution.check_executable'),

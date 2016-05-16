@@ -9,7 +9,15 @@
 {% block page_id %}marketplace{% endblock page_id %}
 
 {% block body %}
+	<!-- {% if request.user.userprofile.primary_workplace %}	
+	<div class="pull-right col-md-3 ">
+	<a href="{% url 'products:add_product' %}">
+		<button class="btn btn-primary"><span class='fa fa-plus-circle fa-lg'></span>&nbsp; AddProducts</button>
+	</a>
+	</div>
+	{% endif %} -->
 	<nav class="container">
+	
 		<ul id="marketplace_top" class="nav drop_nav">
 			<li class="dropdown l1">
 				<a href="/marketplace?q=C" class="">SAE Teams</a>
@@ -34,7 +42,9 @@
 	    	</ul>
   		</li>
 		</ul>
+	
 	</nav>
+	
 	
 	<div class="container">
 	  <ul id="products_list" class="products_list ajax_andar">

@@ -487,6 +487,9 @@ def home(request):
         elif querystring == 'E':
             return redirect('/marketplace?q=B&t=35')
 
+        elif querystring == 'N':
+            return redirect('/marketplace?q=N')
+
         return render(request, 'marketplace/cover.html', {'tags': tags, 'tags2': tags2})
     else:
         li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
@@ -543,11 +546,13 @@ def all_products(request):
                 p = Products.sell.filter(tags__in=tags).distinct()
         if querystring == 'O':
             p = Products.sell.filter(target_segment__contains='O')
+        if querystring == 'N':
+            p = Products.objects.all().order_by('-modified')
 
     else:
         if request.user.is_authenticated():
             if request.user.userprofile.primary_workplace:
-                a = request.user.userprofile.primary_workplace.workplace_type
+                a = request.user.userprofile.workplace_type
             else:
                 a = None
         else:
@@ -703,40 +708,20 @@ def int_category(request, slug):
 def category(request, slug):        # Products
     category = Category.objects.get(slug=slug)
     products = Products.objects.filter(categories=category)
-    # print(products)
     return render(request, 'products/category_products.html', locals())
-    # paginator = Paginator(products, 20)
-    # page = request.GET.get('page')
-    # try:
-    #     result_list = paginator.page(page)
-    # except PageNotAnInteger:
-    #         # If page is not an integer, deliver first page.
-    #     result_list = paginator.page(1)
-    # except EmptyPage:
-    #             # If page is out of range (e.g. 9999), deliver last page of results.
-    #     return
-    #     # result_list = paginator.page(paginator.num_pages)
-    # if page:
-    #     return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'category': category})
-    # else:
-    #     return render(request, 'products/category_products.html', {'result_list': result_list, 'category': category})
 
 
-def category_wp(request, slug):        # Products
+def category_wp(request, slug):        # Workplace
     category = Category.objects.get(slug=slug)
-    products = Products.objects.filter(categories=category)
-    # workplaces =
+    products = Products.objects.filter(categories=category).select_related('producer')
+    workplaces = []
+    for p in products:
+        if p.producer not in workplaces:
+            workplaces.append(p.producer)
+        else:
+            pass
     return render(request, 'products/category_workplace.html', locals())
 
-
-# def set_product_contact(request):
-#     if request.method == "Post":
-#         email = request.POST.get('email')
-#         mobile = request.POST.get('mobile')
-#
-#
-#     else:
-#         pass
 
 def category_update(request):
     category = Category.objects.all()

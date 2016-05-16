@@ -225,6 +225,21 @@ def categories(request):
     return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'category'})
 
 
+def categories_wp(request):
+    all_objects = Category.objects.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'category_wp'})
+
 def about(request):
     return render_to_response(request, 'about.html')
 

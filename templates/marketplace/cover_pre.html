@@ -45,6 +45,23 @@
 	  	</div>
 		
 		<div class="col-sm-4">
+	  		<div class="box" style="background-image: url(/images/New_product.jpg);">
+	  			<h2>
+	  				<a href="/products/home?q=N">Newly Added</a>
+	  			</h2>
+	  			<div class="details">
+		    		{% for t2 in tags2|index:forloop.counter0 %}
+			    			<a href="/marketplace?q=C&t={{t1.id}}&q3={{t2.id}}"><span class="fa fa-cogs inline_fa"></span>{{t2}}</a>
+		    			
+			    		{% if forloop.counter|divisibleby:2 %}
+		    			
+			    		{% endif %}
+		    		{% endfor %}
+	    		</div>
+	  		</div>
+	  	</div>
+
+		<div class="col-sm-4">
 	  		<div class="box" style="background-image: url(/images/rc2.PNG);">
 	  			<h2>
 	  				<a href="/products/home?q=B">RC Cars &amp; Components</a>
@@ -82,7 +99,7 @@
 		<div class="col-sm-4">
 	  		<div class="box" style="background-image: url(/images/ser2.PNG);">
 	  			<h2>
-	  				<a href="/products/home?q=E">Engineering & Industrial Services</a>
+	  				<a href="/products/home?q=E">Engineering &amp; Industrial Services</a>
 	  			</h2>
 	  			<div class="details">
 		    		{% for t2 in tags2|index:forloop.counter0 %}
