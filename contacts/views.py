@@ -75,7 +75,7 @@ def get_google_contacts_i(user):
         for address in entry.findall('{http://schemas.google.com/g/2005}email'):
             email = address.attrib.get('address')
             result.append(email)
-            c = ContactEmails.object.create(email=email, provider='google', user=user)
+            c = ContactEmails.objects.create(email=email, provider='google', user=user)
 
     return locals()
 

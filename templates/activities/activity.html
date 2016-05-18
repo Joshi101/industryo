@@ -22,13 +22,14 @@
 		<a href="/internal/details/?q=enq" class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
 		<a href="/internal/details/?q=c" class="list-group-item {% if s == "c" %}active{% endif %}">Categories</a>
 	</div>
+
+			<h2>Mail Sent today = {{c_s}}</h2>
 	<div class="col-md-9">
 
 	  <form action="/internal/send_mail/" method="POST">
 			{% csrf_token %}
 			<input type="hidden" value="{{u.id}}" name="user_id"></input>
-
-
+			
 	{% if lis %}
 		<h2>{{text}} ({{c}})</h2>
 		{% if tm == "q" %}
@@ -164,6 +165,7 @@
 	</div>
 
 <a href="{% url "activities:int_add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add Products</a>
+
 
 <script type="text/javascript" src={% static 'quill/quill.js' %}></script>
 <script type="text/javascript" src={% static 'quill/advanced.js' %}></script>

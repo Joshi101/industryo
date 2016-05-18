@@ -4,6 +4,8 @@ from home.tasks import execute_view, send_mail_contacts
 from contacts.views import check_no_wp, check_no_products
 import pytz
 from django.shortcuts import render, redirect
+from chat.models import Message, Conversation
+from django.contrib.auth.models import User
 
 """Whats happening is: During creation of user profile, a task is created which checks after 5 minutes whether
     the user has set the workplace or not.
@@ -24,6 +26,10 @@ def check_executable(request):
     start_time = datetime.now(pytz.utc)
     end_time = start_time - timedelta(minutes=30)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
+    c = Conversation.objects.get(id=1)
+    u1 = User.objects.get(id=1)
+    u2 = User.objects.get(id=2)
+    Message.objects.create(message="Yo Bro.. This from cURL", conversation=c, from_user=u2, to_user=u1)
     for mail in mails:
 
         if mail.reasons in ['pim', 'wim']:
@@ -81,8 +87,8 @@ def check_executable(request):
             mail.sent = True
             mail.save()
     # loop_view()
-    return redirect('/')
-
+    # return redirect('/')
+    print("LALALALALALLALALALALALLALALLALALL")
 
 def check_view(func, arg):
     func(arg)

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
 from activities.models import Enquiry
 import pytz
+from contacts.models import MailSend
 
 @login_required
 def activity(request):
@@ -13,13 +14,17 @@ def activity(request):
     c = User.objects.all()
     workplaces = Workplace.objects.all()
 
-    todaydate = date.today()
-    startdate = todaydate + timedelta(days=1)
-    enddate = startdate - timedelta(days=6)
-    users = User.objects.filter(date_joined__range=[enddate, startdate])
-    workplaces = Workplace.objects.filter(date__range=[enddate, startdate])
-    products = Products.objects.filter(date__range=[enddate, startdate])
-    # wptags = W
+    # todaydate = date.today()
+    # startdate = todaydate + timedelta(days=1)
+    # enddate = startdate - timedelta(days=6)
+    # users = User.objects.filter(date_joined__range=[enddate, startdate])
+    # workplaces = Workplace.objects.filter(date__range=[enddate, startdate])
+    # products = Products.objects.filter(date__range=[enddate, startdate])
+    # # wptags = W
+    startdate = datetime.now(pytz.utc)
+    enddate = startdate - timedelta(days=1)
+    m = MailSend.objects.filter(sent=True, date__range=[enddate, startdate])
+    c_s = len(m)
     return render(request, 'activities/activity.html', locals())
 
 @login_required
@@ -99,6 +104,7 @@ def details(request):
         c = len(lis)
         return render(request, 'activities/activity.html', locals())
     else:
+
         return render(request, 'activities/activity.html', locals())
 
 
