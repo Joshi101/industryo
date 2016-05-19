@@ -236,4 +236,16 @@ def fuck_shit(request):
     return render(request, 'search/random_text_print.html', locals())
 
 
-
+# from background_task.models import Task
+#
+#
+# def reschedule():
+#     t = Task.objects.all()
+#     now = datetime.now(pytz.utc)
+#     c = 0
+#     for i in t:
+#         if len(t.task_params)> 10:
+#             if i.task_params[-8] is '4':
+#                 t.run_at = now + timedelta(minutes=c)
+#                 t.save()
+#                 c = c+1

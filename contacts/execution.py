@@ -22,14 +22,14 @@ from django.contrib.auth.models import User
 """
 
 
-def check_executable(request):
+def check_executable():
     start_time = datetime.now(pytz.utc)
     end_time = start_time - timedelta(minutes=30)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
-    c = Conversation.objects.get(id=1)
-    u1 = User.objects.get(id=1)
-    u2 = User.objects.get(id=2)
-    Message.objects.create(message="Yo Bro.. This from cURL", conversation=c, from_user=u2, to_user=u1)
+    # c = Conversation.objects.get(id=1)
+    # u1 = User.objects.get(id=1)
+    # u2 = User.objects.get(id=2)
+    # Message.objects.create(message="Yo Bro.. This from cURL", conversation=c, from_user=u2, to_user=u1)
     for mail in mails:
 
         if mail.reasons in ['pim', 'wim']:
@@ -89,6 +89,7 @@ def check_executable(request):
     # loop_view()
     # return redirect('/')
     print("LALALALALALLALALALALALLALALLALALL")
+
 
 def check_view(func, arg):
     func(arg)

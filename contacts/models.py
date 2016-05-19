@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from datetime import datetime, timedelta
 from activities.models import Enquiry
 import pytz
 
@@ -68,7 +68,19 @@ class MailSend(models.Model):
     # send mail once wp is set, asking review.
     # if no wp set, send , add confirmation template with set wp
 
+    def save(self, *args, **kwargs):
+        if not self.id:             # Newly created object, so set slug
+            t = self.date
+            type = self.from_email
+            start_time = t - timedelta(minutes=1)
+            end_time = t + timedelta(minutes=1)
 
+            m = MailSend.objects.filter(date__range=[start_time, end_time], from_email=type)
+            if len(m)>5:
+                self.date = t + timedelta(minutes=7)
+
+        super(MailSend, self).save(*args, **kwargs)
+        return self.id
 
 
 

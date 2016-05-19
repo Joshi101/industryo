@@ -50,7 +50,7 @@
 			</p>
 		</div>
 	</div>
-	
+	{% if request.user.is_authenticated %}
 	<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
 		<div class="input-group">
 			<span class="input-group-addon">
@@ -77,6 +77,7 @@
   	</div>
 		{% csrf_token %}
 	</form>
+	{% endif %}
   <div class="ajax_andar feeds">
 		{% include "snippets/figure_modal.html" %}
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}
