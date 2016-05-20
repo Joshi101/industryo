@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from activities.models import Enquiry
 import pytz
+import random
 
 
 class ContactEmails(models.Model):
@@ -76,8 +77,13 @@ class MailSend(models.Model):
             end_time = t + timedelta(minutes=1)
 
             m = MailSend.objects.filter(date__range=[start_time, end_time], from_email=type)
-            if len(m)>5:
-                self.date = t + timedelta(minutes=7)
+            if len(m) > 5:
+                t = t + timedelta(minutes=3)
+                self.date = t
+                z = MailSend.objects.filter(date__range=[t-timedelta(minutes=30), t+timedelta(minutes=120)], from_email='4')
+                if len(z) > 30:
+                    q = ['1', '2', '3']
+                    self.from_email = random.choice(q)
 
         super(MailSend, self).save(*args, **kwargs)
         return self.id

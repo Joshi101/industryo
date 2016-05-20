@@ -208,7 +208,7 @@ def check_contact_email(id):
     up = User.objects.get(id=id).userprofile
     now_utc = datetime.now(pytz.utc)
     now = datetime.now()
-    subject = '[CoreLogs] {0} Invited You to Check it Out'
+    subject = '[CoreLogs] {0} Invited You to Check it Out'.format(up)
     if len(to_send) < 200:
         for s in to_send:
             mail_body = join_corelogs_mail.format(s.first_name, up)
