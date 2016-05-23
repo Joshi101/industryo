@@ -108,7 +108,6 @@ def check_no_wp(id):
     elif up.workplace_type in ['A', 'B']:
         check_no_products(id)
         wp = up.primary_workplace
-        # mail_body = render_to_string('emails/wp_intro_mail.html', {'0': up, '1': wp, '2': wp.slug})
         mail_body = wp_intro_mail.format(up, wp, wp.slug)
         subject = '[CoreLogs] The Front Page of {0} on Internet'.format(wp)
         if up.date_joined > now_utc - timedelta(minutes=10):

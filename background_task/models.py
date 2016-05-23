@@ -123,7 +123,14 @@ class Task(models.Model):
             logging.warn('Marking task %s as failed', self)
         else:
             self.attempts += 1
-            backoff = timedelta(seconds=(self.attempts ** 4) + 5)
+            '''
+            tweak to improve mail send
+            '''
+            if self.attempts < 3:
+                backoff = timedelta(minutes=10)
+            else:
+                backoff = timedelta(minutes=60)
+            # backoff = timedelta(seconds=(self.attempts ** 4) + 5)
             self.run_at = timezone.now() + backoff
             logging.warn('Rescheduling task %s for %s later at %s', self,
                 backoff, self.run_at)
