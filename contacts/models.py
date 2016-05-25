@@ -70,7 +70,7 @@ class MailSend(models.Model):
     # if no wp set, send , add confirmation template with set wp
 
     def save(self, *args, **kwargs):
-        if not self.id:             # Newly created object, so set slug
+        if not self.id:
             t = self.date
             type = self.from_email
             start_time = t - timedelta(minutes=1)
@@ -82,7 +82,7 @@ class MailSend(models.Model):
                 nt = MailSend.objecs.last().date
                 self.date = nt + timedelta(minutes=1)
                 z = MailSend.objects.filter(date__range=[t-timedelta(minutes=30), t+timedelta(minutes=120)], from_email='4')
-                if len(z) > 30:
+                if len(z) > 10:
                     q = ['2', '1', '3']
                     self.from_email = random.choice(q)
 

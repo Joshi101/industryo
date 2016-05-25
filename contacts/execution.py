@@ -21,8 +21,8 @@ import pytz
 
 def check_executable():
     start_time = datetime.now(pytz.utc)
-    end_time = start_time - timedelta(minutes=7)
-    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
+    end_time = start_time - timedelta(minutes=30)
+    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)[:2]
     for mail in mails:
 
         if mail.reasons in ['pim', 'wim']:
