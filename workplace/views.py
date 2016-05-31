@@ -39,7 +39,7 @@ def set_workplace(request):
         t = userprofile.primary_workplace.workplace_type
         # tasks.send_html_mail(user.id, n=88) # Moved to contacts
         node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined
-        <a href="www.corelogs.com/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
+        <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
                                                                           primary_workplace.slug, primary_workplace,
                                                                           userprofile.job_position)
         Node.objects.create(post=node, user=request.user, category='D', w_type=t)

@@ -7,22 +7,28 @@ from tags.models import Tags
 from forum.models import Question
 from nodes.models import Node
 from search.models import Search
+from threading import Thread
 
 
 def search(request):
     pass
 
+
 def searchq(request):   # active
     querystring = request.GET.get('the_query').strip()
+    what = request.GET.get('the_type')
     terms = None
     if len(querystring) >= 3:
         terms = querystring.split(' ')
-        save_last(request)
+        ip = get_client_ip(request)
+        t = Thread(target=save_last, args=(request.user, ip, querystring, what))
+        t.start()
+        print("Thread Started")
     if not terms:
         return render(request, 'search/list.html')
 
     query = None
-    what = request.GET.get('the_type')
+
     if what == 'questions':
         for term in terms:
             q = Question.objects.filter(Q(title__icontains=term) | Q(question__icontains=term))
@@ -81,13 +87,17 @@ def get_client_ip(request):
     return ip
 
 
-def save_last(request):
-    user = request.user
+def save_last(user, ip, term, type):
+    # user = request.user
+    user = user
     if not user.is_authenticated():
         user = None
-    ip = get_client_ip(request)
-    a = request.GET.get('the_query')
-    t = request.GET.get('the_type')
+    # ip = get_client_ip(request)
+    # a = request.GET.get('the_query')
+    # t = request.GET.get('the_type')
+    ip = ip
+    a = term
+    t = type
     s = Search.objects.latest('date')
     b = s.text
     if s.type != t:

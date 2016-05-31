@@ -51,7 +51,7 @@ class MailSend(models.Model):
     arguments = models.CharField(max_length=100, null=True)
     sent = models.BooleanField(default=False)
     reasons = models.CharField(max_length=10, null=True)
-    date = models.DateTimeField(default=datetime.now(pytz.utc))
+    date = models.DateTimeField(auto_now_add=True)
     enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
 
     class Meta:
@@ -70,32 +70,24 @@ class MailSend(models.Model):
     # if no wp set, send , add confirmation template with set wp
 
     def save(self, *args, **kwargs):
-        if not self.id:             # Newly created object, so set slug
+        if not self.id:
             t = self.date
             type = self.from_email
             start_time = t - timedelta(minutes=1)
             end_time = t + timedelta(minutes=1)
 
             m = MailSend.objects.filter(date__range=[start_time, end_time], from_email=type)
-            if len(m) > 5:
-                t = t + timedelta(minutes=3)
-                self.date = t
+            if len(m) > 7:
+                # t = t + timedelta(minutes=3)
+                nt = MailSend.objecs.last().date
+                self.date = nt + timedelta(minutes=1)
                 z = MailSend.objects.filter(date__range=[t-timedelta(minutes=30), t+timedelta(minutes=120)], from_email='4')
-                if len(z) > 30:
-                    q = ['1', '2', '3']
+                if len(z) > 10:
+                    q = ['2', '1', '3']
                     self.from_email = random.choice(q)
 
         super(MailSend, self).save(*args, **kwargs)
         return self.id
-
-
-
-
-
-
-
-
-
 
 
 # Create your models here.

@@ -3,9 +3,6 @@ from datetime import datetime, timedelta
 from home.tasks import execute_view, send_mail_contacts
 from contacts.views import check_no_wp, check_no_products
 import pytz
-from django.shortcuts import render, redirect
-from chat.models import Message, Conversation
-from django.contrib.auth.models import User
 
 """Whats happening is: During creation of user profile, a task is created which checks after 5 minutes whether
     the user has set the workplace or not.
@@ -25,11 +22,7 @@ from django.contrib.auth.models import User
 def check_executable():
     start_time = datetime.now(pytz.utc)
     end_time = start_time - timedelta(minutes=30)
-    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)
-    # c = Conversation.objects.get(id=1)
-    # u1 = User.objects.get(id=1)
-    # u2 = User.objects.get(id=2)
-    # Message.objects.create(message="Yo Bro.. This from cURL", conversation=c, from_user=u2, to_user=u1)
+    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)[:2]
     for mail in mails:
 
         if mail.reasons in ['pim', 'wim']:
@@ -53,13 +46,10 @@ def check_executable():
                 subject = mail.subject
                 send_mail_contacts(email, body, subject, mail.from_email)
                 execute_view('check_no_wp', mail.user.id, schedule=timedelta(days=2))
-                mail.sent = True
-                mail.save()
             else:
                 check_no_wp(mail.user.id)
-                # if mail.user.userprofile.workplace_type in ['A', 'B']:
-                #     check_view(check_no_products(), mail.user.id)
-        elif mail.reasons in ["lmp", 'npy']:
+            mail.sent = True
+            mail.save()
             '''Here, product related mails are handled
             and i think we will be adding check product data completeness or things like that
             Task for checking the same thing after few days is also created
