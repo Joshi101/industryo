@@ -3353,25 +3353,33 @@ footer .contact li{
   height: 250px;
   margin-bottom: 25px;
   background: #fff no-repeat center;
-  background-size: contain;
+  background-size: cover;
   box-shadow: 0 3px 8px rgba(112,144,112,0.75);
   overflow: hidden;
-}
-
-.box h2{
-  text-align: center;
-  line-height: 250px;
-  background-color: rgba(0,0,0,0.45);
-  margin: 0;
-}
-
-.box h2 a{
   color: #fff;
+  display: block;
+  
+  text-align: center;
+}
+
+.box:hover{
+  text-decoration: none;
+}
+
+.box h3{
+  //line-height: 250px;
+  margin: 0;
+  padding: 10px 5px;
+  color: #555;
+  background-color: rgba(255,255,255,0.85);
 }
 
 .box .details{
-  height: 200px;
-  background-color: rgba(0,0,0,0.75);
+  height: 210px;
+  background-color: rgba(255,255,255,0.85);
+  padding: 10px;
+  text-align: center;
+  opacity: 0;
 }
 
 .box .details a{
