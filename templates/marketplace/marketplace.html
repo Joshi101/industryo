@@ -16,8 +16,32 @@
 	</a>
 	</div>
 	{% endif %} -->
+	{% if qs %}
+	<div class="container-fluid">
+		<ul class="breadcrumb container-fluid">
+			<li><a href="{% url 'marketplace' %}"><span class="fa fa-cubes"></span></a></li>
+			{% for q in qs %}
+			<li {% if forloop.last %}class="active"{% endif %}><a href="/marketplace?q{{forloop.counter0}}={{q.pk}}">{{q}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+	<nav id="categories_top" class="navbar navbar-default">
+	  <div class="container-fluid">
+	  	<div class="navbar-header">
+	      <a class="navbar-brand slider" data-slide="#all_categories" data-status="closed">All {% if qs %}Sub-{% endif %}Categories <span class="fa fa-caret-down inline_fa"></span></a></a>
+	    </div>
+	    <div></div>
+	    <ul class="nav navbar-nav pc_only">
+	    	{% for t1 in c1_some %}
+	      <li><a href="/marketplace?q={{t1.pk}}">{{t1|truncatechars:20}}</a></li>
+	      {% endfor %}
+	    </ul>
+	  </div>
+	</nav>
+	{% comment %}
+
 	<nav class="container">
-	
 		<ul id="marketplace_top" class="nav drop_nav">
 			<li class="dropdown l1">
 				<a href="/marketplace?q=C" class="">SAE Teams</a>
@@ -44,16 +68,44 @@
 		</ul>
 	
 	</nav>
+	{% endcomment %}
 	
-	
-	<div class="container">
-	  <ul id="products_list" class="products_list ajax_andar">
-			{% include 'marketplace/20_products.html' with result_list=result_list %}
-			<div class="paginator" data-next_page="2">
-				<h5>Loading more content</h5>
-				<i class="fa fa-spin fa-circle-o-notch"></i>
-			</div>
-		</ul>
+	<div class="container-fluid slide_container">
+		<div id="all_categories" class="left_slide">
+	  	 <ul class="list-group">
+	  	 	{% for t1 in c1_all %}
+	  	 	<li>
+	  	 		<div class="dropdown hoverbox to_right">
+	  	 			<a href="/marketplace?q={{t1.pk}}" class="list-group-item hoverdown_toggle">{{t1|truncatechars:20}} <span class="fa fa-angle-right inline_fa"></span></a>
+					  <div class="hoverdown">
+					  	<ul>
+					  	{% for t2 in t1.get_sub %}
+			  	 			<li>
+			  	 				<a class="head_a" href="/marketplace?q={{t1.pk}}&q1={{t2.pk}}">{{t2|truncatechars:20}}</a>
+			  	 				<div>
+			  	 				{% for t3 in t2.get_sub %}
+			  	 				<a class="sub_a" href="/marketplace?q={{t1.pk}}&q1={{t2.pk}}&q2={{t3.pk}}">{{t3|truncatechars:20}}</a>
+			  	 				{% endfor %}
+			  	 				</div>
+			  	 			</li>
+		  	 			{% endfor %}
+					  	</ul>
+					  </div>
+					</div>
+  	 		</li>
+	      {% endfor %}
+			</ul>
+	  </div>
+	  <div class="mid_slide">
+		  <ul id="products_list" class="products_list ajax_andar">
+				{% include 'marketplace/20_products.html' with result_list=result_list %}
+				<div class="paginator" data-next_page="2">
+					<h5>Loading more content</h5>
+					<i class="fa fa-spin fa-circle-o-notch"></i>
+				</div>
+			</ul>
+		</div>
+		<div class="spacer"></div>
 		{% include "enquiry/new_auth_modal.html" %}
 		{% include "snippets/figure_modal.html" %}
 	</div>

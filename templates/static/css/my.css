@@ -2,7 +2,7 @@
 
 .navbar{
   min-height: 40px;
-  border: 0;
+  border-width: 0;
 }
 
 .navbar-inverse{
@@ -69,7 +69,7 @@
 }
 
 .nav li > a {
-  padding: 10px;
+  /*! padding: 10px; */
 }
 
 .navbar-toggle{
@@ -88,6 +88,10 @@
 .list-group-item{
   border: 0;
   border-bottom: 1px solid #eee;
+}
+
+.breadcrumb {
+  background-color: transparent;
 }
 
 /* cover */
@@ -168,17 +172,20 @@ img{
   letter-spacing: 2px;
   overflow: hidden;
   vertical-align: middle;
-  /*! font-family: "Trade Winds"; */
-  /*! font-weight: 500; */
 }
 
 .brand_img{
   display: inline-block;
   position: relative;
+  font-weight: 700;
+  font-size: 25px;
   padding: 7px 0px 7px 15px;
+  letter-spacing: 2px;
   width: 50px;
   height: 50px;
-  vertical-align: middle;
+  color: #fff;
+  line-height: 35px;
+  text-align: right;
 }
 
 .nav_left{
@@ -4251,4 +4258,91 @@ footer .contact li{
 
 input.not_wide{
   max-width: 500px;
+}
+
+
+#categories_top{
+  position: relative;
+}
+
+#categories_top .navbar-header{
+  width: 200px;
+}
+
+.left_slider{
+  width: 200px;
+}
+
+.slide_container{
+  position: relative;
+  display: flex;
+}
+
+.left_slide{
+  //display: none;
+  position: absolute;
+  background-color: #f8f8f8;
+  left: -200px;
+  width: 200px;
+  height: 300px;
+}
+
+.left_slide .list-group-item{
+  background-color: #f8f8f8;
+  padding: 10px 30px;
+}
+
+.left_slide .list-group-item .inline_fa{
+  position: absolute;
+  right: 15px;
+  top: 14px;
+  color: #ccc;
+}
+
+.mid_slide{
+  position: relative;
+  left: 0px;
+  right: 0px;
+}
+
+.hoverbox .hoverdown{
+  position: fixed;
+  left: 200px;
+  top: 171px;
+  bottom: 0px;
+  z-index: 999;
+  background-color: #f8f8f8;
+  margin: 0;
+  display: none;
+  padding: 10px 15px;
+}
+
+.open > .hoverdown {
+  display: block;
+}
+
+.hoverbox.to_right .hoverdown{
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.275);
+}
+
+#all_categories .hoverdown{
+  width: 710px;
+  padding: 25px 50px 5px;
+}
+
+#all_categories .hoverdown li{
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+  margin-bottom: 25px;
+}
+
+#all_categories .hoverdown .head_a{
+  font-weight: 700;
+  color: #333;
+}
+
+#all_categories .hoverdown .sub_a{
+  display: block;
+  font-size: 12px;
 }

@@ -14,6 +14,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
+from itertools import chain
 from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
@@ -503,6 +504,65 @@ def home(request):
 
 
 def all_products(request):
+    lvl = 1
+    qs = []
+    if 'q' in request.GET:
+        p = Products.sell.all()
+        q = request.GET.get('q')
+        q = Category.objects.filter(id=q)
+        curr_cat = q
+        qs = q
+        lvl = 2
+        if 'q1' in request.GET:
+            q1 = request.GET.get('q1')
+            q1 = Category.objects.filter(id=q1)
+            curr_cat = q1
+            qs = list(chain(qs, q1))
+            lvl = 3
+            if 'q2' in request.GET:
+                q2 = request.GET.get('q2')
+                q2 = Category.objects.filter(id=q2)
+                curr_cat = q2
+                qs = list(chain(qs, q2))
+                lvl = 4
+        if lvl > 3:
+            c1_all = None
+            c1_some = None
+        else:
+            for cat in curr_cat:
+                c1_all = cat.get_sub()
+    else:
+        if request.user.is_authenticated():
+            if request.user.userprofile.primary_workplace:
+                a = request.user.userprofile.workplace_type
+            else:
+                a = None
+        else:
+            a = None
+        if a:
+            p = Products.sell.filter(target_segment__contains=a)
+        else:
+            p = Products.sell.all()
+        c1_all = Category.objects.filter(level=1)
+        c1_some = c1_all[:6]
+    paginator = Paginator(p, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if page:
+        return render(request, 'marketplace/20_products.html', {'result_list': result_list})
+    else:
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all': c1_all, 'c1_some': c1_some, 'qs': qs})
+
+
+def all_products_old(request):
     tags = []
     tags2 = []
     tags3 = []
@@ -576,7 +636,7 @@ def all_products(request):
     if page:
         return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all':c1_all, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
 
 def add_product(request):
