@@ -505,32 +505,28 @@ def home(request):
 
 def all_products(request):
     lvl = 1
-    qs = []
+    q = q1 = q2 = None
     if 'q' in request.GET:
         p = Products.sell.all()
         q = request.GET.get('q')
-        q = Category.objects.filter(id=q)
+        q = Category.objects.filter(id=q).get()
         curr_cat = q
-        qs = q
         lvl = 2
         if 'q1' in request.GET:
             q1 = request.GET.get('q1')
-            q1 = Category.objects.filter(id=q1)
+            q1 = Category.objects.filter(id=q1).get()
             curr_cat = q1
-            qs = list(chain(qs, q1))
             lvl = 3
             if 'q2' in request.GET:
                 q2 = request.GET.get('q2')
-                q2 = Category.objects.filter(id=q2)
+                q2 = Category.objects.filter(id=q2).get()
                 curr_cat = q2
-                qs = list(chain(qs, q2))
                 lvl = 4
         if lvl > 3:
-            c1_all = None
-            c1_some = None
+            c1_all = c1_some = None
         else:
-            for cat in curr_cat:
-                c1_all = cat.get_sub()
+            c1_all = curr_cat.get_sub()
+            c1_some = c1_all[:6]
     else:
         if request.user.is_authenticated():
             if request.user.userprofile.primary_workplace:
@@ -559,7 +555,7 @@ def all_products(request):
     if page:
         return render(request, 'marketplace/20_products.html', {'result_list': result_list})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all': c1_all, 'c1_some': c1_some, 'qs': qs})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all': c1_all, 'c1_some': c1_some, 'lvl': lvl, 'q': q, 'q1': q1, 'q2': q2})
 
 
 def all_products_old(request):
