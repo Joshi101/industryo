@@ -1225,7 +1225,7 @@ pre {
   margin-bottom: 25px;
   padding: 0 5px 10px;
 
-  border-bottom: 1px solid #9d9d9d;
+  border-bottom: 1px solid #eee;
 
   //background-color: rgba(0,0,0,.1);
   margin-top: 0;
@@ -1242,14 +1242,26 @@ pre {
 }
 
 .article_body {
-  line-height: 150%;
+  line-height: 30px;
   font-size: 16px;
 
   margin-bottom: 10px;
 
   text-align: left;
-  font-family: "Open Sans";
+  font-family: "Lora";
   padding: 0 5px;
+}
+
+.article_body > div{
+  margin-bottom: 15px;
+}
+
+.article_body ul{
+  margin-left: 20px;
+}
+
+.article_body ul > li{
+  margin-bottom: 10px;
 }
 
 .summary_title {
