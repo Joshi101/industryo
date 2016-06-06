@@ -507,7 +507,7 @@ def all_products(request):
     lvl = 1
     q = q1 = q2 = None
     if 'q' in request.GET:
-        p = Products.sell.all()
+        p = Products.objects.all().order_by('-date')
         q = request.GET.get('q')
         q = Category.objects.filter(id=q).get()
         curr_cat = q
@@ -517,28 +517,25 @@ def all_products(request):
             q1 = Category.objects.filter(id=q1).get()
             curr_cat = q1
             lvl = 3
+            p = Products.objects.filter(categories=curr_cat).order_by('-date')
             if 'q2' in request.GET:
                 q2 = request.GET.get('q2')
                 q2 = Category.objects.filter(id=q2).get()
                 curr_cat = q2
                 lvl = 4
+                pp = Products.objects.filter(categories=curr_cat).order_by('-date')
+                if len(pp) > 0:
+                    p = pp
+                else:
+                    curr_cat = q1
+                    p = Products.objects.filter(categories=curr_cat).order_by('-date')
         if lvl > 3:
             c1_all = c1_some = None
         else:
             c1_all = curr_cat.get_sub()
             c1_some = c1_all[:6]
     else:
-        if request.user.is_authenticated():
-            if request.user.userprofile.primary_workplace:
-                a = request.user.userprofile.workplace_type
-            else:
-                a = None
-        else:
-            a = None
-        if a:
-            p = Products.sell.filter(target_segment__contains=a)
-        else:
-            p = Products.sell.all()
+        p = Products.objects.all().order_by('-date')
         c1_all = Category.objects.filter(level=1)
         c1_some = c1_all[:6]
     paginator = Paginator(p, 20)
@@ -555,7 +552,9 @@ def all_products(request):
     if page:
         return render(request, 'marketplace/20_products.html', {'result_list': result_list})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all': c1_all, 'c1_some': c1_some, 'lvl': lvl, 'q': q, 'q1': q1, 'q2': q2})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all': c1_all,
+                                                                'c1_some': c1_some, 'lvl': lvl, 'q': q, 'q1': q1,
+                                                                'q2': q2,})
 
 
 def all_products_old(request):

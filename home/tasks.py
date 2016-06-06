@@ -8,6 +8,7 @@ from .templates import *
 from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry, check_contact_email
 from datetime import timedelta
 from django.core.mail import get_connection, send_mail
+from passwords.passwords import *
 
 
 @background(schedule=40)
@@ -42,24 +43,24 @@ def send_mail_contacts(email, body, subject, from_e):
     my_port = 587
     if from_e == '1':
         my_username = 'sp@corelogs.com'
-        my_password = 'SP@zoho.09'
+        my_password = sp
         from_email = 'sp@corelogs.com'
     elif from_e == '2':
         my_username = 'admin@corelogs.com'
-        my_password = 'AD@zoho.09'
+        my_password = admin
         from_email = 'admin@corelogs.com'
     elif from_e == '3':
         my_username = 'info@corelogs.com'
-        my_password = 'INFO@zoho.09'
+        my_password = info
         from_email = 'info@corelogs.com'
     elif from_e == '4':
         my_username = 'marketing@corelogs.com'
-        my_password = 'Mark@zoho.09'
+        my_password = mark
         from_email = 'marketing@corelogs.com'
     else:
         my_username = 'marketing@corelogs.com'
         my_password = 'Mark@zoho.09'
-        from_email = 'marketing@corelogs.com'
+        from_email = mark
     my_use_tls = True
     connection = get_connection(host=my_host,
                                 port=my_port,
