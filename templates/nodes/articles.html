@@ -10,11 +10,13 @@
 
 {% block feed_body %}
 	<div class="panel panel-success bg-info">
-		<div class="row">
-			<p class="text-justify text-muted col-sm-8">"Pen down your thoughts"</p>
-			<p class="text-right col-sm-4">
-				<a href="{% url 'nodes:write' %}"><i class="fa fa-pencil inline_fa"></i>Write your own Article</a>
-			</p>
+		<div class="panel-body">
+			<div class="row">
+				<p class="text-justify text-muted col-sm-8">"Pen down your thoughts"</p>
+				<p class="text-right col-sm-4">
+					<a href="{% url 'nodes:write' %}"><i class="fa fa-pencil inline_fa"></i>Write your own Article</a>
+				</p>
+			</div>
 		</div>
 	</div>
 	<div class="ajax_andar feeds">
