@@ -1,16 +1,12 @@
 {% load filter %}
 <div class="feed_box summary article ajax_papa">
-	<div class="vote_box">
-		{% include "snippets/like_box.html" with node=node %}
-	</div>
 	<div class="feed_box_body">
 		<a href="{% url 'nodes:node' node.slug %}">
 			<div class="summary_title">
-				<span>{{ node.title|capfirst }}</span>
+				<span>{{ node.title|capfirst|truncatewords:15 }}</span>
 				<i class="fa fa-newspaper-o sign"></i>
 			</div>
 		</a>
-		<div class="summary_body">{{ node.get_summary|truncatechars_html:200|safe }}</div>
 		{% if node.get_images %}
 		<div class="summary_fig">
 			{% for image in node.get_images %}
@@ -20,29 +16,26 @@
 			{% endfor %}
 		</div>
 		{% endif %}
+		<div class="summary_body">{{ node.get_summary|truncatechars_html:200|safe }}</div>
+		<div class="author">
+			{% include "snippets/joint_name.html" with user=node.user %}
+			<time property='dateCreated' class="text-muted">{{node.date}}</time>
+		</div>
 		{% if node.get_tags %}
 		<div class="tags">
+			<span class="fa fa-tags fa-fw"></span>
 			{% for tag in node.get_tags %}
 				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
 			{% endfor %}
 		</div>
 		{% endif %}
-		<div class="author">
-			{% include "snippets/joint_name.html" with user=node.user %}
-			<time property='dateCreated' class="text-muted">{{node.date}}</time>
-		</div>
 	</div>
 	<div class="feed_box_extra">
-		<div class="comments">
-		{%  for c in node.get_all_comments %}
-			{% include "snippets/comment.html" with comment=c %}
-		{% endfor %}
-		</div>
 		<div class="interaction">
-			<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
-	    <div class="collapse">
-				{% include "snippets/comment_form.html" with type='n' post=node %}
+			<div class="vote_box">
+				{% include "snippets/like_box.html" with node=node %}
 			</div>
+			<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{node.get_all_comments|length}}</span> Comments</a>
 		</div>
 	</div>
 </div>
