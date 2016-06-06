@@ -1436,7 +1436,7 @@ pre {
 }
 
 .interaction {
-  margin: 1px auto;
+  /*! margin: 1px auto; */
   padding: 7px 15px;
   color: #777;
 
@@ -1458,7 +1458,8 @@ pre {
 
   border: 1px solid rgba(16, 144, 112, .2);
   border-radius: 0;
-
+  position: relative;
+  top: -1px;
   color: #fff;
   margin-left: 15px;
   //background-color: rgba(255,255,255,1);

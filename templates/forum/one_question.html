@@ -38,9 +38,9 @@
 				{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
 			</div>
 			<form class="to_quest pull-right" action="{% url 'forum:question' q.slug %}" method="GET">
+				<a class=""><span class="count">{{q.get_answer_count}}</span> Answers<input type="hidden" name="answers" value="no"></a>
 				<a class="btn btn-success btn-xs">Write Answer
 				<input type="hidden" name="write" value="no"></a>
-				<a class=""><span class="count">{{q.get_answer_count}}</span> Answers<input type="hidden" name="answers" value="no"></a>
 			</form>
 		</div>
 	</div>
