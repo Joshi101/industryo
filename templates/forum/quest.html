@@ -23,11 +23,14 @@
 				</a>
 				{% endif %}
 				<div class="node_body">
-					<div class="text-center vote_box">
-						{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
-					</div>
 					<div class="post_title">
 						<h1 property="name">{{ q.title }}</h1>
+					</div>
+					<div class="interaction_top">
+						<div class="text-center vote_box">
+							{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
+						</div>
+						<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{comments|length}}</span> Comments</a>
 					</div>
 					{% if q.question %}
 					<p class="post_body" property="text">{{ q.question|new_tab|safe }}</p>

@@ -5,9 +5,6 @@
 			<time class='post_date' property='dateCreated'><small>{{ a.date }}</small></time>
 	</div>
 	<div class="ajax_papa">
-		<div class="text-center vote_box ajax_papa">
-			{% include "snippets/vote_box.html" with q_or_a='a' q=a %}
-		</div>
 		<div class="ajax_papa">
 			<div class="feed_box_body">
 				<div class="a_detail">{{ a.answer|new_tab|safe }}</div>
@@ -18,7 +15,6 @@
 					</a>
 				</figure>
 				{% endfor %}
-
 				<div class="text-right author">
 					{% include "snippets/joint_name.html" with user=a.user anony=a.anonymous %}<time property='dateCreated' class="text-muted"> {{a.date}} </time>
 				</div>
@@ -38,7 +34,10 @@
 				{% endif %}
 				</div>
 				<div class="interaction">
-	    		<a class="a_collapse">Comment</a>
+					<div class="text-center vote_box ajax_papa">
+						{% include "snippets/vote_box.html" with q_or_a='a' q=a %}
+					</div>
+	    		<a class="a_collapse pull-right">Comment</a>
 			    <div class="collapse">
 						{% include "snippets/comment_form.html" with type='a' post=a %}
 					</div>

@@ -22,18 +22,15 @@
 			</div>
 			{% endif %}
 			<div class="node_body">
-				<div class="text-center vote_box ajax_papa">
-					{% include "snippets/like_box.html" with node=node %}
-				</div>
 				{% if node.category == 'A' %}
 				<h1 class="article_title">{{ node.title }}</h1>
 				{% endif %}
-				{% if node.category == 'A' %}
-				<div class="article_body">{{ node.post|new_tab|safe }}</div>
-				{% else %}
-				<div class="article_body">{{ node.post|new_tab|safe|urlize }}</div>
-				{% endif %}
-				
+				<div class="interaction_top">
+					<div class="text-center vote_box ajax_papa">
+						{% include "snippets/like_box.html" with node=node %}
+					</div>
+					<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{node.get_all_comments|length}}</span> Comments</a>
+				</div>
 				{% if node.get_images %}
 				<div class="node_fig">
 					{% for image in node.get_images %}
@@ -43,8 +40,14 @@
 					{% endfor %}
 				</div>
 				{% endif %}
+				{% if node.category == 'A' %}
+				<div class="article_body">{{ node.post|new_tab|safe }}</div>
+				{% else %}
+				<div class="article_body">{{ node.post|new_tab|safe|urlize }}</div>
+				{% endif %}
 				{% if node.get_tags %}
 				<div class="tags">
+					<span class="fa fa-tags fa-fw"></span>
 					{% for tag in node.get_tags %}
 						<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
 					{% endfor %}
