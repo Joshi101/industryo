@@ -1,5 +1,4 @@
 
-<span class="count votes" property="upvoteCount">{{q.votes}}</span>
 <form role='form' action="{% url 'forum:voteup' %}" method="GET">
 	<input type="hidden" name="{{q_or_a}}id" value="{{ q.id }}">
 	<input type="hidden" name="direction" value="U">
@@ -14,3 +13,5 @@
 		<span class="fa fa-chevron-down"></span>
 	</a>
 </form>
+<span class="count votes" property="upvoteCount">{{q.votes}}</span>
+<span>Votes</span>
