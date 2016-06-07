@@ -211,16 +211,17 @@ def check_contact_email(id):
     if len(to_send) < 200:
         for s in to_send:
             mail_body = join_corelogs_mail.format(s.first_name, up)
-            MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
-                                    date=now_utc + timedelta(minutes=2), subject=subject)
+            # MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
+            #                         date=now_utc + timedelta(minutes=2), subject=subject)
+
     else:
         """Yield successive n-sized chunks from to_send."""
         for i in range(0, len(to_send), 100):
             to_send_n = to_send[i:i+100]
             for s in to_send_n:
                 mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, up)
-                MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
-                                        date=now_utc + timedelta(days=i/100), subject=subject)
+                # MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
+                #                         date=now_utc + timedelta(days=i/100), subject=subject)
 
 
 def fuck_shit(request):
