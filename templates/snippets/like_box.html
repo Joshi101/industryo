@@ -1,4 +1,4 @@
 <form role="form" method="GET" action="{% url 'nodes:like' %}">
 	<input type="hidden" name="id" value="{{ node.pk }}">
-	<a title="{% if user in node.get_likers %}Unlike{% else %}Like{% endif %}" data-toggle="tooltip" data-placement="bottom" class="form-ajax like {% if user in node.get_likers %}done{% endif %}"><span class="fa fa-thumbs-o-up fa-fw"></span> <span class="count likes">{{ node.get_like_count }}</span> Like{{ node.get_like_count|pluralize }}</a>
+	<a title="{% if user in node.get_likers %}Unlike{% else %}Like{% endif %}" data-toggle="tooltip" data-placement="bottom" class="form-ajax like {% if user in node.get_likers %}done{% endif %}"><span class="fa fa-thumbs-o-up fa-fw"></span><span class="count likes">{{ node.get_like_count }}</span> Like{{ node.get_like_count|pluralize }}</a>
 </form>

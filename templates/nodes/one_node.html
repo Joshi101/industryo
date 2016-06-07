@@ -1,8 +1,7 @@
 {% load filter %}
+{% load humanize %}
+
 <div class="feed_box summary feed ajax_papa">
-	<div class="text-center vote_box">
-		{% include "snippets/like_box.html" with node=node %}
-	</div>
 	<div class="feed_box_body">
 		<a class="fa fa-rss sign" href="{% url 'nodes:node' node.slug %}"></a>
 		{% if node.get_images %}
@@ -19,20 +18,23 @@
 		<div class="summary_body">{{ node.post|new_tab|safe|urlize }}</div>
 		<div class="author">
 			{% include "snippets/joint_name.html" with user=node.user %}
-			<time property='dateCreated' class="text-muted">{{node.date|date:"D d M Y"}}</time>
+			<time property='dateCreated' class="text-muted">{{node.date|date:"d M 'y"}}</time>
 		</div>
 	</div>
 	<div class="feed_box_extra">
+		<div class="interaction">
+			<div class="text-center vote_box">
+				{% include "snippets/like_box.html" with node=node %}
+			</div>
+			<a class="a_collapse pull-right text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
+	    <div class="collapse">
+	    	{% include "snippets/comment_form.html" with type='n' post=node %}
+			</div>
+		</div>
 		<div class="comments">			
 		{%  for c in node.get_all_comments %}
 			{% include "snippets/comment.html" with comment=c %}
 		{% endfor %}
-		</div>
-		<div class="interaction">
-			<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
-	    <div class="collapse">
-	    	{% include "snippets/comment_form.html" with type='n' post=node %}
-			</div>
 		</div>
 	</div>
 </div>
