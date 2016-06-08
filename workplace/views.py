@@ -17,6 +17,7 @@ from django.core.mail import send_mail
 from home import tasks
 from itertools import chain
 from operator import attrgetter
+from threading import Thread
 
 
 @login_required
@@ -38,7 +39,7 @@ def set_workplace(request):
                                                       workplace=primary_workplace, job_position=job_position)
         t = userprofile.primary_workplace.workplace_type
         # tasks.send_html_mail(user.id, n=88) # Moved to contacts
-        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined
+        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
         <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
                                                                           primary_workplace.slug, primary_workplace,
                                                                           userprofile.job_position)
@@ -171,7 +172,16 @@ def workplace_profile(request, slug):
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
     inq_count = Enquiry.objects.filter(workplace=workplace).count()
 
+    t = Thread(target=no_hits, args=(workplace.id,))
+    t.start()
+
     return render(request, 'workplace/profile.html', locals())
+
+
+def no_hits(id):
+    q = Workplace.objects.get(id=id)
+    q.hits +=1
+    q.save()
 
 
 def workplace_about(request, slug):
@@ -624,6 +634,34 @@ def add_tag(request):
         return redirect('/set/')
 
 
-
+@login_required
+def edit_workplace(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    workplace =wp
+    if request.method == 'GET':
+        return render(request, 'workplace/edit.html', locals())
+    else:
+        about = request.POST.get('about')
+        office_mail = request.POST.get('office_mail')
+        contact = request.POST.get('contact')
+        mobile_1 = request.POST.get('mobile_1')
+        mobile_2 = request.POST.get('mobile_2')
+        address = request.POST.get('address')
+        website = request.POST.get('website')
+        fb_page = request.POST.get('fb_page')
+        linkedin_page = request.POST.get('linkedin_page')
+        wp.about = about
+        wp.website = website
+        wp.fb_page = fb_page
+        wp.linkedin_page = linkedin_page
+        wp.website = website
+        wp.address = address
+        wp.contact = contact
+        wp.mobile_contact1 = mobile_1
+        wp.mobile_contact2 = mobile_2
+        wp.office_mail_id = office_mail
+        wp.save()
+    return HttpResponse
 
 

@@ -225,14 +225,10 @@ def check_contact_email(id):
 
 
 def fuck_shit(request):
-    up = User.objects.get(id=1).userprofile
-    wp = up.primary_workplace
-    now = datetime.now()
-    now_utc = datetime.now(pytz.utc)
-    result = render_to_string('emails/product_intro_mail.html').format(up, wp, wp.slug)
-    subject = '[CoreLogs] Important! You Got an Inquiry'
-    MailSend.objects.create(user=up.user, body=result, reasons='wim',
-                            date=now_utc + timedelta(days=2), email=up.get_email0(), subject=subject)
+    result = []
+    start = datetime.now(pytz.utc)
+    end = start - timedelta(days=1)
+    s = MailSend.objects.filter(date__range=[end, start])
     return render(request, 'search/random_text_print.html', locals())
 
 

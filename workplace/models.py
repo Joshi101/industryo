@@ -40,7 +40,43 @@ class Workplace(models.Model):
     mobile_contact2 = models.CharField(max_length=20, null=True, blank=True)
     contact_person = models.ForeignKey(User, null=True, blank=True)
 
-    # hits = models.IntegerField(null=True, blank=True)
+    history = models.TextField(null=True, blank=True)
+    number_of_employees = models.CharField(max_length=10, null=True, blank=True)
+    year_established = models.CharField(max_length=10, null=True, blank=True)
+    turnover = models.CharField(max_length=10, null=True, blank=True)
+    revenue = models.CharField(max_length=10, null=True, blank=True)
+
+    Manufacturing_SME = 'A'
+    Service_Provider = 'B'
+    Supplier = 'C'
+    Other = 'O'
+    SME_Type = (
+        (Manufacturing_SME, 'Manufacturing SME'),
+        (Service_Provider, 'Service Provider/ Consultancy'),
+        (Supplier, 'Supplier/ Seller'),
+        (Other, 'Others')
+    )
+    sme_type = models.CharField(null=True, blank=True, max_length=1, choices=SME_Type)
+
+    Private_limited = 'A'
+    Sole_proprietorship = 'B'
+    Llp = 'C'
+    Public = 'D'
+    Partnership = 'E'
+    Unregistered = 'U'
+    Other = 'O'
+    Legal_statuses = (
+        (Private_limited, 'Private Limited'),
+        (Sole_proprietorship, 'SSole Proprietorship'),
+        (Llp, 'Limited Liability Partnership'),
+        (Public, 'Public'),
+        (Partnership, 'Partnership Firm'),
+        (Unregistered, 'Unregistered'),
+        (Other, 'Other')
+    )
+    legal_status = models.CharField(max_length=1, blank=True, null=True, choices=Legal_statuses)
+
+    hits = models.IntegerField(default=0, null=True, blank=True)
 
     class Meta:
         db_table = 'Workplace'

@@ -23,7 +23,6 @@ def searchq(request):   # active
         ip = get_client_ip(request)
         t = Thread(target=save_last, args=(request.user, ip, querystring, what))
         t.start()
-        print("Thread Started")
     if not terms:
         return render(request, 'search/list.html')
 

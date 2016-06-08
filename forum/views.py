@@ -10,6 +10,7 @@ from nodes.models import Comments
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from threading import Thread
 
 
 @login_required
@@ -93,8 +94,17 @@ def get_question(request, slug):
     show_ans = request.GET.get('answers', None)
     write_ans = request.GET.get('write', None)
     tags = q.tags.all()
+    t = Thread(target=no_hits, args=(q.id,))
+    t.start()
     # user = q.user
     return render(request, 'forum/quest.html', locals())
+
+
+def no_hits(id):
+    q = Question.objects.get(id=id)
+    q.hits +=1
+    q.save()
+
 
 @login_required
 def ques_comment(request):

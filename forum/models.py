@@ -27,6 +27,8 @@ class Question(models.Model):
     images = models.ManyToManyField(Images, null=True, blank=True)
     category = models.BooleanField(default=0)           # 0 for general, 1 for technical
 
+    hits = models.IntegerField(default=0, null=True, blank=True)
+
     class Meta:
         verbose_name = 'Question'
         verbose_name_plural = 'Questions'

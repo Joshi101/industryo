@@ -86,6 +86,9 @@ class Node(models.Model):
     tags = models.ManyToManyField(Tags, null=True, blank=True)
     images = models.ManyToManyField(Images, null=True, blank=True)
 
+    hits = models.IntegerField(default=0, null=True, blank=True)
+
+
     objects = models.Manager()
     feed = FeedManager()
     article = ArticleManager()

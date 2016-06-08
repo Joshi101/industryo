@@ -52,9 +52,19 @@ class Products(models.Model):
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
     cost = models.CharField(max_length=50, null=True, blank=True)
     # offer = models.CharField(max_length=500, null=True, blank=True)
+    Single_item = 'A'
+    Bulk = 'B'
+    Service = 'C'
+    product_types = (
+        (Single_item, 'Single Item Sale'),
+        (Bulk, 'Bulk Product'),
+        (Service, 'Service'),
+    )
+    product_type = models.CharField(max_length=1, choices=product_types, null=True, blank=True)
 
-    # type = models.CharField(max_length=1, default=1)    # 0=single item sellable, 1=Bulk produce, 2 service
-    categorisation = models.CharField(max_length=10, null=True, blank=True)
+    delivery_details = models.CharField(max_length=200, blank=True, null=True)
+    delivery_charges = models.CharField(max_length=200, blank=True, null=True)
+    minimum = models.CharField(max_length=200, blank=True, null=True)
 
     categories = models.ManyToManyField('Category', through='Product_Categories', null=True, blank=True)
 

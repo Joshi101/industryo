@@ -8,6 +8,8 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from products.models import Products, Category
+from threading import Thread
+
 
 @login_required
 def post(request):
@@ -295,7 +297,15 @@ def comment(request):
 
 def node(request, slug):
     node = Node.objects.get(slug=slug)
+    t = Thread(target=no_hits, args=(node.id,))
+    t.start()
     return render(request, 'nodes/node.html', {'node': node})
+
+
+def no_hits(id):        # dont know ehy not working
+    q = Node.objects.get(id=id)
+    q.hits +=1
+    q.save()
 
 
 def articles(request):

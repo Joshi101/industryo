@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from tags.models import Tags
 import json
 from nodes.models import Images
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
 from django.core.mail import EmailMultiAlternatives
@@ -633,7 +633,8 @@ def all_products_old(request):
     else:
         return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all':c1_all, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
-
+@login_required
+@user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def add_product(request):
     c1_all = Category.objects.filter(level=1)
     user = request.user
@@ -641,12 +642,16 @@ def add_product(request):
     if request.method == 'POST':
         product_email = request.POST.get('u_email')     # email of the uploader, only for the first product
         product_phone = request.POST.get('u_phone')     # phone of the uploader, only for the first product
-        user.userprofile.set_product_contacts(product_email=product_email, product_phone=product_phone)
+        up = user.userprofile
+        up.set_product_contacts(product_email=product_email, product_phone=product_phone)
         pro = request.POST.get('product')
         description = request.POST.get('description')
         cost = request.POST.get('cost')
         tags = request.POST.get('tag')
         status = request.POST.get('status')
+
+        up.points += 5
+        up.save()
         li = []
         c1 = request.POST.get('category1')
         if c1:

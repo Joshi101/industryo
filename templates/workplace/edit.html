@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% load filter %}
+
+{% block title %}{{workplace.name}} | CoreLogs{% endblock title %}
+
+{% block meta_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_description %}
+
+{% block meta_og_title %}{{workplace.name}}{% endblock meta_og_title %}
+{% block meta_og_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_og_description %}
+{% block meta_og_image %}{{workplace.get_logo}}{% endblock meta_og_image %}
+{% block meta_og_image_dim %}
+  <meta property="og:image:width" content="128">
+  <meta property="og:image:height" content="128">
+{% endblock meta_og_image_dim %}
+
+{% block page_id %}workplace{% endblock page_id %}
+
+{% block top %}
+  {% include "snippets/top_navigation.html" with what='Workplaces' %}
+{% endblock top %}
+
+{% block body %}
+<div class="container-fluid">
+	{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
+  <div id="info_head" class="row info_head" typeof='Organization' resource='#workplace'>
+    <div class="col-sm-2 col-md-2">
+      <div id="img_profile_box">
+        <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{workplace.name}}">
+        {% if user.userprofile.primary_workplace == workplace %}
+        <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-sm-7 info_left">
+      <header class="info_title">
+        <h2 class="text-uppercase" property='name'>{{ workplace.name }}</h2>
+        {% if workplace.verified %}
+        <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
+        {% endif %}
+        <div class="text-muted">{{ workplace.get_type }}</div>
+      </header>
+      <div class="info_links">
+        <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square"></span></a>
+        <a href="{{workplace.get_linkedin_page}}"><span class="fa fa-lg fa-linkedin-square"></span></a>
+        <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe"></span></a>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="info_labels">
+        <span class="label label-default">{{workplace.points}} points</span>
+      </div>
+      <div class="info_labels">
+        <span class="label label-success"><span property='numberOfEmployees'>{{ member_count }}</span> members</span>
+      </div>
+      {% if not user.userprofile in members %}
+      <div class="info_labels">
+        <button class="btn btn-primary btn-sm" data-toggle='modal' data-target='#enquiry_w_modal'><span class="fa fa-send-o"></span>&nbsp; Send an Enquiry</button>
+      </div>
+      {% else %}
+      <div class="info_labels">
+        <a class="btn btn-info" href="{% url 'products:enquiry_all' %}">
+          <span property='numberOfEmployees'>{{ inq_count }}</span> Inquiries
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    {% include "enquiry/no_product_modal.html" %}
+  </div>
+
+  <div class="row wp_body">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      {% block workplace_section %}
+      <div id="wp_content" class="ajax_papa ajax_andar">
+        <div class="loading hide">
+          <i class="fa fa-spin fa-spinner"></i>
+        </div>
+        <div class="content">
+          {% if user.userprofile in members %}
+            <h2>SME Details</h2>
+            <form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
+  <div class="input-group">
+    <span class="input-group-addon">
+      <a href="{% url 'user:profile' user.username %}">
+        <img id="img_feed" class="thumb_small" width="32" height="32" src="{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}/images/thumbnails/user_man.jpg{% endif %}">
+      </a>
+    </span>
+    <textarea rows="1" class="form-control seamless_l" name="post" placeholder="Post a feed..(it's not a question)" required></textarea>
+    <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file input-group-addon seamless_r img_pre_in'>
+      <i class="fa fa-camera"></i>
+      <input id="id_image_0" type="file" name="image0">
+    </span>
+  </div>
+  <div class="img_pre hide" data-index=0>
+  </div>
+  <div class="textarea_bottom hide">
+    <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+      <span class="fa fa-camera"></span> Add Photo
+    </span>
+    <button class='btn btn-default pull-right form-ajax-filed'>
+      <span class="fa fa-bullhorn"></span> Post
+    </button>
+  </div>
+  {% csrf_token %}
+</form>
+          {% endif %}
+        </div>
+      </div>
+      {% endblock workplace_section %}
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    $('#top_nav_wp').addClass('current');
+  </script>
+{% endblock body %}
