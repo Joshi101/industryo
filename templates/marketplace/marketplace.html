@@ -53,36 +53,6 @@
 	  </div>
 	</nav>
 	{% endif %}
-	{% comment %}
-
-	<nav class="container">
-		<ul id="marketplace_top" class="nav drop_nav">
-			<li class="dropdown l1">
-				<a href="/marketplace?q=C" class="">SAE Teams</a>
-				<a class="dropdown-toggle"><span class="fa fa-arrow-down"></span></a>
-		    <ul id="market_sae" class="dropdown-menu">
-		    {% for t1 in tags %}
-		    	<span class="l2 panel">
-		    		<a href="/marketplace?q=C&t={{t1.id}}">{{t1}}</a>
-		    		<a href="#l2_collapse_{{forloop.counter0}}" data-toggle="collapse" data-parent="#market_sae"><span class="fa fa-arrow-circle-down ninline_fa"></span></a>
-		    		<div id="l2_collapse_{{forloop.counter0}}" class="collapse">
-		    		{% for t2 in tags2|index:forloop.counter0 %}
-			    		<a href="/marketplace?q=C&t={{t1.id}}&q3={{t2.id}}">{{t2}}</a>
-		    		{% endfor %}
-		    		</div>
-	    		</span>
-		    {% endfor %}
-	    	</ul>
-			</li>
-		  <li class="dropdown l1">
-	  		<a href="/marketplace?q=B">SMEs</a><a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-arrow-down"></span></a>
-		    <ul class="dropdown-menu">
-	    	</ul>
-  		</li>
-		</ul>
-	
-	</nav>
-	{% endcomment %}
 	
 	<div class="container-fluid slide_container">
 		{% if lvl <= 3 %}
