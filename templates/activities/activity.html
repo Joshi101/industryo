@@ -22,8 +22,18 @@
 		<a href="/internal/details/?q=enq" class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
 		<a href="/internal/details/?q=c" class="list-group-item {% if s == "c" %}active{% endif %}">Categories</a>
 	</div>
-
-			<h2>Mail Sent today = {{c_s}}</h2>
+		{% if not lis %}
+			<h4>Mail Sent today = {{c_s}}</h4>
+			<h4>Total SMEs Registered = {{sme_c}}</h4>
+			<h4>Total Products Listed = {{prod_c}}</h4>
+			<h4>Total Inquiries = {{inq_c}}</h4>
+			<h4>Total Users = {{u_c}}</h4>
+			<h2>This Week Performance</h2>
+			<h4>Total SMEs Registered = {{sme_c_w}}</h4>
+			<h4>Total Products Listed = {{prod_c_w}}</h4>
+			<h4>Total Inquiries = {{inq_c_w}}</h4>
+			<h4>Total Users = {{u_c_w}}</h4>
+		{% endif %}
 	<div class="col-md-9">
 
 	  <form action="/internal/send_mail/" method="POST">

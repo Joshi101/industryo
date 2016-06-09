@@ -2,12 +2,12 @@ from background_task import background
 from django.contrib.auth.models import User
 from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
-# from templates import *
+from home.templates import *
 # from ast import literal_eval
 from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry, check_contact_email
 from datetime import timedelta
 from django.core.mail import get_connection, send_mail
-# from passwords.passwords import *
+from passwords.passwords import *
 
 
 @background(schedule=40)
@@ -58,8 +58,8 @@ def send_mail_contacts(email, body, subject, from_e):
         from_email = 'marketing@corelogs.com'
     else:
         my_username = 'marketing@corelogs.com'
-        my_password = 'Mark@zoho.09'
-        from_email = mark
+        my_password = mark
+        from_email = 'marketing@corelogs.com'
     my_use_tls = True
     connection = get_connection(host=my_host,
                                 port=my_port,

@@ -227,8 +227,10 @@ def check_contact_email(id):
 def fuck_shit(request):
     result = []
     start = datetime.now(pytz.utc)
-    end = start - timedelta(days=1)
+    end = start - timedelta(days=10)
     s = MailSend.objects.filter(date__range=[end, start])
+    for a in s:
+        result.append(a)
     return render(request, 'search/random_text_print.html', locals())
 
 

@@ -14,13 +14,18 @@ def activity(request):
     c = User.objects.all()
     workplaces = Workplace.objects.all()
 
-    # todaydate = date.today()
-    # startdate = todaydate + timedelta(days=1)
-    # enddate = startdate - timedelta(days=6)
-    # users = User.objects.filter(date_joined__range=[enddate, startdate])
-    # workplaces = Workplace.objects.filter(date__range=[enddate, startdate])
-    # products = Products.objects.filter(date__range=[enddate, startdate])
+    now = datetime.now(pytz.utc)
+    startdate = now
+    enddate = startdate - timedelta(days=7)
+    sme_c_w = Workplace.objects.filter(workplace_type='B', date__range=[enddate, startdate]).count()
+    prod_c_w = Products.objects.filter(date__range=[enddate, startdate]).count()
+    inq_c_w = Enquiry.objects.filter(date__range=[enddate, startdate]).count()
+    u_c_w = User.objects.filter(date_joined__range=[enddate, startdate]).count()
     # # wptags = W
+    sme_c = Workplace.objects.filter(workplace_type='B').count()
+    prod_c = Products.objects.all().count()
+    inq_c = Enquiry.objects.all().count()
+    u_c = User.objects.all().count()
     startdate = datetime.now(pytz.utc)
     enddate = startdate - timedelta(days=1)
     m = MailSend.objects.filter(sent=True, date__range=[enddate, startdate])
@@ -76,7 +81,7 @@ def details(request):
             tt = "w"
 
         elif s == 'p':
-            lis = Products.objects.all()
+            lis = Products.objects.filter(date__range=[enddate, startdate])
             # lis = Products.objects.filter(date__range=[enddate, startdate])
             text = "Products Listed"
             tt = "p"
