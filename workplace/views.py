@@ -638,28 +638,10 @@ def add_tag(request):
 def edit_workplace(request):
     user = request.user
     wp = user.userprofile.primary_workplace
-    workplace =wp
-    if request.method == 'GET':
-        return render(request, 'workplace/edit.html', locals())
+    workplace = wp
+    if request.method == 'POST':
+        print(request.POST)
+        response = []
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        about = request.POST.get('about')
-        office_mail = request.POST.get('office_mail')
-        contact = request.POST.get('contact')
-        mobile_1 = request.POST.get('mobile_1')
-        mobile_2 = request.POST.get('mobile_2')
-        address = request.POST.get('address')
-        website = request.POST.get('website')
-        fb_page = request.POST.get('fb_page')
-        linkedin_page = request.POST.get('linkedin_page')
-        wp.about = about
-        wp.website = website
-        wp.fb_page = fb_page
-        wp.linkedin_page = linkedin_page
-        wp.website = website
-        wp.address = address
-        wp.contact = contact
-        wp.mobile_contact1 = mobile_1
-        wp.mobile_contact2 = mobile_2
-        wp.office_mail_id = office_mail
-        wp.save()
-    return HttpResponse
+        return render(request, 'workplace/edit.html', locals())
