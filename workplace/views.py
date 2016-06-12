@@ -663,5 +663,3 @@ def edit_workplace(request):
         wp.office_mail_id = office_mail
         wp.save()
     return HttpResponse
-
-

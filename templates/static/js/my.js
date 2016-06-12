@@ -5,6 +5,11 @@
  */
 
 /* global parameters */
+
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+
 var top_nav_width, win_width, win_height, foot_height;
 
 /* function to initialize some global parameters */

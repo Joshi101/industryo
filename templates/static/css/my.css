@@ -2258,9 +2258,9 @@ footer .contact li{
   font-weight: 500;
   line-height: 20px;
   display: inline-block;
-  background-color: #fcfcfc;
+  background-color: #fafafa;
   padding: 1px 5px;
-  border: 1px solid #f7f7f7;
+  border: 1px solid #f0f0f0;
   margin: 0 5px 5px 0;
   color: #179;
   text-align: center;
@@ -4093,4 +4093,51 @@ input.not_wide{
 #all_categories .hoverdown .sub_a{
   display: block;
   font-size: 12px;
+}
+
+.new_form{
+  margin: auto;
+  max-width: 720px;
+  /*! background-color: #fff; */
+}
+
+.new_form .form-group{
+  margin-bottom: 25px;
+}
+
+.new_form label{
+  margin-bottom: 10px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.new_form .help{
+  margin: -5px 0 10px;
+  color: #999;
+  display: block;
+}
+
+.new_form .help:before{
+  content: '( '
+}
+
+.new_form .help:after{
+  content: ' )'
+}
+
+.new_form .form-control{
+  height: 44px;
+  font-size: 16px;
+  position: relative;
+  padding: 10px 15px;
+  border: 1px solid #eee;
+  outline: none;
+  border-color: #CAE5F8;
+}
+
+.new_form .form-control:focus{
+  box-shadow: 0 -5px 10px -9px rgba(202,224,248,0.75);
+  border-color: #CAE5F8;
+  border-style: dashed;
+//box-shadow: 0 0 0 2px rgba(202,224,248,0.75);
 }
