@@ -4103,6 +4103,7 @@ input.not_wide{
 
 .new_form .form-group{
   margin-bottom: 25px;
+  position: relative;
 }
 
 .new_form label{
@@ -4133,11 +4134,43 @@ input.not_wide{
   border: 1px solid #eee;
   outline: none;
   border-color: #CAE5F8;
+  box-shadow: 0 0 0 1px #CAE5F8;
 }
 
 .new_form .form-control:focus{
-  box-shadow: 0 -5px 10px -9px rgba(202,224,248,0.75);
+  box-shadow: 0 -5px 10px -8px rgba(202,224,248,0.75);
   border-color: #CAE5F8;
   border-style: dashed;
-//box-shadow: 0 0 0 2px rgba(202,224,248,0.75);
+}
+
+.new_form .valid{
+  border-color: #CAF8E5;
+  box-shadow: 0 0 0 1px #CAF8E5;
+}
+
+.new_form .textarea_lg{
+  min-height: 176px;
+}
+
+.new_form .textarea_md{
+  min-height: 88px;
+}
+
+.new_form .radio_group label{
+  letter-spacing: 0;
+}
+
+.new_form .count_field{
+  padding-bottom: 35px;
+}
+
+.new_form .char_count{
+  position: absolute;
+  right: 5px;
+  bottom: 5px;;
+  color: #aaa;
+}
+
+.new_form .char_count:after{
+  content: ' characters left';5
 }

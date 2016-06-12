@@ -2039,3 +2039,10 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
     }
     console.log(box_top, win_height/top_off, win_top, (par_off + box_h), win_side);
 });
+
+
+$('.new_form').on('keyup', '.count_field', function(){
+    var c = $(this).val().length;
+    var max = $(this).attr('maxlength');
+    $(this).parent().find('.char_count').text(max-c);
+});

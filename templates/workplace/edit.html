@@ -31,11 +31,17 @@
             <label for="wp_about">About {{workplace}}</label>
             <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
             <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-            <textarea class="form-control" id="wp_about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one"></textarea>
+            <textarea class="form-control textarea_lg count_field" id="wp_about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="500"></textarea>
+            <span class="char_count">500</span>
           </div>
           <div class="form-group">
             <label for="wp_history">History</label>
-            <textarea class="form-control" id="wp_history"></textarea>
+            <textarea class="form-control textarea_md count_field" id="wp_history" maxlength="100"></textarea>
+            <span class="char_count">100</span>
+          </div>
+          <div class="form-group">
+            <label for="wp_loc">Locations</label>
+            {% include "snippets/d_search.html" with search="tag" type='C' no_tags=True name='city' placeholder="Pune / Adityapur Industrial Area" %}
           </div>
           <div class="form-group">
             <label for="wp_est">Established</label>
@@ -48,10 +54,6 @@
           <div class="form-group">
             <label for="wp_turnovr">Annual Turnover</label>
             <input class="form-control" id="wp_turnovr">
-          </div>
-          <div class="form-group">
-            <label for="wp_loc">Locations</label>
-            <input class="form-control" id="wp_loc">
           </div>
           <div class="form-group">
             <label for="wp_type">Type of Industry</label>
