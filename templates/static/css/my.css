@@ -4148,7 +4148,7 @@ input.not_wide{
   box-shadow: 0 0 0 1px #CAF8E5;
 }
 
-.new_form .textarea_lg{
+.new_form .textarea_lg:focus{
   min-height: 176px;
 }
 
