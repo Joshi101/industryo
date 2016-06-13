@@ -26,46 +26,73 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="edit_wp" class="ajax_andar new_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
+        <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
+          <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="form-group">
             <label for="wp_about">About {{workplace}}</label>
             <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
             <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-            <textarea class="form-control textarea_lg count_field" id="wp_about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="500"></textarea>
+            <textarea class="form-control textarea_lg count_field" id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="500"></textarea>
             <span class="char_count">500</span>
           </div>
           <div class="form-group">
             <label for="wp_history">History</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" maxlength="100"></textarea>
+            <textarea class="form-control textarea_md count_field" id="wp_history" name="history" maxlength="100"></textarea>
             <span class="char_count">100</span>
           </div>
           <div class="form-group">
             <label for="wp_loc">Locations</label>
-            {% include "snippets/d_search.html" with search="tag" type='C' no_tags=True name='city' placeholder="Pune / Adityapur Industrial Area" %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' d_form='edit_wp_form' %}
           </div>
-          <div class="form-group">
-            <label for="wp_est">Established</label>
-            <input class="form-control" id="wp_est">
-          </div>
-          <div class="form-group">
-            <label for="wp_rev">Annual Revenue</label>
-            <input class="form-control" id="wp_rev">
-          </div>
-          <div class="form-group">
-            <label for="wp_turnovr">Annual Turnover</label>
-            <input class="form-control" id="wp_turnovr">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="wp_est">Established</label>
+                <input class="form-control" id="wp_est" name="est" placeholder="dd/mm/yyyy">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group pre_input">
+                <label for="wp_rev">Annual Revenue</label>
+                <input class="form-control" id="wp_rev" name="revenue">
+                <span class="fa fa-fw fa-inr pre"></span>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group pre_input">
+                <label for="wp_turnovr">Annual Turnover</label>
+                <input class="form-control" id="wp_turnovr" name="turnovr">
+                <span class="fa fa-fw fa-inr pre"></span>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="wp_type">Type of Industry</label>
             <div class="radio_group">
-              <label class="radio-inline"><input type="radio" name="optradio">Option 1</label>
-              <label class="radio-inline"><input type="radio" name="optradio">Option 2</label>
-              <label class="radio-inline"><input type="radio" name="optradio">Option 3</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Manufacturing</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Supplier</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Service Provider</label> 
             </div>
           </div>
           <div class="form-group">
             <label for="wp_emp">Number of Employees</label>
-            <input class="form-control" id="wp_emp">
+            <div class="row">
+              <div class="col-sm-2">
+                <input class="form-control" id="wp_emp" name="employees" type="number">
+              </div>
+              <!--
+              <div class="col-sm-2">
+                <label class="radio-inline"><input type="radio" name="optradio">1-10</label>
+              </div>
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-2">
+              </div>
+              -->
           </div>
         </form>
       </div>

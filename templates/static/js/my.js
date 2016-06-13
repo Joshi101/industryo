@@ -2046,3 +2046,52 @@ $('.new_form').on('keyup', '.count_field', function(){
     var max = $(this).attr('maxlength');
     $(this).parent().find('.char_count').text(max-c);
 });
+
+$('.auto_form').on('change', 'input, textarea', function(){
+    autoSubmitReady($(this));
+});
+
+function autoSubmitReady($this){
+    $this.on('blur', function(){
+        var $this = $(this);
+        /*customeValidate($this);*/
+        autoSubmit($this);
+    });
+}
+
+function autoSubmit($this){
+    var $form = $this.closest('form');
+    var $field = $this.closest('.form-group');
+    autoSubmitShow($field);
+    $.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $this.serialize(),
+
+        success: function(response) {
+            autoSubmitDone($field);
+        },
+
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+            autoSubmitFailed($field);
+        }
+    });
+}
+
+function autoSubmitShow($field){
+    if($field.find('.saving').length == 0){
+        $field.closest('form').find('.saving.original').clone().removeClass('original').prependTo($field,$field.closest('form'));
+    }
+    $field.find('.saving').removeClass('hide');
+}
+
+function autoSubmitDone($field){
+    $field.find('.saving').addClass('hide');
+    $field.find('input, textarea').off('blur');
+}
+
+function autoSubmitFailed($field){
+    $field.find('.saving').addClass('hide');
+    $field.find('input, textarea').off('blur');
+}
