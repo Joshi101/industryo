@@ -633,6 +633,7 @@ def add_tag(request):
     else:
         return redirect('/set/')
 
+import traceback
 
 @login_required
 def edit_workplace(request):
@@ -640,50 +641,31 @@ def edit_workplace(request):
     wp = user.userprofile.primary_workplace
     workplace = wp
     dictionary = {}
-
     direct = ['about', 'history', 'year_established', 'turnover', 'revenue', 'sme_type', 'mobile_contact1',
               'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
               'number_of_employees']
     if request.method == 'POST':
-        # for key in request.POST:
-        #     print('WALLA')
-        #     if key in direct:
-        #         print('WALLA')
-        #         a = request.POST['about']
-        #         print(a)
-        #         dictionary[key] = request.POST[key]
-        #     # for key in request.POST.iteritems():
         for key in request.POST:
-            value = request.POST[key]
-            # for key in request.POST.iteritems():
-            print(key)
-            print(value)
-        for key, value in dictionary:
-            print(dictionary[key])
-            workplace.key = dictionary[key]
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+                    print(tb)
+            else:
+                print('Key not in List. Make arrangements')
+                if key == 'pre_tag':
+                    wp.set_city(request.POST[key])
 
+            for key in dictionary:
+                setattr(workplace, key, dictionary[key])
             workplace.save()
-        # for d in direct:
-        #     if d in request.POST:
 
-
-
-        # about = request.POST.get('about')
-        # history = request.POST.get('history')
-        # established = request.POST.get('est')
-        # turnover = request.POST.get('turnovr')
-        # revenue = request.POST.get('about')
-        # city = request.POST.get('pre_tag')
-        # workplace_type = request.POST.get('wp_type')
-        # employees = request.POST.get('employees')
         response = []
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        entry_dict = {}
         dict = workplace.__dict__
-        print(dict)
-        about = workplace.about
-        return render(request, 'workplace/edit.html', dict,)
+        return render(request, 'workplace/edit.html', workplace.__dict__)
 
 
 
