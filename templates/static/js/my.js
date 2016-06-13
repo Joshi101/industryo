@@ -2054,9 +2054,17 @@ $('.auto_form').on('change', 'input, textarea', function(){
 function autoSubmitReady($this){
     $this.on('blur', function(){
         var $this = $(this);
-        /*customeValidate($this);*/
+        customValidate($this);
         autoSubmit($this);
     });
+}
+
+function customValidate($this){
+    var type = $this.attr('type');
+    if ($this[0].validity.typeMismatch){
+        console.log('mismatch',type);
+    }
+    console.log($this[0].validity,$this[0].checkValidity(),$this[0].validationMessage);
 }
 
 function autoSubmit($this){
