@@ -64,3 +64,5 @@ industryo/settings.py
 nohup.out
 
 passwords/
+
+*.sql
