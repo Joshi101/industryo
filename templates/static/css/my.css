@@ -4102,7 +4102,7 @@ input.not_wide{
 }
 
 .new_form .form-group{
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -4113,7 +4113,7 @@ input.not_wide{
 }
 
 .new_form .help{
-  margin: -5px 0 10px;
+  margin: -8px 0 10px;
   color: #999;
   display: block;
 }
@@ -4133,26 +4133,25 @@ input.not_wide{
   padding: 10px 15px;
   outline: none;
   border: 1px solid #eee;
-  border-color: #CAE5F8;
-  box-shadow: 0 0 0 1px #CAE5F8;
+  border-color: #AAC5D8;
+  box-shadow: 0 0 0 1px #AAC5D8;
 }
 
 .new_form .form-control:focus{
   box-shadow: 0 -5px 10px -8px rgba(202,224,248,0.75);
-  border-color: #CAE5F8;
   border-style: dashed;
 }
 
 .new_form .valid{
-  border-color: #CAF8E5;
-  box-shadow: 0 0 0 1px #CAF8E5;
+  border-color: #AAD8C5;
+  box-shadow: 0 0 0 1px #AAD8C5;
 }
 
 .new_form .textarea_lg:focus{
   min-height: 176px;
 }
 
-.new_form .textarea_md{
+.new_form .textarea_md:focus{
   min-height: 88px;
 }
 
@@ -4186,17 +4185,17 @@ input.not_wide{
   text-transform: capitalize;
   background: #fff;
   border: 1px solid #eee;
-  border-color: #CAF8E5;
-  box-shadow: 0 0 0 1px #CAF8E5;
+  border-color: #AAD8C5;
+  box-shadow: 0 0 0 1px #AAD8C5;
 }
 
 .new_form .pre_input input{
-  padding-left: 25px;
+  padding-left: 30px;
 }
 
 .new_form .pre_input .pre{
   position: absolute;
-  left: 20px;
+  left: 10px;
   bottom: 12px;
   font-size: 16px;
   color: #777;
