@@ -639,9 +639,52 @@ def edit_workplace(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     workplace = wp
+    dictionary = {}
+
+    direct = ['about', 'history', 'year_established', 'turnover', 'revenue', 'sme_type', 'mobile_contact1',
+              'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
+              'number_of_employees']
     if request.method == 'POST':
-        print(request.POST)
+        # for key in request.POST:
+        #     print('WALLA')
+        #     if key in direct:
+        #         print('WALLA')
+        #         a = request.POST['about']
+        #         print(a)
+        #         dictionary[key] = request.POST[key]
+        #     # for key in request.POST.iteritems():
+        for key in request.POST:
+            value = request.POST[key]
+            # for key in request.POST.iteritems():
+            print(key)
+            print(value)
+        for key, value in dictionary:
+            print(dictionary[key])
+            workplace.key = dictionary[key]
+
+            workplace.save()
+        # for d in direct:
+        #     if d in request.POST:
+
+
+
+        # about = request.POST.get('about')
+        # history = request.POST.get('history')
+        # established = request.POST.get('est')
+        # turnover = request.POST.get('turnovr')
+        # revenue = request.POST.get('about')
+        # city = request.POST.get('pre_tag')
+        # workplace_type = request.POST.get('wp_type')
+        # employees = request.POST.get('employees')
         response = []
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        return render(request, 'workplace/edit.html', locals())
+        entry_dict = {}
+        dict = workplace.__dict__
+        print(dict)
+        about = workplace.about
+        return render(request, 'workplace/edit.html', dict,)
+
+
+
+

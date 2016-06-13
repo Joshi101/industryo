@@ -32,13 +32,13 @@
             <label for="wp_about">About {{workplace}}</label>
             <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
             <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-            <textarea class="form-control textarea_lg count_field" id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="500"></textarea>
-            <span class="char_count">500</span>
+            <textarea class="form-control textarea_lg count_field" value="{{about}} " id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000"></textarea>
+            <span class="char_count">2000</span>
           </div>
           <div class="form-group">
             <label for="wp_history">History</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" name="history" maxlength="100"></textarea>
-            <span class="char_count">100</span>
+            <textarea class="form-control textarea_md count_field" id="wp_history" name="history" maxlength="1000"></textarea>
+            <span class="char_count">1000</span>
           </div>
           <div class="form-group">
             <label for="wp_loc">Locations</label>
@@ -48,7 +48,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="wp_est">Established</label>
-                <input class="form-control" id="wp_est" name="est" placeholder="dd/mm/yyyy">
+                <input class="form-control" id="wp_est" name="year_established" placeholder="dd/mm/yyyy">
               </div>
             </div>
             <div class="col-sm-4">
@@ -61,13 +61,13 @@
             <div class="col-sm-4">
               <div class="form-group pre_input">
                 <label for="wp_turnovr">Annual Turnover</label>
-                <input class="form-control" id="wp_turnovr" name="turnovr">
+                <input class="form-control" id="wp_turnovr" name="turnover">
                 <span class="fa fa-fw fa-inr pre"></span>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label for="wp_type">Type of Industry</label>
+            <label for="wp_type">Type of SME</label>
             <div class="radio_group">
               <label class="radio-inline"><input type="radio" name="wp_type">Manufacturing</label>
               <label class="radio-inline"><input type="radio" name="wp_type">Supplier</label>
@@ -75,10 +75,22 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="wp_type">Legal Status</label>
+            <div class="radio_group">
+              <label class="radio-inline"><input type="radio" name="wp_type">Proprietorship</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Partnership Firm</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Limited Liability Partnership</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Partnership Firm</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Private Limited</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Unregistered</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Other</label> 
+            </div>
+          </div>
+          <div class="form-group">
             <label for="wp_emp">Number of Employees</label>
             <div class="row">
               <div class="col-sm-2">
-                <input class="form-control" id="wp_emp" name="employees" type="number">
+                <input class="form-control" id="wp_emp" name="number_of_employees" type="number">
               </div>
               <!--
               <div class="col-sm-2">
@@ -94,6 +106,17 @@
               </div>
               -->
           </div>
+          <div class="form-group pre_input">
+                <label for="wp_rev">Company Website</label>
+                <input class="form-control" id="wp_rev" name="revenue">
+                <span class="fa fa-fw fa-inr pre"></span>
+          </div>
+          <div class="form-group pre_input">
+                <label for="wp_rev">Company Website</label>
+                <input class="form-control" id="wp_rev" name="revenue">
+                <span class="fa fa-fw fa-inr pre"></span>
+          </div>
+
         </form>
       </div>
       <div class="col-md-2">
