@@ -89,5 +89,12 @@ class MailSend(models.Model):
         super(MailSend, self).save(*args, **kwargs)
         return self.id
 
+    def get_company(self):
+        if self.user.userprofile.workplace_type is not 'N':
+            company = self.user.userprofile.primary_workplace
+        else:
+            company = 'CoreLogs'
+        return company
+
 
 # Create your models here.
