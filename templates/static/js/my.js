@@ -2041,6 +2041,13 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
 });
 
 
+$(function(){
+    $('.pre_input').each(function(){
+       $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()+10));
+        /*console.log(($('.pre_input').find('.pre').outerWidth()+10),'pre') */
+    });
+});
+
 $('.new_form').on('keyup', '.count_field', function(){
     var c = $(this).val().length;
     var max = $(this).attr('maxlength');
@@ -2061,10 +2068,13 @@ function autoSubmitReady($this){
 
 function customValidate($this){
     var type = $this.attr('type');
-    if ($this[0].validity.typeMismatch){
-        console.log('mismatch',type);
+    a = $this[0].validity;
+    for (var err in a){
+        if (a[err] == true){
+            console.log(err)
+        }
     }
-    console.log($this[0].validity,$this[0].checkValidity(),$this[0].validationMessage);
+    console.log($this[0].checkValidity());
 }
 
 function autoSubmit($this){
