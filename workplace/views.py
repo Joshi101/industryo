@@ -641,9 +641,9 @@ def edit_workplace(request):
     wp = user.userprofile.primary_workplace
     workplace = wp
     dictionary = {}
-    direct = ['about', 'history', 'year_established', 'turnover', 'revenue', 'sme_type', 'mobile_contact1',
+    direct = ['about', 'history', 'established', 'revenue', 'turnover', 'sme_type', 'wp_type', 'mobile_contact1',
               'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
-              'number_of_employees']
+              'number_of_employees', 'website', 'prod_details', 'segments', 'operations', 'machinery', 'city']
     if request.method == 'POST':
         for key in request.POST:
             if key in direct:
@@ -654,8 +654,6 @@ def edit_workplace(request):
                     print(tb)
             else:
                 print('Key not in List. Make arrangements')
-                if key == 'pre_tag':
-                    wp.set_city(request.POST[key])
 
             for key in dictionary:
                 setattr(workplace, key, dictionary[key])
@@ -665,8 +663,7 @@ def edit_workplace(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         dict = workplace.__dict__
-        return render(request, 'workplace/edit.html', workplace.__dict__)
-
-
-
+        dict['workplace'] = workplace
+        print(dict)
+        return render(request, 'workplace/edit.html', dict)
 

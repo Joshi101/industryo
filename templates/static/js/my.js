@@ -2046,6 +2046,10 @@ $(function(){
        $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()+10));
         /*console.log(($('.pre_input').find('.pre').outerWidth()+10),'pre') */
     });
+    $('.char_count').each(function(){
+        var f = $(this).parent().find('input, textarea');
+        $(this).text(f.attr('maxlength')-f.val().length);
+    });
 });
 
 $('.new_form').on('keyup', '.count_field', function(){
@@ -2056,6 +2060,7 @@ $('.new_form').on('keyup', '.count_field', function(){
 
 $('.auto_form').on('change', 'input, textarea', function(){
     autoSubmitReady($(this));
+    console.log('ko')
 });
 
 function autoSubmitReady($this){
