@@ -4157,6 +4157,12 @@ input.not_wide{
 
 .new_form .radio_group label{
   letter-spacing: 0;
+  font-size: 16px;
+  font-family: 'Open Sans';
+}
+
+.new_form .radio_group input{
+  height: 18px;
 }
 
 .new_form .count_field{
@@ -4205,4 +4211,14 @@ input.not_wide{
   position: absolute;
   right: 0;
   color: #777;
+}
+
+.dash_card{
+  background-color: #fff;
+  padding: 10px;
+}
+
+.dash_card h3{
+  font-size: 16px;
+  margin: 0;
 }

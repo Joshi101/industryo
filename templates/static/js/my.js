@@ -2061,10 +2061,13 @@ function autoSubmitReady($this){
 
 function customValidate($this){
     var type = $this.attr('type');
-    if ($this[0].validity.typeMismatch){
-        console.log('mismatch',type);
+    a = $this[0].validity
+    for (err in a){
+        if (a[err] == true){
+            console.log(err)
+        }
     }
-    console.log($this[0].validity,$this[0].checkValidity(),$this[0].validationMessage);
+    console.log($this[0].checkValidity());
 }
 
 function autoSubmit($this){
