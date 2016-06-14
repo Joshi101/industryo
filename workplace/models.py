@@ -67,7 +67,7 @@ class Workplace(models.Model):
     Other = 'O'
     Legal_statuses = (
         (Private_limited, 'Private Limited'),
-        (Sole_proprietorship, 'SSole Proprietorship'),
+        (Sole_proprietorship, 'Sole Proprietorship'),
         (Llp, 'Limited Liability Partnership'),
         (Public, 'Public'),
         (Partnership, 'Partnership Firm'),

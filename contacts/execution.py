@@ -75,11 +75,24 @@ def check_executable():
             # body = mail.body
             # subject = mail.subject
             # send_mail_contacts(email, body, subject, mail.from_email)
-            mail.sent = True
-            mail.save()
+            # mail.sent = True
+            # mail.save()
     # loop_view()
     # return redirect('/')
-    print("LALALALALALLALALALALALLALALLALALL")
+
+
+def send_marketing():
+    start_time = datetime.now(pytz.utc)
+    end_time = start_time - timedelta(minutes=30)
+    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False, reasons='jcm')[:4]
+    for mail in mails:
+        if mail.reasons == 'jcm':
+            email = mail.email
+            body = mail.body
+            subject = mail.subject
+            send_mail_contacts(email, body, subject, mail.from_email)
+            mail.sent = True
+            mail.save()
 
 
 def check_view(func, arg):

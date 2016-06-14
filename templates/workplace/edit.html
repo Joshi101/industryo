@@ -2,7 +2,7 @@
 
 {% load filter %}
 
-{% block title %}{{workplace.name}} | CoreLogs{% endblock title %}
+{% block title %}{{workplace}} | CoreLogs{% endblock title %}
 
 {% block meta_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_description %}
 
@@ -26,19 +26,21 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
+        <form id="edit_wp_form" class="ajax_andar new_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="form-group">
             <label for="wp_about">About {{workplace}}</label>
+            <!--
             <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
+            -->
             <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-            <textarea class="form-control textarea_lg count_field" id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="500"></textarea>
-            <span class="char_count">500</span>
+            <textarea class="form-control textarea_lg count_field" value="{{about}}" id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000"></textarea>
+            <span class="char_count">2000</span>
           </div>
           <div class="form-group">
             <label for="wp_history">History</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" name="history" maxlength="100"></textarea>
-            <span class="char_count">100</span>
+            <textarea class="form-control textarea_md count_field" id="wp_history" value="{{history}}" name="history" maxlength="1000"></textarea>
+            <span class="char_count">1000</span>
           </div>
           <div class="form-group">
             <label for="wp_loc">Locations</label>
@@ -54,31 +56,42 @@
             <div class="col-sm-4">
               <div class="form-group pre_input">
                 <label for="wp_rev">Annual Revenue</label>
-                <input class="form-control" id="wp_rev" name="revenue">
+                <input class="form-control" id="wp_rev" name="revenue" placeholder="">
                 <span class="fa fa-fw fa-inr pre"></span>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group pre_input">
                 <label for="wp_turnovr">Annual Turnover</label>
-                <input class="form-control" id="wp_turnovr" name="turnovr">
-                <span class="fa fa-fw fa-inr pre"></span>
+                <input class="form-control" id="wp_turnovr" name="turnover">
+                <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label for="wp_type">Type of Industry</label>
+            <label for="wp_type">Type of SME</label>
             <div class="radio_group">
-              <label class="radio-inline"><input type="radio" name="wp_type">Manufacturing</label>
-              <label class="radio-inline"><input type="radio" name="wp_type">Supplier</label>
-              <label class="radio-inline"><input type="radio" name="wp_type">Service Provider</label> 
+              <label class="radio-inline"><input type="radio" value='A' name="sme_type">Manufacturing</label>
+              <label class="radio-inline"><input type="radio" value='C' name="sme_type">Supplier</label>
+              <label class="radio-inline"><input type="radio" value='B' name="sme_type">Service Provider</label> 
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="wp_type">Legal Status</label>
+            <div class="radio_group">
+              <label class="radio-inline"><input type="radio" name="wp_type">Proprietorship</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Partnership Firm</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Limited Liability Partnership</label>
+              <label class="radio-inline"><input type="radio" name="wp_type">Private Limited</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Unregistered</label> 
+              <label class="radio-inline"><input type="radio" name="wp_type">Other</label> 
             </div>
           </div>
           <div class="form-group">
             <label for="wp_emp">Number of Employees</label>
             <div class="row">
               <div class="col-sm-2">
-                <input class="form-control" id="wp_emp" name="employees" type="number">
+                <input class="form-control" id="wp_emp" name="number_of_employees" type="">
               </div>
               <!--
               <div class="col-sm-2">
@@ -95,9 +108,83 @@
               -->
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="wp_est">Office Phone</label>
+                <input class="form-control" id="wp_est" name="contact" placeholder="put comma (,) separated if more than one">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="wp_est">Mobile Contact 1</label>
+                <input class="form-control" id="wp_est" name="mobile_contact1" placeholder="dd/mm/yyyy">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group pre_input">
+                <label for="wp_rev">Mobile Contact 2</label>
+                <input class="form-control" id="wp_rev" name="mobile_contact2">
+                <span class="pre">+91</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="wp_est">Website</label>
+                <input class="form-control" id="wp_est" name="website" type="url" placeholder="http://">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="wp_est">Email Address</label>
+                <input class="form-control" id="wp_est" name="office_mail_id" placeholder="put comma (,) separated if more than one">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="wp_est">Facebook Page</label>
+                <input class="form-control" id="wp_est" name="fb_page" placeholder="">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group pre_input">
+                <label for="wp_rev">LinkedIn Page</label>
+                <input class="form-control" id="wp_rev" name="linkedin_page">
+                <span class="fa fa-fw fa-inr pre"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="wp_address">Address</label>
+            <textarea class="form-control textarea_md count_field" id="wp_address" name="address" maxlength="200"></textarea>
+            <span class="char_count">200</span>
+          </div>
+          <div class="form-group">
+            <label for="wp_prod_details">Product Description</label>
+            <textarea class="form-control textarea_md count_field" id="wp_prod_details" name="prod_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity" maxlength="1000"></textarea>
+            <span class="char_count">1000</span>
+          </div>
+          <div class="form-group">
+            <label for="wp_segments">Segment</label>
+            {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segment name='segments' d_form='edit_wp_form' %}
+          </div>
+          <div class="form-group">
+            <label for="wp_operations">Operations</label>
+            {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' d_form='edit_wp_form' %}
+          </div>
+          <div class="form-group">
+            <label for="wp_machinery">Machinery</label>
+            {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.machinery name='machinery' d_form='edit_wp_form' %}
+          </div>
         </form>
-      </div>
-      <div class="col-md-2">
       </div>
     </div>
   </div>

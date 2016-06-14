@@ -11,6 +11,7 @@ from activities.models import Enquiry
 from django.template.loader import render_to_string, get_template
 from django.template import Context
 from home.templates import *
+import random
 
 
 def get_google_contacts(request):
@@ -233,6 +234,46 @@ def fuck_shit(request):
         result.append(a)
     return render(request, 'search/random_text_print.html', locals())
 
+
+from threading import Thread
+
+
+def send_timed():
+    now_utc = datetime.now(pytz.utc)
+    rang = list(range(4, 13))
+    if now_utc.hour in rang:
+        to_send_all = ContactEmails.objects.filter(sent=False).order_by('-id')[:100]
+
+        # for i in range(0, len(to_send_all), 40):
+        #     to_send_n = to_send_all[i:i+40]
+        for s in to_send_all:
+            minutes = 5
+            from_email = [1, 2, 3, 4]
+            mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, s.user.userprofile)
+            subject = '{0} from {1} invited you. Are you from an SME'.format(s.user.userprofile, s.get_company)
+            MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email=random.choice(from_email),
+                                    date=now_utc + timedelta(minutes=minutes), subject=subject)
+            s.sent = True
+            s.save()
+            minutes += 1
+    else:
+        pass    # chill
+
+
+def thread_send(to_send_n):
+    now_utc = datetime.now(pytz.utc)
+
+    for s in to_send_n:
+        minutes = 5
+        mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, s.user.userprofile)
+        subject = 'Hey {0}, {1} asked us to invite you. Are U an SME'.format(s.first_name, s.user.userprofile)
+        MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
+                                date=now_utc+ timedelta(minutes=minutes), subject=subject)
+        minutes += 2
+
+
+    # make 8 groups of 40 emails each
+    # send 1 group mail from each email id and set timer to stop for 3 minutes
 
 # from background_task.models import Task
 #

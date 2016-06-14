@@ -633,15 +633,40 @@ def add_tag(request):
     else:
         return redirect('/set/')
 
+import traceback
 
 @login_required
 def edit_workplace(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     workplace = wp
+    dictionary = {}
+    direct = ['about', 'history', 'year_established', 'turnover', 'revenue', 'sme_type', 'mobile_contact1',
+              'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
+              'number_of_employees']
     if request.method == 'POST':
-        print(request.POST)
+        for key in request.POST:
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+                    print(tb)
+            else:
+                print('Key not in List. Make arrangements')
+                if key == 'pre_tag':
+                    wp.set_city(request.POST[key])
+
+            for key in dictionary:
+                setattr(workplace, key, dictionary[key])
+            workplace.save()
+
         response = []
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        return render(request, 'workplace/edit.html', locals())
+        dict = workplace.__dict__
+        return render(request, 'workplace/edit.html', workplace.__dict__)
+
+
+
+
