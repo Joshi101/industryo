@@ -811,36 +811,22 @@ def edit_add_product(request, id):
     user = request.user
     wp = user.userprofile.primary_workplace
     workplace = wp
+    response = {}
+    p_id = request.POST.get('p_id')
+    if request.POST.get('p_id'):
+        print("product purana hai, edit hoga")
     if id == 'new':
         print("NAYA AAYA HAI")
         dictionary = {}
         ps = Products()
         p = None
-        direct = ps._meta.get_all_field_names()
         if request.method == 'POST':
             print("NAYA AAYA HAI POST REQUEST IWTH NEW")
             if request.POST.get('product'):
                 print("Product create hona chahiye")
                 p = Products.objects.create(product=request.POST['product'], user=user, producer=wp)
-            for key in request.POST:
-                if key in direct:
-                    try:
-                        dictionary[key] = request.POST[key]
-                    except:
-                        tb = traceback.format_exc()
-                        print(tb)
-                else:
-                    print('Key not in List. Make arrangements')
-                    if key == 'pre_tag':
-                        wp.set_city(request.POST[key])
-
-                for key in dictionary:
-                    setattr(workplace, key, dictionary[key])
-                workplace.save()
-            if p:
-                response = [p]
-            else:
-                response = []
+                response['p_id'] = p.id
+                print(response)
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             return render(request, 'products/edit.html', workplace.__dict__)
@@ -869,9 +855,4 @@ def edit_add_product(request, id):
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             return render(request, 'products/edit.html', {'p': p})
-
-
-
-
-
 
