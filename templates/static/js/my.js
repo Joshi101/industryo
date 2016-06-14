@@ -2056,6 +2056,7 @@ $('.new_form').on('keyup', '.count_field', function(){
 
 $('.auto_form').on('change', 'input, textarea', function(){
     autoSubmitReady($(this));
+    console.log('ko')
 });
 
 function autoSubmitReady($this){

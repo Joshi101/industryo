@@ -26,7 +26,7 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="edit_wp_form" class="ajax_andar new_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
+        <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="form-group">
             <label for="wp_about">About {{workplace}}</label>
@@ -50,7 +50,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="wp_est">Established</label>
-                <input class="form-control" id="wp_est" name="est" type="date" placeholder="dd/mm/yyyy">
+                <input class="form-control" id="wp_est" name="established" type="date" placeholder="dd/mm/yyyy">
               </div>
             </div>
             <div class="col-sm-4">
