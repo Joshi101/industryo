@@ -808,16 +808,20 @@ import traceback
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def edit_add_product(request, id):
-
     user = request.user
     wp = user.userprofile.primary_workplace
     workplace = wp
     if id == 'new':
+        print("NAYA AAYA HAI")
         dictionary = {}
-        p = Products()
-        direct = p._meta.get_all_field_names()
-        print(direct)
+        ps = Products()
+        p = None
+        direct = ps._meta.get_all_field_names()
         if request.method == 'POST':
+            print("NAYA AAYA HAI POST REQUEST IWTH NEW")
+            if request.POST.get('product'):
+                print("Product create hona chahiye")
+                p = Products.objects.create(product=request.POST['product'], user=user, producer=wp)
             for key in request.POST:
                 if key in direct:
                     try:
@@ -833,18 +837,18 @@ def edit_add_product(request, id):
                 for key in dictionary:
                     setattr(workplace, key, dictionary[key])
                 workplace.save()
-
-            response = []
+            if p:
+                response = [p]
+            else:
+                response = []
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            print(direct)
-            dict = workplace.__dict__
             return render(request, 'products/edit.html', workplace.__dict__)
     else:
         p = Products.objects.get(id=id)
+        print("Ye id aane laga idhar")
         dictionary = {}
         direct = p._meta.get_all_field_names()
-        print(direct)
         if request.method == 'POST':
             for key in request.POST:
                 if key in direct:
@@ -855,19 +859,16 @@ def edit_add_product(request, id):
                         print(tb)
                 else:
                     print('Key not in List. Make arrangements')
-                    if key == 'pre_tag':
-                        wp.set_city(request.POST[key])
+                    # if key == 'pre_tag':
+                    #     p.set_city(request.POST[key])
 
                 for key in dictionary:
-                    setattr(workplace, key, dictionary[key])
-                workplace.save()
-
-            response = []
+                    setattr(p, key, dictionary[key])
+                p.save()
+            response = [p]
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            print(direct)
-            dict = workplace.__dict__
-            return render(request, 'products/edit.html', workplace.__dict__)
+            return render(request, 'products/edit.html', {'p': p})
 
 
 

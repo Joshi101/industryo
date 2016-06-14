@@ -26,129 +26,250 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" action="{% url 'product:edit_add' %}" method="POST" enctype="multipart/form-data">
+        <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" {% if not p %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' p.id %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="form-group">
             <div class="col-sm-6">
             <div class="form-group pre_input">
                 <label for="wp_rev">Name of the Product</label>
-                <input class="form-control" id="wp_rev" name="revenue" placeholder="">
+                <input class="form-control" id="wp_rev" name="product" placeholder="">
             </div>
             <div class="form-group">
-            <label for="wp_type">Type of SME</label>
-            <div class="radio_group">
-              <label class="radio-inline"><input type="radio" value='A' name="sme_type">Single Item Sale</label>
-              <label class="radio-inline"><input type="radio" value='C' name="sme_type">Bulk Product</label>
-              <label class="radio-inline"><input type="radio" value='B' name="sme_type">Service</label> 
-            </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="form-group">
-                <label for="wp_est">Cost</label>
-                <input class="form-control" id="wp_est" name="year_established" placeholder="YYYY">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
             <label for="wp_type">Type of Product</label>
             <div class="radio_group">
-              <label class="radio-inline"><input type="radio" value='A' name="sme_type">Manufacturing</label>
-              <label class="radio-inline"><input type="radio" value='C' name="sme_type">Supplier</label>
-              <label class="radio-inline"><input type="radio" value='B' name="sme_type">Service Provider</label> 
+              <label class="radio-inline"><input type="radio" value='A' name="product_type">Single Item Sale</label>
+              <label class="radio-inline"><input type="radio" value='C' name="product_type">Bulk Product</label>
+              <label class="radio-inline"><input type="radio" value='B' name="product_type">Service</label> 
+            </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="wp_about">product Description</label>
-            <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
-            <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-            <textarea class="form-control textarea_lg count_field" value="{{about}}" id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000"></textarea>
-            <span class="char_count">2000</span>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-2">
-                <label class="control-label" for="wp_est">Website</label>
-              </div>
-              <div class="col-sm-6">
-                <input class="form-control" id="wp_est" name="website" placeholder="http://">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-2">
-                <label class="control-label" for="wp_est">Email Address</label>
-              </div>
-              <div class="col-sm-6">
-                <input class="form-control" id="wp_est" name="office_mail_id" placeholder="put comma (,) separated if more than one">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-2">
-                <label class="control-label" for="wp_est">Office Phone</label>
-              </div>
-              <div class="col-sm-6">
-                <input class="form-control" id="wp_est" name="contact" placeholder="put comma (,) separated if more than one">
-              </div>
-            </div>
-          </div>
+          
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="wp_est">Mobile Contact 1</label>
-                <input class="form-control" id="wp_est" name="mobile_contact1" placeholder="dd/mm/yyyy">
+                <label for="wp_est">Cost of Product</label>
+                <input class="form-control" id="wp_est" name="cost" placeholder="put comma (,) separated if more than one">
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="form-group pre_input">
-                <label for="wp_rev">Mobile Contact 2</label>
-                <input class="form-control" id="wp_rev" name="mobile_contact2">
-                <span class="fa fa-fw fa-inr pre"></span>
+          </div>
+          <div class="form-group">
+            <label for="wp_about">Product Description</label>
+            <textarea class="form-control textarea_lg count_field" value="{{about}}" id="wp_about" name="description" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000"></textarea>
+            <span class="char_count">2000</span>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-sm-10">
+                <div style="margin-bottom: 5px;"><strong>Category of the Product</strong></div>
+                <div id="selected_category" style="color: #777;">
+                {% if c %}
+                {% for category in c %}
+                  <span>{{category.category}}</span>
+                {% if not forloop.last %}
+                  <span class="fa fa-chevron-right inline_fa"></span>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                  Select a Category for your Product
+                {% endif %}
+                </div>
+              </div>
+              <div class="col-sm-2 text-right" style="padding-top: 10px">
+                <button id="change_cat_btn" type="button" class="btn btn-primary alt_data right_btn" data-toggle="collapse" data-target="#add_prod_category" data-alt="Done">{% if c %}Change{%else %}Select{% endif %}</button>
+              </div>
+            </div>
+            <div id="add_prod_category" class="collapse">
+              <input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
+              <input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
+              <input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
+              <div class="">
+                <div id="prev_col" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp; Back</div>
+                <div class="hidden new_val"></div>
+                <div class="form-group row">
+                  <div id="c1_col" class="col-md-4 c_col">
+                    <div id="c1_accordion" class="accordion">
+                      <div class="panel">
+                        <a href="#c1_1" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">SAE Competition Related Items for Students <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_1" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_1 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a href="#c1_2" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Mechanical, Automobile & Aerospace Parts <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_2" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_2 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a href="#c1_3" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Electrical & Electronics Components & Products <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_3" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_3 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a href="#c1_4" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Industrial Machinery & Raw Materials <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_4" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_4 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a href="#c1_5" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Chemicals & Construction Related Items <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_5" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_5 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a href="#c1_6" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Agricultural Products & Textile Products <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_6" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_6 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a href="#c1_8" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Services & Consultancy for SMEs <span class="fa fa-chevron-down pull-right"></span></a>
+                        <div id="c1_8" class="collapse c1_group">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t1 in c1_8 %}
+                            <li>
+                              <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-content col-md-8"  style="padding: 0">
+                  {% for t1 in c1_all %}
+                    <div id="category_{{t1.id}}" class="tab-pane fade">
+                      <div id="c2_col" class="col-md-6 c_col">
+                        <ul class="nav nav-pills nav-stacked">
+                        {% for t2 in t1.get_sub %}
+                          <li>
+                            <a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#category_{{t2.id}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
+                          </li>
+                        {% empty %}
+                          <li>
+                            <a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
+                          </li>
+                        {% endfor %}
+                          <li>
+                            <a class="new_category" href="#new_category_{{t1.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+                          </li>
+                          <div id="new_category_{{t1.id}}" class="collapse" style="padding: 10px">
+                            <div class="form-group">
+                              <input class="form-control" type="text" value="" placeholder="Name of the new category">
+                            </div>
+                            <div class="panel info">
+                              <div class="panel-body bg-warning">
+                                <span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+                              </div>
+                            </div>
+                            <div class="form-group text-center">
+                              <button type="button" class="btn btn-sm new_category_btn" data-level=2>Add</button>
+                            </div>
+                          </div>
+                        </ul>
+                      </div>
+                      <div class="tab-content col-md-6">
+                      {% for t2 in t1.get_sub %}
+                        <div id="category_{{t2.id}}" class="tab-pane fade">
+                          <ul class="nav nav-pills nav-stacked">
+                          {% for t3 in t2.get_sub %}
+                            <li>
+                              <a class="select_btn no_sub" data-name="category3" data-value="{{t3.id}}">{{t3}}<span class="fa fa-fw fa-check"></span></a>
+                            </li>
+                          {% empty %}
+                            <li>
+                              <a class="no_sub">{{t2}}<span class="fa fa-fw fa-check"></span></a>
+                            </li>
+                          {% endfor %}
+                            <li>
+                              <a class="new_category" href="#new_category_{{t2.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+                            </li>
+                            <div id="new_category_{{t2.id}}" class="collapse" style="padding: 10px">
+                              <div class="form-group">
+                                <input class="form-control" type="text" value="" placeholder="Name of the new category">
+                              </div>
+                              <div class="panel info">
+                                <div class="panel-body bg-warning">
+                                  <span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+                                </div>
+                              </div>
+                              <div class="form-group text-center">
+                                <button type="button" class="btn btn-sm new_category_btn" data-level=3>Add</button>
+                              </div>
+                            </div>
+                          </ul>
+                        </div>
+                      {% endfor %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
+          <div class="form-group">
+            <label for="wp_history">Delivery Details</label>
+            <textarea class="form-control textarea_md count_field" id="wp_history" value="{{history}}" name="deliver_details" maxlength="1000"></textarea>
+            <span class="char_count">1000</span>
+          </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group">
-                <label for="wp_est">Facebook Page</label>
-                <input class="form-control" id="wp_est" name="fb_page" placeholder="">
+              <div class="form-group pre_input">
+                <label for="wp_rev">Minimum Order Qunatity</label>
+                <input class="form-control" id="wp_rev" name="deliver_charges" placeholder="">
+                <span class="fa fa-fw fa-inr pre"></span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group pre_input">
-                <label for="wp_rev">LinkedIn Page</label>
-                <input class="form-control" id="wp_rev" name="linkedin_page">
-                <span class="fa fa-fw fa-inr pre"></span>
+                <label for="wp_turnovr">Deliery Charges</label>
+                <input class="form-control" id="wp_turnovr" name="minimum">
+                <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="wp_history">Address</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" name="address" maxlength="200"></textarea>
-            <span class="char_count">200</span>
-          </div>
-          <div class="form-group">
-            <label for="wp_history">Product Description</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity" maxlength="1000"></textarea>
-            <span class="char_count">1000</span>
-          </div>
-          <div class="form-group">
-            <label for="wp_loc">Segment</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segment name='segment' d_form='edit_wp_form' %}
-          </div>
-          <div class="form-group">
-            <label for="wp_loc">Operations</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' d_form='edit_wp_form' %}
-          </div>
-          <div class="form-group">
-            <label for="wp_loc">Machinery</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.machinery name='machinery' d_form='edit_wp_form' %}
-          </div>
+
         </form>
       </div>
       <div class="col-md-2">

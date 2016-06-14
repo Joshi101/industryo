@@ -1,0 +1,189 @@
+<div class="well">
+			<div class="row">
+				<div class="col-sm-10">
+					<div style="margin-bottom: 5px;"><strong>Category of the Product</strong></div>
+					<div id="selected_category" style="color: #777;">
+					{% if c %}
+					{% for category in c %}
+						<span>{{category.category}}</span>
+					{% if not forloop.last %}
+						<span class="fa fa-chevron-right inline_fa"></span>
+					{% endif %}
+					{% endfor %}
+					{% else %}
+						Select a Category for your Product
+					{% endif %}
+					</div>
+				</div>
+				<div class="col-sm-2 text-right" style="padding-top: 10px">
+					<button id="change_cat_btn" type="button" class="btn btn-primary alt_data right_btn" data-toggle="collapse" data-target="#add_prod_category" data-alt="Done">{% if c %}Change{%else %}Select{% endif %}</button>
+				</div>
+			</div>
+			<div id="add_prod_category" class="collapse">
+				<input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
+				<input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
+				<input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
+				<div class="">
+					<div id="prev_col" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp; Back</div>
+					<div class="hidden new_val"></div>
+					<div class="form-group row">
+						<div id="c1_col" class="col-md-4 c_col">
+							<div id="c1_accordion" class="accordion">
+								<div class="panel">
+									<a href="#c1_1" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">SAE Competition Related Items for Students <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_1" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_1 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div class="panel">
+									<a href="#c1_2" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Mechanical, Automobile & Aerospace Parts <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_2" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_2 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div class="panel">
+									<a href="#c1_3" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Electrical & Electronics Components & Products <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_3" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_3 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div class="panel">
+									<a href="#c1_4" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Industrial Machinery & Raw Materials <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_4" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_4 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div class="panel">
+									<a href="#c1_5" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Chemicals & Construction Related Items <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_5" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_5 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div class="panel">
+									<a href="#c1_6" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Agricultural Products & Textile Products <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_6" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_6 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div class="panel">
+									<a href="#c1_8" class="c1_group_title" data-toggle="collapse" data-parent="#c1_accordion">Services & Consultancy for SMEs <span class="fa fa-chevron-down pull-right"></span></a>
+									<div id="c1_8" class="collapse c1_group">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t1 in c1_8 %}
+											<li>
+												<a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#category_{{t1.id}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
+											</li>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-content col-md-8"  style="padding: 0">
+						{% for t1 in c1_all %}
+							<div id="category_{{t1.id}}" class="tab-pane fade">
+								<div id="c2_col" class="col-md-6 c_col">
+									<ul class="nav nav-pills nav-stacked">
+									{% for t2 in t1.get_sub %}
+										<li>
+											<a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#category_{{t2.id}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
+										</li>
+									{% empty %}
+										<li>
+											<a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
+										</li>
+									{% endfor %}
+										<li>
+											<a class="new_category" href="#new_category_{{t1.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+										</li>
+										<div id="new_category_{{t1.id}}" class="collapse" style="padding: 10px">
+											<div class="form-group">
+												<input class="form-control" type="text" value="" placeholder="Name of the new category">
+											</div>
+											<div class="panel info">
+												<div class="panel-body bg-warning">
+													<span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+												</div>
+											</div>
+											<div class="form-group text-center">
+												<button type="button" class="btn btn-sm new_category_btn" data-level=2>Add</button>
+											</div>
+										</div>
+									</ul>
+								</div>
+								<div class="tab-content col-md-6">
+								{% for t2 in t1.get_sub %}
+									<div id="category_{{t2.id}}" class="tab-pane fade">
+										<ul class="nav nav-pills nav-stacked">
+										{% for t3 in t2.get_sub %}
+											<li>
+												<a class="select_btn no_sub" data-name="category3" data-value="{{t3.id}}">{{t3}}<span class="fa fa-fw fa-check"></span></a>
+											</li>
+										{% empty %}
+											<li>
+												<a class="no_sub">{{t2}}<span class="fa fa-fw fa-check"></span></a>
+											</li>
+										{% endfor %}
+											<li>
+												<a class="new_category" href="#new_category_{{t2.id}}" data-toggle="collapse">Add a new Category<span class="fa fa-fw fa-plus"></span></a>
+											</li>
+											<div id="new_category_{{t2.id}}" class="collapse" style="padding: 10px">
+												<div class="form-group">
+													<input class="form-control" type="text" value="" placeholder="Name of the new category">
+												</div>
+												<div class="panel info">
+													<div class="panel-body bg-warning">
+														<span class="fa fa-exclamation-circle"></span> Categories are meant to be generic so that a considerable number of products fall under it. Kindly provide an apt name keeping this in mind and only after none of the pre-existing categories satisfy your needs.
+													</div>
+												</div>
+												<div class="form-group text-center">
+													<button type="button" class="btn btn-sm new_category_btn" data-level=3>Add</button>
+												</div>
+											</div>
+										</ul>
+									</div>
+								{% endfor %}
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
