@@ -663,5 +663,7 @@ def edit_workplace(request):
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         dict = workplace.__dict__
-        return render(request, 'workplace/edit.html', workplace.__dict__)
+        dict['workplace'] = workplace
+        print(dict)
+        return render(request, 'workplace/edit.html', dict)
 

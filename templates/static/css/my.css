@@ -2312,6 +2312,7 @@ footer .contact li{
   color: #555;
 }
 
+
 .info_title{
   margin-bottom: 10px;
 }
@@ -4115,7 +4116,7 @@ input.not_wide{
 .new_form .help{
   margin: -8px 0 10px;
   color: #999;
-  display: block;
+  /*! display: block; */
 }
 
 .new_form .help:before{
@@ -4217,9 +4218,10 @@ input.not_wide{
 .new_form .pre_input .pre{
   position: absolute;
   left: 10px;
-  bottom: 12px;
+  bottom: 10px;
   font-size: 16px;
-  color: #777;
+  color: #888;
+  font-family: 'Open Sans';
 }
 
 .new_form .saving{
@@ -4236,4 +4238,10 @@ input.not_wide{
 .dash_card h3{
   font-size: 16px;
   margin: 0;
+}
+
+
+.edit_title{
+  margin-bottom: 25px;
+  text-align: center;
 }
