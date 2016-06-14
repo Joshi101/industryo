@@ -68,6 +68,8 @@ class Products(models.Model):
 
     categories = models.ManyToManyField('Category', through='Product_Categories', null=True, blank=True)
 
+    # available = models.BooleanField(default=True)
+
     objects = models.Manager()
     sell = SellManager()
     rent = RentManager()

@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^delete/$', 'products.views.delete', name='delete'),
     url(r'^add_product/$', 'products.views.add_product', name='add_product'),
 
+    url(r'^edit_add/(?P<id>[^/]+)/$', 'products.views.edit_add_product', name='edit_add'),
+
     url(r'^enquire/$', 'products.views.enquire', name='enquire'),
     url(r'^int_c/$', 'products.views.initial_category', name='initial_category'),
     url(r'^c_r/$', 'products.views.c_r', name='c_r'),
