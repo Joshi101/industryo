@@ -32,7 +32,7 @@
             <div class="col-sm-6">
             <div class="form-group pre_input">
                 <label for="wp_rev">Name of the Product</label>
-                <input class="form-control" id="wp_rev" name="product" data-response="productCreated" placeholder="">
+                <input class="form-control" id="wp_rev" name="product" data-response="productCreated" value="{{product}}" placeholder="">
             </div>
             <div class="form-group">
             <label for="wp_type">Type of Product</label>
@@ -48,13 +48,13 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="wp_est">Cost of Product</label>
-                <input class="form-control" id="wp_est" name="cost" placeholder="put comma (,) separated if more than one">
+                <input class="form-control" id="wp_est" name="cost" value="{{cost}}" placeholder="1000 per Piece">
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="wp_about">Product Description</label>
-            <textarea class="form-control textarea_lg count_field" value="{{about}}" id="wp_about" name="description" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000"></textarea>
+            <textarea class="form-control textarea_lg count_field" value="{{description}}" id="wp_about" name="description" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000">{{description}}</textarea>
             <span class="char_count">2000</span>
           </div>
 
@@ -250,21 +250,21 @@
 
           <div class="form-group">
             <label for="wp_history">Delivery Details</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" value="{{history}}" name="deliver_details" maxlength="1000"></textarea>
+            <textarea class="form-control textarea_md count_field" id="wp_history" value="{{history}}" name="deliver_details" maxlength="1000">{{delivery_details}}</textarea>
             <span class="char_count">1000</span>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group pre_input">
                 <label for="wp_rev">Minimum Order Qunatity</label>
-                <input class="form-control" id="wp_rev" name="deliver_charges" placeholder="">
+                <input class="form-control" id="wp_rev" name="minimum" value="{{minimum}}" placeholder="">
                 <span class="fa fa-fw fa-inr pre"></span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group pre_input">
                 <label for="wp_turnovr">Deliery Charges</label>
-                <input class="form-control" id="wp_turnovr" name="minimum">
+                <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges}}">
                 <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
               </div>
             </div>
