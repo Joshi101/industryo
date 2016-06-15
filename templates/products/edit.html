@@ -28,29 +28,34 @@
       <div class="col-md-8">
         <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" {% if not p %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' p.id %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
-          <div class="form-group">
-            <div class="col-sm-6">
-            <div class="form-group pre_input">
-                <label for="wp_rev">Name of the Product</label>
-                <input class="form-control" id="wp_rev" name="product" data-response="productCreated" value="{{product}}" placeholder="">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <div class="form-group pre_input">
+                    <label for="prod_name">Name of the Product</label>
+                    <input class="form-control" id="prod_name" name="product" data-response="productCreated" value="{{product}}" placeholder="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="prod_type">Type of Product</label>
+                <div class="radio_group">
+                  <label class="radio-inline"><input type="radio" value='A' name="product_type">Single Item Sale</label>
+                  <label class="radio-inline"><input type="radio" value='C' name="product_type">Bulk Product</label>
+                  <label class="radio-inline"><input type="radio" value='B' name="product_type">Service</label> 
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-            <label for="wp_type">Type of Product</label>
-            <div class="radio_group">
-              <label class="radio-inline"><input type="radio" value='A' name="product_type">Single Item Sale</label>
-              <label class="radio-inline"><input type="radio" value='C' name="product_type">Bulk Product</label>
-              <label class="radio-inline"><input type="radio" value='B' name="product_type">Service</label> 
-            </div>
+            <div class="col-md-4">
+              <div id="img_profile_box">
+                <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{name}}">
+                <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
+              </div>
             </div>
           </div>
           
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="wp_est">Cost of Product</label>
-                <input class="form-control" id="wp_est" name="cost" value="{{cost}}" placeholder="1000 per Piece">
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="prod_cost">Cost of Product</label>
+            <input class="form-control" id="prod_cost" name="cost" value="{{cost}}" placeholder="1000 per Piece">
           </div>
           <div class="form-group">
             <label for="wp_about">Product Description</label>

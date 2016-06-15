@@ -23,10 +23,44 @@
 {% block body %}
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
+        <nav class="left_form_progress">
+          <ul>
+            <li>
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <strong class="fa-stack-1x calendar-text">1</strong>
+              </span>
+              <a href="" title="">Add Image</a>
+              <span class="fa fa-hand-o-left indicator"></span>
+            </li>
+            <li>
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <strong class="fa-stack-1x calendar-text">2</strong>
+              </span>
+              <a href="" title="">General Information</a>
+            </li>
+            <li>
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <strong class="fa-stack-1x calendar-text">3</strong>
+              </span>
+              <a href="" title="">Contact Information</a>
+            </li>
+            <li>
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <strong class="fa-stack-1x calendar-text">4</strong>
+              </span>
+              <a href="" title="">Specialized Information</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div class="row edit_title">
+          {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
           <div class="col-md-4">
             <div id="img_profile_box">
               <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{name}}">
@@ -45,7 +79,7 @@
         </div>
         <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
-          <a href="#gen_info" class="collapse_h" data-toggle="collapse">General Information<span class="fa fa-fw fa-chevron-down pull-right"></span></a>
+          <a href="#gen_info" class="collapse_h" data-toggle="collapse">General Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
           <div id="gen_info" class="collapse in">
             <div class="form-group">
               <label for="wp_about">About {{name}}</label>
@@ -128,7 +162,7 @@
               </div>
             </div>
           </div>
-          <a href="#contact_info" class="collapse_h" data-toggle="collapse">Contact Information<span class="fa fa-fw fa-chevron-down pull-right"></span></a>
+          <a href="#contact_info" class="collapse_h" data-toggle="collapse">Contact Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
           <div id="contact_info" class="collapse in">
             <div class="row">
               <div class="col-sm-4">
@@ -188,8 +222,8 @@
               <span class="char_count">200</span>
             </div>
           </div>
-          <a href="#extra_info" class="collapse_h" data-toggle="collapse in">Specialized Information<span class="fa fa-fw fa-chevron-down pull-right"></span></a>
-          <div id="extra_info" class="collapse">
+          <a href="#extra_info" class="collapse_h" data-toggle="collapse">Specialized Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
+          <div id="extra_info" class="collapse in">
             <div class="form-group">
               <label for="wp_prod_details">Product Description</label>
               <textarea class="form-control textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity" maxlength="1000"> {{product_details}}</textarea>

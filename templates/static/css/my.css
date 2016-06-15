@@ -4098,7 +4098,7 @@ input.not_wide{
 
 .new_form{
   margin: auto;
-  max-width: 750px;
+  max-width: 900px;
   padding: 0 15px;
   /*! background-color: #fff; */
 }
@@ -4109,9 +4109,8 @@ input.not_wide{
 }
 
 .new_form label{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-size: 14px;
-  letter-spacing: 1px;
 }
 
 .new_form .help{
@@ -4129,10 +4128,10 @@ input.not_wide{
 }
 
 .new_form .form-control{
-  height: 44px;
-  font-size: 16px;
+  height: 40px;
+  font-size: 15px;
   position: relative;
-  padding: 10px 15px;
+  padding: 8px 10px;
   outline: none;
   border: 1px solid #eee;
   border-color: #8AA5C8;
@@ -4140,7 +4139,7 @@ input.not_wide{
 }
 
 .new_form .form-control:focus{
-  box-shadow: 0 -5px 10px -8px rgba(202,224,248,0.75);
+  box-shadow: 0 -5px 10px -7px rgba(202,224,248,0.85);
   border-style: dashed;
 }
 
@@ -4161,13 +4160,13 @@ input.not_wide{
   background-color: #fff;
   padding: 10px 10px 0 15px;
   border: 1px solid #eee;
-  border-color: #AAC5D8;
-  box-shadow: 0 0 0 1px #AAC5D8;
+  border-color: #8AA5C8;
+  /*! box-shadow: 0 0 0 1px #8AA5C8; */
 }
 
 .new_form .radio_group label{
   letter-spacing: 0;
-  font-size: 16px;
+  font-size: 15px;
   font-family: 'Open Sans';
 }
 
@@ -4176,6 +4175,7 @@ input.not_wide{
   margin-right: 2.5%;
   width: 22%;
   vertical-align: top;
+  margin-bottom: 10px;
 }
 
 .new_form .radio_group input{
@@ -4199,7 +4199,7 @@ input.not_wide{
 
 .new_form .input_tags{
   margin: 0;
-  padding: 5px 0 0;
+  /*! padding: 5px 0 0; */
 }
 
 .new_form .tag{
@@ -4219,8 +4219,8 @@ input.not_wide{
 .new_form .pre_input .pre{
   position: absolute;
   left: 10px;
-  bottom: 11px;
-  font-size: 16px;
+  bottom: 9px;
+  font-size: 15px;
   color: #888;
   font-family: 'Open Sans';
 }
@@ -4247,15 +4247,78 @@ input.not_wide{
   text-align: center;
 }
 
+.edit_title .info_title{
+  margin-top: 15px;
+}
+
 .collapse_h{
   display: block;
-  font-size: 22px;
+  font-size: 25px;
   margin: 0 -15px 20px;
-  padding: 0 5px 5px;
+  padding: 5px 15px;
   border-bottom: 1px solid #eee;
-  color: #555;
+  color: #fff;
+  font-weight: 300;
+  background: rgba(16,144,112,0.75);
+  //border-bottom: 1px solid #197;
+  position: relative;
+}
+
+.collapse_h .fa{
+  line-height: 1.42;
 }
 
 .collapse_h:hover, .collapse_h:focus{
   text-decoration: none;
+  color: #fff;
+}
+
+.left_form_progress ul{
+  list-style: none;
+  border-right: 1px solid #eee;
+  max-width: 250px;
+}
+
+.left_form_progress li{
+  padding: 10px;
+  position: relative;
+}
+
+.left_form_progress li a{
+  line-height: 28px;
+  color: #777;
+}
+
+.left_form_progress li a:hover, .left_form_progress li a:focus{
+  text-decoration: none;
+}
+
+.left_form_progress .indicator{
+  position: absolute;
+  right: 0;
+  top: 18px;
+  color: #777;
+}
+
+.left_form_progress .fa-stack{
+  margin-right: 5px;
+}
+
+.left_form_progress .fa-circle{
+  color: #777;
+}
+
+.left_form_progress .fa-stack-1x{
+  bottom: 1px;
+  color: #fff;
+}
+
+.left_form_progress .current .fa-circle, .left_form_progress .current a, .left_form_progress .current .indicator{
+  color: #197;
+}
+
+@media(min-width:768px){
+  .edit_title #img_profile_box{
+    margin: 0;
+  }
 }
