@@ -812,26 +812,47 @@ def edit_add_product(request, id):
     wp = user.userprofile.primary_workplace
     workplace = wp
     response = {}
-    p_id = request.POST.get('p_id')
-    if request.POST.get('p_id'):
-        print("product purana hai, edit hoga")
+
+    # from here
+
+    c1_all = Category.objects.filter(level=1)
+    c1_1 = itemgetter(0, 1, 2)(c1_all)
+    c1_2 = itemgetter(3, 4, 13)(c1_all)
+    c1_3 = itemgetter(2, 5)(c1_all)
+    c1_4 = itemgetter(6, 7, 12, 13)(c1_all)
+    c1_5 = itemgetter(9, 8, 6)(c1_all)
+    c1_6 = itemgetter(10, 11)(c1_all)
+    # c1_7 = itemgetter(6, 7, 12)(c1_all)
+    c1_8 = itemgetter(13, 14, 15)(c1_all)
+    # to here
+
     if id == 'new':
-        print("NAYA AAYA HAI")
         dictionary = {}
         ps = Products()
         p = None
         if request.method == 'POST':
-            print("NAYA AAYA HAI POST REQUEST IWTH NEW")
             if request.POST.get('product'):
-                print("Product create hona chahiye")
                 p = Products.objects.create(product=request.POST['product'], user=user, producer=wp)
+                up = user.userprofile
+                up.points += 5
+                up.save()
                 response['p_id'] = p.id
-                print(response)
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            return render(request, 'products/edit.html', workplace.__dict__)
+            p = Products.objects.filter(producer=workplace).last()
+            if user.userprofile.product_email:
+                no_prod_con = False
+            else:
+                no_prod_con = True
+
+            c = {}
+            if p:
+                c = Product_Categories.objects.filter(product=p.id).order_by('level')
+            return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
+                                                          'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
+                                                          'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
+                                                          'no_prod_con': no_prod_con})
     else:
-        print("id aane laga idhar 1")
         p = Products.objects.get(id=id)
         dictionary = {}
         direct = p._meta.get_all_field_names()
@@ -844,15 +865,25 @@ def edit_add_product(request, id):
                         tb = traceback.format_exc()
                         print(tb)
                 else:
-                    print('Key not in List. Make arrangements')
-                    # if key == 'pre_tag':
-                    #     p.set_city(request.POST[key])
+                    li = []
+                    li.append(request.POST.get('category1'))
+                    li.append(request.POST.get('category2'))
+                    li.append(request.POST.get('category3'))
+                    categories = Category.objects.filter(pk__in=li)
+                    for c in categories:
+                        Product_Categories.objects.create(product=p, category=c, level=c.level)
+                    index = request.POST.get('i')
 
                 for key in dictionary:
                     setattr(p, key, dictionary[key])
                 p.save()
-            response = [p]
+            response['p_id'] = p.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            return render(request, 'products/edit.html', {'p': p})
+
+            c = Product_Categories.objects.filter(product=p.id).order_by('level')
+            dictionary = {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2, 'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5,
+                          'c1_6': c1_6,'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True}
+            print(p.__dict__)
+            return render(request, 'products/edit.html', dict(list(p.__dict__.items()) + list(dictionary.items())))
 
