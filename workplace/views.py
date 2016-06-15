@@ -643,7 +643,7 @@ def edit_workplace(request):
     dictionary = {}
     direct = ['about', 'history', 'established', 'revenue', 'turnover', 'sme_type', 'wp_type', 'mobile_contact1',
               'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
-              'number_of_employees', 'website', 'prod_details']
+              'number_of_employees', 'website', 'product_details']
     if request.method == 'POST':
         for key in request.POST:
             if key in direct:
@@ -653,9 +653,13 @@ def edit_workplace(request):
                     tb = traceback.format_exc()
                     print(tb)
             else:
-                print('Key not in List. Make arrangements')
-                print(key)
-                print(request.POST[key])
+                # if key in ['segments', 'operations', 'machinery']:
+                if key == 'segments':
+                    wp.set_segments(request.POST[key])
+                if key == 'operations':
+                    wp.set_operations(request.POST[key])
+                if key == 'machinery':
+                    wp.set_assets(request.POST[key])
 
             for key in dictionary:
                 setattr(workplace, key, dictionary[key])

@@ -28,12 +28,11 @@
       <div class="col-md-8">
         <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" {% if not p %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' p.id %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
-          <input id="p_id" type="hidden" name="id" value="{% if not p %} new {% else %} p.id {% endif %}">
           <div class="form-group">
             <div class="col-sm-6">
             <div class="form-group pre_input">
                 <label for="wp_rev">Name of the Product</label>
-                <input class="form-control" id="wp_rev" name="product" placeholder="" data-response="productCreated">
+                <input class="form-control" id="wp_rev" name="product" placeholder="">
             </div>
             <div class="form-group">
             <label for="wp_type">Type of Product</label>

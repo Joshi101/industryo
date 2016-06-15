@@ -808,13 +808,14 @@ import traceback
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def edit_add_product(request, id):
+    print('value of id aaya'+id)
     user = request.user
     wp = user.userprofile.primary_workplace
     workplace = wp
     response = {}
-    p_id = request.POST.get('p_id')
-    if request.POST.get('p_id'):
-        print("product purana hai, edit hoga")
+    # p_id = request.POST.get('p_id')
+    # if request.POST.get('p_id'):
+    #     print("product purana hai, edit hoga")
     if id == 'new':
         print("NAYA AAYA HAI")
         dictionary = {}
@@ -831,6 +832,7 @@ def edit_add_product(request, id):
         else:
             return render(request, 'products/edit.html', workplace.__dict__)
     else:
+        print("Ye id aane laga idhar 1")
         p = Products.objects.get(id=id)
         print("Ye id aane laga idhar")
         dictionary = {}
