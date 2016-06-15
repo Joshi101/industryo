@@ -2060,15 +2060,20 @@ $('.new_form').on('keyup', '.count_field', function(){
 
 $('.auto_form').on('change', 'input, textarea', function(){
     autoSubmitReady($(this));
-    console.log('ko')
 });
 
 function autoSubmitReady($this){
-    $this.on('blur', function(){
-        var $this = $(this);
+    if ($this.attr('type') == 'hidden'){
         customValidate($this);
-        autoSubmit($this);
-    });
+        autoSubmit($this,$this.data('response'));
+    }
+    else{
+        $this.on('blur', function(){
+            var $this = $(this);
+            customValidate($this);
+            autoSubmit($this,$this.data('response'));
+        });
+    }
 }
 
 function customValidate($this){
@@ -2082,7 +2087,7 @@ function customValidate($this){
     console.log($this[0].checkValidity());
 }
 
-function autoSubmit($this){
+function autoSubmit($this, data_response){
     var $form = $this.closest('form');
     var $field = $this.closest('.form-group');
     autoSubmitShow($field);
@@ -2093,6 +2098,8 @@ function autoSubmit($this){
 
         success: function(response) {
             autoSubmitDone($field);
+            console.log(data_response)
+            window[data_response]($field, response);
         },
 
         error: function(xhr, errmsg, err) {
@@ -2117,4 +2124,8 @@ function autoSubmitDone($field){
 function autoSubmitFailed($field){
     $field.find('.saving').addClass('hide');
     $field.find('input, textarea').off('blur');
+}
+
+function productCreated($field,response){
+    $field.closest('form').attr('action',"products/edit_add/"+response['p_id'])
 }

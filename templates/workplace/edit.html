@@ -55,7 +55,7 @@
           </div>
           <div class="form-group">
             <label for="wp_loc">Locations</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' d_form='edit_wp_form' %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' %}
           </div>
           <div class="row">
             <div class="col-sm-4">
@@ -187,15 +187,15 @@
           </div>
           <div class="form-group">
             <label for="wp_segments">Segment</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segment name='segments' d_form='edit_wp_form' %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segment name='segments' %}
           </div>
           <div class="form-group">
             <label for="wp_operations">Operations</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' d_form='edit_wp_form' %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' %}
           </div>
           <div class="form-group">
             <label for="wp_machinery">Machinery</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.machinery name='machinery' d_form='edit_wp_form' %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.machinery name='machinery' %}
           </div>
         </form>
       </div>
