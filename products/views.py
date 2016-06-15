@@ -813,8 +813,6 @@ def edit_add_product(request, id):
     workplace = wp
     response = {}
 
-    # from here
-
     c1_all = Category.objects.filter(level=1)
     c1_1 = itemgetter(0, 1, 2)(c1_all)
     c1_2 = itemgetter(3, 4, 13)(c1_all)
@@ -824,7 +822,6 @@ def edit_add_product(request, id):
     c1_6 = itemgetter(10, 11)(c1_all)
     # c1_7 = itemgetter(6, 7, 12)(c1_all)
     c1_8 = itemgetter(13, 14, 15)(c1_all)
-    # to here
 
     if id == 'new':
         dictionary = {}
@@ -839,19 +836,27 @@ def edit_add_product(request, id):
                 response['p_id'] = p.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            p = Products.objects.filter(producer=workplace).last()
+            pl = Products.objects.filter(producer=workplace).last()
             if user.userprofile.product_email:
                 no_prod_con = False
             else:
                 no_prod_con = True
 
             c = {}
-            if p:
-                c = Product_Categories.objects.filter(product=p.id).order_by('level')
+            if pl:
+                c = Product_Categories.objects.filter(product=pl.id).order_by('level')
+                dd = pl.delivery_details
+                dc = pl.delivery_charges
+                minimum = pl.minimum
+            else:
+                dd = ''
+                dc = ''
+                minimum = ''
             return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                           'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
                                                           'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
-                                                          'no_prod_con': no_prod_con})
+                                                          'no_prod_con': no_prod_con, 'delivery_details': dd,
+                                                          'delivery_charges': dc, 'minimum': minimum})
     else:
         p = Products.objects.get(id=id)
         dictionary = {}
@@ -884,6 +889,5 @@ def edit_add_product(request, id):
             c = Product_Categories.objects.filter(product=p.id).order_by('level')
             dictionary = {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2, 'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5,
                           'c1_6': c1_6,'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True}
-            print(p.__dict__)
             return render(request, 'products/edit.html', dict(list(p.__dict__.items()) + list(dictionary.items())))
 
