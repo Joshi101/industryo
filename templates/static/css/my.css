@@ -4098,7 +4098,8 @@ input.not_wide{
 
 .new_form{
   margin: auto;
-  max-width: 720px;
+  max-width: 750px;
+  padding: 0 15px;
   /*! background-color: #fff; */
 }
 
@@ -4218,7 +4219,7 @@ input.not_wide{
 .new_form .pre_input .pre{
   position: absolute;
   left: 10px;
-  bottom: 10px;
+  bottom: 11px;
   font-size: 16px;
   color: #888;
   font-family: 'Open Sans';
@@ -4244,4 +4245,17 @@ input.not_wide{
 .edit_title{
   margin-bottom: 25px;
   text-align: center;
+}
+
+.collapse_h{
+  display: block;
+  font-size: 22px;
+  margin: 0 -15px 20px;
+  padding: 0 5px 5px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+.collapse_h:hover, .collapse_h:focus{
+  text-decoration: none;
 }

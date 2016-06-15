@@ -2044,7 +2044,7 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
 $(function(){
     $('.pre_input').each(function(){
        $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()+10));
-        /*console.log(($('.pre_input').find('.pre').outerWidth()+10),'pre') */
+        console.log(($(this).find('.pre').outerWidth()+10),'pre');
     });
     $('.char_count').each(function(){
         var f = $(this).parent().find('input, textarea');
