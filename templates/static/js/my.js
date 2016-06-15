@@ -2091,6 +2091,7 @@ function autoSubmit($this, data_response){
     var $form = $this.closest('form');
     var $field = $this.closest('.form-group');
     autoSubmitShow($field);
+    console.log($form.attr('action'))
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -2127,5 +2128,6 @@ function autoSubmitFailed($field){
 }
 
 function productCreated($field,response){
-    $field.closest('form').attr('action',"products/edit_add/"+response['p_id'])
+    $field.closest('form').attr('action',"/products/edit_add/"+response['p_id']+"/")
+    console.log($field.closest('form').attr('action'));
 }
