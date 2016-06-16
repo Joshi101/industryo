@@ -250,21 +250,21 @@
 
           <div class="form-group">
             <label for="wp_history">Delivery Details</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" value="{{history}}" name="deliver_details" maxlength="1000">{{delivery_details}}</textarea>
+            <textarea class="form-control textarea_md count_field" id="wp_history" name="delivery_details" maxlength="1000">{{delivery_details|default:''}}</textarea>
             <span class="char_count">1000</span>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group pre_input">
                 <label for="wp_rev">Minimum Order Qunatity</label>
-                <input class="form-control" id="wp_rev" name="minimum" value="{{minimum}}" placeholder="">
+                <input class="form-control" id="wp_rev" name="minimum" value="{{minimum|default:''}}" placeholder="">
                 <span class="fa fa-fw fa-inr pre"></span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group pre_input">
                 <label for="wp_turnovr">Deliery Charges</label>
-                <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges}}">
+                <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges|default:''}}">
                 <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
               </div>
             </div>
