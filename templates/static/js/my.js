@@ -504,13 +504,17 @@ $('#img_profile_box').on({
 });
 $(function() {
     $('.image-editor').cropit();
+    $('.select-image-btn').click(function() {
+      $('.cropit-image-input').click();
+    });
     $('form').submit(function() {
         // Move cropped image data to hidden input
         var imageData = $('.image-editor').cropit('export');
         $('.hidden-image-data').val(imageData);
         $('#id_image').val(imageData);
-
-        // Print HTTP request params
+        a = $('.cropit-preview-image').css('transform');
+        var values = a.match(/-?[\d\.]+/g);
+        console.log(values)
         var formValue = $(this).serialize();
     });
 });
@@ -2132,3 +2136,6 @@ function productCreated($field,response){
     $field.closest('form').attr('action',"/products/edit_add/"+response['p_id']+"/")
     console.log($field.closest('form').attr('action'));
 }
+
+// When user clicks select image button,
+// open select file dialog programmatically

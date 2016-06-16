@@ -1519,7 +1519,7 @@ footer .connect li{
 }
 /*modal image upload*/
 
-.cropit-image-preview {
+.cropit-preview{
   width: 250px;
   height: 250px;
   margin-top: 7px;
@@ -1544,10 +1544,15 @@ footer .connect li{
 
 .image-editor {
   width: 250px;
+  margin: auto;
 }
 
 .cropit-image-zoom-input {
   margin: 10px 0;
+}
+
+input.cropit-image-input {
+  visibility: hidden;
 }
 
 .btn-file {
@@ -2111,7 +2116,7 @@ footer .connect i{
 
 footer{
   position: relative;
-  z-index: 9;
+  z-index: 0;
   font-size: 13px;
   top: 100%;
 }
@@ -4110,7 +4115,10 @@ input.not_wide{
 
 .new_form label{
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 16px;
+  /*! margin-left: 5; */
+  /*! font-family: 'PT Sans'; */
+  color: #555;
 }
 
 .new_form .help{
@@ -4135,7 +4143,7 @@ input.not_wide{
   outline: none;
   border: 1px solid #eee;
   border-color: #8AA5C8;
-  box-shadow: 0 0 0 1px #8AA5C8;
+  /*! box-shadow: 0 0 0 1px #8AA5C8; */
 }
 
 .new_form .form-control:focus{
@@ -4162,6 +4170,8 @@ input.not_wide{
   border: 1px solid #eee;
   border-color: #8AA5C8;
   /*! box-shadow: 0 0 0 1px #8AA5C8; */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .new_form .radio_group label{
@@ -4173,9 +4183,12 @@ input.not_wide{
 .new_form .radio-inline{
   margin-left: 0;
   margin-right: 2.5%;
-  width: 22%;
+  /*! width: 22%; */
   vertical-align: top;
   margin-bottom: 10px;
+  flex: 1;
+  /*! flex-wrap: wrap; */
+  /*! flex-grow: 1; */
 }
 
 .new_form .radio_group input{
@@ -4200,6 +4213,7 @@ input.not_wide{
 .new_form .input_tags{
   margin: 0;
   /*! padding: 5px 0 0; */
+  margin-bottom: 5px;
 }
 
 .new_form .tag{
@@ -4209,7 +4223,7 @@ input.not_wide{
   background: #fff;
   border: 1px solid #eee;
   border-color: #AAD8C5;
-  box-shadow: 0 0 0 1px #AAD8C5;
+  /*! box-shadow: 0 0 0 1px #AAD8C5; */
 }
 
 .new_form .pre_input input{
@@ -4243,7 +4257,7 @@ input.not_wide{
 
 
 .edit_title{
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
@@ -4254,12 +4268,13 @@ input.not_wide{
 .collapse_h{
   display: block;
   font-size: 25px;
-  margin: 0 -15px 20px;
+  margin: 0 -15px 25px;
   padding: 5px 15px;
+  /*! border-top: 1px solid #eee; */
   border-bottom: 1px solid #eee;
-  color: #fff;
-  font-weight: 300;
-  background: rgba(16,144,112,0.75);
+  color: #197;
+  //font-weight: 300;
+  /*! background: rgba(16,144,112,0.75); */
   //border-bottom: 1px solid #197;
   position: relative;
 }
@@ -4270,7 +4285,8 @@ input.not_wide{
 
 .collapse_h:hover, .collapse_h:focus{
   text-decoration: none;
-  color: #fff;
+  colo
+  opacity: 0.9;
 }
 
 .left_form_progress ul{
@@ -4317,8 +4333,47 @@ input.not_wide{
   color: #197;
 }
 
-@media(min-width:768px){
+@media(min-width:999px){
   .edit_title #img_profile_box{
     margin: 0;
   }
+}
+
+#edit_wp_form{
+  margin-bottom: 200px;
+}
+
+.product_image_box{
+  margin-top: 20px;
+  border: 1px dashed #8AA5C8;
+  height: 150px;
+  background-color: #fff;
+}
+
+.product_image_box a{
+  color: #bbb;
+  text-align: center;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.product_image_box a:hover{
+  text-decoration: none;
+  color: #197;
+}
+
+.product_image_box a span{
+  display: block;
+  margin: auto;
+  line-height: 20px;
+}
+
+.product_image_box a .fa-plus{
+  font-size: 60px;
+  line-height: 70px;
+}
+.product_image_box img{
+  width: 150px;
+  height: 150px;
+  margin: auto;
 }

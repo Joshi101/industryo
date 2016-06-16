@@ -9,15 +9,19 @@
       <div class="modal-body">
         <form action="{% if url_slug %}{% url url url_slug %}{% else %}{% url url %}{% endif %}" role='form' method="post" enctype="multipart/form-data">
         	{% csrf_token %}
-          <div class="image-editor">
-            <div class="select-image-btn btn btn-default">Select new image</div>
-            <div class="cropit-preview"></div>
-            <input type="range" class="cropit-image-zoom-input" />
-            <!-- The actual file input will be hidden -->
-            {{form}}
-            <!-- And clicking on this button will open up select file dialog -->
-            <button type="submit" class="btn btn-info">Submit</button>
-          </div>
+		      <div class="image-editor center-block">
+		      	<span class='btn btn-default btn-file center-block'>
+		        	Browse {{form}}
+	        	</span>
+		        <div class="cropit-image-preview"></div>
+		        <div class="image-size-label text-center">
+		          Resize image
+		        </div>
+		        <input type="range" class="cropit-image-zoom-input">
+		        <div class="row">
+		        	<button type="submit" class="btn btn-info col-sm-10 col-sm-offset-1">Submit</button>
+	        	</div>
+		      </div>
 		    </form>
 		    <input type="hidden" name="image-data" class="hidden-image-data" />
       </div>
