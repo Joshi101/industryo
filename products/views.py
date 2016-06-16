@@ -874,10 +874,7 @@ def edit_add_product(request, id):
                     li.append(request.POST.get('category1'))
                     li.append(request.POST.get('category2'))
                     li.append(request.POST.get('category3'))
-                    categories = Category.objects.filter(pk__in=li)
-                    for c in categories:
-                        Product_Categories.objects.create(product=p, category=c, level=c.level)
-                    index = request.POST.get('i')
+                    p.set_categories(li)
 
                 for key in dictionary:
                     setattr(p, key, dictionary[key])

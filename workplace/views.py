@@ -143,9 +143,9 @@ def set_tags_short(request):
         return redirect('/user/'+request.user.username)
 
 
-from django.views.generic import DetailView
+# from django.views.generic import DetailView
 
-class Workplace_Profile(DetailView):
+# class Workplace_Profile(DetailView):
 
 
 def workplace_profile(request, slug):
