@@ -26,7 +26,7 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="add_prod_form" class="ajax_andar new_form auto_form" role="form" {% if not p %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' p.id %}" {% endif %} method="POST" enctype="multipart/form-data">
+        <form id="add_prod_form" class="new_form auto_form" role="form" {% if not p %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' p.id %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="row">
             <div class="col-sm-8">
@@ -46,22 +46,25 @@
               </div>
             </div>
             <div class="col-sm-4">
-              <div class="product_image_box">
-                {% if product.get_image %}
-                <img id="product_image" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{product.get_image}}" alt="{{product}}">
-                <a class="fake_btn" data-btn="#product_image_btn">Change Image</a>
-                {% else %}
-                <a class="fake_btn" data-btn="#product_image_btn"><span class="fa fa-plus"></span><span>Add Image</span></a>
-                {% endif %}
+              <div class="image_box">
+                <div class="img_pre">
+                  {% if product.get_image %}
+                  <img id="product_image" class="img_pre lazy_img" src="/images/wp.png" data-src="{{product.get_image}}" alt="{{product}}">
+                  {% else %}
+                  <a class="fake_btn" data-btn="#product_image_btn"><span class="fa fa-plus"></span><span>Add Image</span></a>
+                  {% endif %}
+                </div>
+                <a class="fake_btn hover_btn" data-btn="#product_image_btn"><span class="fa fa-plus"></span><span>Change Image</span></a>
                 <input id="product_image_btn" class="hidden" type="file" name="image" value="" placeholder="">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-4">
-              <div class="form-group">
+              <div class="form-group pre_input">
                 <label for="prod_cost">Cost of Product</label>
                 <input class="form-control" id="prod_cost" name="cost" value="{{cost}}" placeholder="1000 per Piece">
+                <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
               </div>
             </div>
           </div>
@@ -271,7 +274,6 @@
               <div class="form-group pre_input">
                 <label for="wp_rev">Minimum Order Qunatity</label>
                 <input class="form-control" id="wp_rev" name="minimum" value="{{minimum}}" placeholder="">
-                <span class="fa fa-fw fa-inr pre"></span>
               </div>
             </div>
             <div class="col-sm-6">

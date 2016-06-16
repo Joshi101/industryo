@@ -213,7 +213,7 @@ $('body').on('click','.input_tags .tag .close', function(){
     val1 = pre_value.slice(0, i1);
     val2 = pre_value.slice(i2);
     console.log(i1,i2,val1+val2);
-    $d_search.find('.d_value').val(val1+val2);
+    $d_search.find('.d_value').val(val1+val2).trigger('change');
     tag.remove();
 });
 
@@ -2071,7 +2071,10 @@ function autoSubmitReady($this){
         customValidate($this);
         autoSubmit($this,$this.data('response'));
     }
-    else{
+    else if ($this.attr('type') == 'file'){
+        imageUpload($this);
+    }
+    else {
         $this.on('blur', function(){
             var $this = $(this);
             customValidate($this);
@@ -2095,7 +2098,7 @@ function autoSubmit($this, data_response){
     var $form = $this.closest('form');
     var $field = $this.closest('.form-group');
     autoSubmitShow($field);
-    console.log($form.attr('action'))
+    console.log($form.attr('action'),$this.serialize())
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -2137,5 +2140,47 @@ function productCreated($field,response){
     console.log($field.closest('form').attr('action'));
 }
 
-// When user clicks select image button,
-// open select file dialog programmatically
+function imageUpload($this){
+    var preview = $this.closest('.image_box').find('.img_pre');
+    var file = $this[0].files[0];
+    var fd = new FormData();
+    fd.append('image', file);
+    console.log(fd, file);
+    var reader = new FileReader();
+    reader.onloadend = function() {
+        var $img = preview.html("<img id='product_image'>");
+        $('#product_image').attr('src', reader.result);
+        var $form = $this.closest('form');
+        var $field = $this.closest('.form-group');
+        autoSubmitShow($field);
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: {'image': reader.result},
+
+            success: function(response) {
+                autoSubmitDone($field);
+            },
+
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg, err);
+                autoSubmitFailed($field);
+            }
+        });
+    };
+    if (file) {
+        reader.readAsDataURL(file);
+        console.log('img_pre showing');
+    }
+    else {
+        preview.attr('src', "");
+    }
+}
+
+$('.img_pre').on('mouseenter', 'img', function(){
+    $(this).closest('.image_box').find('.hover_btn').css('display', 'block');
+    console.log('enter')
+});
+$('.image_box').on('mouseleave', '.hover_btn', function(){
+    $(this).css('display', 'none');
+});

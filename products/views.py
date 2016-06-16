@@ -862,6 +862,7 @@ def edit_add_product(request, id):
         dictionary = {}
         direct = p._meta.get_all_field_names()
         if request.method == 'POST':
+            print(request.POST.get('image'))
             for key in request.POST:
                 if key in direct:
                     try:
