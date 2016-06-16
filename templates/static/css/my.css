@@ -2111,7 +2111,7 @@ footer .connect i{
 
 footer{
   position: relative;
-  z-index: 9;
+  z-index: 0;
   font-size: 13px;
   top: 100%;
 }
@@ -4135,7 +4135,7 @@ input.not_wide{
   outline: none;
   border: 1px solid #eee;
   border-color: #8AA5C8;
-  box-shadow: 0 0 0 1px #8AA5C8;
+  /*! box-shadow: 0 0 0 1px #8AA5C8; */
 }
 
 .new_form .form-control:focus{
@@ -4162,6 +4162,8 @@ input.not_wide{
   border: 1px solid #eee;
   border-color: #8AA5C8;
   /*! box-shadow: 0 0 0 1px #8AA5C8; */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .new_form .radio_group label{
@@ -4173,9 +4175,12 @@ input.not_wide{
 .new_form .radio-inline{
   margin-left: 0;
   margin-right: 2.5%;
-  width: 22%;
+  /*! width: 22%; */
   vertical-align: top;
   margin-bottom: 10px;
+  flex: 1;
+  /*! flex-wrap: wrap; */
+  /*! flex-grow: 1; */
 }
 
 .new_form .radio_group input{
@@ -4317,8 +4322,46 @@ input.not_wide{
   color: #197;
 }
 
-@media(min-width:768px){
+@media(min-width:999px){
   .edit_title #img_profile_box{
     margin: 0;
   }
+}
+
+#edit_wp_form{
+  margin-bottom: 200px;
+}
+
+.product_image_box{
+  margin-top: 20px;
+  border: 1px dashed #8AA5C8;
+  height: 150px;
+  background-color: #fff;
+}
+
+.product_image_box a{
+  color: #999;
+  text-align: center;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.product_image_box a:hover{
+  text-decoration: none;
+}
+
+.product_image_box a span{
+  display: block;
+  margin: auto;
+  line-height: 20px;
+}
+
+.product_image_box a .fa-plus{
+  font-size: 60px;
+  line-height: 70px;
+}
+.product_image_box img{
+  width: 150px;
+  height: 150px;
+  margin: auto;
 }
