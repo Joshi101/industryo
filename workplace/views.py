@@ -675,5 +675,6 @@ def edit_workplace(request):
     else:
         dict = workplace.__dict__
         dict['workplace'] = workplace
+        dict['workplace_logo_form'] = SetLogoForm()
         return render(request, 'workplace/edit.html', dict)
 

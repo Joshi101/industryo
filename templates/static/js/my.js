@@ -2100,7 +2100,8 @@ function autoSubmit($this, data_response){
         success: function(response) {
             autoSubmitDone($field);
             console.log(data_response)
-            window[data_response]($field, response);
+            if (data_response)
+                window[data_response]($field, response);
         },
 
         error: function(xhr, errmsg, err) {
