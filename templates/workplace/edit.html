@@ -24,6 +24,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
+      <!--
         <nav class="left_form_progress">
           <ul>
             <li>
@@ -57,13 +58,14 @@
             </li>
           </ul>
         </nav>
+        -->
       </div>
       <div class="col-md-7">
         <div class="row edit_title">
           {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
           <div class="col-md-4">
             <div id="img_profile_box">
-              <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{name}}">
+              <img id="img_profile" class="thumbnail lazy_img" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{name}}">
               <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
             </div>
           </div>
@@ -73,7 +75,6 @@
               {% if workplace.verified %}
               <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
               {% endif %}
-              <div class="text-muted">{{ workplace.get_type }}</div>
             </header>
           </div>
         </div>
