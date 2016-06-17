@@ -2152,6 +2152,9 @@ function imageUpload($this){
         $('#product_image').attr('src', reader.result);
         var $form = $this.closest('form');
         var $field = $this.closest('.form-group');
+        var $data = new FormData($this);
+        var $data = new FormData($form);
+        console.log($data, $data2);
         autoSubmitShow($field);
         $.ajax({
             url: $form.attr('action'),
