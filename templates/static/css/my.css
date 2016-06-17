@@ -3326,7 +3326,7 @@ footer .contact li{
 #add_prod_category{
   /*! margin-top: 10px; */
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px dashed #8AA5C8;
   background-color: #fff;
 }
 

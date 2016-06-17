@@ -243,9 +243,9 @@
               {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.assets name='machinery' %}
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group text-center">
             {% csrf_token %}
-            <button class="btn btn-info btn-lg center-block">Continue</button>
+            <a href="{% url 'workplace:workplace_profile' workplace.slug %}" class="btn btn-info btn-lg">Continue</a>
           </div>
         </form>
       </div>
