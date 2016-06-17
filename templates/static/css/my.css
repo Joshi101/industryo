@@ -3324,9 +3324,10 @@ footer .contact li{
 }
 
 #add_prod_category{
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
+  /*! margin-top: 10px; */
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
 }
 
 .xl_text{
@@ -4248,11 +4249,17 @@ input.not_wide{
 .dash_card{
   background-color: #fff;
   padding: 10px;
+  height: 150px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 4px -2px #eee;
 }
 
 .dash_card h3{
+  text-align: center;
   font-size: 16px;
   margin: 0;
+  font-weight: 700;
 }
 
 
@@ -4343,37 +4350,60 @@ input.not_wide{
   margin-bottom: 200px;
 }
 
-.product_image_box{
+.image_box{
   margin-top: 20px;
   border: 1px dashed #8AA5C8;
   height: 150px;
   background-color: #fff;
+  width: 225px;
+  overflow: hidden;
+  position: relative;
 }
 
-.product_image_box a{
+.image_box a{
   color: #bbb;
   text-align: center;
-  padding: 15px;
+  padding: 25px;
   font-size: 16px;
 }
 
-.product_image_box a:hover{
+.image_box a:hover{
   text-decoration: none;
   color: #197;
 }
 
-.product_image_box a span{
+.image_box a span{
   display: block;
-  margin: auto;
-  line-height: 20px;
 }
 
-.product_image_box a .fa-plus{
+.image_box a .fa-plus{
   font-size: 60px;
-  line-height: 70px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-.product_image_box img{
-  width: 150px;
+.image_box img{
+  /*! width: 150px; */
   height: 150px;
-  margin: auto;
+  /*! margin: auto; */
+}
+
+.img_pre img{
+  border: 0;
+}
+
+.image_box .hover_btn{
+  display: none;
+  position: absolute;
+  right: 50px;
+  color: #333;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255,255,255,0.5)
+}
+
+.image_box .hover_btn:hover{
+  color: #444;
 }
