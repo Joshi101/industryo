@@ -174,7 +174,7 @@ def set_logo(request):
             i = Images.objects.create(image=image, user=user, image_thumbnail=image)
             workplace.logo = i
             workplace.save()
-        return redirect('/workplace/'+workplace.slug)
+        return redirect('/workplace/edit')
     else:
         return render(request, 'nodes/upload.html', {'form': form})
 
