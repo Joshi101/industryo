@@ -2144,7 +2144,7 @@ function imageUpload($this){
     var preview = $this.closest('.image_box').find('.img_pre');
     var file = $this[0].files[0];
     var fd = new FormData();
-    fd.append('image', file);
+    fd.append('photo', file);
     console.log(fd, file);
     var reader = new FileReader();
     reader.onloadend = function() {
@@ -2159,7 +2159,7 @@ function imageUpload($this){
         $.ajax({
             url: $form.attr('action'),
             type: $form.attr('method'),
-            data: {'image': reader.result},
+            data: {'photo': reader.result},
 
             success: function(response) {
                 autoSubmitDone($field);

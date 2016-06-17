@@ -4,7 +4,7 @@ from nodes.models import Images
 from industryo.unique_slug import unique_slugify
 from workplace.models import Workplace
 from django.contrib.auth.models import User
-
+import traceback
 
 class SellManager(models.Manager):
     def get_queryset(self):
@@ -182,6 +182,31 @@ class Products(models.Model):
 
     def get_cat(self):
         categories = self.categories.all()
+        return categories
+
+    def set_categories(self, li):
+        categories = Category.objects.filter(pk__in=li)
+        for c in categories:
+            try:
+                l = Product_Categories.objects.filter(product=self, level=c.level)
+            except:
+                tb = traceback.format_exc()
+                print(tb)
+
+            if l:
+                if len(l) == 1:
+                    q = l[0]
+                    q.category = c
+                    q.save()
+                else:
+                    pass
+            else:
+                try:
+                    Product_Categories.objects.create(product=self, category=c, level=c.level)
+                except:
+                    tb = traceback.format_exc()
+                    print(tb)
+
         return categories
 
 

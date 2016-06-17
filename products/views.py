@@ -862,7 +862,8 @@ def edit_add_product(request, id):
         dictionary = {}
         direct = p._meta.get_all_field_names()
         if request.method == 'POST':
-            print(request.POST.get('image'))
+            # print(request.POST.get('photo'))
+            # print("Image AAYA")
             for key in request.POST:
                 if key in direct:
                     try:
@@ -875,11 +876,17 @@ def edit_add_product(request, id):
                     li.append(request.POST.get('category1'))
                     li.append(request.POST.get('category2'))
                     li.append(request.POST.get('category3'))
-                    categories = Category.objects.filter(pk__in=li)
-                    for c in categories:
-                        Product_Categories.objects.create(product=p, category=c, level=c.level)
-                    index = request.POST.get('i')
+                    p.set_categories(li)
 
+                    image0 = request.POST.get('photo')
+                    image1 = request.FILES.get('photo')
+
+                    if image0:
+                        print("image_aaya")
+                        i = Images()
+                        x = i.upload_image(image=image0, user=user)
+                        p.image = x
+                        p.save()
                 for key in dictionary:
                     setattr(p, key, dictionary[key])
                 p.save()

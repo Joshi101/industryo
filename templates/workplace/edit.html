@@ -104,20 +104,20 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="wp_est">Established</label>
-                  <input class="form-control" id="wp_est" name="established" type="date" value="{{year_established}}" placeholder="dd/mm/yyyy">
+                  <input class="form-control" id="wp_est" name="established" type="date" value="{{year_established|default:''}}" placeholder="YYYY">
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group pre_input">
                   <label for="wp_rev">Annual Revenue</label>
-                  <input class="form-control" id="wp_rev" name="revenue" value="{{revenue}}" placeholder="">
+                  <input class="form-control" id="wp_rev" name="revenue" value="{{revenue|default:''}}" placeholder="">
                   <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group pre_input">
                   <label for="wp_turnovr">Annual Turnover</label>
-                  <input class="form-control" id="wp_turnovr" name="turnover" value="{{turnover}}">
+                  <input class="form-control" id="wp_turnovr" name="turnover" value="{{turnover|default:''}}">
                   <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
                 </div>
               </div>
@@ -145,7 +145,7 @@
               <label for="wp_emp">Number of Employees</label>
               <div class="row">
                 <div class="col-sm-2">
-                  <input class="form-control" id="wp_emp" name="number_of_employees" value="{{number_of_employees}}">
+                  <input class="form-control" id="wp_emp" name="number_of_employees" value="{{number_of_employees|default:''}}">
                 </div>
                 <!--
                 <div class="col-sm-2">
@@ -169,20 +169,20 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="wp_est">Office Phone</label>
-                  <input class="form-control" id="wp_est" name="contact" type="tel" value="{{contact}}">
+                  <input class="form-control" id="wp_est" name="contact" type="tel" value="{{contact|default:''}}">
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group pre_input">
                   <label for="wp_est">Mobile Contact 1</label>
-                  <input class="form-control" id="wp_rev" name="mobile_contact1" value="{{mobile_contact1}}" minlength="10" maxlength="10">
+                  <input class="form-control" id="wp_rev" name="mobile_contact1" value="{{mobile_contact1|default:''}}" minlength="10" maxlength="10">
                   <span class="pre">+91-</span>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group pre_input">
                   <label for="wp_rev">Mobile Contact 2</label>
-                  <input class="form-control" id="wp_rev" name="mobile_contact2" value="{{mobile_contact1}}" minlength="10" maxlength="10">
+                  <input class="form-control" id="wp_rev" name="mobile_contact2" value="{{mobile_contact1|default:''}}" minlength="10" maxlength="10">
                   <span class="pre">+91-</span>
                 </div>
               </div>
@@ -191,14 +191,14 @@
               <div class="col-sm-6">
                 <div class="form-group pre_input">
                   <label for="wp_est">Website</label>
-                  <input class="form-control" id="wp_est" name="website" value="{{website}}"type="url" placeholder="">
+                  <input class="form-control" id="wp_est" name="website" value="{{website|default:''}}"type="url" placeholder="">
                   <span class="pre">http://</span>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="wp_est">Email Address</label>
-                  <input class="form-control" id="wp_est" name="office_mail_id" value="{{office_mail_id}}" placeholder="put comma (,) separated if more than one">
+                  <input class="form-control" id="wp_est" name="office_mail_id" value="{{office_mail_id|default:''}}" placeholder="put comma (,) separated if more than one">
                 </div>
               </div>
             </div>
@@ -206,20 +206,20 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="wp_est">Facebook Page</label>
-                  <input class="form-control" id="wp_est" name="fb_page" value="{{fb_page}}" placeholder="">
+                  <input class="form-control" id="wp_est" name="fb_page" value="{{fb_page|default:''}}" placeholder="">
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group pre_input">
                   <label for="wp_rev">LinkedIn Page</label>
-                  <input class="form-control" id="wp_rev" name="linkedin_page" value="{{linkedin_page}}">
+                  <input class="form-control" id="wp_rev" name="linkedin_page" value="{{linkedin_page|default:''}}">
                   <span class="pre"></span>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label for="wp_address">Address</label>
-              <textarea class="form-control textarea_md count_field" id="wp_address" name="address" maxlength="200">{{address}}</textarea>
+              <textarea class="form-control textarea_md count_field" id="wp_address" name="address" maxlength="200">{{address|default:''}}</textarea>
               <span class="char_count">200</span>
             </div>
           </div>
@@ -227,7 +227,7 @@
           <div id="extra_info" class="collapse in">
             <div class="form-group">
               <label for="wp_prod_details">Product Description</label>
-              <textarea class="form-control textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity" maxlength="1000"> {{product_details}}</textarea>
+              <textarea class="form-control textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity" maxlength="1000"> {{product_details|default:''}}</textarea>
               <span class="char_count">1000</span>
             </div>
             <div class="form-group">
@@ -244,6 +244,7 @@
             </div>
           </div>
           <div class="form-group">
+            {% csrf_token %}
             <button class="btn btn-info btn-lg center-block">Continue</button>
           </div>
         </form>
