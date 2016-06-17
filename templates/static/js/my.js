@@ -2152,14 +2152,17 @@ function imageUpload($this){
         $('#product_image').attr('src', reader.result);
         var $form = $this.closest('form');
         var $field = $this.closest('.form-group');
-        var $data = new FormData($this);
-        var $data = new FormData($form);
-        console.log($data, $data2);
+        for(var pair of fd.entries()) {
+           console.log(pair[0]+ ', '+ pair[1]); 
+        }
         autoSubmitShow($field);
         $.ajax({
             url: $form.attr('action'),
             type: $form.attr('method'),
-            data: {'photo': reader.result},
+            data: fd,
+            cache: false,
+            contentType: false,
+            processData: false,
 
             success: function(response) {
                 autoSubmitDone($field);
@@ -2182,7 +2185,6 @@ function imageUpload($this){
 
 $('.img_pre').on('mouseenter', 'img', function(){
     $(this).closest('.image_box').find('.hover_btn').css('display', 'block');
-    console.log('enter')
 });
 $('.image_box').on('mouseleave', '.hover_btn', function(){
     $(this).css('display', 'none');

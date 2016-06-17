@@ -863,7 +863,7 @@ def edit_add_product(request, id):
         direct = p._meta.get_all_field_names()
         if request.method == 'POST':
             # print(request.POST.get('photo'))
-            # print("Image AAYA")
+            print(request.POST)
             for key in request.POST:
                 if key in direct:
                     try:
@@ -877,25 +877,20 @@ def edit_add_product(request, id):
                     li.append(request.POST.get('category2'))
                     li.append(request.POST.get('category3'))
                     p.set_categories(li)
-
-                    image0 = request.POST.get('photo')
-                    image1 = request.FILES.get('photo')
-
-                    if image0:
-                        print("image_aaya")
-                        i = Images()
-                        x = i.upload_image(image=image0, user=user)
-                        p.image = x
-                        p.save()
                 for key in dictionary:
                     setattr(p, key, dictionary[key])
                 p.save()
+            image1 = request.FILES.get('photo', None)
+            if image1:
+                i = Images()
+                x = i.upload_image(image=image1, user=user)
+                p.image = x
+                p.save()
+                print("image_aaya")
             response['p_id'] = p.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-
             c = Product_Categories.objects.filter(product=p.id).order_by('level')
             dictionary = {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2, 'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5,
-                          'c1_6': c1_6,'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True}
+                          'c1_6': c1_6,'c1_8': c1_8, 'product': p, 'c': c, 'first_time': True}
             return render(request, 'products/edit.html', dict(list(p.__dict__.items()) + list(dictionary.items())))
-
