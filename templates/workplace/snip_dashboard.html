@@ -5,12 +5,33 @@
 		<div class="dash_card">
 			<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
 			<div class="data">
+				{% if workplace.get_product_count = 0 %}
+				<div class="col-sm-9 text-center">
+					<div class="row">
+						<font size="4" color="orange">List the Products you Manufacture or Sell or the Services you Provide</font>
+					</div>
+					<div class="row">
+						<font size="3" color="gray">If You are busy, ask the sales people to signup &amp; List Products</font>
+					</div>
+				</div>
+				{% elif workplace.get_product_count < 3 %}
+				{% with products.0 as product %}
+				<div class="col-sm-3 text-center">
+					<img class="lazy_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
+					<div>{{product|truncatechars:20}}</div>
+				</div>
+				{% endwith %}
+				<div class="col-sm-6 text-center">
+					<font size="4" color="orange">List more products/ Services &amp; Get Inquiries directly in Inbox</font>
+				</div>
+				{% else %}
 				{% for product in products|slice:"3" %}
 				<div class="col-sm-3 text-center">
 					<img class="lazy_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
 					<div>{{product|truncatechars:20}}</div>
 				</div>
 				{% endfor %}
+				{% endif %}
 				<div class="col-sm-3 text-center">
 					<a href=""><span class="fa fa-plus fa-4x" style="margin-top: 10px;"></span></a>
 				</div>
