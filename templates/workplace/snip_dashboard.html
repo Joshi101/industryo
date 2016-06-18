@@ -56,17 +56,23 @@
 			<div class="col-sm-6">
 				<div class="dash_card">
 					<header><h3>Activity</h3></header>
-					<div class="data">
+					<div class="data text-center">
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="num green">{{node_count}}</div>
-								<div>Updates</div>
+								<div class="dash_row_thin">
+									<div class="num green">{{node_count}}</div>
+								</div>
+								<div class="dash_row_thin">
+									<div style="padding: 5px">Updates</div>
+								</div>
 							</div>
 							<div class="col-sm-6">
-								<div class="num green">{{q_count}}</div>
-								<div>Questions</div>
-								<div class="num green">{{a_count}}</div>
-								<div>Answers</div>
+								<div class="dash_row_thin">
+									<span class="num green">{{q_count}}</span>&nbsp;<span>Questions</span>
+								</div>
+								<div class="dash_row_thin">
+									<span class="num green">{{a_count}}</span>&nbsp;<span>Answers</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -108,23 +114,27 @@
 					<p style="margin-bottom: 5px"><strong>Why?</strong></p>
 					<div class="circle_bar_container">
 						<div class="row">
-							<div class="col-sm-6 text-right">
+							<div class="col-md-6 chartright">
+								<a class="help_pop pull-left" data-toggle="popover" data-trigger="click" data-placement="top" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
 								<span class="text">Members</span>
-								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_member_score}}"></span>
+								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_member_score}}"></span>
 							</div>
-							<div class="col-sm-6">
-								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_info_score}}"></span>
+							<div class="col-md-6 chartleft">
+								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_info_score}}"></span>
 								<span class="text">Info</span>
+								<a class="help_pop pull-right" data-toggle="popover" data-trigger="click" data-placement="top" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-6 text-right">
+							<div class="col-md-6 chartright">
+								<a class="help_pop pull-left" data-toggle="popover" data-trigger="click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
 								<span class="text">Products</span>
-								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_product_score}}"></span>
+								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_product_score}}"></span>
 							</div>
-							<div class="col-sm-6">
-								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_tags_score}}"></span>
+							<div class="col-md-6 chartleft">
+								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_tags_score}}"></span>
 								<span class="text">Tags</span>
+								<a class="help_pop pull-right" data-toggle="popover" data-trigger="click" data-placement="right" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-support"></span></a>
 							</div>
 						</div>
 					</div>
