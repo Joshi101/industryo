@@ -3,16 +3,28 @@
 <div class="row">
 	<div class="col-sm-8">
 		<div class="dash_card">
-			<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
-			<div class="data">
-				{% for product in products|slice:"3" %}
-				<div class="col-sm-3 text-center">
-					<img class="lazy_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
-					<div>{{product|truncatechars:20}}</div>
+			<div class="row">
+				<div class="col-sm-9">
+					<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
+					<div class="data">
+						<div class="row">
+							{% for product in products|slice:"3" %}
+							<div class="col-sm-4 text-center">
+								<img class="lazy_img p_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
+								<div class="p_name">{{product|truncatechars:20}}</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
 				</div>
-				{% endfor %}
 				<div class="col-sm-3 text-center">
-					<a href=""><span class="fa fa-plus fa-4x" style="margin-top: 10px;"></span></a>
+					<div class="hover_a_container">
+						<div class="dash_col last blue">
+							<span class="fa fa-plus fa-4x" style="margin-top: 36px;"></span>
+							<div><strong>Add More</strong></div>
+						</div>
+						<a class="hovering_a" style="margin: -10px -10px -10px -1px"></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -47,7 +59,7 @@
 					</div>
 					<div class="hover_a_container">
 						<div class="dash_row bottom">
-							<h3 class=""><span class="fa fa-plus fa-2x"></span>&nbsp;&nbsp;<span>Invite More</span></h3>
+							<h3 class="blue"><span class="fa fa-plus fa-2x"></span>&nbsp;&nbsp;<span>Invite More</span></h3>
 						</div>
 						<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 					</div>
@@ -55,23 +67,32 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
-					<header><h3>Activity</h3></header>
 					<div class="data text-center">
 						<div class="row">
-							<div class="col-sm-6">
-								<div class="dash_row_thin">
-									<div class="num green">{{node_count}}</div>
+							<div class="col-sm-6" style="border-right: 1px solid #f6f6f6;">
+								<div style="height: 80px; padding: 15px 0px;">
+									<h3><span class="num green">{{node_count}}</span><br>
+									<span style="padding: 5px">Updates</span></h3>
 								</div>
-								<div class="dash_row_thin">
-									<div style="padding: 5px">Updates</div>
+								<div class="hover_a_container">
+									<div class="dash_row bottom">
+										<h3 class="blue"><span class="fa fa-rss" style="position: relative; top: 1px;"></span>&nbsp;<span>Feed</span></h3>
+									</div>
+									<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<div class="dash_row_thin">
-									<span class="num green">{{q_count}}</span>&nbsp;<span>Questions</span>
+								<div class="dash_row">
+									<h3><span class="num green">{{q_count}}</span>&nbsp;<span>Questions</span></h3>
 								</div>
-								<div class="dash_row_thin">
-									<span class="num green">{{a_count}}</span>&nbsp;<span>Answers</span>
+								<div class="dash_row">
+									<h3><span class="num green">{{a_count}}</span>&nbsp;<span>Answers</span></h3>
+								</div>
+								<div class="hover_a_container">
+									<div class="dash_row bottom">
+										<h3 class="blue"><span class="fa fa-question-circle" style="position: relative; top: 1px;"></span>&nbsp;<span>Forum</span></h3>
+									</div>
+									<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 								</div>
 							</div>
 						</div>
@@ -115,26 +136,26 @@
 					<div class="circle_bar_container">
 						<div class="row">
 							<div class="col-md-6 chartright">
-								<a class="help_pop pull-left" data-toggle="popover" data-trigger="click" data-placement="top" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
+								<a class="help_pop pull-left" data-toggle="popover" data-trigger="hover click" data-placement="top" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
 								<span class="text">Members</span>
 								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_member_score}}"></span>
 							</div>
 							<div class="col-md-6 chartleft">
 								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_info_score}}"></span>
 								<span class="text">Info</span>
-								<a class="help_pop pull-right" data-toggle="popover" data-trigger="click" data-placement="top" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
+								<a class="help_pop pull-right" data-toggle="popover" data-trigger="hover click" data-placement="top" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 chartright">
-								<a class="help_pop pull-left" data-toggle="popover" data-trigger="click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
+								<a class="help_pop pull-left" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
 								<span class="text">Products</span>
 								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_product_score}}"></span>
 							</div>
 							<div class="col-md-6 chartleft">
 								<span class="chart small_chart circle_bar" data-size="40" data-line="2" data-percent="{{workplace.get_tags_score}}"></span>
 								<span class="text">Tags</span>
-								<a class="help_pop pull-right" data-toggle="popover" data-trigger="click" data-placement="right" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-support"></span></a>
+								<a class="help_pop pull-right" data-toggle="popover" data-trigger="hover click" data-placement="right" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-support"></span></a>
 							</div>
 						</div>
 					</div>

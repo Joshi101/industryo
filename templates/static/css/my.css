@@ -2382,7 +2382,7 @@ footer .contact li{
   width: 100%;
   min-width: 250px;
   vertical-align: middle;
-  font-family: "PT Sans";
+  font-family: "Open Sans";
 }
 
 @media(max-width:500px){
@@ -4428,6 +4428,15 @@ input.not_wide{
   color: #444;
 }
 
+.dash_card .row{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.dash_card .col-md-6, .dash_card .col-sm-6, .dash_card .col-sm-9, .dash_card .col-sm-3{
+  padding: 0 10px;
+}
+
 .chart{
   text-align: center;
   margin: auto;
@@ -4468,12 +4477,17 @@ input.not_wide{
 
 .dash_card .dash_row{
   height: 40px;
-  padding: 5px 10px;
+  padding: 5px 0px;
 }
 
 .dash_card .dash_row_thin{
   height: 30.5px;
   padding: 0 5px;
+}
+
+.dash_card .dash_row span{
+  /*! vertical-align: middle; */
+  line-height: 20px;
 }
 
 .dash_card h3 span{
@@ -4483,6 +4497,12 @@ input.not_wide{
 .dash_card .dash_row.bottom{
   height: 50px;
   padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.dash_card .dash_row_thin.bottom{
+  height: 40px;
+  padding: 5px;
   border-top: 1px solid #eee;
 }
 
@@ -4544,4 +4564,30 @@ input.not_wide{
 
 .circle_bar_container .help_pop.pull-right{
   right: 5px;
+}
+
+.dash_card .p_img{
+  border: 1px solid #f6f6f6;
+}
+
+.dash_card .p_name{
+  height: 20px;
+  overflow: hidden;
+  display: inline-block;
+  white-space:nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+}
+
+.dash_card .dash_col{
+  height: 130px;
+}
+
+.dash_card .dash_col.last{
+  border-left: 1px solid #f6f6f6;
+}
+
+.blue{
+  color: #337Ab7;
 }
