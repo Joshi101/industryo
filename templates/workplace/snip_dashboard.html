@@ -104,21 +104,11 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
-					<div class="col-sm-6">
-					<h3>Operations</h3>
-					<div class="data">
-						{% for tag in workplace.get_tags.operations %}
-						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-						{% endfor %}
-					</div>
-					</div>
-					<div class="col-sm-6">
-					<h3>Assets</h3>
-					<div class="data">
-					{% for tag in workplace.get_tags.assets %}
-						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-						{% endfor %}
-					</div>
+					<div class="text-center">
+					<div class="row"><font size="4" color="green">Cities: </font>{{workplace.get_tags.city|length}}</div>
+					<div class="row"><font size="4" color="green">Operations: </font>{{workplace.get_tags.operations|length}}</div>
+					<div class="row"><font size="4" color="green">Assets: </font>{{workplace.get_tags.assets|length}}</div>
+					<div class="row"><font size="4" color="green">Segments: </font>{{workplace.get_tags.citysegments|length}}</div>
 					</div>
 				</div>
 			</div>
@@ -139,7 +129,7 @@
 						<div class="row">
 							<div class="col-sm-6 text-right">
 								<span class="text">Members</span>
-								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_product_score}}"></span>
+								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_member_score}}"></span>
 							</div>
 							<div class="col-sm-6">
 								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="{{workplace.get_info_score}}"></span>

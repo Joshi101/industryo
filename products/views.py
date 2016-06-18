@@ -806,13 +806,23 @@ def category_update(request):
 import traceback
 
 @login_required
-# @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
+@user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def edit_add_product(request, id):
     user = request.user
     wp = user.userprofile.primary_workplace
     workplace = wp
     response = {}
-
+    c = {}
+    pl = Products.objects.filter(producer=workplace).last()
+    if pl:
+        c = Product_Categories.objects.filter(product=pl.id).order_by('level')
+        dd = pl.delivery_details
+        dc = pl.delivery_charges
+        minimum = pl.minimum
+    else:
+        dd = ''
+        dc = ''
+        minimum = ''
     c1_all = Category.objects.filter(level=1)
     c1_1 = itemgetter(0, 1, 2)(c1_all)
     c1_2 = itemgetter(3, 4, 13)(c1_all)
@@ -829,29 +839,19 @@ def edit_add_product(request, id):
         p = None
         if request.method == 'POST':
             if request.POST.get('product'):
-                p = Products.objects.create(product=request.POST['product'], user=user, producer=wp)
+                p = Products.objects.create(product=request.POST['product'], user=user, producer=wp,
+                                            delivery_details=dd, delivery_charges=dc, minimum=minimum)
                 up = user.userprofile
                 up.points += 5
                 up.save()
                 response['p_id'] = p.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            pl = Products.objects.filter(producer=workplace).last()
             if user.userprofile.product_email:
                 no_prod_con = False
             else:
                 no_prod_con = True
 
-            c = {}
-            if pl:
-                c = Product_Categories.objects.filter(product=pl.id).order_by('level')
-                dd = pl.delivery_details
-                dc = pl.delivery_charges
-                minimum = pl.minimum
-            else:
-                dd = ''
-                dc = ''
-                minimum = ''
             return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                           'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
                                                           'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
@@ -862,8 +862,6 @@ def edit_add_product(request, id):
         dictionary = {}
         direct = p._meta.get_all_field_names()
         if request.method == 'POST':
-            # print(request.POST.get('photo'))
-            print(request.POST)
             for key in request.POST:
                 if key in direct:
                     try:
@@ -886,7 +884,6 @@ def edit_add_product(request, id):
                 x = i.upload_image(image=image1, user=user)
                 p.image = x
                 p.save()
-                print("image_aaya")
             response['p_id'] = p.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
