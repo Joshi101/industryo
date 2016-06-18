@@ -2190,9 +2190,9 @@ $('.image_box').on('mouseleave', '.hover_btn', function(){
     $(this).css('display', 'none');
 });
 
-$('.hover_a_container').on('mouseenter', function(){
+$('body').on('mouseenter', '.hover_a_container', function(){
     $(this).find('.hovering_a').css('display', 'block');
 });
-$('.hover_a_container').on('mouseleave', '.hovering_a', function(){
-    $(this).css('display', 'none');
+$('body').on('mouseleave', '.hover_a_container', function(){
+    $(this).find('.hovering_a').css('display', 'none');
 });

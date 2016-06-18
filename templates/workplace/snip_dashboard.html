@@ -55,7 +55,7 @@
 				<div class="dash_row">
 					<h3><span class="num green">{{new_inq_count}}</span>&nbsp;<span style="color: #197">New</span></h3>
 				</div>
-				<a class="hovering_a" style="margin: -10px -10px -1px -10px"></a>
+				<a href="{% url 'products:enquiry_all' %}" class="hovering_a" style="margin: -10px -10px -1px -10px"></a>
 			</div>
 			<div class="dash_row bottom">
 				<h3><span class="num">{{workplace.hits}}</span>&nbsp;<span>Profile Hits</span></h3>
@@ -78,7 +78,7 @@
 						<div class="dash_row bottom">
 							<h3 class="blue"><span class="fa fa-plus fa-2x"></span>&nbsp;&nbsp;<span>Invite More</span></h3>
 						</div>
-						<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
+						<a class="hovering_a ajax_a" style="margin: -1px -10px -10px -10px" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"></a>
 					</div>
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 									<div class="dash_row bottom">
 										<h3 class="blue"><span class="fa fa-rss" style="position: relative; top: 1px;"></span>&nbsp;<span>Feed</span></h3>
 									</div>
-									<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
+									<a href="{% url 'home' %}" class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -109,7 +109,7 @@
 									<div class="dash_row bottom">
 										<h3 class="blue"><span class="fa fa-question-circle" style="position: relative; top: 1px;"></span>&nbsp;<span>Forum</span></h3>
 									</div>
-									<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
+									<a href="/forum" class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 								</div>
 							</div>
 						</div>
