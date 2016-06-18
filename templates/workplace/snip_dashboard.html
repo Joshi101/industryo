@@ -74,14 +74,8 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Segements</h3>
 			<div class="data">
-				{% for tag in workplace.get_tags.segments %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
-				{% for tag in workplace.get_tags.city %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
+				{{completion_score}}
 			</div>
 		</div>
 	</div>
@@ -107,8 +101,25 @@
 <div class="row">
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Operations</h3>
+			<h3>Cities &amp; Segments</h3>
 			<div class="data">
+				{% for tag in workplace.get_tags.segments %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+				{% for tag in workplace.get_tags.city %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="dash_card">
+			<h3>Machinery &amp; Operations</h3>
+			<div class="data">
+				{% for tag in workplace.get_tags.assets %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+
 				{% for tag in workplace.get_tags.operations %}
 				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
 				{% endfor %}
@@ -117,19 +128,19 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Machinery</h3>
-			<div class="data">
-				{% for tag in workplace.get_tags.assets %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
+			<div class="row">
+			<h3>Links &amp; Social</h3>
 			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<h3>Contact</h3>
-			<div class="data">
-				
+			<div class="row">
+				<div class="col-sm-4">
+		        <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square fa-3x"></span></a>
+		        </div>
+		        <div class="col-sm-4">
+		        <a href="{{workplace.get_linkedin_page}}"><span class="fa fa-lg fa-linkedin-square fa-3x"></span></a>
+		        </div>
+		        <div class="col-sm-4">
+		        <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe fa-3x"></span></a>
+		      	</div>
 			</div>
 		</div>
 	</div>
