@@ -5,21 +5,43 @@
 		<div class="dash_card">
 			<h3>{{workplace.get_product_count}} Products Listed</h3>
 			<div class="data">
-				<div class="col-sm-6">
+				<div class="col-sm-9">
 				{% for product in products|slice:"3" %}
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					{{product}}
 				</div>
 				{% endfor %}
 			</div>
+				<div class="col-sm-3">
+					<span class="fa fa-plus fa-5x">
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>OOOOOOOOAAAA</h3>
+			<h3>Inquiries</h3>
 			<div class="data">
-				
+				<div class="col-sm-4">
+					<h4>Products</h4>
+					<div class="data">
+						New: {{new_inq_count}}
+						Total: {{inquiry_count}}
+					</div>	
+				</div>
+				<div class="col-sm-4">
+					<h4>Company</h4>
+					<div class="data">
+						New: {{workplace.get_enq_count.new}}
+						Total: {{workplace.get_enq_count.total}}
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<h4>Views</h4>
+					<div class="data">
+						{{workplace.hits}}
+					</div>
+				</div>	
 			</div>
 		</div>
 	</div>
@@ -43,9 +65,19 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Members</h3>
 			<div class="data">
-				
+				<div class="col-sm-8">
+					<div class="row">
+						<font size="6" color="red">{{workplace.number_of_employees}}</font> people in {{workplace}}
+					</div>
+					<div class="row">
+						<font size="6" color="red">{{workplace.get_count}}</font> Only {{workplace.get_count}} on CoreLogs
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<h3>Invite</h3>
+					<span class="fa fa-plus fa-5x">
+				</div>
 			</div>
 		</div>
 	</div>

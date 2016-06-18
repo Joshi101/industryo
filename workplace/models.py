@@ -447,12 +447,12 @@ class Workplace(models.Model):
             n = 100
         return n
 
-    def get_new_enq_count(self):
-        a = self.enquiry_set.filter(seen=False)
-        bb = self.product_set.all()
-
-        m = len(a)
-        return m
+    def get_enq_count(self):
+        a = self.enquiry_set.filter(seen=False).count()
+        b = self.enquiry_set.all().count()
+        # m = len(a)
+        # n = len(b)
+        return {'new': a, 'total': b}
 
     def get_product_count(self):
         products = self.products_set.all()
