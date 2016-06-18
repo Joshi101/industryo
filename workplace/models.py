@@ -449,8 +449,8 @@ class Workplace(models.Model):
 
     def get_new_enq_count(self):
         a = self.enquiry_set.filter(seen=False)
-        # bb = self.product_set.all()
-        # for b in bb
+        bb = self.product_set.all()
+
         m = len(a)
         return m
 

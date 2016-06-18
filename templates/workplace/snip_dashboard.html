@@ -3,9 +3,15 @@
 <div class="row">
 	<div class="col-sm-8">
 		<div class="dash_card">
-			<h3>Products Listed</h3>
+			<h3>{{workplace.get_product_count}} Products Listed</h3>
 			<div class="data">
-				
+				<div class="col-sm-6">
+				{% for product in products|slice:"3" %}
+				<div class="col-sm-2">
+					{{product}}
+				</div>
+				{% endfor %}
+			</div>
 			</div>
 		</div>
 	</div>

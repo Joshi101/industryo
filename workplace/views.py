@@ -143,11 +143,6 @@ def set_tags_short(request):
         return redirect('/user/'+request.user.username)
 
 
-# from django.views.generic import DetailView
-
-# class Workplace_Profile(DetailView):
-
-
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     tags = workplace.get_tags()
@@ -217,24 +212,15 @@ def workplace_dash(request, slug):
     workplace_logo_form = SetLogoForm()
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
-    r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
-    if member_count < 2:
-        n=1
-    elif member_count in range(2,5):
-        n = 2
-    elif member_count in range(5,10):
-        n=3
-    elif member_count in range(10, 20):
-        n=4
-    else:
-        n=5
+    inquiry_count = Enquiry.objects.filter(product__in=products).count()
+    new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
 
-    li = [workplace.contact, workplace.mobile_contact1, workplace.website, workplace.fb_page,
-          workplace.linkedin_page, workplace.address, workplace.office_mail_id]
-    a = list(filter(lambda x: x!='None', li))
-    b = list(filter(lambda x: x!=None, a))
-    m = len(b)
-    product_count = products.count()
+    # r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
+    # li = [workplace.contact, workplace.mobile_contact1, workplace.website, workplace.fb_page,
+    #       workplace.linkedin_page, workplace.address, workplace.office_mail_id]
+    # a = list(filter(lambda x: x!='None', li))
+    # b = list(filter(lambda x: x!=None, a))
+    # m = len(b)
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 
