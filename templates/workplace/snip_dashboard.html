@@ -1,26 +1,64 @@
 {% load filter %}
 {% if user.userprofile in members %}
 <div class="row">
+	<div class="col-sm-4">
+		<div class="dash_card">
+			<header><h3>Extra Wala</h3></header>
+			<div class="data">
+				
+			</div>
+		</div>
+	</div>
 	<div class="col-sm-8">
 		<div class="dash_card">
-			<h3>{{workplace.get_product_count}} Products Listed</h3>
+			<header><h3><span class="num">{{workplace.get_product_count}}</span> Products Listed</h3></header>
 			<div class="data">
-				<div class="col-sm-9">
 				{% for product in products|slice:"3" %}
-				<div class="col-sm-3">
-					{{product}}
+				<div class="col-sm-3 text-center">
+					<img class="lazy_img" src="/images/main/prduct.png" data-src="{{product.get_image}}">
+					<div>{{product}}</div>
 				</div>
 				{% endfor %}
-			</div>
-				<div class="col-sm-3">
-					<span class="fa fa-plus fa-5x">
+				<div class="col-sm-3 text-center">
+					<a href=""><span class="fa fa-plus fa-4x" style="margin-top: 10px;"></span></a>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-8">
+		<div class="dash_card">
+			<header><h3>Inquiries <span class="label label-success">3 new</span></h3></header>
+			<header><h3><span class="num">12</span> Materials</h3></header>
+			<div class="data">
+				
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Inquiries</h3>
+			<div class="data">
+				<div class="col-sm-8">
+					<div class="row">
+						{{workplace.number_of_employees|default:'0'}} people in {{workplace}}
+					</div>
+					<div class="row">
+						{{workplace.get_count}} on CoreLogs
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<header><h3>Invite</h3></header>
+					<span class="fa fa-plus fa-5x">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="dash_card">
+			<header><h3>Inquiries</h3></header>
 			<div class="data">
 				<div class="col-sm-4">
 					<h4>Products</h4>
@@ -45,70 +83,15 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-8">
 		<div class="dash_card">
-			<h3>Locations</h3>
-			<div class="data">
-				
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<h3>Segements</h3>
-			<div class="data">
-				
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<div class="data">
-				<div class="col-sm-8">
-					<div class="row">
-						<font size="6" color="red">{{workplace.number_of_employees}}</font> people in {{workplace}}
-					</div>
-					<div class="row">
-						<font size="6" color="red">{{workplace.get_count}}</font> Only {{workplace.get_count}} on CoreLogs
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<h3>Invite</h3>
-					<span class="fa fa-plus fa-5x">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<h3>Operations</h3>
-			<div class="data">
-				
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<h3>Mmmmuah</h3>
-			<div class="data">
-				
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<h3>Contact</h3>
+			<header><h3>Operations</h3></header>
 			<div class="data">
 				
 			</div>
 		</div>
 	</div>
 </div>
-
 
 {% endif %}
 <script type="text/javascript">
@@ -118,4 +101,3 @@
 	    $(this).css("width", w + "%");
 	});
 </script>
-

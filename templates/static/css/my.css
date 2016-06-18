@@ -3255,6 +3255,8 @@ footer .contact li{
 
 #add_product .well{
   background: #fff;
+  padding: 10px;
+  font-size: 15px;
 }
 
 .navbar-toggle .fa{
@@ -4253,15 +4255,24 @@ input.not_wide{
   margin-bottom: 15px;
   border: 1px solid #eee;
   box-shadow: 0 0 4px -2px #eee;
+  overflow: hidden;
 }
 
 .dash_card h3{
   text-align: center;
   font-size: 16px;
-  margin: 0;
+  margin: 0 0 10px;
   font-weight: 700;
 }
 
+.dash_card img{
+  width: 64px;
+}
+
+.dash_card .num{
+  font-size: 1.5em;
+  color: #917;
+}
 
 .edit_title{
   margin-bottom: 30px;
@@ -4407,3 +4418,4 @@ input.not_wide{
 .image_box .hover_btn:hover{
   color: #444;
 }
+
