@@ -27,12 +27,35 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-8">
+	<div class="col-sm-4">
 		<div class="dash_card">
-			<header><h3>Inquiries <span class="label label-success">3 new</span></h3></header>
-			<header><h3><span class="num">12</span> Materials</h3></header>
+			<h3>Activity</h3>
 			<div class="data">
+				<div class="col-sm-6">
+					<div class="row">
+					<font size="6" color="green">{{node_count}}</font> updates on CoreLogs
+					</div>
+					<div class="row">
+						Share Updates
+					</div>
+				</div>
 				
+				<div class="col-sm-6">
+				<div class="row">
+					<font size="3" color="green">{{q_count}}</font> Questions on Forum
+				</div>
+				<div class="row">
+					<font size="3" color="green">{{a_count}}</font> Answers on Forum
+				</div>
+				Ask Question on Forum
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="dash_card">
+			<div class="data text-center">
+				<div class="chart" id="graph" data-percent="{{completion_score|floatformat:'0'}}"></div>
 			</div>
 		</div>
 	</div>
@@ -58,36 +81,46 @@
 <div class="row">
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<header><h3>Inquiries</h3></header>
+			<h3>Cities &amp; Segments</h3>
 			<div class="data">
-				<div class="col-sm-4">
-					<h4>Products</h4>
-					<div class="data">
-						New: {{new_inq_count}}
-						Total: {{inquiry_count}}
-					</div>	
-				</div>
-				<div class="col-sm-4">
-					<h4>Company</h4>
-					<div class="data">
-						New: {{workplace.get_enq_count.new}}
-						Total: {{workplace.get_enq_count.total}}
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<h4>Views</h4>
-					<div class="data">
-						{{workplace.hits}}
-					</div>
-				</div>	
+				{% for tag in workplace.get_tags.segments %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+				{% for tag in workplace.get_tags.city %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-4">
 		<div class="dash_card">
-			<header><h3>Operations</h3></header>
+			<h3>Machinery &amp; Operations</h3>
 			<div class="data">
-				
+				{% for tag in workplace.get_tags.assets %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+
+				{% for tag in workplace.get_tags.operations %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="dash_card">
+			<div class="row">
+			<h3>Links &amp; Social</h3>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+		        <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square fa-3x"></span></a>
+		        </div>
+		        <div class="col-sm-4">
+		        <a href="{{workplace.get_linkedin_page}}"><span class="fa fa-lg fa-linkedin-square fa-3x"></span></a>
+		        </div>
+		        <div class="col-sm-4">
+		        <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe fa-3x"></span></a>
+		      	</div>
 			</div>
 		</div>
 	</div>
@@ -95,9 +128,45 @@
 
 {% endif %}
 <script type="text/javascript">
-	$('.progress-bar').each(function(){
-	    var w = $(this).data("percent");
-	    console.log(w);
-	    $(this).css("width", w + "%");
-	});
+	var el = document.getElementById('graph'); // get canvas
+
+	var options = {
+	    percent:  el.getAttribute('data-percent') || 25,
+	    size: el.getAttribute('data-size') || 125,
+	    lineWidth: el.getAttribute('data-line') || 15,
+	    rotate: el.getAttribute('data-rotate') || 0
+	}
+
+	var canvas = document.createElement('canvas');
+	var span = document.createElement('span');
+	span.textContent = options.percent + '%';
+	    
+	if (typeof(G_vmlCanvasManager) !== 'undefined') {
+	    G_vmlCanvasManager.initElement(canvas);
+	}
+
+	var ctx = canvas.getContext('2d');
+	canvas.width = canvas.height = options.size;
+
+	el.appendChild(span);
+	el.appendChild(canvas);
+
+	ctx.translate(options.size / 2, options.size / 2); // change center
+	ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
+
+	//imd = ctx.getImageData(0, 0, 240, 240);
+	var radius = (options.size - options.lineWidth) / 2;
+
+	var drawCircle = function(color, lineWidth, percent) {
+			percent = Math.min(Math.max(0, percent || 1), 1);
+			ctx.beginPath();
+			ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+			ctx.strokeStyle = color;
+	        ctx.lineCap = 'round'; // butt, round or square
+			ctx.lineWidth = lineWidth
+			ctx.stroke();
+	};
+
+	drawCircle('#efefef', options.lineWidth, 100 / 100);
+	drawCircle('#555555', options.lineWidth, options.percent / 100);
 </script>

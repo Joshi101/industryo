@@ -168,8 +168,15 @@ def workplace_profile(request, slug):
     product_count = products.count()
     workplace_logo_form = SetLogoForm()
     member_count = members.count()
-    inquiry_count = len(Enquiry.objects.filter(product__in=products))
-    new_inq_count = len(Enquiry.objects.filter(product__in=products, seen=False))
+
+    inquiry_count = Enquiry.objects.filter(product__in=products).count()
+    new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
+    node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
+    q_count = Question.objects.filter(user__userprofile__primary_workplace=workplace).count()
+    a_count = Answer.objects.filter(user__userprofile__primary_workplace=workplace).count()
+    completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
+                       (workplace.points)/(10*member_count) + workplace.get_member_score())/5
+
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
     inq_count = Enquiry.objects.filter(workplace=workplace).count()
@@ -214,15 +221,14 @@ def workplace_dash(request, slug):
     workplace_logo_form = SetLogoForm()
     member_count = members.count()
     products = Products.objects.filter(producer=workplace.pk)
-    inquiry_count = len(Enquiry.objects.filter(product__in=products))
-    new_inq_count = len(Enquiry.objects.filter(product__in=products, seen=False))
+    inquiry_count = Enquiry.objects.filter(product__in=products).count()
+    new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
 
-    # r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
-    # li = [workplace.contact, workplace.mobile_contact1, workplace.website, workplace.fb_page,
-    #       workplace.linkedin_page, workplace.address, workplace.office_mail_id]
-    # a = list(filter(lambda x: x!='None', li))
-    # b = list(filter(lambda x: x!=None, a))
-    # m = len(b)
+    node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
+
+    completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
+                        (workplace.points)/(10*member_count) + workplace.get_member_score())/5
+
     return render(request, 'workplace/snip_dashboard.html', locals())
 
 

@@ -394,24 +394,27 @@ class Workplace(models.Model):
         return n
 
     def get_info_score(self):
-        li = [self.contact, self.mobile_contact1, self.mobile_contact2, self.website, self.fb_page,
-          self.linkedin_page, self.address, self.office_mail_id]
+        li = [self.contact, self.mobile_contact1, self.mobile_contact2, self.website, self.fb_page, self.legal_status,
+              self.linkedin_page, self.address, self.office_mail_id, self.about, self.product_details, self.sme_type,
+              self.year_established, self.turnover, self.revenue]
         a = list(filter(lambda x: x!='None', li))
         b = list(filter(lambda x: x!=None, a))
         m = len(b)
         n = m*10
         return n
 
-    def get_operation_score(self):
-        a = self.wptags.filter(type='O')
-        m=len(a)
+    def get_tags_score(self):
+        m = self.wptags.all().count()
+        # m=len(a)
         if m < 2:
-            n = 20
+            n = 0
         elif m in range(2, 4):
+            n = 20
+        elif m in range(5, 10):
             n = 40
-        elif m in range(5, 8):
+        elif m in range(11, 15):
             n = 60
-        elif m in range(9, 14):
+        elif m in range(16, 20):
             n = 80
         else:
             n = 100
@@ -433,16 +436,17 @@ class Workplace(models.Model):
         return n
 
     def get_product_score(self):
-        a = self.products_set.all()
-        m=len(a)
-        if m < 2:
+        m = self.products_set.all().count()
+        if m < 1:
+            n = 0
+        elif m in range(1, 4):
             n = 20
-        elif m in range(2, 4):
-            n = 40
         elif m in range(5, 8):
+            n = 40
+        elif m in range(9, 19):
             n = 60
-        elif m in range(9, 14):
-            n = 80
+        elif m in range(20, 35):
+            n = 60
         else:
             n = 100
         return n
@@ -450,13 +454,10 @@ class Workplace(models.Model):
     def get_enq_count(self):
         a = self.enquiry_set.filter(seen=False).count()
         b = self.enquiry_set.all().count()
-        # m = len(a)
-        # n = len(b)
         return {'new': a, 'total': b}
 
     def get_product_count(self):
-        products = self.products_set.all()
-        count = len(products)
+        count = self.products_set.all().count()
         return count
 
 
