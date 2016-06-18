@@ -2119,6 +2119,7 @@ footer{
   z-index: 0;
   font-size: 13px;
   top: 100%;
+  margin-top: 50px;
 }
 
 footer .foot_desc{
@@ -4590,4 +4591,8 @@ input.not_wide{
 
 .blue{
   color: #337Ab7;
+}
+
+.faded_div{
+  opacity: 0.85;
 }

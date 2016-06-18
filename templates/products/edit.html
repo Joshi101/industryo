@@ -264,27 +264,33 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="wp_history">Delivery Details</label>
-            <textarea class="form-control textarea_md count_field" id="wp_history" name="delivery_details" maxlength="1000">{{delivery_details|default:''}}</textarea>
-            <span class="char_count">1000</span>
+          <div class="form-group text-center">
+            {% csrf_token %}
+            <a href="{% url 'products:edit_add' 'new' %}" class="btn btn-info btn-lg">Continue and Add another</a>
           </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group pre_input">
-                <label for="wp_turnovr">Delivery Charges</label>
-                <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges|default:''}}">
-                <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
+          <a href="#extra_info" class="collapse_h" data-toggle="collapse">Common Details<span class="fa fa-fw fa-angle-down pull-right"></span></a>
+          <div id="extra_info" class="collapse in">
+            <div class="form-group">
+              <label for="wp_history">Delivery Details</label>
+              <textarea class="form-control textarea_md count_field" id="wp_history" name="delivery_details" maxlength="1000">{{delivery_details|default:''}}</textarea>
+              <span class="char_count">1000</span>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group pre_input">
+                  <label for="wp_turnovr">Delivery Charges</label>
+                  <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges|default:''}}">
+                  <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group pre_input">
+                  <label for="wp_rev">Minimum Order Qunatity</label>
+                  <input class="form-control" id="wp_rev" name="minimum" value="{{minimum|default:''}}" placeholder="">
+                </div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="form-group pre_input">
-                <label for="wp_rev">Minimum Order Qunatity</label>
-                <input class="form-control" id="wp_rev" name="minimum" value="{{minimum|default:''}}" placeholder="">
-              </div>
-            </div>
           </div>
-
         </form>
       </div>
       <div class="col-md-2">
