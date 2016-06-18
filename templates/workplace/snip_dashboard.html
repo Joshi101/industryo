@@ -8,12 +8,29 @@
 					<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
 					<div class="data">
 						<div class="row">
+							{% if workplace.get_product_count = 0 %}
+							<div class="col-sm-12 text-center">
+								<p style="font-size: 1.4em; color: orange; margin-bottom: 5px">List the Products you Manufacture or Sell or the Services you Provide</p>
+								<div class="text-muted">If You are busy, ask the sales people to signup &amp; List Products</div>
+							</div>
+							{% elif workplace.get_product_count < 3 %}
+							{% with products.0 as product %}
+							<div class="col-sm-3">
+								<img class="lazy_img p_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
+								<div class="p_name">{{product|truncatechars:20}}</div>
+							</div>
+							{% endwith %}
+							<div class="col-sm-6 text-center">
+								<p style="font-size: 1.4em; color: orange">List more products/ Services &amp; Get Inquiries directly in Inbox</p>
+							</div>
+							{% else %}
 							{% for product in products|slice:"3" %}
 							<div class="col-sm-4 text-center">
 								<img class="lazy_img p_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
 								<div class="p_name">{{product|truncatechars:20}}</div>
 							</div>
 							{% endfor %}
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -23,7 +40,7 @@
 							<span class="fa fa-plus fa-4x" style="margin-top: 36px;"></span>
 							<div><strong>Add More</strong></div>
 						</div>
-						<a class="hovering_a" style="margin: -10px -10px -10px -1px"></a>
+						<a class="hovering_a" style="margin: -10px -10px -10px -1px" href="{% url 'products:add_product' %}"></a>
 					</div>
 				</div>
 			</div>
