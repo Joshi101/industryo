@@ -4468,3 +4468,38 @@ input.not_wide{
   display: inline-block;
   vertical-align: text-bottom;
 }
+
+.dash_card .dash_row{
+  height: 40px;
+  padding: 5px 10px;
+  /*! margin-left: -10px; */
+}
+
+.dash_card .dash_row h3 span{
+  vertical-align: middle;
+}
+
+.dash_card .dash_row.bottom{
+  height: 50px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.num.green{
+  color: #197;
+}
+
+.hover_a_container{
+  position: relative;
+}
+
+.hovering_a{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.05);
+  display: none;
+  z-index: 10;
+}

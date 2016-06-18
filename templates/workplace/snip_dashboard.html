@@ -19,20 +19,17 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<div class="col-sm-8">
-			<header><h3>Inquiry</h3></header>
-				<div class="col-sm-6">
-					<header><h3>New</h3></header>
-					<font size="4" color="red">{{inquiry_count}}</font>
+			<div class="hover_a_container">
+				<div class="dash_row">
+					<header><h3><span class="num">{{inquiry_count}}</span>&nbsp;<span>Inquiries</span></h3></header>
 				</div>
-				<div class="col-sm-6">
-					<header><h3>Total</h3></header>
-					<font size="4" color="green">{{new_inq_count}}</font>
+				<div class="dash_row">
+					<header><h3><span class="num green">{{new_inq_count}}</span>&nbsp;<span style="color: #197">New</span></h3></header>
 				</div>
+				<a class="hovering_a" style="margin: -10px -10px -1px -10px"></a>
 			</div>
-			<div class="col-sm-4">
-				<header><h3>Hits</h3></header>
-				<font size="6" color="green">{{workplace.hits}}</font>
+			<div class="dash_row bottom">
+				<header><h3><span class="num">{{workplace.hits}}</span>&nbsp;<span>Profile Hits</span></h3></header>
 			</div>
 		</div>
 	</div>
