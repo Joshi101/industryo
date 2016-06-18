@@ -49,9 +49,26 @@
 <div class="row">
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Locations</h3>
+			<h3>Activity</h3>
 			<div class="data">
+				<div class="col-sm-6">
+					<div class="row">
+					<font size="6" color="green">{{node_count}}</font> updates on CoreLogs
+					</div>
+					<div class="row">
+						Share Updates
+					</div>
+				</div>
 				
+				<div class="col-sm-6">
+				<div class="row">
+					<font size="3" color="green">{{q_count}}</font> Questions on Forum
+				</div>
+				<div class="row">
+					<font size="3" color="green">{{a_count}}</font> Answers on Forum
+				</div>
+				Ask Question on Forum
+				</div>
 			</div>
 		</div>
 	</div>
@@ -59,7 +76,12 @@
 		<div class="dash_card">
 			<h3>Segements</h3>
 			<div class="data">
-				
+				{% for tag in workplace.get_tags.segments %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+				{% for tag in workplace.get_tags.city %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
@@ -87,15 +109,19 @@
 		<div class="dash_card">
 			<h3>Operations</h3>
 			<div class="data">
-				
+				{% for tag in workplace.get_tags.operations %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Mmmmuah</h3>
+			<h3>Machinery</h3>
 			<div class="data">
-				
+				{% for tag in workplace.get_tags.assets %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
