@@ -174,8 +174,8 @@ def workplace_profile(request, slug):
     node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
     q_count = Question.objects.filter(user__userprofile__primary_workplace=workplace).count()
     a_count = Answer.objects.filter(user__userprofile__primary_workplace=workplace).count()
-    completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
-                       (workplace.points)/(10*member_count) + workplace.get_member_score())/5
+    completion_score = int(round((workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
+                       (workplace.points)/(10*member_count) + workplace.get_member_score())/5))
 
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
