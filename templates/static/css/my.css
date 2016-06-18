@@ -4461,6 +4461,8 @@ input.not_wide{
 
 .circle_bar_container{
   text-align: left;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .circle_bar_container .text{
@@ -4472,10 +4474,14 @@ input.not_wide{
 .dash_card .dash_row{
   height: 40px;
   padding: 5px 10px;
-  /*! margin-left: -10px; */
 }
 
-.dash_card .dash_row h3 span{
+.dash_card .dash_row_thin{
+  height: 32.5px;
+  padding: 1.25px 10px;
+}
+
+.dash_card h3 span{
   vertical-align: middle;
 }
 
@@ -4502,4 +4508,13 @@ input.not_wide{
   background-color: rgba(0,0,0,0.05);
   display: none;
   z-index: 10;
+}
+
+.dash_card .dash_sq{
+  margin: 2.5px 0;
+  display: inline-block;
+  width: 49%;
+  height: 60px;
+  padding: 15px 10px;
+  border: 1px solid #f6f6f6;
 }

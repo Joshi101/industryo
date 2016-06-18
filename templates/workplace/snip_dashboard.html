@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-sm-8">
 		<div class="dash_card">
-			<header><h3><span class="num">{{workplace.get_product_count}}</span> Products Listed</h3></header>
+			<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
 			<div class="data">
 				{% for product in products|slice:"3" %}
 				<div class="col-sm-3 text-center">
@@ -21,15 +21,15 @@
 		<div class="dash_card">
 			<div class="hover_a_container">
 				<div class="dash_row">
-					<header><h3><span class="num">{{inquiry_count}}</span>&nbsp;<span>Inquiries</span></h3></header>
+					<h3><span class="num">{{inquiry_count}}</span>&nbsp;<span>Inquiries</span></h3>
 				</div>
 				<div class="dash_row">
-					<header><h3><span class="num green">{{new_inq_count}}</span>&nbsp;<span style="color: #197">New</span></h3></header>
+					<h3><span class="num green">{{new_inq_count}}</span>&nbsp;<span style="color: #197">New</span></h3>
 				</div>
 				<a class="hovering_a" style="margin: -10px -10px -1px -10px"></a>
 			</div>
 			<div class="dash_row bottom">
-				<header><h3><span class="num">{{workplace.hits}}</span>&nbsp;<span>Profile Hits</span></h3></header>
+				<h3><span class="num">{{workplace.hits}}</span>&nbsp;<span>Profile Hits</span></h3>
 			</div>
 		</div>
 	</div>
@@ -39,73 +39,57 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="dash_card">
-					<div class="data">
-						<div class="col-sm-8">
-							<div class="row">
-								<font size="6" color="green">{{workplace.number_of_employees|default:'0'}}</font> people in {{workplace}}
-							</div>
-							<div class="row">
-								<font size="6" color="green">{{workplace.get_count}}</font> on CoreLogs
-							</div>
+					<div class="dash_row">
+						<h3><span class="num">{{workplace.number_of_employees|default:'0'}}</span>&nbsp;<span>People in {{workplace}}</span></h3>
+					</div>
+					<div class="dash_row">
+						<h3><span class="num green">{{workplace.get_count}}</span>&nbsp;<span style="color: #197">on Corelogs</span></h3>
+					</div>
+					<div class="hover_a_container">
+						<div class="dash_row bottom">
+							<h3 class=""><span class="fa fa-plus fa-2x"></span>&nbsp;&nbsp;<span>Invite More</span></h3>
 						</div>
-						<div class="col-sm-3">
-							<header><h3>Invite</h3></header>
-							<span class="fa fa-plus fa-4x">
-						</div>
+						<a class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
-					<h3>Activity</h3>
+					<header><h3>Activity</h3></header>
 					<div class="data">
-						<div class="col-sm-6">
-							<div class="row">
-							<font size="6" color="green">{{node_count}}</font> updates on CoreLogs
-							</div>
-							<div class="row">
-								Share Updates
-							</div>
-						</div>
-						<div class="col-sm-6">
 						<div class="row">
-							<font size="3" color="green">{{q_count}}</font> Questions on Forum
-						</div>
-						<div class="row">
-							<font size="3" color="green">{{a_count}}</font> Answers on Forum
-						</div>
-						Ask Question on Forum
+							<div class="col-sm-6">
+								<div class="num green">{{node_count}}</div>
+								<div>Updates</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="num green">{{q_count}}</div>
+								<div>Questions</div>
+								<div class="num green">{{a_count}}</div>
+								<div>Answers</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
-					<div class="col-sm-6">
-					<h3>Segments</h3>
-					<div class="data">
-						{% for tag in workplace.get_tags.segments %}
-						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-						{% endfor %}
-					</div>
-					</div>
-					<div class="col-sm-6">
-					<h3>Cities</h3>
-					<div class="data">
-					{% for tag in workplace.get_tags.city %}
-						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-						{% endfor %}
-					</div>
-					</div>
+					
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
-					<div class="text-center">
-					<div class="row"><font size="4" color="green">Cities: </font>{{workplace.get_tags.city|length}}</div>
-					<div class="row"><font size="4" color="green">Operations: </font>{{workplace.get_tags.operations|length}}</div>
-					<div class="row"><font size="4" color="green">Assets: </font>{{workplace.get_tags.assets|length}}</div>
-					<div class="row"><font size="4" color="green">Segments: </font>{{workplace.get_tags.citysegments|length}}</div>
+					<div class="dash_sq">
+						<h3><span class="num">{{workplace.get_tags.city|length}}</span>&nbsp;<span>Cities</span></h3>
+					</div>
+					<div class="dash_sq">
+						<h3><span class="num">{{workplace.get_tags.operations|length}}</span>&nbsp;<span>Operations</span></h3>
+					</div>
+					<div class="dash_sq">
+						<h3><span class="num">{{workplace.get_tags.assets|length}}</span>&nbsp;<span>Assets</span></h3>
+					</div>
+					<div class="dash_sq">
+						<h3><span class="num">{{workplace.get_tags.segments|length}}</span>&nbsp;<span>Segments</span></h3>
 					</div>
 				</div>
 			</div>
