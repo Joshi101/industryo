@@ -1,27 +1,38 @@
 {% load filter %}
 {% if user.userprofile in members %}
 <div class="row">
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<header><h3>Extra Wala</h3></header>
-			<div class="data">
-				
-			</div>
-		</div>
-	</div>
 	<div class="col-sm-8">
 		<div class="dash_card">
 			<header><h3><span class="num">{{workplace.get_product_count}}</span> Products Listed</h3></header>
 			<div class="data">
 				{% for product in products|slice:"3" %}
 				<div class="col-sm-3 text-center">
-					<img class="lazy_img" src="/images/main/prduct.png" data-src="{{product.get_image}}">
-					<div>{{product}}</div>
+					<img class="lazy_img" src="/images/main/prduct.png" data-src="{{product.get_image_thumbnail}}">
+					<div>{{product|truncatechars:20}}</div>
 				</div>
 				{% endfor %}
 				<div class="col-sm-3 text-center">
 					<a href=""><span class="fa fa-plus fa-4x" style="margin-top: 10px;"></span></a>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="dash_card">
+			<div class="col-sm-8">
+			<header><h3>Inquiry</h3></header>
+				<div class="col-sm-6">
+					<header><h3>New</h3></header>
+					<font size="4" color="red">{{inquiry_count}}</font>
+				</div>
+				<div class="col-sm-6">
+					<header><h3>Total</h3></header>
+					<font size="4" color="green">{{new_inq_count}}</font>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<header><h3>Hits</h3></header>
+				<font size="6" color="green">{{workplace.hits}}</font>
 			</div>
 		</div>
 	</div>
@@ -52,27 +63,33 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-5">
 		<div class="dash_card">
-			<div class="data text-center">
+			<div class="col-sm-4">
+				<font size="2" color="orange">Completion Score</font>
+				<font size="1" color="black">A High score helps your company appear up in searches</font>
+			</div>
+			<div class="col-sm-8">
+				<div class="data text-center">
 				<div class="chart" id="graph" data-percent="{{completion_score|floatformat:'0'}}"></div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<div class="dash_card">
 			<div class="data">
 				<div class="col-sm-8">
 					<div class="row">
-						{{workplace.number_of_employees|default:'0'}} people in {{workplace}}
+						<font size="6" color="green">{{workplace.number_of_employees|default:'0'}}</font> people in {{workplace}}
 					</div>
 					<div class="row">
-						{{workplace.get_count}} on CoreLogs
+						<font size="6" color="green">{{workplace.get_count}}</font> on CoreLogs
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<header><h3>Invite</h3></header>
-					<span class="fa fa-plus fa-5x">
+					<span class="fa fa-plus fa-4x">
 				</div>
 			</div>
 		</div>
@@ -81,29 +98,43 @@
 <div class="row">
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Cities &amp; Segments</h3>
+			<div class="col-sm-6">
+			<h3>Segments</h3>
 			<div class="data">
 				{% for tag in workplace.get_tags.segments %}
 				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
 				{% endfor %}
-				{% for tag in workplace.get_tags.city %}
+			</div>
+			</div>
+			<div class="col-sm-6">
+			<h3>Cities</h3>
+			<div class="data">
+			{% for tag in workplace.get_tags.city %}
 				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
 				{% endfor %}
+			</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
-			<h3>Machinery &amp; Operations</h3>
+			<div class="col-sm-6">
+			<h3>Operations</h3>
 			<div class="data">
-				{% for tag in workplace.get_tags.assets %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
-
 				{% for tag in workplace.get_tags.operations %}
 				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
 				{% endfor %}
 			</div>
+			</div>
+			<div class="col-sm-6">
+			<h3>Assets</h3>
+			<div class="data">
+			{% for tag in workplace.get_tags.assets %}
+				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+				{% endfor %}
+			</div>
+			</div>
+
 		</div>
 	</div>
 	<div class="col-sm-4">
