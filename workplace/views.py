@@ -659,6 +659,8 @@ def edit_workplace(request):
                     wp.set_operations(request.POST[key])
                 if key == 'machinery':
                     wp.set_assets(request.POST[key])
+                if key == 'city':
+                    wp.set_city(request.POST[key])
 
             for key in dictionary:
                 setattr(workplace, key, dictionary[key])
