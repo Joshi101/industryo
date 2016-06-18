@@ -38,166 +38,181 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<h3>Activity</h3>
-			<div class="data">
-				<div class="col-sm-6">
-					<div class="row">
-					<font size="6" color="green">{{node_count}}</font> updates on CoreLogs
+	<div class="col-sm-8">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="dash_card">
+					<div class="data">
+						<div class="col-sm-8">
+							<div class="row">
+								<font size="6" color="green">{{workplace.number_of_employees|default:'0'}}</font> people in {{workplace}}
+							</div>
+							<div class="row">
+								<font size="6" color="green">{{workplace.get_count}}</font> on CoreLogs
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<header><h3>Invite</h3></header>
+							<span class="fa fa-plus fa-4x">
+						</div>
 					</div>
-					<div class="row">
-						Share Updates
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="dash_card">
+					<h3>Activity</h3>
+					<div class="data">
+						<div class="col-sm-6">
+							<div class="row">
+							<font size="6" color="green">{{node_count}}</font> updates on CoreLogs
+							</div>
+							<div class="row">
+								Share Updates
+							</div>
+						</div>
+						<div class="col-sm-6">
+						<div class="row">
+							<font size="3" color="green">{{q_count}}</font> Questions on Forum
+						</div>
+						<div class="row">
+							<font size="3" color="green">{{a_count}}</font> Answers on Forum
+						</div>
+						Ask Question on Forum
+						</div>
 					</div>
 				</div>
-				
-				<div class="col-sm-6">
-				<div class="row">
-					<font size="3" color="green">{{q_count}}</font> Questions on Forum
+			</div>
+			<div class="col-sm-6">
+				<div class="dash_card">
+					<div class="col-sm-6">
+					<h3>Segments</h3>
+					<div class="data">
+						{% for tag in workplace.get_tags.segments %}
+						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+						{% endfor %}
+					</div>
+					</div>
+					<div class="col-sm-6">
+					<h3>Cities</h3>
+					<div class="data">
+					{% for tag in workplace.get_tags.city %}
+						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+						{% endfor %}
+					</div>
+					</div>
 				</div>
-				<div class="row">
-					<font size="3" color="green">{{a_count}}</font> Answers on Forum
-				</div>
-				Ask Question on Forum
+			</div>
+			<div class="col-sm-6">
+				<div class="dash_card">
+					<div class="col-sm-6">
+					<h3>Operations</h3>
+					<div class="data">
+						{% for tag in workplace.get_tags.operations %}
+						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+						{% endfor %}
+					</div>
+					</div>
+					<div class="col-sm-6">
+					<h3>Assets</h3>
+					<div class="data">
+					{% for tag in workplace.get_tags.assets %}
+						<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+						{% endfor %}
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-4 tall_cards">
 		<div class="dash_card">
-			<div class="col-sm-4">
-				<font size="2" color="orange">Completion Score</font>
-				<font size="1" color="black">A High score helps your company appear up in searches</font>
-			</div>
-			<div class="col-sm-8">
+			<header>
+				<h3 style="margin-bottom: 0">Profile Completion Score</h3>
+				<p class="text-muted text-center"><small>A High score helps your company appear up in searches</small></p>
+			</header>
 				<div class="data text-center">
-				<div class="chart" id="graph" data-percent="{{completion_score|floatformat:'0'}}"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="dash_card">
-			<div class="data">
-				<div class="col-sm-8">
-					<div class="row">
-						<font size="6" color="green">{{workplace.number_of_employees|default:'0'}}</font> people in {{workplace}}
+					<div style="margin-bottom: 5px">
+						<div class="chart circle_bar" data-percent="{{completion_score|floatformat:'0'}}"></div>
 					</div>
-					<div class="row">
-						<font size="6" color="green">{{workplace.get_count}}</font> on CoreLogs
+					<p style="margin-bottom: 5px"><strong>Why?</strong></p>
+					<div class="circle_bar_container">
+						<div class="row">
+							<div class="col-sm-6 text-right">
+								<span class="text">Members</span>
+								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="5"></span>
+							</div>
+							<div class="col-sm-6">
+								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="5"></span>
+								<span class="text">Info</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">
+								<span class="text">Products</span>
+								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="5"></span>
+							</div>
+							<div class="col-sm-6">
+								<span class="chart small_chart circle_bar" data-size="40" data-line="5" data-percent="5"></span>
+								<span class="text">Something</span>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col-sm-3">
-					<header><h3>Invite</h3></header>
-					<span class="fa fa-plus fa-4x">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<div class="col-sm-6">
-			<h3>Segments</h3>
-			<div class="data">
-				{% for tag in workplace.get_tags.segments %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
-			</div>
-			</div>
-			<div class="col-sm-6">
-			<h3>Cities</h3>
-			<div class="data">
-			{% for tag in workplace.get_tags.city %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
-			</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<div class="col-sm-6">
-			<h3>Operations</h3>
-			<div class="data">
-				{% for tag in workplace.get_tags.operations %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
-			</div>
-			</div>
-			<div class="col-sm-6">
-			<h3>Assets</h3>
-			<div class="data">
-			{% for tag in workplace.get_tags.assets %}
-				<div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
-				{% endfor %}
-			</div>
-			</div>
-
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="dash_card">
-			<div class="row">
-			<h3>Links &amp; Social</h3>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-		        <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square fa-3x"></span></a>
-		        </div>
-		        <div class="col-sm-4">
-		        <a href="{{workplace.get_linkedin_page}}"><span class="fa fa-lg fa-linkedin-square fa-3x"></span></a>
-		        </div>
-		        <div class="col-sm-4">
-		        <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe fa-3x"></span></a>
-		      	</div>
-			</div>
 		</div>
 	</div>
 </div>
 
 {% endif %}
 <script type="text/javascript">
-	var el = document.getElementById('graph'); // get canvas
+	$('.circle_bar').each(function(index, el) {
 
-	var options = {
-	    percent:  el.getAttribute('data-percent') || 25,
-	    size: el.getAttribute('data-size') || 125,
-	    lineWidth: el.getAttribute('data-line') || 15,
-	    rotate: el.getAttribute('data-rotate') || 0
-	}
+		/*var el = document.getElementById('graph'); // get canvas*/
 
-	var canvas = document.createElement('canvas');
-	var span = document.createElement('span');
-	span.textContent = options.percent + '%';
-	    
-	if (typeof(G_vmlCanvasManager) !== 'undefined') {
-	    G_vmlCanvasManager.initElement(canvas);
-	}
+		var options = {
+		    percent:  el.getAttribute('data-percent') || 25,
+		    size: el.getAttribute('data-size') || 115,
+		    lineWidth: el.getAttribute('data-line') || 15,
+		    rotate: el.getAttribute('data-rotate') || 0
+		}
 
-	var ctx = canvas.getContext('2d');
-	canvas.width = canvas.height = options.size;
+		var canvas = document.createElement('canvas');
+		var span = document.createElement('span');
+		span.textContent = options.percent + '%';
+		    
+		if (typeof(G_vmlCanvasManager) !== 'undefined') {
+		    G_vmlCanvasManager.initElement(canvas);
+		}
 
-	el.appendChild(span);
-	el.appendChild(canvas);
+		var ctx = canvas.getContext('2d');
+		canvas.width = canvas.height = options.size;
 
-	ctx.translate(options.size / 2, options.size / 2); // change center
-	ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
+		el.appendChild(span);
+		el.appendChild(canvas);
 
-	//imd = ctx.getImageData(0, 0, 240, 240);
-	var radius = (options.size - options.lineWidth) / 2;
+		ctx.translate(options.size / 2, options.size / 2); // change center
+		ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
 
-	var drawCircle = function(color, lineWidth, percent) {
-			percent = Math.min(Math.max(0, percent || 1), 1);
-			ctx.beginPath();
-			ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
-			ctx.strokeStyle = color;
-	        ctx.lineCap = 'round'; // butt, round or square
-			ctx.lineWidth = lineWidth
-			ctx.stroke();
-	};
+		//imd = ctx.getImageData(0, 0, 240, 240);
+		var radius = (options.size - options.lineWidth) / 2;
 
-	drawCircle('#efefef', options.lineWidth, 100 / 100);
-	drawCircle('#555555', options.lineWidth, options.percent / 100);
+		var drawCircle = function(color, lineWidth, percent) {
+				percent = Math.min(Math.max(0, percent || 1), 1);
+				ctx.beginPath();
+				ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+				ctx.strokeStyle = color;
+		        ctx.lineCap = 'round'; // butt, round or square
+				ctx.lineWidth = lineWidth
+				ctx.stroke();
+		};
+
+		if (options.percent >= 75)
+			var color = '#197';
+		else if (options.percent >= 40)
+			var color = '#fa0';
+		else
+			var color = '#a00';
+
+		drawCircle('#efefef', options.lineWidth, 100 / 100);
+		drawCircle(color, options.lineWidth, options.percent / 100);
+	});
 </script>

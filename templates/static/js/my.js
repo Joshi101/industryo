@@ -2160,7 +2160,7 @@ function imageUpload($this){
             url: $form.attr('action'),
             type: $form.attr('method'),
             data: fd,
-            cache: false,
+            cache: false,   
             contentType: false,
             processData: false,
 

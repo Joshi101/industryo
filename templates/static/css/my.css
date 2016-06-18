@@ -4253,16 +4253,25 @@ input.not_wide{
   padding: 10px;
   height: 150px;
   margin-bottom: 15px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 4px -2px #eee;
+  box-shadow: 0 0 4px -1px #aaa;
   overflow: hidden;
+}
+
+.dash_card header{
+  margin: 0 0 10px;
 }
 
 .dash_card h3{
   text-align: center;
   font-size: 16px;
-  margin: 0 0 10px;
   font-weight: 700;
+  margin: 0;
+}
+
+.dash_card header p{
+  display: block;
+  line-height: 1.1;
+  margin: 0;
 }
 
 .dash_card img{
@@ -4419,22 +4428,43 @@ input.not_wide{
   color: #444;
 }
 
-#graph{
+.chart{
   text-align: center;
   margin: auto;
   display: inline-block;
   /*! width: auto; */
 }
 
-#graph span{
+.circle_bar span{
   color:#555;
   display:block;
-  line-height:125px;
   text-align:center;
-  width:125px;
+  width:115px;
+  line-height:115px;
   font-family:sans-serif;
   font-size:20px;
   font-weight:100;
   margin-left:5px;
   position: absolute;
+}
+
+.small_chart span{
+  line-height:40px;
+  font-size:12px;
+  margin-left:1px;
+  width:40px;
+}
+
+.tall_cards .dash_card{
+  height: 315px;
+}
+
+.circle_bar_container{
+  text-align: left;
+}
+
+.circle_bar_container .text{
+  line-height: 45px;
+  display: inline-block;
+  vertical-align: text-bottom;
 }
