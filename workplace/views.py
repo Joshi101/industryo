@@ -44,8 +44,10 @@ def set_workplace(request):
                                                                           primary_workplace.slug, primary_workplace,
                                                                           userprofile.job_position)
         Node.objects.create(post=node, user=request.user, category='D', w_type=t)
-        return redirect('/workplace/'+primary_workplace.slug)
-
+        if t in ['A', 'B']:
+            return redirect('/workplace/edit/')
+        else:
+            return redirect('/workplace/'+primary_workplace.slug)
     else:
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(),
                                                         'form_create_workplace': WorkplaceForm()})
@@ -652,7 +654,6 @@ def edit_workplace(request):
                     tb = traceback.format_exc()
                     print(tb)
             else:
-                # if key in ['segments', 'operations', 'machinery']:
                 if key == 'segments':
                     wp.set_segments(request.POST[key])
                 if key == 'operations':

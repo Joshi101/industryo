@@ -59,9 +59,7 @@
       </div>
       {% else %}
       <div class="info_labels">
-        <a class="btn btn-default" href="{% url 'products:enquiry_all' %}">
-          <span property='numberOfEmployees'>{{ inq_count }}</span> Inquiries
-        </a>
+        <a class="btn btn-default" href="{% url 'workplace:edit' %}">Edit Profile</a>
       </div>
       {% endif %}
     </div>

@@ -79,6 +79,7 @@
               <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
               {% endif %}
             </header>
+            <span class="help">Fill Details to get a strong profile &amp; appear higher in searches. You can Submit the Form anytime you want.</span>
           </div>
         </div>
         <form id="edit_wp_form" class="ajax_andar new_form auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
@@ -91,7 +92,7 @@
               <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
               -->
               <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-              <textarea class="form-control textarea_lg count_field" value="{{about}}" id="wp_about" name="about" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000">{{about}}</textarea>
+              <textarea class="form-control textarea_lg count_field" value="{{about}}" id="wp_about" name="about" placeholder="A Basic Introduction of your Company (maybe the about Section of company website)" maxlength="2000">{{about|default:''}}</textarea>
               <span class="char_count">2000</span>
             </div>
             <!-- <div class="form-group">
@@ -101,26 +102,32 @@
             </div> -->
             <div class="form-group">
               <label for="wp_loc">Locations</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' %}
+              {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
             </div>
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label for="wp_est">Established</label>
-                  <input class="form-control" id="wp_est" name="established" type="date" value="{{year_established|default:''}}" placeholder="YYYY">
+                  <input class="form-control" id="wp_est" name="established" value="{{year_established|default:''}}" placeholder="YYYY">
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
+                <div class="form-group pre_input">
+                  <label for="wp_turnovr">No. of Employees</label>
+                  <input class="form-control" id="wp_emp" name="number_of_employees" value="{{number_of_employees|default:''}}" placeholder ='00'>
+                </div>
+              </div>
+              <div class="col-sm-3">
                 <div class="form-group pre_input">
                   <label for="wp_rev">Annual Revenue</label>
-                  <input class="form-control" id="wp_rev" name="revenue" value="{{revenue|default:''}}" placeholder="">
+                  <input class="form-control" id="wp_rev" name="revenue" value="{{revenue|default:''}}" placeholder="00">
                   <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group pre_input">
-                  <label for="wp_turnovr">Annual Turnover</label>
-                  <input class="form-control" id="wp_turnovr" name="turnover" value="{{turnover|default:''}}">
+                  <label for="wp_turnovr">Turnover</label>
+                  <input class="form-control" id="wp_turnovr" name="turnover" value="{{turnover|default:''}}" placeholder ='00'>
                   <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
                 </div>
               </div>
@@ -144,13 +151,13 @@
                 <label class="radio-inline"><input type="radio" name="legal_status">Other</label> 
               </div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="wp_emp">Number of Employees</label>
               <div class="row">
                 <div class="col-sm-2">
-                  <input class="form-control" id="wp_emp" name="number_of_employees" value="{{number_of_employees|default:''}}">
+                  <input class="form-control" id="wp_emp" name="number_of_employees" value="{{number_of_employees|default:''}}" placeholder ="00">
                 </div>
-                <!--
+                
                 <div class="col-sm-2">
                   <label class="radio-inline"><input type="radio" name="optradio">1-10</label>
                 </div>
@@ -162,9 +169,9 @@
                 </div>
                 <div class="col-sm-2">
                 </div>
-                -->
+                
               </div>
-            </div>
+            </div> -->
           </div>
           <a href="#contact_info" class="collapse_h" data-toggle="collapse">Contact Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
           <div id="contact_info" class="collapse in">
@@ -194,8 +201,8 @@
               <div class="col-sm-6">
                 <div class="form-group pre_input">
                   <label for="wp_est">Website</label>
-                  <input class="form-control" id="wp_est" name="website" value="{{website|default:''}}"type="url" placeholder="">
-                  <span class="pre">http://</span>
+                  <input class="form-control" id="wp_est" name="website" value="{{website|default:''}}"type="url" placeholder="http://">
+                  <span class="pre"></span>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -209,13 +216,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="wp_est">Facebook Page</label>
-                  <input class="form-control" id="wp_est" name="fb_page" value="{{fb_page|default:''}}" placeholder="">
+                  <input class="form-control" id="wp_est" name="fb_page" value="{{fb_page|default:''}}" placeholder="Copy &amp; Paste the URL">
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group pre_input">
                   <label for="wp_rev">LinkedIn Page</label>
-                  <input class="form-control" id="wp_rev" name="linkedin_page" value="{{linkedin_page|default:''}}">
+                  <input class="form-control" id="wp_rev" name="linkedin_page" value="{{linkedin_page|default:''}}" placeholder="Copy &amp; Paste the URL">
                   <span class="pre"></span>
                 </div>
               </div>
@@ -230,25 +237,25 @@
           <div id="extra_info" class="collapse in">
             <div class="form-group">
               <label for="wp_prod_details">Product Description</label>
-              <textarea class="form-control textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity" maxlength="1000"> {{product_details|default:''}}</textarea>
+              <textarea class="form-control textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity You can list products individually later" maxlength="1000"> {{product_details|default:''}}</textarea>
               <span class="char_count">1000</span>
             </div>
             <div class="form-group">
-              <label for="wp_segments">Segment</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segments name='segments' %}
+              <label for="wp_segments">Segments</label>
+              {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segments name='segments' placeholder='Type the name of the Segments, eg. Manufacturing, Industrial Consultancy, Metal Processing, Plastics' %}
             </div>
             <div class="form-group">
               <label for="wp_operations">Operations</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' %}
+              {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' placeholder='Operations your SME performs, eg. Welding, Web Designing, CAD, Transportation' %}
             </div>
             <div class="form-group">
-              <label for="wp_machinery">Machinery</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.assets name='machinery' %}
+              <label for="wp_machinery">Machinery &amp; Assets</label>
+              {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.assets name='machinery' placeholder='Assets &amp; Machinery eg. Milling machine, Boilers, CNC, etc.' %}
             </div>
           </div>
           <div class="form-group text-center">
             {% csrf_token %}
-            <a href="{% url 'workplace:workplace_profile' workplace.slug %}" class="btn btn-info btn-lg">Continue</a>
+            <a href="{% url 'workplace:workplace_profile' workplace.slug %}" class="btn btn-info btn-lg">Submit to See Company DashBoard</a>
           </div>
         </form>
       </div>

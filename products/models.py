@@ -117,7 +117,7 @@ class Products(models.Model):
             return default_image
 
     def get_image_thumbnail(self):
-        default_image = '/images/main/product.png'
+        default_image = '/images/product.png'
         if self.image:
             image_url = '/images/'+str(self.image.image_thumbnail)
             return image_url
