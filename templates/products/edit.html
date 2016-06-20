@@ -32,8 +32,9 @@
             <div class="col-sm-8">
               <div class="form-group">
                 <div class="form-group pre_input">
-                    <label for="prod_name">Name of the Product</label>
-                    <input class="form-control" id="prod_name" name="product" data-response="productCreated" value="{{product}}" placeholder="">
+                    <label for="prod_name">Name of the Product</label><span class="help">Fill this first</span>
+                    <input class="form-control" id="prod_name" name="product" data-response="productCreated" value="{{product}}" placeholder="List Product one by one">
+                    <!-- <span class="char_count">100</span> -->
                 </div>
               </div>
               <div class="form-group">
@@ -70,11 +71,11 @@
           </div>
           <div class="form-group">
             <label for="wp_about">Product Description</label>
-            <textarea class="form-control textarea_lg count_field" value="{{description}}" id="wp_about" name="description" placeholder="A good exapmle of a good introduction, preferably a real one, or a humorous fictious one" maxlength="2000">{{description}}</textarea>
+            <textarea class="form-control textarea_lg count_field" value="{{description}}" id="wp_about" name="description" placeholder="A Description of Product (Technical &amp; General) to make buying decision easy for the Customers." maxlength="2000">{{description|default:''}}</textarea>
             <span class="char_count">2000</span>
           </div>
           <div class="form-group">
-            <label for="wp_about">Product Category</label>
+            <label for="wp_about">Product Category</label><span class="help">Categorization is important. Product will appear in marketplace based on categories only.</span>
             <div class="row">
               <div class="col-sm-10">
                 <div class="well">
@@ -268,25 +269,25 @@
             {% csrf_token %}
             <a href="{% url 'products:edit_add' 'new' %}" class="btn btn-info btn-lg">Continue and Add another</a>
           </div>
-          <a href="#extra_info" class="collapse_h" data-toggle="collapse">Common Details<span class="fa fa-fw fa-angle-down pull-right"></span></a>
+          <a href="#extra_info" class="collapse_h" data-toggle="collapse">Common Details<span class="help">Fill these fields once &amp; for all products</span><span class="fa fa-fw fa-angle-down pull-right"></span></a>
           <div id="extra_info" class="collapse in">
             <div class="form-group">
               <label for="wp_history">Delivery Details</label>
-              <textarea class="form-control textarea_md count_field" id="wp_history" name="delivery_details" maxlength="1000">{{delivery_details|default:''}}</textarea>
+              <textarea class="form-control textarea_md count_field" id="wp_history" name="delivery_details" maxlength="1000" placeholder="Do you help in Product Delivery? If yes, tell the customer some details. Make the buying Decision for customers easy.">{{delivery_details|default:''}}</textarea>
               <span class="char_count">1000</span>
             </div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group pre_input">
                   <label for="wp_turnovr">Delivery Charges</label>
-                  <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges|default:''}}">
+                  <input class="form-control" id="wp_turnovr" name="delivery_charges" value="{{delivery_charges|default:''}}" placeholder="What would be delivery charges per unit">
                   <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group pre_input">
                   <label for="wp_rev">Minimum Order Qunatity</label>
-                  <input class="form-control" id="wp_rev" name="minimum" value="{{minimum|default:''}}" placeholder="">
+                  <input class="form-control" id="wp_rev" name="minimum" value="{{minimum|default:''}}" placeholder="Example: 1 Ton or 10 pieces">
                 </div>
               </div>
             </div>
