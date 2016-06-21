@@ -634,7 +634,7 @@ def all_products_old(request):
         return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all':c1_all, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
 
 @login_required
-@user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
+# @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def add_product(request):
     return redirect('/products/edit_add/new')
     # c1_all = Category.objects.filter(level=1)
@@ -807,7 +807,7 @@ def category_update(request):
 import traceback
 
 @login_required
-@user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
+# @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def edit_add_product(request, id):
     user = request.user
     wp = user.userprofile.primary_workplace
