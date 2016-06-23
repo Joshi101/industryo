@@ -86,15 +86,15 @@ def get_contacts(id):
     else:
         pass
 
-@background(schedule=60)
+@background(schedule=2)
 def send_html_mail_post(id, n, subject, arguments):
     u = User.objects.get(id=id)
     user_email = u.email
     up = u.userprofile
-
+    a = eval(arguments)
     template = n
-    subject = subject   # "[CoreLogs] - How we are planning to revolutionize the world of Teams & Engineers."
-    html_content = template.format(*arguments)
+    subject = subject
+    html_content = template.format(*a)
 
     from_email, to = 'sp@corelogs.com', user_email
     text_content = 'CoreLogs Invites teams to rent Components and safety equipment'

@@ -21,6 +21,7 @@
 		<a href="/internal/details/?q=wpt" class="list-group-item {% if s == "wpt" %}active{% endif %}">Workplace_tags created</a>
 		<a href="/internal/details/?q=enq" class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
 		<a href="/internal/details/?q=c" class="list-group-item {% if s == "c" %}active{% endif %}">Categories</a>
+		<a href="/internal/details/?q=ms" class="list-group-item {% if s == "ms" %}active{% endif %}">Mailsend</a>
 	</div>
 		{% if not lis %}
 			<h4>Mail Sent today = {{c_s}}</h4>
@@ -90,6 +91,15 @@
 		{% for u in lis %}
 			<li>
 				<a href="{% url 'activities:int_category' u.slug %}">{{u}}</a>
+			</li>
+		{% endfor %}  
+	  </ol>
+	  {% elif tt == "ms" %}
+	  <ol type="1">  
+		{% for u in lis %}
+			<li>
+				{{u.reasons}} 
+				<strong class="pull-right">{{u.sent}}</strong>
 			</li>
 		{% endfor %}  
 	  </ol>

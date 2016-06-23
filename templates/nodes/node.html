@@ -3,7 +3,9 @@
   <meta property="og:title" content="{% block meta_og_title %}{{ node.title }}{% endblock %}">
   <meta property="og:url" content="http://www.corelogs.com{{ request.path }}">
   <meta property="og:type" content="{% block meta_og_type %}website{% endblock meta_og_type %}">
+  {% for image in node.get_images %}
   <meta property="og:image" content="/images/{{image.image}}">
+  {% endfor %}
   <meta property="og:image:type" content="image/jpeg">
 
 {% load filter %}

@@ -103,8 +103,10 @@ def details(request):
             tt = "wpt"
         elif s == 'enq':
             lis = Enquiry.objects.filter(date__range=[enddate, startdate])
-
             return render(request, 'activities/enquiry.html', locals())
+        elif s == 'ms':
+            lis = MailSend.objects.filter(date__range=[startdate-timedelta(days=1), startdate])
+            tt = "ms"
 
         c = len(lis)
         return render(request, 'activities/activity.html', locals())
