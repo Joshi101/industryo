@@ -43,73 +43,34 @@ def send_mail(request):
         arguments = request.POST.get('arguments')       # Send tuple like (up, up.primary_workplace)
         bod = request.POST.get('mail')
         body = bod.replace("?:", "{").replace(":?", "}")
-        a = eval(arguments)
-        template = body
-        html_content = template.format(*a)
+
         if s == "meh":
-            u = User.objects.get(id=1)
-            up = u.userprofile
-            MailSend.objects.create(email='sprksh.j@gmail.com', body=html_content, reasons='bm',
-                                    from_email=random.choice([2, 3, 4]), date=now_utc, subject=subject)
+            users = User.objects.filter(id__in=[1])
+
         elif s == 'set_wp_all':
             todaydate = date.today()
             startdate = todaydate + timedelta(days=1)
             enddate = startdate - timedelta(days=40)
-            lis = User.objects.filter(date_joined__range=[enddate, startdate], userprofile__primary_workplace=None)
-            for user in lis:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm', subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+            users = User.objects.filter(date_joined__range=[enddate, startdate], userprofile__primary_workplace=None)
+
         elif s == "alh":
             users = User.objects.all()
-            for user in users:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm', subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+
         elif s == "ah":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='A')
-            for user in users:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm',subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+
         elif s == "bh":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='B')
-            for user in users:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm',subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+
         elif s == "ch":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='C')
-            for user in users:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm',subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+
         elif s == "oh":
             users = User.objects.filter(userprofile__primary_workplace__workplace_type='O')
-            for user in users:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm',subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+
         elif s == "nh":
             users = User.objects.filter(userprofile__primary_workplace=None)
-            for user in users:
-                up = user.userprofile
-                minutes = 3
-                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm',subject=subject,
-                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-                minutes += 2
+
         elif s == "ranh":
             questions = Question.objects.filter(answered=False)
             for q in questions:
@@ -126,6 +87,16 @@ def send_mail(request):
             #         tasks.send_list_html_mail(pi, n=22)
             #         pi = []
             # tasks.send_list_html_mail(pi, n=22)
+
+        for user in users:
+            up = user.userprofile
+            a = eval(arguments)
+            template = body
+            html_content = template.format(*a)
+            minutes = 1
+            MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm', subject=subject,
+                                    from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
+            minutes += 1
 
     return redirect('/internal/activity')
 
