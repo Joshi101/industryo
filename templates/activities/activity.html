@@ -98,7 +98,7 @@
 	  <ol type="1">  
 		{% for u in lis %}
 			<li>
-				{{u.reasons}} 
+				{{u.reasons}} ({{u.from_email}})
 				<strong class="pull-right">{{u.sent}}</strong>
 			</li>
 		{% endfor %}  

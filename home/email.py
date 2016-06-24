@@ -4,7 +4,6 @@ from forum.models import Question
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from home import tasks
-# from django.core.mail import EmailMultiAlternatives
 from datetime import datetime, timedelta, time, date
 from .templates import *
 from contacts.models import MailSend
@@ -41,7 +40,7 @@ def send_mail(request):
         s = request.POST.get('q')
         subject = request.POST.get('subject')
 
-        arguments = request.POST.get('arguments')
+        arguments = request.POST.get('arguments')       # Send tuple like (up, up.primary_workplace)
         bod = request.POST.get('mail')
         body = bod.replace("?:", "{").replace(":?", "}")
         a = eval(arguments)
@@ -49,7 +48,6 @@ def send_mail(request):
         html_content = template.format(*a)
         if s == "meh":
             u = User.objects.get(id=1)
-            # tasks.send_html_mail_post(u.id, n=body, subject=subject, arguments=arguments)
             MailSend.objects.create(email='sprksh.j@gmail.com', body=html_content, reasons='bm',
                                     from_email=random.choice([2, 3, 4]), date=now_utc, subject=subject)
         elif s == 'set_wp_all':

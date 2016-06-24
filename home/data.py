@@ -107,7 +107,7 @@ def details(request):
         elif s == 'ms':
             lis = MailSend.objects.filter(date__range=[startdate-timedelta(days=1), startdate])
             tt = "ms"
-
+            text = "Mail Send in Queue for today"
         c = len(lis)
         return render(request, 'activities/activity.html', locals())
     else:

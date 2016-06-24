@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response, RequestContext, HttpResponse
+from django.shortcuts import render
 from allauth.socialaccount.models import SocialAccount, SocialToken
 import urllib.request as urllib2
 from xml.etree import ElementTree as etree
@@ -210,17 +210,19 @@ def check_contact_email(id):
     now = datetime.now()
     subject = '[CoreLogs] {0} Invited You to Check it Out'.format(up)
     if len(to_send) < 200:
-        for s in to_send:
-            mail_body = join_corelogs_mail.format(s.first_name, up)
+        pass
+        # for s in to_send:
+        #     mail_body = join_corelogs_mail.format(s.first_name, up)
             # MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
             #                         date=now_utc + timedelta(minutes=2), subject=subject)
 
     else:
         """Yield successive n-sized chunks from to_send."""
-        for i in range(0, len(to_send), 100):
-            to_send_n = to_send[i:i+100]
-            for s in to_send_n:
-                mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, up)
+        pass
+        # for i in range(0, len(to_send), 100):
+        #     to_send_n = to_send[i:i+100]
+        #     for s in to_send_n:
+        #         mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, up)
                 # MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
                 #                         date=now_utc + timedelta(days=i/100), subject=subject)
 
@@ -229,13 +231,13 @@ def fuck_shit(request):
     result = []
     start = datetime.now(pytz.utc)
     end = start - timedelta(days=10)
-    s = MailSend.objects.filter(date__range=[end, start])
+    s = MailSend.objects.filter(date__range=[end, start], reasons='jcm')
     for a in s:
-        result.append(a)
+        result.append(a.email)
     return render(request, 'search/random_text_print.html', locals())
 
 
-from threading import Thread
+# from threading import Thread
 
 
 def send_timed():
@@ -258,6 +260,10 @@ def send_timed():
             minutes += 1
     else:
         pass    # chill
+        # to_send_all = ContactEmails.objects.filter(sent=False, reasons='jcm').order_by('-id')[:100]
+        # for s in to_send_all:
+        #     s.date = s.date + timedelta(hours=2)
+        #     s.save()
 
 
 def thread_send(to_send_n):
