@@ -23,7 +23,6 @@ function measure() {
 
 /* function to auto adjust top margin for the body */
 function body_slide() {
-    console.log(win_height, top_nav_width, foot_height)
     $('.body').stop().animate({
         //'margin-top': top_nav_width,
         'min-height': (win_height - top_nav_width)
@@ -1466,7 +1465,6 @@ $(function(){
     $('#search_typ .dropdown-menu').find('li').each(function(){
         var typ = $(this).find('.value').text().toLowerCase();
         if (typ == what) {
-            console.log('matched')
             var what_i = $(this).find('i').attr('class');
             $('#search_typ').find('.dropdown-toggle i').attr('class', what_i);
         }
@@ -1492,7 +1490,6 @@ $('#top_search').on('hidden.bs.dropdown', '.dropdown', function(){
 
 function lazyImages(){
     $('.lazy_img').each(function(index, el){
-        console.log($(this).data('src') + 'loading');
         var $this = $(this);
         var change = true;
         var old_src = $this.attr('src');
@@ -2048,7 +2045,6 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
 $(function(){
     $('.pre_input').each(function(){
        $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()+10));
-        console.log(($(this).find('.pre').outerWidth()+10),'pre');
     });
     $('.char_count').each(function(){
         var f = $(this).parent().find('input, textarea');

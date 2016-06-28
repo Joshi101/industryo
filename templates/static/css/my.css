@@ -204,7 +204,7 @@ img{
 }
 
 .body.affix{
-  padding-top: 71px;
+  padding-top: 66px;
 }
 
 .navbar-inverse .nav > li > a{
@@ -791,7 +791,7 @@ pre {
 
 .nav_2{
   background-color: #fff;
-  box-shadow: 0 3px 2px -2px rgba(200,200,200,0.72);
+  box-shadow: 0 3px 3px -2px rgba(200,200,200,0.72);
   border-bottom: 1px solid #ddd;
   padding: 0 15px;
 }
@@ -860,7 +860,7 @@ pre {
   overflow: hidden;
 
   position: relative;
-  padding-top: 20px;
+  padding-top: 15px;
 }
 /* cover.html */
 
@@ -1500,6 +1500,14 @@ footer .connect li{
   width: 120px;
   height: 120px;
   margin: auto;
+}
+
+.img_profile_label{
+  font-weight: bold;
+  /*! margin-top: 5px; */
+  color: #999;
+  margin: 5px auto 0;
+  width: 120px;
 }
 
 #img_upload {
@@ -4108,7 +4116,7 @@ input.not_wide{
 .new_form{
   margin: auto;
   max-width: 900px;
-  padding: 0 15px;
+  padding: 0 10px;
   /*! background-color: #fff; */
 }
 
@@ -4119,9 +4127,9 @@ input.not_wide{
 
 .new_form label{
   margin-bottom: 5px;
-  font-size: 16px;
+  font-size: 15px;
   /*! margin-left: 5; */
-  /*! font-family: 'PT Sans'; */
+  font-family: 'formLabel','Lato';
   color: #555;
 }
 
@@ -4287,10 +4295,12 @@ input.not_wide{
 .edit_title{
   margin-bottom: 30px;
   text-align: center;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .edit_title .info_title{
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .collapse_h{
@@ -4364,6 +4374,9 @@ input.not_wide{
 @media(min-width:999px){
   .edit_title #img_profile_box{
     margin: 0;
+  }
+  .edit_title .img_profile_label{
+    margin: 5px 0;
   }
 }
 
@@ -4595,4 +4608,11 @@ input.not_wide{
 
 .faded_div{
   opacity: 0.85;
+}
+
+.tile{
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+  margin-bottom: 5px;
 }
