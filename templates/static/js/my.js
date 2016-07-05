@@ -23,7 +23,6 @@ function measure() {
 
 /* function to auto adjust top margin for the body */
 function body_slide() {
-    console.log(win_height, top_nav_width, foot_height)
     $('.body').stop().animate({
         //'margin-top': top_nav_width,
         'min-height': (win_height - top_nav_width)
@@ -522,19 +521,15 @@ $(function() {
 // function for main feeder
 $('#form_feed').on('focus', 'textarea', function() {
     var $this = $(this);
-    $this.attr('rows', '3');
-    $this.removeClass('seamless_l');
-    $this.parent().find('.input-group-addon').hide();
+    /*$this.attr('rows', '3');*/
     $this.closest('form').find('.textarea_bottom').removeClass('hide');
     autosize.update($this);
 });
 $('#form_feed textarea').on('blur', function() {
     var $this = $(this);
     $this.attr('rows', '1');
-    $this.addClass('seamless_l');
     $this.closest('form').find('.textarea_bottom').addClass('hide');
     autosize.update($this);
-    $this.parent().find('.input-group-addon').show();
 });
 $('#form_feed .btn, .img_pre').on({
     mouseover: function() {
@@ -544,10 +539,8 @@ $('#form_feed .btn, .img_pre').on({
         $('#form_feed textarea').on('blur', function() {
             var $this = $(this);
             $this.attr('rows', '1');
-            $this.addClass('seamless_l');
             $this.closest('form').find('.textarea_bottom').addClass('hide');
             autosize.update($this);
-            $this.parent().find('.input-group-addon').show();
         });
     }
 });
@@ -652,8 +645,8 @@ function send_img() {
         preview.closest('.img_pre').removeClass('hide').addClass('show_pre');
         console.log('img_pre showing');
         $(this).closest('form').find('.img_pre').data('index', (i + 1));
-        $(this).addClass('hide');
-        $(this).parent().addClass('hide').after(input);
+        $(this).attr('id','id_image_'+free);
+        $(this).attr('name','image_'+free);
         $('#id_image_' + (i + 1)).change(send_img);
         $(this).closest('form').find('.fake_btn').data('btn', '#id_image_' + free);
         console.log($(this).closest('form').find('.img_pre').data('index'));
@@ -1466,7 +1459,6 @@ $(function(){
     $('#search_typ .dropdown-menu').find('li').each(function(){
         var typ = $(this).find('.value').text().toLowerCase();
         if (typ == what) {
-            console.log('matched')
             var what_i = $(this).find('i').attr('class');
             $('#search_typ').find('.dropdown-toggle i').attr('class', what_i);
         }
@@ -1492,7 +1484,6 @@ $('#top_search').on('hidden.bs.dropdown', '.dropdown', function(){
 
 function lazyImages(){
     $('.lazy_img').each(function(index, el){
-        console.log($(this).data('src') + 'loading');
         var $this = $(this);
         var change = true;
         var old_src = $this.attr('src');
@@ -2048,7 +2039,6 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
 $(function(){
     $('.pre_input').each(function(){
        $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()+10));
-        console.log(($(this).find('.pre').outerWidth()+10),'pre');
     });
     $('.char_count').each(function(){
         var f = $(this).parent().find('input, textarea');

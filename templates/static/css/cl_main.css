@@ -1,5 +1,5 @@
 body {
-  background-color: #fafafa;
+  background-color: #f9f9f9;
   overflow-x: hidden;
   font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -13,7 +13,7 @@ a:hover, a:focus{
 }
 
 .fa{
-  /*! line-height: 1.42857143; */
+  line-height: 1.42857143;
 }
 
 h5{
