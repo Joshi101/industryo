@@ -433,7 +433,7 @@ img{
 }
 
 #login input{
-  text-align: center;
+  /*! text-align: center; */
 }
 
 .cover_form input{
@@ -1008,15 +1008,21 @@ pre {
 .wide_container{
   margin: auto;
 }
-.mid_wide{
-  max-width: 640px;
+.wide_32,.wide_40,.wide_48,.wide_64{
   margin: auto;
   vertical-align: top;
 }
-.slim_wide{
+.wide_64{
+  max-width: 640px;
+}
+.wide_48{
+  max-width: 480px;
+}
+.wide_40{
+  max-width: 400px;
+}
+.wide_32{
   max-width: 320px;
-  margin: auto;
-  vertical-align: top;
 }
 .feed .feed_box_body {
   position: relative;
@@ -4136,7 +4142,7 @@ input.not_wide{
   position: relative;
 }
 
-.slim_wide .new_form .form-group{
+.new_form.compact .form-group{
   margin-bottom: 20px;
 }
 
@@ -4274,7 +4280,7 @@ input.not_wide{
 
 .new_form .errorlist{
   list-style: none;
-  padding: 5px;
+  margin-top: 5px;
 }
 
 .dash_card{

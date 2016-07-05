@@ -6,6 +6,8 @@ body {
 
 h1{
   margin-bottom: 40px;
+  font-weight: 300;
+  font-family: 'Open Sans';
 }
 
 ul {
