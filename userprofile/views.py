@@ -226,16 +226,11 @@ def search_person(request):                  # for searching the workplace
         return render(request, 'tags/list_ppl.html')
 
 
-# def set_area(request):
-#     form = SetSkillsForm(request.POST)
-#     if request.method == 'POST':
-#         if not form.is_valid():
-#             return redirect('/')
-#         else:
-#             user = request.user
-#             up = user.userprofile
-#             area = form.cleaned_data.get('area')
-#             up.set_area(area)
-#             return redirect('/user/'+user.username)
-#     else:
-#         return render(request, 'userprofile/set_interests.html', {'form': form})
+# def make_list(request):
+#     ups = UserProfile.objects.filter(primary_workplace__workplace_type__in=['A', 'B'])
+#     for u in ups:
+#         tags = u.primary_workplace.tags.all()
+#         li = []
+#         for t in tags:
+#             li.append(t.id)
+

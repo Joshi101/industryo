@@ -384,4 +384,8 @@ def delete_node_image(request):
     question = Node.objects.get(id=nid)
     question.images.remove(image)
 
+
+# def set_back_tags(request):
+#     users = Us
+
 # Create your views here.
