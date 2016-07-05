@@ -1,5 +1,5 @@
 from django import forms
-from nodes.models import Images
+from nodes.models import Images, Document
 from tags.models import Tags
 
 
@@ -58,5 +58,11 @@ class SetProductImage(forms.ModelForm):
         fields = ['image']
 
 
+class UploadDocForm(forms.ModelForm):
+    doc = forms.FileField(required=True)
 
+    class Meta:
+        model = Document
+        exclude = ['user', 'date', 'name']
+        fields = ['doc']
 

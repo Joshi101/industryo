@@ -38,6 +38,22 @@ class Images(models.Model):
         return i
 
 
+class Document(models.Model):
+    name = models.CharField(max_length=100)
+    doc = models.FileField(upload_to='docs')
+    date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User)
+
+    def __str__(self):
+        return str(self.id)
+
+    def upload_doc(self, doc, user):
+        if len(doc.name) > 30:
+            doc.name = doc.name[:20]
+        d = Document.objects.create(doc=doc, user=user, name=doc.name)
+        return d
+
+
 class FeedManager(models.Manager):
     def get_queryset(self):
         return super(FeedManager, self).get_queryset().\
