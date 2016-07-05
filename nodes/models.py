@@ -88,7 +88,7 @@ class Node(models.Model):
 
     hits = models.IntegerField(default=0, null=True, blank=True)
 
-    back_tags = models.ManyToManyField(Tags, related_name='back_tags', null=True, blank=True)
+    # back_tags = models.ManyToManyField(Tags, related_name='back_tags', null=True, blank=True)
 
     objects = models.Manager()
     feed = FeedManager()
