@@ -79,7 +79,7 @@ class MailSend(models.Model):
             m = MailSend.objects.filter(date__range=[start_time, end_time], from_email=type)
             if len(m) > 7:
                 # t = t + timedelta(minutes=3)
-                nt = MailSend.objecs.last().date
+                nt = MailSend.objects.last().date
                 self.date = nt + timedelta(minutes=1)
                 z = MailSend.objects.filter(date__range=[t-timedelta(minutes=30), t+timedelta(minutes=120)], from_email='4')
                 if len(z) > 10:

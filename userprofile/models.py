@@ -39,6 +39,9 @@ class UserProfile(models.Model):
     product_email = models.EmailField(null=True, blank=True)
     product_phone = models.CharField(max_length=25, null=True, blank=True)
 
+    tag_list = models.CharField(max_length=244, null=True, blank=True)
+    # back_tags = models.ManyToManyField(Tags, related_name='back_tags', null=True, blank=True)
+
     class Meta:
         db_table = 'userprofile'
 
