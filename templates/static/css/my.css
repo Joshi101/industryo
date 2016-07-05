@@ -357,7 +357,7 @@ img{
 }
 
 .cover_form .form-control{
-  max-width: 230px;
+  /*! max-width: 230px; */
 }
 
 @media (max-width: 768px){
@@ -441,8 +441,8 @@ img{
 }
 
 #signup label{
-  position: absolute;
-  padding-left: 25px;
+  /*! position: absolute; */
+  /*! padding-left: 25px; */
 }
 
 .login_modal .socialaccount_providers li, #login .socialaccount_providers li{
@@ -1485,7 +1485,7 @@ footer .connect ul{
 }
 
 footer .connect li{
-  display: inline-block;
+  /*! display: inline-block; */
 }
 /*profile page*/
 
@@ -2122,6 +2122,7 @@ footer h3{
   padding-bottom: 7px;
   color:#ccc;
   border-bottom: 1px solid #666;
+  line-height: 1.42857143;
 }
 
 footer .connect i{
@@ -4125,7 +4126,7 @@ input.not_wide{
 
 .new_form{
   margin: auto;
-  max-width: 900px;
+  /*! max-width: 900px; */
   padding: 0 10px;
   /*! background-color: #fff; */
 }
@@ -4133,6 +4134,10 @@ input.not_wide{
 .new_form .form-group{
   margin-bottom: 30px;
   position: relative;
+}
+
+.slim_wide .new_form .form-group{
+  margin-bottom: 20px;
 }
 
 .new_form label{
@@ -4265,6 +4270,11 @@ input.not_wide{
   position: absolute;
   right: 0;
   color: #777;
+}
+
+.new_form .errorlist{
+  list-style: none;
+  padding: 5px;
 }
 
 .dash_card{
@@ -4621,7 +4631,7 @@ input.not_wide{
 }
 
 .tile{
-  padding: 15px;
+  padding: 25px 25px;
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
   margin-bottom: 5px;

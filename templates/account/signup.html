@@ -10,40 +10,44 @@
 {% block page %}pg_signup{% endblock page %}
 
 {% block body %}
-  <div id="cover" class="container">
-    <div id="signup" class="center-block cover_form w_650">
-      <h3 class="text-center"><span>Create a new account</span></h3>
-      <form class="" method="POST" action="{% url 'account_signup' %}" role='form'>
-          {% csrf_token %}
-          <div>{{form.non_field_errors}}</div>
-          <div class="form-group">
-            <label class="control-label">Username:</label>
-            <input id="id_username" class="form-control" type="text" placeholder="Keep it unique ..!" name="username" maxlength="30" autofocus="autofocus">
-            <div><span class="text-danger">{{form.username.errors}}</span></div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">Email:</label>
-            <input id="id_email" class="form-control" type="email" placeholder="Keep it genuine ..!" name="email">
-            <div><span class="text-danger">{{form.email.errors}}</span></div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">Password:</label>
-            <input id="id_password1" class="form-control" type="password" placeholder="Keep it strong ..!" name="password1">
-            <div><span class="text-danger">{{form.password1.errors}}</span></div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">Confirm Password:</label>
-            <input id="id_password2" class="form-control" type="password" placeholder="Keep it same ..!" name="password2">
-            <div><span class="text-danger">{{form.password2.errors}}</span></div>
-          </div>
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
-          {% endif %}
-          <div class="form-group text-center">
-            <button class="primaryAction btn btn-primary" type="submit">Register</button>
-          </div>
-          {% csrf_token %}
-        </form>
+  <div class="container">
+    <h1 class="text-center">Create a new account</h1>
+    <div class="row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-6">
+        <div class="tile slim_wide">
+          <form id="signup" class="new_form" method="POST" action="{% url 'account_signup' %}" role='form'>
+            {% csrf_token %}
+            <div>{{form.non_field_errors}}</div>
+            <div class="form-group">
+              <label class="control-label">Username</label>
+              <input id="id_username" class="form-control" type="text" placeholder="Keep it unique ..!" name="username" maxlength="30" autofocus="autofocus">
+              <div><span class="text-danger">{{form.username.errors}}</span></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Email</label>
+              <input id="id_email" class="form-control" type="email" placeholder="Keep it genuine ..!" name="email">
+              <div><span class="text-danger">{{form.email.errors}}</span></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Password</label>
+              <input id="id_password1" class="form-control" type="password" placeholder="Keep it strong ..!" name="password1">
+              <div><span class="text-danger">{{form.password1.errors}}</span></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Confirm Password</label>
+              <input id="id_password2" class="form-control" type="password" placeholder="Keep it same ..!" name="password2">
+              <div><span class="text-danger">{{form.password2.errors}}</span></div>
+            </div>
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" >
+            {% endif %}
+            <div class="text-center">
+              <button class="primaryAction btn btn-primary" type="submit">Register</button>
+            </div>
+            {% csrf_token %}
+          </form>
+        </div>
       </div>
     </div>
   </div>

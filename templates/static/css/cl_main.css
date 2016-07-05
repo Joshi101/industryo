@@ -4,6 +4,10 @@ body {
   font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+h1{
+  margin-bottom: 40px;
+}
+
 ul {
 	padding: 0;
 }
