@@ -872,16 +872,15 @@ def edit_add_product(request, id):
                         dictionary[key] = request.POST[key]
                     except:
                         tb = traceback.format_exc()
-                        print(tb)
                 else:
                     li = []
                     li.append(request.POST.get('category1'))
                     li.append(request.POST.get('category2'))
                     li.append(request.POST.get('category3'))
                     p.set_categories(li)
-                for key in dictionary:
-                    setattr(p, key, dictionary[key])
-                p.save()
+            for key in dictionary:
+                setattr(p, key, dictionary[key])
+            p.save()
             image1 = request.FILES.get('photo', None)
             if image1:
                 i = Images()
