@@ -11,10 +11,10 @@ from workplace.models import Workplace
 
 class Leads(models.Model):
     lead = models.CharField(max_length=244)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000, null=True, blank=True)
     lead_type_o = (('A', 'Product'), ('B', 'Service'), ('D', 'Dashboard'))
-    lead_type = models.CharField(max_length=1, choices=lead_type_o)
-    price_limits = models.CharField(max_length=100)
+    lead_type = models.CharField(max_length=1, choices=lead_type_o, null=True, blank=True)
+    price_limits = models.CharField(max_length=100, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=True)      # True= Open
     slug = models.SlugField(max_length=255)
@@ -22,10 +22,10 @@ class Leads(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     workplace = models.ForeignKey(Workplace, null=True, blank=True)
 
-    name = models.CharField(max_length=30)
-    email = models.CharField(max_length=50)
-    company_name = models.CharField(max_length=30)
-    mobile_number = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, null=True, blank=True)
+    email = models.CharField(max_length=50, null=True, blank=True)
+    company_name = models.CharField(max_length=30, null=True, blank=True)
+    mobile_number = models.CharField(max_length=30, null=True, blank=True)
 
     tags = models.ForeignKey(Tags, null=True, blank=True)
 
@@ -46,6 +46,11 @@ class Leads(models.Model):
 
         super(Leads, self).save(*args, **kwargs)
         return self.id
+
+    def get_image(self):
+        if self.image:
+            image_url = '/images/'+str(self.image.image)
+            return image_url
 
 
 class Reply(models.Model):

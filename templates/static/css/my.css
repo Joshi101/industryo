@@ -4425,6 +4425,7 @@ input.not_wide{
   text-align: center;
   padding: 25px;
   font-size: 16px;
+  display: block;
 }
 
 .image_box a:hover{
@@ -4440,6 +4441,7 @@ input.not_wide{
   font-size: 60px;
   margin-top: 5px;
   margin-bottom: 5px;
+  line-height: 1;
 }
 .image_box img{
   /*! width: 150px; */

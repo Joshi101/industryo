@@ -26,7 +26,7 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="add_prod_form" class="new_form auto_form" role="form" {% if not p %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' p.id %}" {% endif %} method="POST" enctype="multipart/form-data">
+        <form id="add_prod_form" class="new_form auto_form" role="form" {% if not product %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' product.id %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="row">
             <div class="col-sm-8">

@@ -10,16 +10,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def edit_add_lead(request, slug):
     user = request.user
     wp = user.userprofile.primary_workplace
-    workplace = wp
     response = {}
     if slug == 'new':
         if request.method == 'POST':
             if request.POST.get('lead'):
-                p = Leads.objects.create(lead=request.POST['lead'], user=user, producer=wp)
-
+                l = Leads.objects.create(lead=request.POST['lead'], user=user, workplace=wp)
+                response['l_slug'] = l.slug
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            return render(request, 'products/edit.html')
+            return render(request, 'leads/edit.html')
     else:
         l =Leads.objects.get(slug=slug)
         direct = l._meta.get_all_field_names()
@@ -45,6 +44,7 @@ def edit_add_lead(request, slug):
 
             doc1 = request.FILES.get('doc', None)
             if doc1:
+                print('doc aya')
                 d = Document()
                 x = d.upload_doc(doc=doc1, user=user)
                 l.doc = x
@@ -52,7 +52,8 @@ def edit_add_lead(request, slug):
             response['l_id'] = l.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            return render(request, 'products/edit.html', l.__dict__)
+            dictionary = {'lead': l, 'first_time': True}
+            return render(request, 'leads/edit.html', dict(list(l.__dict__.items()) + list(dictionary.items())))
 
 
 def leads(request):
@@ -77,7 +78,7 @@ def leads(request):
 
 
 def get_lead(request, slug):
-    lead = Leads.object.get(slug=slug)
+    lead = Leads.objects.get(slug=slug)
     return render(request, 'leads/lead.html', locals())
 
 
@@ -94,9 +95,4 @@ def reply_lead(request):
         id = request.POST.get('id')
         lead = Leads.objects.get(id=id)
     return HttpResponse
-
-
-
-
-
 

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Leads | CoreLogs{% endblock title %}
+
+{% block meta_description %}Leads{% endblock meta_description %}
+
+{% block page_id %}leads{% endblock page_id %}
+
+{% block body %}
+	<div class="container">
+		<h1><a href="{% url 'leads:edit_add' 'new' %}">Add a Lead</a></h1>
+		{% for a in result_list %}
+			{% include 'leads/one_lead.html' with lead=a %}
+		{% endfor %}
+	</div>
+
+	<script type="text/javascript">
+		$('#top_nav_leads').addClass('current');
+	</script>
+{% endblock %}

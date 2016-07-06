@@ -11,7 +11,7 @@
   <meta property="og:site_name" content="CoreLogs">
   <meta property="og:title" content="{% block meta_og_title %}CoreLogs, Platform for SMEs{% endblock %}">
   <meta name="description" content="{% block meta_og_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_og_description %}">
-  <meta property="og:url" content="http://www.corelogs.com{{ request.path }}">
+  <meta property="og:url" content="{% block meta_og_url %}http://www.corelogs.com{{ request.path }}{% endblock %}">
   <meta property="og:type" content="{% block meta_og_type %}website{% endblock meta_og_type %}">
   {% block meta_og_type_extra %}
   {% endblock meta_og_type_extra %}
