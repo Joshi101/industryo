@@ -12,7 +12,7 @@ from workplace.models import Workplace
 class Leads(models.Model):
     lead = models.CharField(max_length=244)
     description = models.CharField(max_length=1000)
-    lead_type_o = (('A', 'Product'), ('B', 'Service'), ('D', 'Dashboard'))
+    lead_type_o = (('A', 'Product'), ('B', 'Service'))
     lead_type = models.CharField(max_length=1, choices=lead_type_o)
     price_limits = models.CharField(max_length=100)
     date = models.DateTimeField(auto_now_add=True)
