@@ -2186,3 +2186,49 @@ $('body').on('mouseenter', '.hover_a_container', function(){
 $('body').on('mouseleave', '.hover_a_container', function(){
     $(this).find('.hovering_a').css('display', 'none');
 });
+
+$('.form_eric').find('input, textarea').on('keyup blur focus', function (e) {
+    var $this = $(this),
+    label = $this.prev('label');
+    if (e.type === 'blur') {
+      if( $this.val() === '' ) {
+        label.removeClass('active highlight'); 
+      } else {
+        label.removeClass('highlight');   
+      }   
+    } else if (e.type === 'focus') {
+        label.addClass('active highlight');
+    }
+});
+
+$('.form_eric').find('input, textarea').each(function(index, el) {
+    var $this = $(this),
+    label = $this.prev('label');
+    if( $this.val() !== '' )
+        label.addClass('active');
+});
+
+$('body').on('change','.s_validate',function(){
+    var $this = $(this);
+    console.log('wuhh')
+    $this.on('blur',function(){
+        console.log($this.val());
+        name = $this.attr('name');
+        val = $this.val();
+        $.ajax({
+            url: $this.data('url'),
+            type: 'POST',
+            data: {data: val},
+
+            success: function(response) {
+                console.log(response)
+                
+            },
+
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg, err);
+            }
+        });
+        $this.off('blur');
+    });
+});

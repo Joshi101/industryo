@@ -1,0 +1,139 @@
+.form_eric {
+  padding: 40px;
+  margin: auto;
+  margin-bottom: 5px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.form_eric .nav-pills {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  box-shadow: 0 0 0;
+}
+
+.form_eric .nav-pills li{
+  width: 50%;
+  text-align: center;
+}
+
+.form_eric .nav-pills > li + li{
+  margin-left: 0;
+}
+
+.form_eric .nav-pills li a {
+  padding: 15px;
+  background: rgba(160, 179, 176, 0.15);
+  color: #777;
+  font-size: 20px;
+  -webkit-transition: .5s ease;
+  transition: .5s ease;
+}
+.form_eric .nav-pills li a:hover {
+  background: #197;
+  color: #fff;
+}
+.form_eric .nav-pills .active a {
+  background: #1ab188;
+  color: #fff;
+}
+
+.form_eric h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 0px;
+}
+
+.form_eric label {
+  position: absolute;
+  -webkit-transform: translateY(6px);
+          transform: translateY(6px);
+  left: 13px;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+  font-size: 22px;
+  font-weight: 300;
+  color: #999;
+}
+.form_eric label .req {
+  margin: 2px;
+  color: #1ab188;
+}
+
+.form_eric label.active {
+  -webkit-transform: translateY(50px);
+          transform: translateY(-27px);
+  left: 2px;
+  font-size: 14px;
+}
+.form_eric label.active .req {
+  opacity: 0;
+}
+
+.form_eric label.highlight {
+  color: #333;
+}
+
+.form_eric input, textarea {
+  font-size: 22px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  border: 1px solid #a0b3b0;
+  border-radius: 0;
+  -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+.form_eric input:focus, textarea:focus {
+  outline: 0;
+  border-color: #197;
+}
+
+.form_eric textarea {
+  border: 2px solid #a0b3b0;
+  resize: vertical;
+}
+
+.form_eric .form-group {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.form_eric .button {
+  display: block;
+  border: 0;
+  outline: none;
+  border-radius: 0;
+  padding: 15px 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+}
+.button:hover, .button:focus {
+  background: #179b77;
+}
+
+.button-block {
+  width: 100%;
+}
+
+.form_eric .forgot {
+  margin-top: -25px;
+  text-align: right;
+}          
+
+.form_eric .errorlist{
+  margin: 7px 0;
+  list-style: none;
+  color: #a94442;
+  padding-left: 10px;
+}

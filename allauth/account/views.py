@@ -6,7 +6,7 @@ from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
-from django.shortcuts import redirect
+from django.shortcuts import redirect, HttpResponse
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
 
@@ -26,6 +26,7 @@ from . import signals
 from . import app_settings
 
 from .adapter import get_adapter
+import json
 
 
 sensitive_post_parameters_m = method_decorator(
@@ -658,3 +659,21 @@ class EmailVerificationSentView(TemplateView):
     template_name = 'account/verification_sent.html'
 
 email_verification_sent = EmailVerificationSentView.as_view()
+
+
+# new
+
+
+def check_email(request):
+    if request.method == 'POST':
+        response = {}
+        e = request.POST.get('data')
+        print(e)
+        try:
+            dup = EmailAddress.objects.get(email=e)
+            print(dup.email)
+            response['valid'] = False
+        except EmailAddress.DoesNotExist:
+            response['valid'] = True
+            print('valid')
+        return HttpResponse(json.dumps(response), content_type="application/json")
