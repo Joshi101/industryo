@@ -8,10 +8,12 @@
 
 {% block body %}
 	<div class="container">
-		<h1><a href="{% url 'leads:edit_add' 'new' %}">Add a Lead</a></h1>
+		<h1 class="center-block text-center"><a class="btn btn-success" href="{% url 'leads:edit_add' 'new' %}">Add a Lead</a></h1>
+		<div class="wide_64">
 		{% for a in result_list %}
 			{% include 'leads/one_lead.html' with lead=a %}
 		{% endfor %}
+		</div>
 	</div>
 
 	<script type="text/javascript">

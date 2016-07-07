@@ -32,6 +32,7 @@
       </div>
       <div class="col-md-8">
         <form id="add_lead_form" class="form_card auto_form" role="form" {% if not lead %} action="{% url 'leads:edit_add' 'new' %}" {% else %} action="{% url 'leads:edit_add' lead.slug %}" {% endif %} method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <div class="form-group">
             <label for="lead_title">Title</label>
@@ -56,6 +57,10 @@
               <label class="radio-inline"><input type="radio" value='A' name="lead_type">Product</label>
               <label class="radio-inline"><input type="radio" value='B' name="lead_type">Service</label>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="lead_location">Tag Cities</label>
+            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
           </div>
           <div class="form-group">
             <div class="image_box">
@@ -84,7 +89,7 @@
             </div>
           </div>
           <div class="col-submit">
-            <button class="submitbtn">Submit Lead</button>
+            <a class="submitbtn" href="{% url 'leads:leads' %}">Submit Lead</a>
           </div>
         </form>
       </div>

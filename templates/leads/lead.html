@@ -13,11 +13,11 @@
 
 {% block meta_description %}{{ lead.description|truncatewords:25 }}{% endblock meta_description %}
 
-{% block page_id %}article_pg{% endblock page_id %}
+{% block page_id %}lead_pg{% endblock page_id %}
 
 {% block body %}
 <div class="container">
-	<div class="tile">
+	<div class="tile_flat wide_64">
 		<div>{{lead}}</div>
 		<a href="{% url 'leads:reply' %}">Reply</a>
 	</div>
