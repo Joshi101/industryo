@@ -26,13 +26,25 @@
 {% block body %}
 <div class="container">
   <div class="wide_80">
-    <div class="switch_open">
-      <span class="text">Lead Open</span>
-      <input type="checkbox" class="js-switch" checked disabled> 
-    </div>
   	<div class="form_card">
       <div class="form-group">
-        <h1 class="data">{{lead}}</h1>
+        <div class="row">
+          <div class="col-sm-9">
+            <h1 class="data">{{lead}}</h1>
+          </div>
+          <div class="col-sm-3">
+            <div class="switch_open">
+              {% if request.user == lead.user %}
+              <form class="auto_form" method="POST" action="{% url 'leads:close' %}">
+              <input type="checkbox" class="js-switch" checked>
+              </form>
+              {% else %}
+
+              {% endif %}
+              <span class="text">( Open for Quotations )</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <div class="data_title">Description</div>
@@ -42,11 +54,67 @@
         <a class="submitbtn" href="{% url 'leads:reply' %}">Respond to the Lead</a>
       </div>
   	</div>
+    <form id="quotation_form" class="form_card" role="form" action="{% url 'leads:reply' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{{lead.id}}">
+      <div class="form-group">
+        <label for="lead_title">Title</label>
+        <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead">
+      </div>
+      <div class="form-group">
+        <label for="lead_description">Description</label>
+        <textarea class="textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{about|default:''}}</textarea>
+        <span class="char_count">1000</span>
+      </div>
+      <!-- <div class="form-group">
+        <label>Availability</label>
+        <select>
+          <option selected="selected">5-15 hrs per week</option>
+          <option>15-30 hrs per week</option>
+          <option>30-40 hrs per week</option>
+        </select>
+      </div> -->
+      <div class="form-group">
+        <label for="lead_type">Type of Lead</label>
+        <div id="lead_type" class="radio_group">
+          <label class="radio-inline"><input type="radio" value='A' name="lead_type">Product</label>
+          <label class="radio-inline"><input type="radio" value='B' name="lead_type">Service</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lead_location">Tag Cities</label>
+        {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+      </div>
+      <div class="form-group">
+        <label for="lead_location">Other Tags</label>
+        {% include "snippets/d_search_tags.html" with search="tag" tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+      </div>
+      <div class="form-group">
+        <div class="image_box">
+          <div class="img_pre">
+            {% if lead.doc %}
+            <img id="lead_doc" class="img_pre" src="{{lead.get_image}}" alt="{{lead}}">
+            {% else %}
+            <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add Specifications File (optional)</span></a>
+            {% endif %}
+          </div>
+          <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
+          <input id="lead_doc_btn" class="hidden" type="file" name="doc" value="" placeholder="">
+        </div>
+      </div>
+      <div class="col-submit">
+        <button class="submitbtn" href="{% url 'leads:leads' %}">Submit Quotation</button>
+      </div>
+    </form>
   </div>
 </div>
 <script type="text/javascript" src={% static 'js/switchery.js' %}></script>
 <script type="text/javascript">
-  var elem = document.querySelector('.js-switch');
-  var init = new Switchery(elem, { disabledOpacity: 0.8 });;
+  
+  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+  elems.forEach(function(html) {
+    var switchery = new Switchery(html, { disabledOpacity: 0.8 });
+  });
 </script>
 {% endblock body %}

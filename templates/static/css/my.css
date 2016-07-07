@@ -4656,16 +4656,18 @@ input.not_wide{
 }
 
 .switch_open{
-  margin: 0 30px;
   text-align: right;
-  margin-top: 10px;
+}
+
+@media(max-width:768px){
+    .switch_open{
+    text-align: center;
+  }
 }
 
 .switch_open .text{
-  vertical-align: middle;
-  display: inline-block;
-  font-size: 20px;
-  height: 32px;
-  color: #777;
-  padding: 0 10px;
+  display: block;
+  font-size: 14px;
+  color: #999;
+  padding-top: 3px;
 }

@@ -91,8 +91,14 @@ def get_lead(request, slug):
 def close_lead(request):
     id = request.POST.get('id')
     lead = Leads.objects.get(id=id)
-    lead.status = False
-    lead.save()
+    print(id)
+    if request.user == lead.user:
+        if lead.status:
+            lead.status = False
+            lead.save()
+        else:
+            lead.status = True
+            lead.save()
     return HttpResponse
 
 
