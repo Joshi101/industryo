@@ -2046,7 +2046,7 @@ $(function(){
     });
 });
 
-$('.new_form').on('keyup', '.count_field', function(){
+$('form').on('keyup', '.count_field', function(){
     var c = $(this).val().length;
     var max = $(this).attr('maxlength');
     $(this).parent().find('.char_count').text(max-c);
@@ -2065,11 +2065,8 @@ function autoSubmitReady($this){
         imageUpload($this);
     }
     else {
-        $this.on('blur', function(){
-            var $this = $(this);
-            customValidate($this);
-            autoSubmit($this,$this.data('response'));
-        });
+        customValidate($this);
+        autoSubmit($this,$this.data('response'));
     }
 }
 
@@ -2096,9 +2093,10 @@ function autoSubmit($this, data_response){
 
         success: function(response) {
             autoSubmitDone($field);
-            console.log(data_response)
-            if (data_response)
+            if (data_response){
+                console.log(data_response)
                 window[data_response]($field, response);
+            }
         },
 
         error: function(xhr, errmsg, err) {
@@ -2116,13 +2114,11 @@ function autoSubmitShow($field){
 }
 
 function autoSubmitDone($field){
-    $field.find('.saving').addClass('hide');
-    $field.find('input, textarea').off('blur');
+    /*$field.find('.saving').addClass('hide');*/
 }
 
 function autoSubmitFailed($field){
     $field.find('.saving').addClass('hide');
-    $field.find('input, textarea').off('blur');
 }
 
 function productCreated($field,response){
@@ -2213,11 +2209,20 @@ $('.form_eric').find('input, textarea').each(function(index, el) {
         label.addClass('active');
 });
 
+$('.form_card').find('input, textarea').on('blur focus', function (e) {
+    var $this = $(this),
+    fg = $this.closest('.form-group');
+    if (e.type === 'focus') {
+        fg.addClass('active');
+    } else {
+        fg.removeClass('active');
+    }
+});
+
 $('body').on('change','.s_validate',function(){
     var $this = $(this);
     var fg = $this.closest('.form-group');
     fg.find('.validating').removeClass('hide');
-    console.log('wuhh')
     $this.on('blur',function(){
         console.log($this.val());
         name = $this.attr('name');
@@ -2230,13 +2235,17 @@ $('body').on('change','.s_validate',function(){
             success: function(response) {
                 console.log(response.valid);
                 fg.find('.validating').addClass('hide');
-                if (response.valid) {
+                if (!response.valid) {
                     fg.removeClass('invalid');
                     fg.addClass('valid');
                 }
-                else{
+                else if (response.valid == 1){
                     fg.removeClass('valid');
                     fg.addClass('invalid');
+                }
+                else if (response.valid == 2){
+                    fg.removeClass('valid');
+                    fg.removeClass('invalid');
                 }
             },
 

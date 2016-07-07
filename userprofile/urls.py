@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^check_email/$', 'userprofile.views.check_email', name='check_email'),
     url(r"^check_username/$", 'userprofile.views.check_username', name="check_username"),
     url(r'^(?P<username>[^/]+)/$', 'userprofile.views.profile', name='profile'),
+
 )

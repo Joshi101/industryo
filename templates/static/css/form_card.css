@@ -1,0 +1,182 @@
+br { display: block; line-height: 1.6em; } 
+
+/** form field **/
+.form_card {
+  display: block;
+  margin: 30px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+}
+
+.form_card .form-group {
+  position: relative;
+  display: block;
+  padding: 20px 20px 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 0;
+}
+.form_card .form-group.active{
+  box-shadow: 0px 0px 0px 1px rgb(17, 153, 119) inset;
+}
+
+.form_card label{
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.form_card input, .form_card textarea, .form_card select{
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 37px;
+  line-height: 27px;
+  margin: 0 -5px;
+  padding: 7px 5px 3px;
+  border: none;
+  outline: none;
+  color: #777;
+  font-family: 'Titillium Web', Arial, sans-serif;
+  
+  font-size: 16px;
+  
+  transition: all linear .3s;
+}
+
+.form_card select {
+  width: auto;
+  padding: 0;
+  color: #555;
+  margin: 5px 0;
+  background: transparent;
+  border: 1px solid #eee;
+  height: 27px;
+}
+
+
+.form_card .radio_group{
+  padding: 7px 5px 3px;
+  margin: 0 -5px;
+  border-color: #8AA5C8;
+  /*! box-shadow: 0 0 0 1px #8AA5C8; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form_card .radio-inline{
+  font-family: 'Titillium Web';
+  margin-left: 0;
+  margin-right: 5%;
+  color: #777;
+  font-weight: 500;
+  /*! width: 22%; */
+  vertical-align: top;
+  /*! margin-bottom: 10px; */
+  /*! flex: 1; */
+  /*! flex-wrap: wrap; */
+  /*! flex-grow: 1; */
+  line-height: 27px;
+}
+
+.form_card .radio_group input{
+  width: auto;
+  height: 27px;
+}
+
+.form_card input:focus, .form_card select:focus {
+  opacity: 1;
+}
+
+.form_card .image_box{
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.form_card .saving{
+  position: absolute;
+  right: 10px;
+  color: #777;
+}
+
+.form_card .row{
+  margin: 0;
+}
+
+.form_card .col-sm-6, .form_card .col-sm-4, .form_card .col-sm-3{
+  padding: 0;
+}
+
+.form_card .count_field{
+  padding-bottom: 35px;
+}
+
+.form_card .char_count{
+  display: block;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;;
+  color: #aaa;
+}
+
+.form_card .char_count:after{
+  content: ' characters left';5
+}
+/** button design based on http://codepen.io/guvootes/pen/eyDAb **/
+
+.col-submit {
+  text-align: center;
+  padding: 20px;
+}
+
+.submitbtn {
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 0 15px 0;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  overflow: hidden;
+  outline: none;
+}
+
+button.submitbtn {
+  background-image: -moz-linear-gradient(#97c16b, #8ab959);
+  background-image: -webkit-linear-gradient(#97c16b, #8ab959);
+  background-image: linear-gradient(#97c16b, #8ab959);
+  border-bottom: 1px solid #648c3a;
+  cursor: pointer;
+  color: #fff;
+}
+button.submitbtn:hover {
+  background-image: -moz-linear-gradient(#8ab959, #7eaf4a);
+  background-image: -webkit-linear-gradient(#8ab959, #7eaf4a);
+  background-image: linear-gradient(#8ab959, #7eaf4a);
+}
+button.submitbtn:active {
+  height: 34px;
+  border-bottom: 0;
+  margin: 1px 0 0 0;
+  background-image: -moz-linear-gradient(#7eaf4a, #8ab959);
+  background-image: -webkit-linear-gradient(#7eaf4a, #8ab959);
+  background-image: linear-gradient(#7eaf4a, #8ab959);
+  -moz-box-shadow: inset 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+}
+
+/** responsive design **/
+@media(min-width: 768px){
+  .col-submit { display: block; }
+  
+  .form_card .form-group { box-shadow: 1px 1px #e4e4e4; border: none; }
+  
+  .col-submit button { width: 30%; margin: 0 auto; }
+}
