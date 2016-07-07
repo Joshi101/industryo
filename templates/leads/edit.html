@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% load filter %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
+{% endblock head_css %}
 
 {% block title %}Add a Lead | CoreLogs{% endblock title %}
 
@@ -26,68 +31,60 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <form id="add_lead_form" class="new_form auto_form" role="form" {% if not lead %} action="{% url 'leads:edit_add' 'new' %}" {% else %} action="{% url 'leads:edit_add' lead.slug %}" {% endif %} method="POST" enctype="multipart/form-data">
+        <form id="add_lead_form" class="form_card auto_form" role="form" {% if not lead %} action="{% url 'leads:edit_add' 'new' %}" {% else %} action="{% url 'leads:edit_add' lead.slug %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="form-group">
-                <div class="form-group pre_input">
-                    <label for="lead_title">Lead Title</label><span class="help">Fill this first</span>
-                    <input class="form-control" id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead">
-                    <!-- <span class="char_count">100</span> -->
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="lead_type">Type of Lead</label>
-                <div id="lead_type" class="radio_group">
-                  <label class="radio-inline"><input type="radio" value='A' name="lead_type">Product</label>
-                  <label class="radio-inline"><input type="radio" value='B' name="lead_type">Service</label>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="image_box">
-                <div class="img_pre">
-                  {% if lead.get_image %}
-                  <img id="lead_image" class="img_pre" src="{{lead.get_image}}" alt="{{lead}}">
-                  {% else %}
-                  <a class="fake_btn" data-btn="#lead_image_btn"><span class="fa fa-plus"></span><span>Add Image</span></a>
-                  {% endif %}
-                </div>
-                <a class="fake_btn hover_btn" data-btn="#lead_image_btn"><span class="fa fa-plus"></span><span>Change Image</span></a>
-                <input id="lead_image_btn" class="hidden" type="file" name="photo" value="" placeholder="">
-              </div>
+          <div class="form-group">
+            <label for="lead_title">Title</label>
+            <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead">
+          </div>
+          <div class="form-group">
+            <label for="lead_description">Description</label>
+            <textarea class="textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{about|default:''}}</textarea>
+            <span class="char_count">1000</span>
+          </div>
+          <!-- <div class="form-group">
+            <label>Availability</label>
+            <select>
+              <option selected="selected">5-15 hrs per week</option>
+              <option>15-30 hrs per week</option>
+              <option>30-40 hrs per week</option>
+            </select>
+          </div> -->
+          <div class="form-group">
+            <label for="lead_type">Type of Lead</label>
+            <div id="lead_type" class="radio_group">
+              <label class="radio-inline"><input type="radio" value='A' name="lead_type">Product</label>
+              <label class="radio-inline"><input type="radio" value='B' name="lead_type">Service</label>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="form-group">
-                <label for="lead_description">Description</label>
-                <!--
-                <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
-                <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
-                -->
-                <textarea class="form-control textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{about|default:''}}</textarea>
-                <span class="char_count">1000</span>
+          <div class="form-group">
+            <div class="image_box">
+              <div class="img_pre">
+                {% if lead.get_image %}
+                <img id="lead_image" class="img_pre" src="{{lead.get_image}}" alt="{{lead}}">
+                {% else %}
+                <a class="fake_btn" data-btn="#lead_image_btn"><span class="fa fa-plus"></span><span>Add Image</span></a>
+                {% endif %}
               </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="image_box">
-                <div class="img_pre">
-                  {% if lead.doc %}
-                  <img id="lead_doc" class="img_pre" src="{{lead.get_image}}" alt="{{lead}}">
-                  {% else %}
-                  <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add File</span></a>
-                  {% endif %}
-                </div>
-                <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
-                <input id="lead_doc_btn" class="hidden" type="file" name="doc" value="" placeholder="">
-              </div>
+              <a class="fake_btn hover_btn" data-btn="#lead_image_btn"><span class="fa fa-plus"></span><span>Change Image</span></a>
+              <input id="lead_image_btn" class="hidden" type="file" name="photo" value="" placeholder="">
             </div>
           </div>
-          <div class="form-group text-center">
-            {% csrf_token %}
-            <a href="{% url 'leads:leads' %}" class="btn btn-info btn-lg">Continue</a>
+          <div class="form-group">
+            <div class="image_box">
+              <div class="img_pre">
+                {% if lead.doc %}
+                <img id="lead_doc" class="img_pre" src="{{lead.get_image}}" alt="{{lead}}">
+                {% else %}
+                <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add Specifications File (optional)</span></a>
+                {% endif %}
+              </div>
+              <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
+              <input id="lead_doc_btn" class="hidden" type="file" name="doc" value="" placeholder="">
+            </div>
+          </div>
+          <div class="col-submit">
+            <button class="submitbtn">Submit Lead</button>
           </div>
         </form>
       </div>

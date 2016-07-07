@@ -16,36 +16,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from allauth.socialaccount.models import SocialAccount
 
 
-def check_email(request):
-    print('enie')
-    if request.method == 'POST':
-        response = {}
-        e = request.POST.get('data')
-        print(e)
-        try:
-            dup = User.objects.get(email=e)
-            print(dup.email)
-            response['valid'] = False
-        except EmailAddress.DoesNotExist:
-            response['valid'] = True
-            print('valid')
-        return HttpResponse(json.dumps(response), content_type="application/json")
-
-
-def check_username(request):
-    if request.method == 'POST':
-        response = {}
-        e = request.POST.get('data')
-        print(e)
-        try:
-            dup = User.objects.get(username=e)
-            print(dup.username)
-            response['valid'] = False
-        except EmailAddress.DoesNotExist:
-            response['valid'] = True
-            print('valid')
-        return HttpResponse(json.dumps(response), content_type="application/json")
-
 def profile(request, username):
     page_user = User.objects.get(username=username)
     name = page_user.get_full_name()
@@ -263,3 +233,34 @@ def search_person(request):                  # for searching the workplace
 #         li = []
 #         for t in tags:
 #             li.append(t.id)
+
+def check_email(request):
+    if request.method == 'POST':
+        response = {}
+        data = request.POST.get('data')
+        e = data.strip()
+        if e == '':
+            response['valid'] = 2
+        else:
+            try:
+                dup = User.objects.get(email=e)
+                response['valid'] = 1
+            except User.DoesNotExist:
+                response['valid'] = 0
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def check_username(request):
+    if request.method == 'POST':
+        response = {}
+        data = request.POST.get('data')
+        e = data.strip()
+        if e == '':
+            response['valid'] = 2
+        else:
+            try:
+                dup = User.objects.get(username=e)
+                response['valid'] = 1
+            except User.DoesNotExist:
+                response['valid'] = 0
+        return HttpResponse(json.dumps(response), content_type="application/json")

@@ -132,6 +132,14 @@
   text-align: right;
 }          
 
+.form_eric .fa{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 22px;
+  color: #ccc;
+}
+
 .form_eric .errorlist{
   margin: 7px 0;
   list-style: none;
@@ -148,27 +156,29 @@
   box-shadow: 0 0 0 1px #5cb85c;
 }
 
-.form_eric .valid .valid_msg{
-  display: block;
-}
-
 .form_eric .invalid input, .form_eric .invalid textarea{
   border-color: #c9302c;
   box-shadow: 0 0 0 1px #c9302c;
 }
 
-.form_eric .valid_msg{
+.form_eric .valid_msg, .form_eric .invalid_msg{
   display: none;
 }
 
-.form_eric .valid .valid_msg{
+.form_eric .valid .valid_msg, .form_eric .invalid .invalid_msg{
   display: block;
 }
 
-.form_eric .fa{
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 22px;
-  color: #ccc;
+.form_eric .invalid .invalid_msg span{
+  color: #c9302c;
+}
+
+.form_eric .valid .valid_msg span{
+  color: #5cb85c;
+}
+
+.form_eric .msg{
+  display: block;
+  text-align: right;
+  padding-top: 5px;
 }
