@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 
-  {% block meta_og_title %}{{ lead }}{% endblock %}
-  {% block meta_og_url %}http://www.corelogs.com{{ request.path }}{% endblock %}
-  {% block meta_og_type %}website{% endblock meta_og_type %}
-  {% for image in lead.get_images %}
-  	{% block meta_og_image %}/images/{{image.image}}{% endblock %}
-  {% endfor %}
+{% load staticfiles %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
+  <link rel="stylesheet" href={% static 'css/switchery.css' %}>
+{% endblock head_css %}
+
+
+{% block meta_og_title %}{{ lead }}{% endblock %}
+{% block meta_og_url %}http://www.corelogs.com{{ request.path }}{% endblock %}
+{% block meta_og_type %}website{% endblock meta_og_type %}
+{% for image in lead.get_images %}
+	{% block meta_og_image %}/images/{{image.image}}{% endblock %}
+{% endfor %}
 
 {% load filter %}
 
@@ -17,9 +25,28 @@
 
 {% block body %}
 <div class="container">
-	<div class="tile_flat wide_64">
-		<div>{{lead}}</div>
-		<a href="{% url 'leads:reply' %}">Reply</a>
-	</div>
+  <div class="wide_80">
+    <div class="switch_open">
+      <span class="text">Lead Open</span>
+      <input type="checkbox" class="js-switch" checked disabled> 
+    </div>
+  	<div class="form_card">
+      <div class="form-group">
+        <h1 class="data">{{lead}}</h1>
+      </div>
+      <div class="form-group">
+        <div class="data_title">Description</div>
+        <p class="data">{{lead.description}}</p>
+      </div>
+      <div class="col-submit">
+        <a class="submitbtn" href="{% url 'leads:reply' %}">Respond to the Lead</a>
+      </div>
+  	</div>
+  </div>
 </div>
+<script type="text/javascript" src={% static 'js/switchery.js' %}></script>
+<script type="text/javascript">
+  var elem = document.querySelector('.js-switch');
+  var init = new Switchery(elem, { disabledOpacity: 0.8 });;
+</script>
 {% endblock body %}

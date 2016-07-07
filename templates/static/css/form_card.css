@@ -22,7 +22,7 @@ br { display: block; line-height: 1.6em; }
   box-shadow: 0px 0px 0px 1px rgb(17, 153, 119) inset;
 }
 
-.form_card label{
+.form_card label, .form_card .data_title{
   font-size: 13px;
   font-weight: bold;
   text-transform: uppercase;
@@ -30,7 +30,7 @@ br { display: block; line-height: 1.6em; }
   margin-bottom: 0;
 }
 
-.form_card input, .form_card textarea, .form_card select{
+.form_card input, .form_card textarea, .form_card select, .form_card .data{
   display: block;
   position: relative;
   width: 100%;
@@ -134,8 +134,10 @@ br { display: block; line-height: 1.6em; }
 }
 
 .submitbtn {
+  display: inline-block;
   width: 100%;
   height: 35px;
+  line-height: 35px;
   border: none;
   border-radius: 4px;
   margin: 0 0 15px 0;
@@ -147,7 +149,7 @@ br { display: block; line-height: 1.6em; }
   outline: none;
 }
 
-button.submitbtn {
+.submitbtn {
   background-image: -moz-linear-gradient(#97c16b, #8ab959);
   background-image: -webkit-linear-gradient(#97c16b, #8ab959);
   background-image: linear-gradient(#97c16b, #8ab959);
@@ -155,12 +157,12 @@ button.submitbtn {
   cursor: pointer;
   color: #fff;
 }
-button.submitbtn:hover {
+.submitbtn:hover {
   background-image: -moz-linear-gradient(#8ab959, #7eaf4a);
   background-image: -webkit-linear-gradient(#8ab959, #7eaf4a);
   background-image: linear-gradient(#8ab959, #7eaf4a);
 }
-button.submitbtn:active {
+.submitbtn:active {
   height: 34px;
   border-bottom: 0;
   margin: 1px 0 0 0;
@@ -172,11 +174,23 @@ button.submitbtn:active {
   box-shadow: inset 0 1px 3px 1px rgba(0, 0, 0, 0.3);
 }
 
+a.submitbtn:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
 /** responsive design **/
 @media(min-width: 768px){
   .col-submit { display: block; }
   
   .form_card .form-group { box-shadow: 1px 1px #e4e4e4; border: none; }
   
-  .col-submit button { width: 30%; margin: 0 auto; }
+  .col-submit .submitbtn { width: 30%; margin: 0 auto; }
+}
+
+.form_card .form-group h1{
+  font-size: 1.8em;
+  margin-top: -5px;
+  font-weight: 500;
+  color: #333;
 }

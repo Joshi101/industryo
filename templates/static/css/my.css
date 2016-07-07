@@ -1008,12 +1008,15 @@ pre {
 .wide_container{
   margin: auto;
 }
-.wide_32,.wide_40,.wide_48,.wide_64{
+.wide_32,.wide_40,.wide_48,.wide_64,.wide_80{
   margin: auto;
   vertical-align: top;
 }
 .wide_64{
   max-width: 640px;
+}
+.wide_80{
+  max-width: 800px;
 }
 .wide_48{
   max-width: 480px;
@@ -4650,4 +4653,19 @@ input.not_wide{
   background-color: #fff;
   border: 1px solid rgba(0,0,0,0.1);
   margin-bottom: 5px;
+}
+
+.switch_open{
+  margin: 0 30px;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.switch_open .text{
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 20px;
+  height: 32px;
+  color: #777;
+  padding: 0 10px;
 }
