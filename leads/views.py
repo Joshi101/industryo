@@ -32,9 +32,6 @@ def edit_add_lead(request, slug):
                     except:
                         tb = traceback.format_exc()
             else:
-                print(key)
-                print("dssfdssfdsfdsf")
-                print(request.POST[key])
                 if key == 'city':
                     l.set_tags(request.POST[key])
 
@@ -102,13 +99,31 @@ def reply_lead(request):
         user = request.user
         wp = user.userprofile.primary_workplace
         lead = Leads.objects.get(id=id)
-        reply = request.POST.get('reply')
+        r = Reply()
+        direct = r._meta.get_all_field_names()
+        dictionary = {}
 
-        r = Reply.objects.create(user=user, workplace=wp, reply=reply, lead=lead)
-        doc1 = request.FILES.get('doc', None)
+        reply = Reply.objects.create(user=user, workplace=wp, lead=lead)
+
+        for key in request.POST:
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+        for key in dictionary:
+            setattr(reply, key, dictionary[key])
+        reply.save()
+        doc1 = request.FILES.get('doc1', None)
+        doc2 = request.FILES.get('doc2', None)
         if doc1:
             d = Document()
             x = d.upload_doc(doc=doc1, user=user)
+            r.doc = x
+            r.save()
+        if doc2:
+            d = Document()
+            x = d.upload_doc(doc=doc2, user=user)
             r.doc = x
             r.save()
 

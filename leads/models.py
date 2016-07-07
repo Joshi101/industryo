@@ -68,7 +68,6 @@ class Leads(models.Model):
             self.tags = li
             return li
 
-
     def get_tags(self):
         tags = self.tags.all()
         return tags
@@ -76,11 +75,21 @@ class Leads(models.Model):
 
 class Reply(models.Model):
     lead = models.ForeignKey(Leads)
-    reply = models.CharField(max_length=1000)
     user = models.ForeignKey(User, null=True, blank=True)
     workplace = models.ForeignKey(Workplace, null=True, blank=True)
 
-    doc = models.ForeignKey(Document, null=True, blank=True)
+    message = models.CharField(max_length=1000, null=True, blank=True)
+    price = models.CharField(max_length=100, null=True, blank=True)
+    taxes = models.CharField(max_length=100, null=True, blank=True)
+    time_to_deliver = models.CharField(max_length=100, null=True, blank=True)
+    delivery_charges = models.CharField(max_length=100, null=True, blank=True)
+    payment_terms = models.CharField(max_length=100, null=True, blank=True)
+    quality_assurance = models.CharField(max_length=255, null=True, blank=True)
+
+    selected = models.BooleanField(default=False)
+
+    doc1 = models.ForeignKey(Document, related_name='doc1', null=True, blank=True)
+    doc2 = models.ForeignKey(Document, related_name='doc2', null=True, blank=True)
 
     def __str__(self):
         return self.reply
