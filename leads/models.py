@@ -27,7 +27,7 @@ class Leads(models.Model):
     company_name = models.CharField(max_length=30, null=True, blank=True)
     mobile_number = models.CharField(max_length=30, null=True, blank=True)
 
-    tags = models.ForeignKey(Tags, null=True, blank=True)
+    tags = models.ManyToManyField(Tags, null=True, blank=True)
 
     seen_by = models.IntegerField(default=0)
     responses = models.IntegerField(default=0)
@@ -51,6 +51,27 @@ class Leads(models.Model):
         if self.image:
             image_url = '/images/'+str(self.image.image)
             return image_url
+
+    def set_tags(self, tags):
+        if tags:
+            lead_tags = tags.split(',')
+            li = []
+            for m in lead_tags:
+                try:
+                    t = Tags.objects.get(tag__iexact=m)
+                except Exception:
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type='T')
+                li.append(t)
+                t.count += 1
+                t.save()
+            self.tags = li
+            return li
+
+
+    def get_tags(self):
+        tags = self.tags.all()
+        return tags
 
 
 class Reply(models.Model):

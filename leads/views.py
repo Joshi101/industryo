@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse, RequestContext
 from django.template.loader import render_to_string
-from leads.models import Leads
+from leads.models import Leads, Reply
 import json
 import traceback
 from nodes.models import Images, Document
@@ -22,6 +22,7 @@ def edit_add_lead(request, slug):
     else:
         l =Leads.objects.get(slug=slug)
         direct = l._meta.get_all_field_names()
+        print(direct)
         dictionary = {}
         if request.method == 'POST' and user == l.user:
             for key in request.POST:
@@ -30,6 +31,12 @@ def edit_add_lead(request, slug):
                         dictionary[key] = request.POST[key]
                     except:
                         tb = traceback.format_exc()
+            else:
+                print(key)
+                print("dssfdssfdsfdsf")
+                print(request.POST[key])
+                if key == 'city':
+                    l.set_tags(request.POST[key])
 
             for key in dictionary:
                 setattr(l, key, dictionary[key])
@@ -44,7 +51,6 @@ def edit_add_lead(request, slug):
 
             doc1 = request.FILES.get('doc', None)
             if doc1:
-                print('doc aya')
                 d = Document()
                 x = d.upload_doc(doc=doc1, user=user)
                 l.doc = x
@@ -58,7 +64,7 @@ def edit_add_lead(request, slug):
 
 def leads(request):
     # for now just paginate & show all
-    leads = Leads.objects.all()
+    leads = Leads.objects.all().order_by('-date')
     paginator = Paginator(leads, 5)
     page = request.GET.get('page')
 
@@ -93,6 +99,18 @@ def close_lead(request):
 def reply_lead(request):
     if request.method == 'POST':
         id = request.POST.get('id')
+        user = request.user
+        wp = user.userprofile.primary_workplace
         lead = Leads.objects.get(id=id)
+        reply = request.POST.get('reply')
+
+        r = Reply.objects.create(user=user, workplace=wp, reply=reply, lead=lead)
+        doc1 = request.FILES.get('doc', None)
+        if doc1:
+            d = Document()
+            x = d.upload_doc(doc=doc1, user=user)
+            r.doc = x
+            r.save()
+
     return HttpResponse
 
