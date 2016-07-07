@@ -37,5 +37,4 @@ urlpatterns = patterns(
     url(r"^password/reset/key/done/$", views.password_reset_from_key_done,
         name="account_reset_password_from_key_done"),
 
-    url(r"^check_email/$", views.check_email, name="check_email"),
 )

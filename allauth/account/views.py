@@ -662,18 +662,3 @@ email_verification_sent = EmailVerificationSentView.as_view()
 
 
 # new
-
-
-def check_email(request):
-    if request.method == 'POST':
-        response = {}
-        e = request.POST.get('data')
-        print(e)
-        try:
-            dup = EmailAddress.objects.get(email=e)
-            print(dup.email)
-            response['valid'] = False
-        except EmailAddress.DoesNotExist:
-            response['valid'] = True
-            print('valid')
-        return HttpResponse(json.dumps(response), content_type="application/json")

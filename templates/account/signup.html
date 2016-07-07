@@ -40,7 +40,9 @@
                   <label>
                     Email Address<span class="req">*</span>
                   </label>
-                  <input id="id_email" class="s_validate" data-url="{% url 'check_email' %}" type="email" name="email" required>
+                  <input id="id_email" class="s_validate" data-url="{% url 'user:check_email' %}" type="email" name="email" required>
+                  <span class="validating hide"><span class="fa fa-fw fa-spin fa-cog"></span></span>
+                  <span class="valid_msg"><span class="fa fa-fw fa-check"></span></span>
                   <div>{{form.email.errors}}</div>
                 </div>
                 <div class="form-group">

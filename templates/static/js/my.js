@@ -2215,6 +2215,8 @@ $('.form_eric').find('input, textarea').each(function(index, el) {
 
 $('body').on('change','.s_validate',function(){
     var $this = $(this);
+    var fg = $this.closest('.form-group');
+    fg.find('.validating').removeClass('hide');
     console.log('wuhh')
     $this.on('blur',function(){
         console.log($this.val());
@@ -2226,12 +2228,21 @@ $('body').on('change','.s_validate',function(){
             data: {data: val},
 
             success: function(response) {
-                console.log(response)
-                
+                console.log(response.valid);
+                fg.find('.validating').addClass('hide');
+                if (response.valid) {
+                    fg.removeClass('invalid');
+                    fg.addClass('valid');
+                }
+                else{
+                    fg.removeClass('valid');
+                    fg.addClass('invalid');
+                }
             },
 
             error: function(xhr, errmsg, err) {
                 console.log(errmsg, err);
+                fg.find('.validating').addClass('hide');
             }
         });
         $this.off('blur');
