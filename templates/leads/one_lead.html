@@ -1,3 +1,6 @@
 <div class="tile">
-	<a href="{% url 'leads:lead' lead.slug %}">{{lead}}</a>
+	<p><h3><a href="{% url 'leads:lead' lead.slug %}">{{lead}}</a></h3></p>
+	<p>{{lead.description}}</p>
+	<p>Created on {{lead.date}}</p>
+	<p>By {{lead.workplace}}</p>
 </div>
