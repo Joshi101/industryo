@@ -76,7 +76,7 @@
   color: #333;
 }
 
-.form_eric input, textarea {
+.form_eric input, .form_eric textarea {
   font-size: 22px;
   display: block;
   width: 100%;
@@ -87,7 +87,7 @@
   -webkit-transition: border-color .25s ease, box-shadow .25s ease;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
-.form_eric input:focus, textarea:focus {
+.form_eric input:focus, .form_eric textarea:focus {
   outline: 0;
   border-color: #197;
 }
@@ -100,6 +100,7 @@
 .form_eric .form-group {
   position: relative;
   margin-bottom: 40px;
+  /*! padding-right: 25px; */
 }
 
 .form_eric .button {
@@ -136,4 +137,38 @@
   list-style: none;
   color: #a94442;
   padding-left: 10px;
+}
+
+.form_eric .s_validate{
+  padding-right: 40px;
+}
+
+.form_eric .valid input, .form_eric .valid textarea{
+  border-color: #5cb85c;
+  box-shadow: 0 0 0 1px #5cb85c;
+}
+
+.form_eric .valid .valid_msg{
+  display: block;
+}
+
+.form_eric .invalid input, .form_eric .invalid textarea{
+  border-color: #c9302c;
+  box-shadow: 0 0 0 1px #c9302c;
+}
+
+.form_eric .valid_msg{
+  display: none;
+}
+
+.form_eric .valid .valid_msg{
+  display: block;
+}
+
+.form_eric .fa{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 22px;
+  color: #ccc;
 }
