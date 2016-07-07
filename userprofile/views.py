@@ -26,7 +26,8 @@ def check_email(request):
             dup = User.objects.get(email=e)
             print(dup.email)
             response['valid'] = False
-        except EmailAddress.DoesNotExist:
+        except Exception:
+        # except EmailAddress.\DoesNotExist:
             response['valid'] = True
             print('valid')
         return HttpResponse(json.dumps(response), content_type="application/json")
