@@ -4668,6 +4668,6 @@ input.not_wide{
 .switch_open .text{
   display: block;
   font-size: 14px;
-  color: #999;
+  /*! color: #999; */
   padding-top: 3px;
 }

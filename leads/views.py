@@ -88,17 +88,18 @@ def get_lead(request, slug):
     return render(request, 'leads/lead.html', locals())
 
 
-def close_lead(request):
-    id = request.POST.get('id')
+def close_lead(request, id):
     lead = Leads.objects.get(id=id)
     print(id)
     if request.user == lead.user:
         if lead.status:
             lead.status = False
             lead.save()
+            print('close')
         else:
             lead.status = True
             lead.save()
+            print('open')
     return HttpResponse
 
 

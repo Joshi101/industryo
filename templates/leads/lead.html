@@ -33,15 +33,16 @@
             <h1 class="data">{{lead}}</h1>
           </div>
           <div class="col-sm-3">
-            <div class="switch_open">
+            <div class="switch_open" data-status="{% if not lead.status %}closed{% endif %}">
               {% if request.user == lead.user %}
-              <form class="auto_form" method="POST" action="{% url 'leads:close' %}">
-              <input type="checkbox" class="js-switch" checked>
+              <form class="auto_form" method="POST" action="{% url 'leads:close' lead.id %}">
+                <input type="checkbox" class="js-switch" {% if lead.status %}checked{% endif %}>
               </form>
               {% else %}
-
+              <input type="checkbox" class="js-switch" {% if lead.status %}checked{% endif %} disabled>
               {% endif %}
-              <span class="text">( Open for Quotations )</span>
+              <span class="text opened hide text-muted">( Open for Quotations )</span>
+              <span class="text closed hide text-danger">( Closed for Quotations )</span>
             </div>
           </div>
         </div>
@@ -103,18 +104,37 @@
         </div>
       </div>
       <div class="col-submit">
-        <button class="submitbtn" href="{% url 'leads:leads' %}">Submit Quotation</button>
+        <button class="submitbtn">Submit Quotation</button>
       </div>
     </form>
   </div>
 </div>
+
 <script type="text/javascript" src={% static 'js/switchery.js' %}></script>
 <script type="text/javascript">
-  
   var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
   elems.forEach(function(html) {
-    var switchery = new Switchery(html, { disabledOpacity: 0.8 });
+    var switchery = new Switchery(html, { disabledOpacity: 0.8, secondaryColor: '#bd6463' });
+  });
+  var status = $('.switch_open').attr('data-status');
+  if (status == 'closed'){
+    $('.switch_open').find('.closed').removeClass('hide');
+  } else {
+    $('.switch_open').find('.opened').removeClass('hide');
+  }
+  $('.switch_open').on('change','input',function(){
+    console.log('changeing')
+    var status = $(this).closest('.switch_open').attr('data-status');
+    if (status == 'closed'){
+      $('.switch_open').attr('data-status','');
+      $('.switch_open').find('.closed').addClass('hide');
+      $('.switch_open').find('.opened').removeClass('hide');
+    } else {
+      $('.switch_open').attr('data-status','closed');
+      $('.switch_open').find('.opened').addClass('hide');
+      $('.switch_open').find('.closed').removeClass('hide');
+    }
   });
 </script>
+
 {% endblock body %}
