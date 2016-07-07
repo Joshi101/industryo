@@ -6,6 +6,7 @@ from imagekit.processors import ResizeToFill, ResizeToCover, SmartResize
 from industryo.unique_slug import unique_slugify
 from activities.models import Activity
 from django.utils.timezone import now
+import os
 # from userprofile.models import UserProfile
 # from background_task import background
 
@@ -48,10 +49,18 @@ class Document(models.Model):
         return str(self.id)
 
     def upload_doc(self, doc, user):
-        if len(doc.name) > 30:
-            doc.name = doc.name[:20]
-        d = Document.objects.create(doc=doc, user=user, name=doc.name)
-        return d
+        filename = doc.name
+        ext = os.path.splitext(filename)[1]
+        ext = ext.lower()
+        content = doc.content_type
+        print(filename, ext, content)
+        if ext in ('.doc', '.pdf', 'docx', '.xls', '.xlsx'):
+            if len(doc.name) > 30:
+                doc.name = doc.name[:20]
+            d = Document.objects.create(doc=doc, user=user, name=doc.name)
+            return d
+        else:
+            raise TypeError('Filetype not accepted')
 
 
 class FeedManager(models.Manager):

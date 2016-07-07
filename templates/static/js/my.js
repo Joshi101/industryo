@@ -2126,7 +2126,11 @@ function autoSubmitFailed($field){
 }
 
 function productCreated($field,response){
-    $field.closest('form').attr('action',"/products/edit_add/"+response['p_id']+"/")
+    $field.closest('form').attr('action',"/products/edit_add/"+response['p_id']+"/");
+    console.log($field.closest('form').attr('action'));
+}
+function leadCreated($field,response){
+    $field.closest('form').attr('action',"/leads/edit_add/"+response['l_slug']+"/");
     console.log($field.closest('form').attr('action'));
 }
 
@@ -2134,7 +2138,8 @@ function imageUpload($this){
     var preview = $this.closest('.image_box').find('.img_pre');
     var file = $this[0].files[0];
     var fd = new FormData();
-    fd.append('photo', file);
+    var name = $this.attr('name')
+    fd.append(name, file);
     console.log(fd, file);
     var reader = new FileReader();
     reader.onloadend = function() {

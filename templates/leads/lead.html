@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+  {% block meta_og_title %}{{ lead }}{% endblock %}
+  {% block meta_og_url %}http://www.corelogs.com{{ request.path }}{% endblock %}
+  {% block meta_og_type %}website{% endblock meta_og_type %}
+  {% for image in lead.get_images %}
+  	{% block meta_og_image %}/images/{{image.image}}{% endblock %}
+  {% endfor %}
+
+{% load filter %}
+
+{% block title %}{{ lead }}{% endblock title %}
+
+{% block meta_description %}{{ lead.description|truncatewords:25 }}{% endblock meta_description %}
+
+{% block page_id %}article_pg{% endblock page_id %}
+
+{% block body %}
+<div class="container">
+	<div class="tile">
+		<div>{{lead}}</div>
+		<a href="{% url 'leads:reply' %}">Reply</a>
+	</div>
+</div>
+{% endblock body %}

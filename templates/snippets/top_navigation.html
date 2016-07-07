@@ -69,6 +69,12 @@
           <span>Tags</span>
         </a>
       </li>
+      <li>
+        <a id="top_nav_leads" href="{% url 'leads:leads' %}">
+          <span class="fa fa-tags"></span>
+          <span>Leads</span>
+        </a>
+      </li>
     </ul>
     {% if user.is_authenticated or request.path != '/' %}
     <ul class="nav navbar-nav navbar-right nav_right">
