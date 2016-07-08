@@ -52,9 +52,7 @@ class Document(models.Model):
         filename = doc.name
         ext = os.path.splitext(filename)[1]
         ext = ext.lower()
-        content = doc.content_type
-        print(filename, ext, content)
-        if ext in ('.doc', '.pdf', 'docx', '.xls', '.xlsx'):
+        if ext in ('.doc', '.pdf', '.docx', '.xls', '.xlsx'):
             if len(doc.name) > 30:
                 doc.name = doc.name[:20]
             d = Document.objects.create(doc=doc, user=user, name=doc.name)

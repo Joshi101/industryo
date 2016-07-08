@@ -55,54 +55,65 @@
         <a class="submitbtn" href="{% url 'leads:reply' %}">Respond to the Lead</a>
       </div>
   	</div>
+
+
     <form id="quotation_form" class="form_card" role="form" action="{% url 'leads:reply' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="hidden" name="id" value="{{lead.id}}">
       <div class="form-group">
-        <label for="lead_title">Title</label>
-        <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead">
+        <label for="lead_title">Price</label>
+        <input id="lead_title" name="price" data-response="leadCreated" placeholder="Provide a title for the Lead">
       </div>
       <div class="form-group">
-        <label for="lead_description">Description</label>
-        <textarea class="textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{about|default:''}}</textarea>
+        <label for="lead_description">Taxes</label>
+        <textarea class="textarea_lg count_field" id="lead_description" name="taxes" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
         <span class="char_count">1000</span>
       </div>
-      <!-- <div class="form-group">
-        <label>Availability</label>
-        <select>
-          <option selected="selected">5-15 hrs per week</option>
-          <option>15-30 hrs per week</option>
-          <option>30-40 hrs per week</option>
-        </select>
-      </div> -->
       <div class="form-group">
-        <label for="lead_type">Type of Lead</label>
-        <div id="lead_type" class="radio_group">
-          <label class="radio-inline"><input type="radio" value='A' name="lead_type">Product</label>
-          <label class="radio-inline"><input type="radio" value='B' name="lead_type">Service</label>
+        <label for="lead_description">Delivery Charges</label>
+        <textarea class="textarea_lg count_field" id="lead_description" name="delivery_charges" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+        <span class="char_count">1000</span>
+      </div>
+      <div class="form-group">
+        <label for="lead_description">Payment Terms</label>
+        <textarea class="textarea_lg count_field" id="lead_description" name="payment_terms" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+        <span class="char_count">1000</span>
+      </div>
+      <div class="form-group">
+        <label for="lead_description">Time to Deliver</label>
+        <textarea class="textarea_lg count_field" id="lead_description" name="time_to_deliver" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+        <span class="char_count">1000</span>
+      </div>
+      <div class="form-group">
+        <label for="lead_description">Quality Assurance</label>
+        <textarea class="textarea_lg count_field" id="lead_description" name="quality_assurance" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+        <span class="char_count">1000</span>
+      </div>
+      <div class="form-group">
+        <label for="lead_description">Additional Message</label>
+        <textarea class="textarea_lg count_field" id="lead_description" name="message" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+        <span class="char_count">1000</span>
+      </div>
+
+      <div class="form-group">
+        <div class="image_box">
+          <div class="img_pre">
+            <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add Specifications File (optional)</span></a>
+          </div>
+          <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
+          <input id="lead_doc_btn" class="hidden" type="file" name="doc21" value="" placeholder="">
         </div>
-      </div>
-      <div class="form-group">
-        <label for="lead_location">Tag Cities</label>
-        {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
-      </div>
-      <div class="form-group">
-        <label for="lead_location">Other Tags</label>
-        {% include "snippets/d_search_tags.html" with search="tag" tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
       </div>
       <div class="form-group">
         <div class="image_box">
           <div class="img_pre">
-            {% if lead.doc %}
-            <img id="lead_doc" class="img_pre" src="{{lead.get_image}}" alt="{{lead}}">
-            {% else %}
             <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add Specifications File (optional)</span></a>
-            {% endif %}
           </div>
           <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
-          <input id="lead_doc_btn" class="hidden" type="file" name="doc" value="" placeholder="">
+          <input id="lead_doc_btn" class="hidden" type="file" name="doc22" value="" placeholder="">
         </div>
       </div>
+
       <div class="col-submit">
         <button class="submitbtn">Submit Quotation</button>
       </div>
