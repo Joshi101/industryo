@@ -105,8 +105,9 @@ def reply_lead(request):
         user = request.user
         wp = user.userprofile.primary_workplace
         lead = Leads.objects.get(id=id)
-        r = Reply()
-        direct = r._meta.get_all_field_names()
+        # r = Reply()
+        # direct = r._meta.get_all_field_names()
+        direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms', 'quality_assurance']
         dictionary = {}
 
         reply = Reply.objects.create(user=user, workplace=wp, lead=lead)
@@ -120,18 +121,18 @@ def reply_lead(request):
         for key in dictionary:
             setattr(reply, key, dictionary[key])
         reply.save()
-        doc1 = request.FILES.get('doc1', None)
-        doc2 = request.FILES.get('doc2', None)
+        doc1 = request.FILES.get('doc21', None)
+        doc2 = request.FILES.get('doc22', None)
         if doc1:
             d = Document()
             x = d.upload_doc(doc=doc1, user=user)
-            r.doc = x
-            r.save()
+            reply.doc = x
+            reply.save()
         if doc2:
             d = Document()
             x = d.upload_doc(doc=doc2, user=user)
-            r.doc = x
-            r.save()
+            reply.doc = x
+            reply.save()
 
-    return HttpResponse
+    return redirect('/leads/'+lead.slug)
 
