@@ -290,7 +290,7 @@ if (d_check){
 
 $("body").on('mouseover', '.d_menu .dropdown-menu', function() {
     console.log('lop')
-    $(".d_input").off('blur');
+    $(".d_input").off('blur', d_input_blur);
 });
 $('body').on('mouseout', '.d_menu .dropdown-menu', function() {
     $(".d_input").on('blur', d_input_blur);
@@ -2212,10 +2212,13 @@ $('.form_eric').find('input, textarea').each(function(index, el) {
 $('.form_card').find('input, textarea').on('blur focus', function (e) {
     var $this = $(this),
     fg = $this.closest('.form-group');
+    console.log('activation')
     if (e.type === 'focus') {
         fg.addClass('active');
+        console.log('activate')
     } else {
         fg.removeClass('active');
+        console.log('deactivate')
     }
 });
 

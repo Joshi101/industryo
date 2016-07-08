@@ -58,6 +58,17 @@ br { display: block; line-height: 1.6em; }
   height: 27px;
 }
 
+.form_card .form-control{
+  padding-top: 1px;
+  padding-bottom: 2px;
+  min-height: 32px;
+  height: 32px;
+}
+
+.form_card .form-control:focus{
+  border: 1px dashed #e4e4e4;
+  margin: 0;
+}
 
 .form_card .radio_group{
   padding: 7px 5px 3px;
@@ -86,10 +97,12 @@ br { display: block; line-height: 1.6em; }
 .form_card .radio_group input{
   width: auto;
   height: 27px;
+  min-height: 27px;
 }
 
-.form_card input:focus, .form_card select:focus {
+.form_card input:focus, .form_card select:focus, .form_card textarea:focus {
   opacity: 1;
+  margin: 0;
 }
 
 .form_card .image_box{
@@ -125,6 +138,21 @@ br { display: block; line-height: 1.6em; }
 
 .form_card .char_count:after{
   content: ' characters left';5
+}
+
+.form_card .input_tags{
+  margin-top: 7px;
+  margin-bottom: 0;
+}
+
+.form_card .tag{
+  font-size: 14px;
+  padding: 3px 5px;
+  text-transform: capitalize;
+  background: #fff;
+  border: 1px solid #eee;
+  border-color: #AAD8C5;
+  /*! box-shadow: 0 0 0 1px #AAD8C5; */
 }
 /** button design based on http://codepen.io/guvootes/pen/eyDAb **/
 
