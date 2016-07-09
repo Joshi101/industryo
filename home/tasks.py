@@ -8,6 +8,7 @@ from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry,
 from datetime import timedelta
 from django.core.mail import get_connection, send_mail
 from passwords.passwords import *
+from leads.views import close_lead1
 
 
 @background(schedule=40)
@@ -18,6 +19,8 @@ def execute_view(view, id):
         check_no_inquiry(id)
     elif view == 'check_contact_email':
         check_contact_email(id)
+    elif view == 'close_lead':
+        close_lead1(id)
 
 
 # @background(schedule=60)

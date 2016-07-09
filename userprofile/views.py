@@ -264,3 +264,13 @@ def check_username(request):
             except User.DoesNotExist:
                 response['valid'] = 0
         return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def set_wp_type():
+    us = UserProfile.object.filter(workplace_type='N')
+    for u in us:
+        if u.primary_workplace:
+            t = u.primary_workplace.workplace_type
+            u.workplace_type = t
+            u.save()
+    return

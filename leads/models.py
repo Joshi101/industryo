@@ -77,6 +77,7 @@ class Reply(models.Model):
     lead = models.ForeignKey(Leads)
     user = models.ForeignKey(User, null=True, blank=True)
     workplace = models.ForeignKey(Workplace, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
 
     message = models.CharField(max_length=1000, null=True, blank=True)
     price = models.CharField(max_length=100, null=True, blank=True)

@@ -53,6 +53,7 @@ class MailSend(models.Model):
     reasons = models.CharField(max_length=10, null=True)
     date = models.DateTimeField(auto_now_add=True)
     enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
+    random_id = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'MailSend'
