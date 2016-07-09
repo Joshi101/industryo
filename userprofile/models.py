@@ -32,7 +32,7 @@ class UserProfile(models.Model):
     interests = models.ManyToManyField(Tags, blank=True)
     approved = models.BooleanField(default=True)
 
-    mobile_contact = models.CharField(max_length=20, null=True, blank=True)
+    mobile_contact = models.CharField(max_length=25, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
 
     # Product related info
@@ -132,6 +132,18 @@ class UserProfile(models.Model):
         return email
 
     def get_email_prod(self):
+        if self.product_email:
+            email = self.product_email
+        elif self.workplace_type is not 'N':
+            if self.primary_workplace.office_mail_id:
+                email = self.primary_workplace.office_mail_id
+            else:
+                email = self.user.email
+        else:
+            email = self.user.email
+        return email
+
+    def get_best_email(self):
         if self.product_email:
             email = self.product_email
         elif self.workplace_type is not 'N':

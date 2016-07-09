@@ -84,7 +84,9 @@ def check_executable():
             send_mail_contacts(email, body, subject, mail.from_email)
             mail.sent = True
             mail.save()
-        elif mail.reasons == 'lqm':
+        elif mail.reasons in ['lqm', 'lcm']:
+            if mail.reasons == 'lcm':
+                execute_view('close_lead', mail.random_id, schedule=timedelta(days=5))
             email = mail.email
             body = mail.body
             subject = mail.subject

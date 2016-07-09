@@ -183,18 +183,13 @@ class Workplace(models.Model):
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='P')
                 li.append(t)
-                print(t)
                 t.count += 1
                 t.save()
             for t in li:
                 try:
                     e = WpTags.objects.get(workplace=self, tags=t, category='P')
-                    print('a')
-                    print(e)
                 except Exception:
                     e = WpTags.objects.create(workplace=self, tags=t, category='P')
-                    print('b')
-                    print(e)
             return li
 
     def set_city(self, city):
