@@ -18,6 +18,7 @@ class Leads(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=True)      # True= Open
     slug = models.SlugField(max_length=255)
+    anonymous = models.BooleanField(default=True)
 
     user = models.ForeignKey(User, null=True, blank=True)
     workplace = models.ForeignKey(Workplace, null=True, blank=True)
