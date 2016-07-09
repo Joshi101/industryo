@@ -84,6 +84,13 @@ def check_executable():
             send_mail_contacts(email, body, subject, mail.from_email)
             mail.sent = True
             mail.save()
+        elif mail.reasons == 'lqm':
+            email = mail.email
+            body = mail.body
+            subject = mail.subject
+            send_mail_contacts(email, body, subject, mail.from_email)
+            mail.sent = True
+            mail.save()
     # loop_view()
     # return redirect('/')
 
