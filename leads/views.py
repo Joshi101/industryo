@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse, RequestContext
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from leads.models import Leads, Reply
 import json
 import traceback
@@ -41,6 +41,7 @@ def edit_add_lead(request, slug):
                     except:
                         tb = traceback.format_exc()
             else:
+                # cities =
                 if key == 'city':
                     l.set_tags(request.POST[key])
 
@@ -69,8 +70,18 @@ def edit_add_lead(request, slug):
 
 
 def leads(request):
-    leads = Leads.objects.all().order_by('-date')
-    paginator = Paginator(leads, 5)
+    q = request.GET.get('q')
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    if q == 'open':
+        leads = Leads.object.filter(status=True).order_by('-date')
+    elif q == 'closed':
+        leads = Leads.object.filter(status=False).order_by('-date')
+    elif q == 'my':
+        leads = Leads.object.filter(user=user).order_by('-date')
+    else:
+        leads = Leads.objects.all().order_by('-date')
+    paginator = Paginator(leads, 10)
     page = request.GET.get('page')
 
     try:
@@ -247,10 +258,3 @@ def quotation_mail(id, x):
                     subject = 'Hey {0} You have got a quotation on Lead on CoreLogs'.format(reply.lead.user.userprofile)
                     MailSend.objects.create(email=reply.lead.user.email, body=mail_body, reasons='jcm', from_email='4',
                                             date=now + timedelta(minutes=2), subject=subject)
-
-
-
-
-
-
-
