@@ -94,7 +94,8 @@
       </div>
       {% endif %}
   	</div>
-    <h2>Quotations Recieved</h2>
+    <h2 class="text-center mid_head">{{lead.responses}} Quotations Recieved</h2>
+    <p class="text-center" style="color: #a4a4a4; font-size: 1.5em"><span class="fa fa-long-arrow-down"></span>&nbsp;&nbsp;&nbsp;&nbsp;Your Quotation&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-long-arrow-down"></span></p>
     {% if request.user == lead.user %}
       {% for reply in replies %}
         {% include 'leads/one_reply.html' with reply=reply %}

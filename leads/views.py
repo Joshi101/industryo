@@ -181,9 +181,15 @@ def reply_lead(request):
         return redirect('/leads/'+lead.slug)
 
 
+def pre_edit_reply(request, id):
+    reply = Reply.objects.get(id=id)
+    return render(request, 'leads/quotation_edit.html', locals())
+
+
 def edit_reply(request, id):
     reply = Reply.objects.get(id=id)
     dictionary = {}
+    response = {}
     if request.method == 'POST':
         direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms', 'quality_assurance']
         for key in request.POST:
@@ -195,10 +201,11 @@ def edit_reply(request, id):
         for key in dictionary:
             setattr(reply, key, dictionary[key])
         reply.save()
-        return render(request, 'leads/quotation_edit.html', reply)
+        response['status'] = True
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        dict = reply.__dict__
-        return render(request, 'leads/quotation_edit.html', dict)
+        return render(request, 'leads/one_reply_2.html', locals())
+
 
 
 def leads_mail(id, x):

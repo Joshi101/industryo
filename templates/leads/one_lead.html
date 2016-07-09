@@ -3,7 +3,7 @@
 		<a href="{% url 'leads:lead' lead.slug %}">
 			<div class="summary_title">
 				<span>{{ lead.lead|capfirst|truncatewords:15 }}</span>
-				<span class="status_dot sign"></span>
+				<span class="status_dot {% if not lead.status %}closed{% endif %} sign"></span>
 			</div>
 		</a>
 		<div class="summary_body">{{ lead.description|truncatechars_html:200|safe }}</div>
@@ -22,6 +22,7 @@
 	<div class="feed_box_extra">
 		<div class="interaction">
 			<span>{{lead.seen_by}} Views</span>
+			<span class="pull-right">{{lead.responses}} Quotations</span>
 		</div>
 	</div>
 </div>

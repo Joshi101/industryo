@@ -1,0 +1,71 @@
+<form id="quotation_edit" role="form" action="{% url 'leads:edit_reply' reply.id %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="lead_title">Price</label>
+        <textarea id="quot_price" name="price" placeholder="Provide a title for the Lead">{{reply.price}}</textarea>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="lead_title">Taxes</label>
+        <textarea id="quot_taxes" name="taxes" placeholder="Provide a title for the Lead">{{reply.taxes}}</textarea>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="lead_title">Delivery Charges</label>
+        <textarea id="quot_delivery" name="delivery_charges" placeholder="Provide a title for the Lead">{{reply.delivery_charges}}</textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="lead_description">Payment Terms</label>
+        <textarea class="count_field" id="lead_description" name="payment_terms" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{reply.payment_terms}}</textarea>
+        <span class="char_count">1000</span>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="lead_description">Time to Deliver</label>
+        <textarea id="lead_description" name="time_to_deliver" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{reply.time_to_deliver}}</textarea>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lead_description">Quality Assurance</label>
+    <textarea class="textarea_lg count_field" id="lead_description" name="quality_assurance" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{reply.quality_assurance}}</textarea>
+    <span class="char_count">1000</span>
+  </div>
+  <div class="form-group">
+    <label for="lead_description">Additional Message</label>
+    <textarea class="textarea_lg count_field" id="lead_description" name="message" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{reply.message}}</textarea>
+    <span class="char_count">1000</span>
+  </div>
+
+  <div class="form-group">
+    <div class="image_box">
+      <div class="img_pre">
+        <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add Specifications File (optional)</span></a>
+      </div>
+      <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
+      <input id="lead_doc_btn" class="hidden" type="file" name="doc21" value="" placeholder="">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="image_box">
+      <div class="img_pre">
+        <a class="fake_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Add Specifications File (optional)</span></a>
+      </div>
+      <a class="fake_btn hover_btn" data-btn="#lead_doc_btn"><span class="fa fa-plus"></span><span>Change File</span></a>
+      <input id="lead_doc_btn" class="hidden" type="file" name="doc22" value="" placeholder="">
+    </div>
+  </div>
+
+  <div class="col-submit">
+    <button class="submitbtn" type="button">Save Changes</button>
+    <a class="ajax_a" data-place="#quot_details" href="{% url 'leads:edit_reply' reply.id %}" style="display: none;"></a>
+  </div>

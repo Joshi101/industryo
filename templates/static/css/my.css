@@ -4691,6 +4691,16 @@ input.not_wide{
   border-radius: 6px;
 }
 
+.status_dot.closed{
+  background-color: #bd6463;
+}
+
 .status_dot.sign{
   top: 9px;
+}
+
+.mid_head{
+  margin: 30px auto 20px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(16,144,112,0.5);
 }

@@ -2268,3 +2268,14 @@ $('body').on('change','.s_validate',function(){
         $this.off('blur');
     });
 });
+
+$('.body').on('click', '#quotation_edit .submitbtn', function(){
+    var $form = $(this).closest('form');
+    ajax_form_2($form, loadNext);
+});
+
+function loadNext($form, response){
+    if (response.status){
+        $form.find('.submitbtn').next().trigger('click');
+    }
+}

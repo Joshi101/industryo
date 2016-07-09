@@ -1,9 +1,16 @@
+<div class="form_card_edit">
+  <a class="ajax_a" data-place="#quot_details" href="{% url 'leads:pre_edit_reply' reply.id %}"><span class="fa fa-pencil"></span>&nbsp;Edit Quotation</a>
+</div>
 <div class="form_card">
   <div class="form-group">
     <h3 class="data"><a href="{% url 'workplace:workplace_profile' reply.workplace.slug %}">{{reply.workplace}}</a></h3>
     <p class="text-muted">By <a href="{% url 'user:profile' reply.user.username %}">{{reply.user}}</a><span class="pull-right">On {{reply.date}}</span></p>
   </div>
-  <div class="more_box">
+  <div id="quot_details">
+    <div class="loading hide">
+      <i class="fa fa-spin fa-spinner"></i>
+    </div>
+    <div class="content">
       <div class="row">
         <div class="col-sm-4">
           <div class="form-group">
@@ -46,5 +53,6 @@
         <div class="data_title">Additional Message</div>
         <p class="data">{{reply.message}}</p>
       </div>
+    </div>
   </div>
 </div>
