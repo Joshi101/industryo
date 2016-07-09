@@ -90,6 +90,7 @@ npy: no products yet
 ipm: inquiry product mail
 iwm: inquiry wp mail
 jcm: join corelogs mail
+lqm: lead quotation mail
 '''
 
 
@@ -264,11 +265,13 @@ def send_timed():
         # for s in to_send_all:
         #     s.date = s.date + timedelta(hours=2)
         #     s.save()
+'''
+This is to send emails to google contacts.
+'''
 
 
 def thread_send(to_send_n):
     now_utc = datetime.now(pytz.utc)
-
     for s in to_send_n:
         minutes = 5
         mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, s.user.userprofile)
@@ -280,6 +283,10 @@ def thread_send(to_send_n):
 
     # make 8 groups of 40 emails each
     # send 1 group mail from each email id and set timer to stop for 3 minutes
+
+# def check_leads_mail(id, x):
+#     lead = L
+
 
 # from background_task.models import Task
 #

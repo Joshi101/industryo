@@ -56,6 +56,12 @@
       </div>
   	</div>
 
+{% if request.user == lead.user %}
+{% for reply in replies %}
+    {% include 'leads/one_reply.html' with reply=reply %}
+{% endfor %}
+{% else %}
+  {% if lead.status == True %}
 
     <form id="quotation_form" class="form_card" role="form" action="{% url 'leads:reply' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
@@ -118,8 +124,11 @@
         <button class="submitbtn">Submit Quotation</button>
       </div>
     </form>
+    {% endif %}
+{% endif %}
   </div>
 </div>
+
 
 <script type="text/javascript" src={% static 'js/switchery.js' %}></script>
 <script type="text/javascript">
