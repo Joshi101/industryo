@@ -51,9 +51,11 @@
         <div class="data_title">Description</div>
         <p class="data">{{lead.description}}</p>
       </div>
+      {% if request.user.userprofile.primary_workplace != lead.user.userprofile.primary_workplace %}
       <div class="col-submit">
         <a class="submitbtn" href="{% url 'leads:reply' %}">Respond to the Lead</a>
       </div>
+      {% endif %}
   	</div>
 
 {% if request.user == lead.user %}
@@ -66,29 +68,40 @@
     <form id="quotation_form" class="form_card" role="form" action="{% url 'leads:reply' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="hidden" name="id" value="{{lead.id}}">
-      <div class="form-group">
-        <label for="lead_title">Price</label>
-        <input id="lead_title" name="price" data-response="leadCreated" placeholder="Provide a title for the Lead">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="lead_title">Price</label>
+            <textarea id="quot_price" name="price" placeholder="Provide a title for the Lead"></textarea>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="lead_title">Taxes</label>
+            <textarea id="quot_taxes" name="taxes" placeholder="Provide a title for the Lead"></textarea>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="lead_title">Delivery Charges</label>
+            <textarea id="quot_delivery" name="delivery_charges" placeholder="Provide a title for the Lead"></textarea>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="lead_description">Taxes</label>
-        <textarea class="textarea_lg count_field" id="lead_description" name="taxes" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
-        <span class="char_count">1000</span>
-      </div>
-      <div class="form-group">
-        <label for="lead_description">Delivery Charges</label>
-        <textarea class="textarea_lg count_field" id="lead_description" name="delivery_charges" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
-        <span class="char_count">1000</span>
-      </div>
-      <div class="form-group">
-        <label for="lead_description">Payment Terms</label>
-        <textarea class="textarea_lg count_field" id="lead_description" name="payment_terms" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
-        <span class="char_count">1000</span>
-      </div>
-      <div class="form-group">
-        <label for="lead_description">Time to Deliver</label>
-        <textarea class="textarea_lg count_field" id="lead_description" name="time_to_deliver" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
-        <span class="char_count">1000</span>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="lead_description">Payment Terms</label>
+            <textarea class="count_field" id="lead_description" name="time_to_deliver" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+            <span class="char_count">1000</span>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="lead_description">Time to Deliver</label>
+            <textarea id="lead_description" name="time_to_deliver" placeholder="A Brief Descriptio of the Lead" maxlength="1000"></textarea>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="lead_description">Quality Assurance</label>

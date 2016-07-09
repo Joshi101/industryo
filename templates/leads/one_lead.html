@@ -3,9 +3,7 @@
 		<a href="{% url 'leads:lead' lead.slug %}">
 			<div class="summary_title">
 				<span>{{ lead.lead|capfirst|truncatewords:15 }}</span>
-				<span class="switch_open sign" data-status="{% if not lead.status %}closed{% endif %}">
-					<input type="checkbox" class="js-switch switchery-small" {% if lead.status %}checked{% endif %} disabled>
-				</span>
+				<span class="status_dot sign"></span>
 			</div>
 		</a>
 		<div class="summary_body">{{ lead.description|truncatechars_html:200|safe }}</div>
@@ -20,5 +18,10 @@
 			{% endfor %}
 		</div>
 		{% endif %}
+	</div>
+	<div class="feed_box_extra">
+		<div class="interaction">
+			<span>{{lead.seen_by}} Views</span>
+		</div>
 	</div>
 </div>

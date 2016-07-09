@@ -941,18 +941,24 @@ pre {
 }
 
 #form_feed .input-group-addon {
-  border: 1px solid #eee;
+  border: 0;
   vertical-align: top;
+}
+
+#form_feed .input-group-addon .btn, #form_feed .input-group-addon a{
+  display: block;
+  border: 1px solid #eee;
   border-radius: 16px;
-}
-
-#form_feed .input-group-addon:first-of-type {
+  width: 32px;
+  height: 32px;
   padding: 0;
+  overflow: hidden;
 }
 
-#form_feed .input-group-addon:last-of-type {
-  padding: 6px 7px;
+#form_feed .input-group-addon .btn {
+  padding: 5px 6px;
 }
+
 
 /* profile.html */
 
@@ -4211,12 +4217,13 @@ input.not_wide{
 }
 
 .new_form .radio_group label{
-  letter-spacing: 0;
-  font-size: 15px;
-  font-family: 'Open Sans';
+  
 }
 
 .new_form .radio-inline{
+  letter-spacing: 0;
+  font-size: 15px;
+  font-family: 'Open Sans';
   margin-left: 0;
   margin-right: 2.5%;
   /*! width: 22%; */
@@ -4677,4 +4684,15 @@ input.not_wide{
 
 .one_lead h2{
   margin-top: 0;
+}
+
+.status_dot{
+  width: 10px;
+  height: 10px;
+  background: #64bd63;
+  border-radius: 6px;
+}
+
+.status_dot.sign{
+  top: 9px;
 }

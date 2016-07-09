@@ -83,7 +83,7 @@ def leads(request):
 def get_lead(request, slug):
     lead = Leads.objects.get(slug=slug)
     replies = Reply.objects.filter(lead=lead)
-    lead.views += 1
+    lead.seen_by += 1
     lead.save()
     return render(request, 'leads/lead.html', locals())
 
