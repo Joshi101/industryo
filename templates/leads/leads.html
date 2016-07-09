@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/switchery.css' %}>
+{% endblock head_css %}
+
 {% block title %}Leads | CoreLogs{% endblock title %}
 
 {% block meta_description %}Leads{% endblock meta_description %}
@@ -19,4 +25,31 @@
 	<script type="text/javascript">
 		$('#top_nav_leads').addClass('current');
 	</script>
+	<script type="text/javascript" src={% static 'js/switchery.js' %}></script>
+	<script type="text/javascript">
+	  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+	  elems.forEach(function(html) {
+	    var switchery = new Switchery(html, { size: 'small', disabledOpacity: 0.8, secondaryColor: '#bd6463' });
+	  });
+	  var status = $('.switch_open').attr('data-status');
+	  if (status == 'closed'){
+	    $('.switch_open').find('.closed').removeClass('hide');
+	  } else {
+	    $('.switch_open').find('.opened').removeClass('hide');
+	  }
+	  $('.switch_open').on('change','input',function(){
+	    console.log('changeing')
+	    var status = $(this).closest('.switch_open').attr('data-status');
+	    if (status == 'closed'){
+	      $('.switch_open').attr('data-status','');
+	      $('.switch_open').find('.closed').addClass('hide');
+	      $('.switch_open').find('.opened').removeClass('hide');
+	    } else {
+	      $('.switch_open').attr('data-status','closed');
+	      $('.switch_open').find('.opened').addClass('hide');
+	      $('.switch_open').find('.closed').removeClass('hide');
+	    }
+	  });
+	</script>
+
 {% endblock %}

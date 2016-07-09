@@ -4659,6 +4659,9 @@ input.not_wide{
   text-align: right;
 }
 
+.switch_open.sign{
+}
+
 @media(max-width:768px){
     .switch_open{
     text-align: center;
@@ -4670,4 +4673,8 @@ input.not_wide{
   font-size: 14px;
   /*! color: #999; */
   padding-top: 3px;
+}
+
+.one_lead h2{
+  margin-top: 0;
 }
