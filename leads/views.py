@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from contacts.models import MailSend
 from datetime import datetime, timedelta
 from threading import Thread
+from home.templates import *
 
 
 def edit_add_lead(request, slug):
@@ -68,7 +69,6 @@ def edit_add_lead(request, slug):
 
 
 def leads(request):
-    # for now just paginate & show all
     leads = Leads.objects.all().order_by('-date')
     paginator = Paginator(leads, 5)
     page = request.GET.get('page')
@@ -206,13 +206,12 @@ def leads_mail(id, x):
     user = lead.user
     now = datetime.now()
     if x == 'created':
-
-        mail_body = 'You created a Free Business lead'
+        mail_body = lead_created.format(user.userprofile, lead, lead.slug)
         subject = 'Hey {0} You Just Created a FREE Business Lead on CoreLogs'.format(user.userprofile)
         MailSend.objects.create(email=user.email, body=mail_body, reasons='lcm', from_email='4',
                                 date=now + timedelta(minutes=2), subject=subject)
     if x == 'close':
-        mail_body = 'You created a Free Business lead'
+        mail_body = lead_closed.format(user.userprofile, lead, lead.slug)
         subject = 'Hey {0} Your Lead has been Closed on CoreLogs'.format(lead.user.userprofile)
         MailSend.objects.create(email=user.email, body=mail_body, reasons='jcm', from_email='4',
                                 date=now + timedelta(minutes=2), subject=subject)
@@ -225,26 +224,26 @@ def quotation_mail(id, x):
     now = datetime.now()
     if x == 'quotation':
         if len(replies) == 1:
-            mail_body = 'You got a quotation over your lead'
+            mail_body = one_quotation.format(lead.user.userprofile, lead, lead.slug)
             subject = 'Hey {0} You have got a quotation on Lead on CoreLogs'.format(reply.lead.user.userprofile)
             MailSend.objects.create(email=reply.lead.user.email, body=mail_body, reasons='jcm', from_email='4',
                                     date=now + timedelta(minutes=2), subject=subject)
         elif len(replies) == 2:
-            mail_body = 'You got Multiple quotation over your lead'
+            mail_body = multiple_quotation.format(lead.user.userprofile, lead, lead.slug)
             subject = 'Hey {0} You have got Multiple quotations on Lead'.format(reply.lead.user.userprofile)
             MailSend.objects.create(email=reply.lead.user.email, body=mail_body, reasons='jcm', from_email='4',
                                     date=now + timedelta(minutes=2), subject=subject)
         else:
             pass
     elif x == 'accepted':
-        mail_body = 'Your Quotation has been accepted'
+        mail_body = quotation_accepted.format(reply.user.userprofile, lead, lead.slug)
         subject = 'Your Quotation on this lead has been accepted See Details'.format(reply.lead.user.userprofile)
         MailSend.objects.create(email=reply.lead.user.email, body=mail_body, reasons='jcm', from_email='4',
                                 date=now + timedelta(minutes=2), subject=subject)
         if len(replies) > 1:
             for r in replies:
                 if not r == reply:
-                    mail_body = 'Somebody Elses Quotation has been accepted. '
+                    mail_body = quotation_rejected.format(reply.user.userprofile, lead, lead.slug)
                     subject = 'Hey {0} You have got a quotation on Lead on CoreLogs'.format(reply.lead.user.userprofile)
                     MailSend.objects.create(email=reply.lead.user.email, body=mail_body, reasons='jcm', from_email='4',
                                             date=now + timedelta(minutes=2), subject=subject)
