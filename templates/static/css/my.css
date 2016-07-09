@@ -4666,8 +4666,6 @@ input.not_wide{
   text-align: right;
 }
 
-.switch_open.sign{
-}
 
 @media(max-width:768px){
     .switch_open{

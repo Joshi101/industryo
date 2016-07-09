@@ -58,13 +58,19 @@
               <label class="radio-inline"><input type="radio" value='B' name="lead_type">Service</label>
             </div>
           </div>
-          <div class="form-group">
-            <label for="lead_location">Tag Cities</label>
-            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
-          </div>
-          <div class="form-group">
-            <label for="lead_location">Other Tags</label>
-            {% include "snippets/d_search_tags.html" with search="tag" tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="lead_location">Tag Cities</label>
+                {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="lead_location">Other Tags</label>
+                {% include "snippets/d_search_tags.html" with search="tag" tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <div class="image_box">

@@ -1828,6 +1828,14 @@ $("#wp_set_form").on('click','button[type=button]', function(){
     $("#wp_set_search .d_input").focus();
 });
 
+$("body").on('click','.scrollto', function(event){
+    event.preventDefault();
+    var to = $(this).attr('href');
+    $('html, body').animate({
+        scrollTop: ($(to).offset().top - 200)
+    }, 1000);
+});
+
 $('#feedback').on('click', 'h3', function(){
     if($(this).attr('class').indexOf('active') >= 0){
         $(this).removeClass('active');

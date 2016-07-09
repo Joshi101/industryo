@@ -1,27 +1,50 @@
-<div class="tile">
-	<div class="row">
-      <div class="col-md-2">
-        {{reply.price}}
+<div class="form_card">
+  <div class="form-group">
+    <h3 class="data"><a href="{% url 'workplace:workplace_profile' reply.workplace.slug %}">{{reply.workplace}}</a></h3>
+    <p class="text-muted">By <a href="{% url 'user:profile' reply.user.username %}">{{reply.user}}</a><span class="pull-right">On {{reply.date}}</span></p>
+  </div>
+  <div class="more_box">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="data_title">Price</div>
+            <p class="data">{{reply.price}}</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="data_title">Taxes</div>
+            <p class="data">{{reply.taxes}}</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="data_title">Delivery Charges</div>
+            <p class="data">{{reply.delivery_charges}}</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-2">
-        {{reply.taxes}}
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="data_title">Payment Terms</div>
+            <p class="data">{{reply.payment_terms}}</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="data_title">Time To Deliver</div>
+            <p class="data">{{reply.time_to_deliver}}</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-2">
-        {{reply.deliery_charges}}
+      <div class="form-group">
+        <div class="data_title">Quality Assurance</div>
+        <p class="data">{{reply.quality_assurance}}</p>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        {{reply.time_to_deliver}}
+      <div class="form-group">
+        <div class="data_title">Additional Message</div>
+        <p class="data">{{reply.message}}</p>
       </div>
-      <div class="col-md-4">
-        {{reply.payment_terms}}
-      </div>
-    </div>
-    <div class="row">
-      {{reply.quality_assurance}}
-    </div>
-    <div class="row">
-      {{reply.message}}
-    </div>
+  </div>
 </div>
