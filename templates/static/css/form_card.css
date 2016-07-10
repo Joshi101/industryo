@@ -81,7 +81,7 @@ br { display: block; line-height: 1.6em; }
   flex-wrap: wrap;
 }
 
-.form_card .radio-inline{
+.form_card .radio-inline, .form_card .checkbox-inline{
   font-family: 'Titillium Web';
   margin-left: 0;
   margin-right: 5%;
@@ -105,6 +105,12 @@ br { display: block; line-height: 1.6em; }
 .form_card input:focus, .form_card select:focus, .form_card textarea:focus {
   opacity: 1;
   margin: 0;
+}
+
+.form_card input[type=radio]:focus, .form_card input[type=checkbox]:focus{
+  opacity: 1;
+  margin-left: -20px;
+  outline: 0;
 }
 
 .form_card .image_box{

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from leads.models import Leads, Reply
+from tags.models import Tags
 import json
 import traceback
 from nodes.models import Images, Document
@@ -8,6 +9,19 @@ from contacts.models import MailSend
 from datetime import datetime, timedelta
 from threading import Thread
 from home.templates import *
+
+
+def delete_tag(request, id):
+    if request.method == 'POST':
+        print('1')
+        lead = Leads.objects.get(id=id)
+        print('2')
+        tag = request.POST.get('tag')
+        print('3')
+        t = Tags.objects.get(tag=tag)
+        print(lead.tags.get(tag=t))
+        lead.tags.remove(t)
+        return HttpResponse()
 
 
 def edit_add_lead(request, slug):
@@ -35,6 +49,7 @@ def edit_add_lead(request, slug):
         dictionary = {}
         if request.method == 'POST' and user == l.user:
             for key in request.POST:
+                print(key,request.POST[key])
                 if key in direct:
                     try:
                         dictionary[key] = request.POST[key]
@@ -104,10 +119,10 @@ def get_lead(request, slug):
     replies = Reply.objects.filter(lead=lead)
     user = request.user
     user_reply = Reply.objects.filter(user=user, lead=lead)
-    if len(user_reply) > 0:
-        show_reply = True
-    else:
-        show_reply = False
+    if request.user == lead.user:
+        show_all = True
+    elif len(user_reply) > 0:
+        show_one = True
     lead.seen_by += 1
     lead.save()
     return render(request, 'leads/lead.html', locals())
@@ -136,9 +151,9 @@ def close_lead1(id):
         pass
 
 
-def accept_quotation_lead(request, id):
+def accept_reply(request, id):
     quotation = Reply.objects.get(id=id)
-    if request.user == quotation.user:
+    if request.user == quotation.lead.user:
         if quotation.selected:
             quotation.selected = False
             quotation.save()

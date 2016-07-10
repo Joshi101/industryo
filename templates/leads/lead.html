@@ -26,6 +26,11 @@
 {% block body %}
 <div class="container">
   <div class="wide_80">
+    {% if request.user == lead.user %}
+    <div class="form_card_edit">
+      <a href="{% url 'leads:edit_add' lead.slug %}"><span class="fa fa-pencil inline_fa"></span>&nbsp;Edit Your Requirements</a>
+    </div>
+    {% endif %}    
   	<div class="form_card">
       <div class="form-group">
         <div class="row">
@@ -95,15 +100,22 @@
       {% endif %}
   	</div>
     <h2 class="text-center mid_head">{{lead.responses}} Quotations Recieved</h2>
-    <p class="text-center" style="color: #a4a4a4; font-size: 1.5em"><span class="fa fa-long-arrow-down"></span>&nbsp;&nbsp;&nbsp;&nbsp;Your Quotation&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-long-arrow-down"></span></p>
-    {% if request.user == lead.user %}
+    {% if show_all %}
       {% for reply in replies %}
         {% include 'leads/one_reply.html' with reply=reply %}
       {% empty %}
         <h3>No quotations recieved till now</h3>
       {% endfor %}
+    {% elif show_one %}
+      {% for reply in user_reply %}
+        <div class="form_card_edit">
+          <a class="ajax_a" data-place="#quot_details" href="{% url 'leads:pre_edit_reply' reply.id %}"><span class="fa fa-pencil inline_fa"></span>&nbsp;Edit Your Quotation</a>
+        </div>
+        {% include "leads/one_reply.html" with reply=reply %}
+      {% endfor %}
     {% else %}
-      {% include "leads/quotation_form.html" %}
+      <h3 class="text-center text-muted">Respond to the Requirement with your own Quotation NOW!</h3>
+      {% include "leads/quotation_form.html"%}
     {% endif %}
   </div>
 </div>

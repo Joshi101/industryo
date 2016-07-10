@@ -200,10 +200,10 @@ $('body').on('click', '.d_search .create_new', function(){
     });
 });
 
-$('body').on('click','.input_tags .tag .close', function(){
-    var tag = $(this).closest('.tag');
-    value = tag.find('.value').text();
-    var $d_search = $(this).closest('.d_search');
+$('body').on('click', '.input_tags .close', function(){
+    var $tag = $(this).closest('.tag');
+    var value = $tag.find('.value').text();
+    var $d_search = $tag.closest('.d_search');
     var pre_value = $d_search.find('.d_value').val();
     i1 = pre_value.indexOf(value);
     i2 = i1 + value.length;
@@ -212,8 +212,30 @@ $('body').on('click','.input_tags .tag .close', function(){
     val1 = pre_value.slice(0, i1);
     val2 = pre_value.slice(i2);
     console.log(i1,i2,val1+val2);
-    $d_search.find('.d_value').val(val1+val2).trigger('change');
-    tag.remove();
+    if ($(this).closest('.form-group').data('del')){
+        var url = $tag.closest('.form-group').data('del');
+        console.log(value, url);
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                tag: value
+            },
+
+            success: function(response) {
+                $d_search.find('.d_value').val(val1+val2);
+                console.log('deleted');
+                $tag.remove();
+            },
+
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg, err);
+            }
+        });
+    } else {
+        $d_search.find('.d_value').val(val1+val2);
+        tag.remove();
+    }
 });
 
 
@@ -572,6 +594,8 @@ $('body').on('click', '.delete', function() {
         }
     });
 });
+
+
 
 $('.ajax_andar').on('click', '.a_collapse', function() {
     var $this = $(this);
@@ -2093,11 +2117,25 @@ function autoSubmit($this, data_response){
     var $form = $this.closest('form');
     var $field = $this.closest('.form-group');
     autoSubmitShow($field);
-    console.log($form.attr('action'),$this.serialize())
+    f_data = $this.serialize();
+    if ($this.attr('type') == 'checkbox'){
+        if (!$this.is(':checked')){
+            console.log('add data to checkbox',$this.attr('name'));
+            var f_obj = {};
+            if ($this.val() == 'false'){
+                f_obj[$this.attr('name')] = true;
+            } else {
+                f_obj[$this.attr('name')] = false;
+            }
+            f_data = f_obj;
+            console.log(f_data);
+        }
+    }
+    console.log($form.attr('action'),f_data);
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
-        data: $this.serialize(),
+        data: f_data,
 
         success: function(response) {
             autoSubmitDone($field);
@@ -2122,7 +2160,7 @@ function autoSubmitShow($field){
 }
 
 function autoSubmitDone($field){
-    /*$field.find('.saving').addClass('hide');*/
+    $field.find('.saving').addClass('hide');
 }
 
 function autoSubmitFailed($field){
@@ -2220,13 +2258,10 @@ $('.form_eric').find('input, textarea').each(function(index, el) {
 $('.form_card').find('input, textarea').on('blur focus', function (e) {
     var $this = $(this),
     fg = $this.closest('.form-group');
-    console.log('activation')
     if (e.type === 'focus') {
         fg.addClass('active');
-        console.log('activate')
     } else {
         fg.removeClass('active');
-        console.log('deactivate')
     }
 });
 
@@ -2279,3 +2314,27 @@ function loadNext($form, response){
         $form.find('.submitbtn').next().trigger('click');
     }
 }
+
+$('body').on('click', '.msg_a', function(){
+    var $this = $(this);
+    if ($this.data('hide')){
+        $(this).addClass('hide');
+    }
+    var msg = $(this).attr('data-msg');
+    $this.siblings(msg).removeClass('hide');
+    if ($this.attr('data-alt')){
+        var alt = $this.attr('data-msgalt');
+        $this.siblings(alt).addClass('hide');
+        var now = $this.attr('data-msg');
+        $this.attr('data-msgalt', now);
+        $this.attr('data-msg', alt);
+    }
+});
+
+$('body').on('click', '.alt_a', function(){
+    var $this = $(this);
+    var alt = $this.attr('data-alt');
+    var text = $this.text();
+    $this.text(alt);
+    $this.attr('data-alt', text);
+});
