@@ -422,7 +422,7 @@ img{
   width: 1.9em;
   margin-right: 5px;
   font-size: 18px;
-  padding: 5px 0;
+  /*! padding: 5px 0; */
   border-right: 1px solid #aaa;
   vertical-align: middle;
 }

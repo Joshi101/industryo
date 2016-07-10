@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from leads.models import Leads, Reply
+from tags.models import Tags
 import json
 import traceback
 from nodes.models import Images, Document
@@ -8,6 +9,19 @@ from contacts.models import MailSend
 from datetime import datetime, timedelta
 from threading import Thread
 from home.templates import *
+
+
+def delete_tag(request, id):
+    if request.method == 'POST':
+        print('1')
+        lead = Leads.objects.get(id=id)
+        print('2')
+        tag = request.POST.get('tag')
+        print('3')
+        t = Tags.objects.get(tag=tag)
+        print(lead.tags.get(tag=t))
+        lead.tags.remove(t)
+        return HttpResponse()
 
 
 def edit_add_lead(request, slug):
@@ -19,18 +33,47 @@ def edit_add_lead(request, slug):
             if request.POST.get('lead'):
                 now = datetime.now()
                 ls = Leads.objects.filter(user=user, date__range=[now-timedelta(days=1), now])
-                if len(ls) < 10:
+                if len(ls) < 100:
                     l = Leads.objects.create(lead=request.POST['lead'], user=user, workplace=wp)
                     t = Thread(target=leads_mail, args=(l.id, 'created'))
                     t.start()
-                    response['l_slug'] = l.slug
-                    return HttpResponse(json.dumps(response), content_type="application/json")
+                    direct = l._meta.get_all_field_names()
+                    dictionary = {}
+                    for key in request.POST:
+                        if key in direct:
+                            try:
+                                dictionary[key] = request.POST[key]
+                            except:
+                                tb = traceback.format_exc()
+                    else:
+                        # cities =
+                        if key == 'city':
+                            l.set_tags(request.POST[key])
+
+                    for key in dictionary:
+                        setattr(l, key, dictionary[key])
+                    l.save()
+                    image1 = request.FILES.get('photo', None)
+                    # if image1:
+                    #     i = Images()
+                    #     x = i.upload_image(image=image1, user=user)
+                    #     l.image = x
+                    #     l.save()
+                    response['l_id'] = l.id
+
+                    doc1 = request.FILES.get('doc1', None)
+                    # if doc1:
+                    #     d = Document()
+                    #     x = d.upload_doc(doc=doc1, user=user)
+                    #     l.doc = x
+                    #     l.save()
+                    return redirect('/leads/')
                 else:
-                    return HttpResponse
+                    return HttpResponse()
         else:
             return render(request, 'leads/edit.html')
     else:
-        l =Leads.objects.get(slug=slug)
+        l = Leads.objects.get(slug=slug)
         direct = l._meta.get_all_field_names()
         dictionary = {}
         if request.method == 'POST' and user == l.user:
@@ -83,7 +126,6 @@ def leads(request):
         leads = Leads.objects.all().order_by('-date')
     paginator = Paginator(leads, 10)
     page = request.GET.get('page')
-
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -104,10 +146,10 @@ def get_lead(request, slug):
     replies = Reply.objects.filter(lead=lead)
     user = request.user
     user_reply = Reply.objects.filter(user=user, lead=lead)
-    if len(user_reply) > 0:
-        show_reply = True
-    else:
-        show_reply = False
+    if request.user == lead.user:
+        show_all = True
+    elif len(user_reply) > 0:
+        show_one = True
     lead.seen_by += 1
     lead.save()
     return render(request, 'leads/lead.html', locals())
@@ -136,9 +178,9 @@ def close_lead1(id):
         pass
 
 
-def accept_quotation_lead(request, id):
+def accept_reply(request, id):
     quotation = Reply.objects.get(id=id)
-    if request.user == quotation.user:
+    if request.user == quotation.lead.user:
         if quotation.selected:
             quotation.selected = False
             quotation.save()

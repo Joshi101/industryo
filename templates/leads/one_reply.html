@@ -1,57 +1,18 @@
-<div class="form_card_edit">
-  <a class="ajax_a" data-place="#quot_details" href="{% url 'leads:pre_edit_reply' reply.id %}"><span class="fa fa-pencil"></span>&nbsp;Edit Quotation</a>
-</div>
 <div class="form_card">
   <div class="form-group">
     <h3 class="data"><a href="{% url 'workplace:workplace_profile' reply.workplace.slug %}">{{reply.workplace}}</a></h3>
     <p class="text-muted">By <a href="{% url 'user:profile' reply.user.username %}">{{reply.user}}</a><span class="pull-right">On {{reply.date}}</span></p>
   </div>
-  <div id="quot_details">
+  <div id="quot_details_{{forloop.counter}}">
     <div class="loading hide">
       <i class="fa fa-spin fa-spinner"></i>
     </div>
     <div class="content">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="form-group">
-            <div class="data_title">Price</div>
-            <p class="data">{{reply.price}}</p>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <div class="data_title">Taxes</div>
-            <p class="data">{{reply.taxes}}</p>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <div class="data_title">Delivery Charges</div>
-            <p class="data">{{reply.delivery_charges}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="data_title">Payment Terms</div>
-            <p class="data">{{reply.payment_terms}}</p>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="data_title">Time To Deliver</div>
-            <p class="data">{{reply.time_to_deliver}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="data_title">Quality Assurance</div>
-        <p class="data">{{reply.quality_assurance}}</p>
-      </div>
-      <div class="form-group">
-        <div class="data_title">Additional Message</div>
-        <p class="data">{{reply.message}}</p>
+      {% include "leads/one_reply_own.html" %}
+      <div class="col-submit">
+        <a class="submitbtn ajax_a msg_a alt_a" {% if reply.selected %} data-msg=".msg_alt" data-msgalt=".msg" data-alt="Accept Quotation" {% else %} data-msg=".msg" data-msgalt=".msg_alt" data-alt="Reject Quotation" {% endif %} href="{% url 'leads:accept_reply' reply.id %}">{% if reply.selected %}Reject Quotation{% else %}Accept Quotation{% endif %}</a>
+        <div class="msg {% if not reply.selected %}hide{% endif %} text-success"><span class="fa fa-check inline_fa"></span>Quotation Accepted</div>
+        <div class="msg_alt hide text-danger"><span class="fa fa-remove inline_fa"></span>Quotation Rejected</div>
       </div>
     </div>
   </div>
