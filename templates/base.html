@@ -87,6 +87,10 @@
       </div>
     </div>
     {% endblock body %}
+    {% if request.user.is_authenticated %}
+      {% include "snippets/bottom_bar.html" %}
+    {% endif %}
+    {% include "snippets/feedback.html" %}
   </div>
   
   <div class="farzi" style="display:none;">

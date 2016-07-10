@@ -3510,7 +3510,7 @@ footer .contact li{
   color: #197;
 }
 
-#feedback{
+.bottom_nav{
   position: fixed;
   bottom: 0;
   right: 10px;
@@ -3521,24 +3521,33 @@ footer .contact li{
   border-top-left-radius: 5px;
   color: #ccc;
   height: 40px;
-  width: 175px;
+  width: 160px;
   overflow: hidden;
 }
 
-#feedback h3{
+.bottom_nav h3{
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 16px;
   cursor: pointer;
 }
 
-#feedback form{
+.bottom_nav h3 a{
+  color: #ccc;
+}
+
+.bottom_nav form{
   margin-top: 10px;
   opacity: 0;
 }
 
-#feedback .form-group{
+.bottom_nav .form-group{
   margin-bottom: 5px;
+}
+
+#bottom_bar{
+  right: 180px;
+  width: 180px;
 }
 
 .img_preview img{

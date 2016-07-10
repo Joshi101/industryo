@@ -40,33 +40,35 @@ def edit_add_lead(request, slug):
                     direct = l._meta.get_all_field_names()
                     dictionary = {}
                     for key in request.POST:
+                        print(key,request.POST[key])
                         if key in direct:
                             try:
                                 dictionary[key] = request.POST[key]
                             except:
-                                tb = traceback.format_exc()
-                    else:
-                        # cities =
-                        if key == 'city':
+                                tb = traceback.format_exc()        
+                        elif key == 'city':
+                            print('city',request.POST[key])
+                            l.set_tags(request.POST[key])
+                        elif key == 'other':
                             l.set_tags(request.POST[key])
 
                     for key in dictionary:
                         setattr(l, key, dictionary[key])
                     l.save()
                     image1 = request.FILES.get('photo', None)
-                    # if image1:
-                    #     i = Images()
-                    #     x = i.upload_image(image=image1, user=user)
-                    #     l.image = x
-                    #     l.save()
+                    if image1:
+                        i = Images()
+                        x = i.upload_image(image=image1, user=user)
+                        l.image = x
+                        l.save()
                     response['l_id'] = l.id
 
                     doc1 = request.FILES.get('doc1', None)
-                    # if doc1:
-                    #     d = Document()
-                    #     x = d.upload_doc(doc=doc1, user=user)
-                    #     l.doc = x
-                    #     l.save()
+                    if doc1:
+                        d = Document()
+                        x = d.upload_doc(doc=doc1, user=user)
+                        l.doc = x
+                        l.save()
                     return redirect('/leads/')
                 else:
                     return HttpResponse()
@@ -83,9 +85,9 @@ def edit_add_lead(request, slug):
                         dictionary[key] = request.POST[key]
                     except:
                         tb = traceback.format_exc()
-            else:
-                # cities =
-                if key == 'city':
+                elif key == 'city':
+                    l.set_tags(request.POST[key])
+                elif key == 'other':
                     l.set_tags(request.POST[key])
 
             for key in dictionary:
