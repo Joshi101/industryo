@@ -33,23 +33,51 @@ def edit_add_lead(request, slug):
             if request.POST.get('lead'):
                 now = datetime.now()
                 ls = Leads.objects.filter(user=user, date__range=[now-timedelta(days=1), now])
-                if len(ls) < 10:
+                if len(ls) < 100:
                     l = Leads.objects.create(lead=request.POST['lead'], user=user, workplace=wp)
                     t = Thread(target=leads_mail, args=(l.id, 'created'))
                     t.start()
-                    response['l_slug'] = l.slug
-                    return HttpResponse(json.dumps(response), content_type="application/json")
+                    direct = l._meta.get_all_field_names()
+                    dictionary = {}
+                    for key in request.POST:
+                        if key in direct:
+                            try:
+                                dictionary[key] = request.POST[key]
+                            except:
+                                tb = traceback.format_exc()
+                    else:
+                        # cities =
+                        if key == 'city':
+                            l.set_tags(request.POST[key])
+
+                    for key in dictionary:
+                        setattr(l, key, dictionary[key])
+                    l.save()
+                    image1 = request.FILES.get('photo', None)
+                    # if image1:
+                    #     i = Images()
+                    #     x = i.upload_image(image=image1, user=user)
+                    #     l.image = x
+                    #     l.save()
+                    response['l_id'] = l.id
+
+                    doc1 = request.FILES.get('doc1', None)
+                    # if doc1:
+                    #     d = Document()
+                    #     x = d.upload_doc(doc=doc1, user=user)
+                    #     l.doc = x
+                    #     l.save()
+                    return redirect('/leads/')
                 else:
-                    return HttpResponse
+                    return HttpResponse()
         else:
             return render(request, 'leads/edit.html')
     else:
-        l =Leads.objects.get(slug=slug)
+        l = Leads.objects.get(slug=slug)
         direct = l._meta.get_all_field_names()
         dictionary = {}
         if request.method == 'POST' and user == l.user:
             for key in request.POST:
-                print(key,request.POST[key])
                 if key in direct:
                     try:
                         dictionary[key] = request.POST[key]
@@ -98,7 +126,6 @@ def leads(request):
         leads = Leads.objects.all().order_by('-date')
     paginator = Paginator(leads, 10)
     page = request.GET.get('page')
-
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:

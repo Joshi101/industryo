@@ -256,6 +256,6 @@ a.submitbtn:hover, a.submitbtn:focus{
   margin: 0 30px;
 }
 
-.form_card_edit a{
-  
+.form_card .fields_disabled{
+  opacity: 0.5;
 }

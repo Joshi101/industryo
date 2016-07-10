@@ -8,6 +8,9 @@
 		</a>
 		<div class="summary_body">{{ lead.description|truncatechars_html:200|safe }}</div>
 		<div class="author">
+			{% if not lead.anonymous %}
+			{% include "snippets/joint_name.html" with user=lead.user %}
+			{% endif %}
 			<time property='dateCreated' class="text-muted">{{lead.date}}</time>
 		</div>
 		{% if lead.get_tags %}
