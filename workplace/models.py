@@ -3,6 +3,7 @@ from industryo.unique_slug import unique_slugify
 from nodes.models import Images
 from tags.models import Tags
 from django.contrib.auth.models import User
+from threading import Thread
 
 
 class Workplace(models.Model):
@@ -210,6 +211,7 @@ class Workplace(models.Model):
                     e = WpTags.objects.get(workplace=self, tags=t, category='C')
                 except Exception:
                     e = WpTags.objects.create(workplace=self, tags=t, category='C')
+            # t = Thread(target=leads_mail, args=(l.id, 'created'))
             return li
 
     def set_events(self, events):
@@ -296,6 +298,13 @@ class Workplace(models.Model):
         for b in i:
             institution.append(b.tags)
         return locals()
+
+    def get_all_tags(self):
+        o = WpTags.objects.filter(workplace=self)
+        li =''
+        for i in o:
+            li = li+i.tags.tag+','
+        return li
 
     def get_institution(self):
         institution = self.institution
