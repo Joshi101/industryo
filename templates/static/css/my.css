@@ -3510,7 +3510,7 @@ footer .contact li{
   color: #197;
 }
 
-#feedback{
+.bottom_nav{
   position: fixed;
   bottom: 0;
   right: 10px;
@@ -3521,24 +3521,33 @@ footer .contact li{
   border-top-left-radius: 5px;
   color: #ccc;
   height: 40px;
-  width: 175px;
+  width: 160px;
   overflow: hidden;
 }
 
-#feedback h3{
+.bottom_nav h3{
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 16px;
   cursor: pointer;
 }
 
-#feedback form{
+.bottom_nav h3 a{
+  color: #ccc;
+}
+
+.bottom_nav form{
   margin-top: 10px;
   opacity: 0;
 }
 
-#feedback .form-group{
+.bottom_nav .form-group{
   margin-bottom: 5px;
+}
+
+#bottom_bar{
+  right: 180px;
+  width: 180px;
 }
 
 .img_preview img{
@@ -4703,4 +4712,26 @@ input.not_wide{
   margin: 30px auto 20px;
   padding-bottom: 30px;
   border-bottom: 1px solid rgba(16,144,112,0.5);
+}
+
+.intro_modal .modal-dialog{
+  margin-top: 121px;
+  width: 75%;
+  max-width: 1000px;
+}
+
+.intro_modal .modal-content{
+  border-radius: 0;
+}
+
+.intro_modal .modal-header, .intro_modal .modal-footer{
+  border: 0;
+}
+
+.intro_modal .cover_dig{
+  border: 0;
+}
+
+.intro_modal .mid_note{
+ top: 125px;
 }

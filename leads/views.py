@@ -37,14 +37,16 @@ def edit_add_lead(request, slug):
                     direct = l._meta.get_all_field_names()
                     dictionary = {}
                     for key in request.POST:
+                        print(key,request.POST[key])
                         if key in direct:
                             try:
                                 dictionary[key] = request.POST[key]
                             except:
-                                tb = traceback.format_exc()
-                    else:
-                        # cities =
-                        if key == 'city':
+                                tb = traceback.format_exc()        
+                        elif key == 'city':
+                            print('city',request.POST[key])
+                            l.set_tags(request.POST[key])
+                        elif key == 'other':
                             l.set_tags(request.POST[key])
                         if key == 'anonymous1':
                             l.anonymous = False
@@ -71,7 +73,7 @@ def edit_add_lead(request, slug):
                 else:
                     return HttpResponse()
         else:
-            return render(request, 'leads/edit.html')
+            return render(request, 'leads/edit.html', {'first_time': True})
     else:
         l = Leads.objects.get(slug=slug)
         direct = l._meta.get_all_field_names()
@@ -83,9 +85,9 @@ def edit_add_lead(request, slug):
                         dictionary[key] = request.POST[key]
                     except:
                         tb = traceback.format_exc()
-            else:
-                # cities =
-                if key == 'city':
+                elif key == 'city':
+                    l.set_tags(request.POST[key])
+                elif key == 'other':
                     l.set_tags(request.POST[key])
                 if key == 'anonymous1':
                             l.anonymous = False

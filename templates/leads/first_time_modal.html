@@ -1,20 +1,42 @@
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
+<div id="intro_modal" class="modal fade intro_modal" role="dialog">
   <div class="modal-dialog">
-  
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+        <h4 class="text-center">Welcome <strong>{{request.user.userprofile}}!</strong></h4>
+        <h4 class="text-center"><strong>Business Leads</strong> are the fastest way to seek for the manufacturers and service providers that you need.</h4>
+        <div class="cover_dig">
+          <div class="note_group">
+            <div class="note">
+              <h3>Post Your Requirement</h3>
+              <span class="fa fa-wpforms"></span>
+              <p>There's no man-in-the-middle. Post exactly what you want and thats what everyone else will see.</p>
+            </div>
+            <div class="mid_note">
+              <span class="fa fa-long-arrow-right"></span>
+            </div>
+            <div class="note">
+              <h3>Feature on the Leads Page</h3>
+              <span class="fa fa-suitcase"></span>
+              <p>The leads page is designed to cater the leads most related to an industry. Without much effort your lead appears to whom it should.</p>
+            </div>
+            <div class="mid_note">
+              <span class="fa fa-long-arrow-right"></span>
+            </div>
+            <div class="note">
+              <h3>Get Quotations on your Profile</h3>
+              <span class="fa fa-file-pdf-o"></span>
+              <p>Anyone interested in business with you can get back to you with his quotation. All you had to do was wait for it!</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
       </div>
     </div>
-    
   </div>
 </div>

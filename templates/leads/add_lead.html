@@ -2,7 +2,7 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="lead_title">Title</label>
-    <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead">
+    <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead" required>
   </div>
   <div class="form-group">
     <label for="lead_description">Description</label>
@@ -35,6 +35,7 @@
       <div class="form-group">
         <label for="lead_location">Other Tags</label>
         {% include "snippets/d_search_tags.html" with search="tag" tags=user.userprofile.get_no_city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+
       </div>
     </div>
   </div>
@@ -83,6 +84,12 @@
 {% if first_time %}
   {% include "leads/first_time_modal.html" %}
   <script type="text/javascript">
-
+    $(function() {
+        console.log( "ready!" );
+    });
+    $(function(){
+      console.log('into aa')
+      $('#intro_modal').modal();
+    });
   </script>
 {% endif %}
