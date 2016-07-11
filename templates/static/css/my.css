@@ -4713,3 +4713,25 @@ input.not_wide{
   padding-bottom: 30px;
   border-bottom: 1px solid rgba(16,144,112,0.5);
 }
+
+.intro_modal .modal-dialog{
+  margin-top: 121px;
+  width: 75%;
+  max-width: 1000px;
+}
+
+.intro_modal .modal-content{
+  border-radius: 0;
+}
+
+.intro_modal .modal-header, .intro_modal .modal-footer{
+  border: 0;
+}
+
+.intro_modal .cover_dig{
+  border: 0;
+}
+
+.intro_modal .mid_note{
+ top: 125px;
+}
