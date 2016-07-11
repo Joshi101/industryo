@@ -656,19 +656,19 @@ def edit_workplace(request):
                     tb = traceback.format_exc()
                     print(tb)
             else:
-                interest = []
+                interest = ''
                 if key == 'segments':
                     wp.set_segments(request.POST[key])
-                    interest.append(request.POST[key])
+                    interest = interest+request.POST[key]+','
                 if key == 'operations':
                     wp.set_operations(request.POST[key])
-                    interest.append(request.POST[key])
+                    interest = interest+request.POST[key]+','
                 if key == 'machinery':
                     wp.set_assets(request.POST[key])
-                    interest.append(request.POST[key])
+                    interest = interest+request.POST[key]+','
                 if key == 'city':
                     wp.set_city(request.POST[key])
-                    interest.append(request.POST[key])
+                    interest = interest+request.POST[key]+','
 
                 for u in workplace.get_members():
                     u.set_interests(interest)

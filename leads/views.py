@@ -13,11 +13,8 @@ from home.templates import *
 
 def delete_tag(request, id):
     if request.method == 'POST':
-        print('1')
         lead = Leads.objects.get(id=id)
-        print('2')
         tag = request.POST.get('tag')
-        print('3')
         t = Tags.objects.get(tag=tag)
         print(lead.tags.get(tag=t))
         lead.tags.remove(t)
@@ -49,24 +46,27 @@ def edit_add_lead(request, slug):
                         # cities =
                         if key == 'city':
                             l.set_tags(request.POST[key])
+                        if key == 'anonymous1':
+                            l.anonymous = False
+                            l.save()
 
                     for key in dictionary:
                         setattr(l, key, dictionary[key])
                     l.save()
                     image1 = request.FILES.get('photo', None)
-                    # if image1:
-                    #     i = Images()
-                    #     x = i.upload_image(image=image1, user=user)
-                    #     l.image = x
-                    #     l.save()
+                    if image1:
+                        i = Images()
+                        x = i.upload_image(image=image1, user=user)
+                        l.image = x
+                        l.save()
                     response['l_id'] = l.id
 
                     doc1 = request.FILES.get('doc1', None)
-                    # if doc1:
-                    #     d = Document()
-                    #     x = d.upload_doc(doc=doc1, user=user)
-                    #     l.doc = x
-                    #     l.save()
+                    if doc1:
+                        d = Document()
+                        x = d.upload_doc(doc=doc1, user=user)
+                        l.doc = x
+                        l.save()
                     return redirect('/leads/')
                 else:
                     return HttpResponse()
@@ -87,6 +87,9 @@ def edit_add_lead(request, slug):
                 # cities =
                 if key == 'city':
                     l.set_tags(request.POST[key])
+                if key == 'anonymous1':
+                            l.anonymous = False
+                            l.save()
 
             for key in dictionary:
                 setattr(l, key, dictionary[key])

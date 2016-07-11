@@ -118,13 +118,19 @@ class UserProfile(models.Model):
                 li.append(t)
                 t.count += 1
                 t.save()
-            self.interests = li
+            self.interests.add(*li)
             return li
 
     def get_interests(self):
-        # page_user = User.objects.get(id=id)
-
         interests = self.interests.all()
+        return interests
+
+    def get_city(self):
+        interests = self.interests.filter(type='C')
+        return interests
+
+    def get_no_city(self):
+        interests = self.interests.all().exclude(type='C')
         return interests
 
     def get_email0(self):

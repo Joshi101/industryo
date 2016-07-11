@@ -28,13 +28,13 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="lead_location">Tag Cities</label>
-        {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=lead.get_tags name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+        {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=user.userprofile.get_city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label for="lead_location">Other Tags</label>
-        {% include "snippets/d_search_tags.html" with search="tag" tags=lead.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+        {% include "snippets/d_search_tags.html" with search="tag" tags=user.userprofile.get_no_city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
   <div class="form-group">
     <label for="lead_anonymous">Contact Details</label>
     <div id="lead_anonymous" class="radio_group">
-      <label class="checkbox-inline"><input type="checkbox" value='false' name="anonymous">Show your Contact Details</label>
+      <label class="checkbox-inline"><input type="checkbox" value='false' name="anonymous1">Show your Contact Details</label>
     </div>
   </div>
   <div class="col-submit">
