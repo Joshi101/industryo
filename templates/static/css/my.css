@@ -943,6 +943,7 @@ pre {
 #form_feed .input-group-addon {
   border: 0;
   vertical-align: top;
+  padding-top: 0;
 }
 
 #form_feed .input-group-addon .btn, #form_feed .input-group-addon a{
@@ -1044,7 +1045,7 @@ pre {
 }
 
 .feed_box {
-  margin: 10px 0;
+  margin: 25px 0;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.09);
@@ -1069,7 +1070,7 @@ pre {
   border-top: 1px dashed #eee;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  background-color: #fcfcfc;
+  /*! background-color: #fcfcfc; */
 }
 
 .feed_box_body figure {
