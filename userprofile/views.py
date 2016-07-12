@@ -267,7 +267,7 @@ def check_username(request):
 
 
 def set_wp_type():
-    us = UserProfile.object.filter(workplace_type='N')
+    us = UserProfile.objects.filter(workplace_type='N')
     for u in us:
         if u.primary_workplace:
             t = u.primary_workplace.workplace_type

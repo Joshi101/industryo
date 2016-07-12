@@ -31,19 +31,6 @@
                 <div>{{form.non_field_errors}}</div>
                 <div class="form-group">
                   <label>
-                    Username<span class="req">*</span>
-                  </label>
-                  <input id="id_username" class="s_validate" data-url="{% url 'user:check_username' %}" type="text" name="username" maxlength="30" required>
-                  <span class="validating hide"><span class="fa fa-fw fa-spin fa-cog"></span></span>
-                  <span class="valid_msg"><span class="fa fa-fw fa-check"></span></span>
-                  <span class="invalid_msg">
-                    <span class="fa fa-fw fa-close"></span>
-                    <span class="msg">Username already taken</span>
-                  </span>
-                  <div>{{form.username.errors}}</div>
-                </div>              
-                <div class="form-group">
-                  <label>
                     Email Address<span class="req">*</span>
                   </label>
                   <input id="id_email" class="s_validate" data-url="{% url 'user:check_email' %}" type="email" name="email" required>

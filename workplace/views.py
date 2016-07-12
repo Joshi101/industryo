@@ -176,9 +176,11 @@ def workplace_profile(request, slug):
     node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
     q_count = Question.objects.filter(user__userprofile__primary_workplace=workplace).count()
     a_count = Answer.objects.filter(user__userprofile__primary_workplace=workplace).count()
-    completion_score = int(round((workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
-                       (workplace.points)/(10*member_count) + workplace.get_member_score())/5))
-
+    if member_count > 0:
+        completion_score = int(round((workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
+                               workplace.points/(10*member_count) + workplace.get_member_score())/5))
+    else:
+        completion_score = 0
     products = Products.objects.filter(producer=workplace.pk)
     r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
     inq_count = Enquiry.objects.filter(workplace=workplace).count()
@@ -654,14 +656,22 @@ def edit_workplace(request):
                     tb = traceback.format_exc()
                     print(tb)
             else:
+                interest = ''
                 if key == 'segments':
                     wp.set_segments(request.POST[key])
+                    interest = interest+request.POST[key]+','
                 if key == 'operations':
                     wp.set_operations(request.POST[key])
+                    interest = interest+request.POST[key]+','
                 if key == 'machinery':
                     wp.set_assets(request.POST[key])
+                    interest = interest+request.POST[key]+','
                 if key == 'city':
                     wp.set_city(request.POST[key])
+                    interest = interest+request.POST[key]+','
+
+                for u in workplace.get_members():
+                    u.set_interests(interest)
 
             for key in dictionary:
                 setattr(workplace, key, dictionary[key])
@@ -675,3 +685,12 @@ def edit_workplace(request):
         dict['workplace_logo_form'] = SetLogoForm()
         return render(request, 'workplace/edit.html', dict)
 
+
+def set_interest_all():
+    ws = Workplace.objects.all()
+    for w in ws:
+        tags = w.get_all_tags()
+        if len(tags)>2:
+            for m in w.get_members():
+                m.set_interests(tags)
+                print(w.id)

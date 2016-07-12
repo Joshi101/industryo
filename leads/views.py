@@ -13,11 +13,8 @@ from home.templates import *
 
 def delete_tag(request, id):
     if request.method == 'POST':
-        print('1')
         lead = Leads.objects.get(id=id)
-        print('2')
         tag = request.POST.get('tag')
-        print('3')
         t = Tags.objects.get(tag=tag)
         print(lead.tags.get(tag=t))
         lead.tags.remove(t)
@@ -51,6 +48,9 @@ def edit_add_lead(request, slug):
                             l.set_tags(request.POST[key])
                         elif key == 'other':
                             l.set_tags(request.POST[key])
+                        if key == 'anonymous1':
+                            l.anonymous = False
+                            l.save()
 
                     for key in dictionary:
                         setattr(l, key, dictionary[key])
@@ -89,6 +89,9 @@ def edit_add_lead(request, slug):
                     l.set_tags(request.POST[key])
                 elif key == 'other':
                     l.set_tags(request.POST[key])
+                if key == 'anonymous1':
+                            l.anonymous = False
+                            l.save()
 
             for key in dictionary:
                 setattr(l, key, dictionary[key])

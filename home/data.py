@@ -22,7 +22,7 @@ def activity(request):
     inq_c_w = Enquiry.objects.filter(date__range=[enddate, startdate]).count()
     u_c_w = User.objects.filter(date_joined__range=[enddate, startdate]).count()
     # # wptags = W
-    sme_c = Workplace.objects.filter(workplace_type='B').count()
+    sme_c = Workplace.objects.filter(workplace_type__in=['B', 'A']).count()
     prod_c = Products.objects.all().count()
     inq_c = Enquiry.objects.all().count()
     u_c = User.objects.all().count()
