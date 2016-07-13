@@ -801,6 +801,12 @@ pre {
   font-size: 13px;
 }
 
+.nav > li > a > img {
+    max-width: none;
+    position: relative;
+    top: -2px;
+}
+
 .nav_2 .navbar-nav .current{
   background: #f9f9f9;
   color: #197;
@@ -943,6 +949,7 @@ pre {
 #form_feed .input-group-addon {
   border: 0;
   vertical-align: top;
+  padding-top: 0;
 }
 
 #form_feed .input-group-addon .btn, #form_feed .input-group-addon a{
@@ -1044,7 +1051,7 @@ pre {
 }
 
 .feed_box {
-  margin: 10px 0;
+  margin: 25px 0;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.09);
@@ -1069,7 +1076,7 @@ pre {
   border-top: 1px dashed #eee;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  background-color: #fcfcfc;
+  /*! background-color: #fcfcfc; */
 }
 
 .feed_box_body figure {
@@ -4734,4 +4741,44 @@ input.not_wide{
 
 .intro_modal .mid_note{
  top: 125px;
+}
+
+.h3_list{
+  padding: 40px 0;
+  /*! display: table; */
+  /*! text-align: right; */
+}
+
+.h3_list h3{
+  margin: 20px;
+  font-weight: 400;
+  font-family: 'Titillium Web';
+}
+
+.h3_list li{
+  display: table;
+  margin-bottom: 20px;
+  /*! margin-right: 0; */
+  /*! text-align: right; */
+  /*! width: 100%; */
+}
+
+.h3_list li > span{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+
+.h3_list .fa_bullet{
+  display: block;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  border: 1px solid #72e0c4;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 200;
+  line-height: 50px;
+  color: #104437;
 }

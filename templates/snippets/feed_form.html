@@ -5,7 +5,7 @@
 				<img id="img_feed" class="thumb_small" width="32" height="32" src="{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}/images/thumbnails/user_man.jpg{% endif %}">
 			</a>
 		</span>
-		<textarea rows="1" class="form-control" name="post" placeholder="Post a feed..(it's not a question)" required></textarea>
+		<textarea rows="1" class="form-control" name="post" placeholder="Post a feed.. (If you have a question, go to Questions tab)" required></textarea>
 		<span class="input-group-addon">
 			<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file img_pre_in'>
 				<span class="fa fa-camera fa-fw"></span>

@@ -118,7 +118,7 @@
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
           <a id="top_nav_user" href="{% url 'user:profile' user.username %}">
             <img class="lazy_img thmb_xs" src="/images/user_man.png" data-src="{{user.userprofile.get_profile_image}}" alt="{{user}}">
-            <span class="abr">{{user}}</span>
+            <span class="abr">{{user.userprofile|truncatewords:1}}</span>
           </a>
         </li>
         <li class="dropdown top_extra">
