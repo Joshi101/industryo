@@ -9,6 +9,7 @@ from contacts.models import MailSend
 from datetime import datetime, timedelta
 from threading import Thread
 from home.templates import *
+from django.contrib.auth.decorators import login_required
 
 
 def delete_tag(request, id):
@@ -16,11 +17,12 @@ def delete_tag(request, id):
         lead = Leads.objects.get(id=id)
         tag = request.POST.get('tag')
         t = Tags.objects.get(tag=tag)
-        print(lead.tags.get(tag=t))
         lead.tags.remove(t)
+        lead.save()
         return HttpResponse()
 
 
+@login_required
 def edit_add_lead(request, slug):
     user = request.user
     wp = user.userprofile.primary_workplace
@@ -37,14 +39,12 @@ def edit_add_lead(request, slug):
                     direct = l._meta.get_all_field_names()
                     dictionary = {}
                     for key in request.POST:
-                        print(key,request.POST[key])
                         if key in direct:
                             try:
                                 dictionary[key] = request.POST[key]
                             except:
                                 tb = traceback.format_exc()        
                         elif key == 'city':
-                            print('city',request.POST[key])
                             l.set_tags(request.POST[key])
                         elif key == 'other':
                             l.set_tags(request.POST[key])
@@ -120,7 +120,8 @@ def edit_add_lead(request, slug):
 def leads(request):
     q = request.GET.get('q')
     user = request.user
-    wp = user.userprofile.primary_workplace
+    if user.userprofile.workplace_type is not 'N':
+        wp = user.userprofile.primary_workplace
     if q == 'open':
         leads = Leads.object.filter(status=True).order_by('-date')
     elif q == 'closed':
@@ -146,6 +147,7 @@ def leads(request):
         return render(request, 'leads/leads.html', {'result_list': result_list})
 
 
+@login_required
 def get_lead(request, slug):
     lead = Leads.objects.get(slug=slug)
     replies = Reply.objects.filter(lead=lead)
@@ -197,6 +199,7 @@ def accept_reply(request, id):
     return HttpResponse
 
 
+@login_required
 def reply_lead(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -248,22 +251,22 @@ def edit_reply(request, id):
     reply = Reply.objects.get(id=id)
     dictionary = {}
     response = {}
-    if request.method == 'POST':
-        direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms', 'quality_assurance']
-        for key in request.POST:
-            if key in direct:
-                try:
-                    dictionary[key] = request.POST[key]
-                except:
-                    tb = traceback.format_exc()
-        for key in dictionary:
-            setattr(reply, key, dictionary[key])
-        reply.save()
-        response['status'] = True
-        return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        return render(request, 'leads/one_reply_2.html', locals())
-
+    if request.user == reply.user:
+        if request.method == 'POST':
+            direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms', 'quality_assurance']
+            for key in request.POST:
+                if key in direct:
+                    try:
+                        dictionary[key] = request.POST[key]
+                    except:
+                        tb = traceback.format_exc()
+            for key in dictionary:
+                setattr(reply, key, dictionary[key])
+            reply.save()
+            response['status'] = True
+            return HttpResponse(json.dumps(response), content_type="application/json")
+        else:
+            return render(request, 'leads/one_reply_2.html', locals())
 
 
 def leads_mail(id, x):
