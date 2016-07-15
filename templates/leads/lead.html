@@ -31,7 +31,7 @@
       <a href="{% url 'leads:edit_add' lead.slug %}"><span class="fa fa-pencil inline_fa"></span>&nbsp;Edit Your Requirements</a>
     </div>
     {% endif %}    
-  	<div class="form_card">
+  	<div class="form_card tile_flat">
       <div class="form-group">
         <div class="row">
           <div class="col-sm-9">
@@ -63,7 +63,7 @@
       </div>
       <div class="form-group">
         <div class="data_title">Description</div>
-        <p class="data">{{lead.description}}</p>
+        <p class="data">{{lead.description|default:'Not Provided'}}</p>
       </div>
       <div class="row">
         <div class="col-sm-6">

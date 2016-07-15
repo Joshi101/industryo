@@ -3025,7 +3025,7 @@ footer .contact li{
 }
 
 .nav_flex .active > a{
-  border: 1px solid #72e0c3;
+  border-bottom: 1px solid #72e0c3;
   color: #197;
   transition: all linear 0.2s;
 }
@@ -4618,14 +4618,16 @@ input.not_wide{
   line-height: 20px;
 }
 
-.dash_card .dash_row input{
+.dash_card input{
   /*! vertical-align: middle; */
-  height: 34px;
-  line-height: 34px;
-  font-size: 16px;
+  height: 27px;
+  line-height: 27px;
+  font-size: 14px;
   width: 100%;
   color: #777;
   font-family: 'Titillium Web';
+  margin-bottom: 7px;
+  padding: 0 5px 1px;
 }
 
 .dash_card h3 span{
@@ -4735,7 +4737,7 @@ input.not_wide{
 }
 
 .tile{
-  padding: 25px 25px;
+  padding: 25px 25px 25px 0;
   background-color: #fff;
   /*! box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); */
   margin-top: 5px;
@@ -4751,7 +4753,7 @@ border: 1px solid rgba(0,0,0,.09);
   border: 1px solid #72e0c4;
   /*! margin-bottom: 5px; */
   /*! margin-top: 5px; */
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .switch_open{
@@ -4860,14 +4862,61 @@ border: 1px solid rgba(0,0,0,.09);
 }
 
 .bg_blue{
-  background-color: #07a0c3;
-  color: #fff;
+  /*! background-color: #07a0c3; */
+  /*! color: #fff; */
+  border: 1px solid #07a0c3;
 }
 
-.bg_blue a{
-  color: #fff;
+.bg_green{
+  border: 1px solid #72e0c4;
 }
 
 #workplace .product{
   width: 250px;
+}
+
+#random_card header{
+  margin-bottom: 5px;
+}
+
+#random_card p{
+  margin-bottom: 7px;
+  line-height: 1.15;
+}
+
+#random_card .radio_group{
+  padding: 0;
+  margin-bottom: 7px;
+  border-color: #8AA5C8;
+  /*! box-shadow: 0 0 0 1px #8AA5C8; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#random_card .radio-inline, #random_card .checkbox-inline{
+  font-family: 'Titillium Web';
+  margin-left: 0;
+  margin-right: 5%;
+  color: #777;
+  font-weight: 500;
+  /*! width: 22%; */
+  vertical-align: top;
+  /*! margin-bottom: 10px; */
+  /*! flex: 1; */
+  /*! flex-wrap: wrap; */
+  /*! flex-grow: 1; */
+  line-height: 27px;
+  font-size: 14px;
+}
+
+#random_card .radio_group input{
+  width: auto;
+  height: 27px;
+  line-height: 27px;
+  font-size: 14px;
+  margin-top: 0;
+}
+
+#random_card button{
+  margin: 0 2px;
 }

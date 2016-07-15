@@ -2,19 +2,12 @@
 {% if user.userprofile in members %}
 <div class="row">
 	<div class="col-sm-8">
-		<form class="single_form">
-			<div id="random_card" class="dash_card bg_blue">
-				<header><h3><span>Add Some Data</span></h3></header>
-				<div class="dash_row">
-					<div class="form-group">
-						<input name="email" value="" placeholder="Emter Your email to recieve newsletters">
-					</div>
-				</div>
-			</div>
-		</form>
+		<div id="random_card" class="dash_card bg_blue">
+			{% include "workplace/snippets/rc_com_email.html" with com_mail=com_mail %}
+		</div>
 	</div>
 	<div class="col-sm-4">
-		<div class="dash_card">
+		<div class="dash_card bg_green">
 			<div class="hover_a_container">
 				<div class="dash_col blue text-center">
 					<span class="fa fa-plus fa-4x" style="margin-top: 10px;"></span>
