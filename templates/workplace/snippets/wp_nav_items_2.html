@@ -10,9 +10,6 @@
     {% endif %}
       <a id="wp_nav_about" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:about' workplace.slug %}"><span class="fa inline_fa fa-info-circle"></span>About</a>
     </li>
-    <li>
-      <a id="wp_nav_activity" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:activity' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
-    </li>
     {% if type == 'C' %}
     <li>
       <a id="wp_nav_products" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Cars</a>
@@ -24,12 +21,12 @@
     <li>
       <a id="wp_nav_products" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:products' workplace.slug %}"><span class="fa inline_fa fa-cube"></span>Products &amp; Services</a>
     </li>
-    <li>
-      <a id="wp_nav_capabilities" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:capabilities' workplace.slug %}"><span class="fa inline_fa fa-suitcase"></span>Capabilities</a>
-    </li>
     {% endif %}
     <li>
       <a id="wp_nav_people" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:members' workplace.slug %}"><span class="fa inline_fa fa-users"></span>People</a>
+    </li>
+    <li>
+      <a id="wp_nav_activity" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:activity' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
     </li>
   </ul>
 </nav>

@@ -862,6 +862,10 @@ pre {
   position: relative;
   padding-top: 15px;
 }
+
+#workplace{
+  /*! padding-top: 0; */
+}
 /* cover.html */
 
 .message {
@@ -1021,15 +1025,18 @@ pre {
 .wide_container{
   margin: auto;
 }
-.wide_32,.wide_40,.wide_48,.wide_64,.wide_80{
+.wide_32,.wide_40,.wide_48,.wide_64,.wide_80,.wide_72{
   margin: auto;
   vertical-align: top;
 }
-.wide_64{
-  max-width: 640px;
-}
 .wide_80{
   max-width: 800px;
+}
+.wide_72{
+  max-width: 720px;
+}
+.wide_64{
+  max-width: 640px;
 }
 .wide_48{
   max-width: 480px;
@@ -1734,7 +1741,29 @@ input.cropit-image-input {
 
 .info_head {
   margin-bottom: 5px;
-  padding-bottom: 5px;
+  padding: 15px 0;
+  background-color: #fff;
+  /*! margin-right: 16.6667%; */
+}
+
+.info_right{
+  text-align: right;
+  color: #757575;
+}
+
+.info_right h3{
+  font-size: 14px;
+}
+
+.info_right .new{
+  position: relative;
+  top: -16px;
+  font-size: 10px;
+  color: #fff;
+  background-color: #5cb85c;
+  border: 1px solid #4cae4c;
+  border-radius: 20px;
+  padding: 2px 5px;
 }
 
 @media(max-width:768px){
@@ -2221,7 +2250,7 @@ footer .contact li{
 
 
 #figure_modal .modal-content{
-  background-color: #f9f9f9;
+  background-color: #fff;
   min-height: 100%;
   border-radius: 0;
 }
@@ -2246,6 +2275,7 @@ footer .contact li{
 
 #figure_modal figure{
   height: 100%;
+  /*! background-color: #fff; */
 }
 
 #figure_modal .modal-body img{
@@ -2255,6 +2285,7 @@ footer .contact li{
   height: auto;
   display: block;
   margin: auto;
+  background-color: #fff;
 }
 
 #msg_modal .dropdown-menu{
@@ -2352,6 +2383,7 @@ footer .contact li{
 
 .inline_fa{
   margin: 0 5px;
+  margin-left: 0;
 }
 
 .d_search .tag{
@@ -2360,7 +2392,7 @@ footer .contact li{
 
 
 .info_title{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .info_title h2{
@@ -2488,7 +2520,7 @@ footer .contact li{
 }
 
 .wp_body{
-  padding-top: 15px;
+  padding-top: 20px;
 }
 
 .left_menu{
@@ -2955,34 +2987,56 @@ footer .contact li{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #179;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.12);
+  /*! color: #fff; */
+  padding: 5px 10px;
+  font-family: 'Open Sans';
+  border: 1px solid #ddd;
+  /*! border: 1px solid #72e0c4; */
+  box-shadow: 0 2px 3px rgba(0,0,0,.06);
 }
 
 .nav_flex > li{
-  flex-grow: 1;
+  /*! flex-grow: 1; */
   text-align: center;
   margin-right: -1px;
-  background-color: #fff;
+  /*! background-color: #fff; */
+  /*! padding: 15px 5px; */
+}
+
+.info_head .nav > li > a{
+  padding: 5px 10px;
 }
 
 .nav_flex > li:first-child{
-  margin-left: -1px;
+  
 }
 
 .nav_flex > li > a{
-  background-color: #fff;
-  border: 1px solid #eee;
+  /*! background-color: #fff; */
+  /*! border: 1px solid #eee; */
   border-bottom: 0;
+  padding: 10px 15px 10px;
+  
+  border: 1px solid transparent;
+  transition: all linear 1s;
 }
 
 .nav_flex .active > a{
-  background-color: #197;
-  color: #eee;
+  border-bottom: 1px solid #72e0c3;
+  color: #197;
+  transition: all linear 0.2s;
+}
+
+.nav_flex li > a:hover, .nav_flex li > a:focus{
+  background-color: transparent;
+  
 }
 
 .nav_flex .active > a:hover, .nav_flex .active > a:focus{
-  background-color: #197;
+  
 }
 
 .info_title .fa{
@@ -3444,7 +3498,7 @@ footer .contact li{
   display: block;
   margin: 20px auto;
   background-color: transparent;
-  border: 1px solid #777;
+  border: 1px solid #72e0c4;
 }
 
 .btn_trans:hover, .btn_trans:focus, .btn_trans.active{
@@ -4341,7 +4395,8 @@ input.not_wide{
 
 .dash_card .num{
   font-size: 1.5em;
-  color: #917;
+  color: #888;
+  /*! font-family: 'Titillium Web'; */
 }
 
 .edit_title{
@@ -4349,6 +4404,7 @@ input.not_wide{
   text-align: center;
   margin-left: 0;
   margin-right: 0;
+  padding: 25px;
 }
 
 .edit_title .info_title{
@@ -4358,15 +4414,19 @@ input.not_wide{
 .collapse_h{
   display: block;
   font-size: 25px;
-  margin: 0 -15px 25px;
-  padding: 5px 15px;
-  /*! border-top: 1px solid #eee; */
-  border-bottom: 1px solid #eee;
-  color: #197;
+  margin: 25px -1px;
+  padding: 15px;
+  /*! border-top: 1px solid #72e0c4; */
+  /*! border-bottom: 1px solid #72e0c4; */
+  color: #fff;
   //font-weight: 300;
-  /*! background: rgba(16,144,112,0.75); */
+  background: #07a0c3;
   //border-bottom: 1px solid #197;
   position: relative;
+}
+
+.collapse_h:first-child{
+  margin:0;
 }
 
 .collapse_h .fa{
@@ -4375,8 +4435,8 @@ input.not_wide{
 
 .collapse_h:hover, .collapse_h:focus{
   text-decoration: none;
-  colo
-  opacity: 0.9;
+  opacity: 0.95;
+  color: #fff;
 }
 
 .left_form_progress ul{
@@ -4558,6 +4618,18 @@ input.not_wide{
   line-height: 20px;
 }
 
+.dash_card input{
+  /*! vertical-align: middle; */
+  height: 27px;
+  line-height: 27px;
+  font-size: 14px;
+  width: 100%;
+  color: #777;
+  font-family: 'Titillium Web';
+  margin-bottom: 7px;
+  padding: 0 5px 1px;
+}
+
 .dash_card h3 span{
   vertical-align: middle;
 }
@@ -4665,17 +4737,23 @@ input.not_wide{
 }
 
 .tile{
-  padding: 25px 25px;
+  padding: 25px 25px 25px 0;
   background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
-  margin-bottom: 5px;
+  /*! box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); */
+  margin-top: 5px;
+  margin-bottom: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+border: 1px solid rgba(0,0,0,.09);
 }
 
 .tile_flat{
   padding: 25px 25px;
   background-color: #fff;
-  border: 1px solid rgba(0,0,0,0.1);
-  margin-bottom: 5px;
+  /* border: 1px solid rgba(0,0,0,0.1); */
+  border: 1px solid #72e0c4;
+  /*! margin-bottom: 5px; */
+  /*! margin-top: 5px; */
+  font-size: 15px;
 }
 
 .switch_open{
@@ -4781,4 +4859,64 @@ input.not_wide{
   font-weight: 200;
   line-height: 50px;
   color: #104437;
+}
+
+.bg_blue{
+  /*! background-color: #07a0c3; */
+  /*! color: #fff; */
+  border: 1px solid #07a0c3;
+}
+
+.bg_green{
+  border: 1px solid #72e0c4;
+}
+
+#workplace .product{
+  width: 250px;
+}
+
+#random_card header{
+  margin-bottom: 5px;
+}
+
+#random_card p{
+  margin-bottom: 7px;
+  line-height: 1.15;
+}
+
+#random_card .radio_group{
+  padding: 0;
+  margin-bottom: 7px;
+  border-color: #8AA5C8;
+  /*! box-shadow: 0 0 0 1px #8AA5C8; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#random_card .radio-inline, #random_card .checkbox-inline{
+  font-family: 'Titillium Web';
+  margin-left: 0;
+  margin-right: 5%;
+  color: #777;
+  font-weight: 500;
+  /*! width: 22%; */
+  vertical-align: top;
+  /*! margin-bottom: 10px; */
+  /*! flex: 1; */
+  /*! flex-wrap: wrap; */
+  /*! flex-grow: 1; */
+  line-height: 27px;
+  font-size: 14px;
+}
+
+#random_card .radio_group input{
+  width: auto;
+  height: 27px;
+  line-height: 27px;
+  font-size: 14px;
+  margin-top: 0;
+}
+
+#random_card button{
+  margin: 0 2px;
 }

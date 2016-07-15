@@ -188,6 +188,8 @@ def workplace_profile(request, slug):
     t = Thread(target=no_hits, args=(workplace.id,))
     t.start()
 
+    com_mail = request.user.userprofile.product_email
+
     return render(request, 'workplace/profile.html', locals())
 
 
@@ -227,6 +229,7 @@ def workplace_dash(request, slug):
     products = Products.objects.filter(producer=workplace.pk)
     inquiry_count = Enquiry.objects.filter(product__in=products).count()
     new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
+    com_mail = request.user.userprofile.product_email
 
     node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
 
@@ -644,11 +647,12 @@ def edit_workplace(request):
     wp = user.userprofile.primary_workplace
     workplace = wp
     dictionary = {}
-    direct = ['about', 'history', 'established', 'revenue', 'turnover', 'sme_type', 'wp_type', 'mobile_contact1',
+    direct = ['about', 'history', 'year_established', 'revenue', 'turnover', 'sme_type', 'wp_type', 'mobile_contact1',
               'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
               'number_of_employees', 'website', 'product_details']
     if request.method == 'POST':
         for key in request.POST:
+            print(key, request.POST[key])
             if key in direct:
                 try:
                     dictionary[key] = request.POST[key]
@@ -694,3 +698,19 @@ def set_interest_all():
             for m in w.get_members():
                 m.set_interests(tags)
                 print(w.id)
+
+
+def random_card(request):
+    print('randomao')
+    user = request.user
+    up = request.user.userprofile
+    workplace = up.primary_workplace
+    print(user, workplace)
+    if request.method == 'POST':
+        if 'msg' in request.POST:
+            return render(request, 'workplace/snippets/rc_com_email_msg.html', locals())
+        else:
+            data = request.POST.get('data')
+            setattr(up, 'product_email', data)
+            up.save()
+            return HttpResponse()

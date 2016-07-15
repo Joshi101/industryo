@@ -249,6 +249,41 @@ class Workplace(models.Model):
         a = i.upload_image(image=image, user=user)
         self.logo = a
 
+    def get_legal_status(self):
+        legal = self.legal_status
+        status = False
+        values = {
+            'A': 'Private Limited',
+            'B': 'Sole Proprietorship',
+            'C': 'Limited Liability Partnership',
+            'D': 'Public',
+            'E': 'Partnership Firm',
+            'O': 'Other',
+            'U': 'Unregistered',
+        }
+        print(values.keys())
+        for value in values.keys():
+            if value == legal:
+                print(value, legal)
+                status = values[value]
+        return status
+
+    def get_sme_type(self):
+        stype = self.sme_type
+        status = False
+        values = {
+            'A': 'Manufacturing SME',
+            'B': 'Supplier',
+            'C': 'Service Provider',
+            'O': 'Others',
+        }
+        print(values.keys())
+        for value in values.keys():
+            if value == stype:
+                print(value, stype)
+                status = values[value]
+        return status
+
     def get_city(self):
         city = self.wptags.filter(type='C')
         return city

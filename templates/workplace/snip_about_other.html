@@ -1,116 +1,109 @@
-{% load filter %}
-<div class="panel panel-default">
-	<div class="info_field v2 ajax_papa">
-		<div class="info_field_value ">
-			{% if workplace.about %}
-				{{workplace.about|urlize|new_tab|safe}}
-			{% else %}
-				<i class="text-muted text-center center-block">No Description Available</i>
-			{% endif %}
-		</div>
-		<div class="info_field_edit hide">
-			<textarea name="about" form="about_wp_form" rows="3" class="form-control new_val">{{workplace.about}}</textarea>
-		</div>
-	</div>
+<div class="form_card tile_flat" style="margin-top: 0;">
+  <div class="collapse_h">Summary<span class="fa fa-fw fa-info pull-right"></span></div>
+  <div id="gen_info" class="collapse in">
+    <div class="form-group">
+      <p class="data">{{workplace.about}}</p>
+    </div>
+    <div class="form-group">
+      <div class="data_title">Operating in</div>
+      {% if workplace.get_tags %}
+      <div class="tags">
+        <span class="fa fa-map-o fa-fw"></span>
+        {% for tag in workplace.get_tags.city %}
+          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {% if workplace.year_established %}
+      <div class="data_inline"><span class="fa fa-history fa-fw"></span>&nbsp;Established In {{workplace.year_established}}</div>
+      {% endif %}
+      <div class="data_inline"><span class="fa fa-users fa-fw"></span>&nbsp;{{workplace.number_of_employees|default:'1'}} Employees</div>
+      {% if workplace.get_legal_status %}
+      <div class="data_inline"><span class="fa fa-legal fa-fw"></span>&nbsp;{{workplace.get_legal_status}}</div>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="data_title">Annual Revenue</div>
+          <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.revenue}}</p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="data_title">Turnover</div>
+          <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.turnover}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div class="row">
-	<div class="col-sm-5 col-sm-push-7">
-		<div class="info_field_pseudo">
-			<div class="panel panel-default">
-				<div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-globe fa-fw"></span>Website</div>
-		      <div class="info_field_value">{{workplace.website|urlize|new_tab|safe}}</div>
-		    </div>
-		    <div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-map-signs fa-fw"></span>Address</div>
-		      <div class="info_field_value">{{workplace.address}}</div>
-		    </div>
-			{% if not workplace.workplace_type == 'O' %}
-				<div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 1</div>
-		      <div class="info_field_value">{{workplace.contact}}</div>
-		    </div>
-				<div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 2</div>
-		      <div class="info_field_value">{{workplace.mobile_contact1}}</div>
-		    </div>
-				<div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-envelope-o fa-fw"></span>E-Mail (office)</div>
-		      <div class="info_field_value">{{workplace.office_mail_id|urlize|new_tab|safe}}</div>
-		    </div>
-			{% endif %}
-				<div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-linkedin fa-fw"></span>LinkedIn Page</div>
-		      <div class="info_field_value">{{workplace.linkedin_page|urlize|new_tab|safe}}</div>
-		    </div>
-				<div class="info_field ajax_papa">
-					<div class="info_field_label"><span class="fa fa-facebook-official fa-fw"></span>Facebook Page</div>
-		      <div class="info_field_value">{{workplace.fb_page|urlize|new_tab|safe}}</div>
-		    </div>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-7 col-sm-pull-5">
-		<div class="info_field_pseudo">
-			<div class="panel panel-default">
-				<div class="info_field">
-					<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Cities of operatation</div>
-		      <div class="info_field_value">
-		      	{% if workplace.get_tags.city %}
-		      	{% include "snippets/tags.html" with tags=workplace.get_tags.city %}
-		      	{% else %}
-		      	<span class="placeholder">Not Available</span>
-		      	{% endif %}
-		      </div>
-		    </div>
-	    </div>
-	    <div class="panel panel-default">
-				<div class="info_field">
-		    	<div class="info_field_label"><span class="fa fa-tags fa-fw"></span>Segments</div>
-		      <div class="info_field_value">
-		      	{% if workplace.get_tags.segments %}
-			      	{% include "snippets/tags.html" with tags=workplace.get_tags.segments %}
-		      	{% else %}
-		      	<span class="placeholder">Nothing Specified</span>
-		      	{% endif %}
-		      </div>
-		    </div>
-	    </div>
-	    {% if type == 'B' %}
-			<div class="panel panel-default">
-				<div class="panel-body">
-			    <h3 class="dash_stat_big">
-			      <span id="assets_dash_count_1" class="number text-success">{{product_count}}</span>
-			      <span class="text">Products Listed</span>
-			    </h3>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-body">
-			    <h3 class="dash_stat_big">
-			      <span id="assets_dash_count_1" class="number text-success">{{member_count}}</span>
-			      <span class="text">People in Company</span>
-			    </h3>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-body">
-			    <h3 class="dash_stat_big">
-			      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.assets|length}}</span>
-			      <span class="text">Assets &amp; Machinery</span>
-			    </h3>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-body">
-			    <h3 class="dash_stat_big">
-			      <span id="assets_dash_count_1" class="number text-success">{{workplace.get_tags.operations|length}}</span>
-			      <span class="text">Operations Performed</span>
-			    </h3>
-				</div>
-			</div>
-			{% endif %}
-		</div>
-	</div>
+<div class="form_card tile_flat">
+  <div class="collapse_h">Specialization<span class="fa fa-fw fa-barcode pull-right"></span></div>
+  <div id="extra_info" class="collapse in">
+    <div class="form-group">
+      <div class="data_title">Product Description</div>
+      <p class="data">{{workplace.product_details}}</p>
+    </div>
+    <div class="form-group">
+      <div class="data_title">Segements</div>
+      {% if workplace.get_tags %}
+      <div class="tags">
+        <span class="fa fa-industry fa-fw"></span>
+        {% for tag in workplace.get_tags.segments %}
+          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <div class="data_title">Operations</div>
+      {% if workplace.get_tags %}
+      <div class="tags">
+        <span class="fa fa-fire-extinguisher fa-fw"></span>
+        {% for tag in workplace.get_tags.operations %}
+          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <div class="data_title">Machinery &amp; Assets</div>
+      {% if workplace.get_tags %}
+      <div class="tags">
+        <span class="fa fa-cogs fa-fw"></span>
+        {% for tag in workplace.get_tags.assets %}
+          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="form_card tile_flat">
+  <div class="collapse_h">Contact Information<span class="fa fa-fw fa-coffee pull-right"></span></div>
+  <div id="contact_info" class="collapse in">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="data_inline"><a href="{{workplace.website}}"><span class="fa fa-globe fa-fw"></span>&nbsp;{{workplace.website}}</a></div>
+          <div class="data_inline"><a href="{{workplace.fb_page}}"><span class="fa fa-facebook-official fa-fw"></span>&nbsp;{{workplace.fb_page}}</a></div>
+          <div class="data_inline"><a href="{{workplace.linkedin_page}}"><span class="fa fa-linkedin-square fa-fw"></span>&nbsp;{{workplace.linkedin_page}}</a></div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="data_inline"><a href="mailto:{{workplace.office_mail_id}}"><span class="fa fa-envelope-o fa-fw"></span>&nbsp;{{workplace.office_mail_id}}</a></div>
+          <div class="data_inline"><span class="fa fa-tty fa-fw"></span>&nbsp;{{workplace.contact}}</div>
+          <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact1}}</div>
+          <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact2}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="data_inline"><span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address}}</div>
+    </div>
+  </div>
 </div>

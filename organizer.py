@@ -1,13 +1,13 @@
+from os import walk
 from html.parser import HTMLParser
+import csv
 
-try:
-    f = open(r"C:\Users\Arvind\Documents\GitHub\industryo\templates\base.html")
-    print(f)
-finally:
-    f.close()
 
-with open(r"C:\Users\Arvind\Documents\GitHub\industryo\templates\base.html") as f:
-    data = f.read().replace('\n', '')
+def write_out(result):
+    with open('html.csv', 'w') as f:
+        w = csv.DictWriter(f, result.keys())
+        # w.writeheader()
+        w.writerow(result)
 
 
 class MyHTMLParser(HTMLParser):
@@ -23,6 +23,21 @@ class MyHTMLParser(HTMLParser):
     # def handle_data(self, data):
     #     print("Encountered some data  :", data)
 
+try:
+    f = open(r"C:\Users\Arvind\Documents\GitHub\industryo\templates\base.html")
+    print(f)
+finally:
+    f.close()
+
+with open(r"C:\Users\Arvind\Documents\GitHub\industryo\templates\base.html") as f:
+    data = f.read().replace('\n', '')
 
 parser = MyHTMLParser()
 parser.feed(data)
+path = 'templates'
+counter = 0
+for (dirpath, dirnames, filenames) in walk(path):
+    for filename in filenames:
+        if filename.endswith(".html"):
+            counter += 1
+            print(dirpath+'\\'+filename)

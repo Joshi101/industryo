@@ -1,5 +1,7 @@
+{% comment %}
 {% if user.userprofile in members %}
 	{% include "workplace/snip_about_self.html" %}
 {% else %}
-	{% include "workplace/snip_about_other.html" %}
-{% endif %}
+{% endif %} #}
+{% endcomment %}
+{% include "workplace/snip_about_other.html" %}

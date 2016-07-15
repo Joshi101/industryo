@@ -4,11 +4,12 @@ br { display: block; line-height: 1.6em; }
 .form_card {
   position: relative;
   display: block;
-  margin: 30px;
+  margin: 30px 0;
   overflow: hidden;
   background: #fff;
-  border: 1px solid #e4e4e4;
+  /*! border: 1px solid #e4e4e4; */
   border-radius: 5px;
+  padding: 0;
 }
 
 .form_card .form-group {
@@ -20,8 +21,17 @@ br { display: block; line-height: 1.6em; }
   margin-bottom: 0;
   height: 100%;
 }
+
 .form_card .form-group.active{
-  box-shadow: 0px 0px 0px 1px rgb(17, 153, 119) inset;
+}
+.form_card .form-group.active, .form_card .form-group.active textarea, .form_card .form-group.active input{
+  
+  color: #222;
+  transition: all linear .3s;
+}
+
+.form_card .form-group.active label{
+  color: #197;
 }
 
 .form_card label, .form_card .data_title{
@@ -30,6 +40,7 @@ br { display: block; line-height: 1.6em; }
   text-transform: uppercase;
   color: #333;
   margin-bottom: 0;
+  position: relative;
 }
 
 .form_card input, .form_card textarea, .form_card select, .form_card .data{
@@ -94,6 +105,7 @@ br { display: block; line-height: 1.6em; }
   /*! flex-wrap: wrap; */
   /*! flex-grow: 1; */
   line-height: 27px;
+  font-size: 14px;
 }
 
 .form_card .radio_group input{
@@ -111,6 +123,22 @@ br { display: block; line-height: 1.6em; }
   opacity: 1;
   margin-left: -20px;
   outline: 0;
+}
+
+.form_card .form-group .fa{
+  color: #b4b4b4;
+}
+
+.form_card .form-group .data_inline{
+  font-family: 'Titillium Web';
+  font-size: 16px;
+  min-height: 27px;
+  line-height: 27px;
+  margin: 0 -5px 10px;
+  padding: 0px 5px;
+  /*! border: none; */
+  /*! outline: none; */
+  color: #777;
 }
 
 .form_card .image_box{
@@ -174,7 +202,7 @@ br { display: block; line-height: 1.6em; }
 
 .col-submit {
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
 .submitbtn {
@@ -223,6 +251,20 @@ a.submitbtn:hover, a.submitbtn:focus{
   color: #fff;
 }
 
+.form_card .pre_input input{
+  padding-left: 30px;
+}
+
+.form_card .pre_input .pre{
+  position: absolute;
+  left: 15px;
+  top: 47px;
+  font-size: 16px;
+  color: #aaa;
+  font-family: 'Titillium Web';
+  line-height: 27px;
+}
+
 /** responsive design **/
 @media(min-width: 768px){
   .col-submit { display: block; }
@@ -232,7 +274,7 @@ a.submitbtn:hover, a.submitbtn:focus{
   .form_card .row{
     display: flex;
   }
-  .col-submit .submitbtn { width: 30%; margin: 0 auto; }
+  .col-submit .submitbtn { min-width: 30%; margin: 0 auto; max-width: 50%;}
 }
 
 .form_card .form-group h1{

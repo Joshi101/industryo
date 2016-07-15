@@ -40,6 +40,7 @@ urlpatterns = patterns('',
     url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category_wp', name='category_wp'),
 
     url(r'^edit/$', 'workplace.views.edit_workplace', name='edit'),
+    url(r'^random_card/$', 'workplace.views.random_card', name='random_card'),
 
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
 

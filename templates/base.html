@@ -60,6 +60,10 @@
   <script>
     var count_url = "{% url 'count_notify' %}";
     var msg_count_url = "{% url 'messages:check_message' %}";
+    function radio_select(rgroup,value){
+      console.log(rgroup,value)
+      $(rgroup).find('input[value="'+value+'"]').prop('checked', 'checked');
+    }
   </script>
   {% endblock head_js %}
 </head>

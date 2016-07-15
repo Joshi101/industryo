@@ -1,0 +1,28 @@
+<form class="bullet_form auto_form" method="POST" action="{% url 'workplace:random_card' %}">
+	<header><h3><span>Email Communication</span></h3></header>
+	<div>
+		<p>Review the email address on which you would like to recieve the enquiries and messages generated on CoreLogs</p>
+		<div class="form-group">
+			<div id="com_email_radio">
+				<div class="radio_group">
+		      <label class="radio-inline"><input type="radio" value='{{workplace.office_mail_id}}' name="data">{{workplace.office_mail_id}}</label>
+		      {% if com_mail %}
+		      <label class="radio-inline"><input type="radio" value='{{com_mail}}' name="data">{{com_mail}}</label>
+		      {% else %}
+		      <label class="radio-inline"><input type="radio" value='{{user.email}}' name="data">{{user.email}}</label>
+		      {% endif %}
+		    </div>
+		    <button class="swapper btn btn-info pull-right" data-alt='#com_email_input' data-now="#com_email_radio" type="button">Add New</button>
+		    <button class="btn btn-success pull-right">Its Good!</button>
+	    </div>
+	    <div id="com_email_input" class="hide">
+	    	<input name="data" value="{{com_mail}}" placeholder="Enter the new email address for communication">
+	    	<button class="swapper btn btn-info pull-right" data-alt='#com_email_radio' data-now="#com_email_input" type="button">Back</button>
+	    	<button class="btn btn-success pull-right">Its Done!</button>
+    	</div>
+	    <script type="text/javascript">
+	    	radio_select('#com_email_radio','{{com_mail}}');
+	    </script>
+		</div>
+	</div>
+</form>

@@ -213,7 +213,7 @@ def enquire(request):
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/products/'+prod.slug)
 
-            if not p:
+            if w:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
                     # Checking if the same person has created more than 5 inquiries that day
@@ -243,7 +243,7 @@ def enquire(request):
                     # send_enq_mail(e)
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/products/'+prod.slug)
-            if not p:
+            if w:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
                     e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message, phone_no=phone)

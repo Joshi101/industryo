@@ -101,8 +101,8 @@
         <li id="messages" title="" data-toggle="tooltip" data-placement="bottom">
           <span class="badge"></span>
           <a id="top_nav_messages" href="{% url 'messages:inbox' %}">
-            <span class="fa fa-envelope-o"></span>
-            <span class="">Messages</span>
+            <span class="fa fa-inbox"></span>
+            <span class="">Inbox</span>
           </a>
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
@@ -118,7 +118,9 @@
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
           <a id="top_nav_user" href="{% url 'user:profile' user.username %}">
             <img class="lazy_img thmb_xs" src="/images/user_man.png" data-src="{{user.userprofile.get_profile_image}}" alt="{{user}}">
-            <span class="abr">{{user.userprofile|truncatewords:1}}</span>
+            <span class="abr">
+            {% if user.first_name %}{{user.first_name}}{% else %}{{user.username}}{% endif %}
+            </span>
           </a>
         </li>
         <li class="dropdown top_extra">
