@@ -5,6 +5,7 @@ from userprofile.models import UserProfile
 from workplace.models import Workplace
 from forum.models import Question
 from tags.models import Tags
+from leads.models import Leads
 from products.models import Products, Category
 from itertools import chain
 from allauth.account.forms import AddEmailForm, ChangePasswordForm
@@ -239,6 +240,39 @@ def categories_wp(request):
         objects = paginator.page(paginator.num_pages)
 
     return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'category_wp'})
+
+
+def nodes(request):
+    all_objects = Node.feed.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'nodes'})
+
+
+def leads(request):
+    all_objects = Leads.objects.all()
+    paginator = Paginator(all_objects, 50)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        objects = paginator.page(paginator.num_pages)
+
+    return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'leads'})
+
 
 def about(request):
     return render_to_response(request, 'about.html')

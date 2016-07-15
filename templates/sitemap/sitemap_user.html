@@ -59,7 +59,14 @@
 		{% for ob in list %}
 		<li><a href='{% url 'workplace:category_wp' ob.slug %}' class="">{{ob}}</a></li>
 		{% endfor %}
-
+	{% elif what == "nodes" %}
+		{% for ob in list %}
+		<li><a href='{% url 'nodes:node' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
+	{% elif what == "leads" %}
+		{% for ob in list %}
+		<li><a href='{% url 'leads:lead' ob.slug %}' class="">{{ob}}</a></li>
+		{% endfor %}
 	{% endif %}
 <div class="pagination">
     <span class="step-links">

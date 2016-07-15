@@ -9,7 +9,7 @@
 
 {% load filter %}
 
-{% block title %}{{ node.title }}{% endblock title %}
+{% block title %}{% if node.title %}{{ node.title }}{% else %}{{node.post|truncatehars:100}}{% endblock title %}
 
 {% block meta_description %}{{ node.post|truncatewords:25 }}{% endblock meta_description %}
 
