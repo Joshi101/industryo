@@ -120,8 +120,9 @@ def edit_add_lead(request, slug):
 def leads(request):
     q = request.GET.get('q')
     user = request.user
-    if user.userprofile.workplace_type is not 'N':
-        wp = user.userprofile.primary_workplace
+    if user.is_authenticated():
+        if user.userprofile.workplace_type is not 'N':
+            wp = user.userprofile.primary_workplace
     if q == 'open':
         leads = Leads.object.filter(status=True).order_by('-date')
     elif q == 'closed':
