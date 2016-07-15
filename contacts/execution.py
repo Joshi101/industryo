@@ -77,7 +77,7 @@ def check_executable():
             # send_mail_contacts(email, body, subject, mail.from_email)
             # mail.sent = True
             # mail.save()
-        elif mail.reasons == 'bm':
+        elif mail.reasons == ['bm', 'bulk_m']:
             email = mail.email
             body = mail.body
             subject = mail.subject

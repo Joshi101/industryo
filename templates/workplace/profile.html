@@ -75,6 +75,7 @@
     </div>
     {% include "enquiry/no_product_modal.html" %}
   </div>
+  {% if user.userprofile.primary_workplace == workplace %}
   <div class="row">
     <div class="col-md-2 text-center">
       <a class="" style="margin-top: 10px; padding: 17px 10px; display: inline-block;" href="{% url 'workplace:edit' %}"><span class="fa fa-pencil fa-fw"></span>&nbsp;Edit Profile</a>
@@ -84,7 +85,7 @@
     </div>
   </div>
 </div>
-
+{% endif %}
 <div class="container-fluid">
   <div class="row wp_body">
     <div class="col-sm-12 col-md-8 col-md-offset-2">

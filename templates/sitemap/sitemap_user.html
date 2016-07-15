@@ -61,7 +61,7 @@
 		{% endfor %}
 	{% elif what == "nodes" %}
 		{% for ob in list %}
-		<li><a href='{% url 'nodes:node' ob.slug %}' class="">{{ob}}</a></li>
+		<li><a href='{% url 'nodes:node' ob.slug %}' class="">{{ob|truncatewords:30}}</a></li>
 		{% endfor %}
 	{% elif what == "leads" %}
 		{% for ob in list %}

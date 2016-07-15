@@ -148,7 +148,7 @@ class Node(models.Model):
                 slug_str = self.title
                 unique_slugify(self, slug_str)
             elif self.category is 'F':
-                slug_str = self.post[:250]
+                slug_str = self.post[:100]
                 unique_slugify(self, slug_str)
             elif self.category is 'D':
                 slug_str = self.post[:250]

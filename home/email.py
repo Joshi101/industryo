@@ -32,7 +32,20 @@ def send(request):
 
 @login_required
 def send_html(request):
-    pass
+    users = User.objects.filter(userprofile__workplace_type='B')
+    now_utc = datetime.now()
+    seconds = 40
+    template = all_sme_template
+    subject = '[CoreLogs] Important notification. See Company DashBoard'
+    for user in users:
+        up = user.userprofile
+        wp = up.primary_workplace
+        html_content = template.format(up, wp, wp.slug)
+        MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bulk_m', subject=subject,
+                                from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(seconds=seconds))
+        seconds += 30
+
+
 @login_required
 def send_mail(request):
     if request.method == 'POST':
@@ -87,13 +100,13 @@ def send_mail(request):
             #         tasks.send_list_html_mail(pi, n=22)
             #         pi = []
             # tasks.send_list_html_mail(pi, n=22)
-
+        minutes = 1
         for user in users:
             up = user.userprofile
             a = eval(arguments)
             template = body
             html_content = template.format(*a)
-            minutes = 1
+
             MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm', subject=subject,
                                     from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
             minutes += 1

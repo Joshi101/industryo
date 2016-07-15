@@ -385,17 +385,8 @@ def delete_node_image(request):
     question.images.remove(image)
 
 
-def set_node_url():
-    nodes = Node.feed.all()
-    li = []
-    for n in nodes:
-        if len(n.slug)>50:
-            s = n.slug
-            k = s[:50]
-            if k in li:
-                k = k+'dscfd'
-            n.slug = k
-            li.append(k)
-            n.save()
+# def
+
+
 
 # Create your views here.
