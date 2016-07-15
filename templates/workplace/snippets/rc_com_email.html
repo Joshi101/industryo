@@ -5,9 +5,11 @@
 		<div class="form-group">
 			<div id="com_email_radio">
 				<div class="radio_group">
+					{% if workplace.office_mail_id %}
 		      <label class="radio-inline"><input type="radio" value='{{workplace.office_mail_id}}' name="data">{{workplace.office_mail_id}}</label>
-		      {% if com_mail %}
-		      <label class="radio-inline"><input type="radio" value='{{com_mail}}' name="data">{{com_mail}}</label>
+					{% endif %}
+		      {% if user.userprofile.product_email %}
+		      <label class="radio-inline"><input type="radio" value='{{user.userprofile.product_email}}' name="data">{{user.userprofile.product_email}}</label>
 		      {% else %}
 		      <label class="radio-inline"><input type="radio" value='{{user.email}}' name="data">{{user.email}}</label>
 		      {% endif %}
@@ -21,7 +23,7 @@
 	    	<button class="btn btn-success pull-right">Its Done!</button>
     	</div>
 	    <script type="text/javascript">
-	    	radio_select('#com_email_radio','{{com_mail}}');
+	    	radio_select('#com_email_radio','{{user.userprofile.product_email}}');
 	    </script>
 		</div>
 	</div>

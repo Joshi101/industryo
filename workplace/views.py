@@ -188,8 +188,6 @@ def workplace_profile(request, slug):
     t = Thread(target=no_hits, args=(workplace.id,))
     t.start()
 
-    com_mail = request.user.userprofile.product_email
-
     return render(request, 'workplace/profile.html', locals())
 
 
