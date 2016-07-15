@@ -70,10 +70,13 @@ def searchq(request):   # active
                 query = q
             else:
                 query = query & q
-    # if query is None:
-    #     query = q
-    # else:
-    #     query = query & q
+    else:
+        for term in terms:
+            q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
+            if query is None:
+                query = q
+            else:
+                query = query & q
     return render(request, 'search/list.html', {'query': query, 'what': what})
 
 
