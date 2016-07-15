@@ -1633,13 +1633,13 @@ function deleteWPTag($tag){
     });
 }
 
-$('.enq_btn').on('click',function(){
+$('body').on('click','.enq_btn',function(){
     $('#enquiry_modal').find('input[name="pid"]').val($(this).closest('.product').find('.id').text());
 });
 
 $('body').on('click', '.more', function(){
     var $this = $(this);
-    $this.parent().stop().animate({'height':'120px'}, 500, function(){
+    $this.parent().stop().animate({'height':'131px'}, 500, function(){
         $this.parent().addClass('expanded');
         $this.removeClass('more').addClass('less').html('less <span class="fa fa-chevron-up"></span>');
     });
@@ -1647,7 +1647,7 @@ $('body').on('click', '.more', function(){
 
 $('body').on('click', '.less', function(){
     var $this = $(this);
-    $(this).parent().stop().animate({'height':'28px'},500, function(){
+    $(this).parent().stop().animate({'height':'50px'},500, function(){
         $this.parent().removeClass('expanded');
         $this.removeClass('less').addClass('more').html('more <span class="fa fa-chevron-down"></span>');
     });
@@ -2070,7 +2070,7 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
 
 $(function(){
     $('.pre_input').each(function(){
-       $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()+10));
+       $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()));
     });
     $('.char_count').each(function(){
         var f = $(this).parent().find('input, textarea');

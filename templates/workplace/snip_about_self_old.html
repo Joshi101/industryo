@@ -1,0 +1,181 @@
+{% load filter %}
+
+	<div id="about_wp" class="info_field_grp ajax_andar ajax_papa">
+		{% if user.userprofile in members %}
+		<form id="about_wp_form" class="info_form" action="{% url 'workplace:set_about' %}" method="POST">
+			<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+			<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+			<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+			{% csrf_token %}
+		</form>
+		{% endif %}
+		<div class="panel panel-default">
+			<div class="info_field ajax_papa">
+				<div class="info_field_value ">
+					{% if workplace.about %}
+						{{workplace.about|urlize|new_tab|safe}}
+					{% elif user.userprofile in members %}
+						<i class="text-muted text-center center-block">Add a basic intro of your {{workplace.get_type_short}} in about 5-8 lines.</i>
+					{% else %}
+						<i class="text-muted text-center center-block">No Description Available</i>
+					{% endif %}
+				</div>
+				<div class="info_field_edit hide">
+					<textarea name="about" form="about_wp_form" rows="4" class="form-control seamless_l">{{workplace.about|default:''}}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="details_wp" class="info_field_grp ajax_andar">
+		{% if user.userprofile in members %}
+		<form id="details_wp_form" class="info_form" action="{% url 'workplace:set_details' %}" method="POST">
+			<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
+			<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
+			<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
+			{% csrf_token %}
+		</form>
+		{% endif %}
+
+		<div class="panel panel-default">
+	    <div class="info_field ajax_papa">
+	    	<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>City</div>
+	    	<span class="colon">:</span>
+	      <div class="info_field_value">
+	      	{% if workplace.get_tags.city %}
+	      	{% include "snippets/tags.html" with tags=workplace.get_tags.city %}
+	      	{% else %}
+	      	<span class="placeholder">Add the City you are based at</span>
+	      	{% endif %}
+	      </div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' d_form='details_wp_form' %}
+	      </div>
+	      {% endif %}
+	    </div>
+
+	  	{% if workplace.workplace_type != 'O' %}
+	    <div class="info_field ajax_papa">
+	    	<div class="info_field_label"><span class="fa fa-tags fa-fw"></span>Segments</div>
+	      <span class="colon">:</span>
+	      <div class="info_field_value">
+	      	{% if workplace.get_tags.segments %}
+		      	{% include "snippets/tags.html" with tags=workplace.get_tags.segments %}
+	      	{% else %}
+	      	<span class="placeholder">
+					  {% if workplace.workplace_type == 'A' %}
+						Add segments <br> (Automobile/ Aerospace/ Consultancy/ Manufacturing etc.)
+					  {% elif workplace.workplace_type == 'B' %}
+						Add segments <br> (Manufacturing/ Automobile/ Aerospace/ Consultancy etc.)
+					  {% elif workplace.workplace_type == 'C' %}
+						Add segments <br> (Baja/ Formula/ Efficycle/ AeroDesign etc.)
+					  {% endif %}
+				  </span>
+				  {% endif %}
+	      </div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+	        {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segments name='segement' d_form='details_wp_form' %}
+	      </div>
+		    {% endif %}
+	    </div>
+	    {% endif %}
+			{% if workplace.workplace_type == 'C' %}
+			<div class="info_field ajax_papa">
+	    	<div class="info_field_label">Parent Institution</div>
+	    	<span class="colon">:</span>
+	      <div class="info_field_value">
+	      	{% if workplace.get_tags.institution %}
+		      	{% include "snippets/tags.html" with tags=workplace.get_tags.institution %}
+	      	{% else %}
+	      	<span class="placeholder">Add your parent institution</span>
+				  {% endif %}
+	      </div>
+	      {% if user.userprofile in members %}	
+	      <div class="info_field_edit hide">
+          {% include "snippets/d_search_tags.html" with search="tag" type='P' tags=workplace.get_tags.institution name='institution' %}
+	      </div>
+		    {% endif %}
+	    </div>
+	    {% endif %}
+			
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-globe fa-fw"></span>Website</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.website|urlize|new_tab|safe}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="website" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.website|default:''}}" placeholder="Url to the website of your company">
+	      </div>
+	      {% endif %}
+	    </div>
+
+	    <div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-map-signs fa-fw"></span>Address</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.address}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="address" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.address|default:''}}" >
+	      </div>
+	      {% endif %}
+	    </div>
+		{% if not workplace.workplace_type == 'O' %}
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 1</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.contact}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="contact" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.contact|default:''}}">
+	      </div>
+	      {% endif %}
+	    </div>
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-phone fa-fw"></span>Mobile Contact 2</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.mobile_contact1}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="contact1" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.mobile_contact1|default:''}}">
+	      </div>
+	      {% endif %}
+	    </div>
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-envelope-o fa-fw"></span>E-Mail (office)</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.office_mail_id|urlize|new_tab|safe}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="email" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.office_mail_id|default:''}}">
+	      </div>
+	      {% endif %}
+	    </div>
+		{% endif %}
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-linkedin fa-fw"></span>LinkedIn Page</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.linkedin_page|urlize|new_tab|safe}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="linkedin" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.linkedin_page|default:''}}">
+	      </div>
+	      {% endif %}
+	    </div>
+		
+			<div class="info_field ajax_papa">
+				<div class="info_field_label"><span class="fa fa-facebook-official fa-fw"></span>Facebook Page</div>
+				<span class="colon">:</span>
+	      <div class="info_field_value">{{workplace.fb_page|urlize|new_tab|safe}}</div>
+	      {% if user.userprofile in members %}
+	      <div class="info_field_edit hide">
+					<input name="fb" form="details_wp_form" class="form-control new_val open_input" value="{{workplace.fb_page|default:''}}">
+	      </div>
+	      {% endif %}
+	    </div>
+		</div>
+		<script type="text/javascript">
+			$('.d_input').addClass('open_input');
+		</script>
+	</div>

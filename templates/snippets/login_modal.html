@@ -15,9 +15,9 @@
 		    </div>
 		    {% include "socialaccount/snippets/login_extra.html" %}
 		    {% endif %}
-		    <p class="text-info text-center">Or, if you have a CoreLogs account use your username to login</p>
+		    <p class="text-info text-center">Or, if you have a CoreLogs account use your email to login</p>
 	      {% csrf_token %}
-    		<input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
+    		<input id="id_login" class="form-control" type="text" placeholder="Email Address" name="login" maxlength="30" autofocus="autofocus">
     		<input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
 	      {% if redirect_field_value %}
 	      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

@@ -1,4 +1,4 @@
-<form id="edit_lead_form" class="form_card auto_form" role="form" {% if not lead %} action="{% url 'leads:edit_add' 'new' %}" {% else %} action="{% url 'leads:edit_add' lead.slug %}" {% endif %} method="POST" enctype="multipart/form-data">
+<form id="edit_lead_form" class="auto_form" role="form" {% if not lead %} action="{% url 'leads:edit_add' 'new' %}" {% else %} action="{% url 'leads:edit_add' lead.slug %}" {% endif %} method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
   <div class="form-group">

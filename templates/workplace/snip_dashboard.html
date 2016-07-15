@@ -2,52 +2,28 @@
 {% if user.userprofile in members %}
 <div class="row">
 	<div class="col-sm-8">
-		<div class="dash_card">
-			<div class="row">
-				<div class="col-sm-9">
-					<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
-					<div class="data">
-						<div class="row">
-							{% if workplace.get_product_count = 0 %}
-							<div class="col-sm-12 text-center">
-								<p style="font-size: 1.4em; color: orange; margin-bottom: 5px">List the Products you Manufacture or Sell or the Services you Provide</p>
-								<div class="text-muted">If You are busy, ask the sales people to signup &amp; List Products</div>
-							</div>
-							{% elif workplace.get_product_count < 3 %}
-							{% with products.0 as product %}
-							<div class="col-sm-3">
-								<img class="lazy_img p_img" src="/images/product.png" data-src="{{product.get_image_thumbnail}}">
-								<div class="p_name">{{product|truncatechars:20}}</div>
-							</div>
-							{% endwith %}
-							<div class="col-sm-9 text-center">
-								<p style="font-size: 1.4em; color: orange">List more products/ Services &amp; Get Inquiries directly in Inbox</p>
-							</div>
-							{% else %}
-							{% for product in products|slice:"3" %}
-							<div class="col-sm-4 text-center">
-								<img class="lazy_img p_img" src="/images/main/product.png" data-src="{{product.get_image_thumbnail}}">
-								<div class="p_name">{{product|truncatechars:15}}</div>
-							</div>
-							{% endfor %}
-							{% endif %}
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3 text-center">
-					<div class="hover_a_container">
-						<div class="dash_col last blue">
-							<span class="fa fa-plus fa-4x" style="margin-top: 20px;"></span>
-							<div><strong>Add More</strong></div>
-						</div>
-						<a class="hovering_a" style="margin: -10px -10px -10px -1px" href="{% url 'products:edit_add' 'new' %}"></a>
+		<form class="single_form">
+			<div id="random_card" class="dash_card bg_blue">
+				<header><h3><span>Add Some Data</span></h3></header>
+				<div class="dash_row">
+					<div class="form-group">
+						<input name="email" value="" placeholder="Emter Your email to recieve newsletters">
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 	<div class="col-sm-4">
 		<div class="dash_card">
+			<div class="hover_a_container">
+				<div class="dash_col blue text-center">
+					<span class="fa fa-plus fa-4x" style="margin-top: 10px;"></span>
+					<div><strong>Post Your Buying Requirements</strong></div>
+				</div>
+				<a class="hovering_a" style="margin: -10px" href="{% url 'leads:edit_add' 'new' %}"></a>
+			</div>
+		</div>
+		<!-- <div class="dash_card">
 			<div class="hover_a_container">
 				<div class="dash_row">
 					<h3><span class="num">{{inquiry_count}}</span>&nbsp;<span>Inquiries</span></h3>
@@ -60,12 +36,57 @@
 			<div class="dash_row bottom">
 				<h3><span class="num">{{workplace.hits}}</span>&nbsp;<span>Profile Hits</span></h3>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 <div class="row">
 	<div class="col-sm-8">
 		<div class="row">
+			<div class="col-sm-12">
+				<div class="dash_card">
+					<div class="row">
+						<div class="col-sm-9">
+							<header><h3><span class="num">{{workplace.get_product_count}}</span>&nbsp;<span>Products Listed</span></h3></header>
+							<div class="data">
+								<div class="row">
+									{% if workplace.get_product_count = 0 %}
+									<div class="col-sm-12 text-center">
+										<p style="font-size: 1.4em; color: orange; margin-bottom: 5px">List the Products you Manufacture or Sell or the Services you Provide</p>
+										<div class="text-muted">If You are busy, ask the sales people to signup &amp; List Products</div>
+									</div>
+									{% elif workplace.get_product_count < 3 %}
+									{% with products.0 as product %}
+									<div class="col-sm-3">
+										<img class="lazy_img p_img" src="/images/product.png" data-src="{{product.get_image_thumbnail}}">
+										<div class="p_name">{{product|truncatechars:20}}</div>
+									</div>
+									{% endwith %}
+									<div class="col-sm-9 text-center">
+										<p style="font-size: 1.4em; color: orange">List more products/ Services &amp; Get Inquiries directly in Inbox</p>
+									</div>
+									{% else %}
+									{% for product in products|slice:"3" %}
+									<div class="col-sm-4 text-center">
+										<img class="lazy_img p_img" src="/images/main/product.png" data-src="{{product.get_image_thumbnail}}">
+										<div class="p_name">{{product|truncatechars:15}}</div>
+									</div>
+									{% endfor %}
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3 text-center">
+							<div class="hover_a_container">
+								<div class="dash_col last blue">
+									<span class="fa fa-plus fa-4x" style="margin-top: 20px;"></span>
+									<div><strong>Add More</strong></div>
+								</div>
+								<a class="hovering_a" style="margin: -10px -10px -10px -1px" href="{% url 'products:edit_add' 'new' %}"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
 					<div class="dash_row">
@@ -85,40 +106,35 @@
 			<div class="col-sm-6">
 				<div class="dash_card">
 					<div class="data text-center">
-						<div class="row">
-							<div class="col-sm-6" style="border-right: 1px solid #f6f6f6;">
-								<div style="height: 80px; padding: 15px 0px;">
-									<h3><span class="num green">{{node_count}}</span><br>
-									<span style="padding: 5px">Updates</span></h3>
-								</div>
-								<div class="hover_a_container">
-									<div class="dash_row bottom">
-										<h3 class="blue"><span class="fa fa-rss" style="position: relative; top: 1px;"></span>&nbsp;<span>Feed</span></h3>
-									</div>
-									<a href="{% url 'home' %}" class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
-								</div>
+						<div class="dash_row">
+							<h3><span class="num green">{{q_count|default:'0'}}</span>&nbsp;<span>Questions</span></h3>
+						</div>
+						<div class="dash_row">
+							<h3><span class="num green">{{a_count|default:'0'}}</span>&nbsp;<span>Answers</span></h3>
+						</div>
+						<div class="hover_a_container">
+							<div class="dash_row bottom">
+								<h3 class="blue"><span class="fa fa-question-circle" style="position: relative; top: 1px;"></span>&nbsp;<span>Forum</span></h3>
 							</div>
-							<div class="col-sm-6">
-								<div class="dash_row">
-									<h3><span class="num green">{{q_count}}</span>&nbsp;<span>Questions</span></h3>
-								</div>
-								<div class="dash_row">
-									<h3><span class="num green">{{a_count}}</span>&nbsp;<span>Answers</span></h3>
-								</div>
-								<div class="hover_a_container">
-									<div class="dash_row bottom">
-										<h3 class="blue"><span class="fa fa-question-circle" style="position: relative; top: 1px;"></span>&nbsp;<span>Forum</span></h3>
-									</div>
-									<a href="/forum" class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
-								</div>
-							</div>
+							<a href="/forum" class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="dash_card">
-					
+					<div class="data text-center">
+						<div style="height: 80px; padding: 15px 0px;">
+							<h3><span class="num green">{{node_count}}</span><br>
+							<span style="padding: 5px">Updates</span></h3>
+						</div>
+						<div class="hover_a_container">
+							<div class="dash_row bottom">
+								<h3 class="blue"><span class="fa fa-rss" style="position: relative; top: 1px;"></span>&nbsp;<span>Feed</span></h3>
+							</div>
+							<a href="{% url 'home' %}" class="hovering_a" style="margin: -1px -10px -10px -10px"></a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-6">

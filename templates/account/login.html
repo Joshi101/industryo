@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load staticfiles %}
 {% load account %}
-{% load bootstrap %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
+{% endblock head_css %}
+
 
 {% block title %}{% trans "Sign In" %}{% endblock %}
 
@@ -11,38 +16,44 @@
 {% block page %}pg_login{% endblock page %}
 
 {% block body %}
-  <div id="cover" class="container">
+  <div id="" class="container">
     <div id="login" class="center-block cover_form w_650">
       <h3 class="text-center"><span>Sign In</span></h3>
-      <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
-        {% if socialaccount.providers %}
-        <div class="socialaccount_ballot">
-          <ul class="socialaccount_providers list-group">
-            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-          </ul>
-        </div>
-        {% include "socialaccount/snippets/login_extra.html" %}
-        {% endif %}
-        <!-- <h4>CoreLogs account</h4> -->
-        {% csrf_token %}
-        <div class="text-center"><span class="text-danger">{{form.non_field_errors}}</span></div>
-        <input id="id_login" class="form-control" type="text" placeholder="Username" name="login" maxlength="30" autofocus="autofocus">
-        <div class="help-block"><span class="text-danger">{{form.login.errors}}</span></div>
-        <input id="id_password" class="form-control" type="password" placeholder="Password" name="password">
-        <div class="help-block"><span class="text-danger">{{form.password.errors}}</span></div>
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <div class="form-group">
-          <button class="primaryAction btn btn-primary" type="submit">Sign in</button>
-        </div>
-        <div class="text-center form-group">
-          <p><a class="secondaryAction text-center" href="{% url 'account_reset_password' %}">Forgot Password?</a></p>
-          <p>
+      {% if socialaccount.providers %}
+      <div class="socialaccount_ballot">
+        <ul class="socialaccount_providers list-group">
+          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+      </div>
+      {% include "socialaccount/snippets/login_extra.html" %}
+      {% endif %}
+      {% csrf_token %}
+      <div class="form_eric wide_40">
+        <form method="POST" action="{% url 'account_login' %}" role='form'>
+          {% csrf_token %}
+          <p class="text-info text-center" style="margin-bottom: 15px">Or, if you have a CoreLogs account use your email to login</p>
+          <div>{{form.non_field_errors}}</div>
+          <div class="form-group">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input id="id_login" type="text" name="login">
+            <div>{{form.login.errors}}</div>
+          </div>
+          <div class="form-group">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input id="id_password" type="password" name="password" required>
+            <div>{{form.password.errors}}</div>
+          </div>
+          <p class="forgot"><a class="secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a></p>
+          <button type="submit" class="button button-block"/>Sign In</button>
+          <p style="margin-top: 10px;">
             If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
           </p>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 {% endblock body %}

@@ -644,11 +644,12 @@ def edit_workplace(request):
     wp = user.userprofile.primary_workplace
     workplace = wp
     dictionary = {}
-    direct = ['about', 'history', 'established', 'revenue', 'turnover', 'sme_type', 'wp_type', 'mobile_contact1',
+    direct = ['about', 'history', 'year_established', 'revenue', 'turnover', 'sme_type', 'wp_type', 'mobile_contact1',
               'mobile_contact2', 'fb_page', 'linkedin_page', 'address', 'contact', 'office_mail_id', 'legal_status',
               'number_of_employees', 'website', 'product_details']
     if request.method == 'POST':
         for key in request.POST:
+            print(key, request.POST[key])
             if key in direct:
                 try:
                     dictionary[key] = request.POST[key]

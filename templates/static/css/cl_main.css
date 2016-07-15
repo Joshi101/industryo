@@ -114,6 +114,10 @@ h5{
   border-radius: 0;
 }
 
+.row-eq-height{
+  display: flex;
+}
+
 /* generic styles */
 
 .a_alt:hover {
