@@ -243,7 +243,7 @@ def categories_wp(request):
 
 
 def nodes(request):
-    all_objects = Node.feed.all()
+    all_objects = Node.objects.filter(category__in=['F', 'D'])
     paginator = Paginator(all_objects, 50)
     page = request.GET.get('page')
     try:
