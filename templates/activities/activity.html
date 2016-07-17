@@ -108,6 +108,7 @@
 		{% for u in lis reversed %}
 			<li>
 				<a href="{% url 'user:profile' u.username %}">{{u.userprofile}}</a>
+				<a href="{% url 'user:set_o' u.username %}">Set WP</a>
 				<strong class="pull-right">{{u.userprofile.get_provider}}</strong>
 				<a href="/internal/send/?q=set_wp&id={{u.id}}" class="tag"><span class="value">Send mail</span></a>
 				<button type="submit" value="set_wp&{{u.id}}" name="q">Send mail- Form</button>

@@ -58,7 +58,7 @@ def details(request):
             text = "Users from Educational Institutions"
             tt = "u"
         elif s == 'u':
-            lis = User.objects.filter(date_joined__range=[enddate, startdate], userprofile__primary_workplace=None)
+            lis = User.objects.filter(date_joined__range=[startdate-timedelta(days=200), startdate], userprofile__primary_workplace=None)
             text = "Users who have not set their Workplace"
             tt = "u"
             tm = "q"
