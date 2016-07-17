@@ -12,23 +12,6 @@
 							<li><a href="/?a=a"><span class="fa fa-rss inline_fa"></span>Activity</a></li>
 						</ul>
 						{% block feed_body %}
-						<div class="alert alert-info">
-						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						  <p><strong>Hello {{request.user.userprofile}} !</strong> This is your Feeds page.</p>
-						  <p>Here you'll find all the questions, articles and activities on a single page.</p>
-						</div>
-						<div class="well">
-							<div class="row">
-								<div class="col-sm-7">
-									Be an active contributor, ask some questions, answer some, write articles or simply throw a feed
-								</div>
-								<div class="col-sm-5">
-									<a href="{% url 'forum:ask' %}"><span class="fa fa-fw fa-lightbulb-o inline_fa"></span>Ask a Question</a>
-									<br>
-									<a href="{% url 'nodes:write' %}"><span class="fa fa-fw fa-pencil inline_fa"></span>Write your own Article</a>
-								</div>
-							</div>
-						</div>
 						{% include "snippets/feed_form.html" %}
 						<div class="ajax_andar feeds">
 							{% include "snippets/figure_modal.html" %}

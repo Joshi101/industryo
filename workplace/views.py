@@ -52,6 +52,39 @@ def set_workplace(request):
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(),
                                                         'form_create_workplace': WorkplaceForm()})
 
+@login_required
+def set_others_wp(request, username):
+    if request.method == 'POST':
+        user = User.objects.get(username=username)
+        userprofile = UserProfile.objects.get(user=user)
+        workplace = request.POST.get('workplace')
+        w_type = request.POST.get('type')
+        pre_workplace = request.POST.get('pre_workplace')
+        if len(pre_workplace)>3:
+            primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
+        else:
+            return HttpResponse('The name should have at least 4 characters')
+        user.userprofile.notify_also_joined(primary_workplace)
+        job_position = request.POST.get('job_position')
+        userprofile.set_primary_workplace(primary_workplace, job_position)
+        o, created = Workplaces.objects.get_or_create(userprofile=userprofile,
+                                                      workplace=primary_workplace, job_position=job_position)
+        t = userprofile.primary_workplace.workplace_type
+        # tasks.send_html_mail(user.id, n=88) # Moved to contacts
+        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
+        <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
+                                                                          primary_workplace.slug, primary_workplace,
+                                                                          userprofile.job_position)
+        Node.objects.create(post=node, user=request.user, category='D', w_type=t)
+        if t in ['A', 'B']:
+            return redirect('/workplace/edit/')
+        else:
+            return redirect('/workplace/'+primary_workplace.slug)
+    else:
+        return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(),
+                                                        'form_create_workplace': WorkplaceForm()})
+
+
 
 def search_workplace(request):                  # for searching the workplace
     w = request.GET['the_query']
