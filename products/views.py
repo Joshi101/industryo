@@ -748,16 +748,20 @@ def initial_category(request):
 
 def c_r(request):
     id = request.GET.get('id')
-    pc = Product_Categories.objects.last()
-    p = pc.product
-    q = Product_Categories.objects.filter(product=p)
-    if id:
-        pro = Products.objects.get(id=id)
+    pro = Products.objects.get(id=id)
+    wp = pro.producer
+    ppp = Product_Categories.objects.filter(product__producer=wp)
+    if len(ppp)>0:
+
+        pc = ppp.reverse()[0]
+        p = pc.product
+        q = Product_Categories.objects.filter(product=p)
 
         for t in q:
             Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
-
-    return redirect('/internal/activity/?q=p')
+        return redirect('/internal/activity/?q=p')
+    else:
+        pass
 
 
 def int_category(request, slug):
@@ -842,6 +846,9 @@ def edit_add_product(request, id):
             if request.POST.get('product'):
                 p = Products.objects.create(product=request.POST['product'], user=user, producer=wp,
                                             delivery_details=dd, delivery_charges=dc, minimum=minimum)
+                if c:
+                    for t in c:
+                        Product_Categories.objects.create(product=p, category=t.category, level=t.level)
                 up = user.userprofile
                 up.points += 5
                 up.save()

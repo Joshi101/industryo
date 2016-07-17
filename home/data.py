@@ -81,7 +81,7 @@ def details(request):
             tt = "w"
 
         elif s == 'p':
-            lis = Products.objects.filter(date__range=[enddate, startdate])
+            lis = Products.objects.filter(date__range=[startdate-timedelta(days=100), startdate])
             # lis = Products.objects.filter(date__range=[enddate, startdate])
             text = "Products Listed"
             tt = "p"
