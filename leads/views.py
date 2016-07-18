@@ -73,7 +73,12 @@ def edit_add_lead(request, slug):
                 else:
                     return HttpResponse()
         else:
-            return render(request, 'leads/edit.html', {'first_time': True})
+            lg = Leads.objects.filter(user=user)
+            if len(lg)<1:
+                first_time = True
+            else:
+                first_time = False
+            return render(request, 'leads/edit.html', {'first_time': False})
     else:
         l = Leads.objects.get(slug=slug)
         direct = l._meta.get_all_field_names()

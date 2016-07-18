@@ -2,11 +2,11 @@
   {% csrf_token %}
   <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
   <div class="form-group">
-    <label for="lead_title">Title</label>
+    <label for="lead_title">What is Yoour Requirement</label>
     <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead">
   </div>
   <div class="form-group">
-    <label for="lead_description">Description</label>
+    <label for="lead_description">A Brief Description, specifications and any message</label>
     <textarea class="textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{lead.description|default:''}}</textarea>
     <span class="char_count">1000</span>
   </div>
