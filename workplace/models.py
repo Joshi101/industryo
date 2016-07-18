@@ -79,6 +79,10 @@ class Workplace(models.Model):
 
     hits = models.IntegerField(default=0, null=True, blank=True)
 
+    dummy_user = models.CharField(max_length=50, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
+    dummy = models.BooleanField(default=False)
+
     class Meta:
         db_table = 'Workplace'
 

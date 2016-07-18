@@ -30,10 +30,14 @@ def profile(request, username):
     all_result_list = sorted(
         chain(feeds, questions, answers, articles),
         key=attrgetter('date'), reverse=True)
-    accounts = SocialAccount.objects.filter(user=request.user)
-    acc = []
-    for a in accounts:
-        acc.append(a.get_provider)
+    try:
+        accounts = SocialAccount.objects.filter(user=request.user)
+        acc = []
+        for a in accounts:
+            acc.append(a.get_provider)
+    except Exception:
+        pass
+
     paginator = Paginator(all_result_list, 5)
     page = request.GET.get('page')
     try:
