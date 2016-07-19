@@ -8,7 +8,8 @@
 	</a>
 {% endfor %}
 {% endif %}
-  <a class="socialaccount_provider {{provider.id}} a_alt" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-  	<img src="/images/{{provider.name}}.jpg">
+	<a class="socialaccount_provider {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+  	<i class="fa fa-fw fa-{{provider.name|lower}}"></i>
+  	<span>{{provider.name}}</span>
 	</a>
 {% endfor %}

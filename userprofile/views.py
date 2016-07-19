@@ -34,7 +34,8 @@ def profile(request, username):
         accounts = SocialAccount.objects.filter(user=request.user)
         acc = []
         for a in accounts:
-            acc.append(a.get_provider)
+            acc.append(a.provider)
+            print(a.provider)
     except Exception:
         pass
 
