@@ -75,8 +75,8 @@
 }
 
 .list-group-item{
-  border: 0;
-  border-bottom: 1px solid #eee;
+  /*! border: 0; */
+  /*! border-bottom: 1px solid #eee; */
 }
 
 .breadcrumb {
@@ -4919,4 +4919,25 @@ border: 1px solid rgba(0,0,0,.09);
 
 #random_card button{
   margin: 0 2px;
+}
+
+.connections{
+  margin: 15px 0;
+}
+
+.connections .provider{
+  margin-left: 10px;
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.connections img{
+  width: 34px;
+  height: 34px;
+}
+
+.connections li > span{
+  line-height: 34px;
 }

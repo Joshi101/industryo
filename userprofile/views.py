@@ -32,9 +32,9 @@ def profile(request, username):
         key=attrgetter('date'), reverse=True)
     try:
         accounts = SocialAccount.objects.filter(user=request.user)
-        acc = []
+        connections = []
         for a in accounts:
-            acc.append(a.provider)
+            connections.append(a.provider)
             print(a.provider)
     except Exception:
         pass
@@ -86,27 +86,55 @@ def set_details(request):
 
 
 def edit(request):
-    form = EditProfileForm(request.POST)
     user = request.user
     up = user.userprofile
+    dictionary = {}
+    direct = ['experience']
     if request.method == 'POST':
-        if not form.is_valid():
-            return render(request, 'userprofile/edit.html', {'form': form})
-        else:
+        for key in request.POST:
+            print(key, request.POST[key])
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+                    print(tb)
+            else:
+                if key == 'interests':
+                    up.set_interests(request.POST[key])
 
-            gender = form.cleaned_data.get('gender')
-            experience = form.cleaned_data.get('experience')
-
-            up.gender = gender
-            up.experience = experience
+            for key in dictionary:
+                setattr(up, key, dictionary[key])
             up.save()
-            return redirect("/user/"+user.username)
-    else:
-        form = EditProfileForm(instance=user, initial={
-            'gender': up.gender,
-            'experience': up.experience,
-            })
-        return render(request, 'userprofile/edit.html', {'form': form})
+
+        response = []
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    # else:
+    #     dict = workplace.__dict__
+    #     dict['workplace'] = workplace
+    #     dict['workplace_logo_form'] = SetLogoForm()
+    #     return render(request, 'workplace/edit.html', dict)
+    # form = EditProfileForm(request.POST)
+    # user = request.user
+    # up = user.userprofile
+    # if request.method == 'POST':
+    #     if not form.is_valid():
+    #         return render(request, 'userprofile/edit.html', {'form': form})
+    #     else:
+    #
+    #         gender = form.cleaned_data.get('gender')
+    #         experience = form.cleaned_data.get('experience')
+    #
+    #         up.gender = gender
+    #         up.experience = experience
+    #         up.save()
+    #         return redirect("/user/"+user.username)
+    # else:
+    #     form = EditProfileForm(instance=user, initial={
+    #         'gender': up.gender,
+    #         'experience': up.experience,
+    #         })
+    #     return render(request, 'userprofile/edit.html', {'form': form})
 
 
 # @login_required
@@ -269,4 +297,3 @@ def check_username(request):
             except User.DoesNotExist:
                 response['valid'] = 0
         return HttpResponse(json.dumps(response), content_type="application/json")
-

@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% load filter %}
+{% load staticfiles %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
+{% endblock head_css %}
 
 {% block title %}{{ userprofile }} | CoreLogs{% endblock title %}
 
@@ -38,7 +43,7 @@
       	<h2 class="text-uppercase" property='name'>{{ userprofile }}</h2>
 			</header>
 			{% if userprofile.primary_workplace %}
-			<h3 class="acc_detail">{{ page_user.userprofile.job_position }} at <a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h3>
+			<h5 class="acc_detail">{{ page_user.userprofile.job_position }} at <a href="{% url "workplace:workplace_profile" userprofile.primary_workplace.slug %}" class="no_a">{{ userprofile.primary_workplace }}</a></h5>
 			{% else %}
 			<h4 class="acc_detail">No Workplace Defined</h4>
 			{% endif %}
@@ -56,7 +61,7 @@
 			{% endif %}
   	</div>
  	</div>
-  
+
   <div class="row wp_body">
     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 		  <ul class="nav nav-tabs">
@@ -67,63 +72,40 @@
 		    {% endif %}
 		  </ul>
 		  <div class="tab-content">
-		    <div id="about" class="tab-pane">
-		    	<div id="exp_userp" class="info_field_grp ajax_andar ajax_papa">
-						{% if page_user == request.user %}
-						<form id="exp_userp_form" class="info_form" action="{% url 'user:set_experience' %}" method="POST">
-							<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
-							<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
-							<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
-							{% csrf_token %}
-						</form>
-						{% endif %}
-						<div class="panel panel-default">
-							<div class="info_field ajax_papa">
-								<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Experience</div>
-	    					<span class="colon">:</span>
-								<div class="info_field_value ">
-									{% if page_user.userprofile.experience %}
-										{{page_user.userprofile.experience|urlize|new_tab|safe}}
-									{% elif user.userprofile in members %}
-										<span class="placeholder">Add a breif description about you for the rest of the world</span>
-									{% else %}
-										<span class="placeholder">No Description Available</span>
-									{% endif %}
-								</div>
-								<div class="info_field_edit hide">
-									<textarea name="experience" form="exp_userp_form" rows="3" class="form-control new_val">{{page_user.userprofile.experience}}</textarea>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="interest_userp" class="info_field_grp ajax_andar ajax_papa">
-						{% if page_user == request.user %}
-						<form id="interest_userp_form" class="info_form" action="{% url 'user:set_interests' %}" method="POST">
-							<button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
-							<button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
-							<button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
-							{% csrf_token %}
-						</form>
-						{% endif %}
-						<div class="panel panel-default">
-					    <div class="info_field ajax_papa">
-					    	<div class="info_field_label"><span class="fa fa-map-marker fa-fw"></span>Interests</div>
-					    	<span class="colon">:</span>
-					      <div class="info_field_value">
-					      	{% if page_user.userprofile.get_interests %}
-					      	{% include "snippets/tags.html" with tags=page_user.userprofile.get_interests %}
-					      	{% else %}
-					      	<span class="placeholder">Add your interests in the field of Engineering</span>
-					      	{% endif %}
-					      </div>
-					      {% if page_user == request.user %}
-					      <div class="info_field_edit hide">
-				          {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=page_user.userprofile.get_interests name='interests' d_form='interest_userp_form' %}
-					      </div>
-					      {% endif %}
-					    </div>
-			    	</div>
-					</div>
+		    <div id="about" class="tab-pane fade in active">
+          <div class="form_card tile_flat" style="margin-top: 0;">
+            <div class="collapse_h">Summary<span class="fa fa-fw fa-info pull-right"></span></div>
+            <div id="gen_info" class="collapse in">
+              {% if page_user == user %}
+              <form id="edit_up_form" class="ajax_andar auto_form" role="form" action="{% url 'user:edit' %}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="up_about">Your Experience</label>
+                  <textarea class="textarea_lg count_field" value="{{page_user.userprofile.experience|urlize|new_tab|safe}}" id="up_about" name="experience" placeholder="A breif introduction of your experience and expertize in your field of work" maxlength="5000">{{page_user.userprofile.experience|default:''}}</textarea>
+                  <span class="char_count">5000</span>
+                </div>
+                <div class="form-group" style="margin-bottom: 200px;">
+                  <label for="up_interests">Interests</label>
+                  {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=page_user.userprofile.get_interests name='interests' placeholder='Type the name of the topics of your Interest and select from the dropdown' %}
+                </div>
+              </form>
+              {% else %}
+              <div class="form-group">
+                <p class="data">{{page_user.userprofile.experience|urlize|new_tab|safe}}</p>
+              </div>
+              {% if page_user.userprofile.get_interests %}
+              <div class="form-group">
+                <div class="data_title">Interests</div>
+                <div class="tags">
+                  <span class="fa fa-map-o fa-fw"></span>
+                  {% for tag in page_user.userprofile.get_interests %}
+                    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
 		    </div>
 
 		    <div id="activity" class="tab-pane fade ajax_andar ajax_papa">
@@ -134,17 +116,14 @@
 							<h5>Loading more content</h5>
 							<i class="fa fa-spin fa-circle-o-notch"></i>
 						</div>
-					</div> 
+					</div>
 		    </div>
 
-		    <div id="settings" class="tab-pane fade in active">
+		    <div id="settings" class="tab-pane fade">
 		    	<h3>Profile Settings</h3>
 					<h4>Connect your Social Accounts to expand your network</h4>
-					{% for a in accounts %}
-						{{a.provider}} connected
-					{% endfor %}
-					<ul class="list-unstyled">
-					{% include "userprofile/provider_list.html" with process="connect" accounts=acc %}
+					<ul class="list-unstyled wide_48 connections">
+					  {% include "userprofile/provider_list.html" with process="connect" accounts=accounts %}
 					</ul>
 					{% include "socialaccount/snippets/login_extra.html" %}
 			  </div>
@@ -157,8 +136,3 @@
 		$('#top_nav_user').addClass('current');
 	</script>
 {% endblock body %}
-
-
-
-
-

@@ -1,19 +1,19 @@
 {% load socialaccount %}
 
+{% for a in accounts %}
+<li class="list-group-item">
+	<img src="/images/{{a.provider}}.jpg" alt="{{a.provider}}" />
+	<span class="provider">{{a.provider}}</span>
+	<span class="text-success pull-right"><span class="fa fa-check"></span>&nbsp;connected</span>
+</li>
+{% endfor %}
 {% for provider in socialaccount.providers %}
-	{% if provider.id == "openid" %}
-	{% for brand in provider.get_brands %}
-	  <a class="socialaccount_provider {{provider.id}} {{brand.id}} a_alt" href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
-	  	<img src="/images/{{brand.name}}.jpg">
-		</a>
-	{% endfor %}
-	{% endif %}
-	{% if provider.name|lower not in accounts %}
-	<li>
-		<a class="socialaccount_provider {{provider.id}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-	  	<i class="fa fa-fw fa-{{provider.name|lower}}"></i>
-	  	<span>{{provider.name}}</span>
-	  	<span> connect</span>
+	{% if provider.name|lower not in connections %}
+	<li class="list-group-item">
+		<img src="/images/{{provider.name}}.jpg" alt="{{provider.name}}" />
+		<span class="provider">{{provider.name}}</span>
+		<a class="socialaccount_provider {{provider.id}} btn btn-primary pull-right" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+	  	<span>Connect</span>
 		</a>
 	</li>
 	{% endif %}

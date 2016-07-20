@@ -274,7 +274,7 @@ class Workplace(models.Model):
 
     def get_sme_type(self):
         stype = self.sme_type
-        status = False
+        status = 'Others'
         values = {
             'A': 'Manufacturing SME',
             'B': 'Supplier',
