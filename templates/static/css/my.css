@@ -858,7 +858,6 @@ pre {
 .body {
   min-height: 100%;
   overflow: hidden;
-
   position: relative;
   padding-top: 15px;
 }
