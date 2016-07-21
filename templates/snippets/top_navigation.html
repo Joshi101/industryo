@@ -52,7 +52,7 @@
   <div class="nav_2">
     <ul class="nav navbar-nav nav_left">
       <li>
-        <a id="top_nav_feed" href="{% url 'home' %}">
+        <a id="top_nav_feed" href="{% url 'feed' %}">
           <span class="fa fa-sticky-note-o"></span>
           <span>Feed</span>
         </a>
@@ -176,11 +176,6 @@
         </a>
       </li> -->
     </ul>
-    <form class="unboxed" method="POST" action="{% url 'account_login' %}">
-      {% include "snippets/login_modal.html" %}
-      {% include "snippets/signup_modal.html" %}
-    </form>
-    {% include "snippets/create_acc_modal.html" %}
     {% endif %}
     <div class="spacer" style="clear: both;"></div>
   </div>
@@ -199,3 +194,6 @@
   </div>
   {% endif %}
 </nav>
+{% if not request.user.is_authenticated %}
+  {% include "account/login_modal.html" %}
+{% endif %}

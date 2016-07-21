@@ -370,7 +370,9 @@ class Workplace(models.Model):
         elif w[0:3] == "htt":
             return w
         else:
+            print(w)
             p = 'http://'+w
+            print(p)
             return p
 
     def get_fb_page(self):

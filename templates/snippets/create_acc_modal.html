@@ -7,6 +7,53 @@
         <h3 class="modal-title stylize text-center">SignUp Yourself Here. Register Your Company Later.</h3>
       </div>
       <div class="modal-body">
+        <div class="form_eric">
+          <!-- <ul class="nav nav-pills">
+            <li class="active"><a data-toggle="pill" href="#signup">Sign Up</a></li>
+            <li><a data-toggle="pill" href="#login">Log In</a></li>
+          </ul> -->
+          <div id="signup" class="tab-pane fade in active">
+            <form method="POST" action="{% url 'account_signup' %}" role='form'>
+              {% csrf_token %}
+              <div>{{form.non_field_errors}}</div>
+              <div class="form-group">
+                <label>
+                  Your Full Name<span class="req">*</span>
+                </label>
+                <input id="id_name" type="text" name="name">
+                <div>{{form.name.errors}}</div>
+              </div>
+              <div class="form-group">
+                <label>
+                  Email Address<span class="req">*</span>
+                </label>
+                <input id="id_email" class="s_validate" data-url="{% url 'user:check_email' %}" type="email" name="email" required>
+                <span class="validating hide"><span class="fa fa-fw fa-spin fa-cog"></span></span>
+                <span class="valid_msg"><span class="fa fa-fw fa-check"></span></span>
+                <span class="invalid_msg">
+                  <span class="fa fa-fw fa-close"></span>
+                  <span class="msg">This email is already registered. <a href="{% url 'account_login' %}">Login here</a> or <a href="{% url 'account_reset_password' %}">recover your password.</a></span>
+                </span>
+                <div>{{form.email.errors}}</div>
+              </div>
+              <div class="form-group">
+                <label>
+                  Password<span class="req">*</span>
+                </label>
+                <input id="id_password1" type="password" name="password1" required>
+                <div>{{form.password1.errors}}</div>
+              </div>
+              <div class="form-group">
+                <label>
+                  Confirm Password<span class="req">*</span>
+                </label>
+                <input id="id_password1" type="password" name="password2" required>
+                <div>{{form.password1.errors}}</div>
+              </div>
+              <button type="submit" class="button button-block"/>Get Started</button>
+            </form>
+          </div>
+        </div>
         <form class="form-horizontal signup unboxed" method="POST" action="{% url 'account_signup' %}" role='form'>
 		    	{% csrf_token %}
 		    	<div class="form-group">

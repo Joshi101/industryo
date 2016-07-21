@@ -14,7 +14,9 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="center-block text-center"><a class="btn btn-success" href="{% url 'leads:edit_add' 'new' %}"><span class="fa fa-fw fa-paper-plane-o"></span>&nbsp;Post Your Buying Requirement</a></h1>
+		<h1 class="center-block text-center">
+      <a class="btn btn-success signup_call" href="{% url 'leads:edit_add' 'new' %}"><span class="fa fa-fw fa-paper-plane-o"></span>&nbsp;Post Your Buying Requirement</a>
+    </h1>
 		<div class="wide_64">
 		{% for a in result_list %}
 			{% include 'leads/one_lead.html' with lead=a %}

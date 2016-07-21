@@ -390,3 +390,9 @@ and in bootstrap.css
   //border-radius: 16px;
   margin-right: 3px;
 }
+
+.login_modal h3{
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 300;
+}

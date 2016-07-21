@@ -18,14 +18,13 @@
     <h1 class="text-center">Create a new User Account</h1>
     <div class="row">
       <div class="col-sm-6 col-sm-push-6">
-        <div class="">
-          <div class="form_eric tile_flat wide_40">
+        <div class="" style="margin-top:15px;">
+          <div class="form_eric wide_32">
             <!-- <ul class="nav nav-pills">
               <li class="active"><a data-toggle="pill" href="#signup">Sign Up</a></li>
               <li><a data-toggle="pill" href="#login">Log In</a></li>
             </ul> -->
             <div id="signup" class="tab-pane fade in active">
-              <h2>Sign Up Now</h2>
               <form method="POST" action="{% url 'account_signup' %}" role='form'>
                 {% csrf_token %}
                 <div>{{form.non_field_errors}}</div>
