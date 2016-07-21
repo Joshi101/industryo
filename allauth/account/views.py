@@ -155,6 +155,7 @@ class CloseableSignupMixin(object):
         }
         return self.response_class(**response_kwargs)
 
+from django.views.decorators.csrf import csrf_exempt
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                  AjaxCapableProcessFormViewMixin, FormView):
@@ -162,27 +163,27 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     form_class = SignupForm
     redirect_field_name = "next"
     success_url = None
-
+    @csrf_exempt
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
         return super(SignupView, self).dispatch(request, *args, **kwargs)
-
+    @csrf_exempt
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'signup', self.form_class)
-
+    @csrf_exempt
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
         ret = (get_next_redirect_url(self.request,
                                      self.redirect_field_name)
                or self.success_url)
         return ret
-
+    @csrf_exempt
     def form_valid(self, form):
         user = form.save(self.request)
         return complete_signup(self.request, user,
                                app_settings.EMAIL_VERIFICATION,
                                self.get_success_url())
-
+    @csrf_exempt
     def get_context_data(self, **kwargs):
         form = kwargs['form']
         form.fields["email"].initial = self.request.session \

@@ -745,3 +745,63 @@ def random_card(request):
             setattr(up, 'product_email', data)
             up.save()
             return HttpResponse()
+
+
+import requests
+
+# url = 'http://www.corelogs.com/accounts/signup'
+# values = {'name': name, 'email': email,'password1': 'Password', 'password2': 'Password'}
+# data = urllib.urlencode(values)
+# req = urllib2.Request(url, data)
+# response = urllib2.urlopen(req)
+# result = response.read()
+# print result
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def create_api(request):
+    email = request.POST.get('email1')
+    print(email)
+    name = request.POST.get('name')
+    contact = request.POST.get('phone')
+
+    workplace = request.POST.get('workplace')
+    about = request.POST.get('about')
+    city = request.POST.get('city')
+    website = request.POST.get('website')
+    address = request.POST.get('address')
+
+    wp, created = Workplace.objects.get_or_create(name=workplace, workplace_type='B')
+    wp.about = about
+    wp.address = address
+    wp.website = website
+    wp.contact = contact
+    wp.save()
+    wp.set_city(city)
+    wp.set_segments('Manufacturing,Plastic')
+
+    url = 'http://127.0.0.1:8888/accounts/signup/'
+
+    if len(email)>4:
+        payload = {'name': name, 'email': email, 'password1': 'Password', 'password2': 'Password'}
+        r = requests.post(url, data=payload, headers={'User-Agent': 'Mozilla/5.0'})
+        user = User.objects.get(email=email)
+        up = user.userprofile
+        up.dummy = True
+        up.mobile_contact = contact
+        up.save()
+        up.set_primary_workplace(wp, 'Member')
+        o, created = Workplaces.objects.get_or_create(userprofile=up,
+                                                      workplace=wp, job_position='Member')
+
+
+
+
+
+
+
+
+
+
+
