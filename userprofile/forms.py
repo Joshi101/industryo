@@ -38,9 +38,12 @@ class UserDetailsForm(forms.ModelForm):
 
 # class EditProfileForm(forms.ModelForm):
 class SignupForm(forms.Form):
-    name = forms.CharField(max_length=30, label='Voornaam')
+    name = forms.CharField(max_length=30, label='Full Name', required=False)
 
     def signup(self, request, user):
-        user.first_name = self.cleaned_data['name'].split()[0]
-        user.last_name = self.cleaned_data['name'].split()[1]
+        name = self.cleaned_data['name'].split()
+        if len(name) > 0:
+            user.first_name = name[0]
+            if len(name) > 1:
+                user.last_name = ' '.join(name[1:])
         user.save()

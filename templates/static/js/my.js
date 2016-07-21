@@ -142,7 +142,7 @@ $("body").on('click', '.one_list .option', function(event) {
     d_input_remove_error($this,true,true);
     $d_search.find('.d_value').val(value).trigger('change');
     $d_search.find('.d_input').val(value);
-    
+
     $this.closest('.dropdown').removeClass('open');
     $d_search.find('.d_menu').css('z-index','auto');
 });
@@ -153,7 +153,7 @@ $('body').on('click', '.many_list .option', function(event) {
         $d_search = $this.closest('.d_search'),
         value = $this.find('.option_value').text();
     d_input_remove_error($this,true,true);
-    var pre_value = $d_search.find('.d_value').val();        
+    var pre_value = $d_search.find('.d_value').val();
     if (pre_value !== '')
         pre_value += ',';
     $d_search.find('.d_value').val(pre_value + value).trigger('change');
@@ -1268,7 +1268,7 @@ if($('#set_workplace').length){
     });
 }
 
-    
+
 function ajax_form($this){
     var $papa = $this.closest('.ajax_papa');
     var $form = $this;
@@ -1567,11 +1567,11 @@ function lazyImages(){
 $(lazyImages);
 
 function changeSource($this, change, src, $farzi_now){
-    if (change) {    
+    if (change) {
         $this.attr('src',src);
     };
     $farzi_now.remove();
-}   
+}
 
 $('.body').on('click', '.field_edit', function(){
     var $this = $(this);
@@ -1634,7 +1634,7 @@ function changeComplete($form, response){
         console.log('content replaced successfully ',new_val);
     });
     $info_grp.find('.changing').removeClass('changing').removeClass('change').addClass('changed');
-    $info_grp.find('.saving').addClass('hide').siblings('.field_edit').removeClass('hide'); 
+    $info_grp.find('.saving').addClass('hide').siblings('.field_edit').removeClass('hide');
 }
 
 $('body').on('click','.info_field_edit .close', function(){
@@ -1734,7 +1734,7 @@ $('#add_prod_category').on('click', '.no_sub', function(){
         }
     }
     $("#selected_category").html(html);
-    
+
 });
 
 $('#add_prod_category').on('click', '.new_category_btn', function(){
@@ -2070,7 +2070,7 @@ $('.hoverdown_toggle').on({
             $hoverbox.addClass('open');
         },
         'mouseleave': function() {
-            
+
         }
     });
 
@@ -2221,14 +2221,14 @@ function imageUpload($this){
         var $form = $this.closest('form');
         var $field = $this.closest('.form-group');
         for(var pair of fd.entries()) {
-           console.log(pair[0]+ ', '+ pair[1]); 
+           console.log(pair[0]+ ', '+ pair[1]);
         }
         autoSubmitShow($field);
         $.ajax({
             url: $form.attr('action'),
             type: $form.attr('method'),
             data: fd,
-            cache: false,   
+            cache: false,
             contentType: false,
             processData: false,
 
@@ -2270,10 +2270,10 @@ $('.form_eric').find('input, textarea').on('keyup blur focus', function (e) {
     label = $this.prev('label');
     if (e.type === 'blur') {
       if( $this.val() === '' ) {
-        label.removeClass('active highlight'); 
+        label.removeClass('active highlight');
       } else {
-        label.removeClass('highlight');   
-      }   
+        label.removeClass('highlight');
+      }
     } else if (e.type === 'focus') {
         label.addClass('active highlight');
     }
@@ -2391,7 +2391,7 @@ $('body').on('submit', '.bullet_form', function(event){
         error: function(xhr, errmsg, err) {
             console.log(errmsg, err);
         }
-    });    
+    });
 });
 
 $('body').on('click', '.swapper', function(event){
@@ -2414,3 +2414,14 @@ $('body').on('click', '.swapper_bi', function(event){
     $this.attr('data-alt', now);
     console.log('swappy');
 });
+
+
+var $signup_modal = $('#signup_modal');
+if ($signup_modal) {
+  $('body').on('click','.signup_call',function(event){
+    console.log('singup call');
+    event.preventDefault();
+    $signup_modal.modal({backdrop: false});
+    $('body').removeClass('modal-open').css('padding-right','0');
+  });
+}

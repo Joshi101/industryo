@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{% block meta_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_description %}">
   <meta name="keywords" content="{% block meta_keywords %}CoreLogs, Industry, SME, Engineers, Baja, Formula, Mechanical, Manufacturing{% endblock meta_keywords %}">
-  
+
   <!-- og protocol for social sites -->
   <meta property="og:site_name" content="CoreLogs">
   <meta property="og:title" content="{% block meta_og_title %}CoreLogs, Platform for SMEs{% endblock %}">
@@ -21,35 +21,36 @@
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="600">
   {% endblock meta_og_image_dim %}
-  
+
   <!-- facebook domain insight -->
   <meta property="fb:app_id" content="1584559205143714">
   <meta property="fb:admins" content="100001247536612">
-  
+
   <!-- microsoft analytics -->
   <meta name="msvalidate.01" content="6848A0595F7485608A2CAB51CBDA4D0F">
 
   <title>{% block title %}Corelogs, Platform for SMEs{% endblock title %}</title>
-    
+
   <link rel="icon" href="{% static 'css/icon6.png' %}">
-  
+
   <!-- google fonts -->
  <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700|Lora:400,400italic,700,700italic|Open+Sans:300,400,400italic,700,700italic|Titillium+Web:100,200,300,400' rel='stylesheet' type='text/css'>
-  
+
   <!-- third party -->
   <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.css' %}>
   <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.css' %}>
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/cl_main.css' %}>
-  
+  <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
+
   {% block head_css %}
-  <!-- local css files (to be added at level 2) -->
+    <!-- local css files (to be added at level 2) -->
   {% endblock head_css %}
-  
+
   <!-- third party -->
   <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
   <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.js' %}></script>
-  
+
   {% block head_js %}
   <!-- not basic implement at sublevels -->
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
@@ -98,7 +99,7 @@
     {% include "snippets/feedback.html" %}
     {% endblock bottom_bar %}
   </div>
-  
+
   <div class="farzi" style="display:none;">
   </div>
   {% block foot %}
