@@ -71,41 +71,81 @@
 		    <li><a data-toggle="tab" href="#settings"><span class="fa inline_fa fa-cog"></span>Settings</a></li>
 		    {% endif %}
 		  </ul>
-		  <div class="tab-content">
+		  <div class="tab-content" style="margin-bottom: 100px;">
 		    <div id="about" class="tab-pane fade in active">
-          <div class="form_card tile_flat" style="margin-top: 0;">
-            <div class="collapse_h">Summary<span class="fa fa-fw fa-info pull-right"></span></div>
-            <div id="gen_info" class="collapse in">
-              {% if page_user == user %}
-              <form id="edit_up_form" class="ajax_andar auto_form" role="form" action="{% url 'user:edit' %}" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="up_about">Your Experience</label>
-                  <textarea class="textarea_lg count_field" value="{{page_user.userprofile.experience|urlize|new_tab|safe}}" id="up_about" name="experience" placeholder="A breif introduction of your experience and expertize in your field of work" maxlength="5000">{{page_user.userprofile.experience|default:''}}</textarea>
-                  <span class="char_count">5000</span>
-                </div>
-                <div class="form-group" style="margin-bottom: 200px;">
-                  <label for="up_interests">Interests</label>
-                  {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=page_user.userprofile.get_interests name='interests' placeholder='Type the name of the topics of your Interest and select from the dropdown' %}
-                </div>
-              </form>
-              {% else %}
+          {% if page_user == user %}
+          <form id="edit_up_form" class="ajax_andar auto_form" role="form" action="{% url 'user:edit' %}" method="POST" enctype="multipart/form-data">
+            <div class="form_card tile_flat">
+              <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
               <div class="form-group">
-                <p class="data">{{page_user.userprofile.experience|urlize|new_tab|safe}}</p>
+                <label for="up_about">Your Experience</label>
+                <textarea class="textarea_lg count_field" value="{{page_user.userprofile.experience|urlize|new_tab|safe}}" id="up_about" name="experience" placeholder="A breif introduction of your experience and expertize in your field of work" maxlength="5000">{{page_user.userprofile.experience|default:''}}</textarea>
+                <span class="char_count">5000</span>
               </div>
-              {% if page_user.userprofile.get_interests %}
               <div class="form-group">
-                <div class="data_title">Interests</div>
-                <div class="tags">
-                  <span class="fa fa-map-o fa-fw"></span>
-                  {% for tag in page_user.userprofile.get_interests %}
-                    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-                  {% endfor %}
+                <label for="up_interests">Interests</label>
+                {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=page_user.userprofile.get_interests name='interests' placeholder='Type the name of the topics of your Interest and select from the dropdown' %}
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="up_mob">Mobile Number</label>
+                    <input id="up_mob" name="mobile_contact" type="tel" value="{{page_user.userprofile.mobile_contact|default:''}}">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="up_email">Email Address (for personal communication)</label>
+                    <input class="" id="up_email" name="email" value="{{page_user.userprofile.email|default:''}}" placeholder="put comma (,) separated if more than one">
+                  </div>
                 </div>
               </div>
-              {% endif %}
-              {% endif %}
             </div>
+            <div class="form_card tile_flat">
+              <div class="form-group">
+                <div class="data_inline">
+                  <span class="text-info"><strong>Communication Details for enquiries and activities related to the Products you manage for your workplace</strong></span><br>
+                    <span class="text-muted">(Will be hidden from your Public Profile)</span>
+                </div>
+            	</div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="up_prod_mob">Mobile Number</label>
+                    <input id="up_prod_mob" name="product_phone" type="tel" value="{{page_user.userprofile.product_phone|default:''}}">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="up_prod_email">Email Address</label>
+                    <input class="" id="up_prod_email" name="product_email" value="{{page_user.userprofile.product_email|default:''}}" placeholder="put comma (,) separated if more than one">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          {% else %}
+          <div class="form_card tile_flat">
+            <div class="form-group">
+              <p class="data">{{page_user.userprofile.experience|urlize|new_tab|safe}}</p>
+            </div>
+            <div class="form-group">
+              <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{page_user.userprofile.mobile_contact}}</div>
+              <div class="data_inline"><span class="fa fa-envelope-o fa-fw"></span>&nbsp;{{page_user.userprofile.email}}</div>
+            </div>
+            {% if page_user.userprofile.get_interests %}
+            <div class="form-group">
+              <div class="data_title">Interests</div>
+              <div class="tags">
+                <span class="fa fa-map-o fa-fw"></span>
+                {% for tag in page_user.userprofile.get_interests %}
+                  <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
           </div>
+          {% endif %}
 		    </div>
 
 		    <div id="activity" class="tab-pane fade ajax_andar ajax_papa">
