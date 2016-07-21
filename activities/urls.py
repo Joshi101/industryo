@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^send/$', 'home.email.send', name='send'),
     url(r'^send_mail/$', 'home.email.send_mail', name='send_mail'),
     url(r'^send_html/$', 'home.email.send_html', name='send_html'),
+    url(r'^send_new_wp/$', 'home.email.send_new_wp', name='send_new_wp'),
 
     url(r'^change_wp_u/$', 'home.data.change_wp_u', name='change_wp_u'),
     url(r'^change_p_o/$', 'home.data.change_p_o', name='change_p_o'),
