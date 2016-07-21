@@ -762,7 +762,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def create_api(request):
     email = request.POST.get('email1')
-    print(email)
+    # print(email)
     name = request.POST.get('name')
     contact = request.POST.get('phone')
 
@@ -781,7 +781,7 @@ def create_api(request):
     wp.set_city(city)
     wp.set_segments('Manufacturing,Plastic')
 
-    url = 'http://127.0.0.1:8888/accounts/signup/'
+    url = 'http://www.corelogs.com/accounts/signup/'
 
     if len(email)>4:
         payload = {'name': name, 'email': email, 'password1': 'Password', 'password2': 'Password'}
