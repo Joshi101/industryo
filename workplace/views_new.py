@@ -40,7 +40,7 @@ def dashboard(request, slug):
         member = True
     content_url = "workplace/snip_dashboard.html"
     content_head_url = "workplace/snip_dashboard_head.html"
-    member_count = members.count()
+    member_count = workplace.userprofile_set.all().count()
     products = Products.objects.filter(producer=workplace.pk)
     inquiry_count = Enquiry.objects.filter(product__in=products).count()
     new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()

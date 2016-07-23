@@ -2425,18 +2425,36 @@ if ($login_modal.length) {
   });
 }
 
-var $nav_ajax_content = $('.nav_ajax_content');
-if ($nav_ajax_content.length) {
-  var $nav_ajax = $('#'+$nav_ajax_content.data('nav'));
-  $nav_ajax.find('#'+$nav_ajax_content.data('nav')+'_'+$nav_ajax_content.attr('id')).closest('li').addClass('active');
+function nav_ajax_activate(){
+  var $nav_ajax_content = $('.nav_ajax_content');
+  if ($nav_ajax_content.length) {
+    var $nav_ajax = $('#'+$nav_ajax_content.data('nav'));
+    $nav_ajax.find('#'+$nav_ajax_content.data('nav')+'_'+$nav_ajax_content.attr('id')).closest('li').addClass('active');
+  }
 }
 
+$(nav_ajax_activate);
 
 function changeurl(response, url){
-  window.history.pushState({}, '', url);
+  state = window.location.pathname;
+  console.log(state);
+  window.history.pushState(state, '', url);
   var $response = $('<div></div>').html(response);
   $('title').text($response.find('#ajax_title').text());
   $('meta[name=description]').attr('content', $response.find('#ajax_description').text());
   $("meta[property='og\:title']").attr('content', $response.find('#ajax_title').text());
   $("meta[property='og\:description']").attr('content', $response.find('#ajax_description').text());
 }
+
+$(window).on('popstate', function(event) {
+    var state = event.originalEvent.state;
+    if (state) {
+      console.log(state);
+        $('.ajax_a').each(function(index, el) {
+          console.log($(el).attr('href'), state);
+          if ($(el).attr('href') == state){
+            $(el).trigger('click');
+          }
+        });
+    }
+});
