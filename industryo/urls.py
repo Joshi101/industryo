@@ -73,6 +73,8 @@ urlpatterns = patterns('',
     url(r'^fuck_shit/$', 'contacts.views.fuck_shit'),
 
     url(r'^create_api/$', 'workplace.views.create_api'),
+    url(r'^create_api2/$', 'workplace.views.create_api2'),
+    url(r'^create_api3/$', 'workplace.views.create_api3'),
 
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
