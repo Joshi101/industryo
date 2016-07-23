@@ -1452,7 +1452,6 @@ $(function () {
 
 $('body').on('click', '.ajax_a', function(event){
     event.preventDefault();
-    //window.history.pushState({ id: 35 }, 'ajax kaam', '/op/ol');
     var url = $(this).attr('href');
     var target = $(this).data('place');
     if (target){
@@ -1467,6 +1466,7 @@ $('body').on('click', '.ajax_a', function(event){
                 $(target).find('.content').html(response);
                 $(target).find('.loading').addClass('hide');
                 lazyImages();
+                changeurl(response, url);
             }
         },
         error: function(xhr, errmsg, err) {
@@ -2416,12 +2416,27 @@ $('body').on('click', '.swapper_bi', function(event){
 });
 
 
-var $signup_modal = $('#signup_modal');
-if ($signup_modal) {
+var $login_modal = $('#login_modal');
+if ($login_modal.length) {
   $('body').on('click','.signup_call',function(event){
-    console.log('singup call');
     event.preventDefault();
-    $signup_modal.modal({backdrop: false});
-    $('body').removeClass('modal-open').css('padding-right','0');
+    console.log('singup call', $login_modal.length);
+    $login_modal.modal();
   });
+}
+
+var $nav_ajax_content = $('.nav_ajax_content');
+if ($nav_ajax_content.length) {
+  var $nav_ajax = $('#'+$nav_ajax_content.data('nav'));
+  $nav_ajax.find('#'+$nav_ajax_content.data('nav')+'_'+$nav_ajax_content.attr('id')).closest('li').addClass('active');
+}
+
+
+function changeurl(response, url){
+  window.history.pushState({}, '', url);
+  var $response = $('<div></div>').html(response);
+  $('title').text($response.find('#ajax_title').text());
+  $('meta[name=description]').attr('content', $response.find('#ajax_description').text());
+  $("meta[property='og\:title']").attr('content', $response.find('#ajax_title').text());
+  $("meta[property='og\:description']").attr('content', $response.find('#ajax_description').text());
 }

@@ -1,109 +1,118 @@
-<div class="form_card tile_flat" style="margin-top: 0;">
-  <div class="collapse_h">Summary<span class="fa fa-fw fa-info pull-right"></span></div>
-  <div id="gen_info" class="collapse in">
-    <div class="form-group">
-      <p class="data">{{workplace.about}}</p>
-    </div>
-    <div class="form-group">
-      <div class="data_title">Operating in</div>
-      {% if workplace.get_tags %}
-      <div class="tags">
-        <span class="fa fa-map-o fa-fw"></span>
-        {% for tag in workplace.get_tags.city %}
-          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-    <div class="form-group">
-      {% if workplace.year_established %}
-      <div class="data_inline"><span class="fa fa-history fa-fw"></span>&nbsp;Established In {{workplace.year_established}}</div>
-      {% endif %}
-      <div class="data_inline"><span class="fa fa-users fa-fw"></span>&nbsp;{{workplace.number_of_employees|default:'1'}} Employees</div>
-      {% if workplace.get_legal_status %}
-      <div class="data_inline"><span class="fa fa-legal fa-fw"></span>&nbsp;{{workplace.get_legal_status}}</div>
-      {% endif %}
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <div class="data_title">Annual Revenue</div>
-          <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.revenue}}</p>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <div class="data_title">Turnover</div>
-          <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.turnover}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="ajax_head">
+  <span id="ajax_title">{{workplace.name}} | CoreLogs</span>
+  <span id="ajax_description">{{workplace.about|truncatechars_html:75}}</span>
 </div>
-<div class="form_card tile_flat">
-  <div class="collapse_h">Specialization<span class="fa fa-fw fa-barcode pull-right"></span></div>
-  <div id="extra_info" class="collapse in">
-    <div class="form-group">
-      <div class="data_title">Product Description</div>
-      <p class="data">{{workplace.product_details}}</p>
-    </div>
-    <div class="form-group">
-      <div class="data_title">Segements</div>
-      {% if workplace.get_tags %}
-      <div class="tags">
-        <span class="fa fa-industry fa-fw"></span>
-        {% for tag in workplace.get_tags.segments %}
-          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-        {% endfor %}
+
+<div id="about" class="nav_ajax_content" data-nav="wp_nav">
+  <div class="form_card tile_flat" style="margin-top: 0;">
+    <div class="collapse_h">Summary<span class="fa fa-fw fa-info pull-right"></span></div>
+    <div id="gen_info" class="collapse in">
+      <div class="form-group">
+        <p class="data">{{workplace.about}}</p>
+      </div>
+      {% if workplace.get_tags.exists %}
+      <div class="form-group">
+        <div class="data_title">Operating in</div>
+        <div class="tags">
+          <span class="fa fa-map-o fa-fw"></span>
+          {% for tag in workplace.get_tags.city %}
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+          {% endfor %}
+        </div>
       </div>
       {% endif %}
-    </div>
-    <div class="form-group">
-      <div class="data_title">Operations</div>
-      {% if workplace.get_tags %}
-      <div class="tags">
-        <span class="fa fa-fire-extinguisher fa-fw"></span>
-        {% for tag in workplace.get_tags.operations %}
-          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-        {% endfor %}
+      <div class="form-group">
+        {% if workplace.year_established %}
+        <div class="data_inline"><span class="fa fa-history fa-fw"></span>&nbsp;Established In {{workplace.year_established}}</div>
+        {% endif %}
+        <div class="data_inline"><span class="fa fa-users fa-fw"></span>&nbsp;{{workplace.number_of_employees|default:'1'}} {% if workplace.workplace_type == 'C' or workplace.workplace_type == 'O' %}Members{% else %}Employees{% endif %}</div>
+        {% if workplace.get_legal_status %}
+        <div class="data_inline"><span class="fa fa-legal fa-fw"></span>&nbsp;{{workplace.get_legal_status}}</div>
+        {% endif %}
       </div>
-      {% endif %}
-    </div>
-    <div class="form-group">
-      <div class="data_title">Machinery &amp; Assets</div>
-      {% if workplace.get_tags %}
-      <div class="tags">
-        <span class="fa fa-cogs fa-fw"></span>
-        {% for tag in workplace.get_tags.assets %}
-          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-        {% endfor %}
+      {% if workplace.workplace_type == 'A' or workplace.workplace_type == 'B' %}
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="data_title">Annual Revenue</div>
+            <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.revenue}}</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="data_title">Turnover</div>
+            <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.turnover}}</p>
+          </div>
+        </div>
       </div>
       {% endif %}
     </div>
   </div>
-</div>
-<div class="form_card tile_flat">
-  <div class="collapse_h">Contact Information<span class="fa fa-fw fa-coffee pull-right"></span></div>
-  <div id="contact_info" class="collapse in">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <div class="data_inline"><a href="{{workplace.get_website}}"><span class="fa fa-globe fa-fw"></span>&nbsp;{{workplace.get_website}}</a></div>
-          <div class="data_inline"><a href="{{workplace.fb_page}}"><span class="fa fa-facebook-official fa-fw"></span>&nbsp;{{workplace.fb_page}}</a></div>
-          <div class="data_inline"><a href="{{workplace.linkedin_page}}"><span class="fa fa-linkedin-square fa-fw"></span>&nbsp;{{workplace.linkedin_page}}</a></div>
-        </div>
+  <div class="form_card tile_flat">
+    <div class="collapse_h">Specialization<span class="fa fa-fw fa-barcode pull-right"></span></div>
+    <div id="extra_info" class="collapse in">
+      <div class="form-group">
+        <div class="data_title">Product Description</div>
+        <p class="data">{{workplace.product_details}}</p>
       </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <div class="data_inline"><a href="mailto:{{workplace.office_mail_id}}"><span class="fa fa-envelope-o fa-fw"></span>&nbsp;{{workplace.office_mail_id}}</a></div>
-          <div class="data_inline"><span class="fa fa-tty fa-fw"></span>&nbsp;{{workplace.contact}}</div>
-          <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact1}}</div>
-          <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact2}}</div>
+      <div class="form-group">
+        <div class="data_title">Segements</div>
+        {% if workplace.get_tags %}
+        <div class="tags">
+          <span class="fa fa-industry fa-fw"></span>
+          {% for tag in workplace.get_tags.segments %}
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+          {% endfor %}
         </div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="data_title">Operations</div>
+        {% if workplace.get_tags %}
+        <div class="tags">
+          <span class="fa fa-fire-extinguisher fa-fw"></span>
+          {% for tag in workplace.get_tags.operations %}
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="data_title">Machinery &amp; Assets</div>
+        {% if workplace.get_tags %}
+        <div class="tags">
+          <span class="fa fa-cogs fa-fw"></span>
+          {% for tag in workplace.get_tags.assets %}
+            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
     </div>
-    <div class="form-group">
-      <div class="data_inline"><span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address}}</div>
+  </div>
+  <div class="form_card tile_flat">
+    <div class="collapse_h">Contact Information<span class="fa fa-fw fa-coffee pull-right"></span></div>
+    <div id="contact_info" class="collapse in">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="data_inline"><a href="{{workplace.get_website}}"><span class="fa fa-globe fa-fw"></span>&nbsp;{{workplace.get_website}}</a></div>
+            <div class="data_inline"><a href="{{workplace.get_fb_page}}"><span class="fa fa-facebook-official fa-fw"></span>&nbsp;{{workplace.fb_page}}</a></div>
+            <div class="data_inline"><a href="{{workplace.get_linkedin_page}}"><span class="fa fa-linkedin-square fa-fw"></span>&nbsp;{{workplace.linkedin_page}}</a></div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="data_inline"><a href="mailto:{{workplace.office_mail_id}}"><span class="fa fa-envelope-o fa-fw"></span>&nbsp;{{workplace.office_mail_id}}</a></div>
+            <div class="data_inline"><span class="fa fa-tty fa-fw"></span>&nbsp;{{workplace.contact}}</div>
+            <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact1}}</div>
+            <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact2}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="data_inline"><span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address}}</div>
+      </div>
     </div>
   </div>
 </div>

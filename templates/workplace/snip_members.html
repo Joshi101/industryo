@@ -1,46 +1,53 @@
-{% if user.userprofile in members %}
-	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
-	<div class="">
-		<p class="detail_body content_about_w" property='description'>
-	{% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
-	The more People are registered from your team, the stronger your team profile is on CoreLogs. Ask all members of you team to signup on 
-	CoreLogs and show some activity on Forum. You no  longer need a website.
-	{% elif request.user.userprofile.primary_workplace.workplace_type == 'O' %}
-	Invite other students and Professors from your college to Signup on CoreLogs.
-	{% else %}
-	Ask Your colleagues and other people from your copany to signup on CoreLogs and become a member. The More people registered from a company, 
-	the more credible it is. 
-	{% endif %}
-		</p><textarea name="about" form="about_w" rows="3" class="form-control replacer edit_about_w hide"></textarea>
-	</div>
-	</div>
-	<h3 class="text-center">
-		<a class="a_collapse btn btn-default"><i class="fa fa-plus-circle inline_fa"></i>Invite a Colleague</a>
-		<div class="collapse">
-			<form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
-			{% csrf_token %}
-				<div class="form-group">
-					<input class="form-control input-sm" name="name" placeholder="name of your colleague" required>
-				</div>
-				<div class="form-group">
-					<input class="form-control input-sm" type="email" name="email" placeholder="email of your colleague" required>
-				</div>
-				<button class="btn btn-primary form-ajax"><i class='fa fa-plus-circle fa-lg inline_fa'> Invite</i></button>
-			</form>
-		</div>
-	</h3>
-	<div class="text-center">
-		<a href="{% url 'contacts:get_google_contacts' %}" class="btn btn-primary ajax_a"><i class="fa fa-user-plus inline_fa"></i>Invite your Google contacts</a>
-	</div>
-{% endif %}
-<ul id="members_list">
-{% for member in members %}
-	<li class="member">
-		<img class="lazy_img" src="/images/user_man.png" data-src="{{member.get_profile_image}}" alt="{{member}}">
-		<div class="member_name">
-			<a class="name_user {% ifequal member.user.username user.username %}same{% endifequal %}" href="{% url 'user:profile' member.user.username %}">{{ member }}</a>
-		</div>
-		<div class="member_position">{{ member.job_position }}</div>
-	</li>
-{% endfor %}
-</ul>
+<div class="ajax_head">
+  <span id="ajax_title">People working at {{workplace.name}} | CoreLogs</span>
+  <span id="ajax_description">Find and connect with all the people related to {{workplace.name}} at CoreLogs</span>
+</div>
+
+<div id="members" class="nav_ajax_content" data-nav="wp_nav">
+  {% if user.userprofile in members %}
+  	<div class="info_field ajax_andar ajax_papa" property='location' typeof='PostalAddress'>
+  	<div class="">
+  		<p class="detail_body content_about_w" property='description'>
+  	{% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
+  	The more People are registered from your team, the stronger your team profile is on CoreLogs. Ask all members of you team to signup on
+  	CoreLogs and show some activity on Forum. You no  longer need a website.
+  	{% elif request.user.userprofile.primary_workplace.workplace_type == 'O' %}
+  	Invite other students and Professors from your college to Signup on CoreLogs.
+  	{% else %}
+  	Ask Your colleagues and other people from your copany to signup on CoreLogs and become a member. The More people registered from a company,
+  	the more credible it is.
+  	{% endif %}
+  		</p>
+  	</div>
+  	</div>
+  	<h3 class="text-center">
+  		<a class="a_collapse btn btn-default"><i class="fa fa-plus-circle inline_fa"></i>Invite a Colleague</a>
+  		<div class="collapse">
+  			<form class="invite_form" role='form' action="{% url 'workplace:invite_colleague' %}" method="POST">
+  			{% csrf_token %}
+  				<div class="form-group">
+  					<input class="form-control input-sm" name="name" placeholder="name of your colleague" required>
+  				</div>
+  				<div class="form-group">
+  					<input class="form-control input-sm" type="email" name="email" placeholder="email of your colleague" required>
+  				</div>
+  				<button class="btn btn-primary form-ajax"><i class='fa fa-plus-circle fa-lg inline_fa'> Invite</i></button>
+  			</form>
+  		</div>
+  	</h3>
+  	<div class="text-center">
+  		<a href="{% url 'contacts:get_google_contacts' %}" class="btn btn-primary ajax_a"><i class="fa fa-user-plus inline_fa"></i>Invite your Google contacts</a>
+  	</div>
+  {% endif %}
+  <ul id="members_list">
+  {% for member in workplace.userprofile_set.all %}
+  	<li class="member">
+  		<img class="lazy_img" src="/images/user_man.png" data-src="{{member.get_profile_image}}" alt="{{member}}">
+  		<div class="member_name">
+  			<a class="name_user {% ifequal member.user.username user.username %}same{% endifequal %}" href="{% url 'user:profile' member.user.username %}">{{ member }}</a>
+  		</div>
+  		<div class="member_position">{{ member.job_position }}</div>
+  	</li>
+  {% endfor %}
+  </ul>
+</div>

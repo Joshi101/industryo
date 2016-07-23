@@ -7,12 +7,10 @@
   <link rel="stylesheet" href={% static 'css/form_card.css' %}>
 {% endblock head_css %}
 
-{% block title %}{{workplace.name}} | CoreLogs{% endblock title %}
+{% block head_desc %}
+  {% include content_head_url %}
+{% endblock head_desc %}
 
-{% block meta_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_description %}
-
-{% block meta_og_title %}{{workplace.name}}{% endblock meta_og_title %}
-{% block meta_og_description %}{{ workplace.about|truncatechars_html:75 }}{% endblock meta_og_description %}
 {% block meta_og_image %}{{workplace.get_logo}}{% endblock meta_og_image %}
 {% block meta_og_image_dim %}
   <meta property="og:image:width" content="128">
@@ -44,9 +42,9 @@
           {% if workplace.verified %}
           <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
           {% endif %}
-          <div class="text-muted">{{workplace.get_type}}{% if workplace.workplace_type == 'B' %}
-            ({{ workplace.get_sme_type }})
-          {% endif %}</div>
+          <div class="text-muted">
+            {{ workplace.get_type }}{% if workplace.workplace_type == 'B' %}({{ workplace.get_sme_type }}){% endif %}
+          </div>
         </header>
         <div class="info_links">
           <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square"></span></a>
@@ -55,13 +53,19 @@
         </div>
       </div>
       <div class="col-sm-3">
-        {% if user.userprofile in members %}
+        {% if member %}
         <div class="info_right">
           <h3>
-            {% if new_inq_count %}<span class="new">{{new_inq_count}} New</span>{% endif %}
-            <a href="{% url 'products:enquiry_all' %}"><span class="num">{{inquiry_count}}</span>&nbsp;<span>Inquiries</span>&nbsp;<span class="fa fa-folder-open fa-fw"></span></a>
+            {% if new_inq_count %}
+            <span class="new">{{workplace.get_enq.new.count}} New</span>
+            {% endif %}
+            <a href="{% url 'products:enquiry_all' %}">
+              <span class="num">{{workplace.get_enq.total.count}}</span>&nbsp;<span>Inquiries</span>&nbsp;<span class="fa fa-folder-open fa-fw"></span>
+            </a>
           </h3>
-          <h3><span class="num">{{workplace.hits}}</span>&nbsp;Page Views</span>&nbsp;<span class="fa fa-eye fa-fw"></span></h3>
+          <h3>
+            <span class="num">{{workplace.hits}}</span>&nbsp;Page Views</span>&nbsp;<span class="fa fa-eye fa-fw"></span>
+          </h3>
         </div>
         <!-- <div class="info_labels">
           <span class="label label-default">{{workplace.points}} points</span>
@@ -98,11 +102,7 @@
           <i class="fa fa-spin fa-spinner"></i>
         </div>
         <div class="content">
-          {% if user.userprofile in members %}
-            {% include "workplace/snip_dashboard.html" with workplace=workplace %}
-          {% else %}
-            {% include "workplace/snip_about.html" with workplace=workplace %}
-          {% endif %}
+          {% include content_url %}
         </div>
       </div>
       {% endblock workplace_section %}
@@ -110,7 +110,7 @@
   </div>
 </div>
 
-  <script type="text/javascript">
-    $('#top_nav_wp').addClass('current');
-  </script>
+<script type="text/javascript">
+  $('#top_nav_wp').addClass('current');
+</script>
 {% endblock body %}

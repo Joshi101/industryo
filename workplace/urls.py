@@ -29,12 +29,12 @@ urlpatterns = patterns('',
     url(r'^edit_links/$', 'workplace.views.edit_links', name='edit_links'),     # ye
     url(r'^edit_contacts/$', 'workplace.views.edit_contacts', name='edit_contacts'),        # aur ye
 
-    url(r'^about/(?P<slug>[^/]+)/$', 'workplace.views.workplace_about', name='about'),
-    url(r'^activity/(?P<slug>[^/]+)/$', 'workplace.views.activity', name='activity'),
-    url(r'^dashboard/(?P<slug>[^/]+)/$', 'workplace.views.workplace_dash', name='dashboard'),
-    url(r'^capabilities/(?P<slug>[^/]+)/$', 'workplace.views.workplace_capabilities', name='capabilities'),
-    url(r'^members/(?P<slug>[^/]+)/$', 'workplace.views.workplace_members', name='members'),
-    url(r'^products/(?P<slug>[^/]+)/$', 'workplace.views.workplace_products', name='products'),
+    url(r'^(?P<slug>[^/]+)/about/$', 'workplace.views.workplace_about', name='about'),
+    url(r'^(?P<slug>[^/]+)/activity/$', 'workplace.views_new.activity', name='activity'),
+    url(r'^(?P<slug>[^/]+)/dashboard/$', 'workplace.views_new.dashboard', name='dashboard'),
+    # url(r'^capabilities/(?P<slug>[^/]+)/$', 'workplace.views.workplace_capabilities', name='capabilities'),
+    url(r'^(?P<slug>[^/]+)/members/$', 'workplace.views_new.members', name='members'),
+    url(r'^(?P<slug>[^/]+)/products/$', 'workplace.views_new.products', name='products'),
     url(r'^get_top_scorers/(?P<slug>[^/]+)/$', 'workplace.views.get_top_scorers', name='get_top_scorers'),
     url(r'^invite_colleague/$', 'workplace.views.invite_colleague', name='invite_colleague'),
     url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category_wp', name='category_wp'),
@@ -42,6 +42,6 @@ urlpatterns = patterns('',
     url(r'^edit/$', 'workplace.views.edit_workplace', name='edit'),
     url(r'^random_card/$', 'workplace.views.random_card', name='random_card'),
 
-    url(r'^(?P<slug>[^/]+)/$', 'workplace.views.workplace_profile', name='workplace_profile'),
+    url(r'^(?P<slug>[^/]+)/$', 'workplace.views_new.workplace_profile', name='workplace_profile'),
 
 )

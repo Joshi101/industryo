@@ -93,7 +93,6 @@ class Workplace(models.Model):
         if not self.id:                  # Newly created object, so set slug
             slug_str = self.name
             unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
         super(Workplace, self).save(*args, **kwargs)
 
     def set_materials(self, materials):
@@ -254,8 +253,7 @@ class Workplace(models.Model):
         self.logo = a
 
     def get_legal_status(self):
-        legal = self.legal_status
-        status = False
+        status = ''
         values = {
             'A': 'Private Limited',
             'B': 'Sole Proprietorship',
@@ -265,15 +263,12 @@ class Workplace(models.Model):
             'O': 'Other',
             'U': 'Unregistered',
         }
-        print(values.keys())
         for value in values.keys():
-            if value == legal:
-                print(value, legal)
+            if value == self.legal_status:
                 status = values[value]
         return status
 
     def get_sme_type(self):
-        stype = self.sme_type
         status = 'Others'
         values = {
             'A': 'Manufacturing SME',
@@ -281,16 +276,30 @@ class Workplace(models.Model):
             'C': 'Service Provider',
             'O': 'Others',
         }
-        print(values.keys())
         for value in values.keys():
-            if value == stype:
-                print(value, stype)
+            if value == self.sme_type:
                 status = values[value]
         return status
 
-    def get_city(self):
-        city = self.wptags.filter(type='C')
-        return city
+    def get_type(self):
+        if self.workplace_type == 'A':
+            return "Large Scale Industry"
+        elif self.workplace_type == 'B':
+            return "Small / Medium Scale Enterprise"
+        elif self.workplace_type == 'C':
+            return "SAE Collegiate Club"
+        elif self.workplace_type == 'O':
+            return "Educational Institution"
+
+    def get_type_short(self):
+        if self.workplace_type == 'A':
+            return "Company"
+        elif self.workplace_type == 'B':
+            return "SME"
+        elif self.workplace_type == 'C':
+            return "Team"
+        elif self.workplace_type == 'O':
+            return "Institution"
 
     def get_logo(self):
         default_image = '/images/wp.png'
@@ -300,69 +309,6 @@ class Workplace(models.Model):
         else:
             return default_image
 
-    def get_tags(self):
-        o = WpTags.objects.filter(workplace=self, category='O')
-        operations = []
-        for b in o:
-            operations.append(b.tags)
-
-        a = WpTags.objects.filter(workplace=self, category='A')
-        assets = []
-        for b in a:
-            assets.append(b.tags)
-
-        # industrial_area = self.wptags.filter(type='I')
-        c = WpTags.objects.filter(workplace=self, category='C')
-        city = []
-        for b in c:
-            city.append(b.tags)
-
-        m = WpTags.objects.filter(workplace=self, category='M')
-        materials = []
-        for b in m:
-            materials.append(b.tags)
-
-        s = WpTags.objects.filter(workplace=self, category='S')
-        segments = []
-        for b in s:
-            segments.append(b.tags)
-
-        e = WpTags.objects.filter(workplace=self, category='E')
-        events = []
-        for b in e:
-            events.append(b.tags)
-
-        i = WpTags.objects.filter(workplace=self, category='P')
-        institution = []
-        for b in i:
-            institution.append(b.tags)
-        return locals()
-
-    def get_all_tags(self):
-        o = WpTags.objects.filter(workplace=self)
-        li =''
-        for i in o:
-            li = li+i.tags.tag+','
-        return li
-
-    def get_institution(self):
-        institution = self.institution
-        return institution
-
-    def get_count(self):
-        ups = self.userprofile_set.all()
-        count = ups.count()
-        return count
-
-    def update_wp_score(self):
-        ups = self.userprofile_set.all()
-        points = 0
-        for up in ups:
-            points += up.points
-        self.points = points
-        self.save()
-        return
-
     def get_website(self):
         w = self.website
         if not w or w == 'None':
@@ -370,9 +316,7 @@ class Workplace(models.Model):
         elif w[0:3] == "htt":
             return w
         else:
-            print(w)
             p = 'http://'+w
-            print(p)
             return p
 
     def get_fb_page(self):
@@ -395,34 +339,75 @@ class Workplace(models.Model):
             p = 'http://'+w
             return p
 
-    def get_tags_count(self):
-        a = self.wptags.all()
-        count = len(a)
-        return count
+    def get_city(self):
+        city = self.wptags.filter(type='C')
+        return city
+
+    def get_tags(self):
+        o = WpTags.objects.filter(workplace=self, category='O')
+        operations = []
+        for b in o:
+            operations.append(b.tags)
+        a = WpTags.objects.filter(workplace=self, category='A')
+        assets = []
+        for b in a:
+            assets.append(b.tags)
+        c = WpTags.objects.filter(workplace=self, category='C')
+        city = []
+        for b in c:
+            city.append(b.tags)
+        m = WpTags.objects.filter(workplace=self, category='M')
+        materials = []
+        for b in m:
+            materials.append(b.tags)
+        s = WpTags.objects.filter(workplace=self, category='S')
+        segments = []
+        for b in s:
+            segments.append(b.tags)
+        e = WpTags.objects.filter(workplace=self, category='E')
+        events = []
+        for b in e:
+            events.append(b.tags)
+        i = WpTags.objects.filter(workplace=self, category='P')
+        institution = []
+        for b in i:
+            institution.append(b.tags)
+        return locals()
+
+    def get_all_tags(self):
+        o = WpTags.objects.filter(workplace=self)
+        li =''
+        for i in o:
+            li = li+i.tags.tag+','
+        return li
 
     def get_members(self):
         ups = self.userprofile_set.all()
         return ups
 
-    def get_type(self):
-        if self.workplace_type == 'A':
-            return "Large Scale Industry"
-        elif self.workplace_type == 'B':
-            return "Small / Medium Scale Enterprise"
-        elif self.workplace_type == 'C':
-            return "SAE Collegiate Club"
-        elif self.workplace_type == 'O':
-            return "Educational Institution"
+    def get_enq(self):
+        a = self.enquiry_set.filter(seen=False)
+        b = self.enquiry_set.all()
+        return {'new': a, 'total': b}
 
-    def get_type_short(self):
-        if self.workplace_type == 'A':
-            return "Company"
-        elif self.workplace_type == 'B':
-            return "SME"
-        elif self.workplace_type == 'C':
-            return "Team"
-        elif self.workplace_type == 'O':
-            return "Institution"
+    def get_tags_count(self):
+        a = self.wptags.all()
+        count = len(a)
+        return count
+
+    def get_enq_count(self):
+        a = self.enquiry_set.filter(seen=False).count()
+        b = self.enquiry_set.all().count()
+        return {'new': a, 'total': b}
+
+    def get_product_count(self):
+        count = self.products_set.all().count()
+        return count
+
+    def get_count(self):
+        ups = self.userprofile_set.all()
+        count = ups.count()
+        return count
 
     def get_member_score(self):
         member_count = self.get_count()
@@ -496,14 +481,14 @@ class Workplace(models.Model):
             n = 100
         return n
 
-    def get_enq_count(self):
-        a = self.enquiry_set.filter(seen=False).count()
-        b = self.enquiry_set.all().count()
-        return {'new': a, 'total': b}
-
-    def get_product_count(self):
-        count = self.products_set.all().count()
-        return count
+    def update_wp_score(self):
+        ups = self.userprofile_set.all()
+        points = 0
+        for up in ups:
+            points += up.points
+        self.points = points
+        self.save()
+        return
 
 
 class WpTags(models.Model):
