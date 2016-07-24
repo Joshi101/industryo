@@ -23,14 +23,14 @@ urlpatterns = patterns('',
     url(r'^enquiry_all/$', 'products.views.enquiry_all', name='enquiry_all'),
     url(r'^enquiry/(?P<id>[^/]+)/$', 'products.views.enquiry', name='enqui'),
     url(r'^enquiry_sent/(?P<id>[^/]+)/$', 'products.views.enquiry_sent', name='enqui_sent'),
+    url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category', name='category'),
+    url(r'^new_category/$', 'products.views.new_category', name='new_category'),
 
     url(r'^(?P<id>[^/]+)/set_details/$', 'products.views.set_details', name='set_details'),
     url(r'^(?P<id>[^/]+)/edit_desc/$', 'products.views.edit_desc', name='edit_desc'),
     url(r'^(?P<id>[^/]+)/edit_category/$', 'products.views.edit_category', name='edit_category'),
-    url(r'^new_category/$', 'products.views.new_category', name='new_category'),
     url(r'^(?P<id>[^/]+)/change_image/$', 'products.views.change_image', name='change_image'),
     url(r'^(?P<slug>[^/]+)/$', 'products.views.product', name='product'),
-    url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category', name='category'),
     url(r'^(?P<slug>[^/]+)/set_tags_short/$', 'products.views.set_tags_short', name='set_tags_short'),
 
 )

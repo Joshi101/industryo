@@ -34,11 +34,11 @@
 	    </div>
 		</div>
 	</div>
-
-	<ul class="nav nav-tabs">
-	  <li class="active"><a data-toggle="tab" href="#activity">Activity</a></li>
-	  <li><a data-toggle="tab" href="#workplaces">Workplaces</a></li>
-	</ul>
+	<div class="row">
+	  <div class="sol-sm-12 col-md-8">
+        {% include "tags/tag_nav_items.html" with tag=tag %}
+      </div>
+    </div>
 	
 	<div class="tab-content ajax_papa">
 	<div id="activity" class="tab-pane fade in active">

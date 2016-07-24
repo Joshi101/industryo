@@ -1,0 +1,33 @@
+<nav>
+  <ul id="wp_nav" class="left_menu active_li">
+    <li class="active">
+      <a href="{% url 'tags:get_tag' tag.slug %}"><span class="fa fa-info-circle"></span>Activities</a>
+    </li>
+
+    {% if tag.type == 'E' %}
+    <li>
+      <a href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-cube"></span>Teams &amp; Colleges</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-cube"></span>Companies</a>
+    </li>
+    {% endif %}
+
+    {% if tag.type == 'E' %}
+    <li>
+      <a href="{% url 'tags:products' tag.slug %}"><span class="fa fa-bullhorn"></span>Cars</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="{% url 'tags:products' tag.slug %}"><span class="fa fa-bullhorn"></span>Products</a>
+    </li>
+    {% endif %}
+
+    {% if tag.type != 'E' %}
+    <li>
+      <a href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-bullhorn"></span>Leads</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
