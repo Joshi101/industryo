@@ -95,6 +95,7 @@ def tag_products(request, slug):
 def tag_companies(request, slug):
     tag = Tags.objects.get(slug=slug)
     workplaces = tag.wptags.all()
+    print(workplaces)
     return render(request, 'tags/tag.html', locals())
 
 
