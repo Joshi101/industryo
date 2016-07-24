@@ -38,6 +38,7 @@ class UserDetailsForm(forms.ModelForm):
 
 # class EditProfileForm(forms.ModelForm):
 class SignupForm(forms.Form):
+
     name = forms.CharField(max_length=30, label='Full Name', required=False)
 
     def signup(self, request, user):

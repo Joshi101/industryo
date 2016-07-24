@@ -9,6 +9,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 from operator import attrgetter
+from products.models import Products
+from leads.models import Leads
 
 
 def create_tag(request):
@@ -57,10 +59,12 @@ def search_interests(request):                  # for searching the workplace
 
 def get_tag(request, slug):
     tag = Tags.objects.get(slug=slug)
+    wptag = tag.wptags.all()
     questions = Question.objects.filter(tags=tag)
-
     workplaces = tag.wptags.all()
-    nodes = Node.feed.filter(tags=tag)
+    nodes1 = Node.objects.filter(tags=tag)
+    nodes2 = Node.objects.filter(user__userprofile__primary_workplace__in=wptag)
+    nodes = nodes1 | nodes2
     articles = Node.article.filter(tags=tag)
     tag_logo_form = SetTagLogoForm()
     wptags = WpTags.objects.filter(tags=tag)
@@ -72,16 +76,37 @@ def get_tag(request, slug):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
         return
-                # result_list = paginator.page(paginator.num_pages)
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list, 'wptags':wptags})
     else:
         return render(request, 'tags/tag.html', locals())
+
+
+def tag_products(request, slug):
+    tag = Tags.objects.get(slug=slug)
+    wptags = tag.wptags.all()
+    products = Products.objects.filter(producer__in=wptags)
+    return render(request, 'tags/tag.html', locals())
+
+
+def tag_companies(request, slug):
+    tag = Tags.objects.get(slug=slug)
+    workplaces = tag.wptags.all()
+    print(workplaces)
+    return render(request, 'tags/tag.html', locals())
+
+
+def tag_leads(request, slug):
+    tag = Tags.objects.get(slug=slug)
+    leads = Leads.objects.filter(tags=tag)
+    return render(request, 'tags/tag.html', locals())
+
+
+# def get_filter_tag(request):
+
 
 
 def get_all_tags(request):
@@ -135,64 +160,6 @@ def follow_tag(request):
 
 
 def create(request):
-    lis = ['Automotive', 'Aerospace', 'Manufacturing', 'Food processing', 'Power', 'Oil & Gas',
-           'Industrial Consultancy', 'Engineering Consultancy', 'Designing', 'Material Testing', 'Repairing & Servicing']
-    lia = ['Milling Machine', 'Mig Welding Setup', 'Tig Welding Setup', 'CNC Milling Machine', 'Lathe Machine', 'CNC Lathe Machine',
-           'Rotomolding Machine', 'Melting Furnace', 'Knurling Machine', 'Press Brake ', 'CNC Press Brake', 'Slotter', 'Shaper',
-           'Drilling Machine', 'Hobbing Machine', 'Honing Machine', 'Special Purpose Machines (SPM)', 'Hydraulic Ram', 'Rolling Mill',
-           'Crusher', 'Polymer processing Machine', 'Electric Furnace', 'Gas Furnace', 'Rapid Prototyping Machine',
-           'Electrical Discharge Machine (EDM)', 'Water Jet Cutter', 'Laser Beam Machine', 'Earth Moving Equipments', 'Industrial Robots']
-    lid = ['FMCG (Consumer Goods)', 'Iron & Steel', 'Aluminium sheet', 'Automobile Components(OEM)', 'Automobile Components',
-           'Aerospace Components(OEM)', 'Hydraulic Device', 'Pneumatic Device', 'Polymer Components', 'Rubber Items',
-           'Plastic Items', 'Agricultural equipments', 'Machine Tools', 'Cutting Tools', 'Power tools', 'Electric tools',
-           'Electrical Equipments', 'Hand Tools', 'Material Handling Equipments', 'Boilers', 'Chemicals', 'Paints & Coatings',
-           'Raisins', 'Thinners', 'Adhesives', 'Cutting Fluids', 'Coolants', 'Lubricants', 'Furniture', 'Jigs & Fixtures',
-           'Die & Punch', 'Consumer Electronics', 'Tubes & Tyres', 'Fasteners', 'Couplings',
-           'Sealants', 'Pipes & Tubes', 'Glass', 'Lean Manufacturing Implementation', 'Six Sigma Implementation', 'Construction Materials']
-    lim = ['Alloy Steel', 'Aluminium', 'Mild Steel (MS)', 'Alloy Steel', 'Non Ferrous Metals', 'Glass & Ceramics', 'Copper Alloys',
-           'Zinc Alloys', 'Wood ', 'Industrial Chemicals', 'Silicon Compounds',
-           'Rubber', 'Polymers', 'Plastic', 'Agricultural Products', 'Gases', 'Ores & Minerals', 'Coal & Petroleum', 'Refractories']
-    lio = ['Casting', 'Forging', 'Die Design', 'Welding', 'Lathe Machine Operations', 'Heat Treatment', 'Hobbing',
-           'Broaching', 'Scrap processing', 'Molding', 'wire drawing', 'Tyre Retreading', 'Hot Rolling',
-           'Cold Rolling', 'CNC Operations', 'Design Consultancy', 'Welding', 'Aluminium Welding', 'Electroplating',
-           'Rapid Prototyping', 'Injection Molding', 'CNC Programming', 'Punching & Blanking', 'Sheet Metal Operations',
-           'induction hardening', 'Superfinishing Operations', 'Rotomolding', 'Phosphating',
-           'Body building & Fabrication', 'Precision Job', 'Electroplating', 'Electroforming', 'Powder coating',
-           'Mining & Mineral Processing', 'Operations research', 'High Pressure Die Casting (HPDC)',
-           'Low Pressure Die Casting (LPDC)', 'laser Cutting']
-    lie = ['Baja SAE India', 'Supra SAE India', 'Baja Student India', 'Formula Student India', 'EffiCycle SAE India',
-           'SAE Supermileage']
-    for o in lis:
-        try:
-            t = Tags.objects.get(tag=o)
-        except Exception:
-            t = Tags.objects.create(tag=o, type='S')
-    for o in lia:
-        try:
-            t = Tags.objects.get(tag=o)
-        except Exception:
-            t = Tags.objects.create(tag=o, type='A')
-    for o in lid:
-        try:
-            t = Tags.objects.get(tag=o)
-        except Exception:
-            t = Tags.objects.create(tag=o, type='D')
-    for o in lim:
-        try:
-            t = Tags.objects.get(tag=o)
-        except Exception:
-            t = Tags.objects.create(tag=o, type='M')
-    for o in lio:
-        try:
-            t = Tags.objects.get(tag=o)
-        except Exception:
-            t = Tags.objects.create(tag=o, type='O')
-    for o in lie:
-        try:
-            t = Tags.objects.get(tag=o)
-        except Exception:
-            t = Tags.objects.create(tag=o, type='E')
-    return redirect('/')
-
+    pass
 
 # Create your views here.

@@ -3,6 +3,7 @@ from nodes.models import Node
 from forum.models import Question
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from workplace.models import Workplace
 from home import tasks
 from datetime import datetime, timedelta, time, date
 from .templates import *
@@ -112,5 +113,20 @@ def send_mail(request):
             minutes += 1
 
     return redirect('/internal/activity')
+
+
+def send_new_wp(request):
+    now_utc = datetime.now(pytz.UTC)
+    wps = Workplace.objects.filter(date__range=[now_utc-timedelta(days=5), timedelta(days=3)])
+
+    minutes = 1
+    for w in wps:
+        ms = w.get_members()
+        for m in ms:
+            subject = u''''Your Company {0} is Registered'''.format(w)
+            html_content = new_sme_tem.format(m, w, w.slug)
+            MailSend.objects.create(user=m.user, email=m.user.email, body=html_content, reasons='bm', subject=subject,
+                                    from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
+            minutes += 1
 
 list_new = []

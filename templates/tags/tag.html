@@ -34,11 +34,11 @@
 	    </div>
 		</div>
 	</div>
-
-	<ul class="nav nav-tabs">
-	  <li class="active"><a data-toggle="tab" href="#activity">Activity</a></li>
-	  <li><a data-toggle="tab" href="#workplaces">Workplaces</a></li>
-	</ul>
+	<div class="row">
+	  <div class="sol-sm-12 col-md-8">
+        {% include "tags/tag_nav_items.html" with tag=tag %}
+      </div>
+    </div>
 	
 	<div class="tab-content ajax_papa">
 	<div id="activity" class="tab-pane fade in active">
@@ -51,32 +51,7 @@
 		</div>
 	</div>
 	{% if request.user.is_authenticated %}
-	<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
-		<div class="input-group">
-			<span class="input-group-addon">
-				<a href="{% url 'user:profile' user.username %}">
-					<img id="img_feed" class="thumb_small" width="32" height="32" src="{% if user.userprofile.get_profile_image %}{{ user.userprofile.get_profile_image }}{% else %}/images/thumbnails/user_man.jpg{% endif %}">
-				</a>
-			</span>
-			<input type="hidden" name="tid" value="{{ tag.id }}">
-			<textarea rows="1" class="form-control seamless_l" name="post" placeholder="Start a discussion about {{tag}}" required></textarea>
-			<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file input-group-addon seamless_r img_pre_in'>
-				<i class="fa fa-camera"></i>
-				<input id="id_image_0" type="file" name="image0">
-    	</span>
-		</div>
-		<div class="img_pre hide" data-index=0>
-		</div>
-  	<div class="textarea_bottom hide">
-  		<span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-      	<span class="fa fa-camera"></span> Add Photo
-    	</span>
-  		<button class='btn btn-default pull-right form-ajax-filed'>
-      	<span class="fa fa-bullhorn"></span> Post
-    	</button>
-  	</div>
-		{% csrf_token %}
-	</form>
+	{% include "snippets/feed_form.html" %}
 	{% endif %}
   <div class="ajax_andar feeds">
 		{% include "snippets/figure_modal.html" %}

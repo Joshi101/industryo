@@ -66,7 +66,7 @@ class Leads(models.Model):
                 li.append(t)
                 t.count += 1
                 t.save()
-            self.tags = li
+            self.tags.add(*li)
             return li
 
     def get_tags(self):

@@ -32,15 +32,16 @@ class UserProfile(models.Model):
     interests = models.ManyToManyField(Tags, blank=True)
     approved = models.BooleanField(default=True)
 
-    mobile_contact = models.CharField(max_length=25, null=True, blank=True)
+    mobile_contact = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
 
     # Product related info
     product_email = models.EmailField(null=True, blank=True)
-    product_phone = models.CharField(max_length=25, null=True, blank=True)
+    product_phone = models.CharField(max_length=100, null=True, blank=True)
 
     # tag_list = models.CharField(max_length=244, null=True, blank=True)
     # back_tags = models.ManyToManyField(Tags, related_name='back_tags', null=True, blank=True)
+    dummy = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'userprofile'

@@ -1,23 +1,13 @@
-from django.shortcuts import render, redirect, HttpResponse, render_to_response
-from django.template.loader import render_to_string
-from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
+from django.shortcuts import render
 from workplace.models import *
 from nodes.models import Node
 from products.models import Products
-from tags.models import Tags
-from forum.models import Question, Answer
+from forum.models import Question
 from nodes.forms import SetLogoForm
 from activities.models import Enquiry
-from userprofile.models import User, UserProfile, Workplaces
-import json
-from django.core import serializers
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.mail import send_mail
-from home import tasks
 from itertools import chain
 from operator import attrgetter
-from threading import Thread
 
 
 def workplace_profile(request, slug):
@@ -32,6 +22,7 @@ def workplace_profile(request, slug):
     else:
         meta = True
         return render(request, 'workplace/profile.html', locals())
+
 
 def dashboard(request, slug):
     workplace = Workplace.objects.get(slug=slug)
@@ -55,6 +46,7 @@ def dashboard(request, slug):
     else:
         meta = True
         return render(request, 'workplace/profile.html', locals())
+
 
 def activity(request, slug):
     workplace = Workplace.objects.get(slug=slug)
@@ -80,7 +72,7 @@ def activity(request, slug):
     except EmptyPage:
                 # If page is out of range (e.g. 9999), deliver last page of results.
         return
-                # result_list = paginator.page(paginator.num_pages)
+        # result_list = paginator.page(paginator.num_pages)
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
@@ -89,6 +81,7 @@ def activity(request, slug):
         else:
             meta = True
             return render(request, 'workplace/profile.html', locals())
+
 
 def products(request, slug):
     workplace = Workplace.objects.get(slug=slug)
@@ -102,6 +95,7 @@ def products(request, slug):
     else:
         meta = True
         return render(request, 'workplace/profile.html', locals())
+
 
 def members(request, slug):
     workplace = Workplace.objects.get(slug=slug)

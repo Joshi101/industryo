@@ -749,3 +749,109 @@ def random_card(request):
             setattr(up, 'product_email', data)
             up.save()
             return HttpResponse()
+
+
+import requests
+
+# url = 'http://www.corelogs.com/accounts/signup'
+# values = {'name': name, 'email': email,'password1': 'Password', 'password2': 'Password'}
+# data = urllib.urlencode(values)
+# req = urllib2.Request(url, data)
+# response = urllib2.urlopen(req)
+# result = response.read()
+# print result
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def create_api(request):
+    email = request.POST.get('email1')
+    # print(email)
+    name = request.POST.get('name')
+    contact = request.POST.get('phone')
+
+    workplace = request.POST.get('workplace')
+    about = request.POST.get('about')
+    city = request.POST.get('city')
+    website = request.POST.get('website')
+    address = request.POST.get('address')
+
+    wp, created = Workplace.objects.get_or_create(name=workplace, workplace_type='B')
+    wp.about = about
+    wp.address = address
+    wp.website = website
+    wp.contact = contact
+    wp.save()
+    wp.set_city(city)
+    wp.set_segments('Manufacturing,Plastic')
+
+    url = 'http://www.corelogs.com/accounts/signup/'
+
+    if len(email)>4:
+        payload = {'name': name, 'email': email, 'password1': 'Password', 'password2': 'Password'}
+        r = requests.post(url, data=payload, headers={'User-Agent': 'Mozilla/5.0'})
+        user = User.objects.get(email=email)
+        up = user.userprofile
+        up.dummy = True
+        up.mobile_contact = contact
+        up.save()
+        up.set_primary_workplace(wp, 'Member')
+        o, created = Workplaces.objects.get_or_create(userprofile=up,
+                                                      workplace=wp, job_position='Member')
+
+
+@csrf_exempt
+def create_api2(request):
+    email = request.POST.get('email1')
+    name = request.POST.get('name')
+    contact = request.POST.get('phone')
+    workplace = request.POST.get('workplace')
+    about = request.POST.get('about')
+    city = request.POST.get('city')
+    website = request.POST.get('website')
+    address = request.POST.get('address')
+
+    url = 'http://www.corelogs.com/accounts/signup/'
+    wp = Workplace.objects.get(name=workplace)
+    if len(email) > 4:
+        payload = {'name': name, 'email': email, 'password1': 'Password', 'password2': 'Password'}
+        r = requests.post(url, data=payload, headers={'User-Agent': 'Mozilla/5.0'})
+        user = User.objects.get(email=email)
+        up = user.userprofile
+        up.dummy = True
+        up.mobile_contact = contact
+        up.save()
+        up.set_primary_workplace(wp, 'Member')
+        o, created = Workplaces.objects.get_or_create(userprofile=up,
+                                                      workplace=wp, job_position='Member')
+
+
+@csrf_exempt
+def create_api3(request):
+    workplace = request.POST.get('workplace')
+    # print(workplace)
+    product = request.POST.get('product')[:100]
+    # print(product)
+    description = request.POST.get('description')[:10000]
+    wp = Workplace.objects.get(name=workplace)
+    if len(wp.get_members()) > 0:
+        # print('cool')
+        up1 = wp.get_members()
+        up = up1[0]
+        u = up.user
+        p = Products.objects.create(producer=wp, product=product, description=description, user=u)
+        image0 = request.FILES.get('image0', None)
+        if image0:
+            i = Images()
+            x = i.upload_image(image=image0, user=u)
+            p.image = x
+            p.save()
+            # print('Image add hua')
+        return
+    else:
+        # print('uncool')
+        return
+
+
+
+
