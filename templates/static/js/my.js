@@ -2418,6 +2418,7 @@ $('body').on('click', '.swapper_bi', function(event){
 
 var $login_modal = $('#login_modal');
 if ($login_modal.length) {
+  console.log($login_modal);
   $('body').on('click','.signup_call',function(event){
     event.preventDefault();
     console.log('singup call', $login_modal.length);
@@ -2449,7 +2450,6 @@ function changeurl(response, url){
 $(window).on('popstate', function(event) {
     var state = event.originalEvent.state;
     if (state) {
-      console.log(state);
         $('.ajax_a').each(function(index, el) {
           console.log($(el).attr('href'), state);
           if ($(el).attr('href') == state){
