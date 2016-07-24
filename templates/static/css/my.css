@@ -390,6 +390,7 @@ img{
 
 .socialaccount_providers {
   list-style: none;
+  text-align: center;
 }
 
 .socialaccount_providers li{  

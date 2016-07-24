@@ -3,9 +3,11 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import WpSitemap
 
 urlpatterns = patterns('',
-
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'workplace':WpSitemap}}),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', 'home.views.home', name='home'),
