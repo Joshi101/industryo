@@ -1,0 +1,22 @@
+<div class="ajax_head">
+  <span id="ajax_title">Activities related to {{workplace.name}} | CoreLogs</span>
+  <span id="ajax_description">Browse through all the activities related to {{workplace.name}} at CoreLogs</span>
+</div>
+
+<div id="activity" class="nav_ajax_content" data-nav="wp_nav">
+  <div class="panel panel-success info">
+  	<div class="panel-body bg-info">
+  		<p class="text-center">Find everything related to <b>{{ workplace.name }}</b> at a single place.</p>
+  	</div>
+  </div>
+  <div class="tab-content ajax_papa">
+  	<div class="ajax_andar feeds">
+  		{% include "snippets/figure_modal.html" %}
+  		{% include 'nodes/five_nodes.html' with result_list=result_list %}
+  		<div class="paginator" data-next_page="2" data-url="{% url 'workplace:activity' workplace.slug %}">
+  			<h5>Loading more content</h5>
+  			<i class="fa fa-spin fa-circle-o-notch"></i>
+  		</div>
+  	</div>
+  </div>
+</div>

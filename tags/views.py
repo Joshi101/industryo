@@ -89,14 +89,12 @@ def tag_products(request, slug):
     tag = Tags.objects.get(slug=slug)
     wptags = tag.wptags.all()
     products = Products.objects.filter(producer__in=wptags)
-    print(products)
     return render(request, 'tags/tag.html', locals())
 
 
 def tag_companies(request, slug):
     tag = Tags.objects.get(slug=slug)
     workplaces = tag.wptags.all()
-    print(workplaces)
     return render(request, 'tags/tag.html', locals())
 
 
@@ -104,6 +102,10 @@ def tag_leads(request, slug):
     tag = Tags.objects.get(slug=slug)
     leads = Leads.objects.filter(tags=tag)
     return render(request, 'tags/tag.html', locals())
+
+
+# def get_filter_tag(request):
+
 
 
 def get_all_tags(request):

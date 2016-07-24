@@ -4,7 +4,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
 		
-          <h4><a href="{% url 'workplace:workplace_profile' w.workplace.slug %}"><img src="{{ w.workplace.get_logo }}" style="width:50px">{{w.workplace}}</a></h4> ({{w.workplace.get_type}})
+          <h4><a href="{% url 'workplace:workplace_profile' w.slug %}"><img src="{{ w.get_logo }}" style="width:50px">{{w.workplace}}</a></h4> ({{w.get_type}})
         </div>
         <div class="panel-body">
 	{{w.get_display}}
