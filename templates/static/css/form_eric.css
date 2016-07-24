@@ -54,8 +54,8 @@
 
 .form_eric label {
   position: absolute;
-  -webkit-transform: translateY(6px);
-          transform: translateY(7px);
+  -webkit-transform: translateY(8px);
+          transform: translateY(8px);
   left: 13px;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
@@ -72,7 +72,7 @@
 }
 
 .form_eric label.active {
-  -webkit-transform: translateY(50px);
+  -webkit-transform: translateY(-25px);
           transform: translateY(-25px);
   left: 2px;
   font-size: 14px;

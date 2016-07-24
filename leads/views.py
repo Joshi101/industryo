@@ -43,7 +43,7 @@ def edit_add_lead(request, slug):
                             try:
                                 dictionary[key] = request.POST[key]
                             except:
-                                tb = traceback.format_exc()        
+                                tb = traceback.format_exc()
                         elif key == 'city':
                             l.set_tags(request.POST[key])
                         elif key == 'other':

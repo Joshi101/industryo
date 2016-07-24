@@ -4962,3 +4962,7 @@ border: 1px solid rgba(0,0,0,.09);
 .modal-backdrop.trans{
   opacity: 0.95;
 }
+
+.ajax_head{
+  display: none !important;
+}

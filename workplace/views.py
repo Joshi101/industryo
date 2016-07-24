@@ -249,7 +249,11 @@ def workplace_about(request, slug):
         b_type = 'S'
     elif type == 'O':
         tags1 = tags['city']
-    return render(request, 'workplace/snip_about.html', locals())
+    if request.is_ajax():
+        return render(request, 'workplace/snip_about.html', locals())
+    else:
+        tab = 'about'
+        return render(request, 'workplace/profile.html', locals())
 
 
 def workplace_dash(request, slug):
