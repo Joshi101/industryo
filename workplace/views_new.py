@@ -53,8 +53,6 @@ def activity(request, slug):
     workplace_logo_form = SetLogoForm()
     if request.user.userprofile in workplace.userprofile_set.all():
         member = True
-    content_url = "workplace/snip_activity.html"
-    content_head_url = "workplace/snip_activity_head.html"
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
     feeds = Node.objects.filter(user__userprofile__primary_workplace=workplace, category__in=['F', 'D']).select_related('user')
@@ -76,6 +74,8 @@ def activity(request, slug):
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
     else:
+        content_url = "workplace/snip_activity.html"
+        content_head_url = "workplace/snip_activity_head.html"
         if request.is_ajax():
             return render(request, content_url, locals())
         else:

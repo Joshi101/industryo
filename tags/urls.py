@@ -13,6 +13,6 @@ urlpatterns = patterns('',
     url(r'^describe/$', 'tags.views.describe_tag', name='describe_tag'),
     url(r'^companies/(?P<slug>[^/]+)/$', 'tags.views.tag_companies', name='companies'),
     url(r'^products/(?P<slug>[^/]+)/$', 'tags.views.tag_products', name='products'),
-    url(r'^leads/(?P<slug>[^/]+)/$', 'tags.views.get_tag', name='leads'),
+    url(r'^leads/(?P<slug>[^/]+)/$', 'tags.views.tag_leads', name='leads'),
     url(r'^(?P<slug>[^/]+)/$', 'tags.views.get_tag', name='get_tag'),
 )

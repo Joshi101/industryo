@@ -1,0 +1,34 @@
+<div class="ajax_head">
+  <span id="ajax_title">Products and Services related to {{tag}} | CoreLogs</span>
+  <span id="ajax_description">Find all the Products and Services related to {{tag}} at CoreLogs</span>
+</div>
+
+<div id="products" class="nav_ajax_content" data-nav="tag_nav">
+  <div class="row row-eq-height">
+  	<div class="col-sm-9">
+  		<div class="tile_flat bg_blue">
+  			<p>Here, you can find all the Products, Services and Projects related to {{tag}}.</p>
+  			<p>You can also list your own Product. The Queries about the products by a potential customer will appear directly in your Inbox.</p>
+  		</div>
+  	</div>
+  	<div class="col-sm-3 text-center hover_a_container tile_flat" style="margin-right: 15px; color: #179; background-color: #fff;">
+  		<div class="">
+  			<span class="fa fa-plus fa-3x" style="line-height: 1.2;"></span>
+  			<div><strong>Add More Products</strong></div>
+  		</div>
+  		<a class="hovering_a" style="" href="{% url 'products:edit_add' 'new' %}"></a>
+  	</div>
+  </div>
+
+  <ul id="products_list" class="products_list">
+  	{% include "enquiry/new_auth_modal.html" %}
+  	{% include "snippets/figure_modal.html" %}
+  	<div class="clearfix"></div>
+  {% for product in products %}
+  	{% include "products/one_product.html" with product=product %}
+  	{% if forloop.counter|divisibleby:3 %}
+  	<div class="clearfix"></div>
+  	{% endif %}
+  {% endfor %}
+  </ul>
+</div>

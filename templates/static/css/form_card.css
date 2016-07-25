@@ -134,11 +134,16 @@ br { display: block; line-height: 1.6em; }
   font-size: 16px;
   min-height: 27px;
   line-height: 27px;
-  margin: 0 -5px 10px;
-  padding: 0px 5px;
+  margin: 0 0 10px;
+  padding: 0px 5px 0 25px;
   /*! border: none; */
   /*! outline: none; */
   color: #777;
+}
+
+.form_card .data_inline .fa{
+  margin-left: -25px;
+  margin-right: 5px;
 }
 
 .form_card .image_box{

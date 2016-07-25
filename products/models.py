@@ -6,6 +6,7 @@ from workplace.models import Workplace
 from django.contrib.auth.models import User
 import traceback
 
+
 class SellManager(models.Manager):
     def get_queryset(self):
         return super(SellManager, self).get_queryset().\
@@ -48,7 +49,7 @@ class Products(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
 
-    #new
+    # new
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
     cost = models.CharField(max_length=50, null=True, blank=True)
     # offer = models.CharField(max_length=500, null=True, blank=True)

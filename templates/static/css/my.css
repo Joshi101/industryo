@@ -1261,7 +1261,7 @@ pre {
 }
 
 .interaction .count{
-  margin: 0 3px 0 6px;
+  margin: 0 3px 0 0;
 }
 
 
@@ -1284,7 +1284,7 @@ pre {
 
 
 .vote_box .count {
-  margin-left: 4px;
+  /*! margin-left: 4px; */
 }
 
 .tags {

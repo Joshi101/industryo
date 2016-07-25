@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
-{% load bootstrap %}
+
+{% block head_desc %}
+  {% include content_head_url %}
+{% endblock head_desc %}
+
+{% comment %}
 
 {% block title %}{{tag}} | CoreLogs{% endblock title %}
 
 {% block meta_description %}{{ tag.description }}{% endblock meta_description %}
+{% endcomment %}
 
 {% block left %}
 	<div id="img_profile_box">
@@ -36,54 +42,20 @@
 	</div>
 	<div class="row">
 	  <div class="sol-sm-12 col-md-8">
-        {% include "tags/tag_nav_items.html" with tag=tag %}
+      {% include "tags/tag_nav_items.html" with tag=tag %}
+    </div>
+  </div>
+
+  <div class="row wp_body">
+    {% block workplace_section %}
+    <div id="tag_content" class="ajax_papa ajax_andar">
+      <div class="loading hide">
+        <i class="fa fa-spin fa-spinner"></i>
+      </div>
+      <div class="content">
+        {% include content_url %}
       </div>
     </div>
-	
-	<div class="tab-content ajax_papa">
-	<div id="activity" class="tab-pane fade in active">
-			<div class="panel panel-default">
-		<div class="panel-body row">
-			<p class="text-justify text-muted col-sm-8">Ask anything related to {{tag}}..</p>
-			<p class="text-right col-sm-4">
-				<a href="{% url 'forum:ask' tag.id %}"><i class="fa fa-lightbulb-o inline_fa"></i>Ask a Question</a>
-			</p>
-		</div>
-	</div>
-	{% if request.user.is_authenticated %}
-	{% include "snippets/feed_form.html" %}
-	{% endif %}
-  <div class="ajax_andar feeds">
-		{% include "snippets/figure_modal.html" %}
-		{% include 'nodes/five_nodes.html' with result_list=result_list %}
-		<div class="paginator" data-next_page="2">
-			<h5>Loading more content</h5>
-			<i class="fa fa-spin fa-circle-o-notch"></i>
-		</div>
-	  </div>
-	</div>
-	  
-	  <div id="workplaces" class="tab-pane fade">
-	  	{% if tag.type == "E" %}
-	  	<div class="col-md-6">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-				
-              <h4><a href="/workplace/add_tag/?t={{tag.id}}"><i class="fa fa-plus-square fa-lg"></i> Also Participating in this Event</a></h4>
-            </div>
-            <div class="panel-body">
-			
-            </div>
-          </div>
-        </div>
-        {% endif %}
-			{% if wptags %}
-			{% include 'tags/21_workplaces.html' with result_list=wptags %}
-			{% endif %}
-
-			
-	  </div>
-	  
-	  
-	</div>
+    {% endblock workplace_section %}
+  </div>
 {% endblock %}

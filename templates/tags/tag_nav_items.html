@@ -1,32 +1,31 @@
 <nav>
-  <ul id="wp_nav" class="nav nav_flex nav_ajax">
-    <li class="active">
-      <a href="{% url 'tags:get_tag' tag.slug %}"><span class="fa fa-info-circle"></span>Activities</a>
+  <ul id="tag_nav" class="nav nav_flex nav_ajax">
+    <li>
+      <a id="tag_nav_activities" class="ajax_a" data-place="#tag_content" href="{% url 'tags:get_tag' tag.slug %}"><span class="fa fa-rss"></span>Activities</a>
     </li>
-
     {% if tag.type == 'E' %}
     <li>
-      <a href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-cube"></span>Teams &amp; Colleges</a>
+      <a id="tag_nav_companies" class="ajax_a" data-place="#tag_content" href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-building"></span>Teams &amp; Colleges</a>
     </li>
     {% else %}
     <li>
-      <a href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-cube"></span>Companies</a>
+      <a id="tag_nav_companies" class="ajax_a" data-place="#tag_content" href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-building"></span>Companies</a>
     </li>
     {% endif %}
 
     {% if tag.type == 'E' %}
     <li>
-      <a href="{% url 'tags:products' tag.slug %}"><span class="fa fa-bullhorn"></span>Cars</a>
+      <a id="tag_nav_products" class="ajax_a" data-place="#tag_content" href="{% url 'tags:products' tag.slug %}"><span class="fa fa-cube"></span>Projects</a>
     </li>
     {% else %}
     <li>
-      <a href="{% url 'tags:products' tag.slug %}"><span class="fa fa-bullhorn"></span>Products</a>
+      <a id="tag_nav_products" class="ajax_a" data-place="#tag_content" href="{% url 'tags:products' tag.slug %}"><span class="fa fa-cube"></span>Products</a>
     </li>
     {% endif %}
 
     {% if tag.type != 'E' %}
     <li>
-      <a href="{% url 'tags:companies' tag.slug %}"><span class="fa fa-bullhorn"></span>Leads</a>
+      <a id="tag_nav_leads" class="ajax_a" data-place="#tag_content" href="{% url 'tags:leads' tag.slug %}"><span class="fa fa-suitcase"></span>Leads</a>
     </li>
     {% endif %}
   </ul>
