@@ -1,4 +1,5 @@
 # from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from nodes.models import Node
@@ -10,14 +11,14 @@ from forum.models import Question
 
 class uObj:
     """Object to hold the data for one url in the sitemap"""
-    location = '/'
+    location = 'http://www.corelogs.com'
     lastmod = None
     changefreq = None
     priority = None
 
     def __init__(self, location):
         super(uObj, self).__init__()
-        self.location = location
+        self.location = self.location + location
 
 
 def sitemap(request):
