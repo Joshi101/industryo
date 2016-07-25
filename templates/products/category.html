@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block head_desc %}
+  {% include content_head_url %}
+{% endblock head_desc %}
+
+{% block content %}
+<div class="panel-body">
+	<div class="col-sm-7">
+	<h4 class=" text-uppercase">{{ category }}</h4>
+	</div>
+</div>
+
+<div class="panel-body">
+	{% if category.level == '1' %}
+
+	{% elif category.level == '2' %}
+	{% for a in category.get_parent_cat %}
+	<li><a href="{% url 'products:category' a.slug %}">{{a}}</a></li>
+	{% endfor %}
+	{% elif category.level == '3' %}
+	{% for a in category.get_parent_cat %}
+	{% for b in a.get_parent_cat %}
+	<li><a href="{% url 'products:category' b.slug %}">{{b}}</a><li>
+	{% endfor %}
+	<li><a href="{% url 'products:category' a.slug %}">{{a}}</a><li>
+	{% endfor %}
+	{% endif %}
+</div>
+
+<div class="row">
+	<div class="sol-sm-12 col-md-8">
+      {% include "products/cat_nav_items.html" with category=category %}
+    </div>
+</div>
+
+<div class="row wp_body">
+    {% block workplace_section %}
+    <div id="tag_content" class="ajax_papa ajax_andar">
+      <div class="loading hide">
+        <i class="fa fa-spin fa-spinner"></i>
+      </div>
+      <div class="content">
+        {% include content_url %}
+      </div>
+    </div>
+    {% endblock workplace_section %}
+  </div>
+
+{% endblock content %}

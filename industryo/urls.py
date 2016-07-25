@@ -79,6 +79,11 @@ urlpatterns = patterns('',
     url(r'^create_api2/$', 'workplace.views.create_api2'),
     url(r'^create_api3/$', 'workplace.views.create_api3'),
 
+    url(r'^category/$', 'products.views.all_category', name='all_category'),
+    url(r'^category/(?P<slug>[^/]+)/$', 'products.views.category', name='category'),
+    url(r'^category/(?P<slug>[^/]+)/products/$', 'products.views.category_prod', name='category_prod'),
+    url(r'^category/(?P<slug>[^/]+)/workplace/$', 'products.views.category_wp', name='category_wp'),
+
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),

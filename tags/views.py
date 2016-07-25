@@ -107,7 +107,6 @@ def tag_products(request, slug):
 def tag_companies(request, slug):
     tag = Tags.objects.get(slug=slug)
     workplaces = tag.wptags.all()
-    print(workplaces)
     content_url = "tags/snip_companies.html"
     content_head_url = "tags/snip_companies_head.html"
     if request.is_ajax():
