@@ -1,0 +1,17 @@
+<div class="ajax_head">
+  <span id="ajax_title">Companies and Institutions related to {{tag}} | CoreLogs</span>
+  <span id="ajax_description">Find all the Companies and Institutions related to {{tag}} at CoreLogs</span>
+</div>
+
+<div id="companies" class="nav_ajax_content" data-nav="tag_nav">
+  <div class="tile_flat bg_blue">
+    <p>A list of workplaces related to {{tag}}</p>
+  </div>
+  <div class="row row-eq-height">
+  	<div class="col-sm-6">
+      {% for w in workplaces %}
+        {% include "snippets/workplace_card.html" with w=w %}
+      {% endfor %}
+  	</div>
+  </div>
+</div>

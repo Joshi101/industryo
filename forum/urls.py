@@ -29,8 +29,8 @@ urlpatterns = patterns('',
     url(r'^votedown/$', 'forum.views.votedown', name='votedown'),
     url(r'^searchtag/$', 'tags.views.search_tag', name='searchtag'),
     url(r'^category/$', 'forum.views.category', name='category'),
-    url(r'^(?P<slug>[^/]+)/$', 'forum.views.get_question', name='question'),
     url(r'^edit/(?P<id>[^/]+)/$', 'forum.views.edit_ques', name='edit_ques'),
+    url(r'^(?P<slug>[^/]+)/$', 'forum.views.get_question', name='question'),
 
 
 )

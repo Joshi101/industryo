@@ -82,31 +82,51 @@ def get_tag(request, slug):
     if page:
         return render(request, 'nodes/five_nodes.html', {'result_list': result_list, 'wptags':wptags})
     else:
-        return render(request, 'tags/tag.html', locals())
+        content_url = "tags/snip_activity.html"
+        content_head_url = "tags/snip_activity_head.html"
+        if request.is_ajax():
+            return render(request, content_url, locals())
+        else:
+            meta = True
+            return render(request, 'tags/tag.html', locals())
 
 
 def tag_products(request, slug):
     tag = Tags.objects.get(slug=slug)
     wptags = tag.wptags.all()
     products = Products.objects.filter(producer__in=wptags)
-    return render(request, 'tags/tag.html', locals())
+    content_url = "tags/snip_products.html"
+    content_head_url = "tags/snip_products_head.html"
+    if request.is_ajax():
+        return render(request, content_url, locals())
+    else:
+        meta = True
+        return render(request, 'tags/tag.html', locals())
 
 
 def tag_companies(request, slug):
     tag = Tags.objects.get(slug=slug)
     workplaces = tag.wptags.all()
     print(workplaces)
-    return render(request, 'tags/tag.html', locals())
+    content_url = "tags/snip_companies.html"
+    content_head_url = "tags/snip_companies_head.html"
+    if request.is_ajax():
+        return render(request, content_url, locals())
+    else:
+        meta = True
+        return render(request, 'tags/tag.html', locals())
 
 
 def tag_leads(request, slug):
     tag = Tags.objects.get(slug=slug)
     leads = Leads.objects.filter(tags=tag)
-    return render(request, 'tags/tag.html', locals())
-
-
-# def get_filter_tag(request):
-
+    content_url = "tags/snip_leads.html"
+    content_head_url = "tags/snip_leads_head.html"
+    if request.is_ajax():
+        return render(request, content_url, locals())
+    else:
+        meta = True
+        return render(request, 'tags/tag.html', locals())
 
 
 def get_all_tags(request):
@@ -121,7 +141,6 @@ def get_all_tags(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         tags = paginator.page(paginator.num_pages)
-
     return render_to_response('tags/list1.html', {"tags": tags})
     # return render(request, 'tags/list1.html', locals())
 
