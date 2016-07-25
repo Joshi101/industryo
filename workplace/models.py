@@ -311,33 +311,40 @@ class Workplace(models.Model):
 
     def get_website(self):
         w = self.website
-        if not w or w == 'None':
-            return '/'
-        elif w[0:3] == "htt":
-            return w
+        if w:
+            if "http" in w[0:4]:
+                return w
+            else:
+                w = 'http://'+w
         else:
-            p = 'http://'+w
-            return p
+            w = ''
+        return w
 
     def get_fb_page(self):
         w = self.fb_page
-        if not w or w == 'None':
-            return '/'
-        elif w[0:3] == "htt":
-            return w
+        if w:
+            if "http" in w[0:4] or "www.facebook.com" in w[0:16]:
+                return w
+            elif "facebook.com" in w[0:12]:
+                w = 'http://www.'+w
+            else:
+                w = "http://www.facebook.com/"+w
         else:
-            p = 'http://'+w
-            return p
+            w = ''
+        return w
 
     def get_linkedin_page(self):
         w = self.linkedin_page
-        if not w or w == 'None':
-            return '/'
-        elif w[0:3] == "htt":
-            return w
+        if w:
+            if "http" in w[0:4] or "www.linkedin." in w[0:14]:
+                return w
+            elif "linkedin.com" in w[0:12]:
+                w = 'http://www.'+w
+            else:
+                w = "http://www.linkedin.com/"+w
         else:
-            p = 'http://'+w
-            return p
+            w = ''
+        return w
 
     def get_city(self):
         city = self.wptags.filter(type='C')

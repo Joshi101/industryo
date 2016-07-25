@@ -96,22 +96,22 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <div class="data_inline"><a href="{{workplace.get_website}}"><span class="fa fa-globe fa-fw"></span>&nbsp;{{workplace.get_website}}</a></div>
-            <div class="data_inline"><a href="{{workplace.get_fb_page}}"><span class="fa fa-facebook-official fa-fw"></span>&nbsp;{{workplace.fb_page}}</a></div>
-            <div class="data_inline"><a href="{{workplace.get_linkedin_page}}"><span class="fa fa-linkedin-square fa-fw"></span>&nbsp;{{workplace.linkedin_page}}</a></div>
+            <div class="data_inline"><span class="fa fa-globe fa-fw"></span>&nbsp;{{workplace.get_website|urlize|default:'Not Available'}}</div>
+            <div class="data_inline"><span class="fa fa-facebook-official fa-fw"></span>&nbsp;{{workplace.get_fb_page|urlize|default:'Not Available'}}</div>
+            <div class="data_inline"><span class="fa fa-linkedin-square fa-fw"></span>&nbsp;{{workplace.get_linkedin_page|urlize|default:'Not Available'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <div class="data_inline"><a href="mailto:{{workplace.office_mail_id}}"><span class="fa fa-envelope-o fa-fw"></span>&nbsp;{{workplace.office_mail_id}}</a></div>
-            <div class="data_inline"><span class="fa fa-tty fa-fw"></span>&nbsp;{{workplace.contact}}</div>
-            <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact1}}</div>
-            <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact2}}</div>
+            <div class="data_inline"><span class="fa fa-envelope-o fa-fw"></span>&nbsp;{{workplace.office_mail_id|urlize|default:'Not Available'}}</a></div>
+            <div class="data_inline"><span class="fa fa-tty fa-fw"></span>&nbsp;{{workplace.contact|default:'Not Available'}}</div>
+            <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact1|default:'Not Available'}}</div>
+            <div class="data_inline"><span class="fa fa-phone fa-fw"></span>&nbsp;{{workplace.mobile_contact2|default:'Not Available'}}</div>
           </div>
         </div>
       </div>
       <div class="form-group">
-        <div class="data_inline"><span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address}}</div>
+        <div class="data_inline"><span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address|default:'Postal Address not available'}}</div>
       </div>
     </div>
   </div>
