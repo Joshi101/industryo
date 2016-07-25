@@ -106,6 +106,7 @@ def tag_leads(request, slug):
 
 
 # def get_filter_tag(request):
+#     tags = request.GET.get('tags')
 
 
 
