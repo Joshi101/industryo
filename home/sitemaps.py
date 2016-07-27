@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from nodes.models import Node
 from workplace.models import Workplace
 from tags.models import Tags
-from products.models import Products
+from products.models import Products, Category
 from forum.models import Question
 from userprofile.models import UserProfile
 
@@ -24,13 +24,14 @@ class uObj:
 
 def sitemap(request):
     urlset = []
-    wp_no, article_no, tag_no, prod_no, q_no, up_no = 0, 0, 0, 0, 0, 0
+    wp_no, article_no, tag_no, prod_no, q_no, up_no, cat_no = 0, 0, 0, 0, 0, 0, 0
     workplaces = Workplace.objects.all()
     tags = Tags.objects.all()
     nodes = Node.objects.all()
     userprofiles = UserProfile.objects.all()
     questions = Question.objects.all()
     products = Products.objects.all()
+    categories = Category.objects.all()
     for wp in workplaces:
         wp_about = uObj(location=reverse('workplace:workplace_profile', kwargs={'slug': wp.slug}))
         urlset.append(wp_about)
@@ -68,10 +69,19 @@ def sitemap(request):
         up_link = uObj(location=reverse('userprofile:profile', kwargs={'slug': up.slug}))
         urlset.append(up_link)
         up_no += 1
+    for cat in categories:
+        cat = uObj(location=reverse('category', kwargs={'slug': cat.slug}))
+        urlset.append(cat)
+        cat_products = uObj(location=reverse('category_prod', kwargs={'slug': tag.slug}))
+        urlset.append(cat_products)
+        cat_companies = uObj(location=reverse('category_wp', kwargs={'slug': tag.slug}))
+        urlset.append(cat_companies)
+        cat_no += 1
     print('Workplace Links: ', wp_no*4)
     print('Tag Links: ', tag_no*4)
     print('Product Links: ', prod_no)
     print('Article Links: ', article_no)
     print('Question Links: ', q_no)
     print('UserProfile Links: ', up_no)
+    print('categories Links: ', cat_no)
     return render_to_response('sitemap.xml', {'urlset': urlset}, content_type='text/xml')
