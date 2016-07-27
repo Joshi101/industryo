@@ -129,8 +129,8 @@ def tag_leads(request, slug):
 
 
 def get_all_tags(request):
-    all_tags = Tags.objects.all()
-    paginator = Paginator(all_tags, 5)
+    all_tags = Tags.objects.all()[:20]
+    paginator = Paginator(all_tags, 20)
     page = request.GET.get('page')
     try:
         tags = paginator.page(page)
@@ -140,7 +140,10 @@ def get_all_tags(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         tags = paginator.page(paginator.num_pages)
-    return render_to_response('tags/list1.html', {"tags": tags})
+    if page:
+        return render_to_response('tags/20_tags.html', {"tags": tags})
+    else:
+        return render_to_response('tags/all_tags.html', {"tags": tags})
     # return render(request, 'tags/list1.html', locals())
 
 

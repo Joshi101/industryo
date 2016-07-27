@@ -32,6 +32,7 @@ def sitemap(request):
     questions = Question.objects.all()
     products = Products.objects.all()
     categories = Category.objects.all()
+
     for wp in workplaces:
         wp_about = uObj(location=reverse('workplace:workplace_profile', kwargs={'slug': wp.slug}))
         urlset.append(wp_about)
@@ -66,22 +67,23 @@ def sitemap(request):
         urlset.append(q_link)
         q_no += 1
     for up in userprofiles:
-        up_link = uObj(location=reverse('userprofile:profile', kwargs={'slug': up.slug}))
+        up_link = uObj(location=reverse('userprofile:profile', kwargs={'slug': up.user.username}))
         urlset.append(up_link)
         up_no += 1
     for cat in categories:
         cat = uObj(location=reverse('category', kwargs={'slug': cat.slug}))
         urlset.append(cat)
-        cat_products = uObj(location=reverse('category_prod', kwargs={'slug': tag.slug}))
+        cat_products = uObj(location=reverse('category_prod', kwargs={'slug': cat.slug}))
         urlset.append(cat_products)
-        cat_companies = uObj(location=reverse('category_wp', kwargs={'slug': tag.slug}))
+        cat_companies = uObj(location=reverse('category_wp', kwargs={'slug': cat.slug}))
         urlset.append(cat_companies)
         cat_no += 1
+
     print('Workplace Links: ', wp_no*4)
     print('Tag Links: ', tag_no*4)
     print('Product Links: ', prod_no)
     print('Article Links: ', article_no)
     print('Question Links: ', q_no)
     print('UserProfile Links: ', up_no)
-    print('categories Links: ', cat_no)
+    print('categories Links: ', cat_no*3)
     return render_to_response('sitemap.xml', {'urlset': urlset}, content_type='text/xml')

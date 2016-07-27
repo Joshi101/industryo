@@ -24,11 +24,11 @@
 {% endblock top %}
 
 {% block body %}
-<div class="container-fluid">
-  {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
-  <div id="info_head" class="info_head tile" typeof='Organization' resource='#workplace'>
-    <div class="row">
-      <div class="col-sm-2 col-md-2 text-center">
+{% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
+<div id="info_head" class="info_head wp_head" typeof='Organization' resource='#workplace'>
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="info_logo">
         <div id="img_profile_box">
           <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{workplace.name}}">
           {% if user.userprofile.primary_workplace == workplace %}
@@ -36,66 +36,65 @@
           {% endif %}
         </div>
       </div>
-      <div class="col-sm-7 info_left">
-        <header class="info_title">
-          <h2 class="text-uppercase" property='name'>{{ workplace.name }}</h2>
-          {% if workplace.verified %}
-          <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
-          {% endif %}
-          <div class="text-muted">
-            {{ workplace.get_type }}{% if workplace.workplace_type == 'B' %}({{ workplace.get_sme_type }}){% endif %}
+    </div>
+    <div class="col-sm-8">
+      <div class="info_info">
+        <div class="info_left">
+          <header class="info_title">
+            <h2 class="text-uppercase" property='name'>{{ workplace.name }}</h2>
+            {% if workplace.verified %}
+            <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
+            {% endif %}
+            <div class="text-muted">
+              {{ workplace.get_type }} {% if workplace.workplace_type == 'B' %}({{ workplace.get_sme_type }}){% endif %}
+            </div>
+          </header>
+          <div class="info_links">
+            <a href="{{workplace.get_fb_page}}" class="fb_color"><span class="fa fa-facebook"></span></a>
+            <a href="{{workplace.get_linkedin_page}}" class="linkedin_color"><span class="fa fa-linkedin"></span></a>
+            <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe"></span></a>
           </div>
-        </header>
-        <div class="info_links">
-          <a href="{{workplace.get_fb_page}}"><span class="fa fa-lg fa-facebook-square"></span></a>
-          <a href="{{workplace.get_linkedin_page}}"><span class="fa fa-lg fa-linkedin-square"></span></a>
-          <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe"></span></a>
         </div>
-      </div>
-      <div class="col-sm-3">
-        {% if member %}
         <div class="info_right">
+          {% if member %}
           <h3>
             {% if new_inq_count %}
             <span class="new">{{workplace.get_enq.new.count}} New</span>
             {% endif %}
             <a href="{% url 'products:enquiry_all' %}">
-              <span class="num">{{workplace.get_enq.total.count}}</span>&nbsp;<span>Inquiries</span>&nbsp;<span class="fa fa-folder-open fa-fw"></span>
+              <span class="num">{{workplace.get_enq.total.count}}</span>&nbsp;<span>Inquiries</span></span>
             </a>
           </h3>
           <h3>
-            <span class="num">{{workplace.hits}}</span>&nbsp;Page Views</span>&nbsp;<span class="fa fa-eye fa-fw"></span>
+            <span class="num">{{workplace.hits}}</span>&nbsp;Page Views</span>
           </h3>
+          {% endif %}
         </div>
         <!-- <div class="info_labels">
           <span class="label label-default">{{workplace.points}} points</span>
         </div> -->
-        {% else %}
-        <div class="info_labels">
-          <button class="btn btn-primary btn-sm" data-toggle='modal' data-target='#enquiry_w_modal'><span class="fa fa-send-o"></span>&nbsp; Send an Enquiry</button>
-        </div>
-        {% endif %}
       </div>
+      {% if member %}
+      <a class="btn btn-default btn-sm the_btn" href="{% url 'workplace:edit' %}"><span class="fa fa-pencil fa-fw"></span>Edit Profile</a>
+      {% else %}
+      <button class="btn btn-default btn-sm the_btn" data-toggle='modal' data-target='#enquiry_w_modal'><span class="fa fa-send-o"></span>&nbsp; Send an Enquiry</button>
+      {% endif %}
     </div>
-    {% include "enquiry/no_product_modal.html" %}
+    <div class="col-sm-2">
+    </div>
   </div>
+  {% include "enquiry/no_product_modal.html" %}
+</div>
+<div class="container-fluid">
   <div class="row">
-    {% if user.userprofile.primary_workplace == workplace %}
-    <div class="col-md-2 text-center">
-      <a class="" style="margin-top: 10px; padding: 17px 10px; display: inline-block;" href="{% url 'workplace:edit' %}"><span class="fa fa-pencil fa-fw"></span>&nbsp;Edit Profile</a>
-    </div>
-    {% else %}
-    <div class="col-md-2 text-center">
-    </div>
-    {% endif %}
-    <div class="sol-sm-12 col-md-8">
+    <div class="col-md-8 col-md-offset-2">
       {% include "workplace/snippets/wp_nav_items_2.html" with workplace=workplace type=type %}
     </div>
   </div>
 </div>
 <div class="container-fluid">
   <div class="row wp_body">
-    <div class="col-sm-12 col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">
       {% block workplace_section %}
       <div id="wp_content" class="ajax_papa ajax_andar">
         <div class="loading hide">
