@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, render_to_response
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
 from products.models import *
@@ -18,6 +18,7 @@ from itertools import chain
 from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -770,10 +771,44 @@ def int_category(request, slug):
     return render(request, 'activities/category.html', locals())
 
 
+def all_category(request):
+    categories = Category.objects.all()
+    # return render(request, 'activities/category.html', locals())
+    paginator = Paginator(categories, 20)
+    page = request.GET.get('page')
+    try:
+        tags = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        tags = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        tags = paginator.page(paginator.num_pages)
+    return render_to_response('tags/list1.html', {"tags": tags})
+
+
 def category(request, slug):        # Products
     category = Category.objects.get(slug=slug)
+    content_url = "products/snip_cat.html"
+    content_head_url = "products/snip_category_head.html"
+    if request.is_ajax():
+        return render(request, content_url, locals())
+    else:
+        meta = True
+        return render(request, 'products/category.html', locals())
+
+
+def category_prod(request, slug):        # Products
+    category = Category.objects.get(slug=slug)
     products = Products.objects.filter(categories=category)
-    return render(request, 'products/category_products.html', locals())
+    # products2 = Products.objects.filter()
+    content_url = "products/snip_products.html"
+    content_head_url = "products/snip_products_head.html"
+    if request.is_ajax():
+        return render(request, content_url, locals())
+    else:
+        meta = True
+        return render(request, 'products/category.html', locals())
 
 
 def category_wp(request, slug):        # Workplace
@@ -785,7 +820,13 @@ def category_wp(request, slug):        # Workplace
             workplaces.append(p.producer)
         else:
             pass
-    return render(request, 'products/category_workplace.html', locals())
+    content_url = "products/snip_workplace.html"
+    content_head_url = "products/snip_workplace_head.html"
+    if request.is_ajax():
+        return render(request, content_url, locals())
+    else:
+        meta = True
+        return render(request, 'products/category.html', locals())
 
 
 def category_update(request):

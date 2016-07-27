@@ -28,6 +28,7 @@ def sitemap(request):
     workplaces = Workplace.objects.all()
     tags = Tags.objects.all()
     nodes = Node.objects.all()
+    userprofiles = UserProfile.objects.all()
     questions = Question.objects.all()
     products = Products.objects.all()
     users = UserProfile.objects.all()
@@ -74,4 +75,5 @@ def sitemap(request):
     print('User Links: ', user_no)
     print('Article Links: ', article_no)
     print('Question Links: ', q_no)
+    print('UserProfile Links: ', up_no)
     return render_to_response('sitemap.xml', {'urlset': urlset}, content_type='text/xml')

@@ -1,0 +1,9 @@
+<ul id="products_list" class="products_list">
+	<div class="clearfix"></div>
+{% for product in products %}
+	{% include "products/one_product.html" with product=product %}
+	{% if forloop.counter|divisibleby:2 %}
+	<div class="clearfix"></div>
+	{% endif %}
+{% endfor %}
+</ul>
