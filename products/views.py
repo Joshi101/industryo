@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, render_to_response
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
 from products.models import *
@@ -18,6 +18,7 @@ from itertools import chain
 from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -772,7 +773,18 @@ def int_category(request, slug):
 
 def all_category(request):
     categories = Category.objects.all()
-    return render(request, 'activities/category.html', locals())
+    # return render(request, 'activities/category.html', locals())
+    paginator = Paginator(categories, 20)
+    page = request.GET.get('page')
+    try:
+        tags = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        tags = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        tags = paginator.page(paginator.num_pages)
+    return render_to_response('tags/list1.html', {"tags": tags})
 
 
 def category(request, slug):        # Products
