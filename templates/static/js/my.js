@@ -2445,6 +2445,7 @@ function changeurl(response, url){
   $('meta[name=description]').attr('content', $response.find('#ajax_description').text());
   $("meta[property='og\:title']").attr('content', $response.find('#ajax_title').text());
   $("meta[property='og\:description']").attr('content', $response.find('#ajax_description').text());
+  ga('send', 'pageview', url);
 }
 
 $(window).on('popstate', function(event) {
