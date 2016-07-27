@@ -125,7 +125,7 @@ img{
 
 .pre_nav{
   background: rgba(0,0,0,0.85);
-  height: 50px;
+  height: 60px;
   border-bottom: 1px solid rgba(0,0,0,0.09);
 }
 
@@ -157,10 +157,12 @@ img{
   display: inline-block;
   font-weight: 700;
   font-size: 16px;
-  line-height: 16px;
+  line-height: 20px;
   letter-spacing: 2px;
   overflow: hidden;
   vertical-align: middle;
+  margin-left: 3px;
+  //font-family: '';
 }
 
 .brand_img{
@@ -880,6 +882,10 @@ pre {
 
 #workplace{
   padding-top: 0;
+}
+
+#workplace.affix{
+  padding-top: 51px;
 }
 /* cover.html */
 
@@ -4731,6 +4737,7 @@ input.not_wide{
   top: 15px;
   color: #999;
   font-size: 12px;
+  display: none;
 }
 
 .circle_bar_container .help_pop.pull-left{
