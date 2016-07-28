@@ -125,7 +125,7 @@ img{
 
 .pre_nav{
   background: rgba(0,0,0,0.85);
-  height: 50px;
+  height: 60px;
   border-bottom: 1px solid rgba(0,0,0,0.09);
 }
 
@@ -157,10 +157,12 @@ img{
   display: inline-block;
   font-weight: 700;
   font-size: 16px;
-  line-height: 16px;
+  line-height: 20px;
   letter-spacing: 2px;
   overflow: hidden;
   vertical-align: middle;
+  margin-left: 3px;
+  //font-family: '';
 }
 
 .brand_img{
@@ -880,6 +882,10 @@ pre {
 
 #workplace{
   padding-top: 0;
+}
+
+#workplace.affix{
+  padding-top: 51px;
 }
 /* cover.html */
 
@@ -4403,7 +4409,8 @@ input.not_wide{
   padding: 10px;
   height: 150px;
   margin-bottom: 15px;
-  box-shadow: 0 0 4px -1px #aaa;
+  border: 1px solid #bbb;
+  box-shadow: 0 0 2px -1px #ccc;
   /*! overflow: hidden; */
 }
 
@@ -4429,7 +4436,7 @@ input.not_wide{
 }
 
 .dash_card .num{
-  font-size: 1.5em;
+  /*! font-size: 1.2em; */
   color: #888;
   /*! font-family: 'Titillium Web'; */
 }
@@ -4636,6 +4643,7 @@ input.not_wide{
   line-height: 45px;
   display: inline-block;
   vertical-align: text-bottom;
+  margin: 0 5px;
 }
 
 .dash_card .dash_row{
@@ -4731,6 +4739,7 @@ input.not_wide{
   top: 15px;
   color: #999;
   font-size: 12px;
+  display: none;
 }
 
 .circle_bar_container .help_pop.pull-left{
