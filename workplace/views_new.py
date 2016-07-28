@@ -13,8 +13,9 @@ from operator import attrgetter
 def workplace_profile(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     workplace_logo_form = SetLogoForm()
-    if request.user.userprofile in workplace.userprofile_set.all():
-        member = True
+    if request.user.is_authenticated():
+        if request.user.userprofile in workplace.userprofile_set.all():
+            member = True
     content_url = "workplace/snip_about.html"
     content_head_url = "workplace/snip_about_head.html"
     if request.is_ajax():
@@ -27,8 +28,9 @@ def workplace_profile(request, slug):
 def dashboard(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     workplace_logo_form = SetLogoForm()
-    if request.user.userprofile in workplace.userprofile_set.all():
-        member = True
+    if request.user.is_authenticated():
+        if request.user.userprofile in workplace.userprofile_set.all():
+            member = True
     content_url = "workplace/snip_dashboard.html"
     content_head_url = "workplace/snip_dashboard_head.html"
     member_count = workplace.userprofile_set.all().count()
@@ -51,8 +53,9 @@ def dashboard(request, slug):
 def activity(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     workplace_logo_form = SetLogoForm()
-    if request.user.userprofile in workplace.userprofile_set.all():
-        member = True
+    if request.user.is_authenticated():
+        if request.user.userprofile in workplace.userprofile_set.all():
+            member = True
     questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
     answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
     feeds = Node.objects.filter(user__userprofile__primary_workplace=workplace, category__in=['F', 'D']).select_related('user')
@@ -86,8 +89,9 @@ def activity(request, slug):
 def products(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     workplace_logo_form = SetLogoForm()
-    if request.user.userprofile in workplace.userprofile_set.all():
-        member = True
+    if request.user.is_authenticated():
+        if request.user.userprofile in workplace.userprofile_set.all():
+            member = True
     content_url = "workplace/snip_products.html"
     content_head_url = "workplace/snip_products_head.html"
     if request.is_ajax():
@@ -100,8 +104,9 @@ def products(request, slug):
 def members(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     workplace_logo_form = SetLogoForm()
-    if request.user.userprofile in workplace.userprofile_set.all():
-        member = True
+    if request.user.is_authenticated():
+        if request.user.userprofile in workplace.userprofile_set.all():
+            member = True
     content_url = "workplace/snip_members.html"
     content_head_url = "workplace/snip_members_head.html"
     if request.is_ajax():
