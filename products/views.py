@@ -456,80 +456,41 @@ def int_edit_category(request, id):
 
 
 def home(request):
-    tags = []
-    tags2 = []
-    if 'q' in request.GET:
-        querystring = request.GET.get('q')
-        if querystring == 'A':
-            li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-            tags = Tags.objects.filter(pk__in=li1)
-            for t in tags:
-                p = Products.sell.filter(tags=t, target_segment__contains='C')
-                t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-                tags2.append(t2)
-        elif querystring == 'B':
-            return redirect('/marketplace?q=B&t=701')
-            # li1 = [701]
-            # tags = Tags.objects.filter(pk__in=li1)
-            # for t in tags:
-            #     p = Products.sell.filter(tags=t, target_segment__contains='C')
-            #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            #     tags2.append(t2)
-        elif querystring == 'C':
-            return redirect('/marketplace?q=B')
-            # li1 = []
-            # tags = Tags.objects.filter(pk__in=li1)
-            # for t in tags:
-            #     p = Products.sell.filter(tags=t, target_segment__contains='C')
-            #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            #     tags2.append(t2)
-        elif querystring == 'D':
-            return redirect('/marketplace?q=B')
-
-        elif querystring == 'E':
-            return redirect('/marketplace?q=B&t=35')
-
-        elif querystring == 'N':
-            return redirect('/marketplace?q=N')
-
-        return render(request, 'marketplace/cover.html', {'tags': tags, 'tags2': tags2})
-    else:
-        li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-        tags = Tags.objects.filter(pk__in=li1)
-        for t in tags:
-            p = Products.sell.filter(tags=t, target_segment__contains='C')
-            t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            tags2.append(t2)
-
-        return render(request, 'marketplace/cover_pre.html', {'tags': tags, 'tags2': tags2})
+    pass
 
 
 def all_products(request):
     lvl = 1
     q = q1 = q2 = None
     if 'q' in request.GET:
-        p = Products.objects.all().order_by('-date')
         q = request.GET.get('q')
-        q = Category.objects.filter(id=q).get()
+        q = Category.objects.get(id=q)
         curr_cat = q
         lvl = 2
+        p = Products.objects.filter(categories=curr_cat).order_by('-date')
         if 'q1' in request.GET:
             q1 = request.GET.get('q1')
-            q1 = Category.objects.filter(id=q1).get()
+            q1 = Category.objects.get(id=q1)
             curr_cat = q1
             lvl = 3
             p = Products.objects.filter(categories=curr_cat).order_by('-date')
+            if len(p) < 3:
+                curr_cat = curr_cat.get_parent_cat()
+                p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
+                p = p | p1
+
             if 'q2' in request.GET:
                 q2 = request.GET.get('q2')
-                q2 = Category.objects.filter(id=q2).get()
+                q2 = Category.objects.get(id=q2)
                 curr_cat = q2
                 lvl = 4
-                pp = Products.objects.filter(categories=curr_cat).order_by('-date')
-                if len(pp) > 0:
-                    p = pp
-                else:
-                    curr_cat = q1
-                    p = Products.objects.filter(categories=curr_cat).order_by('-date')
+                p = Products.objects.filter(categories=curr_cat).order_by('-date')
+                if len(p) < 3:
+                    curr_cat = curr_cat.get_parent_cat()
+                    p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
+                    if len(p1) < 1:
+                        p1 = Products.objects.all().order_by('-date')
+                    p = p | p1
         if lvl > 3:
             c1_all = c1_some = None
         else:
@@ -801,6 +762,8 @@ def category(request, slug):        # Products
 def category_prod(request, slug):        # Products
     category = Category.objects.get(slug=slug)
     products = Products.objects.filter(categories=category)
+    # if len(products) < 3:
+
     # products2 = Products.objects.filter()
     content_url = "products/snip_products.html"
     content_head_url = "products/snip_products_head.html"
@@ -821,7 +784,7 @@ def category_wp(request, slug):        # Workplace
         else:
             pass
     content_url = "products/snip_workplace.html"
-    content_head_url = "products/snip_workplace_head.html"
+    content_head_url = "products/snip_companies_head.html"
     if request.is_ajax():
         return render(request, content_url, locals())
     else:
