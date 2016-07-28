@@ -53,7 +53,6 @@
             <a href="{{workplace.get_fb_page}}" class="fb_color"><span class="fa fa-facebook"></span></a>
             <a href="{{workplace.get_linkedin_page}}" class="linkedin_color"><span class="fa fa-linkedin"></span></a>
             <a href="{{workplace.get_website}}"><span class="fa fa-lg fa-globe"></span></a>
-            
           </div>
         </div>
         <div class="info_right">
@@ -82,6 +81,17 @@
       {% endif %}
     </div>
     <div class="col-sm-2">
+      <div class="info_share">
+        {% if member %}
+        <p>Bring more people to your profile.<br>Share on your Social Networks.</p>
+        {% else %}
+        <p>Share it with your network</p>
+        {% endif %}
+        <a class="fb-share-button-before" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.corelogs.com%2F{{workplace.slug}}%2F&amp;src=sdkpreparse">
+          <span class="fa fa-facebook-square"></span>
+          <span>Share</span>
+        </a>
+      </div>
     </div>
   </div>
   {% include "enquiry/no_product_modal.html" %}
