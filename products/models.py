@@ -190,7 +190,7 @@ class Products(models.Model):
         for c in categories:
             try:
                 l = Product_Categories.objects.filter(product=self, level=c.level)
-            except:
+            except Exception:
                 tb = traceback.format_exc()
                 print(tb)
 
@@ -215,7 +215,6 @@ class Category(models.Model):
     name = models.CharField(max_length=70)
     level = models.CharField(max_length=1)
     slug = models.SlugField(null=True, blank=True)
-    # cascade = models.ForeignKey('self', null=True, blank=True)
     sub_cat = models.ManyToManyField('self', null=True, blank=True)
     alpha = models.CharField(max_length=2)
     meta_des = models.CharField(max_length=150, null=True, blank=True)
@@ -238,12 +237,17 @@ class Category(models.Model):
 
     def get_sub(self):
         n = self.level
+        sub = self.sub_cat.filter(level=int(n)+1)
+        return sub
+
+    def get_sub_full(self):
+        n = self.level
         sub = self.sub_cat.filter(level__gt=n)
         return sub
 
     def set_sub(self, c):
-        f= [c]
-        self.sub_cat = f
+
+        self.sub_cat.add([c])
         return c
 
     def get_parent_cat(self):

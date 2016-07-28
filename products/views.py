@@ -73,20 +73,47 @@ def new_category(request):
         id = request.POST.get('new_category_1')
         c2 = request.POST.get('new_category_2')
         c3 = request.POST.get('new_category_3')
-        if c2:
+        if not c3:
             id = request.POST.get('new_category_1')
             c = Category.objects.get(id=id)
-            a, created = Category.objects.get_or_create(name=c2, level=2)
+            try:
+                a = Category.objects.get(name__iexact=c2)
+            except Exception:
+                a = Category.objects.create(name=c2, level=2)
             c.sub_cat.add(a)
         elif c3:
             id = request.POST.get('new_category_2')
             c = Category.objects.get(id=id)
-            a, created = Category.objects.get_or_create(name=c3, level=3)
-            c.sub_cat.add(a)
+            try:
+                a = Category.objects.get(name__iexact=c3, level=2)
+                if a:
+                    change_category(a.slug, c.slug)
+            except Exception:
+                # a, created = Category.objects.get_or_create(name=c3, level=3)
+                try:
+                    a = Category.objects.get(name__iexact=c3)
+                except Exception:
+                    a = Category.objects.create(name=c3, level=3)
+                c.sub_cat.add(a)
         response = {}
         response['id'] = a.id
         response['name'] = a.name
         return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def change_category(a, b):
+    cat = Category.objects.get(slug=a)
+    cat.level = 3
+    cat.save()
+    cat2 = Category.objects.get(slug=b)
+    cat2.sub_cat.add(a)
+    ps = Product_Categories.objects.filter(category=cat)
+    for p in ps:
+        p.level = 3
+        p.save()
+        Product_Categories.objects.create(product=p.product, level=2, category=cat2)
+    print('DONENNENENENENENENE')
+
 
 
 @login_required
@@ -590,14 +617,94 @@ def all_products_old(request):
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
-        return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
+        return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'tags': tags,
+                                                                'tags2': tags2, 'n': n, 'm': m})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all':c1_all, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list,
+                                                                'tags': tags, 'tags2': tags2, 'n': n, 'm': m})
 
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def add_product(request):
-    return redirect('/products/edit_add/new')
+    # return redirect('/products/edit_add/new')
+    c1_all = Category.objects.filter(level=1)
+    user = request.user
+    workplace = request.user.userprofile.primary_workplace
+    if request.method == 'POST':
+        product_email = request.POST.get('u_email')     # email of the uploader, only for the first product
+        product_phone = request.POST.get('u_phone')     # phone of the uploader, only for the first product
+        up = user.userprofile
+        up.set_product_contacts(product_email=product_email, product_phone=product_phone)
+        pro = request.POST.get('product')
+        description = request.POST.get('description')
+        cost = request.POST.get('cost')
+        tags = request.POST.get('tag')
+        status = request.POST.get('status')
+
+        up.points += 5
+        up.save()
+        li = []
+        c1 = request.POST.get('category1')
+        if c1:
+            li.append(c1)
+        c2 = request.POST.get('category2')
+        if c2:
+            li.append(c2)
+        c3 = request.POST.get('category3')
+        if c3:
+            li.append(c3)
+        index = request.POST.get('i')
+        categories = Category.objects.filter(pk__in=li)
+        workplace = request.user.userprofile.primary_workplace
+        image0 = request.FILES.get('image0', None)
+        p = {}
+        if len(pro) > 3:
+            product = pro
+            p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
+        if image0:
+            i = Images()
+            x = i.upload_image(image=image0, user=user)
+            p.image = x
+            p.save()
+
+        for c in categories:
+            Product_Categories.objects.create(product=p, category=c, level=c.level)
+        todaydate = date.today()
+        startdate = todaydate + timedelta(days=1)
+        enddate = startdate - timedelta(days=1)
+        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
+        pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
+        if len(pp) < 2:
+            n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)
+            if image0:
+                n.images = [x]
+        response = {}
+        response['alert'] = render_to_string('products/add_prod_alert.html', {'p': p})
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        p = Products.objects.filter(producer=workplace).last()
+        if user.userprofile.product_email:
+            no_prod_con = False
+        else:
+            no_prod_con = True
+
+        c = {}
+        if p:
+            c = Product_Categories.objects.filter(product=p.id).order_by('level')
+        c1_all = Category.objects.filter(level=1)
+        c1_1 = itemgetter(0, 1, 2)(c1_all)
+        c1_2 = itemgetter(3, 4, 13)(c1_all)
+        c1_3 = itemgetter(2, 5)(c1_all)
+        c1_4 = itemgetter(6, 7, 12, 13)(c1_all)
+        c1_5 = itemgetter(9, 8, 6)(c1_all)
+        c1_6 = itemgetter(10, 11)(c1_all)
+        # c1_7 = itemgetter(6, 7, 12)(c1_all)
+        c1_8 = itemgetter(13, 14, 15)(c1_all)
+
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
+                                                             'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
+                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
+                                                             'no_prod_con': no_prod_con})
 
 
 def initial_category(request):
