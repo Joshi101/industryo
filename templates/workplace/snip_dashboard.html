@@ -50,7 +50,7 @@
   								<div class="row">
   									{% if workplace.get_product_count = 0 %}
   									<div class="col-sm-12 text-center">
-  										<p style="font-size: 1.4em; color: orange; margin-bottom: 5px">List the Products you Manufacture or Sell or the Services you Provide</p>
+  										<p style="font-size: 1.4em; margin-bottom: 5px">List the Products you Manufacture or Sell or the Services you Provide</p>
   										<div class="text-muted">If You are busy, ask the sales people to signup &amp; List Products</div>
   									</div>
   									{% elif workplace.get_product_count < 3 %}
@@ -61,7 +61,7 @@
   									</div>
   									{% endwith %}
   									<div class="col-sm-9 text-center">
-  										<p style="font-size: 1.4em; color: orange">List more products/ Services &amp; Get Inquiries directly in Inbox</p>
+  										<p style="font-size: 1.4em;">List more products/ Services &amp; Get Inquiries directly in Inbox</p>
   									</div>
   									{% else %}
   									{% for product in products|slice:"3" %}
