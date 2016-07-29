@@ -5247,6 +5247,7 @@ border: 1px solid rgba(0,0,0,.12);
 
 .cover_desktop .img_frame{
   background-image: url(/images/cover/desktop.png);
+  padding: 5px;
 }
 
 .cover_mobile .img_frame{
