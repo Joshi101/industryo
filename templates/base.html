@@ -39,8 +39,8 @@
  <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700|Lora:400,400italic,700,700italic|Open+Sans:300,400,400italic,700,700italic|Titillium+Web:100,200,300,400' rel='stylesheet' type='text/css'>
 
   <!-- third party -->
-  <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.css' %}>
-  <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.css' %}>
+  <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}>
+  <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.min.css' %}>
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/cl_main.css' %}>
   {% if not request.user.is_authenticated %}
@@ -52,13 +52,13 @@
   {% endblock head_css %}
 
   <!-- third party -->
-  <script type="text/javascript" src={% static 'js/jquery-2.1.4.js' %}></script>
-  <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.js' %}></script>
+  <script type="text/javascript" src={% static 'js/jquery-3.1.0.min.js' %}></script>
+  <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.min.js' %}></script>
 
   {% block head_js %}
   <!-- not basic implement at sublevels -->
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
-  <script type="text/javascript" src={% static 'js/autosize.js' %}></script>
+  <script type="text/javascript" src={% static 'js/autosize.min.js' %}></script>
   <script type="text/javascript" src={% static 'js/bootstrap-wysiwyg.js' %}></script>
   <script type="text/javascript" src={% static 'js/jquery.hotkeys.js' %}></script>
 
@@ -74,6 +74,7 @@
 </head>
 
 <body vocab="http://schema.org/"  typeof="{% block pg_schema %}{% endblock pg_schema %}">
+
   {% block top %}
     {% include "snippets/top_navigation.html" with what="Products" %}
   {% endblock top %}
@@ -97,10 +98,13 @@
     </div>
     {% endblock body %}
     {% block bottom_bar %}
+    {% comment %}
     {% if request.user.is_authenticated %}
       {% include "snippets/bottom_bar.html" %}
     {% endif %}
     {% include "snippets/feedback.html" %}
+
+    {% endcomment %}
     {% endblock bottom_bar %}
   </div>
 
