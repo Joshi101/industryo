@@ -5187,6 +5187,7 @@ border: 1px solid rgba(0,0,0,.12);
   margin-top: 10px;
   color: #086;
   margin-bottom: 30px;
+  text-shadow: 0 2px 3px rgba(16,112,144,0.46);
 }
 
 .cover_top header p{
@@ -5262,7 +5263,21 @@ border: 1px solid rgba(0,0,0,.12);
 
 .cover_btn button{
   margin: 0 0 10px;
-  border: 1px solid #07a0c4;
+  /*! border: 1px solid #07a0c4; */
+}
+
+.cover_img .carousel-caption {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  bottom: 0px;
+  z-index: -1;
+  background: rgba(255,255,255,0.5);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: rgba(0,0,0,0.5);
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.26);
 }
 
 @media(max-width:767px){
