@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
   <div id="pre_nav" class="container-fluid pre_nav">
-    <a href="{% url 'home' %}"><img class="brand_img" width="50px" height="50px" alt="C" src='/images/logo/cl_thick.png' ><span class="orelogs">ORELOGS</span></a>
+    <a href="{% url 'home' %}"><img class="brand_img" width="50px" height="50px" alt="C" src='/images/logo/cl_thick.png' ><span class="orelogs">CORELOGS</span></a>
     <a id="search_toggle" class="btn btn-default">
       <i class="fa fa-search"></i>
     </a>
@@ -76,7 +76,7 @@
         </a>
       </li>
     </ul>
-    {% if user.is_authenticated or request.path != '/' %}
+    {% if user.is_authenticated %}
     <ul class="nav navbar-nav navbar-right nav_right">
       <button id="top_nav_toggle" type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#topNavbar">
         <span class="fa fa-reorder"></span>
