@@ -89,7 +89,6 @@ def new_category(request):
                 if a:
                     change_category(a.slug, c.slug)
             except Exception:
-                # a, created = Category.objects.get_or_create(name=c3, level=3)
                 try:
                     a = Category.objects.get(name__iexact=c3)
                 except Exception:
@@ -102,6 +101,7 @@ def new_category(request):
 
 
 def change_category(a, b):
+    print("LLLLLLLLLLLLLLLLLLLLLLLLLLLL")
     cat = Category.objects.get(slug=a)
     cat.level = 3
     cat.save()
@@ -703,56 +703,35 @@ def add_product(request):
 
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                              'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
-                                                             'no_prod_con': no_prod_con})
+                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': False,})
 
 
 def initial_category(request):
-    li = ['SAE Teams & Related Items', 'Electronics & RC Items for enthusiasts', 'Products for Racing Enthusiasts', 'Automobile & Aerospace Parts', 'Mechanical Parts & Assemblies', 'Electrial & Electronics Products', 'Industry Supplies & Raw Materials', 'Industrial Machinery & Parts', 'Construction Materials & Equipments', 'Chemicals,  Dies, Paints', 'Agricultural & Agrotech products', 'Textiles & Clothings', 'Labs & Industry Equipments', 'Engineering & Industrial Consultancy Services', 'Internet & Software Based Services', 'Other Services']
-    li2 = ['SAE Teams & Related Items', 'Safety Equipment', 'Racing Accessories', 'Suspension Parts', 'Powertrain Parts', 'Wheel Assembly', 'Rollcage, Pipes & Tubes', 'Brake Components', 'Steering System', 'Electricals & Electronics', 'Aesthetics', 'Electronics & RC Items for enthusiasts', 'RC Items', 'Arduino kits & Raspberry Pi', 'Electronics Components', 'DC Motors', 'Products for Racing Enthusiasts', 'Cars & Bike Accessories', 'Performance Boosters', 'Automobile & Aerospace Parts', 'Brake Components', 'Plastics & Polymer Components', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Engine Components', 'Chassis & Body Building', 'Gears, Gearboxes and Related Components', 'Elecrical & Electronics Items', 'Sheet Metal Components', 'Bearing, Bushes & Related Items', 'Joints, Shafts, Couplings', 'Fiber Parts', 'Jigs & Fixtures', 'Other OEM Parts', 'Mechanical Parts & Assemblies', 'Pumps & Turbines', 'Hydraulic Machines', 'Pneumatic Machines', 'Gears, Gearboxes and Related Components', 'Joints, Shafts, Couplings', 'Jigs & Fixtures', 'Bearing, Bushes & Related Items', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Boilers & Tanks', 'Motors & Generators & Parts', 'Electrial & Electronics Products', 'Motors & Generators & Parts', 'Pumps & Turbines', 'Electrical Fitting Items', 'Consumer Electronics Products', 'Electronics Products', 'Instruments', 'Actuators & Sensors', 'Industry Supplies & Raw Materials', 'Industrial Chemicals', 'Metallic Raw Materials', 'Non Metallic raw material', 'Machining Fluids', 'Packaging Materials', 'Measuring Equipments', 'Plastics & Rubbers', 'Welding Setup', 'Jigs & Fixtures', 'Pipes & Tubes', 'Industrial Machinery & Parts', 'Machine Tools', 'CNC Machines', 'Material Handling Equipments', 'Special Purpose Machines', 'Plastic Processing Machines', 'Jigs & Fixtures', 'Power Tools', 'Hand Tools', 'Construction Materials & Equipments', 'Steel Parts', 'Aluminium Parts', 'Cement & Bricks', 'Scaffoldings & Accessories', 'Consruction Machinery', 'Plumbing Items', 'Safety Items', 'Wood & Furniture', 'Coatings & Finishing', 'Interior Items', 'Chemicals,  Dies, Paints', 'Industrial Chemicals', 'Pigments', 'Paint', 'Dies', 'Food Chemical & Preservatives', 'Agricultural & Agrotech products', 'Agricultural Equipments', 'Agricultural Machinery', 'Insecticides & Pesticides', 'Edible Agricultural Products', 'Fertilizers & soil Additives', 'Seeds', 'Oils', 'Textiles & Clothings', 'Finished Clothes', 'Cloth raw material', 'Leather Products', 'Machinery', 'Labs & Industry Equipments', 'Measuring Equipments', 'Laboratory equipments', 'Material Handling Equipments & Parts', 'Welding Setup', 'Hand Tools', 'Power Tools', 'Engineering & Industrial Consultancy Services', 'Designing', 'Industrial Services', 'Environmental Planning', 'Simulation & Analysis Services', 'Planning & Implementation', 'Internet & Software Based Services', 'Web Designing Services', 'Software solutions', 'Online Marketing solutions', 'Other Services', 'Installation, Maintenance etc.', 'Transportation & Courier services', 'Training & Hiring Services', 'Online Marketing solutions', 'Household services', 'Construction Services', 'Repairing Services']
-    li3 = ['Safety Equipment', 'Helmet', 'Driver Suit', 'Other Wearables', 'Gloves', 'Racing Accessories', 'Seats', 'Seat Belts & Harnesses', 'Driver Suit', 'Other Wearables', 'Fire Extinguishers', 'Suspension Parts', 'Dampers', 'Shock Absorbers', 'Knuckles & Hubs', 'Powertrain Parts', 'Engine Accessories', 'Exhaust', 'Spares', 'Engine', 'Gearbox', 'CVT', 'DC Motor', 'Wheel Assembly', 'Tubes & Tyres', 'Rims & Tyres', 'ATV Tyres', 'Formula Tyres', 'Knuckle & Hub', 'Rollcage, Pipes & Tubes', 'AISI 1018', 'AISI 4130 Chromoly', 'AISI 4340', 'Carbon Fiber', 'Pipes & Tubes', 'Alloy Steel', 'Brake Components', 'Calipers', 'Brake Lines', 'Master Cylinder', 'Brake Pedal & Assembly', 'Steering System', 'Steering Rack', 'Steering Wheels', 'Tie Rods', 'Electricals & Electronics', 'Switches', 'Lights', 'Transponders', 'Aesthetics', 'RC Items', 'RC Cars', 'RC Monster trucks', 'RC Helicopter & Plane', 'RC Ship', 'Quadcopters & Parts', 'Arduino kits & Raspberry Pi', 'Raspberry pi & spares', 'Arduino sheilds', 'Electronics Components', 'Resistors & Capacitors', 'Wireless', 'ICs', 'LCD Screens', 'Sensors', 'DC Motors', 'Stepper Motors', 'Servo motors', 'Geared Motors', 'Cars & Bike Accessories', 'Performance Boosters', 'Custom Exhaust', 'Brake Components', 'Discs & Drums', 'Calipers', 'Brake Shoe', 'Pedal Assembly', 'Brake Oil', 'Plastics & Polymer Components', 'Tires & Tubes', 'Body Panel', 'Instruments Panel', 'Plastic molded parts', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Nut & Bolt', 'Washers', 'Clamps', 'Rivets', 'Clamping Devices', 'Engine Components', 'Engine Block', 'Piston', 'Timing Chains', 'Crankshaft & Camshaft', 'Cams', 'Flywheel', 'Chassis & Body Building', 'Trailers', 'Cab & Cowl', 'Bus Body', 'Truck Body', 'Interior Parts', 'Seats', 'Gears, Gearboxes and Related Components', 'Spur Gears', 'Worm Gears', 'Gearbox Casing', 'Helical Gears', 'Sprockets', 'Elecrical & Electronics Items', 'Battery', 'Starter Motors', 'Sheet Metal Components', 'Bearing, Bushes & Related Items', 'Joints, Shafts, Couplings', 'Joints', 'Rigid Couplingd', 'Flexible Couplings', 'Shafts', 'Fiber Parts', 'Body Panel', 'Jigs & Fixtures', 'Jigs', 'Fixtures', 'Clamping Devices', 'Bushes', 'Other OEM Parts', 'Bearings', 'Valves', 'Carburettor', 'Pumps & Turbines', 'Blades', 'Casing & Body', 'Hydraulic Machines', 'Pneumatic Machines', 'Gears, Gearboxes and Related Components', 'Spur Gears', 'Worm Gears', 'Gearbox Casing', 'Helical Gears', 'Sprockets', 'Joints, Shafts, Couplings', 'Jigs & Fixtures', 'Jigs', 'Fixtures', 'Clamping Devices', 'Bushes', 'Bearing, Bushes & Related Items', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Boilers & Tanks', 'Plastic Tanks', 'Boilers', 'Motors & Generators & Parts', 'DC Motors', 'AC Motors', 'Generators', 'Inverters', 'Motors & Generators & Parts', 'DC Motors', 'AC Motors', 'Generators', 'Inverters', 'Pumps & Turbines', 'Electrical Fitting Items', 'Wires', 'Insulators', 'Switches', 'Consumer Electronics Products', 'Electronics Products', 'Instruments', 'Actuators & Sensors', 'Industrial Chemicals', 'Metallic Raw Materials', 'Steel', 'Aluminium', 'Non Metallic raw material', 'Machining Fluids', 'Coolants', 'Lubricants', 'Packaging Materials', 'Measuring Equipments', 'Plastics & Rubbers', 'Welding Setup', 'Jigs & Fixtures', 'Pipes & Tubes', 'Machine Tools', 'Milling Machines & Components', 'Lathe & Components', 'CNC Machines', 'Material Handling Equipments', 'Conveyors', 'Stackers', 'Feeders', 'Robotic', 'Special Purpose Machines', 'Plastic Processing Machines', 'Extrusion machine', 'Injection maolding Machine', 'Rotomolding Machine', 'Jigs & Fixtures', 'Power Tools', 'Hand Tools', 'Steel Parts', 'Pipes & Tubes', 'Steel Beams', 'Nuts & Bolts', 'Clamps', 'Steel Fabrication', 'Aluminium Parts', 'Aluminium Gates & windows', 'Aluminium Fabrication', 'Aluminium Partitions', 'Cement & Bricks', 'Cement & Concrete', 'Building Bricks', 'Fly Ash Bricks', 'Fire Bricks', 'Concrete Blocks', 'Scaffoldings & Accessories', 'Scaffoldings', 'Scaffolding fittings', 'Ladders', 'Consruction Machinery', 'Cranes', 'Earth Moving Machinery', 'Concrete mixers', 'Impact Crushers', 'Brick Making Machines', 'Plumbing Items', 'Steel pipes', 'Plastic & PVC Pipes', 'Hose Pipes', 'Showers', 'Safety Items', 'Fire Extinguishers', 'Water proofing  System', 'Wood & Furniture', 'Timber & Plywood', 'Doors & Windows', 'Gates & Grills', 'Wooden Furniture', 'Plastic Furniture', 'Metallic Furniture', 'Coatings & Finishing', 'Water proofing  System', 'Curtain Walls', 'Powder Coating', 'Floor Coatings', 'Paints', 'Tiles', 'Interior Items', 'Industrial Chemicals', 'Pigments', 'Paint', 'Food Chemical & Preservatives', 'Agricultural Equipments', 'Agricultural Machinery', 'Insecticides & Pesticides', 'Edible Agricultural Products', 'Fertilizers & soil Additives', 'Seeds', 'Finished Clothes (Wearable)', 'Women Clothing', "Men's Clothing", 'T shirt Printing', 'Finished Clothes (Non Wearable)', 'Cloth raw material', 'Leather Products', 'Machinery', 'Measuring Equipments', 'Laboratory equipments', 'Material Handling Equipments & Parts', 'Welding Setup', 'Hand Tools', 'Power Tools', 'Designing', 'Industrial Services', 'Environmental Planning', 'Simulation & Analysis Services', 'Planning & Implementation', 'Web Designing Services', 'Software solutions', 'Online Marketing solutions', 'Installation, Maintenance etc.', 'Heating, Ventilation & Airconditioning', 'Solar Energy Installations', 'Electrical Installations', 'Machine Tools Installations', 'Transportation & Courier services', 'Export Services', 'Import Services', 'Training & Hiring Services', 'Lean & Six sigma training', 'Industrial Training', 'CAD, CAM, CAE Training', 'Computer & IT training', 'Online Marketing solutions', 'Website Making', 'Profile Management', 'Household services', 'Plumbing & fitting', 'Interior Decoration', 'Electrial Installation', 'Construction Services', 'Machine Repairing', 'Repairing Services']
-
-    for i in li:
-        t, created = Category.objects.get_or_create(name=i, level=1)
-
-    for i in li2:
-        try:
-            a = Category.objects.get(name=i, level=1)
-            if a:
-                k = [a]
-        except Exception:
-            b, created = Category.objects.get_or_create(name=i, level=2)
-            b.sub_cat = k
-
-    for i in li3:
-        try:
-            a = Category.objects.get(name=i, level=2)
-            if a:
-                k = [a]
-        except Exception:
-            b, created = Category.objects.get_or_create(name=i, level=3)
-            b.sub_cat = k
-
-    return redirect('/')
+    pass
 
 
 def c_r(request):
     id = request.GET.get('id')
     pro = Products.objects.get(id=id)
     wp = pro.producer
-    ppp = Product_Categories.objects.filter(product__producer=wp)
-    if len(ppp)>0:
-
-        pc = ppp.reverse()[0]
-        p = pc.product
-        q = Product_Categories.objects.filter(product=p)
-
-        for t in q:
-            Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
-        return redirect('/internal/activity/?q=p')
-    else:
-        pass
-
+    # ppp = Product_Categories.objects.filter(product__producer=wp)
+    # if len(ppp)>0:
+    #
+    #     pc = ppp.reverse()[0]
+    #     p = pc.product
+    #     q = Product_Categories.objects.filter(product=p)
+    #
+    #     for t in q:
+    #         Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
+    #     return redirect('/internal/activity/?q=p')
+    # else:
+    #     pass
+    pp = Product_Categories.objects.last()
+    p = pp.product
+    q = Product_Categories.objects.filter(product=p)
+    for t in q:
+        Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
+    return redirect('/internal/activity/?q=p')
 
 def int_category(request, slug):
     category = Category.objects.get(slug=slug)

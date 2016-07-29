@@ -216,7 +216,7 @@ class Category(models.Model):
     level = models.CharField(max_length=1)
     slug = models.SlugField(null=True, blank=True)
     sub_cat = models.ManyToManyField('self', null=True, blank=True)
-    alpha = models.CharField(max_length=2)
+    alpha = models.CharField(max_length=2, null=True, blank=True)
     meta_des = models.CharField(max_length=150, null=True, blank=True)
     tag = models.ForeignKey(Tags, null=True, blank=True)
     image = models.ForeignKey(Images, null=True, blank=True)
