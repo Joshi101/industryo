@@ -5187,7 +5187,7 @@ border: 1px solid rgba(0,0,0,.12);
   margin-top: 10px;
   color: #086;
   margin-bottom: 30px;
-  text-shadow: 0 2px 3px rgba(16,112,144,0.46);
+  text-shadow: 0 1px 5px rgba(16,112,144,0.46);
 }
 
 .cover_top header p{
