@@ -11,10 +11,11 @@ from operator import attrgetter
 
 
 def workplace_profile(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
     workplace_logo_form = SetLogoForm()
+    workplace = Workplace.objects.get(slug=slug)
     if request.user.is_authenticated():
-        if request.user.userprofile in workplace.userprofile_set.all():
+        usrprofile = request.user.userprofile
+        if workplace.id == usrprofile.primary_workplace_id:
             member = True
     content_url = "workplace/snip_about.html"
     content_head_url = "workplace/snip_about_head.html"

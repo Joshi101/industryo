@@ -8,15 +8,11 @@ from threading import Thread
 
 class Workplace(models.Model):
     name = models.CharField(max_length=255)
-    LargeScaleIndustry = 'A'
-    SME = 'B'
-    SAE_Team = 'C'
-    Educational_Institution = 'O'
     Workplace_Type = (
-        (LargeScaleIndustry, 'Large Scale Industry'),
-        (SME, 'Small & Medium Scale Enterprise'),
-        (SAE_Team, 'SAE Collegiate club'),
-        (Educational_Institution, 'Educational Institution')
+        ('A', 'Large Scale Industry'),
+        ('B', 'Small & Medium Scale Enterprise'),
+        ('C', 'SAE Collegiate club'),
+        ('O', 'Educational Institution')
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
