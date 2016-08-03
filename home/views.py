@@ -16,6 +16,8 @@ from operator import attrgetter
 from django.contrib.auth.decorators import login_required
 from home import tasks
 from django.core.mail import send_mail
+from tracking.models import Tracker
+from django.contrib.sessions.models import Session
 
 
 def feedback(request):
@@ -44,6 +46,8 @@ If you solve it, kindly mail back on {2}
 
 def home(request):
     if request.user.is_authenticated():
+        s = Session.objects.get(session_key=request.session.session_key)
+        t = Tracker.objects.create(session=s, source='2')
         a =request.GET.get('a')
         user = request.user
         if user.userprofile.primary_workplace:
@@ -89,7 +93,14 @@ def home(request):
         else:
             return redirect('/set/')
     else:
+        q = request.GET.get('q')
+        try:
+            s = Session.objects.get(session_key=request.session.session_key)
+        except Exception:
+            s = None
+        t = Tracker.objects.create(session=s, source=q)
         return render(request, 'cover.html', {'form_signup': SignupForm(), 'form_login': LoginForm()})
+
 
 def feed(request):
     a =request.GET.get('a')

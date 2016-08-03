@@ -27,7 +27,7 @@ def sitemap(request):
     # wp_no, article_no, tag_no, prod_no, q_no, up_no, cat_no = 0, 0, 0, 0, 0, 0, 0
     workplaces = Workplace.objects.all()
     tags = Tags.objects.all()
-    nodes = Node.Articles.all()
+    nodes = Node.article.all()
     userprofiles = UserProfile.objects.all()
     questions = Question.objects.all()
     products = Products.objects.all()

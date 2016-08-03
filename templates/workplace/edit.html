@@ -45,7 +45,7 @@
               <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
               {% endif %}
             </header>
-            <span class="text-muted">Fill Details to get a strong profile &amp; appear higher in searches.<br>You can Submit the Form anytime you want.</span>
+            <span class="text-muted">The Data You Fill Here will be what Others will See on Your Company profile.<br>Fill more data to get found easily</span>
           </div>
         </div>
         <form id="edit_wp_form" class="ajax_andar auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
@@ -59,7 +59,8 @@
               <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
               <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
               -->
-              <textarea class="textarea_lg count_field" value="{{about}}" id="wp_about" name="about" placeholder="A Basic Introduction of your Company (maybe the about Section of company website)" maxlength="2000">{{about|default:''}}</textarea>
+              <textarea class="textarea_lg count_field" value="{{about}}" id="wp_about" name="about" placeholder="A Basic Introduction of your Company in about 500 words or less
+(maybe the about Section of company website)" maxlength="2000">{{about|default:''}}</textarea>
               <span class="char_count">2000</span>
             </div>
             <!-- <div class="form-group">
@@ -203,6 +204,13 @@
           </div>
         </form>
       </div>
+    </div>
+  </div>
+  <div id="right" class="col-sm-2">
+    <div class="side_help">
+      <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">Your Info Score</a><br>
+      Add Here Workplace score graph
+      
     </div>
   </div>
 

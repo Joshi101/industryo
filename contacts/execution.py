@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from home.tasks import execute_view, send_mail_contacts
 from contacts.views import check_no_wp, check_no_products
 import pytz
+from .models import ContactEmails
+from home.templates import join_corelogs_mail
+import random
 
 """Whats happening is: During creation of user profile, a task is created which checks after 5 minutes whether
     the user has set the workplace or not.
@@ -99,6 +102,16 @@ def check_executable():
 
 def send_marketing():
     start_time = datetime.now(pytz.utc)
+    now_utc = datetime.now(pytz.utc)
+    to_send = ContactEmails.objects.filter(sent=False, user__userprofile__workplace_type='B')[:4]
+    for s in to_send:
+        up = s.user.userprofile
+        subject = '[CoreLogs] {0} Invited You to Check it Out'.format(up)
+        mail_body = join_corelogs_mail.format(s.first_name, up)
+        MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email=random.choice([2, 3, 4]),
+                                date=now_utc + timedelta(minutes=2), subject=subject)
+        s.sent = True
+        s.save()
     end_time = start_time - timedelta(minutes=30)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False, reasons='jcm')[:4]
     for mail in mails:

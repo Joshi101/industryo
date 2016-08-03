@@ -277,8 +277,8 @@ def thread_send(to_send_n):
         mail_body = render_to_string('emails/join_corelogs_mail.html').format(s.first_name, s.user.userprofile)
         subject = 'Hey {0}, {1} asked us to invite you. Are U an SME'.format(s.first_name, s.user.userprofile)
         MailSend.objects.create(email=s.email, body=mail_body, reasons='jcm', from_email='4',
-                                date=now_utc+ timedelta(minutes=minutes), subject=subject)
-        minutes += 2
+                                date=now_utc + timedelta(minutes=minutes), subject=subject)
+        minutes += 1
 
 
     # make 8 groups of 40 emails each

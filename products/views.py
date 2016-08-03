@@ -18,7 +18,6 @@ from itertools import chain
 from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -76,19 +75,43 @@ def new_category(request):
         if not c3:
             id = request.POST.get('new_category_1')
             c = Category.objects.get(id=id)
-            a, created = Category.objects.get_or_create(name=c2, level=2)
+            try:
+                a = Category.objects.get(name__iexact=c2)
+            except Exception:
+                a = Category.objects.create(name=c2, level=2)
             c.sub_cat.add(a)
         elif c3:
             id = request.POST.get('new_category_2')
             c = Category.objects.get(id=id)
-            a, created = Category.objects.get_or_create(name=c3, level=3)
-            c.sub_cat.add(a)
+            try:
+                a = Category.objects.get(name__iexact=c3, level=2)
+                if a:
+                    change_category(a.slug, c.slug)
+            except Exception:
+                try:
+                    a = Category.objects.get(name__iexact=c3)
+                except Exception:
+                    a = Category.objects.create(name=c3, level=3)
+                c.sub_cat.add(a)
         response = {}
         response['id'] = a.id
         response['name'] = a.name
         return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        print("FTFTFTF")
+
+
+def change_category(a, b):
+    cat = Category.objects.get(slug=a)
+    cat.level = 3
+    cat.save()
+    cat2 = Category.objects.get(slug=b)
+    cat2.sub_cat.add(a)
+    ps = Product_Categories.objects.filter(category=cat)
+    for p in ps:
+        p.level = 3
+        p.save()
+        Product_Categories.objects.create(product=p.product, level=2, category=cat2)
+
+
 
 @login_required
 def edit_category(request, id):
@@ -238,7 +261,8 @@ def enquire(request):
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
                     # Checking if the same person has created more than 5 inquiries that day
-                    e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message, phone_no=phone)
+                    e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message,
+                                               phone_no=phone)
                     up = prod.user.userprofile
                     # up.notify_inquired(e)
                     # send_enq_mail(e)
@@ -247,12 +271,11 @@ def enquire(request):
             if w:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
-                    e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message, phone_no=phone)
+                    e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message,
+                                               phone_no=phone)
                     # up.notify_inquired(e)
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/workplace/'+workplace.slug)
-
-
 
 
 @login_required
@@ -456,80 +479,41 @@ def int_edit_category(request, id):
 
 
 def home(request):
-    tags = []
-    tags2 = []
-    if 'q' in request.GET:
-        querystring = request.GET.get('q')
-        if querystring == 'A':
-            li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-            tags = Tags.objects.filter(pk__in=li1)
-            for t in tags:
-                p = Products.sell.filter(tags=t, target_segment__contains='C')
-                t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-                tags2.append(t2)
-        elif querystring == 'B':
-            return redirect('/marketplace?q=B&t=701')
-            # li1 = [701]
-            # tags = Tags.objects.filter(pk__in=li1)
-            # for t in tags:
-            #     p = Products.sell.filter(tags=t, target_segment__contains='C')
-            #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            #     tags2.append(t2)
-        elif querystring == 'C':
-            return redirect('/marketplace?q=B')
-            # li1 = []
-            # tags = Tags.objects.filter(pk__in=li1)
-            # for t in tags:
-            #     p = Products.sell.filter(tags=t, target_segment__contains='C')
-            #     t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            #     tags2.append(t2)
-        elif querystring == 'D':
-            return redirect('/marketplace?q=B')
-
-        elif querystring == 'E':
-            return redirect('/marketplace?q=B&t=35')
-
-        elif querystring == 'N':
-            return redirect('/marketplace?q=N')
-
-        return render(request, 'marketplace/cover.html', {'tags': tags, 'tags2': tags2})
-    else:
-        li1 = [590, 591, 581, 582, 586, 587, 243, 218, 621, 512]
-        tags = Tags.objects.filter(pk__in=li1)
-        for t in tags:
-            p = Products.sell.filter(tags=t, target_segment__contains='C')
-            t2 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
-            tags2.append(t2)
-
-        return render(request, 'marketplace/cover_pre.html', {'tags': tags, 'tags2': tags2})
+    pass
 
 
 def all_products(request):
     lvl = 1
     q = q1 = q2 = None
     if 'q' in request.GET:
-        p = Products.objects.all().order_by('-date')
         q = request.GET.get('q')
-        q = Category.objects.filter(id=q).get()
+        q = Category.objects.get(id=q)
         curr_cat = q
         lvl = 2
+        p = Products.objects.filter(categories=curr_cat).order_by('-date')
         if 'q1' in request.GET:
             q1 = request.GET.get('q1')
-            q1 = Category.objects.filter(id=q1).get()
+            q1 = Category.objects.get(id=q1)
             curr_cat = q1
             lvl = 3
             p = Products.objects.filter(categories=curr_cat).order_by('-date')
+            if len(p) < 3:
+                curr_cat = curr_cat.get_parent_cat()
+                p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
+                p = p | p1
+
             if 'q2' in request.GET:
                 q2 = request.GET.get('q2')
-                q2 = Category.objects.filter(id=q2).get()
+                q2 = Category.objects.get(id=q2)
                 curr_cat = q2
                 lvl = 4
-                pp = Products.objects.filter(categories=curr_cat).order_by('-date')
-                if len(pp) > 0:
-                    p = pp
-                else:
-                    curr_cat = q1
-                    p = Products.objects.filter(categories=curr_cat).order_by('-date')
+                p = Products.objects.filter(categories=curr_cat).order_by('-date')
+                if len(p) < 3:
+                    curr_cat = curr_cat.get_parent_cat()
+                    p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
+                    if len(p1) < 1:
+                        p1 = Products.objects.all().order_by('-date')
+                    p = p | p1
         if lvl > 3:
             c1_all = c1_some = None
         else:
@@ -630,140 +614,121 @@ def all_products_old(request):
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
-        return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
+        return render(request, 'marketplace/20_products.html', {'result_list': result_list, 'tags': tags,
+                                                                'tags2': tags2, 'n': n, 'm': m})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all':c1_all, 'tags':tags, 'tags2':tags2, 'n':n, 'm':m})
+        return render(request, 'marketplace/marketplace.html', {'result_list': result_list,
+                                                                'tags': tags, 'tags2': tags2, 'n': n, 'm': m})
 
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def add_product(request):
-    return redirect('/products/edit_add/new')
-    # c1_all = Category.objects.filter(level=1)
-    # user = request.user
-    # workplace = request.user.userprofile.primary_workplace
-    # if request.method == 'POST':
-    #     product_email = request.POST.get('u_email')     # email of the uploader, only for the first product
-    #     product_phone = request.POST.get('u_phone')     # phone of the uploader, only for the first product
-    #     up = user.userprofile
-    #     up.set_product_contacts(product_email=product_email, product_phone=product_phone)
-    #     pro = request.POST.get('product')
-    #     description = request.POST.get('description')
-    #     cost = request.POST.get('cost')
-    #     tags = request.POST.get('tag')
-    #     status = request.POST.get('status')
-    #
-    #     up.points += 5
-    #     up.save()
-    #     li = []
-    #     c1 = request.POST.get('category1')
-    #     if c1:
-    #         li.append(c1)
-    #     c2 = request.POST.get('category2')
-    #     if c2:
-    #         li.append(c2)
-    #     c3 = request.POST.get('category3')
-    #     if c3:
-    #         li.append(c3)
-    #     index = request.POST.get('i')
-    #     categories = Category.objects.filter(pk__in=li)
-    #     workplace = request.user.userprofile.primary_workplace
-    #     image0 = request.FILES.get('image0', None)
-    #     p = {}
-    #     if len(pro) > 3:
-    #         product = pro
-    #         p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
-    #     if image0:
-    #         i = Images()
-    #         x = i.upload_image(image=image0, user=user)
-    #         p.image = x
-    #         p.save()
-    #
-    #     for c in categories:
-    #         Product_Categories.objects.create(product=p, category=c, level=c.level)
-    #     todaydate = date.today()
-    #     startdate = todaydate + timedelta(days=1)
-    #     enddate = startdate - timedelta(days=1)
-    #     node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
-    #     pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
-    #     if len(pp) < 2:
-    #         n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)
-    #         if image0:
-    #             n.images = [x]
-    #     response = {}
-    #     response['alert'] = render_to_string('products/add_prod_alert.html', {'p': p})
-    #     return HttpResponse(json.dumps(response), content_type="application/json")
-    # else:
-    #     p = Products.objects.filter(producer=workplace).last()
-    #     if user.userprofile.product_email:
-    #         no_prod_con = False
-    #     else:
-    #         no_prod_con = True
-    #
-    #     c = {}
-    #     if p:
-    #         c = Product_Categories.objects.filter(product=p.id).order_by('level')
-    #     c1_all = Category.objects.filter(level=1)
-    #     c1_1 = itemgetter(0, 1, 2)(c1_all)
-    #     c1_2 = itemgetter(3, 4, 13)(c1_all)
-    #     c1_3 = itemgetter(2, 5)(c1_all)
-    #     c1_4 = itemgetter(6, 7, 12, 13)(c1_all)
-    #     c1_5 = itemgetter(9, 8, 6)(c1_all)
-    #     c1_6 = itemgetter(10, 11)(c1_all)
-    #     # c1_7 = itemgetter(6, 7, 12)(c1_all)
-    #     c1_8 = itemgetter(13, 14, 15)(c1_all)
-    #
-    #     return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
-    #                                                          'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-    #                                                          'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
-    #                                                          'no_prod_con': no_prod_con})
+    # return redirect('/products/edit_add/new')
+    c1_all = Category.objects.filter(level=1)
+    user = request.user
+    workplace = request.user.userprofile.primary_workplace
+    if request.method == 'POST':
+        product_email = request.POST.get('u_email')     # email of the uploader, only for the first product
+        product_phone = request.POST.get('u_phone')     # phone of the uploader, only for the first product
+        up = user.userprofile
+        up.set_product_contacts(product_email=product_email, product_phone=product_phone)
+        pro = request.POST.get('product')
+        description = request.POST.get('description')
+        cost = request.POST.get('cost')
+        tags = request.POST.get('tag')
+        status = request.POST.get('status')
+
+        up.points += 5
+        up.save()
+        li = []
+        c1 = request.POST.get('category1')
+        if c1:
+            li.append(c1)
+        c2 = request.POST.get('category2')
+        if c2:
+            li.append(c2)
+        c3 = request.POST.get('category3')
+        if c3:
+            li.append(c3)
+        index = request.POST.get('i')
+        categories = Category.objects.filter(pk__in=li)
+        workplace = request.user.userprofile.primary_workplace
+        image0 = request.FILES.get('image0', None)
+        p = {}
+        if len(pro) > 3:
+            product = pro
+            p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
+        if image0:
+            i = Images()
+            x = i.upload_image(image=image0, user=user)
+            p.image = x
+            p.save()
+
+        for c in categories:
+            Product_Categories.objects.create(product=p, category=c, level=c.level)
+        todaydate = date.today()
+        startdate = todaydate + timedelta(days=1)
+        enddate = startdate - timedelta(days=1)
+        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
+        pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
+        if len(pp) < 2:
+            n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)
+            if image0:
+                n.images = [x]
+        response = {}
+        response['alert'] = render_to_string('products/add_prod_alert.html', {'p': p})
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        p = Products.objects.filter(producer=workplace).last()
+        if user.userprofile.product_email:
+            no_prod_con = False
+        else:
+            no_prod_con = True
+
+        c = {}
+        if p:
+            c = Product_Categories.objects.filter(product=p.id).order_by('level')
+        c1_all = Category.objects.filter(level=1)
+        c1_1 = itemgetter(0, 1, 2)(c1_all)
+        c1_2 = itemgetter(3, 4, 13)(c1_all)
+        c1_3 = itemgetter(2, 5)(c1_all)
+        c1_4 = itemgetter(6, 7, 12, 13)(c1_all)
+        c1_5 = itemgetter(9, 8, 6)(c1_all)
+        c1_6 = itemgetter(10, 11)(c1_all)
+        # c1_7 = itemgetter(6, 7, 12)(c1_all)
+        c1_8 = itemgetter(13, 14, 15)(c1_all)
+
+        return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
+                                                             'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
+                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': False,})
 
 
 def initial_category(request):
-    li = ['SAE Teams & Related Items', 'Electronics & RC Items for enthusiasts', 'Products for Racing Enthusiasts', 'Automobile & Aerospace Parts', 'Mechanical Parts & Assemblies', 'Electrial & Electronics Products', 'Industry Supplies & Raw Materials', 'Industrial Machinery & Parts', 'Construction Materials & Equipments', 'Chemicals,  Dies, Paints', 'Agricultural & Agrotech products', 'Textiles & Clothings', 'Labs & Industry Equipments', 'Engineering & Industrial Consultancy Services', 'Internet & Software Based Services', 'Other Services']
-    li2 = ['SAE Teams & Related Items', 'Safety Equipment', 'Racing Accessories', 'Suspension Parts', 'Powertrain Parts', 'Wheel Assembly', 'Rollcage, Pipes & Tubes', 'Brake Components', 'Steering System', 'Electricals & Electronics', 'Aesthetics', 'Electronics & RC Items for enthusiasts', 'RC Items', 'Arduino kits & Raspberry Pi', 'Electronics Components', 'DC Motors', 'Products for Racing Enthusiasts', 'Cars & Bike Accessories', 'Performance Boosters', 'Automobile & Aerospace Parts', 'Brake Components', 'Plastics & Polymer Components', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Engine Components', 'Chassis & Body Building', 'Gears, Gearboxes and Related Components', 'Elecrical & Electronics Items', 'Sheet Metal Components', 'Bearing, Bushes & Related Items', 'Joints, Shafts, Couplings', 'Fiber Parts', 'Jigs & Fixtures', 'Other OEM Parts', 'Mechanical Parts & Assemblies', 'Pumps & Turbines', 'Hydraulic Machines', 'Pneumatic Machines', 'Gears, Gearboxes and Related Components', 'Joints, Shafts, Couplings', 'Jigs & Fixtures', 'Bearing, Bushes & Related Items', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Boilers & Tanks', 'Motors & Generators & Parts', 'Electrial & Electronics Products', 'Motors & Generators & Parts', 'Pumps & Turbines', 'Electrical Fitting Items', 'Consumer Electronics Products', 'Electronics Products', 'Instruments', 'Actuators & Sensors', 'Industry Supplies & Raw Materials', 'Industrial Chemicals', 'Metallic Raw Materials', 'Non Metallic raw material', 'Machining Fluids', 'Packaging Materials', 'Measuring Equipments', 'Plastics & Rubbers', 'Welding Setup', 'Jigs & Fixtures', 'Pipes & Tubes', 'Industrial Machinery & Parts', 'Machine Tools', 'CNC Machines', 'Material Handling Equipments', 'Special Purpose Machines', 'Plastic Processing Machines', 'Jigs & Fixtures', 'Power Tools', 'Hand Tools', 'Construction Materials & Equipments', 'Steel Parts', 'Aluminium Parts', 'Cement & Bricks', 'Scaffoldings & Accessories', 'Consruction Machinery', 'Plumbing Items', 'Safety Items', 'Wood & Furniture', 'Coatings & Finishing', 'Interior Items', 'Chemicals,  Dies, Paints', 'Industrial Chemicals', 'Pigments', 'Paint', 'Dies', 'Food Chemical & Preservatives', 'Agricultural & Agrotech products', 'Agricultural Equipments', 'Agricultural Machinery', 'Insecticides & Pesticides', 'Edible Agricultural Products', 'Fertilizers & soil Additives', 'Seeds', 'Oils', 'Textiles & Clothings', 'Finished Clothes', 'Cloth raw material', 'Leather Products', 'Machinery', 'Labs & Industry Equipments', 'Measuring Equipments', 'Laboratory equipments', 'Material Handling Equipments & Parts', 'Welding Setup', 'Hand Tools', 'Power Tools', 'Engineering & Industrial Consultancy Services', 'Designing', 'Industrial Services', 'Environmental Planning', 'Simulation & Analysis Services', 'Planning & Implementation', 'Internet & Software Based Services', 'Web Designing Services', 'Software solutions', 'Online Marketing solutions', 'Other Services', 'Installation, Maintenance etc.', 'Transportation & Courier services', 'Training & Hiring Services', 'Online Marketing solutions', 'Household services', 'Construction Services', 'Repairing Services']
-    li3 = ['Safety Equipment', 'Helmet', 'Driver Suit', 'Other Wearables', 'Gloves', 'Racing Accessories', 'Seats', 'Seat Belts & Harnesses', 'Driver Suit', 'Other Wearables', 'Fire Extinguishers', 'Suspension Parts', 'Dampers', 'Shock Absorbers', 'Knuckles & Hubs', 'Powertrain Parts', 'Engine Accessories', 'Exhaust', 'Spares', 'Engine', 'Gearbox', 'CVT', 'DC Motor', 'Wheel Assembly', 'Tubes & Tyres', 'Rims & Tyres', 'ATV Tyres', 'Formula Tyres', 'Knuckle & Hub', 'Rollcage, Pipes & Tubes', 'AISI 1018', 'AISI 4130 Chromoly', 'AISI 4340', 'Carbon Fiber', 'Pipes & Tubes', 'Alloy Steel', 'Brake Components', 'Calipers', 'Brake Lines', 'Master Cylinder', 'Brake Pedal & Assembly', 'Steering System', 'Steering Rack', 'Steering Wheels', 'Tie Rods', 'Electricals & Electronics', 'Switches', 'Lights', 'Transponders', 'Aesthetics', 'RC Items', 'RC Cars', 'RC Monster trucks', 'RC Helicopter & Plane', 'RC Ship', 'Quadcopters & Parts', 'Arduino kits & Raspberry Pi', 'Raspberry pi & spares', 'Arduino sheilds', 'Electronics Components', 'Resistors & Capacitors', 'Wireless', 'ICs', 'LCD Screens', 'Sensors', 'DC Motors', 'Stepper Motors', 'Servo motors', 'Geared Motors', 'Cars & Bike Accessories', 'Performance Boosters', 'Custom Exhaust', 'Brake Components', 'Discs & Drums', 'Calipers', 'Brake Shoe', 'Pedal Assembly', 'Brake Oil', 'Plastics & Polymer Components', 'Tires & Tubes', 'Body Panel', 'Instruments Panel', 'Plastic molded parts', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Nut & Bolt', 'Washers', 'Clamps', 'Rivets', 'Clamping Devices', 'Engine Components', 'Engine Block', 'Piston', 'Timing Chains', 'Crankshaft & Camshaft', 'Cams', 'Flywheel', 'Chassis & Body Building', 'Trailers', 'Cab & Cowl', 'Bus Body', 'Truck Body', 'Interior Parts', 'Seats', 'Gears, Gearboxes and Related Components', 'Spur Gears', 'Worm Gears', 'Gearbox Casing', 'Helical Gears', 'Sprockets', 'Elecrical & Electronics Items', 'Battery', 'Starter Motors', 'Sheet Metal Components', 'Bearing, Bushes & Related Items', 'Joints, Shafts, Couplings', 'Joints', 'Rigid Couplingd', 'Flexible Couplings', 'Shafts', 'Fiber Parts', 'Body Panel', 'Jigs & Fixtures', 'Jigs', 'Fixtures', 'Clamping Devices', 'Bushes', 'Other OEM Parts', 'Bearings', 'Valves', 'Carburettor', 'Pumps & Turbines', 'Blades', 'Casing & Body', 'Hydraulic Machines', 'Pneumatic Machines', 'Gears, Gearboxes and Related Components', 'Spur Gears', 'Worm Gears', 'Gearbox Casing', 'Helical Gears', 'Sprockets', 'Joints, Shafts, Couplings', 'Jigs & Fixtures', 'Jigs', 'Fixtures', 'Clamping Devices', 'Bushes', 'Bearing, Bushes & Related Items', 'Fasteners, Nuts Bolts, Rivets, Clamps', 'Boilers & Tanks', 'Plastic Tanks', 'Boilers', 'Motors & Generators & Parts', 'DC Motors', 'AC Motors', 'Generators', 'Inverters', 'Motors & Generators & Parts', 'DC Motors', 'AC Motors', 'Generators', 'Inverters', 'Pumps & Turbines', 'Electrical Fitting Items', 'Wires', 'Insulators', 'Switches', 'Consumer Electronics Products', 'Electronics Products', 'Instruments', 'Actuators & Sensors', 'Industrial Chemicals', 'Metallic Raw Materials', 'Steel', 'Aluminium', 'Non Metallic raw material', 'Machining Fluids', 'Coolants', 'Lubricants', 'Packaging Materials', 'Measuring Equipments', 'Plastics & Rubbers', 'Welding Setup', 'Jigs & Fixtures', 'Pipes & Tubes', 'Machine Tools', 'Milling Machines & Components', 'Lathe & Components', 'CNC Machines', 'Material Handling Equipments', 'Conveyors', 'Stackers', 'Feeders', 'Robotic', 'Special Purpose Machines', 'Plastic Processing Machines', 'Extrusion machine', 'Injection maolding Machine', 'Rotomolding Machine', 'Jigs & Fixtures', 'Power Tools', 'Hand Tools', 'Steel Parts', 'Pipes & Tubes', 'Steel Beams', 'Nuts & Bolts', 'Clamps', 'Steel Fabrication', 'Aluminium Parts', 'Aluminium Gates & windows', 'Aluminium Fabrication', 'Aluminium Partitions', 'Cement & Bricks', 'Cement & Concrete', 'Building Bricks', 'Fly Ash Bricks', 'Fire Bricks', 'Concrete Blocks', 'Scaffoldings & Accessories', 'Scaffoldings', 'Scaffolding fittings', 'Ladders', 'Consruction Machinery', 'Cranes', 'Earth Moving Machinery', 'Concrete mixers', 'Impact Crushers', 'Brick Making Machines', 'Plumbing Items', 'Steel pipes', 'Plastic & PVC Pipes', 'Hose Pipes', 'Showers', 'Safety Items', 'Fire Extinguishers', 'Water proofing  System', 'Wood & Furniture', 'Timber & Plywood', 'Doors & Windows', 'Gates & Grills', 'Wooden Furniture', 'Plastic Furniture', 'Metallic Furniture', 'Coatings & Finishing', 'Water proofing  System', 'Curtain Walls', 'Powder Coating', 'Floor Coatings', 'Paints', 'Tiles', 'Interior Items', 'Industrial Chemicals', 'Pigments', 'Paint', 'Food Chemical & Preservatives', 'Agricultural Equipments', 'Agricultural Machinery', 'Insecticides & Pesticides', 'Edible Agricultural Products', 'Fertilizers & soil Additives', 'Seeds', 'Finished Clothes (Wearable)', 'Women Clothing', "Men's Clothing", 'T shirt Printing', 'Finished Clothes (Non Wearable)', 'Cloth raw material', 'Leather Products', 'Machinery', 'Measuring Equipments', 'Laboratory equipments', 'Material Handling Equipments & Parts', 'Welding Setup', 'Hand Tools', 'Power Tools', 'Designing', 'Industrial Services', 'Environmental Planning', 'Simulation & Analysis Services', 'Planning & Implementation', 'Web Designing Services', 'Software solutions', 'Online Marketing solutions', 'Installation, Maintenance etc.', 'Heating, Ventilation & Airconditioning', 'Solar Energy Installations', 'Electrical Installations', 'Machine Tools Installations', 'Transportation & Courier services', 'Export Services', 'Import Services', 'Training & Hiring Services', 'Lean & Six sigma training', 'Industrial Training', 'CAD, CAM, CAE Training', 'Computer & IT training', 'Online Marketing solutions', 'Website Making', 'Profile Management', 'Household services', 'Plumbing & fitting', 'Interior Decoration', 'Electrial Installation', 'Construction Services', 'Machine Repairing', 'Repairing Services']
-
-    for i in li:
-        t, created = Category.objects.get_or_create(name=i, level=1)
-
-    for i in li2:
-        try:
-            a = Category.objects.get(name=i, level=1)
-            if a:
-                k = [a]
-        except Exception:
-            b, created = Category.objects.get_or_create(name=i, level=2)
-            b.sub_cat = k
-
-    for i in li3:
-        try:
-            a = Category.objects.get(name=i, level=2)
-            if a:
-                k = [a]
-        except Exception:
-            b, created = Category.objects.get_or_create(name=i, level=3)
-            b.sub_cat = k
-
-    return redirect('/')
+    pass
 
 
 def c_r(request):
     id = request.GET.get('id')
     pro = Products.objects.get(id=id)
     wp = pro.producer
-    ppp = Product_Categories.objects.filter(product__producer=wp)
-    if len(ppp)>0:
-
-        pc = ppp.reverse()[0]
-        p = pc.product
-        q = Product_Categories.objects.filter(product=p)
-
-        for t in q:
-            Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
-        return redirect('/internal/activity/?q=p')
-    else:
-        pass
-
+    # ppp = Product_Categories.objects.filter(product__producer=wp)
+    # if len(ppp)>0:
+    #
+    #     pc = ppp.reverse()[0]
+    #     p = pc.product
+    #     q = Product_Categories.objects.filter(product=p)
+    #
+    #     for t in q:
+    #         Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
+    #     return redirect('/internal/activity/?q=p')
+    # else:
+    #     pass
+    pp = Product_Categories.objects.last()
+    p = pp.product
+    q = Product_Categories.objects.filter(product=p)
+    for t in q:
+        Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
+    return redirect('/internal/activity/?q=p')
 
 def int_category(request, slug):
     category = Category.objects.get(slug=slug)
@@ -772,19 +737,23 @@ def int_category(request, slug):
 
 
 def all_category(request):
-    categories = Category.objects.all()
+    cats = Category.objects.all()
     # return render(request, 'activities/category.html', locals())
-    paginator = Paginator(categories, 20)
+    paginator = Paginator(cats, 20)
     page = request.GET.get('page')
     try:
-        tags = paginator.page(page)
+        categories = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        tags = paginator.page(1)
+        categories = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        tags = paginator.page(paginator.num_pages)
-    return render_to_response('tags/list1.html', {"tags": tags})
+        categories = paginator.page(paginator.num_pages)
+    # return render_to_response('tags/list1.html', {"tags": tags})
+    if page:
+        return render(request, 'products/20_categories.html', {'categories': categories})
+    else:
+        return render(request, 'products/all_categories.html', {'categories': categories})
 
 
 def category(request, slug):        # Products
@@ -801,6 +770,8 @@ def category(request, slug):        # Products
 def category_prod(request, slug):        # Products
     category = Category.objects.get(slug=slug)
     products = Products.objects.filter(categories=category)
+    # if len(products) < 3:
+
     # products2 = Products.objects.filter()
     content_url = "products/snip_products.html"
     content_head_url = "products/snip_products_head.html"
@@ -821,7 +792,7 @@ def category_wp(request, slug):        # Workplace
         else:
             pass
     content_url = "products/snip_workplace.html"
-    content_head_url = "products/snip_workplace_head.html"
+    content_head_url = "products/snip_companies_head.html"
     if request.is_ajax():
         return render(request, content_url, locals())
     else:

@@ -687,7 +687,7 @@ def edit_workplace(request):
               'number_of_employees', 'website', 'product_details']
     if request.method == 'POST':
         for key in request.POST:
-            print(key, request.POST[key])
+            # print(key, request.POST[key])
             if key in direct:
                 try:
                     dictionary[key] = request.POST[key]
