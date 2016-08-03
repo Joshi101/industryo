@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head vocab="http://schema.org/">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="{% block meta_keywords %}CoreLogs, Industry, SME, SMEs, Engineers, Baja, Formula, Manufacturing{% endblock meta_keywords %}">
@@ -86,7 +86,7 @@
 
 </head>
 
-<body vocab="http://schema.org/"  typeof="{% block pg_schema %}{% endblock pg_schema %}">
+<body class="{% block pg_schema %}{% endblock pg_schema %}">
 
   {% block top %}
     {% include "snippets/top_navigation.html" with what="Products" %}
