@@ -106,7 +106,7 @@
           </a>
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
-        {% if request.user.userprofile.primary_workplace %}
+        {% if user.userprofile.primary_workplace %}
           <a id="top_nav_wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
             <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace.name}}">
             <span class="abr">{{user.userprofile.primary_workplace}}</span>
@@ -120,6 +120,7 @@
             <img class="lazy_img thmb_xs" src="/images/user_man.png" data-src="{{user.userprofile.get_profile_image}}" alt="{{user}}">
             <span class="abr">
             {% if user.first_name %}{{user.first_name}}{% else %}{{user.username}}{% endif %}
+            {{userprofile}}
             </span>
           </a>
         </li>
@@ -146,17 +147,19 @@
                 <span class="fa fa-sign-out inline_fa"></span>
               </a>
             </li>
-            {% if user.userprofile.get_all_workplaces %}
-            <li class="divider"></li>
-            {% for works in user.userprofile.get_all_workplaces %}
-            <li>
-              <a href="/workplace/cw?q={{works.id}}">
-                <span>{{works}}</span>
-                <span class="fa fa-briefcase inline_fa"></span>
-              </a>
-            </li>
-            {% endfor %}
-            {% endif %}
+            {% with all_workplaces=user.userprofile.get_all_workplaces %}
+              {% if all_workplaces %}
+              <li class="divider"></li>
+              {% for works in all_workplaces %}
+              <li>
+                <a href="/workplace/cw?q={{works.id}}">
+                  <span>{{works}}</span>
+                  <span class="fa fa-briefcase inline_fa"></span>
+                </a>
+              </li>
+              {% endfor %}
+              {% endif %}
+            {% endwith %}
           </ul>
         </li>
       </ul>

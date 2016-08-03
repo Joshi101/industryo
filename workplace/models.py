@@ -8,15 +8,11 @@ from threading import Thread
 
 class Workplace(models.Model):
     name = models.CharField(max_length=255)
-    LargeScaleIndustry = 'A'
-    SME = 'B'
-    SAE_Team = 'C'
-    Educational_Institution = 'O'
     Workplace_Type = (
-        (LargeScaleIndustry, 'Large Scale Industry'),
-        (SME, 'Small & Medium Scale Enterprise'),
-        (SAE_Team, 'SAE Collegiate club'),
-        (Educational_Institution, 'Educational Institution')
+        ('A', 'Large Scale Industry'),
+        ('B', 'Small & Medium Scale Enterprise'),
+        ('C', 'SAE Collegiate club'),
+        ('O', 'Educational Institution')
     )
     workplace_type = models.CharField(max_length=1, choices=Workplace_Type)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -351,34 +347,23 @@ class Workplace(models.Model):
         return city
 
     def get_tags(self):
-        o = WpTags.objects.filter(workplace=self, category='O')
-        operations = []
-        for b in o:
-            operations.append(b.tags)
-        a = WpTags.objects.filter(workplace=self, category='A')
-        assets = []
-        for b in a:
-            assets.append(b.tags)
-        c = WpTags.objects.filter(workplace=self, category='C')
-        city = []
-        for b in c:
-            city.append(b.tags)
-        m = WpTags.objects.filter(workplace=self, category='M')
-        materials = []
-        for b in m:
-            materials.append(b.tags)
-        s = WpTags.objects.filter(workplace=self, category='S')
-        segments = []
-        for b in s:
-            segments.append(b.tags)
-        e = WpTags.objects.filter(workplace=self, category='E')
-        events = []
-        for b in e:
-            events.append(b.tags)
-        i = WpTags.objects.filter(workplace=self, category='P')
-        institution = []
-        for b in i:
-            institution.append(b.tags)
+        tags = WpTags.objects.filter(workplace=self).select_related('tags')
+        operations, assets, city, materials, segments, events, institution = [], [], [], [], [], [], []
+        for t in tags:
+            if t.category == 'O':
+                operations.append(t.tags)
+            if t.category == 'A':
+                assets.append(t.tags)
+            if t.category == 'C':
+                city.append(t.tags)
+            if t.category == 'M':
+                materials.append(t.tags)
+            if t.category == 'S':
+                segments.append(t.tags)
+            if t.category == 'E':
+                events.append(t.tags)
+            if t.category == 'P':
+                institution.append(t.tags)
         return locals()
 
     def get_all_tags(self):

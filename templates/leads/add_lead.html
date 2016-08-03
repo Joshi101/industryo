@@ -71,12 +71,41 @@
       </div>
     </div>
   </div>
-  <div class="form-group">
-    <label for="lead_anonymous">Contact Details</label>
-    <div id="lead_anonymous" class="radio_group">
-      <label class="checkbox-inline"><input type="checkbox" value='false' name="anonymous1">Show your Contact Details</label>
+  <span class="collapse_h">Contact Details<span class="fa fa-fw fa-angle-down pull-right"></span></span>
+  {% if not user.is_authenticated %}
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="lead_user_name">Name</label>
+        <input id="lead_user_name" name="user_name" placeholder="Your Full Name" required>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="lead_user_company">Company</label>
+        <input id="lead_user_company" name="user_company" placeholder="Where You Work" required>
+      </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="lead_user_email">Email</label>
+        <input id="lead_user_email" name="user_email" placeholder="Email Address to get back to you" required>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="lead_user_mobile">Contact Number</label>
+        <input id="lead_user_mobile" name="user_mobile" placeholder="Contact Number to reach you" required>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div id="lead_anonymous" class="radio_group">
+    <label class="checkbox-inline"><input type="checkbox" value='false' name="anonymous1">Show your Contact Details</label>
+  </div>
+  {% endif %}
   <div class="col-submit">
     <button class="submitbtn">Create</button>
   </div>
@@ -84,9 +113,6 @@
 {% if first_time %}
   {% include "leads/first_time_modal.html" %}
   <script type="text/javascript">
-    $(function() {
-        console.log( "ready!" );
-    });
     $(function(){
       console.log('into aa')
       $('#intro_modal').modal();

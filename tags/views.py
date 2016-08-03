@@ -129,7 +129,7 @@ def tag_leads(request, slug):
 
 
 def get_all_tags(request):
-    all_tags = Tags.objects.all()[:20]
+    all_tags = Tags.objects.all()
     paginator = Paginator(all_tags, 20)
     page = request.GET.get('page')
     try:
@@ -143,7 +143,7 @@ def get_all_tags(request):
     if page:
         return render_to_response('tags/20_tags.html', {"tags": tags})
     else:
-        return render_to_response('tags/all_tags.html', {"tags": tags})
+        return render(request, 'tags/all_tags.html', {"tags": tags})
     # return render(request, 'tags/list1.html', locals())
 
 

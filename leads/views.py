@@ -22,18 +22,22 @@ def delete_tag(request, id):
         return HttpResponse()
 
 
-@login_required
 def edit_add_lead(request, slug):
     user = request.user
-    wp = user.userprofile.primary_workplace
     response = {}
     if slug == 'new':
         if request.method == 'POST':
             if request.POST.get('lead'):
                 now = datetime.now()
-                ls = Leads.objects.filter(user=user, date__range=[now-timedelta(days=1), now])
+                ls = {}
+                if user.is_authenticated():
+                    ls = Leads.objects.filter(user=user, date__range=[now-timedelta(days=1), now])
                 if len(ls) < 100:
-                    l = Leads.objects.create(lead=request.POST['lead'], user=user, workplace=wp)
+                    if user.is_authenticated():
+                        wp = user.userprofile.primary_workplace
+                        l = Leads.objects.create(lead=request.POST['lead'], user=user, workplace=wp)
+                    else:
+                        l = Leads.objects.create(lead=request.POST['lead'], name=request.POST['user_name'], email=request.POST['user_email'], company_name=request.POST['user_company'], mobile_number=request.POST['user_mobile'])
                     t = Thread(target=leads_mail, args=(l.id, 'created'))
                     t.start()
                     direct = l._meta.get_all_field_names()
@@ -73,11 +77,11 @@ def edit_add_lead(request, slug):
                 else:
                     return HttpResponse()
         else:
-            lg = Leads.objects.filter(user=user)
-            if len(lg)<1:
-                first_time = True
-            else:
-                first_time = False
+            first_time = True
+            if user.is_authenticated():
+                lg = Leads.objects.filter(user=user)
+                if len(lg) > 1:
+                    first_time = False
             return render(request, 'leads/edit.html', {'first_time': False})
     else:
         l = Leads.objects.get(slug=slug)
