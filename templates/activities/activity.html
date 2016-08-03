@@ -77,15 +77,28 @@
 		{% endfor %}  
 	  </ol>
 	  {% elif tt == "w" %}
-	  <ol type="1">  
+	  <!-- <ol type="1">  --> 
+	  	<table style="width:100%">
+	  	  <tr>
+		    <th>Company</th>
+		    <th>People</th> 
+		    <th>Tags</th>
+		    <th>Info Score</th>
+		    <th>Products</th>
+		    <th>Send Mail</th>
+		  </tr>
 		{% for u in lis reversed %}
-			<li>
-				<a href="{% url 'workplace:workplace_profile' u.slug %}">{{u.name}}</a>
-				{{u.get_tags_count}}
-				<strong class="pull-right">{{u.get_count}}</strong>
-			</li>
-		{% endfor %}  
-	  </ol>
+			  <tr>
+			    <td><a href="{% url 'workplace:workplace_profile' u.slug %}">{{u.name}}</a></td>
+			    <td>{{u.get_count}}</td> 
+			    <td>{{u.get_tags_count}}</td>
+			    <td>{{u.get_info_score}}</td>
+			    <td>{{u.get_product_count}}</td>
+			    <td><button type="submit" value="mail_wp_users&{{u.id}}" name="q">Send mail</button></td>
+			  </tr>
+		{% endfor %}
+		</table>
+	  <!-- </ol> -->
 	  {% elif tt == "c" %}
 	  <ol type="1">  
 		{% for u in lis %}
@@ -121,7 +134,7 @@
 
 
 			<div class="form-group">
-	      		<label class="control-label"><h3>Subject...</h3></label>
+	      		<label class="control-label"><h3>Subject...  use '?:' in place of '{' and ':?' in place of '}'</h3></label>
 	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="subject" type="text" placeholder="" required/>
 			</div>
 			<div class="form-group">
@@ -134,7 +147,7 @@
 			  </div>
 			</div>
 			<div class="form-group">
-	      		<label class="control-label"><h3>arguments..</h3></label>
+	      		<label class="control-label"><h3>arguments.. Send tuple like (up, up.primary_workplace)</h3></label>
 	      		<input class="form-control open_input title_input" id="id_title" maxlength="255" name="arguments" type="text" placeholder="" required/>
 			</div>
 			<ul class="list-unstyled">
@@ -184,6 +197,10 @@
 		</form>
 	{% endif %}
 	</div>
+
+table, th, td {
+    border: 1px solid black;
+}
 
 <a href="{% url "activities:int_add_product" %}"><i class="fa fa-opencart inline_fa"></i>Add Products</a>
 
