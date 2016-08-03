@@ -18,7 +18,6 @@ from itertools import chain
 from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -101,7 +100,6 @@ def new_category(request):
 
 
 def change_category(a, b):
-    print("LLLLLLLLLLLLLLLLLLLLLLLLLLLL")
     cat = Category.objects.get(slug=a)
     cat.level = 3
     cat.save()
@@ -112,7 +110,6 @@ def change_category(a, b):
         p.level = 3
         p.save()
         Product_Categories.objects.create(product=p.product, level=2, category=cat2)
-    print('DONENNENENENENENENE')
 
 
 
@@ -740,19 +737,23 @@ def int_category(request, slug):
 
 
 def all_category(request):
-    categories = Category.objects.all()
+    cats = Category.objects.all()
     # return render(request, 'activities/category.html', locals())
-    paginator = Paginator(categories, 20)
+    paginator = Paginator(cats, 20)
     page = request.GET.get('page')
     try:
-        tags = paginator.page(page)
+        categories = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        tags = paginator.page(1)
+        categories = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        tags = paginator.page(paginator.num_pages)
-    return render_to_response('tags/list1.html', {"tags": tags})
+        categories = paginator.page(paginator.num_pages)
+    # return render_to_response('tags/list1.html', {"tags": tags})
+    if page:
+        return render(request, 'products/20_categories.html', {'categories': categories})
+    else:
+        return render(request, 'products/all_categories.html', {'categories': categories})
 
 
 def category(request, slug):        # Products

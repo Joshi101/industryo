@@ -68,6 +68,8 @@
           <h3>
             <span class="num">{{workplace.hits}}</span>&nbsp;Page Views</span>
           </h3>
+          {% else %}
+          <a class="btn btn-default btn-sm" href="{% url 'home' %}">Get Your Company Profile like this for free</a>
           {% endif %}
         </div>
         <!-- <div class="info_labels">
