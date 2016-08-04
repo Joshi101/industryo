@@ -127,6 +127,7 @@ img{
   background: rgba(0,0,0,0.85);
   height: 50px;
   border-bottom: 1px solid rgba(0,0,0,0.09);
+  display: flex;
 }
 
 @media (max-width:786px){
@@ -142,10 +143,12 @@ img{
 
 .pre_nav > a{
   color: #ddd;
-  display: inline-block;
+  /*! display: inline-block; */
   height: 50px;
   line-height: 50px;
   vertical-align: middle;
+  flex-shrink: 0;
+  margin-right: 15px;
 }
 
 .pre_nav a:hover{
@@ -157,12 +160,22 @@ img{
   display: inline-block;
   font-weight: 700;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 50px;
   letter-spacing: 2px;
   overflow: hidden;
-  vertical-align: middle;
+  /*! vertical-align: middle; */
   margin-left: 3px;
   //font-family: '';
+}
+
+.pre_nav .nav_advert{
+  color: #bbb;
+  flex-grow: 1;
+  text-align: center;
+  line-height: 20px;
+  align-self: center;
+  border-left: 1px solid #555;
+  padding: 0 10px;
 }
 
 .brand_img{
@@ -177,6 +190,7 @@ img{
   color: #fff;
   line-height: 35px;
   text-align: right;
+  vertical-align: baseline;
 }
 
 .nav_left{
@@ -5331,7 +5345,7 @@ border: 1px solid rgba(0,0,0,.12);
   position: fixed;
   right: 0;
   top: 150px;
-  padding: 15px;
+  padding: 25px;
 }
 
 .right_data_1{
@@ -5340,7 +5354,20 @@ border: 1px solid rgba(0,0,0,.12);
 
 .right_data_1 h4{
   margin-bottom: 15px;
-  color: #777;
+  color: #555;
+}
+
+.right_data_1 .chart{
+  margin-bottom: 10px;
+}
+
+.right_data_1 p{
+  padding-left: 25px;
+}
+
+.right_data_1 p .fa{
+  margin-left: -25px;
+  margin-right: 5px;
 }
 
 .left_right{

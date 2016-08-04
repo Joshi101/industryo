@@ -1349,7 +1349,7 @@ $(document).ready(function(){
 
             success: function(response) {
                 $this.html(response);
-                console.log('home_right load hua');
+                console.log('kuch ajax load hua');
                 lazyImages();
             },
 
