@@ -716,7 +716,8 @@ def edit_workplace(request):
                 setattr(workplace, key, dictionary[key])
             workplace.save()
 
-        response = []
+        response = {}
+        response['info_score'] = workplace.get_info_score()
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         dict = workplace.__dict__

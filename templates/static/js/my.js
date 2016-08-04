@@ -10,7 +10,7 @@ $(function () {
   $('[data-toggle="popover"]').popover();
 });
 
-var top_nav_width, win_width, win_height, foot_height;
+var top_nav_width, win_width, win_height, foot_height, mid_wide, side_wide;
 
 /* function to initialize some global parameters */
 function measure() {
@@ -18,6 +18,7 @@ function measure() {
     win_width = $(window).width();
     win_height = $(window).height();
     foot_height = $('footer').outerHeight(true);
+    left_right();
     body_slide();
 }
 
@@ -27,6 +28,25 @@ function body_slide() {
         //'margin-top': top_nav_width,
         'min-height': (win_height - top_nav_width)
     });
+}
+
+/* function to adjust left and right menus */
+function left_right(){
+    $mid_body = $('.mid_body');
+    if ($mid_body.length){
+        $parent = $mid_body.parent();
+        $side_body = $('.side_body');
+        mid_wide = $mid_body.outerWidth();
+        side_wide = ($parent.width() - mid_wide)/2;
+        side_aithan = $side_body.find('.aithan').data('aithan');
+        if (side_wide < side_aithan){
+            $side_body.css('width', side_wide).addClass('hide');
+        }
+        else{
+            $side_body.css('width', side_wide).removeClass('hide');
+        }
+        console.log($mid_body.parent().width(), mid_wide, side_wide, side_aithan);
+    }
 }
 
 /* call body_slide when the window loads or resizes */
@@ -896,13 +916,13 @@ $('.hover_ajax').on({
 $(document).ready(function() {
     //fetches notifications
     count_notifications();
-    count_messages();
+    // count_messages();
 
 });
 
 function count_notifications() {
     $.ajax({
-        url: 'count_notify',
+        url: count_url,
         type: 'GET',
 
         success: function(response) {
@@ -2172,6 +2192,11 @@ function autoSubmit($this, data_response){
                 console.log(data_response)
                 window[data_response]($field, response);
             }
+            else if ($form.data('response')){
+                data_response = $form.data('response');
+                console.log(data_response);
+                window[data_response]($field, response);
+            }
         },
 
         error: function(xhr, errmsg, err) {
@@ -2205,6 +2230,12 @@ function leadCreated($field,response){
     $('#lead_from').html(response);
     /*$field.closest('form').attr('action',"/leads/edit_add/"+response['l_slug']+"/");
     console.log($field.closest('form').attr('action'));*/
+}
+
+function UpdateScore($field,response){
+    console.log(response)
+    var el = $('#info_score').find('.circle_bar').attr('data-percent', response.info_score)[0];
+    CircleProgress(el);
 }
 
 function imageUpload($this){

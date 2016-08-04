@@ -1880,7 +1880,7 @@ input.cropit-image-input {
 }
 
 #right {
-  position: relative;
+  /*! position: relative; */
   overflow: hidden;
 }
 
@@ -5325,4 +5325,24 @@ border: 1px solid rgba(0,0,0,.12);
   .cover_top .cover_btn{
     /*! margin-top: -15%; */
   }
+}
+
+.right_persist{
+  position: fixed;
+  right: 0;
+  top: 150px;
+  padding: 15px;
+}
+
+.right_data_1{
+  text-align: center;
+}
+
+.right_data_1 h4{
+  margin-bottom: 15px;
+  color: #777;
+}
+
+.left_right{
+  
 }

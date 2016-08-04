@@ -155,7 +155,12 @@
     "numberOfEmployees": "{{workplace.number_of_employees}}",
     "email": "{{workplace.office_mail_id}}",
     "telephone": "{{workplace.contact}}",
-    "address": "{{workplace.address|default:'Postal Address not available'}}"
+    "address": "{{workplace.address|default:'Postal Address not available'}}",
+    "sameAs": [
+      "{{workplace.get_fb_page}}",
+      "{{workplace.get_linkedin_page}}",
+      "{{workplace.get_website}}"
+    ]
   }
   </script>
   {% endwith %}
