@@ -50,6 +50,8 @@ def send_html(request):
 @login_required
 def send_mail(request):
     if request.method == 'POST':
+        users = []
+        users1 = []
         now_utc = datetime.now(pytz.UTC)
         s = request.POST.get('q')
         subject = request.POST.get('subject')
@@ -88,7 +90,25 @@ def send_mail(request):
         elif s == "ranh":
             questions = Question.objects.filter(answered=False)
             for q in questions:
-                tasks.send_html_mail_post(q.user.id, n=Template_answer_your_own_question.format(q.user.userprofile, q.slug, q.title))
+                tasks.send_html_mail_post(q.user.id, n=Template_answer_your_own_question.format(q.user.userprofile,
+                                                                                                q.slug, q.title))
+
+        elif s[:13] == 'mail_wp_users':
+            y = s.split('&')[1]
+            w = Workplace.objects.get(id=str(y))
+            userps = w.get_members()
+            users1 = []
+            if userps:
+                for u in userps:
+                    users1.append(u.user)
+            else:
+                pass
+                # wp_mail = w.office_mail_id
+                # wp = Workplace.objects.get()
+                # a = eval(arguments)
+                # html_content = body.format(*a)
+                # MailSend.objects.create(email=wp_mail, body=html_content, reasons='dm', subject=subject,
+                #                         from_email=random.choice([2, 3, 4]), date=now_utc)
 
         elif s == "lh":
             # pi = []
@@ -102,16 +122,26 @@ def send_mail(request):
             #         pi = []
             # tasks.send_list_html_mail(pi, n=22)
         minutes = 1
-        for user in users:
-            up = user.userprofile
-            a = eval(arguments)
-            template = body
-            html_content = template.format(*a)
+        if users:
+            for user in users:
+                up = user.userprofile
+                a = eval(arguments)
+                template = body
+                html_content = template.format(*a)
 
-            MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm', subject=subject,
-                                    from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
-            minutes += 1
+                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='bm', subject=subject,
+                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
+                minutes += 1
+        if users1:
+            for user in users1:
+                up = user.userprofile
+                a = eval(arguments)
+                template = body
+                html_content = template.format(*a)
 
+                MailSend.objects.create(user=user, email=user.email, body=html_content, reasons='dm', subject=subject,
+                                        from_email=random.choice([2, 3, 4]), date=now_utc + timedelta(minutes=minutes))
+                minutes += 1
     return redirect('/internal/activity')
 
 

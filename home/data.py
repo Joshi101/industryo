@@ -64,7 +64,7 @@ def details(request):
             tm = "q"
 
         elif s == 'wb':
-            lis = Workplace.objects.filter(date__range=[enddate, startdate], workplace_type='B')
+            lis = Workplace.objects.filter(date__range=[startdate-timedelta(days=200), startdate], workplace_type='B')
             text = "SMEs registered"
             tt = "w"
         elif s == 'wc':
@@ -102,7 +102,7 @@ def details(request):
             text = "Workplace Tags created"
             tt = "wpt"
         elif s == 'enq':
-            lis = Enquiry.objects.filter(date__range=[enddate, startdate])
+            lis = Enquiry.objects.filter(date__range=[startdate-timedelta(days=60), startdate])
             return render(request, 'activities/enquiry.html', locals())
         elif s == 'ms':
             lis = MailSend.objects.filter(date__range=[startdate-timedelta(days=1), startdate])

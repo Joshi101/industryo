@@ -102,7 +102,7 @@ def check_executable():
 
 def send_marketing():
     start_time = datetime.now(pytz.utc)
-    now_utc = datetime.now(pytz.utc)
+    now_utc = datetime.now()
     to_send = ContactEmails.objects.filter(sent=False, user__userprofile__workplace_type='B')[:4]
     for s in to_send:
         up = s.user.userprofile
