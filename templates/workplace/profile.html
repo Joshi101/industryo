@@ -68,8 +68,6 @@
           <h3>
             <span class="num">{{workplace.hits}}</span>&nbsp;Page Views</span>
           </h3>
-          {% else %}
-          <a class="btn btn-default btn-sm" href="{% url 'home' %}">Get Your Company Profile like this for free</a>
           {% endif %}
         </div>
         <!-- <div class="info_labels">
@@ -99,6 +97,11 @@
   {% include "enquiry/no_product_modal.html" %}
 </div>
 <div class="container-fluid">
+  {% if not user.is_authenticated %}
+  <div class="text-center">
+    <a class="btn advert_a btn-success" href="{% url 'home' %}" style="margin: 10px;">Get Your Own Company Profile like this for free</a>
+  </div>
+  {% endif %}
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       {% include "workplace/snippets/wp_nav_items_2.html" with workplace=workplace type=type %}

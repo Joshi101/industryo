@@ -404,7 +404,7 @@ def handler500(request):
     return response
 
 def nav_advert(request):
-    path = request.GET['path']
+    path = request.POST.get('path')
     if request.user.is_authenticated():
         wp = reverse('workplace:workplace_profile', kwargs={'slug': request.user.userprofile.primary_workplace.slug})
         print(wp, path)
