@@ -426,7 +426,7 @@ class Workplace(models.Model):
         if n:
             return n
         else:
-            return 0
+            return 5
 
     def get_tags_score(self):
         m = self.wptags.all().count()
