@@ -18,6 +18,7 @@ from itertools import chain
 from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
+from passwords.passwords import admin
 
 
 @login_required
@@ -328,7 +329,7 @@ def send_enq_mail(e):
     my_host = 'smtp.zoho.com'
     my_port = 587
     my_username = 'admin@corelogs.com'
-    my_password = 'AD@zoho.09'
+    my_password = admin
     my_use_tls = True
     connection = get_connection(host=my_host,
                                 port=my_port,
