@@ -26,14 +26,14 @@
 {% endblock top %}
 
 {% block body %}
-  <div class="container">
-    <div class="wide_80">
+  <div class="container-fluid left_right">
+    <div class="wide_80 mid_body">
       <div class="form_card tile_flat">
         <div class="row edit_title">
           {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
           <div class="col-md-3">
             <div id="img_profile_box">
-              <img id="img_profile" class="thumbnail lazy_img" width="120" height="120" src="/images/wp.png" data-src="{{workplace.get_logo}}" alt="{{name}}">
+              <img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" alt="{{name}}">
               <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
             </div>
             <div class="img_profile_label">Company Logo</div>
@@ -48,7 +48,7 @@
             <span class="text-muted">The Data You Fill Here will be what Others will See on Your Company profile.<br>Fill more data to get found easily</span>
           </div>
         </div>
-        <form id="edit_wp_form" class="ajax_andar auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data">
+        <form id="edit_wp_form" class="ajax_andar auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data" data-response="UpdateScore">
           {% csrf_token %}
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
           <a href="#gen_info" class="collapse_h" data-toggle="collapse">General Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
@@ -105,18 +105,18 @@
               <div class="radio_group">
                 <label class="radio-inline"><input type="radio" value='A' name="sme_type">Manufacturing</label>
                 <label class="radio-inline"><input type="radio" value='C' name="sme_type">Supplier</label>
-                <label class="radio-inline"><input type="radio" value='B' name="sme_type">Service Provider</label> 
+                <label class="radio-inline"><input type="radio" value='B' name="sme_type">Service Provider</label>
               </div>
             </div>
             <div class="form-group">
               <label for="legal_status">Legal Status{{workplace.get_legal_status}}</label>
               <div class="radio_group">
-                <label class="radio-inline"><input type="radio" name="legal_status" value="A">Private Limited</label> 
+                <label class="radio-inline"><input type="radio" name="legal_status" value="A">Private Limited</label>
                 <label class="radio-inline"><input type="radio" name="legal_status" value="B">Proprietorship</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="D">Public</label> 
+                <label class="radio-inline"><input type="radio" name="legal_status" value="D">Public</label>
                 <label class="radio-inline"><input type="radio" name="legal_status" value="E">Partnership Firm</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="U">Unregistered</label> 
-                <label class="radio-inline"><input type="radio" name="legal_status" value="O">Other</label> 
+                <label class="radio-inline"><input type="radio" name="legal_status" value="U">Unregistered</label>
+                <label class="radio-inline"><input type="radio" name="legal_status" value="O">Other</label>
                 <label class="radio-inline"><input type="radio" name="legal_status" value="C">Limited Liability Partnership</label>
               </div>
             </div>
@@ -205,15 +205,18 @@
         </form>
       </div>
     </div>
+    <aside class="right_persist side_body hide">
+      <div id="info_score" class="right_data_1">
+        <h4 class="">Info Score</h4>
+        <div class="chart circle_bar aithan" data-aithan="100" data-line="10" data-size="100" data-percent="{{workplace.get_info_score|floatformat:'0'}}"></div>
+        {% include "snippets/progress_circle.html" %}
+        <p class="text-muted">
+          <span class="fa fa-info-circle"></span> The Info Score is a metric to indicate how much of data is visible on your company profile.<br>
+          <span class="text-success">A greater the score builds a more authentic profile.</span>
+        </p>
+      </div>
+    </aside>
   </div>
-  <div id="right" class="col-sm-2">
-    <div class="side_help">
-      <h3 class="side_head"><a href="{% url 'forum:how_to_ask' %}">Your Info Score</a><br>
-      Add Here Workplace score graph
-      
-    </div>
-  </div>
-
   <script type="text/javascript">
     $('#top_nav_wp').addClass('current');
   </script>

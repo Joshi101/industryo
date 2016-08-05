@@ -139,9 +139,10 @@
   {
     "@context": "http://schema.org",
     "@type": "Organization",
-    "url": "{{workplace.get_website}}",
+    "name": "{{workplace.name}}",
+    "url": "{{workplace.get_website|default:''}}",
     "logo": "http://www.corelogs.com{{workplace.get_logo}}",
-    "description": "{{workplace.about}}",
+    "description": "{{workplace.about|default:''}}",
     "location": [
       {% for tag in tags.city %}
       {% if forloop.counter0 %},{% endif %}
@@ -151,9 +152,16 @@
       }
       {% endfor%}
     ],
-    "foundingDate": "{{workplace.year_established}}",
-    "email": "{{workplace.office_mail_id}}",
-    "address": "{{workplace.address|default:'Postal Address not available'}}"
+    "foundingDate": "{{workplace.year_established|default:''}}",
+    "numberOfEmployees": "{{workplace.number_of_employees|default:''}}",
+    "email": "{{workplace.office_mail_id|default:''}}",
+    "telephone": "{{workplace.contact|default:''}}",
+    "address": "{{workplace.address|default:''}}",
+    "sameAs": [
+      "{{workplace.get_fb_page|default:''}}",
+      "{{workplace.get_linkedin_page|default:''}}",
+      "{{workplace.get_website|default:''}}"
+    ]
   }
   </script>
   {% endwith %}

@@ -423,7 +423,10 @@ class Workplace(models.Model):
         b = list(filter(lambda x: x!=None, a))
         m = len(b)
         n = int(round(m*10/1.8))
-        return n
+        if n:
+            return n
+        else:
+            return 0
 
     def get_tags_score(self):
         m = self.wptags.all().count()
