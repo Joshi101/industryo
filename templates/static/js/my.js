@@ -1343,9 +1343,17 @@ $(document).ready(function(){
         var ajaxloadflag = true;
         var $this = $(this);
         var url = $(this).data('url');
+        var post = $(this).data('post');
+        var data = '';
+        type = 'GET';
+        if (post){
+            type = 'POST';
+            data = post;
+        }
         $.ajax({
             url: url,
-            type: 'GET',
+            type: type,
+            data: data,
 
             success: function(response) {
                 $this.html(response);

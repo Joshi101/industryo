@@ -84,7 +84,7 @@ urlpatterns = patterns('',
     url(r'^category/(?P<slug>[^/]+)/products/$', 'products.views.category_prod', name='category_prod'),
     url(r'^category/(?P<slug>[^/]+)/workplace/$', 'products.views.category_wp', name='category_wp'),
 
-    url(r'^nav_advert/$', 'home.nav_content.nav_advert', name='nav_advert'),
+    url(r'^nav_suggest/$', 'home.nav_content.nav_suggest', name='nav_suggest'),
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
