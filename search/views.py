@@ -13,7 +13,7 @@ import traceback
 
 def search(request):
     querystring = request.GET.get('pre_q', '').strip()
-    what = request.GET.get('type')
+    what = request.GET.get('what')
     terms = None
     if len(querystring) >= 3:
         terms = querystring.split(' ')
@@ -53,7 +53,7 @@ def search(request):
         for term in terms:
             q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
             query['products'] = q
-
+    print(query)
     return render(request, 'search/search.html', locals())
 
 

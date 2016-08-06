@@ -4,7 +4,7 @@
 
 {% block title %}Corelogs, Platform for SMEs{% endblock title %}
 
-{% block page_id %}error_page{% endblock page_id %}
+{% block page_id %}search_page{% endblock page_id %}
 
 {% block top %}
   {% include "snippets/top_navigation.html" with what="Products" %}
@@ -12,112 +12,77 @@
 
 {% block body %}
 <div class="container">
-	  <h3>Search About Companies, SMEs, Industries, Industrial citeies, Prodcts and much more.</h3>
-	<div id="search col-md-5">
-      <form id="top_search_form" action="{% url 'search' %}" role="form">
-            <span id="search_typ" class="input-group-btn">
-              <div class="dropdown select_dropdown" data-name="what">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <i class=""></i>
-                  <span class="value hide">{{what|capfirst}}</span>
-                  <span class="caret"></span>
-                </button>
-                <ul class="list-group dropdown-menu">
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-tasks fa-fw"></i>&nbsp;<span class="value">All</span></a>
-                  </li>
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-tasks fa-fw"></i>&nbsp;<span class="value">Questions</span></a>
-                  </li>
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-book fa-fw"></i>&nbsp;<span class="value">Articles</span></a>
-                  </li>
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-tag fa-fw"></i>&nbsp;<span class="value">Tags</span></a>
-                  </li>
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-users fa-fw"></i>&nbsp;<span class="value">Users</span></a>
-                  </li>
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-building fa-fw"></i>&nbsp;<span class="value">Workplaces</span></a>
-                  </li>
-                  <li>
-                    <a class="list-group-item"><i class="fa fa-cubes fa-fw"></i>&nbsp;<span class="value">Products</span></a>
-                  </li>
-                </ul>
-              </div>
-            </span>
-            {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True no_tags=True placeholder="Search "|add:what|add:" ..." parent="accordion" tags=None %}
-            <span class="input-group-btn">
-              <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-        <input class="what" type="hidden" name="what" value="All">
-      </form>
+  <h3>Search About Companies, SMEs, Industries, Industrial citeies, Prodcts and much more.</h3>
+  <form action="{% url 'search' %}" role="form">
+    <div class="input-group ">
+      <span class="input-group-btn">
+        <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
+      </span>
+      {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True no_tags=True placeholder="Search "|add:what|add:" ..." parent="accordion" tags=None %}
+      <span class="input-group-btn">
+        <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
+      </span>
     </div>
-    <div class="">
-      {% if not what %}
-      	<li class="list-group-item option">Input atleast 3 characters</li>
-      {% endif %}
+    <input class="what" type="hidden" name="what" value="all">
+  </form>
+  <div class="">
+    {% for q in query.workplaces|slice:":10" %}
+    <a href="{% url 'workplace:workplace_profile' q.slug %}">
+    	<li class="list-group-item option">
+    		<img src="{{ q.get_logo }}">
+    		<span class="name">{{ q.name }}</span>
+    		<span class="details">{{ q.get_type }}</span>
+    	</li>
+    </a>
+    {% endfor %}
+    {% for q in query.users|slice:":10" %}
+    <a href="{% url 'user:profile' q.username %}">
+    	<li class="list-group-item option">
+    		<img src="{{q.userprofile.get_profile_image}}">
+    		<span class="name">{{ q.userprofile }}</span>
+    		<span class="details">{{ q.userprofile.job_position }} at {{ q.userprofile.primary_workplace }}</span>
+    	</li>
+    </a>
+    {% endfor %}
+    {% for q in query.products|slice:":10" %}
+    <a href="{% url 'products:product' q.slug %}">
+    	<li class="list-group-item option">
+    		<img src="{{q.get_image_thumbnail }}">
+    		<span class="name">{{ q }}</span>
+    		<span class="details">by {{ q.producer }}</span>
+    	</li>
+    </a>
+    {% endfor %}
+    {% for q in query.questions|slice:":10" %}
+    <a href="{% url 'forum:question' q.slug %}">
+    	<li class="list-group-item option">
+    		<span class="name">{{ q.title }}</span>
+    		<span class="details">{{ q.get_summary|truncatewords_html:10|safe  }}</span>
+    	</li>
+    </a>
+    {% endfor %}
+    {% for q in query.tags|slice:":10" %}
+    <a href="{% url 'tags:get_tag' q.slug %}">
+    	<li class="list-group-item option">
+    		<img src="{{q.get_logo }}">
+    		<span class="name">{{ q }}</span>
+    		<span class="details">{{ q.description }}</span>
+    	</li>
+    </a>
+    {% endfor %}
+    {% for q in query.articles|slice:":10" %}
+    <a href="{% url 'nodes:node' q.slug %}">
+    	<li class="list-group-item option">
+    		<span class="name">{{ q.title }}</span>
+    		<span class="details">by {{ q.user.userprofile }} from {{ q.user.userprofile.primary_workplace }}</span>
+    	</li>
+    </a>
+    {% endfor %}
 
+    {% if nr %}
+    <li class="list-group-item option">Sorry, no results found</li>
+    {% endif %}
 
-      {% for q in query.workplaces|slice:":10" %}
-      <a href="{% url 'workplace:workplace_profile' q.slug %}">
-      	<li class="list-group-item option">
-      		<img src="{{ q.get_logo }}">
-      		<span class="name">{{ q.name }}</span>
-      		<span class="details">{{ q.get_type }}</span>
-      	</li>
-      </a>
-      {% endfor %}
-      {% for q in query.users|slice:":10" %}
-      <a href="{% url 'user:profile' q.username %}">
-      	<li class="list-group-item option">
-      		<img src="{{q.userprofile.get_profile_image}}">
-      		<span class="name">{{ q.userprofile }}</span>
-      		<span class="details">{{ q.userprofile.job_position }} at {{ q.userprofile.primary_workplace }}</span>
-      	</li>
-      </a>
-      {% endfor %}
-      {% for q in query.products|slice:":10" %}
-      <a href="{% url 'products:product' q.slug %}">
-      	<li class="list-group-item option">
-      		<img src="{{q.get_image_thumbnail }}">
-      		<span class="name">{{ q }}</span>
-      		<span class="details">by {{ q.producer }}</span>
-      	</li>
-      </a>
-      {% endfor %}
-      {% for q in query.questions|slice:":10" %}
-      <a href="{% url 'forum:question' q.slug %}">
-      	<li class="list-group-item option">
-      		<span class="name">{{ q.title }}</span>
-      		<span class="details">{{ q.get_summary|truncatewords_html:10|safe  }}</span>
-      	</li>
-      </a>
-      {% endfor %}
-      {% for q in query.tags|slice:":10" %}
-      <a href="{% url 'tags:get_tag' q.slug %}">
-      	<li class="list-group-item option">
-      		<img src="{{q.get_logo }}">
-      		<span class="name">{{ q }}</span>
-      		<span class="details">{{ q.description }}</span>
-      	</li>
-      </a>
-      {% endfor %}
-      {% for q in query.articles|slice:":10" %}
-      <a href="{% url 'nodes:node' q.slug %}">
-      	<li class="list-group-item option">
-      		<span class="name">{{ q.title }}</span>
-      		<span class="details">by {{ q.user.userprofile }} from {{ q.user.userprofile.primary_workplace }}</span>
-      	</li>
-      </a>
-      {% endfor %}
-
-      {% if nr %}
-      <li class="list-group-item option">Sorry, no results found</li>
-      {% endif %}
-
-    </div>
+  </div>
 </div>
 {% endblock body %}
