@@ -52,8 +52,72 @@
               <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
             </span>
         </div>
-        <input class="what" type="hidden" name="what" value="{{what}}">
+        <input class="what" type="hidden" name="what" value="All">
       </form>
+    </div>
+    <div class="">
+      {% if not what %}
+      	<li class="list-group-item option">Input atleast 3 characters</li>
+      {% endif %}
+
+
+      {% for q in query.workplaces|slice:":10" %}
+      <a href="{% url 'workplace:workplace_profile' q.slug %}">
+      	<li class="list-group-item option">
+      		<img src="{{ q.get_logo }}">
+      		<span class="name">{{ q.name }}</span>
+      		<span class="details">{{ q.get_type }}</span>
+      	</li>
+      </a>
+      {% endfor %}
+      {% for q in query.users|slice:":10" %}
+      <a href="{% url 'user:profile' q.username %}">
+      	<li class="list-group-item option">
+      		<img src="{{q.userprofile.get_profile_image}}">
+      		<span class="name">{{ q.userprofile }}</span>
+      		<span class="details">{{ q.userprofile.job_position }} at {{ q.userprofile.primary_workplace }}</span>
+      	</li>
+      </a>
+      {% endfor %}
+      {% for q in query.products|slice:":10" %}
+      <a href="{% url 'products:product' q.slug %}">
+      	<li class="list-group-item option">
+      		<img src="{{q.get_image_thumbnail }}">
+      		<span class="name">{{ q }}</span>
+      		<span class="details">by {{ q.producer }}</span>
+      	</li>
+      </a>
+      {% endfor %}
+      {% for q in query.questions|slice:":10" %}
+      <a href="{% url 'forum:question' q.slug %}">
+      	<li class="list-group-item option">
+      		<span class="name">{{ q.title }}</span>
+      		<span class="details">{{ q.get_summary|truncatewords_html:10|safe  }}</span>
+      	</li>
+      </a>
+      {% endfor %}
+      {% for q in query.tags|slice:":10" %}
+      <a href="{% url 'tags:get_tag' q.slug %}">
+      	<li class="list-group-item option">
+      		<img src="{{q.get_logo }}">
+      		<span class="name">{{ q }}</span>
+      		<span class="details">{{ q.description }}</span>
+      	</li>
+      </a>
+      {% endfor %}
+      {% for q in query.articles|slice:":10" %}
+      <a href="{% url 'nodes:node' q.slug %}">
+      	<li class="list-group-item option">
+      		<span class="name">{{ q.title }}</span>
+      		<span class="details">by {{ q.user.userprofile }} from {{ q.user.userprofile.primary_workplace }}</span>
+      	</li>
+      </a>
+      {% endfor %}
+
+      {% if nr %}
+      <li class="list-group-item option">Sorry, no results found</li>
+      {% endif %}
+
     </div>
 </div>
 {% endblock body %}
