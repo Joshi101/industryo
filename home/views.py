@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, render_to_response, RequestContex
 from nodes.models import Node
 from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
-from workplace.models import Workplace
+from workplace.models import Workplace, WpTags
 from forum.models import Question
 from tags.models import Tags
 from leads.models import Leads
@@ -173,6 +173,19 @@ def feed(request):
             return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
         else:
             return render(request, 'home.html', {'result_list': result_list})
+
+
+def my_network(request):
+    if request.user.userprofile.workplace_type is not 'N':
+        wp = request.user.userprofile.primary_workplace
+        my_city = wp.get_tags.city
+        companies = []
+        # for city in my_city:
+        WpTags
+
+    else:
+        return redirect('/set')
+
 
 
 def home_right(request):
