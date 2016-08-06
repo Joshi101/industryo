@@ -25,58 +25,35 @@ def searchq(request):   # active
         t.start()
     if not terms:
         return render(request, 'search/list.html')
-
-    query = None
-
-    if what == 'questions':
+    query = {}
+    if what in ('questions', 'all'):
         for term in terms:
             q = Question.objects.filter(Q(title__icontains=term) | Q(question__icontains=term))
-            if query is None:
-                query = q
-            else:
-                query = query & q
-    elif what == 'articles':
+            query['questions'] = q
+            # if query is None:
+            #     query = q
+            # else:
+            #     query = query & q
+    if what in ('articles', 'all'):
         for term in terms:
             q = Node.article.filter(Q(title__icontains=term) | Q(post__icontains=term))
-            if query is None:
-                query = q
-            else:
-                query = query & q
-    elif what == 'tags':
+            query['articles'] = q
+    if what in ('tags', 'all'):
         for term in terms:
             q = Tags.objects.filter(Q(tag__icontains=term) | Q(description__icontains=term))
-            if query is None:
-                query = q
-            else:
-                query = query & q
-    elif what == 'users':
+            query['tags'] = q
+    if what in ('users', 'all'):
         for term in terms:
             q = User.objects.filter(Q(first_name__icontains=term) | Q(last_name__icontains=term) | Q(username__icontains=term))
-            if query is None:
-                query = q
-            else:
-                query = query & q
-    elif what == 'workplaces':
+            query['users'] = q
+    if what in ('workplaces', 'all'):
         for term in terms:
             q = Workplace.objects.filter(name__icontains=term)
-            if query is None:
-                query = q
-            else:
-                query = query & q
-    elif what == 'products':            
+            query['workplaces'] = q
+    if what in ('products', 'all'):
         for term in terms:
             q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
-            if query is None:
-                query = q
-            else:
-                query = query & q
-    else:
-        for term in terms:
-            q = Products.objects.filter(Q(product__icontains=term) | Q(description__icontains=term))
-            if query is None:
-                query = q
-            else:
-                query = query & q
+            query['products'] = q
     return render(request, 'search/list.html', {'query': query, 'what': what})
 
 

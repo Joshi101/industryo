@@ -1,4 +1,11 @@
+from operator import attrgetter
+from itertools import chain
 from django.shortcuts import render, redirect, render_to_response, RequestContext, HttpResponse
+from django.core.mail import send_mail
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.models import Session
+from allauth.account.forms import LoginForm, SignupForm
 from nodes.models import Node
 from nodes.forms import UploadImageForm
 from userprofile.models import UserProfile
@@ -7,21 +14,13 @@ from forum.models import Question
 from tags.models import Tags
 from leads.models import Leads
 from products.models import Products, Category
-from itertools import chain
 # from allauth.account.forms import AddEmailForm, ChangePasswordForm
-from allauth.account.forms import LoginForm, ResetPasswordKeyForm
-from allauth.account.forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from operator import attrgetter
-from django.contrib.auth.decorators import login_required
 from home import tasks
-from django.core.mail import send_mail
 from tracking.models import Tracker
-from django.contrib.sessions.models import Session
 
 
 def feedback(request):
-    user =request.user
+    user = request.user
     userprofile = user.userprofile
     user_email = request.GET.get('email')
     feedback = request.GET.get('feedback')
@@ -48,7 +47,7 @@ def home(request):
     if request.user.is_authenticated():
         s = Session.objects.get(session_key=request.session.session_key)
         t = Tracker.objects.create(session=s, source='2')
-        a =request.GET.get('a')
+        a = request.GET.get('a')
         user = request.user
         if user.userprofile.primary_workplace:
             profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
@@ -103,7 +102,7 @@ def home(request):
 
 
 def feed(request):
-    a =request.GET.get('a')
+    a = request.GET.get('a')
     if request.user.is_authenticated():
         user = request.user
         if user.userprofile.primary_workplace:
@@ -382,10 +381,6 @@ def send_list(request):
     for m in li:
         tasks.list_mail(m, n=18)
     return redirect('/')
-
-
-from django.shortcuts import render_to_response
-from django.template import RequestContext
 
 
 def handler404(request):

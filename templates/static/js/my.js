@@ -83,7 +83,7 @@ function doneTyping() {
             },
             success: function(result) {
                 //d_on = true;
-                //console.log(result);
+                console.log(result);
                 $d_search.find('.dropdown')
                     .find(".d_list").html(result);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
@@ -331,7 +331,7 @@ if (d_check){
 /*$(".body").on('blur', '.d_input', d_input_blur);*/
 
 $("body").on('mouseover', '.d_menu .dropdown-menu', function() {
-    console.log('lop')
+    // console.log('lop')
     $(".d_input").off('blur', d_input_blur);
 });
 $('body').on('mouseout', '.d_menu .dropdown-menu', function() {
