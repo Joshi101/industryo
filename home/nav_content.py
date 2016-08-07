@@ -5,7 +5,7 @@ from django.conf.urls import patterns, include, url
 
 
 def nav_suggest(request):
-    path = request.POST.get('path')
+    path = request.META['HTTP_REFERER']
     if request.user.is_authenticated():
         message = "Listing more Products brings you more Inquiries Directly and makes your Company profile stronger"
         link = "/products/edit_add/new/"

@@ -7,24 +7,13 @@
 {% block page_id %}search_page{% endblock page_id %}
 
 {% block top %}
-  {% include "snippets/top_navigation.html" with what="Products" %}
+  {% include "snippets/top_navigation.html" with nosearch=True %}
 {% endblock top %}
 
 {% block body %}
 <div class="container">
   <h3>Search About Companies, SMEs, Industries, Industrial citeies, Prodcts and much more.</h3>
-  <form action="{% url 'search' %}" role="form">
-    <div class="input-group ">
-      <span class="input-group-btn">
-        <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
-      </span>
-      {% include "snippets/d_search_tags.html" with search="q" type=what no_create=True no_tags=True placeholder="Search "|add:what|add:" ..." parent="accordion" tags=None %}
-      <span class="input-group-btn">
-        <button id="search" class="btn btn-default"><i class="fa fa-search"></i></button>
-      </span>
-    </div>
-    <input class="what" type="hidden" name="what" value="all">
-  </form>
+  {% include "snippets/search_bar_static.html" %}
   <div class="">
     {% for q in query.workplaces|slice:":10" %}
     <a href="{% url 'workplace:workplace_profile' q.slug %}">
