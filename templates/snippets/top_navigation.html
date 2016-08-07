@@ -69,7 +69,7 @@
         </li>
         <li class="user_top" title="" data-toggle="tooltip" data-placement="bottom">
         {% if user.userprofile.primary_workplace %}
-          <a id="top_nav_wp" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}">
+          <a id="top_nav_wp" href="{% url 'workplace:dashboard' user.userprofile.primary_workplace.slug %}">
             <img class="lazy_img thmb_xs" src="/images/wp.png" data-src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace.name}}">
             <span class="abr text">{{user.userprofile.primary_workplace|truncatechars:"15"}}</span>
           </a>

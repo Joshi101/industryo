@@ -3,10 +3,8 @@ from django.contrib.auth.models import User
 from tags.models import Tags
 from nodes.models import Images, Document
 from industryo.unique_slug import unique_slugify
-from activities.models import Activity
-from nodes.models import Comments
-# from datetime import datetime
 from workplace.models import Workplace
+from activities.models import Enquiry
 
 
 class Leads(models.Model):
@@ -75,7 +73,10 @@ class Leads(models.Model):
 
 
 class Reply(models.Model):
-    lead = models.ForeignKey(Leads)
+    lead = models.ForeignKey(Leads, null=True, blank=True)
+    to_user = models.ForeignKey(User, related_name='+', null=True, blank=True)
+    inquiry = models.ForeignKey(Enquiry, null=True, blank=True)
+
     user = models.ForeignKey(User, null=True, blank=True)
     workplace = models.ForeignKey(Workplace, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True, null=True)

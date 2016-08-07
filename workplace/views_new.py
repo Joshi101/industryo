@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from workplace.models import *
 from nodes.models import Node
 from products.models import Products
@@ -8,6 +8,7 @@ from activities.models import Enquiry
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from itertools import chain
 from operator import attrgetter
+from workplace.views import no_hits
 
 
 def workplace_profile(request, slug):
@@ -22,33 +23,40 @@ def workplace_profile(request, slug):
     if request.is_ajax():
         return render(request, content_url, locals())
     else:
+        t = Thread(target=no_hits, args=(workplace.id,))
+        t.start()
         meta = True
         return render(request, 'workplace/profile.html', locals())
 
 
 def dashboard(request, slug):
     workplace = Workplace.objects.get(slug=slug)
-    workplace_logo_form = SetLogoForm()
     if request.user.is_authenticated():
-        if request.user.userprofile in workplace.userprofile_set.all():
-            member = True
-    content_url = "workplace/snip_dashboard.html"
-    content_head_url = "workplace/snip_dashboard_head.html"
-    member_count = workplace.userprofile_set.all().count()
-    products = Products.objects.filter(producer=workplace.pk)
-    inquiry_count = Enquiry.objects.filter(product__in=products).count()
-    new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
-    com_mail = request.user.userprofile.product_email
+        workplace_logo_form = SetLogoForm()
+        if request.user.is_authenticated():
+            if request.user.userprofile in workplace.userprofile_set.all():
+                member = True
+        content_url = "workplace/snip_dashboard.html"
+        content_head_url = "workplace/snip_dashboard_head.html"
+        member_count = workplace.userprofile_set.all().count()
+        products = Products.objects.filter(producer=workplace.pk)
+        inquiry_count = Enquiry.objects.filter(product__in=products).count()
+        new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
+        com_mail = request.user.userprofile.product_email
 
-    node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
+        node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
 
-    completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
-                        (workplace.points)/(10*member_count) + workplace.get_member_score())/5
-    if request.is_ajax():
-        return render(request, content_url, locals())
+        completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
+                            (workplace.points)/(10*member_count) + workplace.get_member_score())/5
+        if request.is_ajax():
+            return render(request, content_url, locals())
+        else:
+            t = Thread(target=no_hits, args=(workplace.id,))
+            t.start()
+            meta = True
+            return render(request, 'workplace/profile.html', locals())
     else:
-        meta = True
-        return render(request, 'workplace/profile.html', locals())
+        return redirect('/workplace/'+workplace.slug)
 
 
 def activity(request, slug):
@@ -83,6 +91,8 @@ def activity(request, slug):
         if request.is_ajax():
             return render(request, content_url, locals())
         else:
+            t = Thread(target=no_hits, args=(workplace.id,))
+            t.start()
             meta = True
             return render(request, 'workplace/profile.html', locals())
 
@@ -98,6 +108,8 @@ def products(request, slug):
     if request.is_ajax():
         return render(request, content_url, locals())
     else:
+        t = Thread(target=no_hits, args=(workplace.id,))
+        t.start()
         meta = True
         return render(request, 'workplace/profile.html', locals())
 
@@ -113,5 +125,7 @@ def members(request, slug):
     if request.is_ajax():
         return render(request, content_url, locals())
     else:
+        t = Thread(target=no_hits, args=(workplace.id,))
+        t.start()
         meta = True
         return render(request, 'workplace/profile.html', locals())

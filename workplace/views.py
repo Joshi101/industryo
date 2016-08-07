@@ -255,7 +255,7 @@ def workplace_about(request, slug):
         tab = 'about'
         return render(request, 'workplace/profile.html', locals())
 
-
+@login_required
 def workplace_dash(request, slug):
     workplace = Workplace.objects.get(slug=slug)
     members = UserProfile.objects.filter(primary_workplace=workplace.pk)

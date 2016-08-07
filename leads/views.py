@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from threading import Thread
 from home.templates import *
 from django.contrib.auth.decorators import login_required
+from activities.models import Enquiry
 
 
 def delete_tag(request, id):
@@ -254,6 +255,44 @@ def reply_lead(request):
         return redirect('/leads/'+lead.slug)
 
 
+def send_quotation(request):
+    if request.method == 'POST':
+        direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms', 'quality_assurance']
+        l_id = request.POST.get('l_id')
+        e_id = request.POST.get('e_id')
+        lead = Leads.objects.filter(id=l_id).first()
+        inquiry = Enquiry.objects.filter(id=e_id).first()
+        dictionary = {}
+        if request.user.is_authenticated():
+            user = request.user
+            wp = user.userprofile.primary_workplace
+        else:
+            user = None
+        reply = Reply.objects.create(user=user, lead=lead, inquiry=inquiry)
+        for key in request.POST:
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+        for key in dictionary:
+            setattr(reply, key, dictionary[key])
+        reply.save()
+        doc1 = request.FILES.get('doc21', None)
+        doc2 = request.FILES.get('doc22', None)
+        if doc1:
+            d = Document()
+            x = d.upload_doc(doc=doc1, user=user)
+            reply.doc = x
+            reply.save()
+        if doc2:
+            d = Document()
+            x = d.upload_doc(doc=doc2, user=user)
+            reply.doc = x
+            reply.save()
+    return redirect('/products/enquiry_all/')
+
+
 def pre_edit_reply(request, id):
     reply = Reply.objects.get(id=id)
     return render(request, 'leads/quotation_edit.html', locals())
@@ -265,7 +304,8 @@ def edit_reply(request, id):
     response = {}
     if request.user == reply.user:
         if request.method == 'POST':
-            direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms', 'quality_assurance']
+            direct = ['message', 'price', 'time_to_deliver', 'taxes', 'delivery_charges', 'payment_terms',
+                      'quality_assurance']
             for key in request.POST:
                 if key in direct:
                     try:

@@ -499,9 +499,11 @@ def all_products(request):
             lvl = 3
             p = Products.objects.filter(categories=curr_cat).order_by('-date')
             if len(p) < 3:
-                curr_cat = curr_cat.get_parent_cat()
-                p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
-                p = p | p1
+                # curr_cat = curr_cat.get_parent_cat()[0]
+                related = curr_cat.related_categories()
+                for cat in related:
+                    p1 = Products.objects.filter(categories=cat)
+                    p = p | p1
 
             if 'q2' in request.GET:
                 q2 = request.GET.get('q2')
@@ -510,11 +512,15 @@ def all_products(request):
                 lvl = 4
                 p = Products.objects.filter(categories=curr_cat).order_by('-date')
                 if len(p) < 3:
-                    curr_cat = curr_cat.get_parent_cat()
-                    p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
-                    if len(p1) < 1:
-                        p1 = Products.objects.all().order_by('-date')
-                    p = p | p1
+                    related = curr_cat.related_categories()
+                    for cat in related:
+                        p1 = Products.objects.filter(categories=cat)
+                        p = p | p1
+                    # curr_cat = curr_cat.get_parent_cat()[0]
+                    # p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
+                    # if len(p1) < 1:
+                    #     p1 = Products.objects.all().order_by('-date')
+                    # p = p | p1
         if lvl > 3:
             c1_all = c1_some = None
         else:
@@ -772,15 +778,43 @@ def category_prod(request, slug):        # Products
     category = Category.objects.get(slug=slug)
     products = Products.objects.filter(categories=category)
     # if len(products) < 3:
-
-    # products2 = Products.objects.filter()
+    related_categories = category.related_categories()[:5]
+    products2 = Products.objects.filter(id__lte=0)
+    for c in related_categories:
+        pros = Products.objects.filter(categories=c)
+        products2 = products2 | pros
     content_url = "products/snip_products.html"
     content_head_url = "products/snip_products_head.html"
+    if len(products) < 5:
+        products = products | products2
+    paginator = Paginator(products, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
-        return render(request, content_url, locals())
+        if page:
+            return render(request, {'products': result_list})
+        else:
+            return render(request, content_url, {'content_head_url': content_head_url,
+                                    'products': result_list, 'category': category})
+        # return render(request, 'products/category.html', locals())
+        # return render(request, content_url, locals())
     else:
         meta = True
-        return render(request, 'products/category.html', locals())
+        if page:
+            return render(request, {'products': result_list})
+        else:
+            return render(request, 'products/category.html', {'content_head_url': content_head_url, 'meta': meta,
+                                                              'content_url': content_url, 'products': result_list,
+                                                              'category': category})
+        # return render(request, 'products/category.html', locals())
 
 
 def category_wp(request, slug):        # Workplace

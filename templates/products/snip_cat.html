@@ -1,1 +1,19 @@
-{% include 'products/20_categories.html' with result_list=category.get_sub %}
+{% if category.level == '1' %}
+	{% include 'products/20_categories.html' with result_list=category.get_sub %}
+	Comapnies Supplying Products in Category: {{category}}
+
+{% endif %}
+
+{% if category.level == '2' %}
+	{% include 'products/20_categories.html' with result_list=category.get_sub %}
+	Related Categories
+	{% include 'products/20_categories.html' with result_list=category.related_categories %}
+{% endif %}
+
+{% if category.level == '3' %}
+	Comapnies Supplying Products in Category: {{category}}
+	Immediately Related Categories
+	{% include 'products/20_categories.html' with result_list=category.related_categories %}
+	Other Similar Categories
+	{% include 'products/20_categories.html' with result_list=category.distant_related %}
+{% endif %}

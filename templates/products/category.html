@@ -15,7 +15,31 @@
 </div>
 
 <div class="panel-body">
-	{% if category.level == '1' %}
+  <div class='row'>
+  	{% for c in category.get_hierarchy %}
+  	{% if c.level == '1' %}
+	<div class="col-sm-4">
+	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
+	</div>
+	{% endif %}
+	{% endfor %}
+	{% for c in category.get_hierarchy %}
+  	{% if c.level == '2' %}
+	<div class="col-sm-4">
+	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
+	</div>
+	{% endif %}
+	{% endfor %}
+	{% for c in category.get_hierarchy %}
+  	{% if c.level == '3' %}
+	<div class="col-sm-4">
+	    {% if c.level == '3' %}
+	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
+	    {% endif %}
+	</div>
+	{% endif %}
+	{% endfor %}
+	<!-- {% if category.level == '1' %}
 
 	{% elif category.level == '2' %}
 	{% for a in category.get_parent_cat %}
@@ -28,7 +52,8 @@
 	{% endfor %}
 	<li><a href="{% url 'products:category' a.slug %}">{{a}}</a><li>
 	{% endfor %}
-	{% endif %}
+	{% endif %} -->
+  </div>
 </div>
 
 <div class="row">

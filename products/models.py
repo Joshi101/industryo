@@ -255,6 +255,20 @@ class Category(models.Model):
         sub = self.sub_cat.filter(level__lt=n)
         return sub
 
+    def get_parent_all(self):
+        n = self.level
+        par = self.sub_cat.filter(level__lt=n)
+        parents = Category.objects.filter(id__gte=10000)
+        if par:
+            for s in par:
+                pare = s.get_parent_cat()
+                parents = parents | pare
+            parents = parents | par
+        if not par:
+            sub = self.sub_cat.filter(level=str(int(n)+1))[0]
+            parents = sub.get_parent_cat()
+        return parents
+
     def get_logo(self):
         default_image = '/images/thumbnails/image.png'
         if self.image:
@@ -262,6 +276,64 @@ class Category(models.Model):
             return image_url
         else:
             return default_image
+
+    def related_categories(self):
+        if self.level == '3':
+            immediate_parent = self.sub_cat.filter(level=2)
+            # super_parent = self.sub_cat.filter(level=1)
+            imm_related = Category.objects.filter(id=self.id)
+            for cat in immediate_parent:
+                a = cat.get_sub()
+                imm_related = imm_related | a
+        elif self.level == '2':
+            imm_related = Category.objects.filter(id=self.id)
+            parent = self.sub_cat.filter(level=1)
+            imm_related = parent
+        else:
+            imm_related = []
+        return imm_related.exclude(id=self.id)
+
+    def distant_related(self):
+        if self.level == '3':
+            # immediate_parent = self.sub_cat.filter(level=2)
+            super_parent = Category.objects.filter(id__gte=10000)
+            imm_parent = self.sub_cat.filter(level=2)
+            for p in imm_parent:
+                a = p.get_parent_cat()
+                super_parent = super_parent | a
+            related = Category.objects.filter(id=self.id)
+            rel = []
+            for cat in super_parent:
+                a = cat.get_sub()
+                rel = related | a
+            for r in rel:
+                s = r.get_sub()
+                related = related | s
+        else:
+            related = []
+        to_exclude = self.related_categories()
+        li = []
+        for i in to_exclude:
+            li.append(i.id)
+        return related.exclude(id__in=li)
+
+    def get_siblings(self):
+        parent = self.get_parent_cat()
+        siblings = Category.objects.filter(id__gte=10000)
+        for p in parent:
+            a = p.get_sub()
+            siblings = siblings | a
+        return siblings
+
+    def get_hierarchy(self):
+        parent = self.get_parent_all()
+        child = self.get_sub_full()
+        siblings = self.get_siblings()
+        hierarchy = parent | child | siblings
+        # self_cat = Category.objects.filter(id)
+        # hierarchy = hierarchy | self_cat
+
+        return hierarchy
 
 
 class Product_Categories(models.Model):

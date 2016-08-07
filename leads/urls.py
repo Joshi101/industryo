@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     url(r'^pre_edit_reply/(?P<id>[^/]+)/$', 'leads.views.pre_edit_reply', name='pre_edit_reply'),
     url(r'^edit_reply/(?P<id>[^/]+)/$', 'leads.views.edit_reply', name='edit_reply'),
     url(r'^reply/$', 'leads.views.reply_lead', name='reply'),
+
+    url(r'^send_quotation/$', 'leads.views.send_quotation', name='send_quotation'),
+
     url(r'^reply/accept/(?P<id>[^/]+)/$', 'leads.views.accept_reply', name='accept_reply'),
     url(r'^reply/delete/(?P<id>[^/]+)/$', 'leads.views.delete_tag', name='delete_tag'),
     url(r'^(?P<slug>[^/]+)/$', 'leads.views.get_lead', name='lead'),

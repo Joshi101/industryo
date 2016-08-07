@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
+{% endblock head_css %}
+
 {% block body %}
   <div class="container" style="margin-top: 1em">
     <ul class="nav nav-tabs">
