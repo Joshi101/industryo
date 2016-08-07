@@ -4483,6 +4483,11 @@ input.not_wide{
   /*! overflow: hidden; */
 }
 
+.dash_card.free{
+  height: auto;
+  min-height: 150px;
+}
+
 .dash_card header{
   margin: 0 0 10px;
 }
@@ -5464,6 +5469,10 @@ a:hover, a:focus{
   margin-right: 5px;
 }
 
+.fa-stack .fa{
+  line-height: 1;
+}
+
 h5{
   font-size: 16px;
 }
@@ -5839,3 +5848,90 @@ and in bootstrap.css
   font-weight: 300;
 }
 
+.progress_thin_box{
+  /*! padding: 10px 0; */
+  border-left: 1px solid #ccc;
+  /*! border-right: 1px solid #ccc; */
+}
+
+.progress_thin{
+  position: relative;
+  padding: 15px 0 11px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.progress_label{
+  font-size: 14px;
+  line-height: 30px;
+  text-align: right;
+  font-weight: 300;
+  font-family: "Titillium web";
+  /*! padding-right: 15px; */
+}
+
+.progress_thin .progress_data{
+  margin-left: -10px;
+  position: absolute;
+  /*! //line-height: 15px; */
+  width: 17px;
+  text-align: center;
+  padding: 2px;
+  color: #fff;
+  /*! background: #197; */
+  font-size: 9px;
+  /*! //font-weight: 700; */
+  left: 20%;
+  top: -3px;
+  border-radius: 15px;
+}
+
+.progress_thin .progress{
+  height: 4px;
+  border-radius: 0;
+  margin-bottom: 0;
+  /*! margin-top: 14px; */
+  /*! display: inline-block; */
+}
+
+.progress_avg{
+  background: #ccc;
+  top: 9px;
+  width: 2px;
+  height: 15px;
+  border-radius: 2px;
+  position: absolute;
+  /*! left: 50%; */
+}
+
+.flex_box{
+  display: flex;
+}
+
+.flexit{
+  flex-grow: 1;
+}
+
+.flexitfix{
+  flex-grow: 0; 
+  align-self: center;
+}
+
+.btn_atent{
+  border-color: #179;
+  border-width: 2px;
+  padding: 4px 8px;
+  font-weight: 700;
+  color: #179;
+  border-radius: 5px;
+}
+
+.btn_atent:hover{
+  background: #fff;
+  border-color: #179;
+  opacity: 0.75;
+}
+
+.trans{
+  opacity: 0.25;
+}
