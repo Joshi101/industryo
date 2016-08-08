@@ -85,6 +85,21 @@ def set_others_wp(request, username):
                                                         'form_create_workplace': WorkplaceForm()})
 
 
+def change_type(request):
+    id = request.GET.get('id')
+    type = request.GET.get('t')
+    wp = Workplace.objects.get(id=id)
+    wp.workplace_type = type
+    wp.save()
+    members = wp.get_members()
+    for m in members:
+        m.workplace_type = type
+        m.save()
+    print('HHHHHHH')
+    return HttpResponse()
+
+
+
 
 def search_workplace(request):                  # for searching the workplace
     w = request.GET['the_query']

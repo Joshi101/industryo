@@ -69,7 +69,7 @@ class Command(BaseCommand):
         log_file = options.pop('log_file', None)
         log_std = options.pop('log_std', False)
         duration = options.pop('duration', 0)
-        sleep = options.pop('sleep', 5.0)
+        sleep = options.pop('sleep', 30.0)
         
         self._configure_logging(log_level, log_file, log_std)
         

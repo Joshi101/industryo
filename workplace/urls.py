@@ -41,6 +41,7 @@ urlpatterns = patterns('',
 
     url(r'^edit/$', 'workplace.views.edit_workplace', name='edit'),
     url(r'^random_card/$', 'workplace.views.random_card', name='random_card'),
+    url(r'^change_type/$', 'workplace.views.change_type', name='change_type'),
 
     url(r'^(?P<slug>[^/]+)/$', 'workplace.views_new.workplace_profile', name='workplace_profile'),
 
