@@ -5935,3 +5935,18 @@ and in bootstrap.css
 .trans{
   opacity: 0.25;
 }
+
+.motion_graph{
+  position: relative;
+}
+
+.mouse_tail{
+  position: absolute;
+  z-index: 999;
+  background: #333;
+  color: #eee;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin-left: 15px;
+  font-family: 'Titillium Web';
+}

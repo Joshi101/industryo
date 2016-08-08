@@ -1478,10 +1478,15 @@ $(function () {
   });
 });
 
-$('body').on('click', '.ajax_a', function(event){
-    event.preventDefault();
-    var url = $(this).attr('href');
-    var target = $(this).data('place');
+function nav_active(a){
+    var nav = $(a).closest('.nav');
+    nav.find('.active').removeClass('active');
+    $(a).closest('li').addClass('active');
+}
+
+function ajax_a(a, push){
+    var url = $(a).attr('href');
+    var target = $(a).data('place');
     if (target){
         console.log(target);
         $(target).find('.loading').removeClass('hide');
@@ -1494,7 +1499,8 @@ $('body').on('click', '.ajax_a', function(event){
                 $(target).find('.content').html(response);
                 $(target).find('.loading').addClass('hide');
                 lazyImages();
-                changeurl(response, url);
+                if (push)
+                    changeurl(response, url);
             }
         },
         error: function(xhr, errmsg, err) {
@@ -1503,6 +1509,11 @@ $('body').on('click', '.ajax_a', function(event){
                 $(target).find('.loading').addClass('hide');
         }
     });
+}
+
+$('body').on('click', '.ajax_a', function(event){
+    event.preventDefault();
+    ajax_a(this, true);
 });
 
 $('.nav_flex').on('click', 'li', function(){
@@ -2476,7 +2487,7 @@ function nav_ajax_activate(){
 $(nav_ajax_activate);
 
 function changeurl(response, url){
-  state = window.location.pathname;
+  var state = window.location.pathname;
   console.log(state);
   window.history.pushState(state, '', url);
   var $response = $('<div></div>').html(response);
@@ -2488,22 +2499,62 @@ function changeurl(response, url){
 }
 
 $(window).on('popstate', function(event) {
-    var state = event.originalEvent.state;
+    var state = window.location.pathname;
     if (state) {
         $('.ajax_a').each(function(index, el) {
           console.log($(el).attr('href'), state);
           if ($(el).attr('href') == state){
-            $(el).trigger('click');
+            ajax_a(el, false);
+            nav_active(el);
           }
         });
     }
 });
 
 
-// var mouseX;
-// var mouseY;
-// $("body").on('mousemove', function(e) {
-//    mouseX = e.pageX;
-//    mouseY = e.pageY;
-//    console.log(mouseX, mouseY);
-// });
+var mouseX;
+var mouseY;
+$("body").on('mousemove', ".motion_graph", function(e) {
+   mouseX = e.pageX;
+   mouseY = e.pageY;
+   // console.log(mouseX, mouseY);
+});
+
+$("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
+    $this = $(this);
+    if (e.type == 'mousemove'){
+        var $metric = $(e.target);
+        var offset = $this.offset();
+        var $tail = $this.find('.mouse_tail');
+        $tail.css({
+            left: (mouseX - offset.left)+'px',
+            top: (mouseY - offset.top)+'px'
+        }).removeClass('hide');
+        var $pt = $metric.closest('.progress_thin');
+        var w = $pt.width();
+        var solid_w = $pt.find('.progress-bar').first().width();
+        $pt.find('.progress-bar.trans').width(mouseX - offset.left - solid_w);
+        var value = mouseX - offset.left;
+        var avg = $pt.find('.progress_avg').offset().left;
+        var direct = $pt.attr('id');
+        var p, i, v;
+        p = i = v = value;
+        if (direct == 'p'){
+            i = Math.sqrt(value*(value-1));
+            v = value*(value-1);
+        } else if (direct == 'i'){
+            p = Math.sqrt(value*(value-1));
+            v = value*(value-1);
+        } else if (direct == 'v'){
+            p = Math.sqrt(value*(value-1));
+            i = value*(value-1);
+        }
+        var $p = $tail.find('#p_tail .data').text(Math.floor(p));
+        var $i = $tail.find('#i_tail .data').text(Math.floor(i));
+        var $v = $tail.find('#v_tail .data').text(Math.floor(v));
+    }
+    else{
+        $this.find('.mouse_tail').addClass('hide');
+    }
+
+});
