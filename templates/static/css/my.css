@@ -5856,14 +5856,14 @@ and in bootstrap.css
 
 .progress_thin{
   position: relative;
-  padding: 15px 0 11px;
-  height: 30px;
+  padding: 16px 0 13px;
+  height: 33px;
   cursor: pointer;
 }
 
 .progress_label{
   font-size: 14px;
-  line-height: 30px;
+  line-height: 33px;
   text-align: right;
   font-weight: 300;
   font-family: "Titillium web";
@@ -5874,7 +5874,7 @@ and in bootstrap.css
   margin-left: -10px;
   position: absolute;
   /*! //line-height: 15px; */
-  width: 17px;
+  min-width: 17px;
   text-align: center;
   padding: 2px;
   color: #fff;
@@ -5884,6 +5884,11 @@ and in bootstrap.css
   left: 20%;
   top: -3px;
   border-radius: 15px;
+}
+
+.progress_thin .progress_data.trans{
+  opacity: 0.35;
+  /*! color: #000; */
 }
 
 .progress_thin .progress{
@@ -5914,7 +5919,7 @@ and in bootstrap.css
 
 .flexitfix{
   flex-grow: 0; 
-  align-self: center;
+  /*! align-self: flex-end; */
 }
 
 .btn_atent{
@@ -5949,4 +5954,39 @@ and in bootstrap.css
   font-size: 12px;
   margin-left: 15px;
   font-family: 'Titillium Web';
+}
+
+.progress_thin .hidethis{
+  position: absolute;
+  font-size: 10px;
+  color: #bbb;
+}
+
+.progress_thin .tail{
+  right: 0;
+  top: 0;
+  color: #ccc;
+}
+
+.progress_thin .exp .fa{
+  margin-right: 2px;
+  
+}
+
+.progress_thin .exp{
+  
+}
+
+.progress_thin_box:hover .hidethis{
+  display: none;
+}
+
+.graph_base{
+  font-size: 12px;
+  margin-top: 10px;
+  padding: 5px;
+  background: #fff;
+  color: #197;
+  border: 1px solid #197;
+  border-radius: 15px;
 }

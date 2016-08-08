@@ -2525,36 +2525,50 @@ $("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
     if (e.type == 'mousemove'){
         var $metric = $(e.target);
         var offset = $this.offset();
-        var $tail = $this.find('.mouse_tail');
-        $tail.css({
-            left: (mouseX - offset.left)+'px',
-            top: (mouseY - offset.top)+'px'
-        }).removeClass('hide');
+        // var $tail = $this.find('.mouse_tail');
+        // $tail.css({
+        //     left: (mouseX - offset.left)+'px',
+        //     top: (mouseY - offset.top)+'px'
+        // }).removeClass('hide');
         var $pt = $metric.closest('.progress_thin');
         var w = $pt.width();
-        var solid_w = $pt.find('.progress-bar').first().width();
-        $pt.find('.progress-bar.trans').width(mouseX - offset.left - solid_w);
-        var value = mouseX - offset.left;
+        var solid_p = $('#p').find('.progress-bar').width();
+        var solid_i = $('#i').find('.progress-bar').width();
+        var solid_v = $('#v').find('.progress-bar').width();
+        var value = Math.floor(mouseX - offset.left);
         var avg = $pt.find('.progress_avg').offset().left;
         var direct = $pt.attr('id');
         var p, i, v;
         p = i = v = value;
         if (direct == 'p'){
-            i = Math.sqrt(value*(value-1));
-            v = value*(value-1);
+            i = Math.floor(value/2);
+            v = Math.floor(value*value/(value -value/2));
         } else if (direct == 'i'){
-            p = Math.sqrt(value*(value-1));
-            v = value*(value-1);
+            p = Math.floor(2*value);
+            v = Math.floor(4*value*value);
         } else if (direct == 'v'){
-            p = Math.sqrt(value*(value-1));
-            i = value*(value-1);
+            p = Math.floor(Math.sqrt(value));
+            i = Math.floor(Math.sqrt(value)/2);
         }
-        var $p = $tail.find('#p_tail .data').text(Math.floor(p));
-        var $i = $tail.find('#i_tail .data').text(Math.floor(i));
-        var $v = $tail.find('#v_tail .data').text(Math.floor(v));
+        $("#p").find('.progress-bar.trans').width(Math.min(p,w) - solid_p);
+        $("#i").find('.progress-bar.trans').width(Math.min(i,w) - solid_i);
+        $("#v").find('.progress-bar.trans').width(Math.min(v,w) - solid_v);
+        $("#p").find('.progress_data.trans').text(p).css('left', (Math.min(p,w)));
+        $("#i").find('.progress_data.trans').text(i).css('left', (Math.min(i,w)));
+        $("#v").find('.progress_data.trans').text(v).css('left', (Math.min(v,w)));
+        var $tail = $('.graph_base').find('.'+direct+'_tail');
+        $tail.find('.value').text(value);
+        $tail.removeClass('hide').siblings('').addClass('hide');
+        if (!$('.progress-bar-striped').length){
+            $this.find('.progress-bar.trans').addClass('progress-bar-striped');
+        }
     }
     else{
-        $this.find('.mouse_tail').addClass('hide');
+        $this.find('.progress-bar.trans').removeClass('progress-bar-striped').each(function(){
+            $(this).css('width', ($(this).data('default') + '%'));
+        });
+        $this.find('.progress_data.trans').each(function(){
+            $(this).css('left', ($(this).data('default') + '%')).text($(this).data('default'));
+        });
     }
-
 });

@@ -97,53 +97,77 @@
               <h3 style="margin-bottom: 15px">Product Analysis</h3>
             </header>
             <div class="flex_box">
-              <div class="flexit" style="max-width: 75px;">
+              <div class="flexit" style="max-width: 75px; min-width: 75px;">
                 <div class="progress_label">Products</div>
                 <div class="progress_label">Inquiries</div>
                 <div class="progress_label">Views</div>
               </div>
               <div class="flexit" style="padding: 0 15px;">
                 <div id="prod_analysis" class="progress_thin_box motion_graph">
+                  <!--
                   <div class="mouse_tail hide">
-                    <div>(estimate)</div>
+                    <div>(predictions)</div>
                     <div id="p_tail">Products: <span class="data">25</span></div>
                     <div id="i_tail">Inquiries: <span class="data">25</span></div>
                     <div id="v_tail">Views: <span class="data">25</span></div>
                   </div>
+                -->
                   <div id="p" class="progress_thin">
                     <div class="progress">
                       <div class="progress-bar progress-bar-success" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:20%"></div>
+                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%"></div>
                       <div class="progress-bar progress-bar-success trans" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" data-default="0"></div>
                     </div>
                     <span class="progress_data progress-bar-success" style="left: 20%;">20</span>
+                    <span class="exp hidethis" style="left: 20%; top: -7px; margin-left: 10px;"><span class="fa fa-angle-left"></span>Current Stats</span>
+                    <span class="progress_data progress-bar-success trans" style="left: 20%;" data-default="20">20</span>
                     <span class="progress_avg" style="left: 40%;"></span>
                   </div>
                   <div id="i" class="progress_thin">
                     <div class="progress">
                       <div class="progress-bar progress-bar-warning" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
                       <div class="progress-bar progress-bar-warning trans" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:5%"></div>
+                      aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width:5%" data-default="5"></div>
                     </div>
+                    <span class="tail hidethis">(monthly)</span>
                     <span class="progress_data progress-bar-warning" style="left: 0%;">0</span>
+                    <span class="progress_data progress-bar-warning trans" style="left: 5%;" data-default="5">5</span>
                     <span class="progress_avg" style="left: 20%;"></span>
+                    <span class="exp hidethis" style="left: 20%; top: 0px; margin-left: 5px;"><span class="fa fa-angle-left"></span>Market Average</span>
                   </div>
                   <div id="v" class="progress_thin">
                     <div class="progress">
                       <div class="progress-bar progress-bar-info" role="progressbar"
                       aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:30%"></div>
                       <div class="progress-bar progress-bar-info trans" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:10%" data-default="10"></div>
                     </div>
+                    <span class="tail hidethis">(monthly)</span>
                     <span class="progress_data progress-bar-info" style="left: 30%;">30</span>
+                    <span class="progress_data progress-bar-info trans" style="left: 40%;" data-default="40">40</span>
+                    <span class="exp hidethis" style="left: 40%; top: -5px; margin-left: 10px;"><span class="fa fa-angle-left"></span>Expected</span>
                     <span class="progress_avg" style="left: 60%;"></span>
+                  </div>
+                </div>
+                <div class="text-center graph_base">
+                  <div class="default_tail">
+                    Hover over the graph to explore the market insights
+                  </div>
+                  <div class="p_tail hide">
+                    Predicted Inquiries and Views for <span class="value">20</span> Products
+                  </div>
+                  <div class="i_tail hide">
+                    Expected Products and Views for <span class="value">0</span> Inquiries
+                  </div>
+                  <div class="v_tail hide">
+                    Expected Products and Inquiries for <span class="value">30</span> Views
                   </div>
                 </div>
               </div>
               <div class="flexitfix text-center">
-                <div class="fa-stack fa-lg" style="margin-top: 10px;">
+                <div class="fa-stack fa-lg" style="margin-top: 12px;">
                   <i class="fa fa-plus fa-stack-1x text-success" style="left: 10px; top: -8px;"></i>
                   <i class="fa fa-cube fa-stack-2x text-info"></i>
                 </div>
@@ -152,9 +176,8 @@
                 </div>
               </div>
             </div>
-            <p class="text-muted text-center" style="margin-top: 10px; padding: 5px 15px 0;">
-              <small>Your products are your identity! Here we show how your <strong>Inquiries</strong> and <strong>Profile Views</strong> are directly related to the number of products listed..<br>
-              Hover over the graph to explore the market insights.</small>
+            <p class="text-muted text-center" style="margin-top: 5px; padding: 5px 15px 0;">
+              <small>Here we show how your <strong>Inquiries</strong> and <strong>Profile Views</strong> are directly related to the number of products listed..<br></small>
             </p>
   				</div>
   			</div>
