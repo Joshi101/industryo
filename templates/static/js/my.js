@@ -2498,3 +2498,12 @@ $(window).on('popstate', function(event) {
         });
     }
 });
+
+
+// var mouseX;
+// var mouseY;
+// $("body").on('mousemove', function(e) {
+//    mouseX = e.pageX;
+//    mouseY = e.pageY;
+//    console.log(mouseX, mouseY);
+// });
