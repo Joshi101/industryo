@@ -1478,10 +1478,15 @@ $(function () {
   });
 });
 
-$('body').on('click', '.ajax_a', function(event){
-    event.preventDefault();
-    var url = $(this).attr('href');
-    var target = $(this).data('place');
+function nav_active(a){
+    var nav = $(a).closest('.nav');
+    nav.find('.active').removeClass('active');
+    $(a).closest('li').addClass('active');
+}
+
+function ajax_a(a, push){
+    var url = $(a).attr('href');
+    var target = $(a).data('place');
     if (target){
         console.log(target);
         $(target).find('.loading').removeClass('hide');
@@ -1494,7 +1499,8 @@ $('body').on('click', '.ajax_a', function(event){
                 $(target).find('.content').html(response);
                 $(target).find('.loading').addClass('hide');
                 lazyImages();
-                changeurl(response, url);
+                if (push)
+                    changeurl(response, url);
             }
         },
         error: function(xhr, errmsg, err) {
@@ -1503,6 +1509,11 @@ $('body').on('click', '.ajax_a', function(event){
                 $(target).find('.loading').addClass('hide');
         }
     });
+}
+
+$('body').on('click', '.ajax_a', function(event){
+    event.preventDefault();
+    ajax_a(this, true);
 });
 
 $('.nav_flex').on('click', 'li', function(){
@@ -2476,7 +2487,7 @@ function nav_ajax_activate(){
 $(nav_ajax_activate);
 
 function changeurl(response, url){
-  state = window.location.pathname;
+  var state = window.location.pathname;
   console.log(state);
   window.history.pushState(state, '', url);
   var $response = $('<div></div>').html(response);
@@ -2488,22 +2499,76 @@ function changeurl(response, url){
 }
 
 $(window).on('popstate', function(event) {
-    var state = event.originalEvent.state;
+    var state = window.location.pathname;
     if (state) {
         $('.ajax_a').each(function(index, el) {
           console.log($(el).attr('href'), state);
           if ($(el).attr('href') == state){
-            $(el).trigger('click');
+            ajax_a(el, false);
+            nav_active(el);
           }
         });
     }
 });
 
 
-// var mouseX;
-// var mouseY;
-// $("body").on('mousemove', function(e) {
-//    mouseX = e.pageX;
-//    mouseY = e.pageY;
-//    console.log(mouseX, mouseY);
-// });
+var mouseX;
+var mouseY;
+$("body").on('mousemove', ".motion_graph", function(e) {
+   mouseX = e.pageX;
+   mouseY = e.pageY;
+   // console.log(mouseX, mouseY);
+});
+
+$("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
+    $this = $(this);
+    if (e.type == 'mousemove'){
+        var $metric = $(e.target);
+        var offset = $this.offset();
+        // var $tail = $this.find('.mouse_tail');
+        // $tail.css({
+        //     left: (mouseX - offset.left)+'px',
+        //     top: (mouseY - offset.top)+'px'
+        // }).removeClass('hide');
+        var $pt = $metric.closest('.progress_thin');
+        var w = $pt.width();
+        var solid_p = $('#p').find('.progress-bar').width();
+        var solid_i = $('#i').find('.progress-bar').width();
+        var solid_v = $('#v').find('.progress-bar').width();
+        var value = Math.floor(mouseX - offset.left);
+        var avg = $pt.find('.progress_avg').offset().left;
+        var direct = $pt.attr('id');
+        var p, i, v;
+        p = i = v = value;
+        if (direct == 'p'){
+            i = Math.floor(value/2);
+            v = Math.floor(value*value/(value -value/2));
+        } else if (direct == 'i'){
+            p = Math.floor(2*value);
+            v = Math.floor(4*value*value);
+        } else if (direct == 'v'){
+            p = Math.floor(Math.sqrt(value));
+            i = Math.floor(Math.sqrt(value)/2);
+        }
+        $("#p").find('.progress-bar.trans').width(Math.min(p,w) - solid_p);
+        $("#i").find('.progress-bar.trans').width(Math.min(i,w) - solid_i);
+        $("#v").find('.progress-bar.trans').width(Math.min(v,w) - solid_v);
+        $("#p").find('.progress_data.trans').text(p).css('left', (Math.min(p,w)));
+        $("#i").find('.progress_data.trans').text(i).css('left', (Math.min(i,w)));
+        $("#v").find('.progress_data.trans').text(v).css('left', (Math.min(v,w)));
+        var $tail = $('.graph_base').find('.'+direct+'_tail');
+        $tail.find('.value').text(value);
+        $tail.removeClass('hide').siblings('').addClass('hide');
+        if (!$('.progress-bar-striped').length){
+            $this.find('.progress-bar.trans').addClass('progress-bar-striped');
+        }
+    }
+    else{
+        $this.find('.progress-bar.trans').removeClass('progress-bar-striped').each(function(){
+            $(this).css('width', ($(this).data('default') + '%'));
+        });
+        $this.find('.progress_data.trans').each(function(){
+            $(this).css('left', ($(this).data('default') + '%')).text($(this).data('default'));
+        });
+    }
+});
