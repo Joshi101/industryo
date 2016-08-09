@@ -485,6 +485,10 @@ class Workplace(models.Model):
         self.save()
         return
 
+    def get_avg_prod(self):
+        z = 25
+        return z
+
 
 class WpTags(models.Model):
     workplace = models.ForeignKey(Workplace, related_name='w_tags')

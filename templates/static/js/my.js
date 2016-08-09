@@ -2541,14 +2541,14 @@ $("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
         var p, i, v;
         p = i = v = value;
         if (direct == 'p'){
-            i = Math.floor(value/2);
-            v = Math.floor(value*value/(value -value/2));
+            i = Math.floor((1.2*value/10)+1);
+            v = Math.floor(10*(Math.sqrt((2*value)+10)));
         } else if (direct == 'i'){
-            p = Math.floor(2*value);
-            v = Math.floor(4*value*value);
+            p = Math.floor((10*(value-1))/1.2);
+            v = Math.floor(10*Math.sqrt(20/1.2*(value-1)));
         } else if (direct == 'v'){
-            p = Math.floor(Math.sqrt(value));
-            i = Math.floor(Math.sqrt(value)/2);
+            p = Math.floor(((value*value)+1)/200);
+            i = Math.floor(1.2/1000*((value*value)+1));
         }
         $("#p").find('.progress-bar.trans').width(Math.min(p,w) - solid_p);
         $("#i").find('.progress-bar.trans').width(Math.min(i,w) - solid_i);
