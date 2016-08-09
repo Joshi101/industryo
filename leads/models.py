@@ -95,4 +95,4 @@ class Reply(models.Model):
     doc2 = models.ForeignKey(Document, related_name='doc2', null=True, blank=True)
 
     def __str__(self):
-        return self.reply
+        return self.message

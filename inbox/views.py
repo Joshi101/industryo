@@ -12,9 +12,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required
 def inbox(request):
     user = request.user
-    wp = user.primary_workplace
-    inquiries = Enquiry.objects.filter(workplace=wp).order_by('date')
-    quotations = Reply.objects.filter(to_user=user).order_by('date')
+    wp = user.userprofile.primary_workplace
+    inquiries = Enquiry.objects.filter(Q(workplace=wp) | Q(product__producer=wp)).order_by('date')
+    quotations = Reply.objects.filter(lead__user=user).order_by('date')
     # messages = Message.objects.filter()
     conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
 

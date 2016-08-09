@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  <div class="container">
+    <div class="row" style="margin-top: 1em">
+      <div class="col-md-3">
+        <div class="list-group">
+          <div class='row list-group-item'>
+            <div class='col-md-6'>
+              Sent
+            </div>  
+            <div class='col-md-6'>
+              Recieved
+            </div>
+          </div>
+          <a href=''class="list-group-item{% if active == all %} active{% endif %}">All</a>
+          <a href=''class="list-group-item{% if active == inq %} active{% endif %}">Inquiries</a>
+          <a href=''class="list-group-item{% if active == quot %} active{% endif %}">Quotations</a>
+          <a href=''class="list-group-item{% if active == msg %} active{% endif %}">Messages</a>
+        </div>
+      </div>
+      <div class="col-md-9">
+        {% block container %}
+          {% if result_list %}
+          <ul class="conversation">
+            {% for result in result_list %}
+            <li class=''>{{result}}<li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        {% endblock container %}
+      </div>
+    </div>
+  </div>
+{% endblock body %}
