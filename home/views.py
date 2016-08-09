@@ -14,7 +14,6 @@ from forum.models import Question
 from tags.models import Tags
 from leads.models import Leads
 from products.models import Products, Category
-# from allauth.account.forms import AddEmailForm, ChangePasswordForm
 from home import tasks
 from tracking.models import Tracker
 

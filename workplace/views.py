@@ -95,7 +95,6 @@ def change_type(request):
     for m in members:
         m.workplace_type = type
         m.save()
-    print('HHHHHHH')
     return HttpResponse()
 
 

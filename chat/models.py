@@ -9,6 +9,7 @@ class Conversation(models.Model):
     user2 = models.ForeignKey(User, related_name='+')
     last_message_from = models.ForeignKey(User, null=True, blank=True)      # 1=frm_use 2=to_user
     last_active = models.DateTimeField(auto_now=True, null=True)
+    date = models.DateTimeField(auto_now=True, null=True)
     is_read = models.BooleanField(default=False)
 
     class Meta:
@@ -27,7 +28,7 @@ class Conversation(models.Model):
         m = Message.objects.filter(conversation=self.id).last()
         return m
 
-    def ge_read(self):
+    def get_read(self):
         m = Message.objects.filter(conversation=self.id).last()
         read = m.is_read
         return read

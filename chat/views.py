@@ -194,6 +194,11 @@ def create_message_enquiry(message, enquirer, users):
     return
 
 
+def put_date():
+    cons = Conversation.objects.all()
+    for c in cons:
+        c.date = c.last_active
+        c.save()
 
 
 
