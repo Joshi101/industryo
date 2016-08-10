@@ -267,7 +267,7 @@ def send_quotation(request):
             user = request.user
             wp = user.userprofile.primary_workplace
         else:
-            user = None
+            user = wp = None
         reply = Reply.objects.create(user=user, lead=lead, inquiry=inquiry)
         for key in request.POST:
             if key in direct:
@@ -277,6 +277,8 @@ def send_quotation(request):
                     tb = traceback.format_exc()
         for key in dictionary:
             setattr(reply, key, dictionary[key])
+        reply.to_user = user
+        # reply.from_wp
         reply.save()
         doc1 = request.FILES.get('doc21', None)
         doc2 = request.FILES.get('doc22', None)
