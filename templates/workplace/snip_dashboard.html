@@ -115,39 +115,36 @@
                   <div id="p" class="progress_thin">
                     <div class="progress">
                       <div class="progress-bar progress-bar-success" role="progressbar"
-                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%"></div>
-                      <div class="progress-bar progress-bar-success trans" role="progressbar"
-                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" data-default="0"></div>
+                      aria-valuenow="{{workplace.get_product_count}}" aria-valuemin="0" aria-valuemax="100" style="width:{{workplace.get_product_count}}%"></div>
+                      <div class="progress-bar progress-bar-success trans" style="width:0%" data-default="0"></div>
                     </div>
                     <span class="progress_data progress-bar-success" style="left: {{workplace.get_product_count}}%;">{{workplace.get_product_count}}</span>
-                    <span class="exp hidethis" style="left: 20%; top: -7px; margin-left: 10px;"><span class="fa fa-angle-left"></span>Current Stats</span>
-                    <span class="progress_data progress-bar-success trans" style="left: ({{workplace.get_avg_prod}}/10)%;" data-default="{{workplace.get_avg_prod}}">{{workplace.get_avg_prod}}</span>
-                    <span class="progress_avg" style="left: 40%;"></span>
+                    <span class="exp hidethis" style="left: {{workplace.get_product_count}}%; top: -16px; margin-left: -4px;"><span class="fa fa-long-arrow-down"></span>Current Stats</span>
+                    <span class="progress_data progress-bar-success trans" style="left: {{workplace.get_product_count}}%;" data-default="{{workplace.get_product_count}}">{{workplace.get_product_count}}</span>
+                    <span class="progress_avg" style="left: {{workplace.get_avg_prod}}%;"></span>
                   </div>
                   <div id="i" class="progress_thin">
                     <div class="progress">
                       <div class="progress-bar progress-bar-warning" role="progressbar"
-                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
-                      <div class="progress-bar progress-bar-warning trans" role="progressbar"
-                      aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width:5%" data-default="5"></div>
+                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="25" style="width:0%"></div>
+                      <div class="progress-bar progress-bar-warning trans" style="width:5%" data-default="5"></div>
                     </div>
                     <span class="tail hidethis">(monthly)</span>
                     <span class="progress_data progress-bar-warning" style="left: 0%;">{{workplace.get_enq_count.total}}</span>
                     <span class="progress_data progress-bar-warning trans" style="left: 5%;" data-default="5">5</span>
                     <span class="progress_avg" style="left: 20%;"></span>
-                    <span class="exp hidethis" style="left: 20%; top: 0px; margin-left: 5px;"><span class="fa fa-angle-left"></span>Market Average</span>
+                    <span class="exp hidethis" style="left: 20%; top: 3px; margin-left: 4px;"><span class="fa fa-long-arrow-left"></span>Market Average</span>
                   </div>
                   <div id="v" class="progress_thin">
                     <div class="progress">
                       <div class="progress-bar progress-bar-info" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:30%"></div>
-                      <div class="progress-bar progress-bar-info trans" role="progressbar"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:10%" data-default="10"></div>
+                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="500" style="width:30%"></div>
+                      <div class="progress-bar progress-bar-info trans" style="width:10%" data-default="10"></div>
                     </div>
                     <span class="tail hidethis">(monthly)</span>
-                    <span class="progress_data progress-bar-info" style="left: 30%;">{{workplace.views}}</span>
+                    <span class="progress_data progress-bar-info" style="left: 30%;">{{workplace.hits}}</span>
                     <span class="progress_data progress-bar-info trans" style="left: 40%;" data-default="40">40</span>
-                    <span class="exp hidethis" style="left: 40%; top: -5px; margin-left: 10px;"><span class="fa fa-angle-left"></span>Expected</span>
+                    <span class="exp hidethis" style="left: 40%; top: 20px; margin-left: -4px;"><span class="fa fa-long-arrow-up"></span>Expected</span>
                     <span class="progress_avg" style="left: 60%;"></span>
                   </div>
                 </div>
@@ -159,10 +156,10 @@
                     Predicted Inquiries and Views for <span class="value">20</span> Products
                   </div>
                   <div class="i_tail hide">
-                    Expected Products and Views for <span class="value">0</span> Inquiries
+                    Expected Products and Views for <span class="value">0</span> Inquiries per month
                   </div>
                   <div class="v_tail hide">
-                    Expected Products and Inquiries for <span class="value">30</span> Views
+                    Expected Products and Inquiries for <span class="value">30</span> Views per month
                   </div>
                 </div>
               </div>
@@ -300,4 +297,9 @@
   </div>
   {% endif %}
   {% include "snippets/progress_circle.html" %}
+  <script type="text/javascript">
+    if (setg){
+      setgraph();
+    }
+  </script>
 </div>
