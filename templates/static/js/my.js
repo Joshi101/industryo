@@ -1357,7 +1357,7 @@ $(document).ready(function(){
 
             success: function(response) {
                 $this.html(response);
-                console.log('kuch ajax load hua');
+                console.log('kuch ajax load hui');
                 lazyImages();
             },
 
@@ -2522,24 +2522,18 @@ $("body").on('mousemove', ".motion_graph", function(e) {
 
 $("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
     $this = $(this);
+    var $metric = $(e.target);
+    var $pt = $metric.closest('.progress_thin');
+    var w = $pt.width();
     if (e.type == 'mousemove'){
-        var $metric = $(e.target);
         var offset = $this.offset();
-        // var $tail = $this.find('.mouse_tail');
-        // $tail.css({
-        //     left: (mouseX - offset.left)+'px',
-        //     top: (mouseY - offset.top)+'px'
-        // }).removeClass('hide');
-        var $pt = $metric.closest('.progress_thin');
-        var w = $pt.width();
-        var solid_p = $('#p').find('.progress-bar').width();
-        var solid_i = $('#i').find('.progress-bar').width();
-        var solid_v = $('#v').find('.progress-bar').width();
-        var value = Math.floor(mouseX - offset.left);
+        var value_p = Math.floor(mouseX - offset.left);
         var avg = $pt.find('.progress_avg').offset().left;
         var direct = $pt.attr('id');
-        var p, i, v;
-        p = i = v = value;
+        var $direct = $('#'+direct);
+        p = i = v = value_p;
+        var range = $pt.find('.progress-bar').attr('aria-valuemax');
+        value = getBarValue(w, range, Math.floor(value_p));
         if (direct == 'p'){
             i = Math.floor((1.2*value/10)+1);
             v = Math.floor(10*(Math.sqrt((2*value)+10)));
@@ -2550,25 +2544,98 @@ $("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
             p = Math.floor(((value*value)+1)/200);
             i = Math.floor(1.2/1000*((value*value)+1));
         }
-        $("#p").find('.progress-bar.trans').width(Math.min(p,w) - solid_p);
-        $("#i").find('.progress-bar.trans').width(Math.min(i,w) - solid_i);
-        $("#v").find('.progress-bar.trans').width(Math.min(v,w) - solid_v);
-        $("#p").find('.progress_data.trans').text(p).css('left', (Math.min(p,w)));
-        $("#i").find('.progress_data.trans').text(i).css('left', (Math.min(i,w)));
-        $("#v").find('.progress_data.trans').text(v).css('left', (Math.min(v,w)));
+        var list = [p, i, v];
+        $this.find('.progress_thin').each(function(index, el){
+            $el = $(el);
+            var solid = $el.find('.progress-bar').width();
+            var range = $el.find('.progress-bar').attr('aria-valuemax');
+            var val_txt = '0';
+            if ($el[0] == $direct[0]){
+                $el.find('.progress-bar.trans').width(list[index] - solid);
+                $el.find('.progress_data.trans').text(value).css('left', list[index]);
+            }
+            else{
+                var pix = getBarPixels(w, range, list[index]);
+                $el.find('.progress-bar.trans').width(pix - solid);
+                $el.find('.progress_data.trans').text(list[index]).css('left', pix);
+            }
+        });
         var $tail = $('.graph_base').find('.'+direct+'_tail');
         $tail.find('.value').text(value);
-        $tail.removeClass('hide').siblings('').addClass('hide');
+        $tail.removeClass('hide').siblings().addClass('hide');
         if (!$('.progress-bar-striped').length){
             $this.find('.progress-bar.trans').addClass('progress-bar-striped');
         }
     }
     else{
-        $this.find('.progress-bar.trans').removeClass('progress-bar-striped').each(function(){
-            $(this).css('width', ($(this).data('default') + '%'));
-        });
+        $('.graph_base').find('.default_tail').removeClass('hide').siblings().addClass('hide');
+        // $this.find('.progress-bar.trans').removeClass('progress-bar-striped').each(function(){
+        //     $(this).css('width', ($(this).data('default') + '%'));
+        // });
         $this.find('.progress_data.trans').each(function(){
-            $(this).css('left', ($(this).data('default') + '%')).text($(this).data('default'));
+            var def = parseInt($(this).attr('data-default'));
+            var range = $(this).siblings('.progress-bar').attr('aria-valuemax');
+            $(this).css('left', getBarPixels(w, range, def)).text(def);
+            $(this).siblings('.progress-bar.trans').css('width', def).removeClass('progress-bar-striped');
         });
     }
+});
+
+function getBarPixels(w, range, value){
+    var p = 0;
+    for (var i = 0; value >= 0; i++) {
+        if (value <= range/2) {
+            p += value/Math.pow(2,i);
+        }
+        else {
+            p += range/Math.pow(2,i+1);
+        }
+        value -= range/2;
+    }
+    return Math.floor((p/range)*w);
+}
+
+function getBarValue(w, range, pixels){
+    var i = 0;
+    var w2 = w/2;
+    for (; w > 1 ; i++) {
+        w = w/2;
+        if (pixels <= w)
+            w = 0;
+        else
+            pixels -= w;
+    }
+    w = w2*2;
+    // console.log(w2,pixels,i)
+    return Math.floor((w2*(i-1) + pixels*i)*range/w);
+}
+
+var setg = true;
+function setgraph(){
+    if ($('#prod_analysis').length){
+        console.log('hoinga')
+        p = parseInt($('#p').find('.progress_data').first().text());
+        i = Math.floor((1.2*p/10)+1);
+        v = Math.floor(10*(Math.sqrt((2*p)+10)));
+        var list = [p, i, v];
+        $('#prod_analysis').find('.progress_thin').each(function(index, el){
+            $el = $(el);
+            w = $el.width();
+            var solid = parseInt($el.find('.progress_data').first().text());
+            var range = $el.find('.progress-bar').attr('aria-valuemax');
+            var s_pix = getBarPixels(w, range, solid);
+            console.log(solid, range, s_pix, index)
+            $el.find('.progress-bar').first().width(s_pix);
+            $el.find('.progress_data').first().css('left', s_pix);
+            if (index){
+                var pix = getBarPixels(w, range, list[index]);
+                $el.find('.progress-bar.trans').width(pix - s_pix).attr('data-default', list[index]);
+                $el.find('.progress_data.trans').text(list[index]).attr('data-default', list[index]).css('left', pix);
+            }
+        });
+    }
+}
+
+$(function () {
+    setgraph();
 });
