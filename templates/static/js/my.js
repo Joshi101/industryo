@@ -2574,9 +2574,11 @@ $("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
         // });
         $this.find('.progress_data.trans').each(function(){
             var def = parseInt($(this).attr('data-default'));
-            var range = $(this).siblings('.progress-bar').attr('aria-valuemax');
-            $(this).css('left', getBarPixels(w, range, def)).text(def);
-            $(this).siblings('.progress-bar.trans').css('width', def).removeClass('progress-bar-striped');
+            var range = $(this).siblings('.progress').find('.progress-bar').attr('aria-valuemax');
+            var s = $(this).siblings('.progress').find('.progress-bar').width();
+            console.log(def, range, w, getBarPixels(w, range, def)+'px')
+            $(this).css('left', getBarPixels(w, range, def)+'px').text(def);
+            $(this).siblings('.progress').find('.progress-bar.trans').css('width', getBarPixels(w, range, def)-s+'px').removeClass('progress-bar-striped');
         });
     }
 });
