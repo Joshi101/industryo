@@ -14,6 +14,16 @@ import pytz
 
 
 @login_required
+def send_all_sme():
+    wps = Workplace.objects.filter(workplace_type__in=['A', 'B'])
+    for wp in wps:
+        emails = []
+        if len(wp.get_members())< 6:
+            members = wp.get_members()
+
+
+
+@login_required
 def send(request):
     if 'q' in request.GET:
         s = request.GET.get('q')
