@@ -6,30 +6,46 @@
     <div class="row" style="margin-top: 1em">
       <div class="col-md-3">
         <div class="list-group">
-          <div class='row list-group-item'>
-            <div class='col-md-6'>
-              Sent
-            </div>  
-            <div class='col-md-6'>
-              Recieved
-            </div>
-          </div>
           <a href=''class="list-group-item{% if active == all %} active{% endif %}">All</a>
+          <!--
           <a href=''class="list-group-item{% if active == inq %} active{% endif %}">Inquiries</a>
           <a href=''class="list-group-item{% if active == quot %} active{% endif %}">Quotations</a>
           <a href=''class="list-group-item{% if active == msg %} active{% endif %}">Messages</a>
+        -->
         </div>
       </div>
       <div class="col-md-9">
-        {% block container %}
-          {% if result_list %}
-          <ul class="conversation">
-            {% for result in result_list %}
-            <li class=''>{{result}}<li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        {% endblock container %}
+        <div class="panel-group" id="inbox_accordion">
+          {% for result in result_list %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#inbox_accordion" href="#collapse{{forloop.counter}}">
+                {% if result.lead_id %}
+                  Quotation: {{result.message|truncatechars:'25'}}
+                {% elif result.message %}
+                  Inquiry: {{result.message|truncatechars:'25'}}
+                {% else %}
+                  Message: {{result.user2}}-{{result.user2}}
+                {% endif %}
+
+                </a>
+              </h4>
+            </div>
+            <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
+              <div class="panel-body">
+                {% if result.lead_id %}
+                  {% include "inbox/lead_msg.html" %}
+                {% elif result.message %}
+                  {% include "inbox/inquiry_msg.html" %}
+                {% else %}
+                  {% include "inbox/msg_msg.html" %}
+                {% endif %}
+              </div>
+           </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
