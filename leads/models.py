@@ -71,6 +71,11 @@ class Leads(models.Model):
         tags = self.tags.all()
         return tags
 
+    def get_quotation_count(self):
+        c = 0
+        c = Reply.objects.filter(lead=self).count()
+        return c
+
 
 class Reply(models.Model):
     lead = models.ForeignKey(Leads, null=True, blank=True)

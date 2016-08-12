@@ -33,6 +33,10 @@ class Conversation(models.Model):
         read = m.is_read
         return read
 
+    def get_msg_count(self):
+        c = Message.objects.filter(conversation=self.id).count()
+        return c
+
 
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation)

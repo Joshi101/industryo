@@ -1,1 +1,2 @@
-{{result.message}}
+<h4>Quotation on <a href="{% url 'leads:lead' result.lead.slug %}">{{result.lead}}</a></h4>
+{% include 'leads/one_reply.html' with reply=result %}
