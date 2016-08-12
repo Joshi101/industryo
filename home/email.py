@@ -20,6 +20,18 @@ def send_all_sme():
         emails = []
         if len(wp.get_members())< 6:
             members = wp.get_members()
+            for mem in members:
+                e = mem.get_best_email()
+                emails.append(e)
+                if wp.office_mail_id:
+                    a = wp.office_mail_id
+                    b = a.split(a)
+                    emails.append(b)
+                    emails = set(emails)
+        if emails:
+            subject = ''
+            body = Template_SME_all
+            
 
 
 

@@ -299,6 +299,18 @@
     </div>
   </div>
 
+  <aside class="right_persist side_body hide">
+      <div id="info_score" class="right_data_1">
+        <h4 class="">Info Score</h4>
+        <div class="chart circle_bar aithan" data-aithan="100" data-line="10" data-size="100" data-percent="{{workplace.get_info_score|floatformat:'0'}}"></div>
+        {% include "snippets/progress_circle.html" %}
+        <p class="text-muted">
+          <span class="fa fa-info-circle"></span> The Info Score is a metric to indicate how much of data is visible on your company profile.<br>
+          <span class="text-success">A greater the score builds a more authentic profile.</span>
+        </p>
+      </div>
+    </aside>
+
   <script type="text/javascript">
     $('#top_nav_wp').addClass('current');
   </script>
