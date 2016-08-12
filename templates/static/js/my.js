@@ -2641,3 +2641,14 @@ function setgraph(){
 $(function () {
     setgraph();
 });
+
+$('body').on('click', '.slide_a', function(event){
+    event.preventDefault();
+    console.log('slider')
+    var $this = $(this);
+    var target = $this.attr('href');
+    var current = $this.attr('data-parent');
+    var type = $this.attr('data-type');
+    $(current).addClass('hide');
+    $(target).removeClass('hide');
+});

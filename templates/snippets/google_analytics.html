@@ -6,7 +6,13 @@
 
   ga('create', 'UA-61433891-2', 'auto');
   ga('send', 'pageview');
-  $('.gac1').on('click', function(){
-    ga('send', 'event', 'banners', 'top-nav-banner', 'add-product');
+  $('body').on('click', '.gac1', function(e){
+    e.preventDefault();
+    $this = $(this);
+    ga('send', 'event', 'Banners', 'Click', $this.text(), {
+      hitCallback: function() {
+        document.location.pathname = $this.attr('href');
+      }
+    });
   });
 </script>

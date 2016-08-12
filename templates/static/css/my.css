@@ -5992,3 +5992,111 @@ and in bootstrap.css
   border: 1px solid #197;
   border-radius: 15px;
 }
+
+.mailbox{
+  border: 1px solid #197;
+}
+
+.mailbox .panel{
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 10px;
+}
+
+.mailbox .panel:not(:last-child){
+  border-bottom: 1px solid #999;
+}
+
+.mailbox h4{
+  margin: 0;
+  font-size: 14px; 
+}
+
+.mailbox h4 a{
+  display: block;
+  color: #333;
+}
+
+.mailbox h4 a:hover, .mailbox h4 a:focus{
+  text-decoration: none;
+}
+
+.mailbox h4 span{
+  margin-right: 15px;
+}
+
+.mailbox h4 span, .mailbox h4 time{
+  display: inline-block;
+  line-height: 21px;
+  vertical-align: top;
+}
+
+.mailbox h4 .name{
+  width: 120px;
+}
+
+.mailbox h4 time{
+  float: right;
+  font-size: 12px;
+  width: 100px;
+  color: #999;
+}
+
+.mailbox h4.strong .name, .mailbox h4.strong .subject{
+  font-weight: 700;
+}
+
+.mailbox .label{
+  opacity: 0.75;
+  line-height: 15px;
+  min-width: 65px;
+}
+
+.slider{
+  max-height: 1000px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.inbox_msg{
+  border: 1px solid #000;
+  margin: 5px 0;
+  background: #fff;
+}
+
+.inbox_msg h4{
+  background: #fafafa;
+  margin: 0;
+  font-size: 20px;
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.inbox_msg .form_card{
+  margin: 0;
+}
+
+.msg_body{
+  padding: 15px;
+}
+
+.back{
+  font-weight: 700;
+  /*! background: #f9f9f9; */
+  margin-bottom: 10px;
+}
+
+.back .fa{
+  font-size: 12px;
+  vertical-align: text-top;
+}
+
+.trunc{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.name{
+  text-transform: capitalize;
+}

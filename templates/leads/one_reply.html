@@ -1,7 +1,7 @@
 <div class="form_card">
   <div class="form-group">
-    <h3 class="data"><a href="{% url 'workplace:workplace_profile' reply.workplace.slug %}">{{reply.workplace}}</a></h3>
-    <p class="text-muted">By <a href="{% url 'user:profile' reply.user.username %}">{{reply.user}}</a><span class="pull-right">On {{reply.date}}</span></p>
+    <h3 class="data">From <a href="{% url 'workplace:workplace_profile' reply.workplace.slug %}">{{reply.workplace}}</a></h3>
+    <p class="text-muted">Submitted by <a href="{% url 'user:profile' reply.user.username %}">{{reply.user.userprofile}}</a><span class="pull-right">{{reply.date}}</span></p>
   </div>
   <div id="quot_details_{{forloop.counter}}">
     <div class="loading hide">

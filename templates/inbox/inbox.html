@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
+{% endblock head_css %}
+
+{% block title %}Inbox | CoreLogs{% endblock title %}
+
+{% block page_id %}cover{% endblock page_id %}
 
 {% block body %}
   <div class="container">
     <div class="row" style="margin-top: 1em">
       <div class="col-md-3">
         <div class="list-group">
-          <a href=''class="list-group-item{% if active == all %} active{% endif %}">All</a>
+          <a href=''class="list-group-item active">All</a>
           <!--
           <a href=''class="list-group-item{% if active == inq %} active{% endif %}">Inquiries</a>
           <a href=''class="list-group-item{% if active == quot %} active{% endif %}">Quotations</a>
@@ -15,25 +24,47 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div class="panel-group" id="inbox_accordion">
-          {% for result in result_list %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#inbox_accordion" href="#collapse{{forloop.counter}}">
-                {% if result.lead_id %}
-                  Quotation: {{result.message|truncatechars:'25'}}
-                {% elif result.message %}
-                  Inquiry: {{result.message|truncatechars:'25'}}
-                {% else %}
-                  Message: {{result.user2}}-{{result.user2}}
-                {% endif %}
-
-                </a>
-              </h4>
+        <div id="inbox_content">
+          <div id="inbox_list" class="slider">
+            <div class="mailbox">
+              {% for result in result_list %}
+              <div class="panel">
+                <h4 {% if not result.seen %}class="strong"{% endif %}>
+                  <a class="slide_a" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+                  {% if result.lead_id %}
+                    <span class="label label-success">Quotation</span>
+                    <span class="trunc name">{{result.workplace}}</span>
+                    <span class="trunc subject">Quotation on {{result.lead}}</span>
+                    <time class="trunc">{{result.date}}</time>
+                  {% elif result.message %}
+                    <span class="label label-warning">Inquiry</span>
+                    <span class="trunc name">{{result.user.userprofile}}</span>
+                    <span class="trunc subject">
+                      Inquiry on
+                      {% if result.product %}
+                      {{result.product}}
+                      {% else %}
+                      {{result.workplace}}
+                      {% endif %}
+                    </span>
+                    <time class="trunc">{{result.date}}</time>
+                  {% else %}
+                    <span class="label label-info">Message</span>
+                    <span class="trunc name">{{result.last_message_from.userprofile}}</span>
+                    <span class="trunc subject">{{result.get_last_message}} ({{result.get_msg_count}})</span>
+                    <time class="trunc">{{result.date}}</time>
+                  {% endif %}
+                  </a>
+                </h4>
+              </div>
+              {% endfor %}
             </div>
-            <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
-              <div class="panel-body">
+          </div>
+          <div class="slider_container">
+            {% for result in result_list %}
+            <div id="inbox_msg{{forloop.counter}}" class="slider hide">
+              <a class="slide_a back btn btn-default" href="#inbox_list" data-parent="#inbox_msg{{forloop.counter}}" data-type="right"><span class="fa fa-arrow-left"></span>Back to Inbox</a>
+              <div class="inbox_msg">
                 {% if result.lead_id %}
                   {% include "inbox/lead_msg.html" %}
                 {% elif result.message %}
@@ -42,9 +73,9 @@
                   {% include "inbox/msg_msg.html" %}
                 {% endif %}
               </div>
-           </div>
+            </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
       </div>
     </div>

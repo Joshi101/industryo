@@ -1,1 +1,24 @@
-{{result.message}}
+{% if result.product %}
+  <h4>Inquiry on <a href="{% url 'products:product' result.product.slug %}">{{result.product}}</a></h4>
+{% else %}
+  <h4>Inquiry on <a href="{% url 'workplace:workplace_profile' result.workplace.slug %}">{{result.workplace}}</a></h4>
+{% endif %}
+<div class="form_card">
+  <div class="form-group">
+    {% if result.user %}
+    <h3 class="data">From <a href="{% url 'user:profile' result.user.username %}">{{result.user.userprofile}}</a></h3>
+    <p class="text-muted">
+      {% if result.user.userprofile.job_position %}
+        {{result.user.userprofile.job_position}} at
+      {% else %}
+        Working at
+      {% endif %}
+      <a href="{% url 'workplace:workplace_profile' result.user.userprofile.primary_workplace.slug %}">{{result.user.userprofile.primary_workplace}}</a>
+      <span class="pull-right">{{result.date}}</span></p>
+    {% endif %}
+  </div>
+  <div class="form-group">
+    <div class="data_title">Message</div>
+    <p class="data">{{result.message}}</p>
+  </div>
+</div>
