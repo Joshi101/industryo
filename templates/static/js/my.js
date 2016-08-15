@@ -1480,9 +1480,15 @@ $(function () {
 
 function nav_active(a){
     var nav = $(a).closest('.nav');
-    nav.find('.active').removeClass('active');
-    $(a).closest('li').addClass('active');
+    var act = nav.find('.active');
+    var e_type = act.prop('nodeName');
+    act.removeClass('active');
+    $(a).closest(e_type).addClass('active');
 }
+
+$('.nav_activate').on('click', 'a', function(){
+    nav_active(this);
+});
 
 function ajax_a(a, push){
     var url = $(a).attr('href');
@@ -1514,6 +1520,11 @@ function ajax_a(a, push){
 $('body').on('click', '.ajax_a', function(event){
     event.preventDefault();
     ajax_a(this, true);
+});
+
+$('body').on('click', '.ajax_a2', function(event){
+    event.preventDefault();
+    ajax_a(this, false);
 });
 
 $('.nav_flex').on('click', 'li', function(){
@@ -2488,7 +2499,6 @@ $(nav_ajax_activate);
 
 function changeurl(response, url){
   var state = window.location.pathname;
-  console.log(state);
   window.history.pushState(state, '', url);
   var $response = $('<div></div>').html(response);
   $('title').text($response.find('#ajax_title').text());
@@ -2663,3 +2673,4 @@ function messageSent($form, response){
 function messageFailed($form, response){
 
 }
+

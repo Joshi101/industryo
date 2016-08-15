@@ -1,0 +1,63 @@
+<div id="inbox_list" class="slider">
+  <div class="mailbox">
+    {% for result in result_list %}
+    <div class="panel">
+      <h4 {% if not result.seen %}class="strong"{% endif %}>
+        {% if result.lead_id %}
+        <a class="slide_a quot_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+          <span class="label label-success">Quotation</span>
+          <span class="trunc name">{{result.workplace}}</span>
+          <span class="subject trunc">Quotation on {{result.lead|truncatechars:'50'}}</span>
+          <time class="trunc">{{result.date}}</time>
+        </a>
+        {% elif result.message %}
+        <a class="slide_a inq_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+          <span class="label label-warning">Inquiry</span>
+          <span class="trunc name">{{result.user.userprofile}}</span>
+          <span class="subject trunc">
+            Inquiry on
+            {% if result.product %}
+            {{result.product|truncatechars:'50'}}
+            {% else %}
+            {{result.workplace|truncatechars:'50'}}
+            {% endif %}
+          </span>
+          <time class="trunc">{{result.date}}</time>
+        </a>
+        {% else %}
+        <a class="slide_a msg_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+          <span class="label label-info">Message</span>
+          <span class="trunc name">{{result.last_message_from.userprofile}}</span>
+          <span class="subject"><span class="trunc">{{result.get_last_message|truncatechars:'50'}} ({{result.get_msg_count}})</span></span>
+          <time class="trunc">{{result.date}}</time>
+        </a>
+        {% endif %}
+      </h4>
+    </div>
+    {% empty %}
+      {% if empty %}
+        {% include empty %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+<div class="slider_container">
+  {% for result in result_list %}
+  <div id="inbox_msg{{forloop.counter}}" class="slider hide">
+    <a class="slide_a back btn btn-default" href="#inbox_list" data-parent="#inbox_msg{{forloop.counter}}" data-type="right"><span class="fa fa-arrow-left"></span>Back to Inbox</a>
+    <div class="inbox_msg">
+      {% if result.lead_id %}
+        {% include "inbox/lead_msg.html" %}
+      {% elif result.message %}
+        {% include "inbox/inquiry_msg.html" %}
+      {% else %}
+        {% if result.user1 == user %}
+          {% include "inbox/msg_msg.html" with sender=result.user2 %}
+        {% else %}
+          {% include "inbox/msg_msg.html" with sender=result.user1 %}
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
