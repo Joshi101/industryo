@@ -1357,7 +1357,7 @@ $(document).ready(function(){
 
             success: function(response) {
                 $this.html(response);
-                console.log('kuch ajax load hui');
+                // console.log('kuch ajax load hui');
                 lazyImages();
             },
 
@@ -2333,7 +2333,7 @@ $('.form_eric').find('input, textarea').each(function(index, el) {
     var $this = $(this),
     label = $this.prev('label');
     if( $this.val() !== '' )
-        label.addClass('active');
+        label.addClass('active highlight');
 });
 
 $('.form_card').find('input, textarea').on('blur focus', function (e) {
@@ -2644,7 +2644,7 @@ $(function () {
 
 $('body').on('click', '.slide_a', function(event){
     event.preventDefault();
-    console.log('slider')
+    // console.log('slider')
     var $this = $(this);
     var target = $this.attr('href');
     var current = $this.attr('data-parent');
@@ -2652,3 +2652,14 @@ $('body').on('click', '.slide_a', function(event){
     $(current).addClass('hide');
     $(target).removeClass('hide');
 });
+
+$('#inbox_content').on('click', '.ajx_form', function(){
+    ajx_form($(this).closest('form'), messageSent, messageFailed);
+});
+
+function messageSent($form, response){
+    $form.closest('.inbox_msg').find('.msg_body').append(response.msg);
+}
+function messageFailed($form, response){
+
+}

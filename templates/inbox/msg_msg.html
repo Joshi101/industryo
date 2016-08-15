@@ -1,0 +1,31 @@
+<header>
+  <h4>
+    <a href="{% url 'user:profile' sender.username %}">{{sender.userprofile}}</a>
+  </h4>
+  <p class="text-muted">
+  {% if sender.userprofile.job_position %}
+    {{sender.userprofile.job_position}} at
+  {% else %}
+    Working at
+  {% endif %}
+    <a href="{% url 'workplace:workplace_profile' sender.userprofile.primary_workplace.slug %}">{{sender.userprofile.primary_workplace}}</a>
+    <span class="pull-right">{{result.date}}</span>
+  </p>
+</header>
+<div class="msg_body">
+{% for msg in messages %}
+  {% if msg.conversation == result %}
+    <div class="msg {% if msg.from_user == user %}self{% endif %}">
+      <img class="lazy_img thmb_sm" src="/images/user_man.png" data-src="{{msg.from_user.userprofile.get_profile_image}}" alt="{{msg.from_user}}">
+      <span class="text">{{msg.message}}</span>
+    </div>
+  {% endif %}
+{% endfor %}
+</div>
+<form class="msg_reply" role="form" method="post" action="{% url 'messages:send_message' %}">
+  {% csrf_token %}
+  <input name="id" value="{{result.id}}" autocomplete="off" type="hidden">
+  <input name="person" value="{{sender.username}}" autocomplete="off" type="hidden">
+  <textarea class="form-control" id="message" name="message" placeholder="Write a message" rows="4"></textarea>
+  <button type="button" class="btn btn-sm btn-primary ajx_form">Send</button>
+</form>
