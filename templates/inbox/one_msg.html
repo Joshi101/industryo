@@ -1,0 +1,4 @@
+<div class="msg {% if msg.from_user == user %}self{% endif %}">
+  <img class="thmb_sm" src="{{msg.from_user.userprofile.get_profile_image}}" alt="{{msg_from_user}}">
+  <span class="text">{{msg.message}}</span>
+</div>

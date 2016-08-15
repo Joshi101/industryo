@@ -6000,7 +6000,7 @@ and in bootstrap.css
 .mailbox .panel{
   margin-bottom: 0;
   border-radius: 0;
-  padding: 10px;
+  /*! padding: 0; */
 }
 
 .mailbox .panel:not(:last-child){
@@ -6013,8 +6013,9 @@ and in bootstrap.css
 }
 
 .mailbox h4 a{
-  display: block;
+  display: flex;
   color: #333;
+  padding: 10px;
 }
 
 .mailbox h4 a:hover, .mailbox h4 a:focus{
@@ -6026,19 +6027,28 @@ and in bootstrap.css
 }
 
 .mailbox h4 span, .mailbox h4 time{
-  display: inline-block;
+  /*! display: inline-block; */
   line-height: 21px;
   vertical-align: top;
 }
 
 .mailbox h4 .name{
-  width: 120px;
+  /*! flex: 120px; */
+  flex: 0 0 120px;
+}
+
+.mailbox h4 .subject{
+  flex-grow: 1;
+}
+
+.mailbox h4 .subject .trunc{
+  width: 100%;
 }
 
 .mailbox h4 time{
-  float: right;
+  /*! float: right; */
   font-size: 12px;
-  width: 100px;
+  flex: 0 0 100px;
   color: #999;
 }
 
@@ -6049,7 +6059,8 @@ and in bootstrap.css
 .mailbox .label{
   opacity: 0.75;
   line-height: 15px;
-  min-width: 65px;
+  /*! min-width: 65px; */
+  flex: 0 0 65px;
 }
 
 .slider{
@@ -6064,12 +6075,21 @@ and in bootstrap.css
   background: #fff;
 }
 
-.inbox_msg h4{
+.inbox_msg header{
   background: #fafafa;
   margin: 0;
-  font-size: 20px;
   padding: 15px;
   border-bottom: 1px solid #ccc;
+}
+
+.inbox_msg header h4{
+  font-size: 20px;
+  margin: 0;
+}
+
+.inbox_msg header p{
+  margin-top: 5px;
+  margin-bottom: 0;
 }
 
 .inbox_msg .form_card{
@@ -6077,7 +6097,50 @@ and in bootstrap.css
 }
 
 .msg_body{
-  padding: 15px;
+  padding: 25px 15px;
+}
+
+.msg_body .msg{
+  position: relative;
+  margin-bottom: 10px;
+  min-height: 40px;
+}
+
+.msg_body img{
+  position: absolute;
+  top: 4px;
+  left: 5px;
+}
+
+.msg_body .text{
+  display: inline-block;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.msg_body.self{
+  text-align: right;
+}
+
+.msg_body.self img{
+  position: absolute;
+  top: 6px;
+  right: 5px;
+}
+
+
+.msg_reply{
+  padding: 15px 15px 40px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.msg_reply textarea{
+  margin-bottom: 10px;
+}
+
+.msg_reply button{
+  float: right;
 }
 
 .back{

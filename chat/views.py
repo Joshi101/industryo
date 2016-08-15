@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
+from django.template.loader import render_to_string
 from chat.models import Message, Conversation
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -130,7 +131,6 @@ def send_message(request):
             conversation.is_read = False
             conversation.save()
         else:
-
             try:
                 conversation = Conversation.objects.get(Q(Q(user1=sender) | Q(user2=sender))& Q(Q(user1=receiver) | Q(user2=receiver)))
             except Exception:
@@ -140,7 +140,10 @@ def send_message(request):
             conversation.is_read = False
             conversation.save()
             return redirect('/messages/')
-        return render(request, 'messages/partial_message.html', {'message': m})
+        response = {}
+        response['msg'] = render_to_string('inbox/one_msg.html', {'msg': m})
+        print(response)
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
 @login_required
 def inbox(request):
