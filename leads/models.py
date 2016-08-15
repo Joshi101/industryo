@@ -95,6 +95,7 @@ class Reply(models.Model):
     quality_assurance = models.CharField(max_length=255, null=True, blank=True)
 
     selected = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False)
 
     doc1 = models.ForeignKey(Document, related_name='doc1', null=True, blank=True)
     doc2 = models.ForeignKey(Document, related_name='doc2', null=True, blank=True)
