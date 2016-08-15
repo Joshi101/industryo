@@ -10,7 +10,7 @@ class Conversation(models.Model):
     last_message_from = models.ForeignKey(User, null=True, blank=True)      # 1=frm_use 2=to_user
     last_active = models.DateTimeField(auto_now=True, null=True)
     date = models.DateTimeField(auto_now=True, null=True)
-    is_read = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Conversation'
@@ -43,7 +43,7 @@ class Message(models.Model):
     from_user = models.ForeignKey(User, related_name='+', null=True)
     to_user = models.ForeignKey(User, related_name='+', null=True)
     message = models.CharField(max_length=1000)
-    is_read = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True)
 
     class Meta:

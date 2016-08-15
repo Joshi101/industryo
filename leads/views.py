@@ -336,12 +336,12 @@ def leads_mail(id, x):
     if x == 'created':
         mail_body = lead_created.format(up, lead, lead.slug)
         subject = 'Hey {0} You Just Created a FREE Business Lead on CoreLogs'.format(up)
-        MailSend.objects.create(email=email, body=mail_body, reasons='lcm', from_email='4',
+        MailSend.objects.create(email=email, body=mail_body, reasons='lcm', from_email='4', random_id=id,
                                 date=now + timedelta(minutes=2), subject=subject)
     if x == 'close':
         mail_body = lead_closed.format(up, lead, lead.slug)
         subject = 'Hey {0} Your Lead has been Closed on CoreLogs'.format(up)
-        MailSend.objects.create(email=email, body=mail_body, reasons='jcm', from_email='4',
+        MailSend.objects.create(email=email, body=mail_body, reasons='jcm', from_email='4', random_id=id,
                                 date=now + timedelta(minutes=2), subject=subject)
 
 
@@ -362,23 +362,23 @@ def quotation_mail(id, x):
             mail_body = one_quotation.format(up, lead, lead.slug)
             subject = 'Hey {0} You have got a quotation on Lead on CoreLogs'.format(up)
             MailSend.objects.create(email=email, body=mail_body, reasons='jcm', from_email='4',
-                                    date=now + timedelta(minutes=2), subject=subject)
+                                    date=now + timedelta(minutes=2), subject=subject, random_id=lead.id)
         elif len(replies) == 2:
             mail_body = multiple_quotation.format(up, lead, lead.slug)
             subject = 'Hey {0} You have got Multiple quotations on Lead'.format(up)
             MailSend.objects.create(email=email, body=mail_body, reasons='jcm', from_email='4',
-                                    date=now + timedelta(minutes=2), subject=subject)
+                                    date=now + timedelta(minutes=2), subject=subject, random_id=lead.id)
         else:
             pass
     elif x == 'accepted':
         mail_body = quotation_accepted.format(reply.user.userprofile, lead, lead.slug)
         subject = 'Your Quotation on this lead has been accepted See Details'
         MailSend.objects.create(email=email, body=mail_body, reasons='jcm', from_email='4',
-                                date=now + timedelta(minutes=2), subject=subject)
+                                date=now + timedelta(minutes=2), subject=subject, random_id=lead.id)
         if len(replies) > 1:
             for r in replies:
                 if not r == reply:
                     mail_body = quotation_rejected.format(reply.user.userprofile, lead, lead.slug)
                     subject = 'Hey {0} You have got a quotation on Lead on CoreLogs'.format(up)
                     MailSend.objects.create(email=email, body=mail_body, reasons='jcm', from_email='4',
-                                            date=now + timedelta(minutes=2), subject=subject)
+                                            date=now + timedelta(minutes=2), subject=subject, random_id=lead.id)

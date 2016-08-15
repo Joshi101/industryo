@@ -3,7 +3,7 @@ from allauth.socialaccount.models import SocialAccount, SocialToken
 import urllib.request as urllib2
 from xml.etree import ElementTree as etree
 from allauth.socialaccount.models import SocialToken
-from .models import ContactEmails, MailSend
+from .models import ContactEmails, MailSend, Emails
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
 import pytz
@@ -12,6 +12,7 @@ from django.template.loader import render_to_string, get_template
 from django.template import Context
 from home.templates import *
 import random
+from workplace.models import Workplace
 
 
 def get_google_contacts(request):
@@ -301,3 +302,27 @@ def thread_send(to_send_n):
 #                 t.run_at = now + timedelta(minutes=c)
 #                 t.save()
 #                 c = c+1
+
+def fill_emails():
+    users = User.objects.all()
+    for user in users:
+        if user.userprofile.primary_workplace:
+            wp = user.user.userprofile.primary_workplace
+            t = wp.workplace_type
+        else:
+            wp = None
+            t = 'N'
+        if user.email:
+            e = Emails.objects.create(email=user.email, user=user, workplace=wp, workplace_type=wp.workplace_type)
+        if user.userprofile.email:
+            e = Emails.objects.create(email=user.userprofile.email, user=user, workplace=wp,
+                                      workplace_type=wp.workplace_type)
+
+    wps = Workplace.objects.all()
+    for w in wps:
+        if w.office_email_id:
+            email1 = w.office_email_id.split(',')[0]
+            e = Emails.objects.create(email=email1, workplace=w, workplace_type=w.workplace_type)
+
+
+

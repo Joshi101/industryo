@@ -15,6 +15,7 @@
     <div class="row" style="margin-top: 1em">
       <div class="col-md-3">
         <nav>
+          <a href="#">Inbox</a>
           <ul class="nav nav-pills nav-stacked nav_activate">
             <li class="active">
               <a href="{% url 'inbox:inbox' %}" data-place="#inbox_content" class="ajax_a">All</a>
@@ -29,6 +30,7 @@
               <a href="{% url 'inbox:messages' %}" data-place="#inbox_content" class="ajax_a">Messages</a>
             </li>
           </ul>
+          <a href="#">Outbox</a>
         </nav>
       </div>
       <div class="col-md-9">

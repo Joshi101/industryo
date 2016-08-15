@@ -17,7 +17,7 @@
   {% if msg.conversation == result %}
     <div class="msg {% if msg.from_user == user %}self{% endif %}">
       <img class="lazy_img thmb_sm" src="/images/user_man.png" data-src="{{msg.from_user.userprofile.get_profile_image}}" alt="{{msg.from_user}}">
-      <span class="text">{{msg.message}}</span>
+      <span class="text">{{msg.message|urlize}}</span>
     </div>
   {% endif %}
 {% endfor %}
