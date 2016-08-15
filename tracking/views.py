@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from .models import Tracker
+from django.shortcuts import render, HttpResponse
+from .models import Tracker, Referral
 from datetime import datetime, timedelta
+from contacts.models import MailSend
+from datetime import datetime
+from home.templates import join_corelogs_mail
 
 
 def get_data(request):
@@ -11,6 +14,25 @@ def get_data(request):
     last_week_gci = Tracker.objects.filter(date__range=[now-timedelta(days=7), now], source='6')
     last_week_referral = Tracker.objects.filter(date__range=[now-timedelta(days=7), now], source='7')
     return render(request, 'trackind/data.html', locals())
+
+
+def refer(request):
+    if request.method == 'POST':
+        user = request.user
+        now = datetime.now()
+        subject = '{0} Invited You to join the network of SMEs'.format(user.userprofile)
+        mail_body = join_corelogs_mail.format(user.userprofile)
+        emails = request.POST.get('emails')
+        if emails:
+            ems = emails.split(',')
+            MailSend.objects.create(user=user, emails=ems, reasons='jcm', subject=subject, date=now, body=mail_body,
+                                    from_email='3')
+            for e in ems:
+                r = Referral.objects.create(email=e, user=user)
+        return HttpResponse
+    else:
+        return render(request, 'refer.html')
+
 
 
 

@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', 'home.views.home', name='home'),
     url(r'^feed/$', 'home.views.feed', name='feed'),
+    url(r'^network/$', 'home.views.network', name='network'),
     url(r'^feedback/$', 'home.views.feedback', name='feedback'),
 
     url(r'^marketplace$', 'products.views.all_products', name='marketplace'),

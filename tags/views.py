@@ -168,16 +168,28 @@ def describe_tag(request):          # edit description
         return redirect('/tags/')
 
 
-# new function to add a follow button to a tag adding it to interests
 @login_required
 def follow_tag(request):
     user = request.user
-    if request.method == 'POST':
-        tag = Tags.objects.get(id=request.POST['tag_id'])
-        user.useprofile.interest.add(tag)
-        return HttpResponse()
-    else:
-        return redirect('/tags/')
+    id = request.GET.get('id')
+    tag = Tags.objects.get(id=id)
+    t = user.userprofile.set_interests(tag.tag)
+    if request.GET.get('wp'):
+        if user.userprofile.workplace_type != 'N':
+            wp = user.userprofile.primary_workplace
+            type = tag.type
+            if type in ['C', 'I']:
+                wp.set_city(tag.tag)
+            if type == 'S':
+                wp.set_segments(tag.tag)
+            if type == 'O':
+                wp.set_operations(tag.tag)
+            if type == 'A':
+                wp.set_assets(tag.tag)
+            if type == 'M':
+                wp.set_materials(tag.tag)
+
+    return redirect('/network')
 
 
 def create(request):

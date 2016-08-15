@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from activities.models import Enquiry
 import pytz
 import random
+from workplace.models import Workplace
 
 
 class ContactEmails(models.Model):
@@ -96,6 +97,31 @@ class MailSend(models.Model):
         else:
             company = 'CoreLogs'
         return company
+
+
+class Emails(models.Model):
+    email = models.EmailField()
+    user = models.ForeignKey(User, null=True, blank=True)
+    workplace = models.ForeignKey(Workplace, null=True, blank=True)
+    workplace_type = models.CharField(max_length=1, default='N')
+    date = models.DateTimeField(auto_now_add=True)
+
+    primary_for_user = models.BooleanField(default=False)
+    primary_for_workplace = models.BooleanField(default=False)
+
+    deliverable = models.BooleanField(default=True)
+    sent = models.IntegerField(default=0)
+    opened = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'Emails'
+
+    def __str__(self):
+        return self.email
+
+
+
+
 
 
 # Create your models here.

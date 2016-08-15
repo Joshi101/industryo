@@ -5,8 +5,8 @@
     <input id="lead_title" name="lead" data-response="leadCreated" value="{{lead}}" placeholder="Provide a title for the Lead" required>
   </div>
   <div class="form-group">
-    <label for="lead_description">A Brief Description, specifications and any message</label>
-    <textarea class="textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Descriptio of the Lead" maxlength="1000">{{lead.description|default:''}}</textarea>
+    <label for="lead_description">A Brief Description, specifications, Quantity required</label>
+    <textarea class="textarea_lg count_field" value="{{description}}" id="lead_description" name="description" placeholder="A Brief Description, How Much, Quantity, Quality Requirements, Any details" maxlength="1000">{{lead.description|default:''}}</textarea>
     <span class="char_count">1000</span>
   </div>
   <!-- <div class="form-group">

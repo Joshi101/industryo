@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'tags.views.get_all_tags', name='all_tags'),
 
+    url(r'^follow/$', 'tags.views.follow_tag', name='follow'),
     url(r'^create/$', 'tags.views.create', name='create'),
     url(r'^search_n_tags$', 'tags.views.search_n_tags', name='search_n_tags'),
     url(r'^describe/$', 'tags.views.describe_tag', name='describe_tag'),
