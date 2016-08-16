@@ -5995,7 +5995,8 @@ and in bootstrap.css
 
 .mailbox{
   border: 1px solid #eee;
-  margin-top: 53px;
+  margin-top: 55px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .mailbox .panel{
@@ -6109,7 +6110,8 @@ and in bootstrap.css
 
 .msg_body img{
   position: absolute;
-  top: 4px;
+  top: 0;
+  border-radius: 16px;
   left: 5px;
 }
 
@@ -6117,16 +6119,19 @@ and in bootstrap.css
   display: inline-block;
   margin-left: 50px;
   margin-right: 50px;
+  background: #eee;
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 
-.msg_body.self{
+.msg.self{
   text-align: right;
 }
 
-.msg_body.self img{
+.msg.self img{
   position: absolute;
-  top: 6px;
   right: 5px;
+  left: unset;
 }
 
 

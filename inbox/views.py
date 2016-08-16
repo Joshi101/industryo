@@ -122,7 +122,7 @@ def messages(request):
         return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
 
 
-def inbox_received(request):
+def outbox(request):
     user = request.user
     wp = user.userprofile.primary_workplace
     inquiries = Enquiry.objects.filter(user=user).order_by('date')
@@ -152,4 +152,82 @@ def inbox_received(request):
     else:
         return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages})
 
-# Create your views here.
+
+@login_required
+def sent_quotations(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    quotations = Reply.objects.filter(user=user).order_by('date')
+    all_result_list = sorted(
+        chain(quotations),
+        key=attrgetter('date'), reverse=True)
+    paginator = Paginator(all_result_list, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_quotations.html'})
+    else:
+        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'empty': 'inbox/no_quotations.html'})
+
+
+@login_required
+def sent_inquiries(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    inquiries = Enquiry.objects.filter(user=user).order_by('date')
+    all_result_list = sorted(
+        chain(inquiries),
+        key=attrgetter('date'), reverse=True)
+    paginator = Paginator(all_result_list, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_inquiries.html'})
+    else:
+        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'empty': 'inbox/no_inquiries.html'})
+
+
+@login_required
+def sent_messages(request):
+    user = request.user
+    wp = user.userprofile.primary_workplace
+    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
+    con_list = []
+    for con in conversations:
+        con_list.append(con.id)
+    messages = Message.objects.filter(conversation__in=con_list)
+    all_result_list = sorted(
+        chain(conversations),
+        key=attrgetter('date'), reverse=True)
+    paginator = Paginator(all_result_list, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
+    else:
+        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
+

@@ -28,7 +28,7 @@
 {% block body %}
 <div class="container-fluid">
 	{% include "snippets/img_upload_modal.html" with url='nodes:set_profile_image' form=profile_image_form.image %}
-	{% include "messages/new_modal.html" with url='messages:new' %}
+	{% include "messages/reply_to_modal.html" with user=page_user %}
 	<div id="info_head" class="row info_head">
 		<div class="col-sm-2 col-md-2">
 			<div id="img_profile_box">

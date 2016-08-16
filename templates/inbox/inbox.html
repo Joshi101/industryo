@@ -20,16 +20,16 @@
           </header>
           <ul id="inbox_menu" class="nav nav-pills nav-stacked nav_activate collapse in">
             <li class="active">
-              <a href="{% url 'inbox:inbox' %}" data-place="#inbox_content" class="ajax_a">All</a>
+              <a href="{% url 'inbox:inbox' %}" data-place="#inbox_content" class="ajax_a2">All</a>
             </li>
             <li>
-              <a href="{% url 'inbox:inquiries' %}" data-place="#inbox_content" class="ajax_a">Inquiries</a>
+              <a href="{% url 'inbox:inquiries' %}" data-place="#inbox_content" class="ajax_a2">Inquiries</a>
             </li>
             <li>
-              <a href="{% url 'inbox:quotations' %}" data-place="#inbox_content" class="ajax_a">Quotations</a>
+              <a href="{% url 'inbox:quotations' %}" data-place="#inbox_content" class="ajax_a2">Quotations</a>
             </li>
             <li>
-              <a href="{% url 'inbox:messages' %}" data-place="#inbox_content" class="ajax_a">Messages</a>
+              <a href="{% url 'inbox:messages' %}" data-place="#inbox_content" class="ajax_a2">Messages</a>
             </li>
           </ul>
           <header>
@@ -37,16 +37,16 @@
           </header>
           <ul id="outbox_menu" class="nav nav-pills nav-stacked nav_activate collapse">
             <li class="active">
-              <a href="{% url 'inbox:inbox' %}" data-place="#inbox_content" class="ajax_a">All</a>
+              <a href="{% url 'inbox:outbox' %}" data-place="#inbox_content" class="ajax_a2">All</a>
             </li>
             <li>
-              <a href="{% url 'inbox:inquiries' %}" data-place="#inbox_content" class="ajax_a">Inquiries</a>
+              <a href="{% url 'inbox:sent_inquiries' %}" data-place="#inbox_content" class="ajax_a2">Inquiries</a>
             </li>
             <li>
-              <a href="{% url 'inbox:quotations' %}" data-place="#inbox_content" class="ajax_a">Quotations</a>
+              <a href="{% url 'inbox:sent_quotations' %}" data-place="#inbox_content" class="ajax_a2">Quotations</a>
             </li>
             <li>
-              <a href="{% url 'inbox:messages' %}" data-place="#inbox_content" class="ajax_a">Messages</a>
+              <a href="{% url 'inbox:sent_messages' %}" data-place="#inbox_content" class="ajax_a2">Messages</a>
             </li>
           </ul>
         </nav>
