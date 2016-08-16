@@ -1494,7 +1494,6 @@ function ajax_a(a, push){
     var url = $(a).attr('href');
     var target = $(a).data('place');
     if (target){
-        console.log(target);
         $(target).find('.loading').removeClass('hide');
     }
     $.ajax({

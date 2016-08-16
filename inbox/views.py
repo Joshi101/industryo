@@ -63,9 +63,9 @@ def quotations(request):
         return
         # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
-        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_inquiries.html'})
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_quotations.html'})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'empty': 'inbox/no_inquiries.html'})
+        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'empty': 'inbox/no_quotations.html'})
 
 
 @login_required

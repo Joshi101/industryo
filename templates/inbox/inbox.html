@@ -13,10 +13,12 @@
 {% block body %}
   <div class="container">
     <div class="row" style="margin-top: 1em">
-      <div class="col-md-3">
-        <nav>
-          <a href="#">Inbox</a>
-          <ul class="nav nav-pills nav-stacked nav_activate">
+      <div class="col-sm-3">
+        <nav class="in_left">
+          <header>
+            <a href="#inbox_menu" data-toggle="collapse">Inbox (Recieved)</a>
+          </header>
+          <ul id="inbox_menu" class="nav nav-pills nav-stacked nav_activate collapse in">
             <li class="active">
               <a href="{% url 'inbox:inbox' %}" data-place="#inbox_content" class="ajax_a">All</a>
             </li>
@@ -30,10 +32,26 @@
               <a href="{% url 'inbox:messages' %}" data-place="#inbox_content" class="ajax_a">Messages</a>
             </li>
           </ul>
-          <a href="#">Outbox</a>
+          <header>
+            <a href="#outbox_menu" data-toggle="collapse">Outbox (Sent)</a>
+          </header>
+          <ul id="outbox_menu" class="nav nav-pills nav-stacked nav_activate collapse">
+            <li class="active">
+              <a href="{% url 'inbox:inbox' %}" data-place="#inbox_content" class="ajax_a">All</a>
+            </li>
+            <li>
+              <a href="{% url 'inbox:inquiries' %}" data-place="#inbox_content" class="ajax_a">Inquiries</a>
+            </li>
+            <li>
+              <a href="{% url 'inbox:quotations' %}" data-place="#inbox_content" class="ajax_a">Quotations</a>
+            </li>
+            <li>
+              <a href="{% url 'inbox:messages' %}" data-place="#inbox_content" class="ajax_a">Messages</a>
+            </li>
+          </ul>
         </nav>
       </div>
-      <div class="col-md-9">
+      <div class="col-sm-9">
         <div id="inbox_content">
           <div class="loading hide">
             <i class="fa fa-spin fa-spinner"></i>

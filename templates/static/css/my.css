@@ -1071,7 +1071,7 @@ pre {
 
 .nav-pills {
   margin-bottom: 25px;
-  border-radius: 2px;
+  border-radius: 0;
   border: 1px solid #;
   overflow: hidden;
 
@@ -1085,7 +1085,7 @@ pre {
 
 .nav-pills li a {
   padding: 10px 20px;
-  border-radius: 1px;
+  border-radius: 0;
   margin: 0;
 }
 
@@ -5994,7 +5994,8 @@ and in bootstrap.css
 }
 
 .mailbox{
-  border: 1px solid #197;
+  border: 1px solid #eee;
+  margin-top: 53px;
 }
 
 .mailbox .panel{
@@ -6004,7 +6005,7 @@ and in bootstrap.css
 }
 
 .mailbox .panel:not(:last-child){
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #f4f4f4;
 }
 
 .mailbox h4{
@@ -6147,6 +6148,7 @@ and in bootstrap.css
   font-weight: 700;
   /*! background: #f9f9f9; */
   margin-bottom: 10px;
+  margin-top: 4px;
 }
 
 .back .fa{
@@ -6174,4 +6176,55 @@ and in bootstrap.css
 
 .empty .dealing{
   margin-bottom: 20px;
+}
+
+.in_left{
+}
+
+.in_left header{
+  font-size: 1.15em;
+  margin-left: -15px;
+  background: #197;
+  box-shadow: -2px 2px 2px rgba(0,0,0,0.2);
+}
+
+.in_left header:nth-child(3){
+  background: #07a0c3;
+  margin-top: 15px;
+}
+
+.in_left header a{
+  display: block;
+  padding: 15px;
+  color: #fff;
+  transition: 0.5s all ease-in-out;
+}
+
+.in_left header a:hover, .in_left header a:focus{
+  text-decoration: none;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+  margin-left: 15px;
+  transition: 0.5s all ease-in-out;
+}
+
+.in_left ul{
+  padding-top: 5px;
+}
+
+.in_left li a{
+  border-right: 3px solid transparent;
+}
+
+.in_left li.active a, .in_left li.active a:hover, .in_left li.active a:focus{
+  background: rgba(10,112,196,0.1);
+  color: #555;
+  font-weight: 700;
+  border-right: 3px solid #0a70c4;
+}
+
+.in_left ul:nth-child(4) li.active a,
+.in_left ul:nth-child(4) li.active a:hover,
+.in_left ul:nth-child(4) li.active a:focus{
+  background: rgba(16,144,112,0.1);
+  border-right: 3px solid #197;
 }
