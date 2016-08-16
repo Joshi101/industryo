@@ -62,7 +62,7 @@
             {% if new_inq_count %}
             <span class="new">{{workplace.get_enq.new.count}} New</span>
             {% endif %}
-            <a href="{% url 'products:enquiry_all' %}">
+            <a href="{% url 'inbox:inbox' %}">
               <span class="num">{{workplace.get_enq.total.count}}</span>&nbsp;<span>Inquiries</span></span>
             </a>
           </h3>

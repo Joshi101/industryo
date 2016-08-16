@@ -23,5 +23,10 @@
     <li>
       <a id="wp_nav_activity" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:activity' workplace.slug %}"><span class="fa inline_fa fa-rss"></span>Activity</a>
     </li>
+    {% if member %}
+    <li>
+      <a href="{% url 'inbox:inbox' %}"><span class="fa inline_fa fa-dashboard"></span>Inbox</a>
+    </li>
+    {% endif %}
   </ul>
 </nav>
