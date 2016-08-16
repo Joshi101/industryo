@@ -307,7 +307,7 @@ class Workplace(models.Model):
 
     def get_website(self):
         w = self.website
-        if w:
+        if w != 'None':
             if "http" in w[0:4]:
                 return w
             else:
@@ -318,9 +318,11 @@ class Workplace(models.Model):
 
     def get_fb_page(self):
         w = self.fb_page
-        if w:
-            if "http" in w[0:4] or "www.facebook.com" in w[0:16]:
+        if w != 'None':
+            if "http" in w[0:4]:
                 return w
+            elif  "www.facebook.com" in w[0:16]:
+                w = 'http://'+w
             elif "facebook.com" in w[0:12]:
                 w = 'http://www.'+w
             else:
@@ -331,9 +333,11 @@ class Workplace(models.Model):
 
     def get_linkedin_page(self):
         w = self.linkedin_page
-        if w:
-            if "http" in w[0:4] or "www.linkedin." in w[0:14]:
+        if w != 'None':
+            if "http" in w[0:4]:
                 return w
+            elif  "www.linkedin." in w[0:14]:
+                w = 'http://'+w
             elif "linkedin.com" in w[0:12]:
                 w = 'http://www.'+w
             else:
