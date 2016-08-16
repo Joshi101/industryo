@@ -137,6 +137,16 @@ def inbox_received(request):
         chain(inquiries, quotations, conversations),
         key=attrgetter('date'), reverse=True)
     paginator = Paginator(all_result_list, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        return
+        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
     else:
