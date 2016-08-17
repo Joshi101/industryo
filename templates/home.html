@@ -2,6 +2,7 @@
 
 {% block body %}
   <div class="container">
+    {% include "welcome_modal.html" %}
   	<div class="row">
   		<div class="col-sm-8">
 		  	<div class="wide_64">
@@ -14,7 +15,7 @@
 						{% block feed_body %}
             {% if user.is_authenticated %}
 						  {% include "snippets/feed_form.html" %}
-            {% endif %}    
+            {% endif %}
 						<div class="ajax_andar feeds">
 							{% include "snippets/figure_modal.html" %}
 							{% include 'nodes/five_nodes.html' with result_list=result_list %}
@@ -49,4 +50,10 @@
 	<script type="text/javascript">
 		$('#top_nav_feed').addClass('current');
 	</script>
+  <script type="text/javascript">
+    $(function(){
+      console.log('into aa')
+      $('#intro_modal').modal();
+    });
+  </script>
 {% endblock end_js %}

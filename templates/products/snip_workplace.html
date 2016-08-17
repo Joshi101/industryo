@@ -1,12 +1,7 @@
 <div class="row">
   {% for w in workplaces %}
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-		
-          <h4><a href="{% url 'workplace:workplace_profile' w.slug %}"><img src="{{ w.get_logo }}" style="width:50px">{{w}}</a></h4> ({{w.get_type}})
-        </div>
-      </div>
+    <div class="col-sm-6">
+      {% include "snippets/workplace_card.html" with w=w %}
     </div>
     {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
   {% endfor %}

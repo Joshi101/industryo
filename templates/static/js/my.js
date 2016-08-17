@@ -2339,11 +2339,14 @@ $('.form_eric').find('input, textarea').on('keyup blur focus', function (e) {
     }
 });
 
-$('.form_eric').find('input, textarea').each(function(index, el) {
-    var $this = $(this),
-    label = $this.prev('label');
-    if( $this.val() !== '' )
-        label.addClass('active highlight');
+$(function(){
+    $('.form_eric').find('input, textarea').each(function(index, el) {
+        var $this = $(this),
+        label = $this.prev('label');
+        console.log($this.val())
+        if( $this.val() !== '' )
+            label.addClass('active highlight');
+    });
 });
 
 $('.form_card').find('input, textarea').on('blur focus', function (e) {
@@ -2478,10 +2481,10 @@ $('body').on('click', '.swapper_bi', function(event){
 
 var $login_modal = $('#login_modal');
 if ($login_modal.length) {
-  console.log($login_modal);
+  // console.log($login_modal);
   $('body').on('click','.signup_call',function(event){
     event.preventDefault();
-    console.log('singup call', $login_modal.length);
+    // console.log('singup call', $login_modal.length);
     $login_modal.modal();
   });
 }

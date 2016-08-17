@@ -1,15 +1,15 @@
 <nav>
-  <ul id="tag_nav" class="nav nav_flex nav_ajax">
+  <ul id="cat_nav" class="nav nav_flex nav_ajax">
     <li>
-      <a id="tag_nav_activities" class="ajax_a" data-place="#tag_content" href="{% url 'category' category.slug %}"><span class="fa fa-rss"></span>Categories</a>
+      <a id="cat_nav_categories" class="ajax_a" data-place="#tag_content" href="{% url 'category' category.slug %}"><span class="fa fa-rss"></span>Categories</a>
     </li>
 
     <li>
-      <a id="tag_nav_activities" class="ajax_a" data-place="#tag_content" href="{% url 'category_prod' category.slug %}"><span class="fa fa-rss"></span>Products</a>
+      <a id="tag_nav_products" class="ajax_a" data-place="#tag_content" href="{% url 'category_prod' category.slug %}"><span class="fa fa-rss"></span>Products</a>
     </li>
 
     <li>
-      <a id="tag_nav_leads" class="ajax_a" data-place="#tag_content" href="{% url 'category_wp' category.slug %}"><span class="fa fa-suitcase"></span>Companies</a>
+      <a id="tag_nav_companies" class="ajax_a" data-place="#tag_content" href="{% url 'category_wp' category.slug %}"><span class="fa fa-suitcase"></span>Companies</a>
     </li>
   </ul>
 </nav>
