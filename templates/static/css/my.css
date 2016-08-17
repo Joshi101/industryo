@@ -183,6 +183,9 @@ img{
 }
 
 @media(max-width:768px){
+  .pre_nav .nav_advert{
+    text-align: right;
+  }
   .pre_nav .nav_advert .msg{
     display:none;
   }

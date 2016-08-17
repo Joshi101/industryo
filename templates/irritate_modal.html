@@ -1,0 +1,18 @@
+<div id="irritate_modal" class="modal fade intro_modal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h2 class="text-center"><strong>Hey {{request.user.userprofile|truncatewords:'1'|default:"Guest"}}!</strong> Leaving?</h2>
+        <p class="text-center"><strong>CoreLogs</strong> has potential, if you believe this, let people know.</p>
+        <p class="text-center">Refer to 3 freinds or you'll have bad luck for 2 years and your competitors will snatch all your profit. <strong>Seriously!</strong></p>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Nah, I'll just continue browsing Alone!</button>
+      </div>
+    </div>
+  </div>
+</div>
