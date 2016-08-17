@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
-{% load bootstrap %}
 
 {% block head_desc %}
   {% include content_head_url %}
@@ -12,14 +11,12 @@
   <div id="info_head" class="info_head">
     <div class="row">
       <div class="col-sm-2">
-        {% comment %}
         <div class="info_logo">
-          <div id="img_profile_box">
-        		<img id="img_profile" class="thumbnail" width="120" height="120" src="" alt="">
+          <div class="img_profile_box">
+        		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{category.get_image}}" alt="{{category}}">
         		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
           </div>
         </div>
-        {% endcomment %}
       </div>
       <div class="col-sm-8">
         <div class="info_info tile">
@@ -47,49 +44,35 @@
   <div class='row'>
   	{% for c in category.get_hierarchy %}
   	{% if c.level == '1' %}
-	<div class="col-sm-4">
-	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
-	</div>
+  	<div class="col-sm-4">
+      <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
+  	</div>
 	{% endif %}
 	{% endfor %}
 	{% for c in category.get_hierarchy %}
   	{% if c.level == '2' %}
-	<div class="col-sm-4">
-	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
-	</div>
+  	<div class="col-sm-4">
+  	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
+  	</div>
+  	{% endif %}
+  	{% endfor %}
+  	{% for c in category.get_hierarchy %}
+    	{% if c.level == '3' %}
+  	<div class="col-sm-4">
+  	    {% if c.level == '3' %}
+  	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
+  	    {% endif %}
+  	</div>
 	{% endif %}
 	{% endfor %}
-	{% for c in category.get_hierarchy %}
-  	{% if c.level == '3' %}
-	<div class="col-sm-4">
-	    {% if c.level == '3' %}
-	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
-	    {% endif %}
-	</div>
-	{% endif %}
-	{% endfor %}
-	<!-- {% if category.level == '1' %}
-
-	{% elif category.level == '2' %}
-	{% for a in category.get_parent_cat %}
-	<li><a href="{% url 'products:category' a.slug %}">{{a}}</a></li>
-	{% endfor %}
-	{% elif category.level == '3' %}
-	{% for a in category.get_parent_cat %}
-	{% for b in a.get_parent_cat %}
-	<li><a href="{% url 'products:category' b.slug %}">{{b}}</a><li>
-	{% endfor %}
-	<li><a href="{% url 'products:category' a.slug %}">{{a}}</a><li>
-	{% endfor %}
-	{% endif %} -->
   </div>
 </div>
 
 <div class="container-fluid">
   <div class="row">
-  	<div class="sol-sm-12 col-md-8">
-        {% include "products/cat_nav_items.html" with category=category %}
-      </div>
+  	<div class="col-md-8 col-md-offset-2">
+      {% include "products/cat_nav_items.html" with category=category %}
+    </div>
   </div>
 </div>
 <div class="container-fluid">

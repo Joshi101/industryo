@@ -22,7 +22,7 @@ class Search(models.Model):
     text = models.CharField(max_length=100)
     type = models.CharField(max_length=20)
     user = models.ForeignKey(User, null=True, blank=True)
-    ip = models.IPAddressField(null=True, blank=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
     dropdown_only = models.BooleanField(default=0)
     date = models.DateTimeField(auto_now_add=True)
     # hits = models.IntegerField(default=1)         # Isko Manage karenge

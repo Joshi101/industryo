@@ -1,11 +1,12 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import  include, url
+from . import views
 
-urlpatterns = patterns('',
-    url(r'^$', 'chat.views.inbox', name='inbox'),
-    # url(r'^new/$', 'chat.views.new', name='new_message'),
-    url(r'^send/$', 'chat.views.send_message', name='send_message'),
-    url(r'^delete/$', 'chat.views.delete', name='delete_message'),
-    # url(r'^users/$', 'chat.views.users', name='users_message'),
-    url(r'^check/$', 'chat.views.check', name='check_message'),
-    url(r'^(?P<id>[^/]+)/$', 'chat.views.messages', name='messages'),
-)
+urlpatterns = [
+    url(r'^$', views.inbox, name='inbox'),
+    # url(r'^new/$', views.new, name='new_message'),
+    url(r'^send/$', views.send_message, name='send_message'),
+    url(r'^delete/$', views.delete, name='delete_message'),
+    # url(r'^users/$', views.users, name='users_message'),
+    url(r'^check/$', views.check, name='check_message'),
+    url(r'^(?P<id>[^/]+)/$', views.messages, name='messages'),
+]

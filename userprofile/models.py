@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     primary_workplace = models.ForeignKey(Workplace, null=True, blank=True)
-    workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps', null=True, blank=True)
+    workplaces = models.ManyToManyField(Workplace, through='Workplaces', related_name='wps', blank=True)
 
     date_joined = models.DateTimeField(auto_now_add=True, null=True)
     workplace_type = models.CharField(max_length=1, default='N', null=True)

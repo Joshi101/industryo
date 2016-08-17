@@ -1,7 +1,7 @@
 import re
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 
 def nav_suggest(request):

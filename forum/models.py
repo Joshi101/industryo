@@ -24,7 +24,7 @@ class Question(models.Model):
     score = models.FloatField(default=0)            # score added and two more below
     is_active = models.BooleanField(default=True)
     last_active = models.TimeField(auto_now=True)
-    images = models.ManyToManyField(Images, null=True, blank=True)
+    images = models.ManyToManyField(Images, blank=True)
     category = models.BooleanField(default=0)           # 0 for general, 1 for technical
 
     hits = models.IntegerField(default=0, null=True, blank=True)
@@ -138,7 +138,7 @@ class Answer(models.Model):
     admin_score = models.IntegerField(default=1)
     last_active = models.TimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    images = models.ManyToManyField(Images, null=True)
+    images = models.ManyToManyField(Images)
 
     class Meta:
         verbose_name = 'Answer'
