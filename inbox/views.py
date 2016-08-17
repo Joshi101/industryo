@@ -40,7 +40,8 @@ def inbox(request):
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages})
+        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages,
+                                                    'empty': 'inbox/no_nothing.html'})
 
 
 @login_required
