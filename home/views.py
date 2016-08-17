@@ -49,7 +49,7 @@ def home(request):
         a = request.GET.get('a')
         user = request.user
         if user.userprofile.primary_workplace:
-            profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+            profile = UserProfile.objects.select_related('primary_workplace').get(user=user)
             workplace = profile.primary_workplace
             t = workplace.workplace_type
             if t == 'A':
@@ -105,7 +105,7 @@ def feed(request):
     if request.user.is_authenticated():
         user = request.user
         if user.userprofile.primary_workplace:
-            profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+            profile = UserProfile.objects.select_related('primary_workplace').get(user=user)
             workplace = profile.primary_workplace
             t = workplace.workplace_type
             if t == 'A':
