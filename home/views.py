@@ -143,7 +143,7 @@ def feed(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'home.html', {'result_list': result_list, 'workplace': workplace, 'feed_img_form': UploadImageForm()})
+                return render(request, 'feed.html', {'result_list': result_list, 'workplace': workplace, 'feed_img_form': UploadImageForm()})
         else:
             return redirect('/set/')
     else:

@@ -7,11 +7,40 @@
   {% include content_head_url %}
 {% endblock head_desc %}
 
-{% block content %}
-<div class="panel-body">
-	<div class="col-sm-7">
-	<h4 class=" text-uppercase">{{ category }}</h4>
-	</div>
+{% block body %}
+<div class="container-fluid">
+  <div id="info_head" class="info_head">
+    <div class="row">
+      <div class="col-sm-2">
+        {% comment %}
+        <div class="info_logo">
+          <div id="img_profile_box">
+        		<img id="img_profile" class="thumbnail" width="120" height="120" src="" alt="">
+        		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
+          </div>
+        </div>
+        {% endcomment %}
+      </div>
+      <div class="col-sm-8">
+        <div class="info_info tile">
+          <div class="info_left">
+            <header class="info_title">
+              <h3 class="text-uppercase" property='name'>{{ category }}</h3>
+            </header>
+            <p class="text-muted content_tag_desc"></p>
+          </div>
+          <div class="info_right">
+            <h3 class="text-muted"><strong></strong></h3>
+            <h3>
+              <span class="num">151 Products</span>
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="panel-body">
@@ -56,23 +85,27 @@
   </div>
 </div>
 
-<div class="row">
-	<div class="sol-sm-12 col-md-8">
-      {% include "products/cat_nav_items.html" with category=category %}
-    </div>
-</div>
-
-<div class="row wp_body">
-    {% block workplace_section %}
-    <div id="tag_content" class="ajax_papa ajax_andar">
-      <div class="loading hide">
-        <i class="fa fa-spin fa-spinner"></i>
+<div class="container-fluid">
+  <div class="row">
+  	<div class="sol-sm-12 col-md-8">
+        {% include "products/cat_nav_items.html" with category=category %}
       </div>
-      <div class="content">
-        {% include content_url %}
-      </div>
-    </div>
-    {% endblock workplace_section %}
   </div>
-
-{% endblock content %}
+</div>
+<div class="container-fluid">
+  <div class="row wp_body">
+    <div class="col-md-8 col-md-offset-2">
+      {% block workplace_section %}
+      <div id="tag_content" class="ajax_papa ajax_andar">
+        <div class="loading hide">
+          <i class="fa fa-spin fa-spinner"></i>
+        </div>
+        <div class="content">
+          {% include content_url %}
+        </div>
+      </div>
+      {% endblock workplace_section %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

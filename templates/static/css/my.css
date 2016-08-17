@@ -541,8 +541,9 @@ img{
 
 .cover_dig .note{
   display: inline-block;
-  width: 200px;
+  width: 33%;
   min-width: 150px;
+  max-width: 250px;
   vertical-align: top;
   padding: 15px 15px 5px;
 }
@@ -4919,7 +4920,7 @@ border: 1px solid rgba(0,0,0,.12);
 }
 
 .intro_modal .modal-dialog{
-  margin-top: 121px;
+  margin-top: 51px;
   width: 75%;
   max-width: 1000px;
 }
@@ -6232,4 +6233,102 @@ and in bootstrap.css
 .in_left ul:nth-child(4) li.active a:focus{
   background: rgba(16,144,112,0.1);
   border-right: 3px solid #197;
+}
+
+.welcome .note_group{
+  display: flex;
+  text-align: center;
+  padding: 15px 15px 0;
+}
+
+.welcome .note{
+  padding: 15px 15px 0;
+  transition: 0.5s all ease-in-out;
+  color: #777;
+  flex: 1;
+  border: 1px solid transparent;
+}
+
+.welcome .note:hover{
+  text-decoration: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 3px #07a0c3;
+}
+
+.welcome .note .figure{
+  max-width: 150px;
+  height: 150px;
+  margin: 15px auto;
+  overflow: hidden;
+  border: 1px solid #eee;
+  border-radius: 75px;
+}
+
+.welcome .note .figure img{
+  width: 100%;
+}
+
+.welcome .note h4{
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.welcome .note h3{
+  margin-top: 0;
+  font-family: 'Titillium Web';
+  color: #197;
+  font-size: 25px;
+}
+
+.welcome .note:not(:last-child){
+  border-right: 1px solid #eee;
+}
+
+.intro_modal .modal-header .close{
+  font-size: 25px;
+}
+
+.intro_modal h2{
+  font-size: 25px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.intro_modal h2 + p{
+  font-size: 1.2em;
+}
+
+.wp_card{
+  border: 1px solid #eee;
+  padding: 10px 15px;
+  margin: 10px;
+  background: #fff;
+  display: flex;
+}
+
+.wp_card .logo{
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.wp_card .logo img{
+  border: 1px solid #eee;
+  border-radius: 50px;
+}
+
+.wp_card h4{
+  margin-top: 5px;
+  margin-bottom: 7px;
+  line-height: 1.2;
+  padding-left: 3px;
+}
+
+.wp_card p{
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.fa_close{
+  margin: 0;
 }

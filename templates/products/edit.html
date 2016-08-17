@@ -26,8 +26,17 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <h5>List Products here or send a list of products in excel with name, specifications, images and cost to admin@corelogs.com</h5>
-        
+        {% if p %}
+      	<div class="alert alert-info">
+      	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
+      	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}</strong></a>. Continue adding more products</p>
+      	</div>
+      	{% endif %}
+      	<div class="alert alert-info">
+      	  <p>List Products here or send a list of products in excel with name, specifications, images and cost to <strong>admin@corelogs.com</strong></p>
+      	</div>
+
         <div class='row'></div>
         <form id="add_prod_form" class="new_form auto_form" role="form" {% if not product %} action="{% url 'products:edit_add' 'new' %}" {% else %} action="{% url 'products:edit_add' product.id %}" {% endif %} method="POST" enctype="multipart/form-data">
           <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
@@ -45,7 +54,7 @@
                 <div class="radio_group">
                   <label class="radio-inline"><input type="radio" value='A' name="product_type">Single Item Sale</label>
                   <label class="radio-inline"><input type="radio" value='C' name="product_type">Bulk Product</label>
-                  <label class="radio-inline"><input type="radio" value='B' name="product_type">Service</label> 
+                  <label class="radio-inline"><input type="radio" value='B' name="product_type">Service</label>
                 </div>
               </div>
             </div>

@@ -1,0 +1,39 @@
+<div id="intro_modal" class="modal fade intro_modal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h2 class="text-center">Welcome <strong>{{request.user.userprofile}}!</strong></h2>
+        <p class="text-center"><strong>CoreLogs</strong> brings you a range of service at a single platform like never been there before. Grow your business on your own.</p>
+        <div class="welcome">
+          <div class="note_group">
+            <a href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}" class="note">
+              <h3>Identity</h3>
+              <div class="figure"><img src="/images/Untitled-16.jpg"/></div>
+              <h4>A Company Profile and a Dashboard</h4>
+              <p>Your new found place on internet! Add products and information of your company and increase its visibility like never before. For free!</p>
+            </a>
+            <a href="{% url 'feed' %}" class="note">
+              <h3>Network</h3>
+              <div class="figure"><img src="/images/Untitled-14.jpg"/></div>
+              <h4>A Business Oriented Network for SMEs</h4>
+              <p>Discuss, Share Updates and Connect with people in your business. Show what you do and know about others!</p>
+            </a>
+            <a href="{% url 'inbox:inbox' %}" class="note">
+              <h3>CRM</h3>
+              <div class="figure"><img src="/images/Untitled-15.jpg"/></div>
+              <h4>Customer Relationship Management</h4>
+              <p>A basic cloud based CRM, that lets you manage Leads, Quotations and Inquiries with ease, anywhere, anytime! </p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
