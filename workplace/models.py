@@ -356,17 +356,17 @@ class Workplace(models.Model):
         for t in tags:
             if t.category == 'O':
                 operations.append(t.tags)
-            if t.category == 'A':
+            elif t.category == 'A':
                 assets.append(t.tags)
-            if t.category == 'C':
+            elif t.category == 'C':
                 city.append(t.tags)
-            if t.category == 'M':
+            elif t.category == 'M':
                 materials.append(t.tags)
-            if t.category == 'S':
+            elif t.category == 'S':
                 segments.append(t.tags)
-            if t.category == 'E':
+            elif t.category == 'E':
                 events.append(t.tags)
-            if t.category == 'P':
+            elif t.category == 'P':
                 institution.append(t.tags)
         return locals()
 

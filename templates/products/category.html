@@ -8,6 +8,30 @@
 
 {% block body %}
 <div class="container-fluid">
+  <ul class="breadcrumb container-fluid">
+    {% with cats=category.get_cats %}
+    <li><a href="{% url 'all_category' %}">All</a></li>
+    {% for crumbs in cats.cat_crumbs reversed %}
+    <li>
+      <div class="dropdown">
+        {% if forloop.last %}
+        <strong>{{crumbs}}</strong>
+        {% else %}
+        <a href="{% url 'category' crumbs.slug %}">{{crumbs}}</a>
+        {% endif %}
+        <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down"></span></a>
+        <ul class="dropdown-menu">
+          {% for sib in crumbs.get_siblings %}
+          <li><a href="{% url 'category' sib.slug %}">{{sib}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endwith %}
+</div>
+<div class="container-fluid">
   <div id="info_head" class="info_head">
     <div class="row">
       <div class="col-sm-2">
@@ -37,34 +61,6 @@
       <div class="col-sm-2">
       </div>
     </div>
-  </div>
-</div>
-
-<div class="panel-body">
-  <div class='row'>
-  	{% for c in category.get_hierarchy %}
-  	{% if c.level == '1' %}
-  	<div class="col-sm-4">
-      <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
-  	</div>
-	{% endif %}
-	{% endfor %}
-	{% for c in category.get_hierarchy %}
-  	{% if c.level == '2' %}
-  	<div class="col-sm-4">
-  	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
-  	</div>
-  	{% endif %}
-  	{% endfor %}
-  	{% for c in category.get_hierarchy %}
-    	{% if c.level == '3' %}
-  	<div class="col-sm-4">
-  	    {% if c.level == '3' %}
-  	    <a href='{% url 'category' c.slug %}'><span class="prod_category">{{c}}<b>{{c.level}}</b></span></a>
-  	    {% endif %}
-  	</div>
-	{% endif %}
-	{% endfor %}
   </div>
 </div>
 

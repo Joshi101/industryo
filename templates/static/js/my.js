@@ -2682,6 +2682,8 @@ $('body').on('mouseleave', function(e) {
         bodyleave = true;
         $("#irritate_modal").modal();
     }
-   console.log(mouseY, bodyleave);
 });
 
+$('.dropdown-toggle_hover').on('mouseenter', function(){
+    $(this).closest('.dropdown').addClass('open');
+});

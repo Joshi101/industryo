@@ -43,6 +43,7 @@ def set_tags_short(request, slug):
     else:
         return redirect('/user/'+request.user.username)
 
+
 @login_required
 def set_details(request, id):
     p = Products.objects.get(id=id)

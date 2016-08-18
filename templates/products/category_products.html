@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}Products related to {{category}}{% endblock title %}
+{% block title %}soso related to {{category}}{% endblock title %}
 
 {% block meta_description %}Find products related to {{category}} {% for p in category.get_sub %}{{p}}, {% endfor %}{% endblock meta_description %}
 
@@ -30,12 +30,13 @@
 </div>
 {% include 'products/20_categories.html' with result_list=category.get_sub %}
 	<ul id="products_list" class="products_list">
-	<div class="clearfix"></div>
-{% for product in products %}
-	{% include "products/one_product.html" with product=product %}
-	{% if forloop.counter|divisibleby:2 %}
-	<div class="clearfix"></div>
-	{% endif %}
-{% endfor %}
-</ul>
+  	<div class="clearfix"></div>
+    {% for product in products %}
+    	{% include "marketplace/one_product.html" with product=product %}
+    	{% if forloop.counter|divisibleby:2 %}
+    	<div class="clearfix"></div>
+    	{% endif %}
+    {% endfor %}
+  </ul>
+{% include "enquiry/new_auth_modal.html" %}
 {% endblock content %}

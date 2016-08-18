@@ -6,12 +6,11 @@
             <a href="{% url 'category' cat.slug %}">{{cat}}</a>
           </div>
           <div class="panel-body">
-		  {% if cat.sub_cat %}
-        {% for c in cat.get_sub %}
-            <li><a href="{% url 'category' c.slug %}">{{c}}</a></li>
-		    {% endfor %}
-		  
-		  {% endif %}
+    		  {% if cat.sub_cat %}
+            {% for c in cat.get_sub %}
+              <li><a href="{% url 'category' c.slug %}">{{c}}</a></li>
+    		    {% endfor %}
+    		  {% endif %}
           </div>
         </div>
       </div>

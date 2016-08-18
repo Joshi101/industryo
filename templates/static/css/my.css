@@ -84,7 +84,7 @@
 }
 
 .breadcrumb {
-  background-color: transparent;
+  background-color: #fff;
 }
 
 /* cover */
@@ -6353,4 +6353,23 @@ and in bootstrap.css
 
 .fa_close{
   margin: 0;
+}
+
+.breadcrumb .dropdown{
+  display: inline-block;
+}
+
+.breadcrumb .dropdown-menu{
+  min-width: 100%;
+  width: auto;
+  margin-top: 10px;
+  left: -20px;
+}
+
+.breadcrumb .dropdown .divider{
+  margin: 5px;
+}
+
+.breadcrumb .fa{
+  margin-left: 5px;
 }

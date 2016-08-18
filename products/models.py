@@ -96,13 +96,13 @@ class Products(models.Model):
             li = []
             for m in question_tags:
                 try:
-                    t = Tags.objects.get(tag__iexact=m) # iexact
+                    t = Tags.objects.get(tag__iexact=m)  # iexact
                     print(t)
                 except Exception:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='D')
                 li.append(t)
-                t.count +=1
+                t.count += 1
                 t.save()
             self.tags = li
 
@@ -214,7 +214,7 @@ class Products(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=70)
-    level = models.CharField(max_length=1)
+    level = models.PositiveSmallIntegerField()
     slug = models.SlugField(null=True, blank=True)
     sub_cat = models.ManyToManyField('self', blank=True)
     alpha = models.CharField(max_length=2, null=True, blank=True)
@@ -235,6 +235,28 @@ class Category(models.Model):
             unique_slugify(self, slug_str)
             # self.slug = slugify(self.get_full_name()).__str__()
         super(Category, self).save(*args, **kwargs)
+
+    def get_cats(self):
+        lvl = self.level
+        cats = self.sub_cat.all()
+        g_parents, parents, siblings, children, g_children, cat_crumbs = [], [], [], [], [], []
+        for c in cats:
+            if (c.level - lvl) == 2:
+                g_children.append(c)
+            elif (c.level - lvl) == 1:
+                children.append(c)
+            elif c.level == lvl:
+                siblings.append(c)
+            elif (lvl - c.level) == 1:
+                parents.append(c)
+            elif (lvl - c.level) == 2:
+                g_parents.append(c)
+        cat_crumbs.append(self)
+        if parents:
+            cat_crumbs.append(parents[0])
+            if g_parents:
+                cat_crumbs.append(g_parents[0])
+        return locals()
 
     def get_sub(self):
         n = self.level
@@ -269,13 +291,26 @@ class Category(models.Model):
             parents = sub.get_parent_cat()
         return parents
 
-    def get_logo(self):
-        default_image = '/images/thumbnails/image.png'
-        if self.image:
-            image_url = '/images/'+str(self.image.image_thumbnail)
-            return image_url
+    def get_siblings(self):
+        if self.level == 1:
+            siblings = Category.objects.filter(level=1).exclude(pk=self.pk)
         else:
-            return default_image
+            parent = self.get_parent_cat()
+            siblings = Category.objects.none()
+            for p in parent:
+                a = p.sub_cat.filter(level=p.level+1).exclude(pk=self.pk)
+                siblings = siblings | a
+        return siblings
+
+    def get_hierarchy(self):
+        parent = self.get_parent_all()
+        child = self.get_sub_full()
+        siblings = self.get_siblings()
+        hierarchy = parent | child | siblings
+        # self_cat = Category.objects.filter(id)
+        # hierarchy = hierarchy | self_cat
+        return hierarchy
+
 
     def related_categories(self):
         if self.level == '3':
@@ -317,22 +352,13 @@ class Category(models.Model):
             li.append(i.id)
         return related.exclude(id__in=li)
 
-    def get_siblings(self):
-        parent = self.get_parent_cat()
-        siblings = Category.objects.filter(id__gte=10000)
-        for p in parent:
-            a = p.get_sub()
-            siblings = siblings | a
-        return siblings
-
-    def get_hierarchy(self):
-        parent = self.get_parent_all()
-        child = self.get_sub_full()
-        siblings = self.get_siblings()
-        hierarchy = parent | child | siblings
-        # self_cat = Category.objects.filter(id)
-        # hierarchy = hierarchy | self_cat
-        return hierarchy
+    def get_logo(self):
+        default_image = '/images/thumbnails/image.png'
+        if self.image:
+            image_url = '/images/'+str(self.image.image_thumbnail)
+            return image_url
+        else:
+            return default_image
 
     def get_image(self):
         image = '/images/categories/'+str(self.id)+'.jpg'
