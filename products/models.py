@@ -5,6 +5,7 @@ from industryo.unique_slug import unique_slugify
 from workplace.models import Workplace
 from django.contrib.auth.models import User
 import traceback
+import os.path
 
 
 class SellManager(models.Manager):
@@ -67,7 +68,7 @@ class Products(models.Model):
     delivery_charges = models.CharField(max_length=200, blank=True, null=True)
     minimum = models.CharField(max_length=200, blank=True, null=True)
 
-    categories = models.ManyToManyField('Category', through='Product_Categories', null=True, blank=True)
+    categories = models.ManyToManyField('Category', through='Product_Categories', blank=True)
 
     # available = models.BooleanField(default=True)
 
@@ -215,7 +216,7 @@ class Category(models.Model):
     name = models.CharField(max_length=70)
     level = models.CharField(max_length=1)
     slug = models.SlugField(null=True, blank=True)
-    sub_cat = models.ManyToManyField('self', null=True, blank=True)
+    sub_cat = models.ManyToManyField('self', blank=True)
     alpha = models.CharField(max_length=2, null=True, blank=True)
     meta_des = models.CharField(max_length=150, null=True, blank=True)
     tag = models.ForeignKey(Tags, null=True, blank=True)
@@ -246,7 +247,6 @@ class Category(models.Model):
         return sub
 
     def set_sub(self, c):
-
         self.sub_cat.add([c])
         return c
 
@@ -332,8 +332,14 @@ class Category(models.Model):
         hierarchy = parent | child | siblings
         # self_cat = Category.objects.filter(id)
         # hierarchy = hierarchy | self_cat
-
         return hierarchy
+
+    def get_image(self):
+        image = '/images/categories/'+str(self.id)+'.jpg'
+        if os.path.isfile(image):
+            return image
+        else:
+            return '/images/categories/default.png'
 
 
 class Product_Categories(models.Model):

@@ -2676,3 +2676,12 @@ function messageFailed($form, response){
 
 }
 
+var bodyleave = false;
+$("body").on('mouseleave', function(e) {
+    if (!bodyleave){
+        bodyleave = true;
+        $("#irritate_modal").modal();
+    }
+   // console.log(mouseX, mouseY);
+});
+

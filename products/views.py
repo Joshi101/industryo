@@ -335,7 +335,7 @@ def send_enq_mail(e):
     user_email = user.email
     product = e.product
     name = user.userprofile
-    my_host = 'smtp.zoho.com'
+    my_host = 'console.zoho.com'
     my_port = 587
     my_username = 'admin@corelogs.com'
     my_password = admin

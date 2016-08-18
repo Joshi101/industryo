@@ -1,6 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
+from . import views
 
-urlpatterns = patterns('',
-    url(r'^get_google_contacts/$', 'contacts.views.get_google_contacts', name='get_google_contacts'),
-    url(r'^get_fb_contacts/$', 'contacts.views.get_facebook_contacts', name='get_facebook_contacts'),
-)
+urlpatterns = [
+    url(r'^get_google_contacts/$', views.get_google_contacts, name='get_google_contacts'),
+    url(r'^get_fb_contacts/$', views.get_facebook_contacts, name='get_facebook_contacts'),
+]

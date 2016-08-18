@@ -21,15 +21,19 @@ def refer(request):
         user = request.user
         now = datetime.now()
         subject = '{0} Invited You to join the network of SMEs'.format(user.userprofile)
-        mail_body = join_corelogs_mail.format(user.userprofile)
-        emails = request.POST.get('emails')
-        if emails:
-            ems = emails.split(',')
-            MailSend.objects.create(user=user, emails=ems, reasons='jcm', subject=subject, date=now, body=mail_body,
-                                    from_email='3')
-            for e in ems:
+        # mail_body = join_corelogs_mail.format(user.userprofile)
+        # emails = request.POST.get('emails')
+        li = []
+        for key in request.POST:
+            if '@' in request.POST[key]:
+                li.append(request.POST[key])
+        print(li)
+        if li:
+            # MailSend.objects.create(user=user, emails=li, reasons='jcm', subject=subject, date=now, body=mail_body,
+            #                         from_email='3')
+            for e in li:
                 r = Referral.objects.create(email=e, user=user)
-        return HttpResponse
+        return HttpResponse()
     else:
         return render(request, 'refer.html')
 

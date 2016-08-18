@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response, RequestContext
+from django.shortcuts import render, redirect, render_to_response
 from nodes.models import Node
 from forum.models import Question
 from django.contrib.auth.decorators import login_required

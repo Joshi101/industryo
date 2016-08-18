@@ -1,6 +1,6 @@
 from operator import attrgetter
 from itertools import chain
-from django.shortcuts import render, redirect, render_to_response, RequestContext, HttpResponse
+from django.shortcuts import render, redirect, render_to_response, HttpResponse
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -49,7 +49,7 @@ def home(request):
         a = request.GET.get('a')
         user = request.user
         if user.userprofile.primary_workplace:
-            profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+            profile = UserProfile.objects.select_related('primary_workplace').get(user=user)
             workplace = profile.primary_workplace
             t = workplace.workplace_type
             if t == 'A':
@@ -105,7 +105,7 @@ def feed(request):
     if request.user.is_authenticated():
         user = request.user
         if user.userprofile.primary_workplace:
-            profile = UserProfile.objects.select_related('primary_workplace__workplace_type').get(user=user)
+            profile = UserProfile.objects.select_related('primary_workplace').get(user=user)
             workplace = profile.primary_workplace
             t = workplace.workplace_type
             if t == 'A':
@@ -496,14 +496,12 @@ def send_list(request):
 
 
 def handler404(request):
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
+    response = render(request, '404.html')
     response.status_code = 404
     return response
 
 
 def handler500(request):
-    response = render_to_response('500.html', {},
-                                  context_instance=RequestContext(request))
+    response = render(request, '500.html')
     response.status_code = 500
     return response

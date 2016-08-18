@@ -26,7 +26,7 @@ class Leads(models.Model):
     company_name = models.CharField(max_length=30, null=True, blank=True)
     mobile_number = models.CharField(max_length=30, null=True, blank=True)
 
-    tags = models.ManyToManyField(Tags, null=True, blank=True)
+    tags = models.ManyToManyField(Tags, blank=True)
 
     seen_by = models.IntegerField(default=0)
     responses = models.IntegerField(default=0)

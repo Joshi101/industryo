@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse, RequestContext
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from forum.models import *
 from tags.models import Tags

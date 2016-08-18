@@ -2,13 +2,25 @@
   <div class="logo"><img src="{{ w.get_logo }}" class="thmb_md"></div>
   <div>
     <h4><a href="{% url 'workplace:workplace_profile' w.slug %}">{{w}}</a></h4>
-    <p>
-      <span class="fa fa-bookmark fa-fw fa_close"></span>
-      <span class="wp_card_type text-muted">( {{w.get_type}} )</span>
-    </p>
-    <p class="wp_card_loc text-muted">
-      <span class="fa fa-map-marker fa-fw fa_close"></span>
-      {% for tag in w.get_tags.city %}{% if forloop.counter0 %}, {% endif %}{{tag}}{% endfor %}
-    </p>
+    {% with tags=w.get_tags %}
+    <ul class="fa-ul">
+      <li>
+        <span class="fa-li fa fa-bookmark"></span>
+        <span class="wp_card_type text-muted">( {{w.get_type}} )</span>
+      </li>
+      <li>
+        <span class="fa-li fa fa-map-marker"></span>
+        {% for tag in tags.city %}
+        <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </li>
+      <li>
+        <span class="fa-li fa fa-industry"></span>
+        {% for tag in tags.segments %}
+        <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </li>
+    </ul>
+    {% endwith %}
   </div>
 </div>
