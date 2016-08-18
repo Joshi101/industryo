@@ -89,5 +89,6 @@ urlpatterns = patterns('',
     url(r'^nav_suggest/$', 'home.nav_content.nav_suggest', name='nav_suggest'),
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
+    url(r'^e20e2548c45bdc8c6b33240246727dc6.txt$', TemplateView.as_view(template_name='aaa.txt')),
     url(r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
