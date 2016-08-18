@@ -13,7 +13,11 @@
         {% elif result.message %}
         <a class="slide_a inq_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
           <span class="label label-warning">Inquiry</span>
+          {% if result.user %}
           <span class="trunc name">{{result.user.userprofile}}</span>
+          {% else %}
+          <span class="trunc name">{{result.name}}</span>
+          {% endif %}
           <span class="subject trunc">
             Inquiry on
             {% if result.product %}
@@ -28,6 +32,7 @@
         <a class="slide_a msg_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
           <span class="label label-info">Message</span>
           <span class="trunc name">{{result.last_message_from.userprofile}}</span>
+
           <span class="subject"><span class="trunc">{{result.get_last_message|truncatechars:'50'}} ({{result.get_msg_count}})</span></span>
           <time class="trunc">{{result.date}}</time>
         </a>

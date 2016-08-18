@@ -1,26 +1,27 @@
 <div class="empty">
   <div class="dealing">
     <p>
-      You dont have any inquiries.<br>
-      Probably people don't know about your products yet!
+      You dont have any inquiries/ Quotations.<br>
+      Probably you have not listed your products &amp; Services yet!
     </p>
   </div>
   <div class="action">
     <div class="row">
       <div class="col-sm-12">
-        <div class="fa-stack fa-lg" style="margin-top: 12px;">
+        <a href='{% url 'products:edit_add' 'new' %}'><div class="fa-stack fa-lg" style="margin-top: 12px;">
           <i class="fa fa-plus fa-stack-1x text-success" style="left: 15px; top: -16px;"></i>
           <i class="fa fa-cube fa-stack-2x text-info"></i>
         </div>
+      </a>
         <div>
           <a class="btn btn-default btn_atent" href="{% url 'products:edit_add' 'new' %}" style="margin: 5px 10px;">Add Products Now</a>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="dealing">
+  <div class="dealing">
     <p>
       Send us a send a list of products in excel sheet with name, specifications, images and cost to admin@corelogs.com
     </p>
-  </div> -->
+  </div>
 </div>

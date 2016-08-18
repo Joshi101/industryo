@@ -221,6 +221,15 @@ def random(request):
 def enquire(request):
     yesterday = date.today() - timedelta(days=1)
     if request.method == 'POST':
+        message = request.POST.get('message')
+        if len(message.split(' ')) == 1:
+            pass
+        elif len(message.split(' ')) < 4:
+            if 'http' or 'www' in message:
+                pass
+        elif len(message.split(' ')) > 70:
+            pass
+        
         if request.user.is_authenticated():
             p = request.POST.get('pid')
             w = request.POST.get('wid')
@@ -327,7 +336,7 @@ def send_enq_mail(e):
     user_email = user.email
     product = e.product
     name = user.userprofile
-    my_host = 'smtp.zoho.com'
+    my_host = 'console.zoho.com'
     my_port = 587
     my_username = 'admin@corelogs.com'
     my_password = admin
@@ -737,6 +746,7 @@ def c_r(request):
     for t in q:
         Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
     return redirect('/internal/activity/?q=p')
+
 
 def int_category(request, slug):
     category = Category.objects.get(slug=slug)

@@ -2,7 +2,7 @@
 {% if result.product %}
   <h4>Inquiry on <a href="{% url 'products:product' result.product.slug %}">{{result.product}}</a></h4>
 {% else %}
-  <h4>Inquiry on <a href="{% url 'workplace:workplace_profile' result.workplace.slug %}">{{result.workplace}}</a></h4>
+  <h4>Inquiry on {{result.workplace}}</h4>
 {% endif %}
 </header>
 <div class="form_card">
@@ -28,7 +28,7 @@
 <h4>From</h4>
 {% if result.user %}
   <div>
-    User: 
+    User:  
     <a href="{% url 'user:profile' result.user.username %}" target="_blank">
       <span class="name">{{ result.user.userprofile }}</span>
     </a>

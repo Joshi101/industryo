@@ -70,6 +70,7 @@ urlpatterns = [
     url(r'^contacts/', include('contacts.urls', namespace='contacts')),
     url(r'^leads/', include('leads.urls', namespace='leads')),
     url(r'^inbox/', include('inbox.urls', namespace='inbox')),
+    url(r'^track/', include('tracking.urls', namespace='track')),
 
     url(r'^home/right/$', home_views.home_right, name='home_right'),
     url(r'^home/right_down/$', home_views.home_right_down, name='home_right_down'),
@@ -106,6 +107,7 @@ urlpatterns = [
     url(r'^nav_suggest/$', home_nav_content.nav_suggest, name='nav_suggest'),
 
     url(r'^robots.txt/$', TemplateView.as_view(template_name='robots.txt')),
+
     url(r'^images/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
