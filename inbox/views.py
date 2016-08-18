@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from leads.models import Leads, Reply
 from chat.models import Conversation, Message
 from activities.models import Enquiry
@@ -7,7 +7,6 @@ from django.db.models import Q
 from operator import attrgetter
 from itertools import chain
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 
 @login_required
 def inbox(request):
@@ -151,7 +150,8 @@ def outbox(request):
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages})
+        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages,
+                                                    'empty': 'inbox/no_nothing.html'})
 
 
 @login_required
@@ -232,3 +232,23 @@ def sent_messages(request):
     else:
         return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
 
+
+def mark_seen(request):
+    what = request.POST.get('what')
+    id = request.POST.get('id')
+    if what == 'quotation':
+        r = Reply.objects.get(id=id)
+        r.seen = True
+        r.save()
+    if what == 'inquiry':
+        e = Enquiry.objects.get(id=id)
+        e.seen = True
+        e.save()
+    if what == 'message':
+        m = Message.objects.get(id=id)
+        m.seen = True
+        m.save()
+        c = m.conversation
+        c.seen = True
+        c.save()
+    return HttpResponse()

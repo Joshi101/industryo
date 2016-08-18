@@ -17,8 +17,8 @@ def get_data(request):
 
 
 def refer(request):
+    user = request.user
     if request.method == 'POST':
-        user = request.user
         now = datetime.now()
         subject = '{0} Invited You to join the network of SMEs'.format(user.userprofile)
         # mail_body = join_corelogs_mail.format(user.userprofile)
@@ -35,7 +35,11 @@ def refer(request):
                 r = Referral.objects.create(email=e, user=user)
         return HttpResponse()
     else:
-        return render(request, 'refer.html')
+        r = Referral.objects.filter(user=user)
+        if r:
+            pass
+        else:
+            return render(request, 'refer.html')
 
 
 
