@@ -2526,7 +2526,7 @@ $(window).on('popstate', function(event) {
 
 var mouseX;
 var mouseY;
-$("body").on('mousemove', ".motion_graph", function(e) {
+$("body").on('mousemove', function(e) {
    mouseX = e.pageX;
    mouseY = e.pageY;
    // console.log(mouseX, mouseY);
@@ -2677,11 +2677,11 @@ function messageFailed($form, response){
 }
 
 var bodyleave = false;
-$("body").on('mouseleave', function(e) {
-    if (!bodyleave){
+$('body').on('mouseleave', function(e) {
+    if (!bodyleave && mouseY <= 100){
         bodyleave = true;
         $("#irritate_modal").modal();
     }
-   // console.log(mouseX, mouseY);
+   console.log(mouseY, bodyleave);
 });
 
