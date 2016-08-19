@@ -321,12 +321,12 @@ class Category(models.Model):
                 a = cat.get_sub()
                 imm_related = imm_related | a
         elif self.level == '2':
-            imm_related = Category.objects.filter(id=self.id)
+            imm_related = Category.objects.filter(id=self.id).exclude(id=self.id)
             parent = self.sub_cat.filter(level=1)
             imm_related = parent
         else:
             imm_related = []
-        return imm_related.exclude(id=self.id)
+        return imm_related
 
     def distant_related(self):
         if self.level == '3':
@@ -350,7 +350,7 @@ class Category(models.Model):
         li = []
         for i in to_exclude:
             li.append(i.id)
-        return related.exclude(id__in=li)
+        return related
 
     def get_logo(self):
         default_image = '/images/thumbnails/image.png'

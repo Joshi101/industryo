@@ -915,7 +915,9 @@ $('.hover_ajax').on({
 
 $(document).ready(function() {
     //fetches notifications
-    count_notifications();
+    if (count_url){
+        count_notifications();
+    }
     // count_messages();
 
 });
@@ -1410,22 +1412,6 @@ $('.ajax_andar').on('click', '.done_edit', function(){
     $(this).addClass('hide');
     $(this).parent().find('.show_edit').removeClass('hide');
     $(this).closest('.info_field').find('.info_field_value').removeClass('hide');
-});
-
-$(function () {
-  function check_messages() {
-    $.ajax({
-      url: '/messages/check/',
-      cache: false,
-      success: function (data) {
-        $("#unread-count").text(data);
-      },
-      complete: function () {
-        window.setTimeout(check_messages, 180000);
-      }
-    });
-  };
-  check_messages();
 });
 
 $(function () {

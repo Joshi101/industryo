@@ -1,18 +1,22 @@
-{% if category.level == '1' %}
-	{% include 'products/20_categories.html' with result_list=category.get_sub %}
+<div class="ajax_head">
+  <span id="ajax_title">{{category}} | CoreLogs</span>
+  <span id="ajax_description">Find all the Companies and Products related to {{category}} {% for p in category.get_sub %}{{p}}, {% endfor %} at CoreLogs</span>
+</div>
 
-{% endif %}
-
-{% if category.level == '2' %}
-	{% include 'products/20_categories.html' with result_list=category.get_sub %}
-	Related Categories
-	{% include 'products/20_categories.html' with result_list=category.related_categories %}
-{% endif %}
-
-{% if category.level == '3' %}
-	Comapnies Supplying Products in Category: {{category}}
-	Immediately Related Categories
-	{% include 'products/20_categories.html' with result_list=category.related_categories %}
-	Other Similar Categories
-	{% include 'products/20_categories.html' with result_list=category.distant_related %}
-{% endif %}
+<div id="categories" class="nav_ajax_content" data-nav="cat_nav">
+  {% if category.level == 1 %}
+  	{% include 'products/20_categories.html' with result_list=category.get_sub %}
+  {% endif %}
+  {% if category.level == 2 %}
+  	{% include 'products/20_categories.html' with result_list=category.get_sub %}
+  	Related Categories
+  	{% include 'products/20_categories.html' with result_list=category.related_categories %}
+  {% endif %}
+  {% if category.level == 3 %}
+  	Comapnies Supplying Products in Category: {{category}}
+  	Immediately Related Categories
+  	{% include 'products/20_categories.html' with result_list=category.related_categories %}
+  	Other Similar Categories
+  	{% include 'products/20_categories.html' with result_list=category.distant_related %}
+  {% endif %}
+</div>

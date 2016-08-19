@@ -6373,3 +6373,71 @@ and in bootstrap.css
 .breadcrumb .fa{
   margin-left: 5px;
 }
+
+.cat_card{
+  border: 1px solid #eee;
+  padding: 10px 15px;
+  margin: 10px 5px;
+  background: #fff;
+  display: inline-block;
+  min-width: 200px;
+  text-align: left;
+  vertical-align: top;
+  width: 15%;
+}
+
+.cat_card .logo{
+  /* flex-shrink: 0; */
+  /* width: 100%; */
+  /* margin-right: 6px; */
+}
+
+.cat_card .logo img{
+  border: 3px solid #eee;
+  width: 100%;
+  height: auto;
+}
+
+.cat_card h4{
+  margin-top: 5px;
+  margin-bottom: 7px;
+  line-height: 1.2;
+  margin-left: 5px;
+  padding: 0 0 5px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid #eee;
+}
+
+.cat_card ul{
+  margin-left: 20px;
+  /* list-style-position: inside; */
+}
+
+.cat_card li{
+  /* min-height: 28px; */
+  font-size: 13px;
+  line-height: 1.2;
+  margin-bottom: 3px;
+  /* padding-left: 10px; */
+}
+
+.cat_card li a{
+  /* display: inline-block; */
+  /* line-height: 1; */
+  /* left: 16px; */
+  position: relative;
+}
+
+.cat_card li .fa{
+  top: 0px;
+  font-size: 10px;
+}
+
+.cat_card li span{
+  display: inline-block;
+}
+
+#irritate_modal .modal-dialog{
+  max-width: 720px;
+}

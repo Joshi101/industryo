@@ -1,19 +1,25 @@
-<div class="row">
-    {% for cat in result_list %}
-      <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <a href="{% url 'category' cat.slug %}">{{cat}}</a>
-          </div>
-          <div class="panel-body">
-    		  {% if cat.sub_cat %}
-            {% for c in cat.get_sub %}
-              <li><a href="{% url 'category' c.slug %}">{{c}}</a></li>
-    		    {% endfor %}
-    		  {% endif %}
-          </div>
+<div class="text-center">
+  {% for cat in result_list %}
+    <div class="cat_card">
+      <div class="logo"><img src="{{ cat.get_image }}" class="thmb_md"></div>
+      <div>
+        <h4><a href="{% url 'category' cat.slug %}">{{cat}}</a></h4>
+        <div>
+          {% if cat.sub_cat %}
+          <ul>
+          {% for c in cat.get_sub|slice:":3" %}
+            <li><a href="{% url 'category' c.slug %}">{{c}}</a></li>
+          {% endfor %}
+          </ul>
+          {% else %}
+          <ul>
+            {% for product in products %}
+            <li><a href="{% url 'products:product' product.slug %}">{{ product }}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </div>
       </div>
-      {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
+</div>

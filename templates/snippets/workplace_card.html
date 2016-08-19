@@ -3,10 +3,10 @@
   <div>
     <h4><a href="{% url 'workplace:workplace_profile' w.slug %}">{{w}}</a></h4>
     {% with tags=w.get_tags %}
-    <ul class="fa-ul">
+    <ul class="fa-ul text-muted">
       <li>
         <span class="fa-li fa fa-bookmark"></span>
-        <span class="wp_card_type text-muted">( {{w.get_type}} )</span>
+        <span class="wp_card_type">( {{w.get_type}} )</span>
       </li>
       <li>
         <span class="fa-li fa fa-map-marker"></span>
@@ -16,9 +16,10 @@
       </li>
       <li>
         <span class="fa-li fa fa-industry"></span>
-        {% for tag in tags.segments %}
+        {% for tag in tags.segments|slice:":3" %}
         <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
         {% endfor %}
+        {% if tags.segments|length > 3 %}+ {{tags.segments|length|add:"-3"}}{% endif %}
       </li>
     </ul>
     {% endwith %}

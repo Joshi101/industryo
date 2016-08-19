@@ -229,7 +229,7 @@ def enquire(request):
                 pass
         elif len(message.split(' ')) > 70:
             pass
-        
+
         if request.user.is_authenticated():
             p = request.POST.get('pid')
             w = request.POST.get('wid')
@@ -776,6 +776,7 @@ def all_category(request):
 
 def category(request, slug):        # Products
     category = Category.objects.get(slug=slug)
+    products = Products.objects.filter(categories=category)
     content_url = "products/snip_cat.html"
     content_head_url = "products/snip_category_head.html"
     if request.is_ajax():

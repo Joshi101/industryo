@@ -1,8 +1,15 @@
-<div class="row">
-  {% for w in workplaces %}
-    <div class="col-sm-6">
-      {% include "snippets/workplace_card.html" with w=w %}
-    </div>
-    {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
-  {% endfor %}
+<div class="ajax_head">
+  <span id="ajax_title">Companies manufacturing and selling {{category}} and related Products | CoreLogs</span>
+  <span id="ajax_description">Find all SMEs and Companies supplying and selling Products in Categories {{category}} {% for p in category.get_sub %}{{p}}, {% endfor %}</span>
+</div>
+
+<div id="companies" class="nav_ajax_content" data-nav="cat_nav">
+  <div class="row">
+    {% for w in workplaces %}
+      <div class="col-sm-6">
+        {% include "snippets/workplace_card.html" with w=w %}
+      </div>
+      {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
+    {% endfor %}
+  </div>
 </div>

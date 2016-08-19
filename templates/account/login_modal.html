@@ -1,5 +1,7 @@
 {% load staticfiles %}
-{% load account %}
+{% load account socialaccount %}
+
+{% get_providers as socialaccount_providers %}
 <div id="login_modal" class="modal fade login_modal" role="dialog">
   <div class="modal-dialog wide_60">
     <!-- Modal content-->
@@ -9,7 +11,7 @@
         <h2 class="modal-title stylize text-center">Get Started</h2>
       </div>
       <div class="modal-body">
-        {% if socialaccount.providers %}
+        {% if socialaccount_providers %}
 		    <div class="socialaccount_ballot">
 		      <ul class="socialaccount_providers list-group">
 		        {% include "socialaccount/snippets/provider_list.html" with process="login" signup="no" %}
