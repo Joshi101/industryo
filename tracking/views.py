@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import Tracker, Referral
 from datetime import datetime, timedelta
 from contacts.models import MailSend
@@ -33,7 +33,7 @@ def refer(request):
             #                         from_email='3')
             for e in li:
                 r = Referral.objects.create(email=e, user=user)
-        return HttpResponse()
+        return redirect('/')
     else:
         r = Referral.objects.filter(user=user)
         if r:
