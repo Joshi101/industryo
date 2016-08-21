@@ -48,6 +48,10 @@ from datetime import datetime, timedelta, time, date
 def delete(request):
     return HttpResponse()
 
+
+def users(request):
+    return HttpResponse()
+
 # @login_required
 # def new(request):
 #     if request.method == 'POST':

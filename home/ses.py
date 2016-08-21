@@ -1,15 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response, RequestContext
-from nodes.models import Node
-from forum.models import Question
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from workplace.models import Workplace
-from home import tasks
-from datetime import datetime, timedelta, time, date
 from .templates import *
-from contacts.models import MailSend
-from datetime import datetime
-import pytz
 from passwords.passwords import *
 from django.core.mail import EmailMultiAlternatives, get_connection
 import time, random
@@ -17,8 +6,12 @@ import time, random
 
 def ses_send():
     smtp_server = 'email-smtp.us-west-2.amazonaws.com'
-    smtp_username = 'AKIAJOUW7RMCNEPDUN4A'
-    smtp_password = 'AqKgh0sQWvzg11t5wuQCjm1JvrYCy0HhL9asKJvd8vZb'
+    # smtp_username = sprksh_username      # sprksh
+    # smtp_password = sprksh_password
+
+
+    smtp_username = sp_username      # sp
+    smtp_password = sp_password
     smtp_port = '587'
     smtp_do_tls = True
 
@@ -70,7 +63,7 @@ Thanks
 Surya Prakash
 Founder, CoreLogs
                     '''
-    msg = EmailMultiAlternatives(subject, text_content, from_email, ['sprksh.j@gmail.com'], connection=connection)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, ['rohit9gag@gmail.com'], connection=connection)
     msg.attach_alternative(html_content, "text/html")
     # msg.send()
     print('SEnd hone se pehle takaaya')

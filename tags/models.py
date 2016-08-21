@@ -1,5 +1,6 @@
 from django.db import models
 from industryo.unique_slug import unique_slugify
+from datetime import datetime
 
 
 # type of tags = assets, materials, operations, skills, area
@@ -19,7 +20,7 @@ class Tags(models.Model):
 
     # popular = models.Manager()
 
-    # date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True, default=datetime.now())
 
     def __str__(self):
         return self.tag

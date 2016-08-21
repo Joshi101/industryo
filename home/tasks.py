@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from activities.models import Notification
 from django.core.mail import EmailMultiAlternatives
 from home.templates import *
-# from ast import literal_eval
 from contacts.views import check_no_wp, get_google_contacts_i, check_no_inquiry, check_contact_email
 from datetime import timedelta
 from django.core.mail import get_connection, send_mail
@@ -41,28 +40,11 @@ def send_mail_contacts(email, body, subject, from_e):
     subject = subject
     to = email
     html_content = body
-    my_host = 'smtp.zoho.com'
+    my_host = 'email-smtp.us-west-2.amazonaws.com'
     my_port = 587
-    if from_e == '1':
-        my_username = 'sp@corelogs.com'
-        my_password = sp
-        from_email = 'sp@corelogs.com'
-    elif from_e == '2':
-        my_username = 'admin@corelogs.com'
-        my_password = admin
-        from_email = 'admin@corelogs.com'
-    elif from_e == '3':
-        my_username = 'info@corelogs.com'
-        my_password = info
-        from_email = 'info@corelogs.com'
-    elif from_e == '4':
-        my_username = 'marketing@corelogs.com'
-        my_password = mark
-        from_email = 'marketing@corelogs.com'
-    else:
-        my_username = 'marketing@corelogs.com'
-        my_password = mark
-        from_email = 'marketing@corelogs.com'
+    my_username = sp_username
+    my_password = sp_password
+    from_email = 'sp@corelogs.com'
     my_use_tls = True
     connection = get_connection(host=my_host,
                                 port=my_port,

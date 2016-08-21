@@ -7,8 +7,6 @@ import hashlib
 from tags.models import Tags
 from activities.models import Notification
 from home import tasks
-# from contacts.views import get_google_contacts_i, print_arg_fn
-import json
 from datetime import datetime, timedelta
 
 
