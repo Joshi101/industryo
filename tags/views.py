@@ -11,6 +11,7 @@ from itertools import chain
 from operator import attrgetter
 from products.models import Products
 from leads.models import Leads
+from django.contrib.auth.models import User
 
 
 def create_tag(request):
@@ -194,5 +195,25 @@ def follow_tag(request):
 
 def create(request):
     pass
+
+
+def merge_tags(tag1, tag2):
+    tag1 = Tags.objects.get(tag=tag1)
+    tag2 = Tags.objects.get(tag=tag2)
+
+    ws = WpTags.objects.filter(tags=tag2)
+    for w in ws:
+        w.tags = tag1
+        w.save()
+        tag1.count +=1
+        tag1.save()
+
+    us = User.objects.filter(userprofile__interests=tag1)
+    for u in us:
+        u.userprofile.set_interests(tag1.tag)
+
+
+    tag2.delete()
+
 
 # Create your views here.

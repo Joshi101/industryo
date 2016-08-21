@@ -1,0 +1,15 @@
+<ul>
+	<div class="row" "col-md-12">
+
+		<div class="row" "col-md-3">
+		<p class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></p>
+		<p class="cost">
+			{% if product.cost %}
+			<span class="fa fa-inr"></span> {{product.cost}}
+			{% else %}
+			Price unavailable
+			{% endif %}
+		</p>
+		</div>
+	</div>
+</ul>

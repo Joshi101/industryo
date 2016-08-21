@@ -304,25 +304,85 @@ def thread_send(to_send_n):
 #                 c = c+1
 
 def fill_emails():
-    users = User.objects.all()
+    users = User.objects.filter(userprofile__isnull=False, id__gte=145)
     for user in users:
         if user.userprofile.primary_workplace:
-            wp = user.user.userprofile.primary_workplace
+            wp = user.userprofile.primary_workplace
             t = wp.workplace_type
         else:
             wp = None
             t = 'N'
         if user.email:
-            e = Emails.objects.create(email=user.email, user=user, workplace=wp, workplace_type=wp.workplace_type)
+            try:
+                e = Emails.objects.get(email=user.email)
+                pass
+            except Exception:
+                e = Emails.objects.create(email=user.email, user=user, workplace=wp, workplace_type=t)
         if user.userprofile.email:
-            e = Emails.objects.create(email=user.userprofile.email, user=user, workplace=wp,
-                                      workplace_type=wp.workplace_type)
+            try:
+                elsa = Emails.objects.get(email=user.userprofile.email)
+                pass
+            except Exception:
+                elsa = Emails.objects.create(email=user.userprofile.email, user=user, workplace=wp,
+                                             workplace_type=t)
+        if user.userprofile.product_email:
+            try:
+                els = Emails.objects.get(email=user.userprofile.product_email)
+                pass
+            except Exception:
+                els = Emails.objects.create(email=user.userprofile.product_email, user=user, workplace=wp,
+                                            workplace_type=t)
 
-    wps = Workplace.objects.all()
+        if wp:
+            if wp.office_mail_id:
+                email1 = wp.office_mail_id.split(',')
+                print(email1)
+                for em in email1:
+                    try:
+                        e = Emails.objects.get(email=em)
+                        pass
+                    except Exception:
+                        eo = Emails.objects.create(email=em, workplace=wp, workplace_type=t)
+
+    wps = Workplace.objects.filter(userprofile__isnull=True)
     for w in wps:
-        if w.office_email_id:
-            email1 = w.office_email_id.split(',')[0]
-            e = Emails.objects.create(email=email1, workplace=w, workplace_type=w.workplace_type)
+        print(w.id)
+        if w.office_mail_id:
+            email1 = w.office_mail_id.split(',')
+            for em in email1:
+                # if not em in
+                try:
+                    e = Emails.objects.get(email=em)
+                    pass
+                except Exception:
+                    e = Emails.objects.create(email=em, workplace=w, workplace_type=w.workplace_type)
 
 
+def wp_email(wp):
+    if wp.office_mail_id:
+        email1 = wp.office_mail_id.split(',')
+        for em in email1:
+            # if not em in
+            try:
+                e = Emails.objects.get(email=em)
+                pass
+            except Exception:
+                e = Emails.objects.create(email=em, workplace=wp, workplace_type=wp.workplace_type)
 
+
+def up_email(up):
+    if up.primary_workplace:
+        wp = up.primary_workplace
+        t = wp.workplace_type
+    else:
+        wp = None
+        t = 'N'
+    if up.email:
+        try:
+            elsa = Emails.objects.get(email=up.email)
+            pass
+        except Exception:
+            elsa = Emails.objects.create(email=up.email, user=up.user, workplace=wp, workplace_type=t)
+
+
+# def send_weekly_overview():

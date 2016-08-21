@@ -14,6 +14,7 @@ from itertools import chain
 from operator import attrgetter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from allauth.socialaccount.models import SocialAccount
+from contacts.views import up_email
 
 
 def profile(request, username):
@@ -74,6 +75,7 @@ def set_details(request):
             up.email = email
             up.save()
             user.save()
+            up_email(up)
             return redirect('/workplace/'+user.userprofile.primary_workplace.slug)
     else:
         form = UserDetailsForm(instance=user, initial={
@@ -96,9 +98,8 @@ def edit(request):
             if key in direct:
                 try:
                     dictionary[key] = request.POST[key]
-                except:
-                    tb = traceback.format_exc()
-                    print(tb)
+                except Exception:
+                    pass
             else:
                 if key == 'interests':
                     up.set_interests(request.POST[key])
@@ -135,52 +136,6 @@ def edit(request):
     #         'experience': up.experience,
     #         })
     #     return render(request, 'userprofile/edit.html', {'form': form})
-
-
-# @login_required
-# def set_interests(request):
-#     if request.method == 'POST':
-#         response = {}
-#         r_html = {}
-#         r_elements = []
-#         user = request.user
-#         up = user.userprofile
-#         interests = request.POST.get('value')
-#         if type == 'All':
-#             up.set_interests(interests)
-#         up.set_interests(interests)
-#         new_interest = user.userprofile.interests.get(tag=interests)
-#         r_elements = ['detail_body']
-#         r_html['detail_body'] = render_to_string('snippets/one_interest.html', {'interest': new_interest})
-#         response['html'] = r_html
-#         response['elements'] = r_elements
-#         response['prepend'] = True
-#         return HttpResponse(json.dumps(response), content_type="application/json")
-#     else:
-#         return redirect('/user/'+request.user.username)
-
-#
-# def set_interests(request):
-#     if request.method == 'POST':
-#         response = {}
-#         r_html = {}
-#         r_elements = []
-#         user = request.user
-#         up = user.userprofile
-#         wp = user.userprofile.primary_workplace
-#         # type = request.POST.get('type')
-#         value = request.POST.get('tag')
-#         if value:
-#             t = wp.set_interests(value)
-#             new_interest = t
-#             r_elements = ['tag_container']
-#             r_html['tag_container'] = render_to_string('snippets/tag_short.html', {'tag': new_interest, 'ajax':True})
-#             response['html'] = r_html
-#             response['elements'] = r_elements
-#             response['prepend'] = True
-#             return HttpResponse(json.dumps(response), content_type="application/json")
-#     else:
-#         return redirect('/user/'+request.user.username)
 
 
 @login_required

@@ -19,6 +19,7 @@ from operator import itemgetter
 from chat.views import create_message_enquiry
 from home.tasks import execute_view
 from passwords.passwords import admin
+from contacts.models import MailSend
 
 
 @login_required
@@ -230,7 +231,7 @@ def enquire(request):
         elif len(message.split(' ')) > 70:
             pass
 
-        if request.user.is_authenticated():
+        elif request.user.is_authenticated():
             p = request.POST.get('pid')
             w = request.POST.get('wid')
             user = request.user
@@ -240,7 +241,8 @@ def enquire(request):
             if p:
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
-                    e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone)
+                    e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone,
+                                               workplace=p.producer)
                     users = e.product.producer.get_members()
                     create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
@@ -330,35 +332,6 @@ def enquiry_sent(request, id):
     else:
         return render(request, 'enquiry/enquiry_details_sent.html', {'enquiry': enquiry})
 
-
-def send_enq_mail(e):
-    user = e.product.user
-    user_email = user.email
-    product = e.product
-    name = user.userprofile
-    my_host = 'console.zoho.com'
-    my_port = 587
-    my_username = 'admin@corelogs.com'
-    my_password = admin
-    my_use_tls = True
-    connection = get_connection(host=my_host,
-                                port=my_port,
-                                username=my_username,
-                                password=my_password,
-                                use_tls=my_use_tls)
-    template = u'''<div id=":kc" class="a3s" style="overflow: hidden;"><div dir="ltr"><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px">Hi {0},</div><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px"><br></div><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px">You have received an inquiry about a product&nbsp;<a href="http://www.corelogs.com/products/{1}" target="_blank">{2}</a>&nbsp;that you have listed on your workplace profile&nbsp;<a href="http://www.corelogs.com/workplace/{3}" target="_blank">{4}</a>.</div><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px"><br></div><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px">You can see the details of the inquiry and the person who is interested in buying your product in this link.</div><div dir="ltr" style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px">Enquiry Details:&nbsp;<a href="http://www.corelogs.com/products/enquiry_all" target="_blank">www.corelogs.com/<wbr>products/enquiry_all</a>.&nbsp;</div><div dir="ltr" style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px"><br></div><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px">We wish you a successful sale. Just keep us updated with your products. Add products easily in your workplace profile and find a great market ready to purchase.</div><div style="color:rgb(0,0,0);font-family:HelveticaNeue,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;font-size:16px"><br></div><div><div><div dir="ltr"><div><b>--<br>Admin</b></div><div><a href="http://www.corelogs.com" target="_blank"><b>CoreLogs</b></a><div class="yj6qo"></div><div class="adL"><br><br></div></div></div></div></div><div class="adL">
-</div></div><div class="adL">
-</div></div>
-    '''
-
-    html_content = template.format(name, product.slug, product, product.producer.slug, product.producer)
-    subject, from_email, to = u'''[CoreLogs] Enquiry about {0}'''.format(product), 'admin@corelogs.com', user_email
-    text_content = 'You have got an enquiry about a product. Visit www.corelogs.com'
-    connection.open()
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to], connection=connection)
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-    connection.close()
 
 @login_required
 def int_add_product(request):

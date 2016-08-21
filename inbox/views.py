@@ -252,3 +252,11 @@ def mark_seen(request):
         c.seen = True
         c.save()
     return HttpResponse()
+
+
+def set_wp_inq():
+    enquiries = Enquiry.objects.all()
+    for en in enquiries:
+        if en.product:
+            en.workplace = en.product.producer
+            en.save()

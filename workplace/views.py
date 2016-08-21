@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse, render_to_response
+from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
-from workplace.forms import WorkplaceForm, SetWorkplaceForm, SetTeamTypeForm, SetSegmentForm
+from workplace.forms import WorkplaceForm, SetWorkplaceForm
 from workplace.models import *
 from nodes.models import Node
 from products.models import Products
@@ -10,14 +10,13 @@ from nodes.forms import SetLogoForm
 from activities.models import Enquiry
 from userprofile.models import User, UserProfile, Workplaces
 import json
-from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
-from home import tasks
 from itertools import chain
 from operator import attrgetter
 from threading import Thread
+from contacts.views import wp_email
 
 
 @login_required
@@ -41,8 +40,8 @@ def set_workplace(request):
         # tasks.send_html_mail(user.id, n=88) # Moved to contacts
         node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
         <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
-                                                                          primary_workplace.slug, primary_workplace,
-                                                                          userprofile.job_position)
+                                                          primary_workplace.slug, primary_workplace,
+                                                          userprofile.job_position)
         Node.objects.create(post=node, user=request.user, category='D', w_type=t)
         if t in ['A', 'B']:
             return redirect('/workplace/edit/')
@@ -73,8 +72,8 @@ def set_others_wp(request, username):
         # tasks.send_html_mail(user.id, n=88) # Moved to contacts
         node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
         <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
-                                                                          primary_workplace.slug, primary_workplace,
-                                                                          userprofile.job_position)
+                                                          primary_workplace.slug, primary_workplace,
+                                                          userprofile.job_position)
         Node.objects.create(post=node, user=request.user, category='D', w_type=t)
         if t in ['A', 'B']:
             return redirect('/workplace/edit/')
@@ -96,8 +95,6 @@ def change_type(request):
         m.workplace_type = type
         m.save()
     return HttpResponse()
-
-
 
 
 def search_workplace(request):                  # for searching the workplace
@@ -283,7 +280,7 @@ def workplace_dash(request, slug):
     node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
 
     completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
-                        (workplace.points)/(10*member_count) + workplace.get_member_score())/5
+                        workplace.points/(10*member_count) + workplace.get_member_score())/5
 
     return render(request, 'workplace/snip_dashboard.html', locals())
 
@@ -728,6 +725,8 @@ def edit_workplace(request):
 
             for key in dictionary:
                 setattr(workplace, key, dictionary[key])
+                if key == 'office_mail_id':
+                    wp_email(workplace)
             workplace.save()
 
         response = {}
@@ -751,11 +750,9 @@ def set_interest_all():
 
 
 def random_card(request):
-    print('randomao')
     user = request.user
     up = request.user.userprofile
     workplace = up.primary_workplace
-    print(user, workplace)
     if request.method == 'POST':
         if 'msg' in request.POST:
             return render(request, 'workplace/snippets/rc_com_email_msg.html', locals())
@@ -763,19 +760,11 @@ def random_card(request):
             data = request.POST.get('data')
             setattr(up, 'product_email', data)
             up.save()
+
             return HttpResponse()
 
 
 import requests
-
-# url = 'http://www.corelogs.com/accounts/signup'
-# values = {'name': name, 'email': email,'password1': 'Password', 'password2': 'Password'}
-# data = urllib.urlencode(values)
-# req = urllib2.Request(url, data)
-# response = urllib2.urlopen(req)
-# result = response.read()
-# print result
-
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -866,7 +855,3 @@ def create_api3(request):
     else:
         # print('uncool')
         return
-
-
-
-

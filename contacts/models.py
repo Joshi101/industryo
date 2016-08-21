@@ -100,7 +100,7 @@ class MailSend(models.Model):
 
 
 class Emails(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     user = models.ForeignKey(User, null=True, blank=True)
     workplace = models.ForeignKey(Workplace, null=True, blank=True)
     workplace_type = models.CharField(max_length=1, default='N')

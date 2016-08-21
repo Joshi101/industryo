@@ -8,6 +8,7 @@ from django.views.static import serve
 from home import sitemaps as home_sitemap
 from home import nav_content as home_nav_content
 from home import views as home_views
+from home import network as home_network
 from home import commands as home_commands
 from products import views as products_views
 from activities import views as activities_views
@@ -25,7 +26,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', home_views.home, name='home'),
     url(r'^feed/$', home_views.feed, name='feed'),
-    url(r'^network/$', home_views.network, name='network'),
+    url(r'^network/$', home_network.network, name='network'),
     url(r'^feedback/$', home_views.feedback, name='feedback'),
 
     url(r'^marketplace$', products_views.all_products, name='marketplace'),
