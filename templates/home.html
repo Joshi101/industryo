@@ -4,14 +4,44 @@
   <aside class="menu_left">
     <a class="toggle" data-slide="#all_categories" data-status="closed"><span class="fa fa-bars slim_fa"></span></a>
     <nav>
-  	  <ul class="list-group">
-        <li class="list-group-item"><a href="">Profile</a></li>
-        <li class="list-group-item"><a href="">Company</a></li>
-        <li class="list-group-item"><a href="">Something</a></li>
+  	  <ul class="tab_list">
+        <li>
+          <a href="#sub_menu1" data-toggle="collapse"><span class="fa fa-plus"></span>Profile</a>
+          <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
+            <li>
+              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+            </li>
+            <li>
+              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#sub_menu2" data-toggle="collapse"><span class="fa fa-plus"></span>Company</a>
+          <ul id="sub_menu2" class="collapse list-unstyled sub_menu">
+            <li>
+              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+            </li>
+            <li>
+              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#sub_menu3" data-toggle="collapse"><span class="fa fa-plus"></span>Something</a>
+          <ul id="sub_menu3" class="collapse list-unstyled sub_menu">
+            <li>
+              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+            </li>
+            <li>
+              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+            </li>
+          </ul>
+        </li>
 			</ul>
     </nav>
   </aside>
   <section>
-    
+
   </section>
 {% endblock body %}

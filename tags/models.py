@@ -20,7 +20,7 @@ class Tags(models.Model):
 
     # popular = models.Manager()
 
-    date = models.DateTimeField(auto_now_add=True, default=datetime.now())
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.tag

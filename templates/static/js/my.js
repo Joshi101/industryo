@@ -2668,8 +2668,16 @@ function messageFailed($form, response){
 
 }
 
-var bodyleave = false;
+var bodyleave = true;
+var modalTimer = 0;
+$(function(){
+    modalTimer = setTimeout(function(){
+        bodyleave = false;
+        console.log('now show')
+    }, 20000);
+});
 $('body').on('mouseleave', function(e) {
+    console.log(modalTimer, bodyleave)
     if (!bodyleave && mouseY <= 100){
         bodyleave = true;
         console.log('keacing')
