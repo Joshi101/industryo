@@ -180,6 +180,11 @@ img{
   align-self: center;
   border-left: 1px solid #555;
   padding: 0 10px;
+  /* margin-right: 15px; */
+}
+
+.pre_nav .nav_advert .btn{
+  margin-left: 10px;
 }
 
 @media(max-width:768px){
@@ -5287,7 +5292,7 @@ border: 1px solid rgba(0,0,0,.12);
 
 .cover_img{
   width: 65%;
-  padding-bottom: 70%;
+  padding-bottom: 75%;
   margin: 25px 21% 0% 14%;
   position: relative;
   z-index: 10;
@@ -6440,4 +6445,9 @@ and in bootstrap.css
 
 #irritate_modal .modal-dialog{
   max-width: 720px;
+  margin-top: 111px;
+}
+
+.slim_fa{
+  margin: 0;
 }

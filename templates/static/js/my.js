@@ -78,8 +78,8 @@ function doneTyping() {
             url: search,
             type: "GET",
             data: {
-                the_query: query,
-                the_type: type
+                'the_query': query,
+                'the_type': type
             },
             success: function(result) {
                 //d_on = true;
@@ -239,7 +239,7 @@ $('body').on('click', '.input_tags .close', function(){
             url: url,
             type: "POST",
             data: {
-                tag: value
+                'tag': value
             },
 
             success: function(response) {
@@ -486,7 +486,7 @@ $(window).scroll(function() {
                 url: pg_url,
                 type: "GET",
                 data: {
-                    page: nxt
+                    'page': nxt
                 },
 
                 success: function(response) {
@@ -555,7 +555,7 @@ $(function() {
         $('#id_image').val(imageData);
         a = $('.cropit-preview-image').css('transform');
         var values = a.match(/-?[\d\.]+/g);
-        console.log(values)
+        // console.log(values)
         var formValue = $(this).serialize();
     });
 });
@@ -600,7 +600,7 @@ $('body').on('click', '.delete', function() {
         url: url,
         type: "GET",
         data: {
-            delete: del
+            'delete': del
         },
 
         success: function(response) {
@@ -633,7 +633,7 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
         col.find('.form-control').first().focus();
     }
     if (alt){
-        console.log(alt)
+        // console.log(alt)
         $this.text(alt);
         $this.data('alternate', text);
     }
@@ -641,7 +641,7 @@ $('.ajax_andar').on('click', '.a_collapse', function() {
 
 $('body').on('click', '.fake_btn', function() {
     var btn = $(this).data('btn');
-    console.log(btn)
+    // console.log(btn)
     $(btn).trigger('click');
 });
 
@@ -915,8 +915,9 @@ $('.hover_ajax').on({
 
 $(document).ready(function() {
     //fetches notifications
-    if (count_url){
-        count_notifications();
+    if (typeof count_url !== 'undefined'){
+        if(count_url)
+            count_notifications();
     }
     // count_messages();
 
@@ -1233,8 +1234,8 @@ $('.change_image').on('click', '.img_pre .close', function() {
             url: url,
             type: 'GET',
             data: {
-                qid: id,
-                pid: pid
+                'qid': id,
+                'pid': pid
             },
             success: function(response) {
                 console.log('image removeed');
@@ -1352,6 +1353,7 @@ $(document).ready(function(){
             type = 'POST';
             data = post;
         }
+        console.log('ajax_load')
         $.ajax({
             url: url,
             type: type,
@@ -1685,7 +1687,7 @@ function deleteWPTag($tag){
         url: url,
         type: "POST",
         data: {
-            delete: del
+            'delete': del
         },
         success: function(response) {
             console.log('deleted tag ',del);
@@ -2257,7 +2259,7 @@ function imageUpload($this){
     var preview = $this.closest('.image_box').find('.img_pre');
     var file = $this[0].files[0];
     var fd = new FormData();
-    var name = $this.attr('name')
+    var name = $this.attr('name');
     fd.append(name, file);
     console.log(fd, file);
     var reader = new FileReader();
@@ -2266,9 +2268,9 @@ function imageUpload($this){
         $('#product_image').attr('src', reader.result);
         var $form = $this.closest('form');
         var $field = $this.closest('.form-group');
-        for(var pair of fd.entries()) {
-           console.log(pair[0]+ ', '+ pair[1]);
-        }
+        // for(var pair of fd.entries()) {
+        //    console.log(pair[0]+ ', '+ pair[1]);
+        // }
         autoSubmitShow($field);
         $.ajax({
             url: $form.attr('action'),
@@ -2329,7 +2331,7 @@ $(function(){
     $('.form_eric').find('input, textarea').each(function(index, el) {
         var $this = $(this),
         label = $this.prev('label');
-        console.log($this.val())
+        // console.log($this.val())
         if( $this.val() !== '' )
             label.addClass('active highlight');
     });
@@ -2353,10 +2355,14 @@ $('body').on('change','.s_validate',function(){
         console.log($this.val());
         name = $this.attr('name');
         val = $this.val();
+        var csrf = $this.closest('form').find('input[name=csrfmiddlewaretoken]').val();
         $.ajax({
             url: $this.data('url'),
             type: 'POST',
-            data: {data: val},
+            data: {
+                'data': val,
+                'csrfmiddlewaretoken': csrf
+            },
 
             success: function(response) {
                 console.log(response.valid);
@@ -2430,7 +2436,7 @@ $('body').on('submit', '.bullet_form', function(event){
     $.ajax({
         url: $this.attr('action'),
         type: 'POST',
-        data: {msg: 'bhejo'},
+        data: {'msg': 'bhejo'},
 
         success: function(response) {
             console.log(response);
@@ -2666,6 +2672,7 @@ var bodyleave = false;
 $('body').on('mouseleave', function(e) {
     if (!bodyleave && mouseY <= 100){
         bodyleave = true;
+        console.log('keacing')
         $("#irritate_modal").modal();
     }
 });

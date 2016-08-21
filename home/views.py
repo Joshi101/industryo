@@ -170,7 +170,7 @@ def feed(request):
         if page:
             return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
         else:
-            return render(request, 'home.html', {'result_list': result_list})
+            return render(request, 'feed.html', {'result_list': result_list})
 
 
 @login_required

@@ -1,28 +1,30 @@
-{% load staticfiles compress %}
+{% load static compress %}
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--
-  <meta name="keywords" content="{% block meta_keywords %}CoreLogs, Industry, SME, SMEs, Engineers, Baja, Formula, Manufacturing{% endblock meta_keywords %}">
--->
-
   <!-- og protocol for social sites -->
   <meta property="og:site_name" content="CoreLogs">
+
   {% block head_desc %}
-    <title>{% block title %}Corelogs, Platform for SMEs{% endblock title %}</title>
-    <meta name="description" content="{% block meta_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_description %}">
-    <meta property="og:title" content="{% block meta_og_title %}CoreLogs, Platform for SMEs{% endblock %}">
-    <meta name="og:description" content="{% block meta_og_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_og_description %}">
+  <title>{% block title %}Corelogs, Platform for SMEs{% endblock title %}</title>
+  <meta name="description" content="{% block meta_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_description %}">
+  <meta property="og:title" content="{% block meta_og_title %}CoreLogs, Platform for SMEs{% endblock %}">
+  <meta name="og:description" content="{% block meta_og_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_og_description %}">
   {% endblock head_desc %}
+
   <meta property="og:url" content="{% block meta_og_url %}http://www.corelogs.com{{ request.path }}{% endblock %}">
   <meta property="og:type" content="{% block meta_og_type %}website{% endblock meta_og_type %}">
+
   {% block meta_og_type_extra %}
   {% endblock meta_og_type_extra %}
+
   <meta property="og:image" content="http://www.corelogs.com{% block meta_og_image %}{% static 'css/screenshot2.jpg' %}{% endblock %}">
   <meta property="og:image:type" content="image/jpeg">
+
   {% block meta_og_image_dim %}
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="600">
@@ -34,89 +36,41 @@
 
   <!-- microsoft analytics -->
   <meta name="msvalidate.01" content="6848A0595F7485608A2CAB51CBDA4D0F">
-
-
+  <!-- favicon -->
   <link rel="icon" href="{% static 'css/icon6.png' %}">
-
   <!-- google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700|Lora:400,400i,700,700i|Open+Sans:300,400,400i,700,700i|Titillium+Web:300,400" rel="stylesheet">
-
   <!-- third party -->
   <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}>
   <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.min.css' %}>
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
-
-  {% block head_css %}
-    <!-- local css files (to be added at level 2) -->
-  {% endblock head_css %}
-
+  <link rel="stylesheet" href={% static 'sass/test.css' %}>
   <!-- third party -->
   <script type="text/javascript" src={% static 'js/jquery-2.2.4.min.js' %}></script>
   {% compress js %}
   <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.min.js' %}></script>
-
   <!-- not basic implement at sublevels -->
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
   <script type="text/javascript" src={% static 'js/autosize.min.js' %}></script>
   <script type="text/javascript" src={% static 'js/bootstrap-wysiwyg.js' %}></script>
   <script type="text/javascript" src={% static 'js/jquery.hotkeys.js' %}></script>
   {% endcompress %}
-
-  {% block head_js %}
-  <script>
-    var count_url;
-    var msg_count_url;
-    {% if user.is_authenticated  %}
-    count_url = "{% url 'count_notify' %}";
-    msg_count_url = "{% url 'messages:check_message' %}";
-    {% endif %}
-    function radio_select(rgroup,value){
-      console.log(rgroup,value)
-      $(rgroup).find('input[value="'+value+'"]').prop('checked', 'checked');
-    }
-  </script>
-  {% endblock head_js %}
-
 </head>
 
-<body class="{% block pg_schema %}{% endblock pg_schema %}">
-
+<body>
   {% block top %}
     {% include "snippets/top_navigation.html" with what="All" %}
   {% endblock top %}
+
   <div id="{% block page_id %}{% endblock page_id %}" class="body" data-spy="affix" data-offset-top="50">
     {% block body %}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-0 col-md-2 col-lg-2">
-          {% block left %}
-          {% endblock left %}
-        </div>
-        <div class="col-sm-9 col-md-7 col-lg-7">
-          {% block content %}
-          {% endblock content %}
-        </div>
-        <div id="right" class="col-sm-3 col-md-3 col-lg-3">
-          {% block right %}
-          {% endblock right %}
-        </div>
-      </div>
-    </div>
     {% endblock body %}
-    {% block bottom_bar %}
-    {% comment %}
-    {% if request.user.is_authenticated %}
-      {% include "snippets/bottom_bar.html" %}
-    {% endif %}
-    {% include "snippets/feedback.html" %}
-
-    {% endcomment %}
-    {% endblock bottom_bar %}
   </div>
 
   <div class="farzi" style="display:none;">
   </div>
+
   {% block foot %}
   <footer class="container-fluid">
     <div class="row">
