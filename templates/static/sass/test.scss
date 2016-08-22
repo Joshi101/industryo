@@ -60,10 +60,51 @@
 
 @media(min-width: 768px){
     .menu_left{
-        flex-basis: 250px;
+        flex-basis: 200px;
     }
 }
 
 footer{
     margin-top: 0;
+}
+
+.inline_tags{
+    background: #fff;
+}
+
+.inline_tags .d_search{
+}
+
+.inline_tags input{
+    border: 0;
+    margin: 0;
+    padding: 35px 8px 7px;
+    height: auto;
+    line-heigth: 20px;
+    font-size: 14px;
+    display: inline-block;
+    background: transparent;
+    border: 1px dashed #ccc;
+
+    &:hover{
+        background: rgba(0,0,0,0.01);
+    }
+}
+
+.inline_tags .input_tags{
+    margin: 7px;
+    position: absolute;
+}
+
+.inline_tags .dropdown{
+    top: 6px;
+}
+
+.inline_tags .list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.thin{
+    padding: 15px;
 }

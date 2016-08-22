@@ -2458,16 +2458,16 @@ footer .contact li{
   font-weight: 500;
   line-height: 20px;
   display: inline-block;
-  background-color: #fafafa;
-  padding: 1px 5px;
-  border: 1px solid #f0f0f0;
+  /* background-color: #e1ecf4; */
+  padding: 1px 6px;
+  border: 1px solid #AAD8C5;
   margin: 0 5px 5px 0;
   color: #179;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  
-  border-radius: 3px;
+  border-radius: 1px;
+  /* font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; */
 }
 
 .tag:hover{
@@ -2476,7 +2476,7 @@ footer .contact li{
 
 .tag .close{
   font-size: 20px;
-  padding-left: 10px;
+  padding-left: 7px;
 }
 
 .many_value span{

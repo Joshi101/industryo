@@ -42,13 +42,12 @@
     </nav>
   </aside>
   <section class="section_mid">
-    <div class="tile">
-      <form class="auto_form" action="index.html" method="post">
-        <div class="form-group inline_tags">
-          <label for="wp_loc">Locations</label>
-          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+    <form class="auto_form" action="{% url 'network:tags' %}" method="post">
+      <div class="form-group">
+        <div class="inline_tags">
+          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' placeholder='Filter Your View by adding or removing Tags' %}
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </section>
 {% endblock body %}

@@ -132,3 +132,7 @@ def network(request):
     workplace = request.user.userprofile.primary_workplace
     tags = workplace.get_tags()
     return render(request, 'home.html', locals())
+
+
+def tags(request):
+    pass

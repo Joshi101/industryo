@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.network, name='network'),
+    url(r'^$', views.tags, name='tags'),
 ]

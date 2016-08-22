@@ -2694,3 +2694,7 @@ $('body').on('mouseleave', function(e) {
 $('.dropdown-toggle_hover').on('mouseenter', function(){
     $(this).closest('.dropdown').addClass('open');
 });
+
+$('body').on('click', '.inline_tags', function(){
+    $(this).find('.form-control').focus();
+});
