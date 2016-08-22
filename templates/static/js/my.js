@@ -2657,9 +2657,17 @@ $('body').on('click', '.slide_a', function(event){
     $(target).removeClass('hide');
 });
 
+$('body').on('click', '#inbox_list .slide_a', function(event){
+    ajx_form($(this).find('.seen_form'), messageSeen, messageFailed);
+});
+
 $('#inbox_content').on('click', '.ajx_form', function(){
     ajx_form($(this).closest('form'), messageSent, messageFailed);
 });
+
+function messageSeen($form, response){
+    $form.closest('h4').removeClass('strong');
+}
 
 function messageSent($form, response){
     $form.closest('.inbox_msg').find('.msg_body').append(response.msg);
@@ -2673,14 +2681,12 @@ var modalTimer = 0;
 $(function(){
     modalTimer = setTimeout(function(){
         bodyleave = false;
-        console.log('now show')
     }, 20000);
 });
 $('body').on('mouseleave', function(e) {
     console.log(modalTimer, bodyleave)
     if (!bodyleave && mouseY <= 100){
         bodyleave = true;
-        console.log('keacing')
         $("#irritate_modal").modal();
     }
 });

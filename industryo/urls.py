@@ -26,7 +26,6 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', home_views.home, name='home'),
     url(r'^feed/$', home_views.feed, name='feed'),
-    url(r'^network/$', home_network.network, name='network'),
     url(r'^feedback/$', home_views.feedback, name='feedback'),
 
     url(r'^marketplace$', products_views.all_products, name='marketplace'),
@@ -72,6 +71,7 @@ urlpatterns = [
     url(r'^leads/', include('leads.urls', namespace='leads')),
     url(r'^inbox/', include('inbox.urls', namespace='inbox')),
     url(r'^track/', include('tracking.urls', namespace='track')),
+    url(r'^network/', include('network.urls', namespace='network')),
 
     url(r'^home/right/$', home_views.home_right, name='home_right'),
     url(r'^home/right_down/$', home_views.home_right_down, name='home_right_down'),

@@ -41,7 +41,14 @@
 			</ul>
     </nav>
   </aside>
-  <section>
-
+  <section class="section_mid">
+    <div class="tile">
+      <form class="auto_form" action="index.html" method="post">
+        <div class="form-group inline_tags">
+          <label for="wp_loc">Locations</label>
+          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+        </div>
+      </form>
+    </div>
   </section>
 {% endblock body %}

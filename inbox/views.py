@@ -3,6 +3,7 @@ from leads.models import Leads, Reply
 from chat.models import Conversation, Message
 from activities.models import Enquiry
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from operator import attrgetter
 from itertools import chain
@@ -233,6 +234,7 @@ def sent_messages(request):
         return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
 
 
+@csrf_exempt
 def mark_seen(request):
     what = request.POST.get('what')
     id = request.POST.get('id')
