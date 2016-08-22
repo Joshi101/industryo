@@ -3,8 +3,6 @@ from industryo.unique_slug import unique_slugify
 from datetime import datetime
 
 
-# type of tags = assets, materials, operations, skills, area
-
 class Tags(models.Model):
     tag = models.CharField(max_length=50, db_index=True)
     tag_types = (('S', 'Segment'), ('C', 'City'), ('E', 'Event'), ('I', 'IndustrialArea'), ('D', 'ProductCategory'),
@@ -20,7 +18,7 @@ class Tags(models.Model):
 
     # popular = models.Manager()
 
-    date = models.DateTimeField(auto_now_add=True, default=datetime.now())
+    date = models.DateTimeField(auto_now_add=True) # default=datetime.now()
 
     def __str__(self):
         return self.tag
