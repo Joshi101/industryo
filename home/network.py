@@ -21,6 +21,7 @@ from tracking.models import Tracker
 @login_required
 @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def network(request):
+    user=request.user
     if user.userprofile.primary_workplace:
         workplace = request.user.userprofile.primary_workplace
         my_city = workplace.get_tags()['city']

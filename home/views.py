@@ -170,7 +170,7 @@ def feed(request):
         if page:
             return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
         else:
-            return render(request, 'home.html', {'result_list': result_list})
+            return render(request, 'feed.html', {'result_list': result_list})
 
 
 @login_required
@@ -357,17 +357,7 @@ def questions(request):
 
 
 def tags(request):
-    all_objects = Tags.objects.all()
-    paginator = Paginator(all_objects, 50)
-    page = request.GET.get('page')
-    try:
-        objects = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        objects = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        objects = paginator.page(paginator.num_pages)
+    objects = Tags.objects.all()
 
     return render(request, 'sitemap/sitemap_user.html', {"list": objects, "what": 'tag'})
 

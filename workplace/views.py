@@ -4,7 +4,7 @@ from workplace.forms import WorkplaceForm, SetWorkplaceForm
 from workplace.models import *
 from nodes.models import Node
 from products.models import Products
-from tags.models import Tags
+from tags.models import Tags, TagRelations
 from forum.models import Question, Answer
 from nodes.forms import SetLogoForm
 from activities.models import Enquiry
@@ -17,6 +17,7 @@ from itertools import chain
 from operator import attrgetter
 from threading import Thread
 from contacts.views import wp_email
+from django.db.models import Q
 
 
 @login_required
@@ -855,3 +856,40 @@ def create_api3(request):
     else:
         # print('uncool')
         return
+
+
+import itertools
+
+def relate_tags():
+    wps = Workplace.objects.filter(id__lt=700)
+    for w in wps:
+        tagged = WpTags.objects.filter(workplace=w)
+        uss = itertools.combinations(tagged, 2)
+        for comb in uss:
+            try:
+                o = TagRelations.objects.filter(tag1=comb[0].tags, tag2=comb[1].tags).first()
+
+                if o:
+                    print('mila')
+                    p = o.count
+                    o.count = p+1
+                    o.save()
+                    print('count badha')
+            except Exception:
+                o = TagRelations.objects.filter(tag2=comb[0].tags, tag1=comb[1].tags).first()
+
+                if o:
+                    print('doosre me mila')
+                    p = o.count
+                    o.count = p+1
+                    o.save()
+                    print('count badha')
+            finally:
+                t, created = TagRelations.objects.get_or_create(tag1=comb[0].tags, tag2=comb[1].tags)
+                if not created:
+                    t.count +=1
+                    t.save()
+
+
+
+

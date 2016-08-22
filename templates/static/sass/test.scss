@@ -1,0 +1,56 @@
+.body{
+    display: flex;
+}
+
+.pre_nav .nav_advert .btn {
+    margin-left: 10px;
+}
+
+.menu_left{
+    padding: 15px;
+    background: #fff;
+    margin: -14px 0 0;
+    border-right: 1px solid #eee;
+}
+
+.menu_left .toggle{
+    display: inline-block;
+    margin: 0 15px 5px;
+    background: #fff;
+    font-size: 20px;
+    color: #ccc;
+}
+
+.tab_list{
+    list-style: none;
+}
+
+.tab_list a{
+    display: block;
+    padding: 7px 10px;
+    margin: 5px;
+    border-bottom: 1px solid #eee;
+    color: #777;
+    font-size: 16px;
+    font-weight: 700;
+    transition: 0.5s all ease-out;
+}
+
+.tab_list a:hover, .tab_list a:active, .tab_list a:focus{
+    text-decoration: none;
+    border-color: #197;
+}
+
+.sub_menu a{
+    color: #999;
+    font-weight: 500;
+    font-size: 15px;
+    border: 0;
+    margin: 0 15px 0 25px;
+}
+
+@media(min-width: 768px){
+    .menu_left{
+        flex-basis: 250px;
+    }
+}

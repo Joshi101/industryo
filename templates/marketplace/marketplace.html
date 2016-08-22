@@ -9,7 +9,7 @@
 {% block page_id %}marketplace{% endblock page_id %}
 
 {% block body %}
-	<!-- {% if request.user.userprofile.primary_workplace %}	
+	<!-- {% if request.user.userprofile.primary_workplace %}
 	<div class="pull-right col-md-3 ">
 	<a href="{% url 'products:add_product' %}">
 		<button class="btn btn-primary"><span class='fa fa-plus-circle fa-lg'></span>&nbsp; AddProducts</button>
@@ -34,7 +34,7 @@
 	<nav id="categories_top" class="navbar navbar-default">
 	  <div class="container-fluid">
 	  	<div class="navbar-header">
-	      <a class="navbar-brand slider" data-slide="#all_categories" data-status="closed">All {% if q %}Sub-{% endif %}Categories <span class="fa fa-caret-down inline_fa"></span></a></a>
+	      <a class="navbar-brand slider" data-slide="#all_categories" data-status="closed">All {% if q %}Sub-{% endif %}Categories <span class="fa fa-caret-down inline_fa"></span></a>
 	    </div>
 	    <div></div>
 	    <ul class="nav navbar-nav pc_only">
@@ -53,7 +53,7 @@
 	  </div>
 	</nav>
 	{% endif %}
-	
+
 	<div class="container-fluid slide_container">
 		{% if lvl <= 3 %}
 		<div id="all_categories" class="left_slide">

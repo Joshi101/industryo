@@ -98,7 +98,7 @@ def details(request):
             text = "Products Listed"
             tt = "p"
         elif s == 'wpt':
-            lis = WpTags.objects.filter(date__range=[enddate, startdate])
+            lis = WpTags.objects.filter(date__range=[startdate-timedelta(days=200), startdate])
             text = "Workplace Tags created"
             tt = "wpt"
         elif s == 'enq':

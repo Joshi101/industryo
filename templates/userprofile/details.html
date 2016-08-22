@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block body %}
 <div class="container">
 	<div class="w_650">
@@ -17,7 +16,7 @@
 		<h2 class="text-center">A Few Personal Details</h2>
 	</header>
 	<form id="form_add_type" class="form_lg" action="/details/" method="POST" role="form">
-		{{ form|bootstrap }}
+		{{ form }}
 		{% csrf_token %}
 		<input type="submit" value="submit" class="submit_main btn btn-primary">
 	</form>

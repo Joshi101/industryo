@@ -7,13 +7,10 @@
       </div> -->
       <div class="modal-body">
         <h2 class="text-center"><strong>Hey {{request.user.userprofile|truncatewords:'1'|default:"Guest"}}!</strong> Leaving?</h2>
-        <p class="text-center wide_64">
-          CoreLogs is a Business Enabling Network of SMEs.
-        .</p>
-        <p class="text-center wide_64" style="margin: 25px">
-          Invite the SMEs that do business with you to get a <strong>Stronger Network. </strong>Big network Brings you more business. <strong>Let's Grow Together! </strong>
+        <p class="text-center wide_48">
+          Invite the SMEs that do business with you to create a <strong>Stronger Network</strong> and <strong>expand your Business</strong>.
         </p>
-        <div class="form_eric">
+        <div class="form_eric" style="margin-top: 25px">
           <form class="form-horizontal wide_48" role="form" method="post" action="{% url 'track:refer' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -22,9 +19,10 @@
             </div>
             <button type="submit" class="button button-block"/>Send</button>
           </form>
-      </div>
-      <div class="modal-footer" style="text-align: center;">
-        <button type="button" class="btn btn-default" data-dismiss="modal">No, I want to be alone on the network !</button>
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No, I want to be alone on the network !</button>
+        </div>
       </div>
     </div>
   </div>
