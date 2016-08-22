@@ -5,6 +5,10 @@
       <h4 {% if not result.seen %}class="strong"{% endif %}>
         {% if result.lead_id %}
         <a class="slide_a quot_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+          <form class="seen_form" action="{% url 'inbox:mark_seen' %}" method="post">
+            <input type="hidden" name="what" value="quotation">
+            <input type="hidden" name="id" value="{{result.id}}">
+          </form>
           <span class="label label-success">Quotation</span>
           <span class="trunc name">{{result.workplace}}</span>
           <span class="subject trunc">Quotation on {{result.lead|truncatechars:'50'}}</span>
@@ -12,6 +16,10 @@
         </a>
         {% elif result.message %}
         <a class="slide_a inq_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+          <form class="seen_form" action="{% url 'inbox:mark_seen' %}" method="post">
+            <input type="hidden" name="what" value="inquiry">
+            <input type="hidden" name="id" value="{{result.id}}">
+          </form>
           <span class="label label-warning">Inquiry</span>
           {% if result.user %}
           <span class="trunc name">{{result.user.userprofile}}</span>
@@ -30,6 +38,10 @@
         </a>
         {% else %}
         <a class="slide_a msg_in" href="#inbox_msg{{forloop.counter}}" data-parent="#inbox_list" data-type="up">
+          <form class="seen_form" action="{% url 'inbox:mark_seen' %}" method="post">
+            <input type="hidden" name="what" value="message">
+            <input type="hidden" name="id" value="{{result.id}}">
+          </form>
           <span class="label label-info">Message</span>
           <span class="trunc name">{{result.last_message_from.userprofile}}</span>
 

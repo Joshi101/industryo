@@ -9,7 +9,7 @@
 .menu_left{
     padding: 15px;
     background: #fff;
-    margin: -14px 0 0;
+    margin: -15px 0 1px;
     border-right: 1px solid #eee;
 }
 
@@ -41,6 +41,10 @@
     border-color: #197;
 }
 
+.sub_menu{
+/*     margin: 10px 0; */
+}
+
 .sub_menu a{
     color: #999;
     font-weight: 500;
@@ -49,8 +53,17 @@
     margin: 0 15px 0 25px;
 }
 
+.section_mid{
+    flex-grow: 1;
+    padding: 0 15px;
+}
+
 @media(min-width: 768px){
     .menu_left{
         flex-basis: 250px;
     }
+}
+
+footer{
+    margin-top: 0;
 }

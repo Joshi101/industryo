@@ -3,6 +3,7 @@ from leads.models import Leads, Reply
 from chat.models import Conversation, Message
 from activities.models import Enquiry
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from operator import attrgetter
 from itertools import chain
@@ -30,12 +31,9 @@ def inbox(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
     else:
@@ -56,12 +54,9 @@ def quotations(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_quotations.html'})
     else:
@@ -81,12 +76,9 @@ def inquiries(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_inquiries.html'})
     else:
@@ -110,12 +102,9 @@ def messages(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
     else:
@@ -141,12 +130,9 @@ def outbox(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
     else:
@@ -167,12 +153,9 @@ def sent_quotations(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_quotations.html'})
     else:
@@ -192,12 +175,9 @@ def sent_inquiries(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'empty': 'inbox/no_inquiries.html'})
     else:
@@ -221,18 +201,16 @@ def sent_messages(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
         return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
     else:
         return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
 
 
+@csrf_exempt
 def mark_seen(request):
     what = request.POST.get('what')
     id = request.POST.get('id')
