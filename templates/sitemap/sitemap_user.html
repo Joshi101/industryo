@@ -37,7 +37,7 @@
 		{% endfor %}
 	{% elif what == "tag" %}
 		{% for ob in list %}
-		<li><a href='{% url 'tags:get_tag' ob.slug %}' class="">{{ob}}</a></li>
+		<li>{{ob.id}} : <a href='{% url 'tags:get_tag' ob.slug %}' class="">{{ob}}</a> : {{ob.count}}</li>
 		{% endfor %}
 	{% elif what == "question" %}
 		{% for ob in list %}

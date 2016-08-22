@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, render_to_response, HttpResponse
 from tags.forms import CreateTagForm
-from tags.models import Tags
+from tags.models import Tags, TagRelations
 from forum.models import Question
 from workplace.models import WpTags
 from nodes.models import Node
@@ -11,6 +11,7 @@ from itertools import chain
 from operator import attrgetter
 from products.models import Products
 from leads.models import Leads
+from django.db.models import Q
 from django.contrib.auth.models import User
 
 
@@ -197,23 +198,53 @@ def create(request):
     pass
 
 
-def merge_tags(tag1, tag2):
-    tag1 = Tags.objects.get(tag=tag1)
-    tag2 = Tags.objects.get(tag=tag2)
+def merge_tags(remain, destroy):
+    remain = Tags.objects.get(id=remain)
+    destroy = Tags.objects.get(id=destroy)
 
-    ws = WpTags.objects.filter(tags=tag2)
+    ws = WpTags.objects.filter(tags=destroy)
     for w in ws:
-        w.tags = tag1
-        w.save()
-        tag1.count +=1
-        tag1.save()
+        ee = WpTags.objects.filter(tags=remain, workplace=w.workplace).first()
+        if ee:
+            w.delete()
+        else:
+            w.tags = remain
+            w.save()
+        remain.count += 1
+        remain.save()
 
-    us = User.objects.filter(userprofile__interests=tag1)
+    us = User.objects.filter(userprofile__interests=destroy)
     for u in us:
-        u.userprofile.set_interests(tag1.tag)
+        u.userprofile.set_interests(remain.tag)
+
+    ts1 = TagRelations.objects.filter(tag1=destroy)
+    ts2 = TagRelations.objects.filter(tag2=destroy)
+    for t in ts1:
+        if not t.tag2 == remain:
+            i = WpTags.objects.filter(Q(tag1=remain, tag2=t.tag2) | Q(tag2=remain, tag1=t.tag2)).first()
+            if i:
+                i.count += 1
+                i.save()
+            else:
+                t.tag1 = remain
+                t.save()
+        else:
+            t.delete()
+    for t in ts2:
+        if not t.tag1 == remain:
+            i = WpTags.objects.filter(Q(tag1=remain, tag2=t.tag1) | Q(tag2=remain, tag1=t.tag1)).first()
+            if i:
+                i.count += 1
+                i.save()
+            else:
+                t.tag2 = remain
+                t.save()
+        else:
+            t.delete()
+    destroy.delete()
 
 
-    tag2.delete()
+
 
 
 # Create your views here.

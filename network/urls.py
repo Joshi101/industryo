@@ -5,5 +5,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.network, name='network'),
-    url(r'^$', views.tags, name='tags'),
+    url(r'^products$', views.network_products, name='products'),
+    url(r'^companies$', views.network_companies, name='companies'),
+    url(r'^feed$', views.network_feeds, name='feed'),
+    url(r'^side_overview$', views.side_overview, name='side_overview'),
 ]

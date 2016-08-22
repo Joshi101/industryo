@@ -1358,7 +1358,7 @@ $(document).ready(function(){
             url: url,
             type: type,
             data: data,
-
+            processData: false,
             success: function(response) {
                 $this.html(response);
                 // console.log('kuch ajax load hui');

@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', home_views.home, name='home'),
     url(r'^feed/$', home_views.feed, name='feed'),
+
     url(r'^feedback/$', home_views.feedback, name='feedback'),
 
     url(r'^marketplace$', products_views.all_products, name='marketplace'),

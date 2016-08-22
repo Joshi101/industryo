@@ -3,8 +3,6 @@ from industryo.unique_slug import unique_slugify
 from datetime import datetime
 
 
-# type of tags = assets, materials, operations, skills, area
-
 class Tags(models.Model):
     tag = models.CharField(max_length=50, db_index=True)
     tag_types = (('S', 'Segment'), ('C', 'City'), ('E', 'Event'), ('I', 'IndustrialArea'), ('D', 'ProductCategory'),
@@ -16,11 +14,10 @@ class Tags(models.Model):
     description = models.CharField(max_length=500, null=True, blank=True)
     count = models.IntegerField(default=1)
     is_active = models.BooleanField(default=True)
-    # related_tags = models.ManyToManyField('self', null=True, blank=True) make provision for showing similar tags
 
-    # popular = models.Manager()
+    related_tags = models.ManyToManyField('self', through='TagRelations', symmetrical=False) # make provision for showing similar tags
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True) # default=datetime.now()
 
     def __str__(self):
         return self.tag
@@ -28,10 +25,6 @@ class Tags(models.Model):
     def get_detail(self):
         detail = "%s (%s)" % (self.tag, self.type)
         return detail
-
-    # def get_name_only(self):
-    #     detail = self.tag
-    #     return detail
 
     def save(self, *args, **kwargs):
         if not self.id:                  # Newly created object, so set slug
@@ -80,7 +73,35 @@ class Tags(models.Model):
         else:
             return "Not specified, Please specify"
 
+    def set_relation(self, tag1, tag2):
+        try:
+            o = TagRelations.objects.filter(tag1=tag1, tag2=tag2).first()
 
+            if o:
+                p = o.count
+                o.count = p+1
+                o.save()
+        except Exception:
+            o = TagRelations.objects.filter(tag2=tag1, tag1=tag2).first()
+
+            if o:
+                p = o.count
+                o.count = p+1
+                o.save()
+        finally:
+            t, created = TagRelations.objects.get_or_create(tag1=tag1, tag2=tag2)
+            if not created:
+                t.count +=1
+                t.save()
+
+
+class TagRelations(models.Model):
+    tag1 = models.ForeignKey(Tags, related_name='+')
+    tag2 = models.ForeignKey(Tags, related_name='+')
+    count = models.IntegerField(default=1)
+
+    class Meta:
+        db_table = 'TagRelations'
 
 
 
