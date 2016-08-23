@@ -83,11 +83,13 @@ def network_products(request):
     return render(request, 'home.html', locals())
 
 
-# def side_overview(request):
-
+def side_overview(request):
+    pass
 
 
 def tag_list(request):
+    user = request.user
+
     t = request.GET.get('what')
-    tags = Tags.objects.filter(type=t)
+    tags = Tags.objects.filter(type=t).order_by('-count')
     return render(request, 'home.html', locals())
