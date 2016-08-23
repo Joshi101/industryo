@@ -1079,11 +1079,10 @@ pre {
 }
 
 .nav-pills {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   border-radius: 0;
-  border: 1px solid #;
+  border: 1px solid #eee;
   overflow: hidden;
-
   background-color: #fff;
   box-shadow: 0 1px 4px -1px rgba(0,0,0,0.2);
 }
@@ -2308,7 +2307,7 @@ footer .connect i{
 
 footer{
   position: relative;
-  z-index: 0;
+  z-index: 99;
   font-size: 13px;
   top: 100%;
   margin-top: 50px;
@@ -2848,7 +2847,15 @@ footer .contact li{
   font-size: 2em;
   background: rgba(255,255,255,0.75);
   color: #197;
+  left: 0;
+  top: 0;
   z-index: 999;
+}
+
+.loading .fa{
+  position: absolute;
+  top: 50%;
+  margin-top: -20px;
 }
 
 .side_product img{
@@ -4882,7 +4889,7 @@ input.not_wide{
   /*! margin-top: 5px; */
   margin-bottom: 0;
   box-shadow: 0 1px 4px rgba(0,0,0,.1);
-border: 1px solid rgba(0,0,0,.12);
+  border: 1px solid rgba(0,0,0,.12);
 }
 
 .tile_flat{

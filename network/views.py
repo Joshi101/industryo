@@ -22,10 +22,11 @@ def network(request):
 
 
 def network_companies(request):
-    tags = request.POST.get('tags')
+    data = request.POST.get('data').split(',')
+    tags = Tags.objects.filter(tag__in=data)
     user = request.user
-    t = user.workplace_type
-    companies = Workplace.objects.filter(id=0)
+    t = user.userprofile.primary_workplace.workplace_type
+    workplaces = Workplace.objects.none()
     if t in ['A', 'B']:
         li = ['A', 'B']
     else:
@@ -33,14 +34,15 @@ def network_companies(request):
     for tag in tags:
         print(tag)
         wps = tag.wptags.filter(workplace_type__in=li)
-        companies = companies | wps
-    return render(request, 'home.html', locals())
+        workplaces = workplaces | wps
+    return render(request, 'network/companies.html', locals())
 
 
 def network_feeds(request):
-    tags = request.POST.get('tags')
+    data = request.POST.get('data').split(',')
+    tags = Tags.objects.filter(tag__in=data)
     user = request.user
-    t = user.workplace_type
+    t = user.userprofile.primary_workplace.workplace_type
     companies = Workplace.objects.filter(id=0)
     if t in ['A', 'B']:
         li = ['A', 'B']
@@ -64,13 +66,14 @@ def network_feeds(request):
     except PageNotAnInteger:
         result_list = paginator.page(1)
     except EmptyPage:
-        return
+        return render(request, 'network/feed.html', locals())
 
 
 def network_products(request):
-    tags = request.POST.get('tags')
+    data = request.POST.get('data').split(',')
+    tags = Tags.objects.filter(tag__in=data)
     user = request.user
-    t = user.workplace_type
+    t = user.userprofile.primary_workplace.workplace_type
     companies = Workplace.objects.filter(id=0)
     if t in ['A', 'B']:
         li = ['A', 'B']
@@ -81,10 +84,16 @@ def network_products(request):
         companies = companies | wps
     products1 = Products.objects.filter(producer__in=companies, product_type='C')
     products2 = Products.objects.filter(producer__in=companies, product_type__in=['A', 'B'])
-    return render(request, 'home.html', locals())
+    return render(request, 'network/products.html', locals())
 
 
 def tag_list(request):
     t = request.GET.get('what')
     tags = Tags.objects.filter(type=t)
     return render(request, 'home.html', locals())
+
+
+def side_overview(request):
+    data = request.POST.get('data').split(',')
+    tags = Tags.objects.filter(tag__in=data)
+    return render(request, 'network/side_over.html', locals())

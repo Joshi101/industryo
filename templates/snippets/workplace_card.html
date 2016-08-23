@@ -10,7 +10,7 @@
       </li>
       <li>
         <span class="fa-li fa fa-map-marker"></span>
-        {% for tag in tags.city %}
+        {% for tag in tags.city|slice:"3" %}
         <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
         {% endfor %}
       </li>
