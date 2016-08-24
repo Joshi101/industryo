@@ -22,8 +22,6 @@ urlpatterns = [
     url(r'^cat_u/$', views.category_update, name='cat_u'),
 
     url(r'^enquiry_all/$', views.enquiry_all, name='enquiry_all'),
-    url(r'^enquiry/(?P<id>[^/]+)/$', views.enquiry, name='enqui'),
-    url(r'^enquiry_sent/(?P<id>[^/]+)/$', views.enquiry_sent, name='enqui_sent'),
     url(r'^category/(?P<slug>[^/]+)/$', views.category, name='category'),
     url(r'^new_category/$', views.new_category, name='new_category'),
 
