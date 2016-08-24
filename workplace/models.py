@@ -73,7 +73,7 @@ class Workplace(models.Model):
     )
     legal_status = models.CharField(max_length=1, blank=True, null=True, choices=Legal_statuses)
 
-    # connections = models.ManyToManyField('self', through='Connection', symmetrical=False)
+    connections = models.ManyToManyField('self', through='Connections', symmetrical=False)
 
     hits = models.IntegerField(default=0, null=True, blank=True)
 
@@ -212,6 +212,33 @@ class Workplace(models.Model):
                     e = WpTags.objects.get(workplace=self, tags=t, category='C')
                 except Exception:
                     e = WpTags.objects.create(workplace=self, tags=t, category='C')
+            # t = Thread(target=leads_mail, args=(l.id, 'created'))
+            return li
+
+    def set_tags(self, **kwargs):       # tags, typ, primary
+        tags = kwargs['tags']
+        typ = kwargs['typ']
+        if kwargs['primary']:
+            primary = kwargs['primary']
+        else:
+            primary = True
+        if tags:
+            workplace_tags = tags.split(',')
+            li = []
+            for m in workplace_tags:
+                try:
+                    t = Tags.objects.get(tag__iexact=m)
+                except Exception:
+                    if len(m) > 2:
+                        t = Tags.objects.create(tag=m, type=typ)
+                li.append(t)
+                t.count += 1
+                t.save()
+            for t in li:
+                try:
+                    e = WpTags.objects.get(workplace=self, tags=t, category=typ)
+                except Exception:
+                    e = WpTags.objects.create(workplace=self, tags=t, category=typ, primary=primary)
             # t = Thread(target=leads_mail, args=(l.id, 'created'))
             return li
 
@@ -505,6 +532,7 @@ class WpTags(models.Model):
     category = models.CharField(max_length=1, choices=tag_types, null=True)
 
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    primary = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'WpTags'
@@ -531,15 +559,16 @@ class WpTags(models.Model):
             return "Oops this was remaining"
 
 
-# class Connection(models.Model):
-#     my_company = models.ForeignKey(Workplace)
-#     other_company = models.ForeignKey(Workplace)
-#     status = models.BooleanField(default=True)
-#     connection_types = (('S', 'Sell'), ('P', 'Purchase'), ('K', 'Know'), ('T', 'Target'))
-#     type = models.CharField(max_length=1, choices=connection_types, null=True, default='T')
-#
-#     class Meta:
-#         db_table = 'Connections'
+class Connections(models.Model):
+    my_company = models.ForeignKey(Workplace, related_name='+')
+    other_company = models.ForeignKey(Workplace, related_name='+')
+    status = models.BooleanField(default=True)
+    connection_types = (('S', 'Sell'), ('P', 'Purchase'), ('K', 'Know'), ('F', 'Follow'))
+    type = models.CharField(max_length=1, choices=connection_types, null=True, default='T')
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'Connections'
 
 
 # Create your models here.

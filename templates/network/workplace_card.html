@@ -1,10 +1,36 @@
 <div class="wp_card_slim">
   <div class="logo"><a href="{% url 'workplace:workplace_profile' w.slug %}"><img src="{{ w.get_logo }}"></a></div>
-  <div>
+  <div class="info">
     <h4><a href="{% url 'workplace:workplace_profile' w.slug %}">{{w}}</a></h4>
     <div class="details">
-      <span class="num">21</span> <span>Products</span>
-      <span class="num">20</span> <span>Members</span>
+      {% with tags=w.get_tags %}
+      <p>
+        Operating in <span class="diff">{% for t in tags.city|slice:"2" %}{{t}}{% if not forloop.last %}, {% endif %}{% endfor %}
+        {% if tags.city|length > 2 %} + {{tags.city|length|add:"-2"}}{% endif %}</span>
+      </p>
+      <p>
+        <span class="diff">{% for t in tags.segments|slice:"2" %}{{t}}{% if not forloop.last %}, {% endif %}{% endfor %}
+        {% if tags.segments|length > 2 %} + {{tags.segments|length|add:"-2"}}{% endif %}</span>
+      </p>
+      {% endwith %}
     </div>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"><strong>Connect</strong></button>
+    <ul class="dropdown-menu">
+      <li><h4>Connect As:</h4></li>
+      <li class="divider"></li>
+      <li>
+        <form action="{% url 'network:connect' %}" method="post">
+          <input type="hidden" name="id" value="{{w.id}}">
+          <input type="hidden" name="type" value="">
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="S">We Sell to this Company</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="P">We Buy fro this Company</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="K">I know this Company</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="F">Follow</button>
+          <span class="btn btn-success btn-xs added hide"><span class="fa fa-check"></span>Connected</button>
+        </form>
+      </li>
+    </ul>
   </div>
 </div>

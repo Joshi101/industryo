@@ -6,15 +6,18 @@
     <nav>
   	  <ul class="tab_list">
         <li>
-          <a href="#sub_menu1" data-toggle="collapse"><span class="fa fa-plus"></span>Profile</a>
-          <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
+          <a href="{% url 'network:network' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Network</a>
+        </li>
+        <li>
+          <a href="{% url 'inbox:inbox' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Inbox</a>
+          <!-- <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
             <li>
               <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
             </li>
             <li>
               <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
             </li>
-          </ul>
+          </ul> -->
         </li>
         <li>
           <a href="#sub_menu2" data-toggle="collapse"><span class="fa fa-plus"></span>Company</a>
@@ -38,15 +41,24 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a href="{% url 'forum:questions' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Forum</a>
+        </li>
+        <li>
+          <a href="{% url 'nodes:articles' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Articles</a>
+        </li>
 			</ul>
     </nav>
   </div>
   <section class="flex_section">
+    {% if add_tags %}
+      {% include "network/add_tags.html" %}
+    {% else %}
     <div class="section_mid">
       <form id="filter_tag" action="" method="post">
         <div class="form-group">
           <div class="inline_tags">
-            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' no_create=True placeholder='Filter Your View by adding or removing Tags' %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=tags.city name='filter_tags' no_create=True placeholder='Filter Your View by adding or removing Tags' %}
           </div>
         </div>
       </form>
@@ -54,9 +66,11 @@
         <li class="active">
           <a href="{% url 'network:companies' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-industry inline_fa"></span>Companies</a>
         </li>
+        <!--
         <li>
           <a href="{% url 'network:products' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-cubes inline_fa"></span>Products</a>
         </li>
+        -->
         <li>
           <a href="{% url 'network:feed' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-rss inline_fa"></span>Activity</a>
         </li>
@@ -79,5 +93,6 @@
         </div>
       </section>
     </div>
+    {% endif %}
   </section>
 {% endblock body %}

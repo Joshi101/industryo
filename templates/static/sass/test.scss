@@ -14,7 +14,7 @@
     position: absolute;
     z-index: 98;
     padding: 15px;
-    top: 0;
+    top: 5px;
     left: 0;
     width: 180px;
     height: 100%;
@@ -22,7 +22,7 @@
 
     &.affix{
         position: fixed;
-        top: 51px;
+        top: 56px;
     }
 
     .toggle {
@@ -78,30 +78,32 @@ footer{
     margin-top: 0;
 }
 
-.inline_tags{
-    background: #fff;
-}
-
-.inline_tags input{
-    border: 0;
-    margin: 0;
-    padding: 40px 12px 7px;
-    height: auto;
-    line-heigth: 20px;
-    font-size: 14px;
-    display: inline-block;
-    background: transparent;
-    border: 1px dashed #ccc;
-
-    &:hover{
-        background: rgba(0,0,0,0.01);
-    }
-}
-
 .inline_tags {
+    background: #fff;
+    border: 1px dashed #ccc;
+    cursor: text;
+    
+    &:hover{
+        background: rgba(255,255,255,0.75);
+    }
+
+    &.focus{
+        border-color: #07a0c3;
+    }
+
+    input{
+        border: 0;
+        margin: 0;
+        padding: 7px 12px;
+        height: auto;
+        font-size: 14px;
+        display: inline-block;
+        background: transparent;
+    }
+    
     .input_tags{
-        margin: 10px;
-        position: absolute;
+        margin: 10px 0 0 10px;
+/*         position: absolute; */
     }
 
     .dropdown{
@@ -116,9 +118,10 @@ footer{
 
 
 .flex_section{
-    margin-left: 220px;
+    margin-left: 200px;
     display: flex;
     justify-content: space-around;
+    margin-right: 25px;
 
     @media (max-width:768px){
         margin-left: 25px;
@@ -126,7 +129,7 @@ footer{
 }
 
 .section_mid{
-    flex: 2 1 30%;
+    flex: 3 1 30%;
     padding: 0 15px;
 }
 
@@ -135,39 +138,160 @@ footer{
 }
 
 .eq_flex{
+    padding: 7px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-content: stretch;
 
     > div{
-        flex: 0 1 45%;
+        flex: 1 1 40%;
     }
 }
 
 .wp_card_slim{
+    position: relative;
     display: flex;
     border: 1px solid #eee;
-    width: 45%;
-    margin: 10px 0;
-    div{
-        align-self: flex-start;
-    }
+/*     width: 45%; */
+    margin: 7px;
+    min-width: 175px;
     
     .logo{
-        margin-right: 10px;
+        margin: 10px;
+/*         border-right: 1px solid #eee; */
+/*         align-self: center; */
         img{
-            border-right: 1px solid #eee;
-            width: 64px;
-            height: 64px;
+            width: 66px;
+            height: 66px;
         }
+    }
+
+    .info{
+        position: relative;
+        flex-grow: 1;
+        height: 79px;
+        overflow: hidden;
+        margin-bottom: 7px;
     }
 
     h4{
         font-size: 15px;
+        padding-right: 65px;
+        margin-bottom: 5px;
     }
 
-    .num{
-        color: #197;
-        font-weight: 700;
+    .dropdown{
+        position: absolute;
+        right: 5px;
+        top: 7px;
+
+        .dropdown-menu{
+            border: 1px solid #ccc;
+
+            h4{
+                font-weight: 700;
+                padding: 0 15px;
+            }
+        }
     }
+    .btn-default{
+        background-color: #f6f7f9;
+        border-color: #ced0d4;
+        color: #4b4f56;
+    }
+
+    .details{
+        margin-bottom: 10px;
+        min-height: 28px;
+        font-size: 12px;
+        color: #999;
+        font-family: "Open Sans";
+        line-height: 15px;
+
+        p{
+            margin-bottom: 0;
+            padding-top:1px;
+        }
+    	
+    	.diff{
+    	    color: #666;
+    	}
+
+        .btn{
+            position: absolute;
+            bottom: 7px;
+        }
+        .btn-default{
+            background-color: #f6f7f9;
+            border-color: #ced0d4;
+            color: #4b4f56;
+        }
+    }
+}
+
+.ajax_load2{
+    position: relative;
+    min-height: 250px;
+}
+
+.page_search_box{
+    padding: 25px;
+    
+    .form-group{
+        max-width: 720px;
+        margin: auto;
+    }
+
+    input{
+        text-align: center;
+        font-family: 'Titillium Web';
+        font-weight: 300;
+        display: block;
+        width: 100%;
+        line-height: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 0;
+        border: 1px solid #ccc;
+        font-size: 20px;
+        padding: 0 45px 0px;
+        outline: 0;
+
+        &:focus, &:active{
+            box-shadow: 0 0 0;
+            outline: 0;
+            border-color: #07a0c3;
+        }
+    }
+
+    .fa{
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #aaa;
+    }
+
+    .fa-search{
+        position: absolute;
+        left: 0px;
+        font-size: 20px;
+    }
+
+    .form-control-feedback{
+        width: 40px;
+    }
+}
+
+.tile{
+    h3{
+        margin: 0 20px 15px;
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+.xl_p{
+    font-weight: 300;
 }

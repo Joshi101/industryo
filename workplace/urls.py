@@ -15,8 +15,8 @@ urlpatterns = [
     url(r'^todder/$', views.todder, name='todder'),
 
     url(r'^cw/$', views.change_workplace, name='change_workplace'),
-    url(r'^set_tags/$', views.set_tags, name='set_tags'),
-    url(r'^set_tags_short/$', views.set_tags_short, name='set_tags_short'),
+    # url(r'^set_tags/$', views.set_tags, name='set_tags'),
+    # url(r'^set_tags_short/$', views.set_tags_short, name='set_tags_short'),
     url(r'^set_capabilities/$', views.set_capabilities, name='set_capabilities'),
     url(r'^set_product_details/$', views.set_product_details, name='set_product_details'),
     url(r'^add_product/$', products_views.add_product, name='add_product'),

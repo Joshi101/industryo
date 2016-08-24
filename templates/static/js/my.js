@@ -83,7 +83,7 @@ function doneTyping() {
             },
             success: function(result) {
                 //d_on = true;
-                console.log(result);
+                // console.log(result);
                 $d_search.find('.dropdown')
                     .find(".d_list").html(result);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
@@ -2741,7 +2741,7 @@ $('.menu_left').on('click', '.toggle', function(e){
     var $this = $(this);
     var $menu = $this.closest('.menu_left');
     var status = $this.attr('data-status');
-    console.log('a bhaiya', status)
+    // console.log('a bhaiya', status)
     if (status == 'open'){
         $menu.stop().animate({
             'left': '-200px'
@@ -2749,7 +2749,7 @@ $('.menu_left').on('click', '.toggle', function(e){
         $this.stop().animate({
             'left': '200px'
         }, 500);
-        var status = $this.attr('data-status', 'closed');
+        status = $this.attr('data-status', 'closed');
     }
     else{
         $menu.stop().animate({
@@ -2758,7 +2758,7 @@ $('.menu_left').on('click', '.toggle', function(e){
         $this.stop().animate({
             'left': '0px'
         }, 500);
-        var status = $this.attr('data-status', 'open');
+        status = $this.attr('data-status', 'open');
     }
 });
 
@@ -2766,3 +2766,76 @@ $('.menu_left').on('click', '.toggle', function(e){
 $('#filter_tag').on('change', '.d_value', function(){
     $('#network_nav').find('.active a').trigger('click');
 });
+
+$('.inline_tags').on('click', function(){
+    $(this).find('.d_input').focus();
+});
+$('.inline_tags').on('focus', '.d_input', function(){
+    $(this).closest('.inline_tags').addClass('focus');
+});
+$('.inline_tags').on('blur', '.d_input', function(){
+    $(this).closest('.inline_tags').removeClass('focus');
+});
+
+$('body').on('click', '.btn_form', function(){
+    var $this = $(this);
+    var form = $this.closest('form');
+    var name = $this.attr('name');
+    if (name){
+        form.find("input[name="+name+"]").val($this.val());
+    }
+    console.log(form.serialize())
+    ajx_form(form, buttonColor, ajaxError);
+});
+
+function buttonColor($form, response){
+    $form.find($form.find('.btn_form').attr('data-success')).removeClass('hide');
+    $form.find('.btn_form').addClass('hide');
+}
+function ajaxError($form, response){
+
+}
+
+$('.page_search').on('keydown', 'input', function(e){
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(pageSearch, doneTypingInterval);
+})
+
+function pageSearch() {
+    var d_on = true;
+    var $this = $('.page_search');
+    var query = $this.find('input[name=query]').val(),
+        search = $this.attr('action');
+    if (query.length < 3){
+        console.log('e to chotu h');
+        d_on = false;
+    }
+    if (d_on) {
+        var place = $this.attr('data-place');
+        $this.find('.form-control-feedback').children('.fback_wait').removeClass('hide');
+        $.ajax({
+            url: search,
+            type: $this.attr('method'),
+            data: $this.serialize(),
+            success: function(result) {
+                $(place).html(result);
+                $this.find('.form-control-feedback').children('.fback_wait').addClass('hide');
+            },
+            error: function(xhr, errmsg, err) {
+                //d_on = true;
+                console.log(errmsg, err);
+                $this.find('.form-control-feedback').children('.fback_wait').addClass('hide');
+            }
+        });
+    }
+}
+
+var tag_select = 0;
+
+$('#network_content').on('click', '.btn_form', function(){
+    tag_select += 1;
+    console.log(tag_select)
+    if(tag_select > 2){
+        $('#done').removeClass('hide');
+    }
+})
