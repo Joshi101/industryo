@@ -27,9 +27,10 @@
         <form action="{% url 'network:connect' %}" method="post">
           <input type="hidden" name="id" value="{{w.id}}">
           <input type="hidden" name="type" value="">
-          <button type="button" class="btn btn-default btn-sm btn_form" name="type" data-success=".added" value="Seller">Seller</button>
-          <button type="button" class="btn btn-default btn-sm btn_form" name="type" data-success=".added" value="Buyer">Buyer</button>
-          <button type="button" class="btn btn-default btn-sm btn_form" name="type" data-success=".added" value="Other">Other</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="S">We Sell to this Company</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="P">We Buy fro this Company</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="K">I know this Company</button>
+          <button type="button" class="btn btn-default btn-xs btn_form" name="type" data-success=".added" value="F">Follow</button>
           <span class="btn btn-success btn-xs added hide"><span class="fa fa-check"></span>Connected</button>
         </form>
       </li>

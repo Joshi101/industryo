@@ -121,73 +121,60 @@ def search_workplace(request):                  # for searching the workplace
     return render(request, 'tags/list_wp.html', {'objects': q, 'query': w})
 
 
-@login_required
-def set_tags(request):
-    if request.method == 'POST':
-        response = {}
-        r_html = {}
-        r_elements = []
-        user = request.user
-        up = user.userprofile
-        wp = user.userprofile.primary_workplace
-        operations = request.POST.get('operations')
-        materials = request.POST.get('materials')
-        assets = request.POST.get('assets')
-        city = request.POST.get('çity')
-        segment = request.POST.get('segment')
-        if operations:
-            t = wp.set_operations(operations)
-        if materials:
-            t = wp.set_materials(materials)
-        if assets:
-            t = wp.set_assets(assets)
-        if city:
-            t = wp.set_city(city)
-        if segment:
-            t = wp.set_segments(segment)
-        response = {}
-        response['tag'] = render_to_string('snippets/tags.html', {'tags': t})
-
-        return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        return redirect('/user/'+request.user.username)
-
-
-@login_required
-def set_tags_short(request):
-    if request.method == 'POST':
-        response = {}
-        r_html = {}
-        r_elements = []
-        user = request.user
-        up = user.userprofile
-        wp = user.userprofile.primary_workplace
-        type = request.POST.get('type')
-        value = request.POST.get('tag')
-        if value:
-            if type == 'A':
-                t = wp.set_assets(value)
-            if type == 'M':
-                t = wp.set_materials(value)
-            if type == 'O':
-                t = wp.set_operations(value)
-            if type == 'C':
-                t = wp.set_city(value)
-            if type == 'P':
-                t = wp.set_institution(value)
-            if type == 'E':
-                t = wp.set_events(value)
-            if type == 'S':
-                t = wp.set_segments(value)
-            new_interest = t
-            r_elements = ['info_field_value']
-            r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
-            response['html'] = r_html
-            response['elements'] = r_elements
-            response['prepend'] = False
-            return HttpResponse(json.dumps(response), content_type="application/json")
-    else:
-        return redirect('/user/'+request.user.username)
+# @login_required
+# def set_tags(request):        # No longer used
+#     if request.method == 'POST':
+#         response = {}
+#         r_html = {}
+#         r_elements = []
+#         user = request.user
+#         up = user.userprofile
+#         wp = user.userprofile.primary_workplace
+#         operations = request.POST.get('operations')
+#         materials = request.POST.get('materials')
+#         assets = request.POST.get('assets')
+#         city = request.POST.get('çity')
+#         segment = request.POST.get('segment')
+#         if operations:
+#             t = wp.set_tags(tags=operations, typ='O')
+#         if materials:
+#             t = wp.set_tags(tags=materials, typ='M')
+#         if assets:
+#             t = wp.set_tags(tags=assets, typ='A')
+#         if city:
+#             t = wp.set_tags(tags=city, typ='C')
+#         if segment:
+#             t = wp.set_segments(segment)
+#         response = {}
+#         response['tag'] = render_to_string('snippets/tags.html', {'tags': t})
+#
+#         return HttpResponse(json.dumps(response), content_type="application/json")
+#     else:
+#         return redirect('/user/'+request.user.username)
+#
+#
+# @login_required
+# def set_tags_short(request):        # No longer used
+#     if request.method == 'POST':
+#         response = {}
+#         r_html = {}
+#         r_elements = []
+#         user = request.user
+#         up = user.userprofile
+#         wp = user.userprofile.primary_workplace
+#         type = request.POST.get('type')
+#         value = request.POST.get('tag')
+#         if value:
+#             t = wp.set_tags(tags=value, typ=type)
+#             new_interest = t
+#             r_elements = ['info_field_value']
+#             r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
+#             response['html'] = r_html
+#             response['elements'] = r_elements
+#             response['prepend'] = False
+#             return HttpResponse(json.dumps(response), content_type="application/json")
+#     else:
+#         return redirect('/user/'+request.user.username)
 
 
 def workplace_profile(request, slug):
@@ -709,16 +696,16 @@ def edit_workplace(request):
             else:
                 interest = ''
                 if key == 'segments':
-                    wp.set_segments(request.POST[key])
+                    wp.set_tags(tags=request.POST[key], typ='S')
                     interest = interest+request.POST[key]+','
                 if key == 'operations':
-                    wp.set_operations(request.POST[key])
+                    wp.set_tags(tags=request.POST[key], typ='O')
                     interest = interest+request.POST[key]+','
                 if key == 'machinery':
-                    wp.set_assets(request.POST[key])
+                    wp.set_tags(tags=request.POST[key], typ='A')
                     interest = interest+request.POST[key]+','
                 if key == 'city':
-                    wp.set_city(request.POST[key])
+                    wp.set_tags(tags=request.POST[key], typ='C')
                     interest = interest+request.POST[key]+','
 
                 for u in workplace.get_members():
@@ -744,7 +731,7 @@ def set_interest_all():
     ws = Workplace.objects.all()
     for w in ws:
         tags = w.get_all_tags()
-        if len(tags)>2:
+        if len(tags) > 2:
             for m in w.get_members():
                 m.set_interests(tags)
                 print(w.id)
@@ -787,7 +774,7 @@ def create_api(request):
     wp.website = website
     wp.contact = contact
     wp.save()
-    wp.set_city(city)
+    wp.set_tags(tags=city, typ='C')
     wp.set_segments('Manufacturing,Plastic')
 
     url = 'http://www.corelogs.com/accounts/signup/'

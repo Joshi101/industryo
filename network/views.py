@@ -4,9 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from nodes.models import Node
-from nodes.forms import UploadImageForm
-from userprofile.models import UserProfile
-from workplace.models import Workplace, WpTags
+from workplace.models import Workplace, WpTags, Connections
 from forum.models import Question
 from tags.models import Tags
 from leads.models import Leads
@@ -18,7 +16,8 @@ from products.models import Products, Category
 def network(request):
     workplace = request.user.userprofile.primary_workplace
     tags = workplace.get_tags()
-    # add_tags = True
+    if len(tags['city']) == 0 or len(tags['segments']) == 0:
+        add_tags = True
     return render(request, 'home.html', locals())
 
 
@@ -33,7 +32,6 @@ def network_companies(request):
     else:
         li = ['C', 'O']
     for tag in tags:
-        print(tag)
         wps = tag.wptags.filter(workplace_type__in=li)
         workplaces = workplaces | wps
     return render(request, 'network/companies.html', locals())
@@ -89,12 +87,14 @@ def network_products(request):
         companies = companies | wps
     products1 = Products.objects.filter(producer__in=companies, product_type='C')
     products2 = Products.objects.filter(producer__in=companies, product_type__in=['A', 'B'])
+
     return render(request, 'network/products.html', locals())
 
 
 def tag_list(request):
+    user = request.user
     t = request.GET.get('what')
-    tags = Tags.objects.filter(type=t)
+    tags = Tags.objects.filter(type=t).order_by('-count')
     return render(request, 'home.html', locals())
 
 
@@ -105,26 +105,36 @@ def side_overview(request):
 
 
 def add_tag(request):
-    print('aya to hai')
     if request.method == 'POST':
+        user = request.user
+        wp = user.userprofile.primary_workplace
         tid = request.POST.get('id')
+        tag = Tags.objects.get(id=tid)
         ttype = request.POST.get('type')
-        print(tid, ttype)
+        wp.set_tags(tags=tag.tag, typ=ttype, primary=False)
         return HttpResponse()
 
 
 def search_tags(request):
     if request.method == 'POST':
         name = request.POST.get('query')
-        tags = Tags.objects.filter(tag__icontains=name)[:20]
+        tags1 = Tags.objects.filter(type__in=['C', 'I'], tag__icontains=name).order_by('-count')[20]
+        tags2 = Tags.objects.filter(type__in=['S', 'O'], tag__icontains=name).order_by('-count')[20]
     else:
-        tags = Tags.objects.all()[:20]
+        tags1 = Tags.objects.filter(type__in=['C', 'I']).order_by('-count')[:20]
+        tags2 = Tags.objects.filter(type__in=['S', 'O']).order_by('-count')[:20]
     return render(request, 'network/add_tags_list.html', locals())
 
 
 def connect(request):
     if request.method == 'POST':
+        user = request.user
+        wp = user.userprofile.primary_workplace
         wid = request.POST.get('id')
+        other = Workplace.objects.get(id=wid)
         ctype = request.POST.get('type')
-        print(wid, ctype)
+        try:
+            c = Connections.objects.get(my_company=wp, other_company=other)
+        except Exception:
+            Connections.objects.create(my_company=wp, other_company=other, type=ctype)
         return HttpResponse()

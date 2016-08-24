@@ -14,43 +14,43 @@
 	<div class="enq_user">
 		<h4>From</h4>
 		{% if enquiry.user %}
-		<div>
-			User: 
-			<a href="{% url 'user:profile' enquiry.user.username %}" target="_blank">
-				<span class="name">{{ enquiry.user.userprofile }}</span>
-			</a>
-		</div>
-		<div>Phone Number: {{enquiry.phone_no}}</div>
-		{% if enquiry.user.userprofile.primary_workplace %}
-		<div>
-			Company: 
-			<a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
-				<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>	
-			</a>
-		</div>
-		{% endif %}
-		<div class='row'>
-		  <div class='col-md-4'>
-		  <div class="reply" title="Send a quotation to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
-			<a class="btn btn-success" data-toggle='modal' data-target='#quotation_modal' data-placement="bottom">
-	    	<span class="fa fa-reply inline_fa"></span> Send a Quotation</a>
-  		  </div>
-  		  </div>
-  		  <div class='col-md-4'>
-		  <div class="reply" title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
-			<a class="btn btn-success" data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
-	    	<span class="fa fa-reply inline_fa"></span> Send a Reply</a>
-  		  </div>
-  		  </div>
-  		</div>
+			<div>
+				User: 
+				<a href="{% url 'user:profile' enquiry.user.username %}" target="_blank">
+					<span class="name">{{ enquiry.user.userprofile }}</span>
+				</a>
+			</div>
+			<div>Phone Number: {{enquiry.phone_no}}</div>
+			{% if enquiry.user.userprofile.primary_workplace %}
+				<div>
+					Company: 
+					<a href="{% url 'workplace:workplace_profile' enquiry.user.userprofile.primary_workplace.slug %}">
+						<span class="name">{{ enquiry.user.userprofile.primary_workplace }}</span>	
+					</a>
+				</div>
+			{% endif %}
+			<div class='row'>
+			  <div class='col-md-4'>
+			  <div class="reply" title="Send a quotation to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
+				<a class="btn btn-success" data-toggle='modal' data-target='#quotation_modal' data-placement="bottom">
+		    	<span class="fa fa-reply inline_fa"></span> Send a Quotation</a>
+	  		  </div>
+	  		  </div>
+	  		  <div class='col-md-4'>
+			  <div class="reply" title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
+				<a class="btn btn-success" data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
+		    	<span class="fa fa-reply inline_fa"></span> Send a Reply</a>
+	  		  </div>
+	  		  </div>
+	  		</div>
 		{% else %}
-		<div>User: {{ enquiry.name }}</div>
-		<div>Email: {{enquiry.email}}</div>
-		<div>Phone Number: {{enquiry.phone_no}}</div>
-		<div>Company: {{enquiry.company}}</div>
-		<div class="reply" title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
-			<a class="btn btn-success" href="mailto:{{enquiry.email}}" target="_blank"><span class="fa fa-envelope inline_fa"></span> Send an email to the Enquirer</a>
-		</div>
+			<div>User: {{ enquiry.name }}</div>
+			<div>Email: {{enquiry.email}}</div>
+			<div>Phone Number: {{enquiry.phone_no}}</div>
+			<div>Company: {{enquiry.company}}</div>
+			<div class="reply" title="Send a message to {{enquiry.product.user.userprofile}}" data-toggle="tooltip">
+				<a class="btn btn-success" href="mailto:{{enquiry.email}}" target="_blank"><span class="fa fa-envelope inline_fa"></span> Send an email to the Enquirer</a>
+			</div>
 		{% endif %}
 	</div>
 	{% include "messages/reply_to_modal.html" with user=enquiry.user %}

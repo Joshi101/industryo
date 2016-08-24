@@ -223,12 +223,12 @@ def mark_seen(request):
         e.seen = True
         e.save()
     if what == 'message':
-        m = Message.objects.get(id=id)
-        m.seen = True
-        m.save()
-        c = m.conversation
+        c = Conversation.objects.get(id=id)
         c.seen = True
         c.save()
+        # c = m.conversation
+        # c.seen = True
+        # c.save()
     return HttpResponse()
 
 

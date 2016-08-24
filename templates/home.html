@@ -6,15 +6,18 @@
     <nav>
   	  <ul class="tab_list">
         <li>
-          <a href="#sub_menu1" data-toggle="collapse"><span class="fa fa-plus"></span>Profile</a>
-          <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
+          <a href="{% url 'network:network' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Network</a>
+        </li>
+        <li>
+          <a href="{% url 'inbox:inbox' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Inbox</a>
+          <!-- <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
             <li>
               <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
             </li>
             <li>
               <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
             </li>
-          </ul>
+          </ul> -->
         </li>
         <li>
           <a href="#sub_menu2" data-toggle="collapse"><span class="fa fa-plus"></span>Company</a>
@@ -37,6 +40,12 @@
               <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
             </li>
           </ul>
+        </li>
+        <li>
+          <a href="{% url 'forum:questions' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Forum</a>
+        </li>
+        <li>
+          <a href="{% url 'nodes:articles' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Articles</a>
         </li>
 			</ul>
     </nav>
