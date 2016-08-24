@@ -1,7 +1,7 @@
 from operator import attrgetter
 from itertools import chain
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from nodes.models import Node
 from nodes.forms import UploadImageForm
@@ -18,6 +18,7 @@ from products.models import Products, Category
 def network(request):
     workplace = request.user.userprofile.primary_workplace
     tags = workplace.get_tags()
+    add_tags = True
     return render(request, 'home.html', locals())
 
 
@@ -97,3 +98,21 @@ def side_overview(request):
     data = request.POST.get('data').split(',')
     tags = Tags.objects.filter(tag__in=data)
     return render(request, 'network/side_over.html', locals())
+
+
+def add_tag(request):
+    print('aya to hai')
+    if request.method == 'POST':
+        tid = request.POST.get('id')
+        ttype = request.POST.get('type')
+        print(tid, ttype)
+        return HttpResponse()
+
+
+def search_tags(request):
+    if request.method == 'POST':
+        name = request.POST.get('query')
+        tags = Tags.objects.filter(tag__icontains=name)[:20]
+    else:
+        tags = Tags.objects.all()[:20]
+    return render(request, 'network/add_tags_list.html', locals())

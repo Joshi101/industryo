@@ -1,0 +1,14 @@
+<div class="wp_card_slim">
+  <div class="logo"><a href="{% url 'tags:get_tag' tag.slug %}"><img src="{{ tag.get_logo }}"></a></div>
+  <div class="info">
+    <h4><a href="{% url 'tags:get_tag' tag.slug %}">{{tag}}</a></h4>
+    <div class="details">
+      <form action="{% url 'network:add_tag' %}" method="post">
+        <input type="hidden" name="id" value="{{tag.id}}">
+        <input type="hidden" name="type" value="{{tag_type}}">
+        <button type="button" class="btn btn-default btn-xs btn_form" name="button" data-success=".added"><span class="fa fa-bolt"></span>Add to Profile</button>
+        <span class="btn btn-success btn-xs added hide"><span class="fa fa-check"></span>Added</button>
+      </form>
+    </div>
+  </div>
+</div>

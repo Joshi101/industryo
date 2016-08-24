@@ -1,0 +1,26 @@
+<div class="eq_flex">
+  <div class="tile">
+    <h3>Cities and Industrial Areas</h3>
+    <div class="eq_flex">
+      {% for tag in tags %}
+        {% include "network/tag_box.html" with tag_type="city"%}
+      {% empty %}
+        <p class="text-muted">
+          No tags found matching your query!
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="tile">
+    <h3>Market Segments</h3>
+    <div class="eq_flex">
+      {% for tag in tags %}
+        {% include "network/tag_box.html" with tag_type="segment" %}
+      {% empty %}
+        <p class="text-muted">
+          No tags found matching your query!
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+</div>

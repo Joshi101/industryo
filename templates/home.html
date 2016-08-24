@@ -42,11 +42,14 @@
     </nav>
   </div>
   <section class="flex_section">
+    {% if add_tags %}
+      {% include "network/add_tags.html" %}
+    {% else %}
     <div class="section_mid">
       <form id="filter_tag" action="" method="post">
         <div class="form-group">
           <div class="inline_tags">
-            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' no_create=True placeholder='Filter Your View by adding or removing Tags' %}
+            {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=tags.city name='filter_tags' no_create=True placeholder='Filter Your View by adding or removing Tags' %}
           </div>
         </div>
       </form>
@@ -79,5 +82,6 @@
         </div>
       </section>
     </div>
+    {% endif %}
   </section>
 {% endblock body %}

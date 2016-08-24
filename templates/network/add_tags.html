@@ -1,0 +1,33 @@
+<div>
+  <header>
+    <div class="tile text-center">
+      <p class="xl_p">
+        <span class="text-muted">This page shows the presence and activities of industries related to your business.</span><br> <span class="text-success">To begin with you'll have to select a few tags that best describe the market areas and segments of your business.</span>
+      </p>
+      <a id="done" href="{% url 'network:network' %}" class="btn btn-success btn-lg hide" style="margin-top: 15px;">Done</a>
+    </div>
+  </header>
+
+  <div class="page_search_box">
+    <form class="page_search" action="{% url 'network:search_tags' %}" method="post" data-place="#network_content">
+      <div class="form-group has-feedback">
+        <span class="fa fa-search"></span>
+        <input type="text" name="query" value="" placeholder="Search for Market Areas and Segments">
+        <span class="form-control-feedback">
+          <i class="fa fa-pulse fa-spinner fback_wait hide"></i>
+        </span>
+      </div>
+    </form>
+  </div>
+
+  <section>
+    <div id="network_content" class="ajax_load2" data-url="{% url 'network:search_tags' %}">
+      <div class="loading">
+        <i class="fa fa-spin fa-spinner"></i>
+      </div>
+      <div class="content">
+
+      </div>
+    </div>
+  </section>
+</div>
