@@ -137,10 +137,15 @@ footer {
     right: 5px;
     top: 7px; }
     .wp_card_slim .dropdown .dropdown-menu {
-      border: 1px solid #ccc; }
+      border: 1px solid #ccc;
+      padding: 0 15px; }
       .wp_card_slim .dropdown .dropdown-menu h4 {
         font-weight: 700;
-        padding: 0 15px; }
+        padding-right: 0; }
+      .wp_card_slim .dropdown .dropdown-menu .btn {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px; }
   .wp_card_slim .btn-default {
     background-color: #f6f7f9;
     border-color: #ced0d4;
