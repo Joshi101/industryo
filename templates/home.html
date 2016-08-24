@@ -1,8 +1,8 @@
 {% extends 'base_new.html' %}
 
 {% block body %}
-  <aside class="menu_left">
-    <a class="toggle" data-slide="#all_categories" data-status="closed"><span class="fa fa-bars slim_fa"></span></a>
+  <div class="menu_left" data-spy="affix" data-offset-top="50">
+    <a class="toggle" href="#" data-slide="#all_categories" data-status="open"><span class="fa fa-bars slim_fa"></span></a>
     <nav>
   	  <ul class="tab_list">
         <li>
@@ -40,15 +40,44 @@
         </li>
 			</ul>
     </nav>
-  </aside>
-  <section class="section_mid">
-    <div class="tile">
-      <form class="auto_form" action="index.html" method="post">
-        <div class="form-group inline_tags">
-          <label for="wp_loc">Locations</label>
-          {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+  </div>
+  <section class="flex_section">
+    <div class="section_mid">
+      <form id="filter_tag" action="" method="post">
+        <div class="form-group">
+          <div class="inline_tags">
+            {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=tags.city name='city' no_create=True placeholder='Filter Your View by adding or removing Tags' %}
+          </div>
         </div>
       </form>
+      <ul id="network_nav" class="nav nav-pills nav-justified nav_justified_xs nav_activate ">
+        <li class="active">
+          <a href="{% url 'network:companies' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-industry inline_fa"></span>Companies</a>
+        </li>
+        <li>
+          <a href="{% url 'network:products' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-cubes inline_fa"></span>Products</a>
+        </li>
+        <li>
+          <a href="{% url 'network:feed' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-rss inline_fa"></span>Activity</a>
+        </li>
+      </ul>
+      <section class="tile" style="padding: 0; min-height: 250px;">
+        <div id="network_content" class="ajax_load2" data-url="{% url 'network:companies' %}" data-post="#filter_tag .d_value">
+          <div class="loading">
+            <i class="fa fa-spin fa-spinner"></i>
+          </div>
+          <div class="content">
+
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="aside_right">
+      <section class="tile wide_40">
+        <div class="ajax_load" data-url="{% url 'network:side_overview' %}" data-post="#filter_tag .d_value">
+
+        </div>
+      </section>
     </div>
   </section>
 {% endblock body %}

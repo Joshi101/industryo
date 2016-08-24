@@ -1351,9 +1351,9 @@ $(document).ready(function(){
         type = 'GET';
         if (post){
             type = 'POST';
-            data = post;
+            data = {'data': $(post).val()};
         }
-        console.log('ajax_load')
+        console.log(url, data)
         $.ajax({
             url: url,
             type: type,
@@ -1367,6 +1367,37 @@ $(document).ready(function(){
 
             error: function(xhr, errmsg, err) {
                 $this.html("<p class='text-center'>Yoo..<br>Content lost its way ... :/</p>");
+                console.log(errmsg, err, url);
+            }
+        });
+    });
+    $('.ajax_load2').each(function(index, el) {
+        var ajaxloadflag = true;
+        var $this = $(this);
+        var url = $(this).data('url');
+        var post = $(this).data('post');
+        var data = '';
+        type = 'GET';
+        if (post){
+            type = 'POST';
+            data = {'data': $(post).val()};
+        }
+        console.log(url, data)
+        $.ajax({
+            url: url,
+            type: type,
+            data: data,
+
+            success: function(response) {
+                $this.find('.content').html(response);
+                // console.log('kuch ajax load hui');
+                $this.find('.loading').addClass('hide');
+                lazyImages();
+            },
+
+            error: function(xhr, errmsg, err) {
+                $this.find('.content').html("<p class='text-center'>Yoo..<br>Content lost its way ... :/</p>");
+                $this.find('.loading').addClass('hide');
                 console.log(errmsg, err, url);
             }
         });
@@ -1481,13 +1512,23 @@ $('.nav_activate').on('click', 'a', function(){
 function ajax_a(a, push){
     var url = $(a).attr('href');
     var target = $(a).data('place');
+    var post = $(a).data('post');
+    var type = 'GET';
     if (target){
+        console.log(target);
         $(target).find('.loading').removeClass('hide');
+    }
+    data = '';
+    if (post){
+        type = 'POST';
+        data = {'data': $(post).val()};
     }
     $.ajax({
         url: url,
+        type: type,
+        data: data,
         success: function (response) {
-            /*console.log(response);*/
+            // console.log(response);
             if (target){
                 $(target).find('.content').html(response);
                 $(target).find('.loading').addClass('hide');
@@ -2693,4 +2734,35 @@ $('body').on('mouseleave', function(e) {
 
 $('.dropdown-toggle_hover').on('mouseenter', function(){
     $(this).closest('.dropdown').addClass('open');
+});
+
+$('.menu_left').on('click', '.toggle', function(e){
+    e.preventDefault();
+    var $this = $(this);
+    var $menu = $this.closest('.menu_left');
+    var status = $this.attr('data-status');
+    console.log('a bhaiya', status)
+    if (status == 'open'){
+        $menu.stop().animate({
+            'left': '-200px'
+        }, 500);
+        $this.stop().animate({
+            'left': '200px'
+        }, 500);
+        var status = $this.attr('data-status', 'closed');
+    }
+    else{
+        $menu.stop().animate({
+            'left': '0'
+        }, 500);
+        $this.stop().animate({
+            'left': '0px'
+        }, 500);
+        var status = $this.attr('data-status', 'open');
+    }
+});
+
+
+$('#filter_tag').on('change', '.d_value', function(){
+    $('#network_nav').find('.active a').trigger('click');
 });

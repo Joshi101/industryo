@@ -73,6 +73,8 @@ class Workplace(models.Model):
     )
     legal_status = models.CharField(max_length=1, blank=True, null=True, choices=Legal_statuses)
 
+    # connections = models.ManyToManyField('self', through='Connection', symmetrical=False)
+
     hits = models.IntegerField(default=0, null=True, blank=True)
 
     dummy_user = models.CharField(max_length=50, null=True, blank=True)
@@ -529,7 +531,15 @@ class WpTags(models.Model):
             return "Oops this was remaining"
 
 
-
+# class Connection(models.Model):
+#     my_company = models.ForeignKey(Workplace)
+#     other_company = models.ForeignKey(Workplace)
+#     status = models.BooleanField(default=True)
+#     connection_types = (('S', 'Sell'), ('P', 'Purchase'), ('K', 'Know'), ('T', 'Target'))
+#     type = models.CharField(max_length=1, choices=connection_types, null=True, default='T')
+#
+#     class Meta:
+#         db_table = 'Connections'
 
 
 # Create your models here.
