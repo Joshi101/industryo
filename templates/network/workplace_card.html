@@ -12,6 +12,9 @@
         <span class="diff">{% for t in tags.segments|slice:"2" %}{{t}}{% if not forloop.last %}, {% endif %}{% endfor %}
         {% if tags.segments|length > 2 %} + {{tags.segments|length|add:"-2"}}{% endif %}</span>
       </p>
+      <p>
+        Some Extra Info to follow
+      </p>
       {% endwith %}
     </div>
   </div>
