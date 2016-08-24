@@ -118,7 +118,7 @@ footer{
 
 
 .flex_section{
-    margin-left: 220px;
+    margin-left: 200px;
     display: flex;
     justify-content: space-around;
     margin-right: 25px;
@@ -129,7 +129,7 @@ footer{
 }
 
 .section_mid{
-    flex: 2 1 30%;
+    flex: 3 1 30%;
     padding: 0 15px;
 }
 
@@ -138,57 +138,95 @@ footer{
 }
 
 .eq_flex{
+    padding: 7px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: stretch;
 
     > div{
-        flex: 1 1;
-        margin: 15px;
+        flex: 1 1 40%;
     }
 }
 
 .wp_card_slim{
+    position: relative;
     display: flex;
     border: 1px solid #eee;
 /*     width: 45%; */
-    margin: 10px; 
+    margin: 7px;
     min-width: 175px;
     
     .logo{
-        margin-right: 10px;
-        border-right: 1px solid #eee;
+        margin: 10px;
+/*         border-right: 1px solid #eee; */
+/*         align-self: center; */
         img{
-            width: 64px;
-            height: 64px;
+            width: 66px;
+            height: 66px;
         }
     }
 
     .info{
         position: relative;
+        flex-grow: 1;
+        height: 79px;
+        overflow: hidden;
+        margin-bottom: 7px;
     }
 
     h4{
         font-size: 15px;
+        padding-right: 65px;
+        margin-bottom: 5px;
+    }
+
+    .dropdown{
+        position: absolute;
+        right: 5px;
+        top: 7px;
+
+        .dropdown-menu{
+            border: 1px solid #ccc;
+
+            h4{
+                font-weight: 700;
+                padding: 0 15px;
+            }
+        }
+    }
+    .btn-default{
+        background-color: #f6f7f9;
+        border-color: #ced0d4;
+        color: #4b4f56;
     }
 
     .details{
-        bottom: 10px;
+        margin-bottom: 10px;
         min-height: 28px;
+        font-size: 12px;
+        color: #999;
+        font-family: "Open Sans";
+        line-height: 15px;
+
+        p{
+            margin-bottom: 0;
+            padding-top:1px;
+        }
+    	
+    	.diff{
+    	    color: #666;
+    	}
 
         .btn{
             position: absolute;
             bottom: 7px;
         }
         .btn-default{
-            border-color: #27c0e3;
+            background-color: #f6f7f9;
+            border-color: #ced0d4;
+            color: #4b4f56;
         }
-    }
-
-    .num{
-        color: #197;
-        font-weight: 700;
     }
 }
 

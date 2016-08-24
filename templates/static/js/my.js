@@ -2780,6 +2780,11 @@ $('.inline_tags').on('blur', '.d_input', function(){
 $('body').on('click', '.btn_form', function(){
     var $this = $(this);
     var form = $this.closest('form');
+    var name = $this.attr('name');
+    if (name){
+        form.find("input[name="+name+"]").val($this.val());
+    }
+    console.log(form.serialize())
     ajx_form(form, buttonColor, ajaxError);
 });
 

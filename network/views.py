@@ -18,7 +18,7 @@ from products.models import Products, Category
 def network(request):
     workplace = request.user.userprofile.primary_workplace
     tags = workplace.get_tags()
-    add_tags = True
+    # add_tags = True
     return render(request, 'home.html', locals())
 
 
@@ -67,6 +67,10 @@ def network_feeds(request):
     except PageNotAnInteger:
         result_list = paginator.page(1)
     except EmptyPage:
+        return
+    if page:
+        return render(request, 'network/feed.html', locals())
+    else:
         return render(request, 'network/feed.html', locals())
 
 
@@ -116,3 +120,11 @@ def search_tags(request):
     else:
         tags = Tags.objects.all()[:20]
     return render(request, 'network/add_tags_list.html', locals())
+
+
+def connect(request):
+    if request.method == 'POST':
+        wid = request.POST.get('id')
+        ctype = request.POST.get('type')
+        print(wid, ctype)
+        return HttpResponse()

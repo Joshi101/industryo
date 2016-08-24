@@ -84,7 +84,7 @@ footer {
     border-top-left-radius: 0px; }
 
 .flex_section {
-  margin-left: 220px;
+  margin-left: 200px;
   display: flex;
   justify-content: space-around;
   margin-right: 25px; }
@@ -93,48 +93,77 @@ footer {
       margin-left: 25px; } }
 
 .section_mid {
-  flex: 2 1 30%;
+  flex: 3 1 30%;
   padding: 0 15px; }
 
 .aside_right {
   flex: 1 2 20%; }
 
 .eq_flex {
+  padding: 7px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-content: stretch; }
   .eq_flex > div {
-    flex: 1 1;
-    margin: 15px; }
+    flex: 1 1 40%; }
 
 .wp_card_slim {
+  position: relative;
   display: flex;
   border: 1px solid #eee;
   /*     width: 45%; */
-  margin: 10px;
+  margin: 7px;
   min-width: 175px; }
   .wp_card_slim .logo {
-    margin-right: 10px;
-    border-right: 1px solid #eee; }
+    margin: 10px;
+    /*         border-right: 1px solid #eee; */
+    /*         align-self: center; */ }
     .wp_card_slim .logo img {
-      width: 64px;
-      height: 64px; }
+      width: 66px;
+      height: 66px; }
   .wp_card_slim .info {
-    position: relative; }
+    position: relative;
+    flex-grow: 1;
+    height: 79px;
+    overflow: hidden;
+    margin-bottom: 7px; }
   .wp_card_slim h4 {
-    font-size: 15px; }
+    font-size: 15px;
+    padding-right: 65px;
+    margin-bottom: 5px; }
+  .wp_card_slim .dropdown {
+    position: absolute;
+    right: 5px;
+    top: 7px; }
+    .wp_card_slim .dropdown .dropdown-menu {
+      border: 1px solid #ccc; }
+      .wp_card_slim .dropdown .dropdown-menu h4 {
+        font-weight: 700;
+        padding: 0 15px; }
+  .wp_card_slim .btn-default {
+    background-color: #f6f7f9;
+    border-color: #ced0d4;
+    color: #4b4f56; }
   .wp_card_slim .details {
-    bottom: 10px;
-    min-height: 28px; }
+    margin-bottom: 10px;
+    min-height: 28px;
+    font-size: 12px;
+    color: #999;
+    font-family: "Open Sans";
+    line-height: 15px; }
+    .wp_card_slim .details p {
+      margin-bottom: 0;
+      padding-top: 1px; }
+    .wp_card_slim .details .diff {
+      color: #666; }
     .wp_card_slim .details .btn {
       position: absolute;
       bottom: 7px; }
     .wp_card_slim .details .btn-default {
-      border-color: #27c0e3; }
-  .wp_card_slim .num {
-    color: #197;
-    font-weight: 700; }
+      background-color: #f6f7f9;
+      border-color: #ced0d4;
+      color: #4b4f56; }
 
 .ajax_load2 {
   position: relative;
