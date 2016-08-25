@@ -17,6 +17,4 @@ urlpatterns = [
     url(r'^mark_seen$', views.mark_seen, name='mark_seen'),
     url(r'^enquire/$', unified.enquire, name='unified_enquire'),
 
-
-    # url(r'^edit/(?P<id>[^/]+)/$', 'forum.views.edit_ques', name='edit_ques'),
 ]

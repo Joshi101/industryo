@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import escape
-from chat.models import Message
+# from chat.models import Conversation
 
 
 class Activity(models.Model):
@@ -31,7 +31,7 @@ class Activity(models.Model):
 
 
 class Enquiry(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True)   # from
     email = models.EmailField(max_length=30, null=True, blank=True)
     name = models.CharField(max_length=30, null=True, blank=True)
     # contact = models.CharField(max_length=30, null=True, blank=True)
@@ -42,7 +42,7 @@ class Enquiry(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=1000)
     seen = models.BooleanField(default=False)
-    message_fk = models.ForeignKey(Message, null=True, blank=True)      # New connection with message model
+    # conversation_fk = models.ForeignKey(Conversation, null=True, blank=True)      # New connection with message model
     response_made = models.BooleanField(default=False)
     enquirer_comment = models.CharField(max_length=200, null=True, blank=True)
     producer_comment = models.CharField(max_length=200, null=True, blank=True)
@@ -76,6 +76,7 @@ class Notification(models.Model):
     VotedUp = 'U'
     VotedDown = 'D'
     Inquired = 'I'
+    Connected = 'N'
 
     NOTIFICATION_TYPES = (
         (LIKED, 'Liked'),
@@ -89,6 +90,7 @@ class Notification(models.Model):
         (ANSWERED, 'Answered'),
         (JOINED, 'Joined'),
         (Inquired, 'Inquired'),
+        (Connected, 'Connected'),
     )
     _LIKED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> liked your post: <a href="/nodes/{2}/">{3}</a>'            # working
     _COMMENTED_N_TEMPLATE = u'<a href="/user/{0}/">{1}</a> commented on your post: <a href="/nodes/{2}/">{3}</a>'            # working

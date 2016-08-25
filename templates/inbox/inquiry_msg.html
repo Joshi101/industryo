@@ -80,5 +80,5 @@
   </div>
   </div>
 </div> -->
-{% include "messages/reply_to_modal.html" with user=result.user %}
+{% include "messages/reply_to_modal.html" with user=result.user subject='Conversation Regarding Your Inquiry' result=result %}
 {% include "leads/quotation_form_modal.html" with enquiry=result %}

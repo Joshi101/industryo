@@ -1,17 +1,10 @@
 from django.shortcuts import render, HttpResponse, redirect
-from leads.models import Leads, Reply
-from chat.models import Conversation, Message
 from activities.models import Enquiry
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from operator import attrgetter
-from itertools import chain
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta, date
 from products.models import Products
 from workplace.models import Workplace
 from home.tasks import execute_view
-# from leads.models import Leads, Reply
 
 @login_required
 def enquire(request):
@@ -37,9 +30,8 @@ def enquire(request):
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
                     e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone,
-                                               workplace=p.producer)
+                                               workplace=prod.producer)
                     users = e.product.producer.get_members()
-                    user.userprofile.notify_inquired(e, users)
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/products/'+prod.slug)
 
@@ -49,8 +41,6 @@ def enquire(request):
                     # Checking if the same person has created more than 5 inquiries that day
                     e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
                     users = workplace.get_members()
-                    # create_message_enquiry(message, user, users)
-                    # user.userprofile.notify_inquired(e, users)
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/workplace/'+workplace.slug)
         else:

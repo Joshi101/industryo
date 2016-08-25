@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import json
 from datetime import datetime
+from activities.models import Enquiry
 
 
 @login_required
@@ -58,4 +59,4 @@ def send_reply_to(from_user, to_user, subject, message):
                                     last_message_to=to_user, last_active=datetime.now())
     m = Message.objects.create(from_user=from_user, to_user=to_user, message=message)
     # c.save()
-    return m
+    return c

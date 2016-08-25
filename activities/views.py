@@ -67,17 +67,12 @@ def check_notifications(request):
     user = request.user
     notifications = Notification.objects.filter(to_user=user, is_read=False)[:5]
     return HttpResponse(len(notifications))
-# Create your views here.
 
 
-# def check_notifications(request):
-#     todaydate = date.today()
-#     startdate = todaydate + timedelta(days=1)
-#     enddate = startdate - timedelta(days=6)
-#     notifications = Notification.objects.filter(date__range=[enddate, startdate])
-#
-#
-
+def create_notification(**kwargs):
+    from_user = kwargs['from_user']
+    to_user = kwargs['to_user']
+    n = Notification.objects.create()
 
 
 # Create your views here.

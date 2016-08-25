@@ -4,6 +4,7 @@ from nodes.models import Images
 from tags.models import Tags
 from django.contrib.auth.models import User
 from threading import Thread
+from django.db.models import Q
 
 
 class Workplace(models.Model):
@@ -93,87 +94,6 @@ class Workplace(models.Model):
             unique_slugify(self, slug_str)
         super(Workplace, self).save(*args, **kwargs)
 
-    def set_materials(self, materials):
-        if materials:
-            workplace_tags = materials.split(',')
-            li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
-                    if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='M')
-                li.append(t)
-                t.count += 1
-                t.save()
-            for t in li:
-                try:
-                    e = WpTags.objects.get(workplace=self, tags=t, category='M')
-                except Exception:
-                    e = WpTags.objects.create(workplace=self, tags=t, category='M')
-            return li
-
-    def set_segments(self, segments):
-        if segments:
-            workplace_tags = segments.split(',')
-            li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
-                    if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='S')
-                li.append(t)
-                t.count += 1
-                t.save()
-            for t in li:
-                try:
-                    e = WpTags.objects.get(workplace=self, tags=t, category='S')
-                except Exception:
-                    e = WpTags.objects.create(workplace=self, tags=t, category='S')
-            return li
-
-    def set_operations(self, operations):
-        if operations:
-            workplace_tags = operations.split(',')
-            li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
-                    if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='O')
-                li.append(t)
-                print(t)
-                t.count += 1
-                t.save()
-            for t in li:
-                try:
-                    e = WpTags.objects.get(workplace=self, tags=t, category='O')
-                except Exception:
-                    e = WpTags.objects.create(workplace=self, tags=t, category='O')
-            return li
-
-    def set_assets(self, assets):
-        if assets:
-            workplace_tags = assets.split(',')
-            li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
-                    if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='A')
-                li.append(t)
-                t.count += 1
-                t.save()
-            for t in li:
-                try:
-                    e = WpTags.objects.get(workplace=self, tags=t, category='A')
-                except Exception:
-                    e = WpTags.objects.create(workplace=self, tags=t, category='A')
-            return li
-
     def set_institution(self, institution):
         if institution:
             workplace_tags = institution.split(',')
@@ -192,27 +112,6 @@ class Workplace(models.Model):
                     e = WpTags.objects.get(workplace=self, tags=t, category='P')
                 except Exception:
                     e = WpTags.objects.create(workplace=self, tags=t, category='P')
-            return li
-
-    def set_city(self, city):
-        if city:
-            workplace_tags = city.split(',')
-            li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
-                    if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='C')
-                li.append(t)
-                t.count += 1
-                t.save()
-            for t in li:
-                try:
-                    e = WpTags.objects.get(workplace=self, tags=t, category='C')
-                except Exception:
-                    e = WpTags.objects.create(workplace=self, tags=t, category='C')
-            # t = Thread(target=leads_mail, args=(l.id, 'created'))
             return li
 
     def set_tags(self, **kwargs):       # tags, typ, primary
@@ -522,6 +421,13 @@ class Workplace(models.Model):
         z = 25
         return z
 
+    def get_connection_list(self):
+        cons = Connections.objects.filter(Q(my_company=self) | Q(other_company=self))
+        li = []
+        for c in cons:
+            li.append(c.get_other_company().id)
+        return li
+
 
 class WpTags(models.Model):
     workplace = models.ForeignKey(Workplace, related_name='w_tags')
@@ -569,6 +475,12 @@ class Connections(models.Model):
 
     class Meta:
         db_table = 'Connections'
+
+    def get_other_company(self, company):
+        if self.my_company == company:
+            return self.other_company
+        else:
+            return self.my_company
 
 
 # Create your models here.

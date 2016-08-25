@@ -62,11 +62,6 @@ def set_details(request, id):
 @login_required
 def new_category(request):
     if request.method == 'POST':
-        # for key in request.POST:
-        #     value = request.POST[key]
-        #     # for key in request.POST.iteritems():
-        #     print(key)
-        #     print(value)
         id = request.POST.get('new_category_1')
         c2 = request.POST.get('new_category_2')
         c3 = request.POST.get('new_category_3')
@@ -237,7 +232,7 @@ def enquire(request):
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
                     e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone,
-                                               workplace=p.producer)
+                                               workplace=prod.producer)
                     users = e.product.producer.get_members()
                     user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
@@ -344,9 +339,6 @@ def int_product(request, slug):
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     categories = product.categories.all()
-    # category1 = product.get_category1()
-    # category2 = product.get_category2()
-    # category3 = product.get_category3()
     return render(request, 'activities/p/product.html', locals())
 
 @login_required
@@ -354,7 +346,6 @@ def int_change_image(request, id):
     form = SetLogoForm(request.POST, request.FILES)
     p = Products.objects.get(id=id)
     user = p.user
-    # workplace = user.userprofile.primary_workplace
     if request.method == 'POST':
         image = request.FILES.get('image')
         i = Images.objects.create(image=image, user=user, image_thumbnail=image)
@@ -455,11 +446,6 @@ def all_products(request):
                     for cat in related:
                         p1 = Products.objects.filter(categories=cat)
                         p = p | p1
-                    # curr_cat = curr_cat.get_parent_cat()[0]
-                    # p1 = Products.objects.filter(categories=curr_cat).order_by('-date')
-                    # if len(p1) < 1:
-                    #     p1 = Products.objects.all().order_by('-date')
-                    # p = p | p1
         if lvl > 3:
             c1_all = c1_some = None
         else:
