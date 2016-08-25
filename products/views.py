@@ -10,16 +10,11 @@ from nodes.models import Images
 from django.contrib.auth.decorators import login_required, user_passes_test
 from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
-from django.core.mail import EmailMultiAlternatives
-from django.core.mail import get_connection, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
 from itertools import chain
 from operator import itemgetter
-from chat.views import create_message_enquiry
 from home.tasks import execute_view
-from passwords.passwords import admin
-from contacts.models import MailSend
 
 
 @login_required
@@ -244,7 +239,6 @@ def enquire(request):
                     e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone,
                                                workplace=p.producer)
                     users = e.product.producer.get_members()
-                    create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
@@ -256,7 +250,6 @@ def enquire(request):
                     # Checking if the same person has created more than 5 inquiries that day
                     e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
                     users = workplace.get_members()
-                    create_message_enquiry(message, user, users)
                     user.userprofile.notify_inquired(e, users)
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/workplace/'+workplace.slug)
@@ -293,44 +286,7 @@ def enquire(request):
 
 @login_required
 def enquiry_all(request):
-    user = request.user
-    company = user.userprofile.primary_workplace
-
-    enquiries = Enquiry.objects.filter(product__producer=company)
-    e = Enquiry.objects.filter(workplace=company)
-    enquiries_sent = Enquiry.objects.filter(user=user)
-
-    return render(request, 'enquiry/enquiry.html', {
-        'enquiries': enquiries, 'enquiries_sent': enquiries_sent, 'e':e,
-        })
-
-
-def enquiry(request, id):
-    iid = int(id)
-    user = request.user
-    # company = user.userprofile.primary_workplace
-    # enquiries = Enquiry.objects.filter(product__producer=company)
-    enquiry = Enquiry.objects.get(id=iid)
-    enquiry.seen = True
-    enquiry.save()
-    if enquiry.workplace:
-        return render(request, 'enquiry/enquiry_details_wp.html', {'enquiry': enquiry})
-    else:
-        return render(request, 'enquiry/enquiry_details.html', {'enquiry': enquiry})
-
-
-def enquiry_sent(request, id):
-    iid = int(id)
-    user = request.user
-    # company = user.userprofile.primary_workplace
-    # enquiries = Enquiry.objects.filter(product__producer=company)
-    enquiry = Enquiry.objects.get(id=iid)
-    enquiry.seen = True
-    enquiry.save()
-    if enquiry.workplace:
-        return render(request, 'enquiry/enquiry_details_wp_sent.html', {'enquiry': enquiry})
-    else:
-        return render(request, 'enquiry/enquiry_details_sent.html', {'enquiry': enquiry})
+    return redirect('/inbox')
 
 
 @login_required

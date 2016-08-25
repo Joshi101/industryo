@@ -15,12 +15,8 @@ def inbox(request):
     wp = user.userprofile.primary_workplace
     inquiries = Enquiry.objects.filter(Q(workplace=wp) | Q(product__producer=wp)).order_by('date')
     quotations = Reply.objects.filter(lead__user=user).order_by('date')
-    # messages = Message.objects.filter()
-    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
-    con_list = []
-    for con in conversations:
-        con_list.append(con.id)
-    messages = Message.objects.filter(conversation__in=con_list)
+    conversations = Conversation.objects.filter(last_message_to=user).order_by('last_active')
+
     all_result_list = sorted(
         chain(inquiries, quotations, conversations),
         key=attrgetter('date'), reverse=True)
@@ -35,9 +31,9 @@ def inbox(request):
     except EmptyPage:
         return
     if request.is_ajax():
-        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages,
+        return render(request, 'inbox/inbox.html', {'result_list': result_list,
                                                     'empty': 'inbox/no_nothing.html'})
 
 
@@ -89,11 +85,7 @@ def inquiries(request):
 def messages(request):
     user = request.user
     wp = user.userprofile.primary_workplace
-    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
-    con_list = []
-    for con in conversations:
-        con_list.append(con.id)
-    messages = Message.objects.filter(conversation__in=con_list)
+    conversations = Conversation.objects.filter(last_message_to=user).order_by('last_active')
     all_result_list = sorted(
         chain(conversations),
         key=attrgetter('date'), reverse=True)
@@ -106,9 +98,11 @@ def messages(request):
     except EmptyPage:
         return
     if request.is_ajax():
-        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list,
+                                                          'empty': 'inbox/no_messages.html'})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
+        return render(request, 'inbox/inbox.html', {'result_list': result_list,
+                                                    'empty': 'inbox/no_messages.html'})
 
 
 def outbox(request):
@@ -116,12 +110,7 @@ def outbox(request):
     wp = user.userprofile.primary_workplace
     inquiries = Enquiry.objects.filter(user=user).order_by('date')
     quotations = Reply.objects.filter(user=user).order_by('date')
-    # messages = Message.objects.filter()
-    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
-    con_list = []
-    for con in conversations:
-        con_list.append(con.id)
-    messages = Message.objects.filter(conversation__in=con_list)
+    conversations = Conversation.objects.filter(last_user_from=user).order_by('last_active')
     all_result_list = sorted(
         chain(inquiries, quotations, conversations),
         key=attrgetter('date'), reverse=True)
@@ -134,9 +123,9 @@ def outbox(request):
     except EmptyPage:
         return
     if request.is_ajax():
-        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages})
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages,
+        return render(request, 'inbox/inbox.html', {'result_list': result_list,
                                                     'empty': 'inbox/no_nothing.html'})
 
 
@@ -188,11 +177,8 @@ def sent_inquiries(request):
 def sent_messages(request):
     user = request.user
     wp = user.userprofile.primary_workplace
-    conversations = Conversation.objects.filter(Q(user1=user) | Q(user2=user)).order_by('last_active')
-    con_list = []
-    for con in conversations:
-        con_list.append(con.id)
-    messages = Message.objects.filter(conversation__in=con_list)
+    conversations = Conversation.objects.filter(last_message_from=user)
+
     all_result_list = sorted(
         chain(conversations),
         key=attrgetter('date'), reverse=True)
@@ -205,9 +191,11 @@ def sent_messages(request):
     except EmptyPage:
         return
     if request.is_ajax():
-        return render(request, 'inbox/20_messages.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
+        return render(request, 'inbox/20_messages.html', {'result_list': result_list,
+                                                          'empty': 'inbox/no_inquiries.html'})
     else:
-        return render(request, 'inbox/inbox.html', {'result_list': result_list, 'messages': messages, 'empty': 'inbox/no_inquiries.html'})
+        return render(request, 'inbox/inbox.html', {'result_list': result_list,
+                                                    'empty': 'inbox/no_inquiries.html'})
 
 
 @csrf_exempt
@@ -224,11 +212,9 @@ def mark_seen(request):
         e.save()
     if what == 'message':
         c = Conversation.objects.get(id=id)
-        c.seen = True
-        c.save()
-        # c = m.conversation
-        # c.seen = True
-        # c.save()
+        if c. last_message_to == request.user:
+            c.seen = True
+            c.save()
     return HttpResponse()
 
 
@@ -238,3 +224,13 @@ def set_wp_inq():
         if en.product:
             en.workplace = en.product.producer
             en.save()
+
+
+def check(request):
+    user = request.user
+    wp = user.userprofile.primary_wworkplace
+    i = Enquiry.objects.filter(Q(workplace=wp) | Q(product__producer=wp), seen=False).count()
+    q = Reply.objects.filter(lead__user=user, seen=False).count()
+    c = Conversation.objects.filter(last_message_to=user, seen=False).count()
+    t = i+q+c
+    return t

@@ -13,16 +13,14 @@
   </p>
 </header>
 <div class="msg_body">
-{% for msg in messages %}
-  {% if msg.conversation == result %}
-    <div class="msg {% if msg.from_user == user %}self{% endif %}">
-      <img class="lazy_img thmb_sm" src="/images/user_man.png" data-src="{{msg.from_user.userprofile.get_profile_image}}" alt="{{msg.from_user}}">
-      <span class="text">{{msg.message|urlize}}</span>
-    </div>
-  {% endif %}
+{% for msg in result.get_messages %}
+  <div class="msg {% if msg.from_user == user %}self{% endif %}">
+    <img class="lazy_img thmb_sm" src="/images/user_man.png" data-src="{{msg.from_user.userprofile.get_profile_image}}" alt="{{msg.from_user}}">
+    <span class="text">{{msg.message|urlize}}</span>
+  </div>
 {% endfor %}
 </div>
-<form class="msg_reply" role="form" method="post" action="{% url 'messages:send_message' %}">
+<form class="msg_reply" role="form" method="post" action="{% url 'messages:reply' %}">
   {% csrf_token %}
   <input name="id" value="{{result.id}}" autocomplete="off" type="hidden">
   <input name="person" value="{{sender.username}}" autocomplete="off" type="hidden">
