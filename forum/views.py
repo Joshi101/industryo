@@ -328,10 +328,10 @@ def question_tagged(request):
     else:
         return render(request, 'forum/questions.html')
 
-# @login_required
 
+# @login_required
 def questions(request):
-    questions = Question.objects.all().select_related('user__userprofile__workplaceprofile').order_by('-date')
+    questions = Question.objects.all().select_related('user__userprofile__primary_workplace').order_by('-date')
     user = request.user
     if user.is_authenticated():
         if user.userprofile.primary_workplace:

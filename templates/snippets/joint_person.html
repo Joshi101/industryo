@@ -1,0 +1,23 @@
+<div class="joint_name_new">
+  {% if not anony %}
+    {% if user.userprofile.primary_workplace and not pic %}
+    <img src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace}}">
+    {% elif pic != 'no' %}
+    <img src="{{user.userprofile.get_profile_image}}" alt="{{user.userprofile}}">
+    {% endif %}
+  {% endif %}
+  <div class="names">
+    {% if not anony %}
+    <a class="name" href="{% url 'user:profile' user.username %}">{{ user.get_full_name|default:user }}</a>
+    <span> from </span>
+    <a class="name" href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace %}">{{ user.userprofile.primary_workplace }}</a>
+    {% else %}
+    Anonymous User
+    {% endif %}
+    <div class="extra">
+      {% if time %}
+      {{action}} <time>{{time}}</time>
+      {% endif %}
+    </div>
+  </div>
+</div>

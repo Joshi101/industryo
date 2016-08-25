@@ -384,8 +384,14 @@ $("body").on('click', '.form-ajax', function(event) {
                         $papa.find('.' + response.elements[i]).prepend(response.html[response.elements[i]]);
                         console.log(response.elements[i], response.html[response.elements[i]]);
                     }
-                    console.log('yoho');
-                } else {
+                }
+                else if (response.append) {
+                    for (i = 0; i < response.elements.length; i++) {
+                        $papa.find('.' + response.elements[i]).append(response.html[response.elements[i]]);
+                        console.log(response.elements[i], response.html[response.elements[i]]);
+                    }
+                }
+                else {
                     for (i = 0; i < response.elements.length; i++) {
                         $papa.find('.' + response.elements[i]).html(response.html[response.elements[i]]);
                     }
@@ -617,7 +623,7 @@ $('body').on('click', '.delete', function() {
 
 
 
-$('.ajax_andar').on('click', '.a_collapse', function() {
+$('body').on('click', '.a_collapse', function() {
     var $this = $(this);
     var col = $this.siblings('.collapse');
     var text = $this.text();
@@ -2834,8 +2840,43 @@ var tag_select = 0;
 
 $('#network_content').on('click', '.btn_form', function(){
     tag_select += 1;
-    console.log(tag_select)
     if(tag_select > 2){
         $('#done').removeClass('hide');
     }
-})
+});
+
+var more_less = '<span class="more_less more">see more ...</span>';
+
+$("body").on('mouseenter', '.feed_box.feed', function() {
+    var $this = $(this);
+    var check = $this.attr('data-content');
+    var body = $this.find('.summary_body');
+    if (check!='checked'){
+        console.log(body.height(), body[0].scrollHeight)
+        if (body[0].scrollHeight > body.height()){
+            body.append(more_less).addClass('ex_content');
+        }
+        $this.attr('data-content','checked');
+    }
+    // console.log('lop')
+});
+
+$('body').on('mouseenter', '.more_less.more', function(){
+    var ex = $(this).closest('.ex_content');
+    // console.log(ex[0].scrollHeight ,ex.height())
+    var new_h = ex[0].scrollHeight;
+    ex.attr('data-initial', ex.height());
+    $(this).text('see less ...').removeClass('more').addClass('less');
+    ex.stop().animate({
+        'height':new_h
+        }, 200);
+});
+
+$('body').on('click', '.more_less.less', function(){
+    var ex = $(this).closest('.ex_content');
+    var new_h = ex.attr('data-initial');
+    $(this).text('see more ...').removeClass('less').addClass('more');
+    ex.stop().animate({
+        'height':new_h
+        }, 200);
+});

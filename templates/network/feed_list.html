@@ -1,0 +1,14 @@
+{% for a in result_list %}
+  {% if a.category == 'F' %}
+		{% include 'nodes/one_node.html' with node=a %}
+  {% elif a.category == 'A' %}
+		{% include 'nodes/one_article.html' with node=a %}
+  {% elif a.category == 'D' %}
+    {% comment %}
+
+    {% include 'nodes/one_node_spcl.html' with node=a %}
+    {% endcomment %}
+  {% else %}
+    {% include 'forum/one_question.html' with q=a %}
+  {% endif %}
+{% endfor %}

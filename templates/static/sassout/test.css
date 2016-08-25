@@ -56,7 +56,7 @@
   margin: 0 15px 0 25px; }
 
 footer {
-  margin-top: 0; }
+  margin-top: 50px; }
 
 .inline_tags {
   background: #fff;
@@ -84,7 +84,7 @@ footer {
     border-top-left-radius: 0px; }
 
 .flex_section {
-  margin-left: 200px;
+  margin-left: 180px;
   display: flex;
   justify-content: space-around;
   margin-right: 25px; }
@@ -94,7 +94,7 @@ footer {
 
 .section_mid {
   flex: 3 1 30%;
-  padding: 0 15px; }
+  padding: 0 40px 0 15px; }
 
 .aside_right {
   flex: 1 2 20%; }
@@ -109,6 +109,7 @@ footer {
     flex: 1 1 40%; }
 
 .wp_card_slim {
+  background: #fff;
   position: relative;
   display: flex;
   border: 1px solid #eee;
@@ -138,7 +139,10 @@ footer {
     top: 7px; }
     .wp_card_slim .dropdown .dropdown-menu {
       border: 1px solid #ccc;
-      padding: 0 15px; }
+      padding: 0 15px;
+      min-width: 200px;
+      right: 0;
+      left: auto; }
       .wp_card_slim .dropdown .dropdown-menu h4 {
         font-weight: 700;
         padding-right: 0; }

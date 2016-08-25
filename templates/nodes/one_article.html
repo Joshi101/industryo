@@ -1,35 +1,30 @@
 {% load filter %}
+{% load humanize %}
 <div class="feed_box summary article ajax_papa">
-	<div class="feed_box_body">
-		<a href="{% url 'nodes:node' node.slug %}">
-			<div class="summary_title">
-				<span>{{ node.title|capfirst|truncatewords:15 }}</span>
-				<i class="fa fa-newspaper-o sign"></i>
-			</div>
-		</a>
-		{% if node.get_images %}
+  <i class="fa fa-newspaper-o sign"></i>
+	<a class="feed_box_body" href="{% url 'nodes:node' node.slug %}">
+    {% if node.get_images %}
 		<div class="summary_fig">
 			{% for image in node.get_images %}
 			<figure>
-				<img src="/images/image.png" data-src="/images/{{image.image}}" class="call_car pressme lazy_img" data-toggle='modal' data-target='#figure_modal'>
+				<img src="/images/image.png" data-src="/images/{{image.image}}" class="lazy_img" alt="Image {{ forloop.counter }}">
 			</figure>
 			{% endfor %}
 		</div>
 		{% endif %}
-		<div class="summary_body">{{ node.get_summary|truncatechars_html:200|safe }}</div>
-		<div class="author">
-			{% include "snippets/joint_name.html" with user=node.user %}
-			<time property='dateCreated' class="text-muted">{{node.date}}</time>
-		</div>
-		{% if node.get_tags %}
-		<div class="tags">
-			<span class="fa fa-tags fa-fw"></span>
-			{% for tag in node.get_tags %}
-				<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-			{% endfor %}
-		</div>
-		{% endif %}
-	</div>
+		<div class="summary_title">{{ node.title|capfirst|truncatewords:15 }}</div>
+		<div class="summary_body">{{ node.get_summary|truncatewords_html:20|safe }}</div>
+    <div class="continue">Read More ...</div>
+	</a>
+  {% if node.get_tags %}
+  <div class="tags">
+    <span class="fa fa-tags fa-fw"></span>
+    {% for tag in node.get_tags %}
+    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% include "snippets/joint_person.html" with pic='user' user=node.user time=node.date|naturaltime action="published" %}
 	<div class="feed_box_extra">
 		<div class="interaction">
 			<div class="vote_box">

@@ -1,7 +1,12 @@
-{% load filter %}
-<div class="comment" property='comment' typeof="Comment">
-	<span class="fa fa-comment-o"></span>
-	<span property='text'>{{comment.comment|urlize|new_tab|safe  }}</span>
-		 --{% include "snippets/joint_name.html" with user=comment.user %}
-		<time property='dateCreated' class="text-muted">{{comment.date}}</time>
+{% load filter humanize %}
+
+<div class="comment">
+    <div class="name">
+      <img src="{{comment.user.userprofile.get_profile_image}}" alt="{{comment.user}}">
+      <div class="">
+        {% include "snippets/joint_name.html" with user=comment.user %}
+        <time property='dateCreated' class="text-muted">{{comment.date|naturaltime}}</time>
+      </div>
+    </div>
+  <span class='text'>{{comment.comment|urlize|new_tab|safe  }}</span>
 </div>

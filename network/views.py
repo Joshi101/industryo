@@ -67,9 +67,9 @@ def network_feeds(request):
     except EmptyPage:
         return
     if page:
-        return render(request, 'network/feed.html', locals())
+        return render(request, 'network/feed_list.html', locals())
     else:
-        return render(request, 'network/feed.html', locals())
+        return render(request, 'network/feed_list.html', locals())
 
 
 def network_products(request):

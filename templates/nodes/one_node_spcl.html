@@ -1,7 +1,7 @@
 {% load filter %}
 {% load humanize %}
 
-<div class="feed_box summary feed ajax_papa">
+<div class="feed_box summary feed ajax_papa" data-content="">
   <a class="fa fa-rss sign" href="{% url 'nodes:node' node.slug %}"></a>
   {% include "snippets/joint_person.html" with user=node.user time=node.date|naturaltime %}
 	<div class="feed_box_body">
@@ -16,26 +16,26 @@
 			{% endfor %}
 		</div>
 		{% endif %}
-		<div class="summary_body">{{ node.post|new_tab|safe|urlize }}</div>
+		<div class="summary_body">spc{{ node.post|new_tab|safe|urlize }}</div>
+		<div class="author">
+			{% include "snippets/joint_name.html" with user=node.user %}
+			<time property='dateCreated' class="text-muted">{{node.date|date:"d M 'y"}}</time>
+		</div>
 	</div>
 	<div class="feed_box_extra">
 		<div class="interaction">
 			<div class="text-center vote_box">
 				{% include "snippets/like_box.html" with node=node %}
 			</div>
-      {% if node.get_all_comments %}
-      <a class="a_collapse pull-right text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>{{node.get_all_comments|length}} Comments</a>
-      {% else %}
-		  <a class="a_collapse pull-right text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
-      {% endif %}
+			<a class="a_collapse pull-right text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
 	    <div class="collapse">
-        <div class="comments">
-          {% include "snippets/comment_form.html" with type='n' post=node %}
-          {%  for c in node.get_all_comments %}
-          {% include "snippets/comment.html" with comment=c %}
-          {% endfor %}
-        </div>
+	    	{% include "snippets/comment_form.html" with type='n' post=node %}
 			</div>
+		</div>
+		<div class="comments">
+		{%  for c in node.get_all_comments %}
+			{% include "snippets/comment.html" with comment=c %}
+		{% endfor %}
 		</div>
 	</div>
 </div>

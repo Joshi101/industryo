@@ -75,7 +75,7 @@
 }
 
 footer{
-    margin-top: 0;
+    margin-top: 50px;
 }
 
 .inline_tags {
@@ -118,7 +118,7 @@ footer{
 
 
 .flex_section{
-    margin-left: 200px;
+    margin-left: 180px;
     display: flex;
     justify-content: space-around;
     margin-right: 25px;
@@ -130,7 +130,7 @@ footer{
 
 .section_mid{
     flex: 3 1 30%;
-    padding: 0 15px;
+    padding: 0 40px 0 15px;
 }
 
 .aside_right{
@@ -150,6 +150,7 @@ footer{
 }
 
 .wp_card_slim{
+    background: #fff;
     position: relative;
     display: flex;
     border: 1px solid #eee;
@@ -189,6 +190,9 @@ footer{
         .dropdown-menu{
             border: 1px solid #ccc;
             padding: 0 15px;
+            min-width: 200px;
+            right: 0;
+            left: auto;
 
             h4{
                 font-weight: 700;
