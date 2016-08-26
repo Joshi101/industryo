@@ -566,32 +566,32 @@ $(function() {
     });
 });
 
-// function for main feeder
-$('#form_feed').on('focus', 'textarea', function() {
-    var $this = $(this);
-    /*$this.attr('rows', '3');*/
-    $this.closest('form').find('.textarea_bottom').removeClass('hide');
-    autosize.update($this);
-});
-$('#form_feed textarea').on('blur', function() {
-    var $this = $(this);
-    $this.attr('rows', '1');
-    $this.closest('form').find('.textarea_bottom').addClass('hide');
-    autosize.update($this);
-});
-$('#form_feed .btn, .img_pre').on({
-    mouseover: function() {
-        $('#form_feed textarea').off('blur');
-    },
-    mouseout: function() {
-        $('#form_feed textarea').on('blur', function() {
-            var $this = $(this);
-            $this.attr('rows', '1');
-            $this.closest('form').find('.textarea_bottom').addClass('hide');
-            autosize.update($this);
-        });
-    }
-});
+// // function for main feeder
+// $('#form_feed').on('focus', 'textarea', function() {
+//     var $this = $(this);
+//     /*$this.attr('rows', '3');*/
+//     // $this.closest('form').find('.textarea_bottom').removeClass('hide');
+//     autosize.update($this);
+// });
+// $('#form_feed textarea').on('blur', function() {
+//     var $this = $(this);
+//     $this.attr('rows', '1');
+//     // $this.closest('form').find('.textarea_bottom').addClass('hide');
+//     autosize.update($this);
+// });
+// $('#form_feed .btn, .img_pre').on({
+//     mouseover: function() {
+//         $('#form_feed textarea').off('blur');
+//     },
+//     mouseout: function() {
+//         $('#form_feed textarea').on('blur', function() {
+//             var $this = $(this);
+//             $this.attr('rows', '1');
+//             $this.closest('form').find('.textarea_bottom').addClass('hide');
+//             autosize.update($this);
+//         });
+//     }
+// });
 
 $('body').on('click', '.delete', function() {
     var $this = $(this);
@@ -1269,6 +1269,7 @@ $('#almost_write_answer').mouseenter(function(){
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   autosize($('textarea'));
+  autosize.update($('textarea'));
 });
 
 $('.body').on('click', '.call_car', function(){
@@ -2880,3 +2881,53 @@ $('body').on('click', '.more_less.less', function(){
         'height':new_h
         }, 200);
 });
+
+$('body').on('click', '.shell_input', function(){
+    var $this = $(this);
+    var form = $($this.attr('data-form'));
+    var touch = $this.closest('.shell_container');
+    if ($this.attr('class').indexOf('open') < 0) {
+        if (touch.attr('class').indexOf('touched') >= 0){
+            touch.find('.shell_input').each(function(){
+                $(this).toggleClass('open');
+            });
+        }
+        else{
+            touch.addClass('touched');
+            $this.addClass('open');
+        }
+        var new_h = form[0].scrollHeight;
+        var form_c = touch.parent().find('.shell_form_container');
+        var open_form = form_c.find('.shell_form.open');
+        if (open_form.length) {
+            open_form.stop().animate({
+            'opacity': 0
+            }, 100,
+            function(){
+                open_form.removeClass('open');
+                form_c.stop().animate({
+                    'height':new_h,
+                    }, 200,
+                    function(){
+                        open_form.css({'height':0});
+                        $(this).css({'height':'auto'});
+                        form.addClass('open');
+                        form.css({'height':'auto'}).animate({'opacity':1},100).addClass('open');
+                    });
+            });
+        }
+        else{
+            form_c.stop().animate({
+                'height':new_h,
+                }, 200,
+                function(){
+                    $(this).css({'height':'auto'});
+                    form.addClass('open');
+                    form.css({'height':'auto'}).animate({'opacity':1},100).addClass('open');
+                });
+        }
+    }
+    form.find('.form-control').first().focus();
+});
+
+

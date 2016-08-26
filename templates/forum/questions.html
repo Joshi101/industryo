@@ -9,16 +9,6 @@
 {% endblock top %}
 
 {% block feed_body %}
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<p class="text-justify text-muted col-sm-8">"Let your Curiousity defeat your laziness..."</p>
-				<p class="text-right col-sm-4">
-					<a href="{% url 'forum:ask' %}"><i class="fa fa-lightbulb-o inline_fa"></i>Ask a Question</a>
-				</p>
-			</div>
-		</div>
-	</div>
 	<div class="ajax_andar feeds">
 		{% include "snippets/figure_modal.html" %}
 		{% include 'nodes/five_nodes.html' with result_list=result_list %}

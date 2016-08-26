@@ -972,12 +972,15 @@ pre {
 /* home.html */
 
 #form_feed {
-  margin-bottom: 20px;
-  padding: 15px;
+  /* margin-bottom: 20px; */
   background-color: #fff;
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
-  border: 1px solid rgba(16,144,112,.49);
-  border-radius: 3px;
+  /* border: 1px solid rgba(16,144,112,.49); */
+  /* border-radius: 3px; */
+}
+
+#form_feed form{
+  /* padding: 15px; */
 }
 
 #form_feed textarea {
@@ -1040,8 +1043,8 @@ pre {
 
 #form_feed .textarea_bottom .btn {
   z-index: 2;
-  border-color: #9d9d9d;
-  border-radius: 25px;
+  /* border-color: #9d9d9d; */
+  border-radius: 16px;
 }
 
 #form_feed .input-group {
@@ -1056,11 +1059,11 @@ pre {
 
 #form_feed .input-group-addon .btn, #form_feed .input-group-addon a{
   display: block;
-  border: 1px solid #eee;
-  border-radius: 16px;
+  /* border: 1px solid #eee; */
+  /* border-radius: 16px; */
   width: 32px;
   height: 32px;
-  padding: 0;
+  margin: 3px 0;
   overflow: hidden;
 }
 
@@ -1283,6 +1286,10 @@ pre {
   /* font-family: 'Open Sans'; */
 }
 
+.question .summary_title {
+  font-size: 21px;
+}
+
 .summary_title:hover {
   color: #197;
 }
@@ -1333,6 +1340,7 @@ pre {
   /* margin-bottom: 10px; */
 }
 
+
 .feed .summary_body{
   /* padding-left: 50px; */
   font-size: 14px;
@@ -1343,13 +1351,14 @@ pre {
 }
 
 .question .summary_body{
-  background-color: #f8f8f8;
+  background-color: #f9f9f9;
   padding: 10px;
+  font-size: 13px;
   border: 1px solid #f5f5f5;
 }
 
 .question .summary_body div{
-  max-height: 40px;
+  max-height: 36px;
   overflow: hidden;
 }
 
@@ -5913,7 +5922,7 @@ h5{
 }
 
 #form_ask{
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 /**.modal { 
@@ -6658,7 +6667,10 @@ and in bootstrap.css
     color: #999;
     font-size: 16px;
     font-family: 'Titillium Web';
-    margin: 15px 0 25px;
+    margin: 20px 0 0;
+    flex-wrap: wrap;
+    z-index: 10;
+    position: relative;
 }
 
 .shell_container .seperator{
@@ -6670,17 +6682,52 @@ and in bootstrap.css
 
 
 .shell_input{
-  font-size: 18px;
+  font-size: 16px;
   background-color: #fff;
   flex: 1;
   padding: 10px 15px;
   text-align: center;
-  box-shadow: 0 0 0 2px #72e0c4 inset;
-  cursor: text;
+  border: 1px solid #72e0c4;
+  cursor: pointer;
+  line-height: 25px;
 }
 
 .shell_input:hover{
-  box-shadow: 0 0 0 1px #72e0c4 inset;
+/*   box-shadow: 0 0 0 1px #72e0c4 inset; */
+  color: #197;
+}
+
+.shell_container.touched .shell_input{
+  background-color: transparent;
+  align-self: center;
+  border-color: transparent;
+}
+
+.shell_container.touched .shell_input.open{
+  background-color: #fff;
+  border-color: #72e0c4 #72e0c4 transparent;
+  transition: 0.1s all linear;
+}
+
+.shell_container.touched .shell_input.open .fa{
+  color: #197;
+}
+
+.shell_form{
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  border-radius: 0;
+  background-color: #fff;
+  /* position:absolute; */
+}
+
+.shell_form.open{
+  border: 1px solid #72e0c4;
+}
+
+.shell_form form{
+  margin: 20px;
 }
 
 .blinking-cursor {
@@ -6697,4 +6744,11 @@ and in bootstrap.css
   50% {
     color: black;
   }
+}
+
+.shell_form_container{
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+  top: -1px;
 }
