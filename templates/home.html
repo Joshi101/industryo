@@ -6,46 +6,56 @@
     <nav>
   	  <ul class="tab_list">
         <li>
-          <a href="{% url 'network:network' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Network</a>
-        </li>
-        <li>
-          <a href="{% url 'inbox:inbox' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Inbox</a>
-          <!-- <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
+          <a href="#sub_menu1" data-toggle="collapse">
+            <span class="fa_img"><img src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace}}"></span>
+            {{user.userprofile.primary_workplace}}
+            <span class="plus-sign"></span>
+          </a>
+          <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
             <li>
-              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+              <a href="{% url 'workplace:dashboard' workplace.slug %}">
+                <span class="fa fa-dashboard"></span>
+                Dashboard
+              </a>
             </li>
             <li>
-              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
-            </li>
-          </ul> -->
-        </li>
-        <li>
-          <a href="#sub_menu2" data-toggle="collapse"><span class="fa fa-plus"></span>Company</a>
-          <ul id="sub_menu2" class="collapse list-unstyled sub_menu">
-            <li>
-              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+              <a href="{% url 'workplace:products' workplace.slug %}">
+                <span class="fa fa-cubes"></span>
+                Products
+              </a>
             </li>
             <li>
-              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#sub_menu3" data-toggle="collapse"><span class="fa fa-plus"></span>Something</a>
-          <ul id="sub_menu3" class="collapse list-unstyled sub_menu">
-            <li>
-              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
-            </li>
-            <li>
-              <a href="{% url 'home' %}"><span class="fa fa-home"></span>Sub-Menu</a>
+              <a href="{% url 'workplace:activity' workplace.slug %}">
+                <span class="fa fa-rss"></span>
+                Activity
+              </a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="{% url 'forum:questions' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Forum</a>
+          <a href="{% url 'inbox:inbox' %}"><span class="fa fa-inbox fa-fw"></span>
+            Inbox
+          </a>
+        </li>
+      </ul>
+      <ul class="tab_list">
+        <li>
+          <a href="{% url 'network:network' %}">
+            <span class="fa fa-globe"></span>
+            Network
+          </a>
         </li>
         <li>
-          <a href="{% url 'nodes:articles' %}" data-toggle="collapse"><span class="fa fa-plus"></span>Articles</a>
+          <a href="{% url 'forum:questions' %}">
+            <span class="fa fa-lightbulb-o"></span>
+            Forum
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'nodes:articles' %}">
+            <span class="fa fa-newspaper-o"></span>
+            Articles
+          </a>
         </li>
 			</ul>
     </nav>
@@ -86,7 +96,7 @@
         </div>
       </section>
     </div>
-    <div class="aside_right">
+    <div class="aside_right pc_only">
       <section class="tile wide_40">
         <div class="ajax_load" data-url="{% url 'network:side_overview' %}" data-post="#filter_tag .d_value">
 

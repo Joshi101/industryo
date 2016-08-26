@@ -13,7 +13,7 @@
   padding: 15px;
   top: 5px;
   left: 0;
-  width: 180px;
+  width: 200px;
   height: 100%;
   background: #f9f9f9; }
   .menu_left.affix {
@@ -34,12 +34,29 @@
     transition: 0.5s all ease-out; }
 
 .tab_list {
-  list-style: none; }
+  list-style: none;
+  margin-bottom: 15px; }
+  .tab_list .fa {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 19px; }
+  .tab_list .fa_img {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    vertical-align: middle; }
+    .tab_list .fa_img img {
+      width: 100%;
+      height: 100%;
+      display: block; }
   .tab_list a {
     display: block;
-    padding: 7px 10px;
-    margin: 5px;
-    border-bottom: 1px solid #eee;
+    padding: 5px 10px;
+    margin: 5px 5px 0;
+    position: relative;
     color: #777;
     font-size: 16px;
     font-weight: 700;
@@ -47,13 +64,25 @@
     .tab_list a:hover, .tab_list a:active, .tab_list a:focus {
       text-decoration: none;
       border-color: #197; }
+    .tab_list a .plus-sign {
+      position: absolute;
+      right: 0;
+      top: 11px; }
 
 .sub_menu a {
+  vertical-align: baseline;
   color: #999;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   border: 0;
   margin: 0 15px 0 25px; }
+  .sub_menu a .fa {
+    font-size: 14px;
+    width: 1.28571429em;
+    display: inline-block;
+    text-align: center;
+    vertical-align: baseline;
+    line-height: 1.4; }
 
 footer {
   margin-top: 50px; }
@@ -84,7 +113,7 @@ footer {
     border-top-left-radius: 0px; }
 
 .flex_section {
-  margin-left: 180px;
+  margin-left: 200px;
   display: flex;
   justify-content: space-around;
   margin-right: 25px; }
@@ -100,7 +129,7 @@ footer {
   flex: 1 2 20%; }
 
 .eq_flex {
-  padding: 7px;
+  /*     padding: 7px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -113,6 +142,7 @@ footer {
   position: relative;
   display: flex;
   border: 1px solid #eee;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   /*     width: 45%; */
   margin: 7px;
   min-width: 175px; }
@@ -135,7 +165,7 @@ footer {
     margin-bottom: 5px; }
   .wp_card_slim .dropdown {
     position: absolute;
-    right: 5px;
+    right: 7px;
     top: 7px; }
     .wp_card_slim .dropdown .dropdown-menu {
       border: 1px solid #ccc;
@@ -221,5 +251,47 @@ footer {
 
 .xl_p {
   font-weight: 300; }
+
+.color {
+  color: #197; }
+
+.aside_right {
+  color: #777;
+  font-size: 16px; }
+  .aside_right .tile {
+    padding: 20px; }
+  .aside_right .tag {
+    margin-top: 5px; }
+  .aside_right .color {
+    font-weight: bold; }
+  .aside_right p:last-child {
+    margin-bottom: 0; }
+
+.plus-sign {
+  display: block;
+  background: #ccc;
+  width: 1px;
+  height: 13px;
+  position: relative;
+  margin-left: 6px;
+  transition: 0.2s all ease-in-out; }
+  .plus-sign:before {
+    background: #ccc;
+    content: "";
+    width: 13px;
+    height: 1px;
+    position: absolute;
+    top: 6px;
+    left: -6px;
+    transition: 0.2s all ease-in-out; }
+
+a[aria-expanded='true'] .plus-sign {
+  transform: rotate(90deg); }
+  a[aria-expanded='true'] .plus-sign:before {
+    transform: rotate(270deg); }
+
+.tab_list:first-child + .tab_list a {
+  font-weight: 500;
+  /*         font-size: 14px; */ }
 
 /*# sourceMappingURL=test.css.map */

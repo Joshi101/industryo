@@ -9,6 +9,7 @@ from operator import attrgetter
 from itertools import chain
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 @login_required
 def inbox(request):
     user = request.user
@@ -110,7 +111,7 @@ def outbox(request):
     wp = user.userprofile.primary_workplace
     inquiries = Enquiry.objects.filter(user=user).order_by('date')
     quotations = Reply.objects.filter(user=user).order_by('date')
-    conversations = Conversation.objects.filter(last_user_from=user).order_by('last_active')
+    conversations = Conversation.objects.filter(last_message_from=user).order_by('last_active')
     all_result_list = sorted(
         chain(inquiries, quotations, conversations),
         key=attrgetter('date'), reverse=True)

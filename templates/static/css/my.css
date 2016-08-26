@@ -2555,7 +2555,7 @@ footer .contact li{
   display: inline-block;
   /* background-color: #e1ecf4; */
   padding: 3px 7px;
-/*   border: 1px solid #AAD8C5; */
+  /*   border: 1px solid #AAD8C5; */
   margin: 0 5px 5px 0;
   color: rgba(0,0,0,0.6);
   background-color: rgba(0,0,0,0.05);
@@ -2960,9 +2960,9 @@ footer .contact li{
 }
 
 .thumb_small{
-  width: 31px;
-  height: 31px;
-  padding: 1px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
 }
 
 .conversation .thumb_small{

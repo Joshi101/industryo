@@ -100,7 +100,8 @@ def tag_list(request):
 
 def side_overview(request):
     data = request.POST.get('data').split(',')
-    tags = Tags.objects.filter(tag__in=data)
+    locations = Tags.objects.filter(tag__in=data)
+    segments = Tags.objects.filter(tag__in=data)
     return render(request, 'network/side_over.html', locals())
 
 
