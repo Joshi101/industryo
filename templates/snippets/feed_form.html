@@ -1,4 +1,15 @@
-<form id="form_feed" class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
+<div class="shell_container">
+  <div class="shell_input" data-form="#form_feed">
+    <span class="placeholder">Share an Update...</span>
+  </div>
+  <div class="seperator">
+    or
+  </div>
+  <div class="shell_input">
+    <span class="placeholder">Ask a Question...</span>
+  </div>
+</div>
+<form id="form_feed" class="ajax_andar hide" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
 	<div class="input-group">
 		<span class="input-group-addon">
 			<a href="{% url 'user:profile' user.username %}">

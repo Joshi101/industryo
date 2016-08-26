@@ -2,10 +2,20 @@
 
 <div class="feed_box summary question ajax_papa" typeof="Question">
   <span class="fa fa-question sign"></span>
+  {% if q.get_tags %}
+  <div class="tags">
+    <span class="fa fa-tags fa-fw"></span>
+    {% for tag in q.get_tags %}
+    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{% if tag.description %}{{tag.description|truncatewords:25}}{% else %}No description available{% endif %}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
     <a class="feed_box_body" href="{% url 'forum:question' q.slug %}">
+      {% if q.title %}
 			<div class="summary_title">
 				<span property="name">{{ q.title|capfirst }}</span>
 			</div>
+      {% endif %}
 		{% if q.question %}
 		<div class="summary_body">
       <div>{{ q.question|truncatewords_html:25|safe }}</div>
@@ -21,14 +31,6 @@
 		</div>
 		{% endif %}
 	</a>
-  {% if q.get_tags %}
-  <div class="tags">
-    <span class="fa fa-tags fa-fw"></span>
-    {% for tag in q.get_tags %}
-    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{% if tag.description %}{{tag.description|truncatewords:25}}{% else %}No description available{% endif %}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-    {% endfor %}
-  </div>
-  {% endif %}
   {% include "snippets/joint_person.html" with pic='no' user=q.user time=q.date|naturaltime action="asked" anony=q.anonymous %}
 	<div class="feed_box_extra">
 		<div class="interaction">

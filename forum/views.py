@@ -124,7 +124,7 @@ def ques_comment(request):
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':comment})
         response['html'] = r_html
         response['elements'] = r_elements
-        response['prepend'] = True
+        response['append'] = True
         return HttpResponse(json.dumps(response), content_type="application/json")
 
 @login_required
@@ -145,7 +145,7 @@ def ans_comment(request):
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html
         response['elements'] = r_elements
-        response['prepend'] = True
+        response['append'] = True
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         print('problem hai')

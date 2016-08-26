@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load filter %}
-{% load staticfiles %}
+{% load filter static humanize %}
 
 {% block title %}{{q.title}}{% endblock title %}
 
@@ -10,123 +9,116 @@
   <link rel="stylesheet" type="text/css" href={% static 'quill/quill.snow.css' %}>
 {% endblock head_css %}
 
-{% block pg_schema %}{% endblock pg_schema %}
+{% block page_id %}article_pg{% endblock page_id %}
 
 {% block body %}
 	<div class="container ajax_papa">
-		<div class="col-sm-9" typeof="Question">
-			<div id="question" class="node ajax_andar ajax_papa">
-				{% include "snippets/figure_modal.html" %}
-				{% if q.user.pk == request.user.pk %}
-				<a class="edit_post pull-right" href="{% url 'forum:edit_ques' q.id %}">
-				  <i class="fa fa-edit sign fa-lg"></i>
-				</a>
-				{% endif %}
-				<div class="node_body">
-					<div class="post_title">
-						<h1 property="name">{{ q.title }}</h1>
-					</div>
-					<div class="interaction_top">
-						<div class="text-center vote_box">
-							{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
-						</div>
-						<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{comments|length}}</span> Comments</a>
-					</div>
-					{% if q.question %}
-					<p class="post_body" property="text">{{ q.question|new_tab|safe }}</p>
-					{% endif %}
-					{% if q.get_images %}
-					<div class="node_fig">
-						{% for image in q.get_images %}
-						<figure>
-							<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
-						</figure>
-						{% endfor %}
-					</div>
-					{% endif %}
-					{% if q.get_tags %}
-					<div class="tags" property='keywords'>
-						{% for tag in q.get_tags %}
-							<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-						{% endfor %}
-					</div>
-					{% endif %}
-					<div class="author">
-						{% include "snippets/joint_name.html" with user=q.user anony=q.anonymous %}<time property='dateCreated' class="text-muted"> {{q.date}} </time>
-					</div>
-				</div>
-				<div class="node_extra">
-					<div class="comments">
-					{% if comments %}
-			    	{% for c in comments %}
-							{% include "snippets/comment.html" with comment=c %}
-			    	{% endfor %}
-					{% endif %}
-					</div>
-					<div class="interaction">
-		    		<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
-				    <div class="collapse">
-				    	{% include "snippets/comment_form.html" with type='q' post=q %}
-						</div>
-					</div>
-				</div>
-			</div>
-			{% if user.is_authenticated %}
-			<form class="answer_form ajax_andar" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
-				<div class="collapse">
-					<div class="form-group">
-				    <div class="advanced-wrapper">
-							{% include "snippets/richtext_toolbar.html" %}
-					    <div class="editor-container">
-					    	<label class="placeholder">Write your answer here ...</label>
-					    </div>
-					    <input id="post" type="hidden" name="answer">
-					  </div>
-					</div>
-					<input type="hidden" name="id" value="{{ q.id }}">
-					<input type="hidden" name="aid" value="" autocomplete="off">
-					<input type="hidden" name="slug" value="{{ q.slug }}">
-					<div class="form-group">
-						<div class="hide">
-			      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-								<input id="id_image_0" type="file" name="image0">
-			    		</span>
-			  		</div>
-			      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-			      	<span class="glyphicon glyphicon-camera"></span> Add Photo
-			    	</span>
-					</div>
-					<div class="form-group">
-						<div class="img_pre hide" data-index=0>
-						</div>
-					</div>
-					<div class="checkbox">
-					  <label><input type="checkbox" name="anonymous" value="true">Post as Anynonymous</label>
-					</div>
-					<button type="button" class="btn btn-success btn-md pull-left new">Submit Answer</button>
-					<button type="button" class="btn btn-success btn-md pull-left check_btn hide">Save Changes</button>
-					<input type="hidden" name="edit" value="">
-					<a class="form-ajax-filed hide"></a>
-					{% csrf_token %}
-				</div>
-				<a id="write_answer" class="a_collapse btn btn-info btn-md pull-right" data-alternate="Cancel">Write Answer</a>
-			</form>
-			{% else %}
-			<button id="almost_write_answer" class="btn btn-info btn-md pull-right" title="To write an answer you must be logged in. Its simple and takes no time." data-toggle="tooltip">Write Answer</button>
+		<div id="question" class="node ajax_andar ajax_papa">
+			{% include "snippets/figure_modal.html" %}
+			{% if q.user.pk == request.user.pk %}
+			<a class="edit_post pull-right" href="{% url 'forum:edit_ques' q.id %}">
+			  <i class="fa fa-edit sign fa-lg"></i>
+			</a>
 			{% endif %}
-			<div id="answers" class="ajax_andar ajax_papa">
-				<h2 class="text-muted">Answers</h2>
-				<div class="answers">
-				{% for a in answers %}
-					{% include "snippets/one_answer.html" with a=a q=q %}
-				{% empty %}
-					<h3 class="text-center text-muted">This question has not recieved any answers till now.</h3>
-				{% endfor %}
+      {% if q.get_tags %}
+      <div class="tags" property='keywords'>
+        <span class="fa fa-tags fa-fw"></span>
+        {% for tag in q.get_tags %}
+          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+			<div class="node_body">
+				<h1 class="post_title">{{ q.title }}</h1>
+        <div class="published">Asked on {{q.date}}</div>
+        {% include "snippets/joint_name.html" with user=q.user action="by" %}
+				<div class="interaction_top">
+					<div class="text-center vote_box">
+						{% include "snippets/vote_box.html" with q_or_a='q' q=q %}
+					</div>
+					<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{comments|length}}</span> Comments</a>
+				</div>
+				{% if q.question %}
+				<div class="post_body">{{ q.question|new_tab|safe }}</div>
+				{% endif %}
+				{% if q.get_images %}
+				<div class="node_fig">
+					{% for image in q.get_images %}
+					<figure>
+						<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
+					</figure>
+					{% endfor %}
+				</div>
+				{% endif %}
+			</div>
+			<div class="node_extra">
+				<div class="interaction">
+          <div class="text-right">
+            <a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
+            <div class="collapse">
+              {% include "snippets/comment_form.html" with type='q' post=q %}
+            </div>
+          </div>
+          <div class="comments">
+            {%  for c in comments %}
+            {% include "snippets/comment.html" with comment=c %}
+            {% endfor %}
+          </div>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-3">
-			<div class="ajax_load" data-url="{% url 'home_right' %}"></div>
+		{% if user.is_authenticated %}
+		<form class="answer_form ajax_andar text-center" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
+			<div class="collapse text-left">
+				<div class="form-group">
+			    <div class="advanced-wrapper">
+						{% include "snippets/richtext_toolbar.html" %}
+				    <div class="editor-container">
+				    	<label class="placeholder">Write your answer here ...</label>
+				    </div>
+				    <input id="post" type="hidden" name="answer">
+				  </div>
+				</div>
+				<input type="hidden" name="id" value="{{ q.id }}">
+				<input type="hidden" name="aid" value="" autocomplete="off">
+				<input type="hidden" name="slug" value="{{ q.slug }}">
+				<div class="form-group">
+					<div class="hide">
+		      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
+							<input id="id_image_0" type="file" name="image0">
+		    		</span>
+		  		</div>
+		      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
+		      	<span class="glyphicon glyphicon-camera"></span> Add Photo
+		    	</span>
+				</div>
+				<div class="form-group">
+					<div class="img_pre hide" data-index=0>
+					</div>
+				</div>
+				<div class="checkbox">
+				  <label><input type="checkbox" name="anonymous" value="true">Post as Anynonymous</label>
+				</div>
+				<button type="button" class="btn btn-success btn-md pull-left new">Submit Answer</button>
+				<button type="button" class="btn btn-success btn-md pull-left check_btn hide">Save Changes</button>
+				<input type="hidden" name="edit" value="">
+				<a class="form-ajax-filed hide"></a>
+				{% csrf_token %}
+			</div>
+      <a id="write_answer" class="a_collapse btn btn-info btn-md" data-alternate="Cancel">Write Answer</a>
+		</form>
+		{% else %}
+		<button id="almost_write_answer" class="btn btn-info btn-md pull-right" title="To write an answer you must be logged in. Its simple and takes no time." data-toggle="tooltip">Write Answer</button>
+		{% endif %}
+		<div id="answers" class="ajax_andar ajax_papa">
+			<h2 class="text-muted">Answers</h2>
+			<div class="answers">
+			{% for a in answers %}
+				{% include "forum/one_answer.html" with a=a q=q %}
+			{% empty %}
+				<h3 class="text-center text-muted">This question has not recieved any answers till now.</h3>
+			{% endfor %}
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
