@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from products.models import Products, Category
 from threading import Thread
+from activities.views import create_notifications
 
 
 @login_required
@@ -263,7 +264,7 @@ def like(request):
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
-            user.userprofile.notify_liked(node)
+            create_notifications(from_user=user, to_user=node.user, typ='L', node=node)
         return HttpResponse()
     else:
         return redirect('/')
@@ -281,8 +282,7 @@ def comment(request):
         post = request.POST['comment']
         c = Comments(user=user, node=node, comment=post)
         c.save()
-        user.userprofile.notify_n_commented(node)
-        user.userprofile.notify_also_n_commented(node)
+        create_notifications(from_user=user, to_user=node.user, typ='U', node=node)
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html

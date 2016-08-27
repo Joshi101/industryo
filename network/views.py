@@ -9,6 +9,7 @@ from forum.models import Question
 from tags.models import Tags
 from leads.models import Leads
 from products.models import Products, Category
+from activities.views import create_notifications
 
 
 @login_required
@@ -137,4 +138,5 @@ def connect(request):
             c = Connections.objects.get(my_company=wp, other_company=other)
         except Exception:
             Connections.objects.create(my_company=wp, other_company=other, type=ctype)
+        create_notifications(from_user=user, to_users=wp.get_members_user, workplace=wp, typ='N')
         return HttpResponse()

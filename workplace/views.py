@@ -18,6 +18,7 @@ from operator import attrgetter
 from threading import Thread
 from contacts.views import wp_email
 from django.db.models import Q
+from activities.views import create_notifications
 
 
 @login_required
@@ -28,17 +29,19 @@ def set_workplace(request):
         workplace = request.POST.get('workplace')
         w_type = request.POST.get('type')
         pre_workplace = request.POST.get('pre_workplace')
-        if len(pre_workplace)>3:
+        if len(pre_workplace) > 3:
             primary_workplace, created = Workplace.objects.get_or_create(name=pre_workplace, workplace_type=w_type)
         else:
             return HttpResponse('The name should have at least 4 characters')
-        user.userprofile.notify_also_joined(primary_workplace)
+        if not created:
+            us = User.objects.filter(userprofile__primary_workplace=primary_workplace)
+            if us:
+                create_notifications(from_user=user, to_users=us, typ='J')
         job_position = request.POST.get('job_position')
         userprofile.set_primary_workplace(primary_workplace, job_position)
         o, created = Workplaces.objects.get_or_create(userprofile=userprofile,
                                                       workplace=primary_workplace, job_position=job_position)
         t = userprofile.primary_workplace.workplace_type
-        # tasks.send_html_mail(user.id, n=88) # Moved to contacts
         node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
         <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
                                                           primary_workplace.slug, primary_workplace,
@@ -75,6 +78,9 @@ def set_others_wp(request, username):
         <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
                                                           primary_workplace.slug, primary_workplace,
                                                           userprofile.job_position)
+
+        # Send mail to the user instantly
+
         Node.objects.create(post=node, user=request.user, category='D', w_type=t)
         if t in ['A', 'B']:
             return redirect('/workplace/edit/')
@@ -119,62 +125,6 @@ def search_workplace(request):                  # for searching the workplace
     #             Workplace.objects.filter()
     #         print('WWWWWWWW')
     return render(request, 'tags/list_wp.html', {'objects': q, 'query': w})
-
-
-# @login_required
-# def set_tags(request):        # No longer used
-#     if request.method == 'POST':
-#         response = {}
-#         r_html = {}
-#         r_elements = []
-#         user = request.user
-#         up = user.userprofile
-#         wp = user.userprofile.primary_workplace
-#         operations = request.POST.get('operations')
-#         materials = request.POST.get('materials')
-#         assets = request.POST.get('assets')
-#         city = request.POST.get('çity')
-#         segment = request.POST.get('segment')
-#         if operations:
-#             t = wp.set_tags(tags=operations, typ='O')
-#         if materials:
-#             t = wp.set_tags(tags=materials, typ='M')
-#         if assets:
-#             t = wp.set_tags(tags=assets, typ='A')
-#         if city:
-#             t = wp.set_tags(tags=city, typ='C')
-#         if segment:
-#             t = wp.set_segments(segment)
-#         response = {}
-#         response['tag'] = render_to_string('snippets/tags.html', {'tags': t})
-#
-#         return HttpResponse(json.dumps(response), content_type="application/json")
-#     else:
-#         return redirect('/user/'+request.user.username)
-#
-#
-# @login_required
-# def set_tags_short(request):        # No longer used
-#     if request.method == 'POST':
-#         response = {}
-#         r_html = {}
-#         r_elements = []
-#         user = request.user
-#         up = user.userprofile
-#         wp = user.userprofile.primary_workplace
-#         type = request.POST.get('type')
-#         value = request.POST.get('tag')
-#         if value:
-#             t = wp.set_tags(tags=value, typ=type)
-#             new_interest = t
-#             r_elements = ['info_field_value']
-#             r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
-#             response['html'] = r_html
-#             response['elements'] = r_elements
-#             response['prepend'] = False
-#             return HttpResponse(json.dumps(response), content_type="application/json")
-#     else:
-#         return redirect('/user/'+request.user.username)
 
 
 def workplace_profile(request, slug):

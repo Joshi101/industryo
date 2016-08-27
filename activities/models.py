@@ -117,11 +117,13 @@ class Notification(models.Model):
     node = models.ForeignKey('nodes.Node', null=True, blank=True)
     question = models.ForeignKey('forum.Question', null=True, blank=True)
     answer = models.ForeignKey('forum.Answer', null=True, blank=True)
+    workplace = models.ForeignKey('workplace.Workplace', null=True, blank=True)
 
     enquiry = models.ForeignKey(Enquiry, null=True, blank=True)
 
     notification_type = models.CharField(max_length=1, choices=NOTIFICATION_TYPES)
     is_read = models.BooleanField(default=False)
+    mail_sent = models.BooleanField(default=True) # after migration, change to false
 
     class Meta:
         verbose_name = 'Notification'

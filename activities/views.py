@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from activities.models import Notification, Enquiry
-from django.http import HttpResponse, HttpResponseBadRequest
+from activities.models import Notification
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import json
-from workplace.models import Workplace
-from products.models import Products
-from datetime import datetime, timedelta, time, date
 
 
 # @login_required
@@ -52,7 +49,6 @@ def notify(request):
     return redirect('/')
 
 @login_required
-# @ajax_required
 def last_notifications(request):
     user = request.user
     notifications = Notification.objects.filter(to_user=user, is_read=False)[:5]
@@ -62,17 +58,52 @@ def last_notifications(request):
     return render(request, 'activities/last_notifications.html', {'notifications': notifications})
 
 @login_required
-# @ajax_required
 def check_notifications(request):
     user = request.user
     notifications = Notification.objects.filter(to_user=user, is_read=False)[:5]
     return HttpResponse(len(notifications))
 
 
-def create_notification(**kwargs):
-    from_user = kwargs['from_user']
+def create_notifications(**kwargs):
     to_user = kwargs['to_user']
-    n = Notification.objects.create()
+    from_user = kwargs['from_users']
+    to_users = kwargs['to_users']
+    node = workplace = answer = question = enquiry = None
+    direct = ['node', 'workplace', 'answer', 'question', 'enquiry']
+    for key in kwargs:
+        if key in direct:
+            key = kwargs['key']
+    typ = kwargs['typ']
+    if to_users:
+        for to_user in to_users:
+            if not from_user == to_user:
+                n = Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+                                                node=node, answer=answer, question=question, enquiry=enquiry)
+    elif to_user:
+        if not from_user == to_user:
+            n = Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+                                            node=node, answer=answer, question=question, enquiry=enquiry)
+
+
+def delete_notifications(**kwargs):
+    to_user = kwargs['to_user']
+    from_user = kwargs['from_users']
+    to_users = kwargs['to_users']
+    node = workplace = answer = question = enquiry = None
+    direct = ['node', 'workplace', 'answer', 'question', 'enquiry']
+    for key in kwargs:
+        if key in direct:
+            key = kwargs['key']
+    typ = kwargs['typ']
+    if to_users:
+        for to_user in to_users:
+            if not from_user == to_user:
+                n = Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+                                                node=node, answer=answer, question=question, enquiry=enquiry).delete()
+    elif to_user:
+        if not from_user == to_user:
+            Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+                                        node=node, answer=answer, question=question, enquiry=enquiry).delete()
 
 
 # Create your views here.

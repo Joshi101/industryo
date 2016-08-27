@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'^answer/$', views.reply, name='answer'),
     url(r'^voteup/$', views.voteup, name='voteup'),
     url(r'^tagged/$', views.question_tagged, name='tagged'),
-    url(r'^set_right/$', views.set_things_right, name='set_things'),
 
     url(r'^q_tags/$', views.q_tags, name='q_tags'),
     url(r'^delete_question/$', views.delete_question, name='delete_question'),

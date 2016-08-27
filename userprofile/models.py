@@ -385,23 +385,6 @@ class UserProfile(models.Model):
                                             question=question)
             tasks.notify_user(a.id, n=14)
 
-    # def notify_edited(self, workplace, node):
-    #     users = User.objects.filter(enterprise=enterprise)
-    #
-    #     for user in users:
-    #         Notification(notification_type=Notification.EDITED,
-    #                      from_user=self.user,
-    #                      to_user=user,
-    #                      node=node).save()
-
-    def notify_inquired(self, e, users):
-        for u in users:
-            Notification.objects.create(notification_type=Notification.Inquired,
-                                        from_user=self.user,
-                                        to_user=u.user,
-                                        enquiry=e)
-            # tasks.notify_user(a.id, n=14)
-
     def get_workplace_points(self):
         members = UserProfile.objects.filter(primary_workplace=self.primary_workplace)
         points = 0

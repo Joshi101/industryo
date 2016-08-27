@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from threading import Thread
+from activities.views import create_notifications
 
 
 @login_required
@@ -119,7 +120,8 @@ def ques_comment(request):
         comment = Comments(question=question, user=user, comment=comment)
         comment.save()
         user.userprofile.notify_q_commented(question=question)
-        user.userprofile.notify_also_q_commented(question=question)
+        create_notifications(from_user=user, to_user=question.user, typ='C', question=question)
+        # also commented
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':comment})
         response['html'] = r_html
@@ -139,8 +141,8 @@ def ans_comment(request):
         user = request.user
         c = Comments(answer=answer, comment=comment, user=user)
         c.save()
-        user.userprofile.notify_a_commented(answer)
-        user.userprofile.notify_also_a_commented(answer=answer)
+        create_notifications(from_user=user, to_user=answer.user, typ='C', answer=answer)
+
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html
@@ -168,8 +170,7 @@ def voteup(request):
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='U')
             vote.save()
-            user.userprofile.notify_q_upvoted(question)
-            print('notification created')
+            create_notifications(from_user=user, to_user=question.user, typ='U', question=question)
             question.votes +=1
             question.save()
         return HttpResponse()
@@ -186,7 +187,7 @@ def voteup(request):
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='U')
             vote.save()
-            user.userprofile.notify_a_upvoted(answer)
+            create_notifications(from_user=user, to_user=answer.user, typ='U', answer=answer)
             answer.votes += 1
             answer.save()
         return HttpResponse()
@@ -206,7 +207,7 @@ def votedown(request):
         except Exception:
             vote = Activity.objects.create(user=user, question=question, activity='D')
             vote.save()
-            user.userprofile.notify_q_downvoted(question)
+            create_notifications(from_user=user, to_user=question.user, typ='D', question=question)
             question.votes -= 1
             question.save()
         return HttpResponse()
@@ -223,7 +224,7 @@ def votedown(request):
         except Exception:
             vote = Activity.objects.create(user=user, answer=answer, activity='D')
             vote.save()
-            user.userprofile.notify_a_downvoted(answer)
+            create_notifications(from_user=user, to_user=answer.user, typ='D', answer=answer)
             answer.votes -= 1
             answer.save()
         return HttpResponse()
@@ -271,7 +272,7 @@ def reply(request):
                 answer = Answer.objects.create(answer=ans, user=user, question=question, anonymous=True)
             else:
                 answer = Answer.objects.create(answer=ans, user=user, question=question)
-            user.userprofile.notify_answered(question)
+            create_notifications(from_user=user, to_user=question.user, typ='A', question=question)
         image0 = request.FILES.get('image0', None)
         image1 = request.FILES.get('image1', None)
         image2 = request.FILES.get('image2', None)
@@ -464,18 +465,6 @@ def q_tags(request):
         # return render(request, 'home.html', {'result_list': result_list})
         return render(request, 'forum/q_tags.html', {'result_list': result_list})
     # return render(request, 'forum/q_tags.html', locals())
-
-# def un
-
-
-def set_things_right(request):
-    questions = Question.objects.all()
-
-    for question in questions:
-        if question.get_answer_count() >0:
-            question.answered=True
-            question.save()
-    return redirect('/')
 
 
 def popular(request):

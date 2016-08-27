@@ -309,6 +309,13 @@ class Workplace(models.Model):
         ups = self.userprofile_set.all()
         return ups
 
+    def get_members_user(self):
+        ups = self.userprofile_set.all()
+        users = []
+        for u in ups:
+            users.append(u.user)
+        return ups
+
     def get_enq(self):
         a = self.enquiry_set.filter(seen=False)
         b = self.enquiry_set.all()

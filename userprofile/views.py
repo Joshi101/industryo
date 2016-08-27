@@ -110,32 +110,6 @@ def edit(request):
 
         response = []
         return HttpResponse(json.dumps(response), content_type="application/json")
-    # else:
-    #     dict = workplace.__dict__
-    #     dict['workplace'] = workplace
-    #     dict['workplace_logo_form'] = SetLogoForm()
-    #     return render(request, 'workplace/edit.html', dict)
-    # form = EditProfileForm(request.POST)
-    # user = request.user
-    # up = user.userprofile
-    # if request.method == 'POST':
-    #     if not form.is_valid():
-    #         return render(request, 'userprofile/edit.html', {'form': form})
-    #     else:
-    #
-    #         gender = form.cleaned_data.get('gender')
-    #         experience = form.cleaned_data.get('experience')
-    #
-    #         up.gender = gender
-    #         up.experience = experience
-    #         up.save()
-    #         return redirect("/user/"+user.username)
-    # else:
-    #     form = EditProfileForm(instance=user, initial={
-    #         'gender': up.gender,
-    #         'experience': up.experience,
-    #         })
-    #     return render(request, 'userprofile/edit.html', {'form': form})
 
 
 @login_required
@@ -213,14 +187,6 @@ def search_person(request):                  # for searching the workplace
     else:
         return render(request, 'tags/list_ppl.html')
 
-
-# def make_list(request):
-#     ups = UserProfile.objects.filter(primary_workplace__workplace_type__in=['A', 'B'])
-#     for u in ups:
-#         tags = u.primary_workplace.tags.all()
-#         li = []
-#         for t in tags:
-#             li.append(t.id)
 
 def check_email(request):
     if request.method == 'POST':
