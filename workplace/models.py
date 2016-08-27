@@ -314,7 +314,7 @@ class Workplace(models.Model):
         users = []
         for u in ups:
             users.append(u.user)
-        return ups
+        return users
 
     def get_enq(self):
         a = self.enquiry_set.filter(seen=False)

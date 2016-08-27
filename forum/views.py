@@ -11,7 +11,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from threading import Thread
-from activities.views import create_notifications
+from activities.views import delete_notifications,create_notifications
 
 
 @login_required
@@ -158,13 +158,11 @@ def voteup(request):
     if 'qid' in request.GET:
         q = request.GET['qid']
         question = Question.objects.get(id=q)
-        print("question found")
         user = request.user
         try:
             vote = Activity.objects.get(user=user, question=question, activity='U')
             vote.delete()
-            user.userprofile.unotify_q_upvoted(question)
-            print('notification deleted')
+            delete_notifications(from_user=user, to_user=question.user, typ='U', question=question)
             question.votes -=1
             question.save()
         except Exception:
@@ -181,7 +179,7 @@ def voteup(request):
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='U')
             vote.delete()
-            user.userprofile.unotify_a_upvoted(answer)
+            delete_notifications(from_user=user, to_user=answer.user, typ='U', answer=answer)
             answer.votes -= 1
             answer.save()
         except Exception:
@@ -201,7 +199,7 @@ def votedown(request):
         try:
             vote = Activity.objects.get(user=user, question=question, activity='D')
             vote.delete()
-            user.userprofile.unotify_q_downvoted(question)
+            delete_notifications(from_user=user, to_user=question.user, typ='D', question=question)
             question.votes += 1
             question.save()
         except Exception:
@@ -218,7 +216,7 @@ def votedown(request):
         try:
             vote = Activity.objects.get(user=user, answer=answer, activity='D')
             vote.delete()
-            user.userprofile.unotify_a_downvoted(answer)
+            delete_notifications(from_user=user, to_user=answer.user, typ='D', answer=answer)
             answer.votes += 1
             answer.save()
         except Exception:
@@ -387,7 +385,7 @@ def s_questions(request):           # for segments
 def delete_question(request):
     id = request.GET.get('id')
     question = Question.objects.get(id=id)
-    if request.user == questions.user:
+    if request.user == question.user:
         question.delete()
     return redirect('/forum')
 

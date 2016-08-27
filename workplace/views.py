@@ -42,11 +42,11 @@ def set_workplace(request):
         o, created = Workplaces.objects.get_or_create(userprofile=userprofile,
                                                       workplace=primary_workplace, job_position=job_position)
         t = userprofile.primary_workplace.workplace_type
-        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
-        <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
-                                                          primary_workplace.slug, primary_workplace,
-                                                          userprofile.job_position)
-        Node.objects.create(post=node, user=request.user, category='D', w_type=t)
+        # node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
+        # <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
+        #                                                   primary_workplace.slug, primary_workplace,
+        #                                                   userprofile.job_position)
+        # Node.objects.create(post=node, user=request.user, category='D', w_type=t)
         if t in ['A', 'B']:
             return redirect('/workplace/edit/')
         else:
@@ -73,15 +73,14 @@ def set_others_wp(request, username):
         o, created = Workplaces.objects.get_or_create(userprofile=userprofile,
                                                       workplace=primary_workplace, job_position=job_position)
         t = userprofile.primary_workplace.workplace_type
-        # tasks.send_html_mail(user.id, n=88) # Moved to contacts
-        node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
-        <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
-                                                          primary_workplace.slug, primary_workplace,
-                                                          userprofile.job_position)
+        # node = '''<a href="/user/{0}">{1}</a> registered on CoreLogs and joined \
+        # <a href="/workplace/{2}">{3}</a> as {4}'''.format(user.username, userprofile,
+        #                                                   primary_workplace.slug, primary_workplace,
+        #                                                   userprofile.job_position)
 
         # Send mail to the user instantly
 
-        Node.objects.create(post=node, user=request.user, category='D', w_type=t)
+        # Node.objects.create(post=node, user=request.user, category='D', w_type=t)
         if t in ['A', 'B']:
             return redirect('/workplace/edit/')
         else:
@@ -119,11 +118,6 @@ def search_workplace(request):                  # for searching the workplace
             q = o
         else:
             q = q & o
-    # if len(q)<4:      # for searcing indian institute of tech.. on typing iit
-    #     if len(w)<4:
-    #         for a in w:
-    #             Workplace.objects.filter()
-    #         print('WWWWWWWW')
     return render(request, 'tags/list_wp.html', {'objects': q, 'query': w})
 
 

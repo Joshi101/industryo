@@ -108,8 +108,8 @@ class Notification(models.Model):
     _VotedUpA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedUp your answer: <a href="/forum/{2}/">{3}</a>'            # working
     _VotedDownA_TEMPLATE = u'<a href="/user/{0}/">{1}</a> votedDown your answer: <a href="/forum/{2}/">{3}</a>'            # working
     _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to the question: <a href="/forum/{2}/">{3}</a>'            # working
-    _Inquired_User_Template = u'<a href="/user/{0}/">{1}</a> Made an <a href="/products/enquiry_all/">enquiry</a>'
-    _Inquired_Anon_Template = u'''{0}, made an <a href="/products/enquiry_all/">enquiry</a>'''
+    # _Inquired_User_Template = u'<a href="/user/{0}/">{1}</a> Made an <a href="/products/enquiry_all/">enquiry</a>'
+    # _Inquired_Anon_Template = u'''{0}, made an <a href="/products/enquiry_all/">enquiry</a>'''
 
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')

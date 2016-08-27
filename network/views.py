@@ -139,5 +139,5 @@ def connect(request):
             c = Connections.objects.get(my_company=wp, other_company=other)
         except Exception:
             Connections.objects.create(my_company=wp, other_company=other, type=ctype)
-        create_notifications(from_user=user, to_users=wp.get_members_user, workplace=wp, typ='N')
+        create_notifications(from_user=user, to_users=wp.get_members_user(), workplace=wp, typ='N')
         return HttpResponse()

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from products.models import Products, Category
 from threading import Thread
-from activities.views import create_notifications
+from activities.views import create_notifications, delete_notifications
 
 
 @login_required
@@ -97,8 +97,6 @@ def write(request):                 ## Write an article
         anonymous = request.POST.get('anonymous')
         draft = request.POST.get('draft')
 
-        # if anonymous & draft:
-        #     node = Node(post=post, title=title, category='A', user=user, anonymous=True, is_active=False)
         if draft:
 
             node = Node(post=post, title=title, category='A', user=user, is_active=False)
@@ -260,7 +258,7 @@ def like(request):
         try:
             lik = Activity.objects.get(user=user, node=node, activity='L')
             lik.delete()
-            user.userprofile.unotify_liked(node)
+            delete_notifications(from_user=user, to_user=node.user, typ='L', node=node)
         except Exception:
             lik = Activity.objects.create(user=user, node=node, activity='L')
             lik.save()
@@ -278,11 +276,10 @@ def comment(request):
         node_id = request.POST['id']
         user = request.user
         node = Node.objects.get(pk=node_id)
-        # tram = node.user
-        post = request.POST['comment']
-        c = Comments(user=user, node=node, comment=post)
-        c.save()
-        create_notifications(from_user=user, to_user=node.user, typ='U', node=node)
+        com = request.POST['comment']
+        c = Comments.objects.create(user=user, node=node, comment=com)
+        create_notifications(from_user=user, to_user=node.user, typ='C', node=node)
+        # create_notifications(from_user=user, to_user=node.user, typ='S', node=node) # also commented
         r_elements = ['comments']
         r_html['comments'] = render_to_string('snippets/comment.html', {'comment':c})
         response['html'] = r_html

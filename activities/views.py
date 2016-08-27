@@ -65,44 +65,44 @@ def check_notifications(request):
 
 
 def create_notifications(**kwargs):
-    to_user = kwargs['to_user']
-    from_user = kwargs['from_users']
-    to_users = kwargs['to_users']
-    node = workplace = answer = question = enquiry = None
-    direct = ['node', 'workplace', 'answer', 'question', 'enquiry']
-    for key in kwargs:
-        if key in direct:
-            key = kwargs['key']
+    to_user = kwargs.get('to_user')
+    from_user = kwargs['from_user']
+    to_users = kwargs.get('to_users')
     typ = kwargs['typ']
+    node = kwargs.get('node')
+    workplace = kwargs.get('workplace')
+    answer = kwargs.get('answer')
+    question = kwargs.get('question')
+    enquiry = kwargs.get('enquiry')
     if to_users:
-        for to_user in to_users:
-            if not from_user == to_user:
-                n = Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+        for user in to_users:
+            if not from_user == user:
+                n = Notification.objects.create(from_user=from_user, to_user=user, notification_type=typ, workplace=workplace,
                                                 node=node, answer=answer, question=question, enquiry=enquiry)
     elif to_user:
         if not from_user == to_user:
-            n = Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+            n = Notification.objects.create(from_user=from_user, to_user=to_user, notification_type=typ, workplace=workplace,
                                             node=node, answer=answer, question=question, enquiry=enquiry)
 
 
 def delete_notifications(**kwargs):
-    to_user = kwargs['to_user']
-    from_user = kwargs['from_users']
-    to_users = kwargs['to_users']
-    node = workplace = answer = question = enquiry = None
-    direct = ['node', 'workplace', 'answer', 'question', 'enquiry']
-    for key in kwargs:
-        if key in direct:
-            key = kwargs['key']
-    typ = kwargs['typ']
+    to_user = kwargs.get('to_user')
+    from_user = kwargs['from_user']
+    to_users = kwargs.get('to_users')
+    typ = kwargs.get('typ')
+    node = kwargs.get('node')
+    workplace = kwargs.get('workplace')
+    answer = kwargs.get('answer')
+    question = kwargs.get('question')
+    enquiry = kwargs.get('enquiry')
     if to_users:
-        for to_user in to_users:
-            if not from_user == to_user:
-                n = Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+        for user in to_users:
+            if not from_user == user:
+                n = Notification.objects.filter(from_user=from_user, to_user=user, notification_type=typ, workplace=workplace,
                                                 node=node, answer=answer, question=question, enquiry=enquiry).delete()
     elif to_user:
         if not from_user == to_user:
-            Notification.objects.create(from_user=from_user, to_user=to_user, typ=typ, workplace=workplace,
+            Notification.objects.filter(from_user=from_user, to_user=to_user, notification_type=typ, workplace=workplace,
                                         node=node, answer=answer, question=question, enquiry=enquiry).delete()
 
 
