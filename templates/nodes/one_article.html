@@ -2,6 +2,14 @@
 {% load humanize %}
 <div class="feed_box summary article ajax_papa">
   <i class="fa fa-newspaper-o sign"></i>
+  {% if node.get_tags %}
+  <div class="tags">
+    <span class="fa fa-tags fa-fw"></span>
+    {% for tag in node.get_tags %}
+    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
 	<a class="feed_box_body" href="{% url 'nodes:node' node.slug %}">
     {% if node.get_images %}
 		<div class="summary_fig">
@@ -16,14 +24,6 @@
 		<div class="summary_body">{{ node.get_summary|truncatewords_html:20|safe }}</div>
     <div class="continue">Read More ...</div>
 	</a>
-  {% if node.get_tags %}
-  <div class="tags">
-    <span class="fa fa-tags fa-fw"></span>
-    {% for tag in node.get_tags %}
-    <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-    {% endfor %}
-  </div>
-  {% endif %}
   {% include "snippets/joint_person.html" with pic='user' user=node.user time=node.date|naturaltime action="published" %}
 	<div class="feed_box_extra">
 		<div class="interaction">

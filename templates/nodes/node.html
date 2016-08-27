@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load filter humanize %}
 
   {% block meta_og_title %}{{ node.title }}{% endblock %}
   {% block meta_og_url %}http://www.corelogs.com{{ request.path }}{% endblock %}
@@ -7,7 +8,6 @@
   	{% block meta_og_image %}/images/{{image.image}}{% endblock %}
   {% endfor %}
 
-{% load filter %}
 
 {% block title %}{% if node.title %}{{ node.title }}{% else %}{{node.post|truncatechars:100}}{% endif %}{% endblock title %}
 
@@ -25,9 +25,21 @@
 				<a href="{% url 'nodes:edit' node.id %}"><span class="fa fa-pencil"></span> Edit</a>
 			</div>
 			{% endif %}
+      {% if node.get_tags %}
+      <div class="tags">
+        <span class="fa fa-tags fa-fw"></span>
+        {% for tag in node.get_tags %}
+          <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
 			<div class="node_body">
 				{% if node.category == 'A' %}
 				<h1 class="article_title">{{ node.title }}</h1>
+        <div class="published">Published {{node.date|naturaltime}}</div>
+        {% if node.user != request.user %}
+        {% include "snippets/joint_person_big.html" with pic='user' user=node.user %}
+				{% endif %}
 				{% endif %}
 				<div class="interaction_top">
 					<div class="text-center vote_box ajax_papa">
@@ -49,30 +61,21 @@
 				{% else %}
 				<div class="article_body">{{ node.post|new_tab|safe|urlize }}</div>
 				{% endif %}
-				{% if node.get_tags %}
-				<div class="tags">
-					<span class="fa fa-tags fa-fw"></span>
-					{% for tag in node.get_tags %}
-						<a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-					{% endfor %}
-				</div>
-				{% endif %}
-				<div class="text-right author">
-					{% include "snippets/joint_name.html" with user=node.user %}<time property='dateCreated' class="text-muted"> {{node.date}} </time>
-				</div>
 			</div>
 			<div class="node_extra">
-				<div class="comments">
-				{%  for c in node.get_all_comments %}
-					{% include "snippets/comment.html" with comment=c %}
-				{% endfor %}
-
+        <div class="interaction_top">
+					<div class="text-center vote_box ajax_papa">
+						{% include "snippets/like_box.html" with node=node %}
+					</div>
+					<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{node.get_all_comments|length}}</span> Comments</a>
 				</div>
 				<div class="interaction">
-					<a class="a_collapse text-muted" data-hide=true><span class="fa fa-commenting-o inline_fa"></span>Write a Comment</a>
-			    <div class="collapse">
-						{% include "snippets/comment_form.html" with type='n' post=node %}
-					</div>
+          <div class="comments">
+            {% include "snippets/comment_form.html" with type='n' post=node %}
+            {%  for c in node.get_all_comments %}
+            {% include "snippets/comment.html" with comment=c %}
+            {% endfor %}
+          </div>
 				</div>
 			</div>
 		</div>

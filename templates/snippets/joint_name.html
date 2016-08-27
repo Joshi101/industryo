@@ -1,5 +1,8 @@
 {% if user.userprofile.primary_workplace %}
 <div class="joint_name" property='author' typeof='Person'>
+  {% if action %}
+  {{action}}
+  {% endif %}
 	<a class="name_user {% ifequal user.username request.user.username %}same{% endifequal %}" {% if not anony %}href="{% url 'user:profile' user.username %}"{% endif %} property='sameAs'>
 		<span property='name'>{% if anony %}Anonymous{% else %}{{ user.get_full_name }}{% endif %}</span>
 	</a>
@@ -10,6 +13,9 @@
 </div>
 {% else %}
 <div class="joint_name" property='author' typeof='Person'>
+  {% if action %}
+  {{action}}
+  {% endif %}
 	<a class="name_user {% ifequal user.username request.user.username %}same{% endifequal %}" {% if not anony %}href="{% url 'user:profile' user.username %}"{% endif %} property='sameAs'>
 		<span property='name'>{% if anony %}Anonymous{% else %}{{ user.get_full_name }}{% endif %}</span>
 	</a>

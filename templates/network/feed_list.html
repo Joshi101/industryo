@@ -1,3 +1,5 @@
+{% include "snippets/feed_form.html" %}
+
 {% for a in result_list %}
   {% if a.category == 'F' %}
 		{% include 'nodes/one_node.html' with node=a %}

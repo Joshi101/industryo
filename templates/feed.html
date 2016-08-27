@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head_css %}
+  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.min.css' %}">
+{% endblock %}
+
+{% block head_js %}
+  {{ block.super }}
+  <script src="{% static 'trumbowyg/trumbowyg.min.js' %}"></script>
+{% endblock %}
 
 {% block body %}
   <div class="container">
@@ -11,10 +21,10 @@
 							<li><a href="{% url 'nodes:articles' %}"><span class="fa fa-newspaper-o inline_fa"></span>Articles</a></li>
 							<li><a href="/?a=a"><span class="fa fa-rss inline_fa"></span>Activity</a></li>
 						</ul>
-						{% block feed_body %}
             {% if user.is_authenticated %}
-						  {% include "snippets/feed_form.html" %}
+            {% include "snippets/feed_form.html" %}
             {% endif %}
+						{% block feed_body %}
 						<div class="ajax_andar feeds">
 							{% include "snippets/figure_modal.html" %}
 							{% include 'nodes/five_nodes.html' with result_list=result_list %}

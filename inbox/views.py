@@ -9,6 +9,7 @@ from operator import attrgetter
 from itertools import chain
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 @login_required
 def inbox(request):
     user = request.user
