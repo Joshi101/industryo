@@ -4,6 +4,23 @@
  * Date: 22-06-2015
  */
 
+
+$('.qa_wyg').trumbowyg({
+      btns: [
+        // ['viewHTML'],
+        // ['formatting'],
+        'btnGrp-semantic',
+        ['superscript', 'subscript'],
+        ['link'],
+        ['insertImage'],
+        'btnGrp-lists',
+        'btnGrp-justify',
+        ['horizontalRule'],
+        ['removeformat'],
+        ['fullscreen']
+      ]
+    });
+
 /* global parameters */
 
 $(function () {

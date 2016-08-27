@@ -14,15 +14,21 @@
     position: absolute;
     z-index: 98;
     padding: 15px;
-    top: 5px;
+    top: 0px;
     left: 0;
     width: 200px;
     height: 100%;
-    background: #f9f9f9;
+    background: #fff;
+    box-shadow: 2px 0px 2px -1px rgba(200,200,200,0.52);
+    border-right: #eee;
 
     &.affix{
         position: fixed;
-        top: 56px;
+        top: 51px;
+    }
+
+    @media (max-width: 768px){
+/*         background-color: #555; */
     }
 
     .toggle {
@@ -42,6 +48,11 @@
     a[data-status='closed']{
         color: #000;
         transition: 0.5s all ease-out;
+    }
+
+    nav{
+        height: 100%;
+        overflow: auto;
     }
 }
 
@@ -110,10 +121,6 @@
         vertical-align: baseline;
         line-height: 1.4;
     }
-}
-
-footer{
-    margin-top: 50px;
 }
 
 .inline_tags {

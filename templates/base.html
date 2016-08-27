@@ -46,7 +46,7 @@
   <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.min.css' %}>
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
-
+  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.min.css' %}">
   {% block head_css %}
     <!-- local css files (to be added at level 2) -->
   {% endblock head_css %}
@@ -57,6 +57,7 @@
   <script type="text/javascript" src={% static 'bootstrap/js/bootstrap.min.js' %}></script>
 
   <!-- not basic implement at sublevels -->
+  <script src="{% static 'trumbowyg/trumbowyg.min.js' %}"></script>
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
   <script type="text/javascript" src={% static 'js/autosize.min.js' %}></script>
   {% endcompress %}
@@ -118,7 +119,17 @@
   {% block foot %}
   <footer class="container-fluid">
     <div class="row">
-      <div class="col-xs-6 col-sm-4 connect text-center">
+      <div class="col-xs-6 connect">
+        <h3>Follow CoreLogs on</h3>
+        <ul>
+          <li><a target="_blank" href="https://www.facebook.com/corelogs.page"><i class="fa fa-facebook"></i></a></li>
+          <li><a target="_blank" href="https://www.plus.google.com/+Corelogs"><i class="fa fa-google-plus"></i></a></li>
+          <li><a target="_blank" href="https://www.twitter.com/Corelogstwt"><i class="fa fa-twitter"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/company/corelogs"><i class="fa fa-linkedin"></i></a></li>
+          <li><a target="_blank" href="https://angel.co/corelogs"><i class="fa fa-angellist"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-xs-6 col-sm-4 text-center">
         <h3>Follow CoreLogs on</h3>
         <ul>
           <li><a target="_blank" href="{% url 'all_category' %}">Product Categories</a></li>
@@ -129,17 +140,6 @@
           <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
         </ul>
       </div>
-      <div class="col-xs-6 col-sm-4 connect text-center">
-        <h3>Follow CoreLogs on</h3>
-        <ul>
-          <li><a target="_blank" href="https://www.facebook.com/corelogs.page"><i class="fa fa-facebook"></i></a></li>
-          <li><a target="_blank" href="https://www.plus.google.com/+Corelogs"><i class="fa fa-google-plus"></i></a></li>
-          <li><a target="_blank" href="https://www.twitter.com/Corelogstwt"><i class="fa fa-twitter"></i></a></li>
-          <li><a target="_blank" href="https://www.linkedin.com/company/corelogs"><i class="fa fa-linkedin"></i></a></li>
-          <li><a target="_blank" href="https://angel.co/corelogs"><i class="fa fa-angellist"></i></a></li>
-        </ul>
-      </div>
-
   	  <div class="col-xs-6 col-sm-4 foot_links">
   			<h3>
           <i class="fa fa-link"></i>LINKS

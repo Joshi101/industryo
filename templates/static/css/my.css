@@ -187,6 +187,10 @@ img{
   margin-left: 10px;
 }
 
+.pre_nav .nav_advert .btn:hover{
+  color: #333;
+}
+
 @media(max-width:768px){
   .pre_nav .nav_advert{
     text-align: right;
@@ -1691,23 +1695,6 @@ a {
 
   color: #333;
 }
-
-footer {
-  position: relative;
-  padding-bottom: 10px;
-  border-top: 1px solid #fff;
-  padding: 10px;
-  background-color: rgba(40, 40, 40, 1);
-  color: #fff;
-}
-
-footer .connect ul{
-  list-style: none;
-}
-
-footer .connect li{
-  /*! display: inline-block; */
-}
 /*profile page*/
 
 .acc_detail {
@@ -2040,8 +2027,6 @@ input.cropit-image-input {
   line-height: 40px;
   margin-right: 5%;
   overflow: hidden;
-  
-  text-overflow: 
 
   border: 1px solid #eee;
 }
@@ -2386,34 +2371,64 @@ h4 > .edit_post:hover {
 	height: 20px;
 }
 
-footer h3{
-  font-size: 14px;
-  padding-bottom: 7px;
-  color:#ccc;
-  border-bottom: 1px solid #666;
-  line-height: 1.42857143;
-}
 
-footer .connect i{
-  display: inline-block;
-  width: 35px;
-  font-size: 15px;
-  line-height: 25px;
-}
-
-footer{
+footer {
   position: relative;
+  padding-bottom: 10px;
+  border-top: 1px solid #fff;
+  background-color: rgba(40, 40, 40, 1);
+  color: #fff;
   z-index: 99;
   font-size: 13px;
   top: 100%;
   margin-top: 50px;
+  padding: 25px 4%;
+}
+
+footer .connect ul{
+  list-style: none;
+}
+
+footer .connect li{
+  display: inline-block;
+}
+
+footer .connect li a{
+  display: block;
+  height: 36px;
+  width: 36px;
+  line-height: 36px;
+  background-color: #333;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 10px 10px 0;
+}
+
+
+footer .connect i{
+  margin: 0;
+  width: 30px;
+}
+
+footer h3{
+  font-size: 16px;
+  /* font-weight: 700; */
+  font-family: "Open Sans";
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  padding-bottom: 5px;
+  color:#ccc;
+  /* border-bottom: 1px solid #666; */
+  line-height: 1.42857143;
+  padding-left: 3px;
 }
 
 footer .foot_desc{
   padding: 20px 20px 0;
   text-align: justify;
   color: #ccc;
-  font-size: 0.95em;
+  /* font-size: 0.95em; */
 }
 
 footer .foot_logo{
@@ -2426,7 +2441,14 @@ footer .foot_logo img{
 }
 
 footer .foot_links li{
-  padding: 2px;
+  font-size: 15px;
+/*   font-family: 'Titillium Web'; */
+  font-weight: 700;
+  margin: 0 10px 10px 0;
+}
+
+footer .foot_links_more li{
+  line-height: 21px;
 }
 
 footer a{
@@ -2439,7 +2461,6 @@ footer a:hover, footer a:focus{
 
 footer .fa{
   display: inline-block;
-  width: 30px;
 }
 
 footer .contact .col-xs-6{
@@ -3186,7 +3207,6 @@ footer .contact li{
 
 .enquiry_long .enq_hand{
   position: absolute;
-  top: ;
   left: 30px;
   font-size: 12px;
   color: #999;
@@ -4567,7 +4587,7 @@ input.not_wide{
 }
 
 .new_form .char_count:after{
-  content: ' characters left';5
+  content: ' characters left';
 }
 
 .new_form .input_tags{
@@ -5106,7 +5126,7 @@ input.not_wide{
   height: 50px;
   width: 50px;
   border-radius: 25px;
-  border: 1px solid #72e0c4;
+  border: 1px solid #07a0c3;
   text-align: center;
   font-size: 25px;
   font-weight: 200;

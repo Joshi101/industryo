@@ -11,14 +11,19 @@
   position: absolute;
   z-index: 98;
   padding: 15px;
-  top: 5px;
+  top: 0px;
   left: 0;
   width: 200px;
   height: 100%;
-  background: #f9f9f9; }
+  background: #fff;
+  box-shadow: 2px 0px 2px -1px rgba(200, 200, 200, 0.52);
+  border-right: #eee; }
   .menu_left.affix {
     position: fixed;
-    top: 56px; }
+    top: 51px; }
+  @media (max-width: 768px) {
+    .menu_left {
+      /*         background-color: #555; */ } }
   .menu_left .toggle {
     display: inline-block;
     margin: 0 15px 5px;
@@ -32,6 +37,9 @@
   .menu_left a[data-status='closed'] {
     color: #000;
     transition: 0.5s all ease-out; }
+  .menu_left nav {
+    height: 100%;
+    overflow: auto; }
 
 .tab_list {
   list-style: none;
@@ -83,9 +91,6 @@
     text-align: center;
     vertical-align: baseline;
     line-height: 1.4; }
-
-footer {
-  margin-top: 50px; }
 
 .inline_tags {
   background: #fff;

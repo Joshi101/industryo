@@ -46,6 +46,7 @@
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
   <link rel="stylesheet" href={% static 'sassout/test.css' %}>
+  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.min.css' %}">
   <!-- third party -->
   <script type="text/javascript" src={% static 'js/jquery-2.2.4.min.js' %}></script>
   {% compress js %}
@@ -53,6 +54,7 @@
   <!-- not basic implement at sublevels -->
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
   <script type="text/javascript" src={% static 'js/autosize.min.js' %}></script>
+  <script type="text/javascript" src="{% static 'trumbowyg/trumbowyg.min.js' %}"></script>
   {% endcompress %}
 </head>
 
@@ -70,20 +72,9 @@
   </div>
 
   {% block foot %}
-  <footer class="container-fluid">
+  <footer>
     <div class="row">
-      <div class="col-xs-6 col-sm-4 connect text-center">
-        <h3>Follow CoreLogs on</h3>
-        <ul>
-          <li><a target="_blank" href="{% url 'all_category' %}">Product Categories</a></li>
-          <li><a target="_blank" href="/tags/">Tags</a></li>
-          <li><a target="_blank" href="/leads/">Business Leads</a></li>
-          <li><a target="_blank" href="/marketplace">Industrial &amp; SME Related Productss</a></li>
-          <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
-          <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
-        </ul>
-      </div>
-      <div class="col-xs-6 col-sm-4 connect text-center">
+      <div class="col-xs-6 col-sm-4 connect">
         <h3>Follow CoreLogs on</h3>
         <ul>
           <li><a target="_blank" href="https://www.facebook.com/corelogs.page"><i class="fa fa-facebook"></i></a></li>
@@ -93,12 +84,13 @@
           <li><a target="_blank" href="https://angel.co/corelogs"><i class="fa fa-angellist"></i></a></li>
         </ul>
       </div>
-
-  	  <div class="col-xs-6 col-sm-4 foot_links">
+      <div class="col-xs-6 col-sm-4 foot_links">
   			<h3>
-          <i class="fa fa-link"></i>LINKS
-  			</h3>
-  			<ul class="list-unstyled">
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle"></i>
+          <i class="fa fa-circle"></i>
+        </h3>
+  			<ul class="list-unstyled list-inline">
     			<li>
     			<a class="" href="/about">About CoreLogs</a>
     			</li>
@@ -115,6 +107,17 @@
     			<a class="" href="/terms">Terms and Privacy</a>
     			</li>
   			</ul>
+      </div>
+      <div class="col-xs-6 col-sm-4 foot_links_more">
+        <h3><i class="fa fa-link"></i> LINKS</h3>
+        <ul class="list-unstyled list-inline">
+          <li><a target="_blank" href="{% url 'all_category' %}">Product Categories</a></li>
+          <li><a target="_blank" href="/tags/">Tags</a></li>
+          <li><a target="_blank" href="/leads/">Business Leads</a></li>
+          <li><a target="_blank" href="/marketplace">Industrial &amp; SME Related Productss</a></li>
+          <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
+          <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
+        </ul>
       </div>
     </div>
     <div class="row">
