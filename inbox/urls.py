@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^sent_messages$', views.sent_messages, name='sent_messages'),
     url(r'^mark_seen$', views.mark_seen, name='mark_seen'),
     url(r'^enquire/$', unified.enquire, name='unified_enquire'),
+    url(r'^check/$', views.check, name='check'),
 
 ]

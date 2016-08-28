@@ -14,3 +14,22 @@
     {% include 'forum/one_question.html' with q=a %}
   {% endif %}
 {% endfor %}
+
+<script type="text/javascript">
+
+$('.qa_wyg').trumbowyg({
+    btns: [
+      // ['viewHTML'],
+      // ['formatting'],
+      'btnGrp-semantic',
+      ['superscript', 'subscript'],
+      ['link'],
+      ['insertImage'],
+      'btnGrp-lists',
+      'btnGrp-justify',
+      ['horizontalRule'],
+      ['removeformat'],
+      ['fullscreen']
+    ]
+  });
+</script>

@@ -1,5 +1,9 @@
 <div class="eq_flex">
 {% for w in workplaces %}
-  {% include "network/workplace_card.html" with w=w %}
+  {% if w in cons %}
+    {% include "network/workplace_card.html" with w=w connected=True %}
+  {% else %}
+    {% include "network/workplace_card.html" with w=w %}
+  {% endif %}
 {% endfor %}
 </div>

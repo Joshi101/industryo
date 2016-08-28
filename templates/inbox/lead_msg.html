@@ -1,11 +1,28 @@
 <header>
   <h4>Quotation on <a href="{% url 'leads:lead' result.lead.slug %}">{{result.lead}}</a></h4>
+  {% with reply=result %}
+  <div class="joint_name_new">
+    <img src="{{reply.workplace.get_logo}}" alt="{{reply.workplace}}">
+    <div class="names">
+      <a class="name" href="{% url 'workplace:workplace_profile' reply.workplace %}">{{ reply.workplace }}</a>
+      <div class="extra">
+        submitted by <a class="name" href="{% url 'user:profile' reply.user.username %}">{{ reply.user.get_full_name|default:user }}</a>
+        <span class="pull-right">{{reply.date}}</span>
+      </div>
+    </div>
+  </div>
+  {% endwith %}
 </header>
-{% include 'leads/one_reply.html' with reply=result %}
-<div class='col-md-4'>
-	<div class="reply" title="Send a message to {{result.user.userprofile}}" data-toggle="tooltip">
-		<a class="btn btn-success" data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
-		<span class="fa fa-reply inline_fa"></span> Send a Reply</a>
-	</div>
+{% include 'leads/one_reply.html' with reply=result nohead='true' %}
+<div class="reply">
+  <form method="post" action="{% url 'messages:send_message' %}">
+    <h4 class="hide"><span class="fa fa-reply"></span> Conversation Regarding Quotation</h4>
+    {% csrf_token %}
+    <input name="person" value="{{result.user}}" autocomplete="off" type="hidden">
+    <input type="hidden" name="subject" value="Conversation Regarding Quotation">
+    <textarea class="form-control" id="message" name="message" placeholder="Click here to Reply with a message" rows="4"></textarea>
+    <div class="text-right" style="margin-top: 15px;">
+      <button type="button" class="btn btn-primary hide msg_send">Send</button>
+    </div>
+  </form>
 </div>
-{% include "messages/reply_to_modal.html" with user=result.user subject='Conversation Regarding Quotation' result=result %}

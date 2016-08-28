@@ -2972,8 +2972,8 @@ footer .contact li{
 
 .loading .fa{
   position: absolute;
-  top: 100px;
-  margin-top: -20px;
+  top: 15px;
+  /* margin-top: -20px; */
 }
 
 .side_product img{
@@ -6150,7 +6150,7 @@ and in bootstrap.css
 
 .mailbox{
   border: 1px solid #eee;
-  margin-top: 55px;
+  margin-top: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
@@ -6173,6 +6173,7 @@ and in bootstrap.css
   display: flex;
   color: #333;
   padding: 10px;
+  align-items: flex-start;
 }
 
 .mailbox h4 a:hover, .mailbox h4 a:focus{
@@ -6211,6 +6212,8 @@ and in bootstrap.css
 
 .mailbox h4.strong .name, .mailbox h4.strong .subject{
   font-weight: 700;
+  /* min-width: 0; */
+  /* overflow: hidden; */
 }
 
 .mailbox .label{
@@ -6221,19 +6224,20 @@ and in bootstrap.css
 }
 
 .slider{
-  max-height: 1000px;
+  /* max-height: 1000px; */
   width: 100%;
   overflow: hidden;
 }
 
 .inbox_msg{
-  border: 1px solid #000;
-  margin: 5px 0;
+  border: 1px solid #ddd;
+  margin: 5px;
   background: #fff;
+  box-shadow: 0 1px 4px -1px rgba(0,0,0,0.2);
 }
 
 .inbox_msg header{
-  background: #fafafa;
+  background: #eee;
   margin: 0;
   padding: 15px;
   border-bottom: 1px solid #ccc;
@@ -6242,6 +6246,8 @@ and in bootstrap.css
 .inbox_msg header h4{
   font-size: 20px;
   margin: 0;
+  font-weight: bold;
+  margin-left: 2px;
 }
 
 .inbox_msg header p{
@@ -6387,6 +6393,10 @@ and in bootstrap.css
 .in_left ul:nth-child(4) li.active a:focus{
   background: rgba(16,144,112,0.1);
   border-right: 3px solid #197;
+}
+
+.welcome{
+  margin: 30px 25px;
 }
 
 .welcome .note_group{
@@ -6604,11 +6614,20 @@ and in bootstrap.css
     /* margin-left: 10px; */
     vertical-align: top;
     color: #999;
+    flex-grow: 1;
     }
     .joint_name_new .names .extra {
       display: block;
       font-size: 12px; }
 
+
+.inbox_msg .joint_name_new{
+  margin-bottom: 0;
+  border: 0;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 14px;
+}
 
 .more_less{
   display:block;
@@ -6771,4 +6790,54 @@ and in bootstrap.css
   background-color: #fff;
   overflow: hidden;
   top: -1px;
+}
+
+.reply{
+  background-color: #eee;
+}
+
+.reply h4{
+  background-color: #fff;
+  margin: 0;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  border-bottom: 0;
+  font-weight: bold;
+}
+
+.reply form{
+  padding: 20px;
+}
+
+.trumbowyg-box{
+  margin: 0;
+}
+
+.trumbowyg-editor{
+  background-color: #fff;
+}
+
+.new_msg .modal-header{
+  background-color: #333;
+  color: #fff;
+}
+
+.new_msg .modal-header .close{
+  color: #fff;
+  opacity: 0.75;
+}
+
+.new_msg .form-group input{
+  border-bottom: 0;
+}
+
+.new_msg .form-group .form-control{
+  min-height: 40px;
+  padding: 12px;
+}
+
+.new_msg .form-group .form-control:focus{
+  border-color: #ccc;
+  box-shadow: 0 0 1px #bbb inset;
 }

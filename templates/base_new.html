@@ -43,10 +43,10 @@
   <!-- third party -->
   <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}>
   <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.min.css' %}>
+  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.min.css' %}">
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
   <link rel="stylesheet" href={% static 'sassout/test.css' %}>
-  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.min.css' %}">
   <!-- third party -->
   <script type="text/javascript" src={% static 'js/jquery-2.2.4.min.js' %}></script>
   {% compress js %}
@@ -75,7 +75,7 @@
   <footer>
     <div class="row">
       <div class="col-xs-6 col-sm-4 connect">
-        <h3>Follow CoreLogs on</h3>
+        <h3><span class="fa fa-share-alt"></span>Follow CoreLogs on</h3>
         <ul>
           <li><a target="_blank" href="https://www.facebook.com/corelogs.page"><i class="fa fa-facebook"></i></a></li>
           <li><a target="_blank" href="https://www.plus.google.com/+Corelogs"><i class="fa fa-google-plus"></i></a></li>
@@ -108,15 +108,19 @@
     			</li>
   			</ul>
       </div>
-      <div class="col-xs-6 col-sm-4 foot_links_more">
-        <h3><i class="fa fa-link"></i> LINKS</h3>
+      <div class="col-xs-12 col-sm-4 foot_links_more">
+        <h3><i class="fa fa-link"></i> Quick Links</h3>
         <ul class="list-unstyled list-inline">
           <li><a target="_blank" href="{% url 'all_category' %}">Product Categories</a></li>
           <li><a target="_blank" href="/tags/">Tags</a></li>
           <li><a target="_blank" href="/leads/">Business Leads</a></li>
-          <li><a target="_blank" href="/marketplace">Industrial &amp; SME Related Productss</a></li>
-          <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
-          <li><a target="_blank" href="/marketplace/?q=1">SAE Baja and Supra related Products</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 foot_links_extra">
+        <ul class="list-unstyled list-inline">
+
         </ul>
       </div>
     </div>
@@ -129,7 +133,6 @@
     </div>
   </footer>
   {% endblock foot %}
-  {% include "irritate_modal.html" %}
 
   {% block end_js %}
   {% compress js %}

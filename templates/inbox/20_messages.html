@@ -1,4 +1,6 @@
 <div id="inbox_list" class="slider">
+  {% include "messages/new_modal.html" %}
+  <a class="btn btn-default" href="#msg_modal" data-toggle='modal'><span class="fa fa-pencil-square-o"></span> Compose Message</a>
   <div class="mailbox">
     {% for result in result_list %}
     <div class="panel">
@@ -43,9 +45,8 @@
             <input type="hidden" name="id" value="{{result.id}}">
           </form>
           <span class="label label-info">Message</span>
-          <span class="trunc name">{{result.get_other_user.userprofile}}</span>
-
-          <span class="subject"><span class="trunc">{{result.subject}} ({{result.get_msg_count}})</span></span>
+          <span class="trunc name">{% if result.user1 == user %}{{result.user2}}{% else %}{{result.user2}}{% endif %}</span>
+          <span class="subject trunc">{{result.subject}} ({{result.get_msg_count}})</span>
           <time class="trunc">{{result.date}}</time>
         </a>
         {% endif %}

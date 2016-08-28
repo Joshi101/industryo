@@ -21,6 +21,21 @@ $('.qa_wyg').trumbowyg({
       ]
     });
 
+$('.wyg').trumbowyg({
+      btns: [
+        ['formatting'],
+        'btnGrp-semantic',
+        ['superscript', 'subscript'],
+        ['link'],
+        ['insertImage'],
+        'btnGrp-lists',
+        'btnGrp-justify',
+        ['horizontalRule'],
+        ['removeformat'],
+        // ['fullscreen']
+      ]
+    });
+
 /* global parameters */
 
 $(function () {
@@ -2948,3 +2963,34 @@ $('body').on('click', '.shell_input', function(){
 });
 
 
+$('.body').on('click', '.reply .form-control', function(){
+    var $this = $(this);
+    $this.trumbowyg({
+      btns: [
+        // ['viewHTML'],
+        // ['formatting'],
+        'btnGrp-semantic',
+        ['superscript', 'subscript'],
+        ['link'],
+        ['insertImage'],
+        'btnGrp-lists',
+        'btnGrp-justify',
+        ['horizontalRule'],
+        ['removeformat'],
+        ['fullscreen']
+      ]
+    });
+    $this.closest('form').find('.hide').removeClass('hide');
+    $this.closest('form').find('.trumbowyg-editor').focus();
+});
+
+$('body').on('click', '.msg_send', function(event){
+    ajx_form($(this).closest('form'), receiveModal, messageFailed);
+});
+
+function receiveModal($form, response){
+    if(!$form.find('.success_modal').length){
+        $form.append(response.msg);
+    }
+    $form.find('.success_modal').modal();
+}

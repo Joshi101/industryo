@@ -1,108 +1,32 @@
-{% extends 'base_new.html' %}
+{% extends 'base.html' %}
 
 {% block body %}
-  <div class="menu_left" data-spy="affix" data-offset-top="50">
-    <a class="toggle" href="#" data-slide="#all_categories" data-status="open"><span class="fa fa-bars slim_fa"></span></a>
-    <nav>
-  	  <ul class="tab_list">
-        <li>
-          <a href="#sub_menu1" data-toggle="collapse">
-            <span class="fa_img"><img src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace}}"></span>
-            {{user.userprofile.primary_workplace}}
-            <span class="plus-sign"></span>
-          </a>
-          <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
-            <li>
-              <a href="{% url 'workplace:dashboard' workplace.slug %}">
-                <span class="fa fa-dashboard"></span>
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'workplace:products' workplace.slug %}">
-                <span class="fa fa-cubes"></span>
-                Products
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'workplace:activity' workplace.slug %}">
-                <span class="fa fa-rss"></span>
-                Activity
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="{% url 'inbox:inbox' %}"><span class="fa fa-inbox fa-fw"></span>
-            Inbox
-          </a>
-        </li>
-      </ul>
-      <ul class="tab_list">
-        <li>
-          <a href="{% url 'network:network' %}">
-            <span class="fa fa-globe"></span>
-            Network
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'forum:questions' %}">
-            <span class="fa fa-lightbulb-o"></span>
-            Forum
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'nodes:articles' %}">
-            <span class="fa fa-newspaper-o"></span>
-            Articles
-          </a>
-        </li>
-			</ul>
-    </nav>
+<div class="container">
+  <h1 class="text-center">Welcome <strong>{{request.user.userprofile}}!</strong></h1>
+  <div class="xl_p wide_80" style="font-weight: 300;">
+    <p class="text-center text-muted">look at what you have got and <span class="text-success">make the best of it</span></p>
   </div>
-  <section class="flex_section">
-    {% if add_tags %}
-      {% include "network/add_tags.html" %}
-    {% else %}
-    <div class="section_mid">
-      <form id="filter_tag" action="" method="post">
-        <div class="form-group">
-          <div class="inline_tags">
-            {% include "snippets/d_search_tags.html" with search="tag" type='All' tags=tags.city name='filter_tags' no_create=True placeholder='Filter Your View by adding or removing Tags' %}
-          </div>
-        </div>
-      </form>
-      <ul id="network_nav" class="nav nav-pills nav-justified nav_justified_xs nav_activate ">
-        <li class="active">
-          <a href="{% url 'network:companies' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-industry inline_fa"></span>Companies</a>
-        </li>
-        <!--
-        <li>
-          <a href="{% url 'network:products' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-cubes inline_fa"></span>Products</a>
-        </li>
-        -->
-        <li>
-          <a href="{% url 'network:feed' %}" data-place="#network_content" class="ajax_a2" data-post="#filter_tag .d_value"><span class="fa fa-rss inline_fa"></span>Activity</a>
-        </li>
-      </ul>
-      <section class="" style="min-height: 250px;">
-        <div id="network_content" class="ajax_load2" data-url="{% url 'network:companies' %}" data-post="#filter_tag .d_value">
-          <div class="loading">
-            <i class="fa fa-spin fa-spinner"></i>
-          </div>
-          <div class="content">
-
-          </div>
-        </div>
-      </section>
+  <div class="welcome">
+    <div class="note_group">
+      <a href="{% url 'workplace:workplace_profile' user.userprofile.primary_workplace.slug %}" class="note">
+        <h3>Identity</h3>
+        <div class="figure"><img src="/images/Untitled-16.jpg"/></div>
+        <h4>A Company Profile and a Dashboard</h4>
+        <p>Your new found place on internet! Add products and information of your company and increase its visibility like never before. For free!</p>
+      </a>
+      <a href="{% url 'network:network' %}" class="note">
+        <h3>Network</h3>
+        <div class="figure"><img src="/images/Untitled-14.jpg"/></div>
+        <h4>A Business Oriented Network for SMEs</h4>
+        <p>Discuss, Share Updates and Connect with people in your business. Show what you do and know about others!</p>
+      </a>
+      <a href="{% url 'inbox:inbox' %}" class="note">
+        <h3>CRM</h3>
+        <div class="figure"><img src="/images/Untitled-15.jpg"/></div>
+        <h4>Customer Relationship Management</h4>
+        <p>A basic cloud based CRM, that lets you manage Leads, Quotations and Inquiries with ease, anywhere, anytime! </p>
+      </a>
     </div>
-    <div class="aside_right pc_only">
-      <section class="tile wide_40">
-        <div class="ajax_load" data-url="{% url 'network:side_overview' %}" data-post="#filter_tag .d_value">
-
-        </div>
-      </section>
-    </div>
-    {% endif %}
-  </section>
+  </div>
+</div>
 {% endblock body %}
