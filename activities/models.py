@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import escape
-# from chat.models import Conversation
+from home.notification_template import *
 
 
 class Activity(models.Model):
@@ -99,7 +99,7 @@ class Notification(models.Model):
     _ALSO_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the post: <a href="/nodes/{2}/">{3}</a>'    # working
     _ALSO_Q_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the question: <a href="/forum/{2}/">{3}</a>'    # working
     _ALSO_A_COMMENTED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also commented on the answer: <a href="/forum/{2}/">{3}</a>'    # working
-    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your enterprise'  # fuck
+    _JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has joined your company/ institution'  # fuck
     _ALSO_JOINED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> also joined your workplace'  # fuck
     _EDITED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has made some edits to the enterprise profile'  # fuck
     _FOLLOWS_TEMPLATE = u'<a href="/user/{0}/">{1}</a> from <a href="/enterprise/{2}/">{3}</a> is following you now'  #fuck
@@ -110,6 +110,7 @@ class Notification(models.Model):
     _ANSWERED_TEMPLATE = u'<a href="/user/{0}/">{1}</a> has replied to the question: <a href="/forum/{2}/">{3}</a>'            # working
     # _Inquired_User_Template = u'<a href="/user/{0}/">{1}</a> Made an <a href="/products/enquiry_all/">enquiry</a>'
     # _Inquired_Anon_Template = u'''{0}, made an <a href="/products/enquiry_all/">enquiry</a>'''
+    _Connected_Template = u"<a href='/workplace/{0}/'>{1}</a> connected to your company"
 
     from_user = models.ForeignKey(User, related_name='+')
     to_user = models.ForeignKey(User, related_name='+')
@@ -123,7 +124,7 @@ class Notification(models.Model):
 
     notification_type = models.CharField(max_length=1, choices=NOTIFICATION_TYPES)
     is_read = models.BooleanField(default=False)
-    mail_sent = models.BooleanField(default=True) # after migration, change to false
+    mail_sent = models.BooleanField(default=False)  # after migration, change to false
 
     class Meta:
         verbose_name = 'Notification'
@@ -133,12 +134,8 @@ class Notification(models.Model):
     def __str__(self):
         if self.notification_type == self.LIKED:
             if self.node.category == 'A':
-                return self._LIKED_TEMPLATE.format(
-                    escape(self.from_user.username),
-                    escape(self.from_user.userprofile),
-                    self.node.slug,
-                    escape(self.node.title)
-                    )
+                return self._LIKED_TEMPLATE.format(escape(self.from_user.username), escape(self.from_user.userprofile),
+                                                   self.node.slug, escape(self.node.title))
             else:
                 return self._LIKED_TEMPLATE.format(
                     escape(self.from_user.username),
@@ -281,7 +278,11 @@ class Notification(models.Model):
                 return self._Inquired_Anon_Template.format(
                     self.enquiry.name,
                     )
-
+        elif self.notification_type == 'N':
+            return self._Connected_Template.format(
+                escape(self.workplace.slug),
+                escape(self.workplace)
+                )
         else:
             return "Oops! something went wrong."
 
@@ -292,7 +293,122 @@ class Notification(models.Model):
         else:
             return value
 
+    def get_html(self):
+        if self.notification_type == 'L':
+            if self.node.category=='A':
+                template = article_liked.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                self.from_user.username, self.node.title, self.node.slug)
+            else:
+                template = post_liked.format(self.to_user.userprofile, self.from_user.userprofile,
+                                             self.from_user.username, self.node.slug)
+        if self.notification_type == 'U':
+            if self.question:
+                template = question_upvoted.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                   self.from_user.username, self.question.title, self.question.slug) #done
+            if self.answer:
+                template = answer_upvoted.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                 self.from_user.username, self.answer.question.title,
+                                                 self.answer.question.slug) #done
+        # if self.notification_type == 'D':
+        #     if self.question:
+        #         template = question_downvoted.format(self.from_user, self.question.title, self.question.slug)
+        #     if self.answer:
+        #         template = answer_downvoted.format(self.from_user, self.answer.question.title, self.answer.question.slug)
+        if self.notification_type == 'C':
+            if self.node:
+                if self.node.category == 'A':
+                    template = article_commented.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                        self.from_user.username, self.node.title, self.node.slug) #done
+                else:
+                    template = post_commented.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                     self.from_user.username, self.node.slug) # done
+            elif self.question:
+                template = question_commented.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                     self.from_user.username, self.question.title, self.question.slug) #done
+            elif self.answer:
+                template = answer_commented.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                   self.from_user.username, self.answer.question.title,
+                                                   self.answer.question.slug) #done
+        if self.notification_type == 'S':
+            pass    # also commented
+        if self.notification_type == 'J':
+            template = also_joined(self.to_user.userprofile, self.from_user.userprofile,
+                                   self.from_user.username, self.workplace, self.workplace.slug)
+        if self.notification_type == 'N':
+            template = connected(self.to_user.userprofile, self.workplace, self.workplace.slug)
+        return template
 
+    def get_text(self):
+        if self.notification_type == 'L':
+            if self.node.category=='A':
+                template = article_liked_text.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                     self.node.title) #done
+            else:
+                template = post_liked_text.format(self.to_user.userprofile, self.from_user.userprofile) #done
+        if self.notification_type == 'U':
+            if self.question:
+                template = question_upvoted_text.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                        self.question.title) #done
+            if self.answer:
+                template = answer_upvoted_text.format(self.to_user, self.from_user, self.answer.question.title) #done
+        # if self.notification_type == 'D':
+        #     if self.question:
+        #         template = question_downvoted_text.format(self.from_user, self.question.title, self.question.slug)
+        #     if self.answer:
+        #         template = answer_downvoted_text.format(self.from_user, self.answer.question.title, self.answer.question.slug)
+        if self.notification_type == 'C':
+            if self.node:
+                if self.node.category == 'A':
+                    template = article_commented_text.format(self.to_user. userprofile, self.from_user.userprofile,
+                                                             self.node.title) #done
+                else:
+                    template = post_commented_text.format(self.to_user.userprofile, self.from_user.userprofile) #done
+            elif self.question:
+                template = question_commented_text.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                          self.question.title) #done
+            elif self.answer:
+                template = answer_commented_text.format(self.to_user.userprofile, self.from_user.userprofile,
+                                                        self.answer.question.title) #done
+        if self.notification_type == 'S':
+            pass    # also commented
+        if self.notification_type == 'J':
+            template = also_joined_text.format(self.to_user.userprofile, self.from_user.userprofile, self.workplace)
+        if self.notification_type == 'N':
+            template = connected_text.format(self.to_user.userprofile, self.workplace)
 
+        return template
+
+    def get_subject(self):
+        if self.notification_type == 'L':
+            if self.node.category=='A':
+                subject = '[CoreLogs] {0} likes your Article'.format(self.from_user.userprofile)
+            else:
+                subject = '[CoreLogs] {0} likes your update'.format(self.from_user.userprofile)
+        if self.notification_type == 'U':
+            if self.question:
+                subject = '[CoreLogs] {0} upvoted your Question'.format(self.from_user.userprofile)
+            if self.answer:
+                subject = '[CoreLogs] {0} upvoted your Answer'.format(self.from_user.userprofile)
+
+        if self.notification_type == 'C':
+            if self.node:
+                if self.node.category == 'A':
+                    subject = '[CoreLogs] {0} commented on your Article'.format(self.from_user.userprofile)
+                else:
+                    subject = '[CoreLogs] {0} commented on your Update'.format(self.from_user.userprofile)
+            elif self.question:
+                subject = '[CoreLogs] {0} commented on your Question'.format(self.from_user.userprofile)
+            elif self.answer:
+                subject = '[CoreLogs] {0} commented on your Answer'.format(self.from_user.userprofile)
+        if self.notification_type == 'S':
+            pass    # also commented
+        if self.notification_type == 'J':
+            subject = '[CoreLogs] {0} joined your {1} as {2}'.format(self.from_user.userprofile,
+                                                                     self.workplace.get_type_short(),
+                                                                     self.from_user.userprofile.job_position)
+        if self.notification_type == 'N':
+            subject = '[CoreLogs] {0} Connected to Your Company on CoreLogs'.format(self.workplace)
+
+        return subject
 
 # Create your models here.

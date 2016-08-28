@@ -4,6 +4,8 @@ from activities.models import Notification
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import json
+from datetime import datetime, timedelta
+from contacts.models import MailSend
 
 
 # @login_required
@@ -104,6 +106,24 @@ def delete_notifications(**kwargs):
         if not from_user == to_user:
             Notification.objects.filter(from_user=from_user, to_user=to_user, notification_type=typ, workplace=workplace,
                                         node=node, answer=answer, question=question, enquiry=enquiry).delete()
+
+
+def notification_mails():
+    now = datetime.now()
+    print(now)
+    start_time = now - timedelta(days=10)
+    notification_all = Notification.objects.filter(mail_sent=False, date__range=[start_time, now+timedelta(days=1)])
+    print(len(notification_all))
+    for n in notification_all:
+        if n.notification_type in ['L', 'U', 'C', 'J', 'N', 'A']:
+            print(n)
+            subject = n.get_subject()
+            html_content = n.get_html()
+            text_content = n.get_text()
+            m = MailSend.objects.create(email=n.to_user.email, subject=subject, body=html_content, reasons='nm',
+                                        text_content=text_content, date=now)
+            n.mail_sent = True
+            n.save()
 
 
 # Create your views here.

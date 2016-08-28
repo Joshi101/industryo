@@ -24,11 +24,11 @@
 				</div>
 				<div id="wp_set_search" class="form-group">
 					<div class="form-group">
-						<label class="control-label" for="id_job_position">Name of the Workplace</label>
-		    		{% include "snippets/d_search.html" with search="workplace" type="All" placeholder="Type the name of your Company, Team or Institution ..." no_create=True %}
+						<label class="control-label" for="id_job_position">Name of the Company/ Institution</label>
+		    		{% include "snippets/d_search.html" with search="workplace" type="All" placeholder="Ex: ABC Industries Pvt. Ltd." no_create=True %}
 	    		</div>
 	    		<div class="form-group">
-	        	<label class="control-label" for="id_job_position">Working as</label>
+	        	<label class="control-label" for="id_job_position">Working as (Your Designation)</label>
 	      		<input class=" form-control" id="id_job_position" maxlength="50" name="job_position" placeholder='Your Designation / Post' required/>
 					</div>
 					<div class="form-group text-center">

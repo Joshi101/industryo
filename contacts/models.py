@@ -38,7 +38,8 @@ class ContactEmails(models.Model):
 
 class MailSend(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
+    email = models.CharField(max_length=244, null=True, blank=True)
+    # mass_mail = models.CharField(max_length=1000, null=True, blank=True)
     '''
     1: sp@corelogs.com
     2: admin@corelogs.com
@@ -47,6 +48,7 @@ class MailSend(models.Model):
     '''
     from_email = models.CharField(max_length=1, null=True, blank=True)
     body = models.TextField(max_length=10000, null=True)
+    text_content = models.TextField(max_length=10000, null=True, blank=True)
     subject = models.CharField(max_length=255, null=True)
     template = models.CharField(max_length=15, null=True)
     arguments = models.CharField(max_length=100, null=True)

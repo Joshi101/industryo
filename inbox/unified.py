@@ -31,7 +31,6 @@ def enquire(request):
                 if e.count() < 5:
                     e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone,
                                                workplace=prod.producer)
-                    users = e.product.producer.get_members()
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/products/'+prod.slug)
 
@@ -40,7 +39,6 @@ def enquire(request):
                 if e.count() < 5:
                     # Checking if the same person has created more than 5 inquiries that day
                     e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
-                    users = workplace.get_members()
                     execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
                 return redirect('/workplace/'+workplace.slug)
         else:

@@ -24,7 +24,7 @@ import random
 
 def check_executable():
     start_time = datetime.now(pytz.utc)
-    end_time = start_time - timedelta(minutes=30)
+    end_time = start_time - timedelta(days=30)
     mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)[:4]
     for mail in mails:
 
@@ -33,10 +33,8 @@ def check_executable():
             example are product intro mail, workplace intro mail,
             perhaps review mail
             """
-            email = mail.email
-            body = mail.body
-            subject = mail.subject
-            send_mail_contacts(email, body, subject, mail.from_email)
+            send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                               from_e=mail.from_email, text=mail.text_content)
             mail.sent = True
             mail.save()
         elif mail.reasons == "swp":
@@ -44,10 +42,8 @@ def check_executable():
             Here associated tasks are also created pertaining to workplace and also to check products
             """
             if mail.user.userprofile.workplace_type == 'N':
-                email = mail.email
-                body = mail.body
-                subject = mail.subject
-                send_mail_contacts(email, body, subject, mail.from_email)
+                send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                                   from_e=mail.from_email, text=mail.text_content)
                 execute_view('check_no_wp', mail.user.id, schedule=timedelta(days=2))
             else:
                 check_no_wp(mail.user.id)
@@ -57,43 +53,34 @@ def check_executable():
             and i think we will be adding check product data completeness or things like that
             Task for checking the same thing after few days is also created
             '''
-            email = mail.email
-            body = mail.body
-            subject = mail.subject
-            send_mail_contacts(email, body, subject, mail.from_email)
+            send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                               from_e=mail.from_email, text=mail.text_content)
             execute_view('check_no_products', mail.user.id, schedule=timedelta(days=2))
             mail.sent = True
             mail.save()
         elif mail.reasons in ['ipm', 'iwm']:
-            email = mail.email
-            body = mail.body
-            subject = mail.subject
-            send_mail_contacts(email, body, subject, mail.from_email)
+            send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                               from_e=mail.from_email, text=mail.text_content)
             execute_view('check_no_inquiry', mail.enquiry.id, schedule=timedelta(days=2))
             mail.sent = True
             mail.save()
         elif mail.reasons == 'jcm':
             pass
-            # email = mail.email
-            # body = mail.body
-            # subject = mail.subject
-            # send_mail_contacts(email, body, subject, mail.from_email)
-            # mail.sent = True
-            # mail.save()
         elif mail.reasons == ['bm', 'bulk_m']:
-            email = mail.email
-            body = mail.body
-            subject = mail.subject
-            send_mail_contacts(email, body, subject, mail.from_email)
+            send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                               from_e=mail.from_email, text=mail.text_content)
             mail.sent = True
             mail.save()
         elif mail.reasons in ['lqm', 'lcm']:
             if mail.reasons == 'lcm':
                 execute_view('close_lead', mail.random_id, schedule=timedelta(days=5))
-            email = mail.email
-            body = mail.body
-            subject = mail.subject
-            send_mail_contacts(email, body, subject, mail.from_email)
+            send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                               from_e=mail.from_email, text=mail.text_content)
+            mail.sent = True
+            mail.save()
+        elif mail.reasons == 'nm':
+            send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
+                               from_e=mail.from_email, text=mail.text_content)
             mail.sent = True
             mail.save()
     # loop_view()
