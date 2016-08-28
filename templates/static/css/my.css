@@ -6395,6 +6395,10 @@ and in bootstrap.css
   border-right: 3px solid #197;
 }
 
+.welcome{
+  margin: 30px 25px;
+}
+
 .welcome .note_group{
   display: flex;
   text-align: center;

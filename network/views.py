@@ -19,7 +19,7 @@ def network(request):
     tags = workplace.get_tags()
     if len(tags['city']) == 0 or len(tags['segments']) == 0:
         add_tags = True
-    return render(request, 'home.html', locals())
+    return render(request, 'network.html', locals())
 
 
 def network_companies(request):
@@ -28,6 +28,7 @@ def network_companies(request):
     user = request.user
     t = user.userprofile.primary_workplace.workplace_type
     workplaces = Workplace.objects.none()
+    cons = Connections.objects.filter(my_company=user.userprofile.primary_workplace)
     if t in ['A', 'B']:
         li = ['A', 'B']
     else:
@@ -96,7 +97,7 @@ def tag_list(request):
     user = request.user
     t = request.GET.get('what')
     tags = Tags.objects.filter(type=t).order_by('-count')
-    return render(request, 'home.html', locals())
+    return render(request, 'network.html', locals())
 
 
 def side_overview(request):
