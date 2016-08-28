@@ -414,7 +414,7 @@ def fill_emails_daily():
                 except Exception:
                     e = Emails.objects.create(email=em, workplace=w, workplace_type=w.workplace_type)
 
-                    
+
 def wp_email(wp):
     if wp.office_mail_id:
         email1 = wp.office_mail_id.split(',')
