@@ -28,43 +28,15 @@
 <h4>From</h4>
 {% if result.user %}
   <div>
-    User:  
+    User:
     <a href="{% url 'user:profile' result.user.username %}" target="_blank">
       <span class="name">{{ result.user.userprofile }}</span>
     </a>
   </div>
   <div>Phone Number: {{result.phone_no}}</div>
   {% if result.user.userprofile.primary_workplace %}
-    <div>
-      Company: 
-      <a href="{% url 'workplace:workplace_profile' result.user.userprofile.primary_workplace.slug %}">
-        <span class="name">{{ result.user.userprofile.primary_workplace }}</span>  
-      </a>
-    </div>
+
   {% endif %}
-  <div class='row'>
-    <div class='col-md-4'>
-    <div class="reply" title="Send a quotation to {{result.user.userprofile}}" data-toggle="tooltip">
-    <a class="btn btn-success" data-toggle='modal' data-target='#quotation_modal' data-placement="bottom">
-      <span class="fa fa-reply inline_fa"></span> Send a Quotation</a>
-      </div>
-      </div>
-      <div class='col-md-4'>
-    <div class="reply" title="Send a message to {{result.user.userprofile}}" data-toggle="tooltip">
-    <a class="btn btn-success" data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
-      <span class="fa fa-reply inline_fa"></span> Send a Reply</a>
-      </div>
-      </div>
-    </div>
-{% else %}
-  <div>User: {{ result.name }}</div>
-  <div>Email: {{result.email}}</div>
-  <div>Phone Number: {{result.phone_no}}</div>
-  <div>Company: {{result.company}}</div>
-  <div class="reply" title="Send a message to {{result.name}}" data-toggle="tooltip">
-    <a class="btn btn-success" href="mailto:{{result.email}}" target="_blank"><span class="fa fa-envelope inline_fa"></span> Send an email to the Enquirer</a>
-  </div>
-{% endif %}
   </div>
 <!-- <div class='row'>
 <div class='col-md-4'>
