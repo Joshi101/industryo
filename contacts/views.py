@@ -305,7 +305,7 @@ def thread_send(to_send_n):
 #                 c = c+1
 
 def fill_emails():
-    users = User.objects.filter(userprofile__isnull=False, id__gte=145)
+    users = User.objects.filter(userprofile__isnull=False)
     for user in users:
         if user.userprofile.primary_workplace:
             wp = user.userprofile.primary_workplace

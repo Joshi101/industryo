@@ -48,15 +48,15 @@ def send_mail_contacts(**kwargs):
     text_content = kwargs.get('text')
     if not text_content:
         text_content = 'CoreLogs Invites teams to rent Components and safety equipment'
-    # my_host = 'email-smtp.us-west-2.amazonaws.com'
-    # my_port = 587
-    # my_username = sp_username
-    # my_password = sp_password
-
-    my_host = 'smtp.gmail.com'
+    my_host = 'email-smtp.us-west-2.amazonaws.com'
     my_port = 587
-    my_username = 'rohit9gag@gmail.com'
-    my_password = 'SP@nitj.09'
+    my_username = sp_username
+    my_password = sp_password
+
+    # my_host = 'smtp.gmail.com'
+    # my_port = 587
+    # my_username = 'rohit9gag@gmail.com'
+    # my_password = 'SP@nitj.09'
 
     from_email = 'rohit9gag@gmail.com'
     my_use_tls = True

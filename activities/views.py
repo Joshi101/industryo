@@ -110,13 +110,10 @@ def delete_notifications(**kwargs):
 
 def notification_mails():
     now = datetime.now()
-    print(now)
-    start_time = now - timedelta(days=10)
+    start_time = now - timedelta(hours=1)
     notification_all = Notification.objects.filter(mail_sent=False, date__range=[start_time, now+timedelta(days=1)])
-    print(len(notification_all))
     for n in notification_all:
         if n.notification_type in ['L', 'U', 'C', 'J', 'N', 'A']:
-            print(n)
             subject = n.get_subject()
             html_content = n.get_html()
             text_content = n.get_text()
