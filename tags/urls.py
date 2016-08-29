@@ -16,5 +16,7 @@ urlpatterns = [
     url(r'^companies/(?P<slug>[^/]+)/$', views.tag_companies, name='companies'),
     url(r'^products/(?P<slug>[^/]+)/$', views.tag_products, name='products'),
     url(r'^leads/(?P<slug>[^/]+)/$', views.tag_leads, name='leads'),
+    url(r'^delete/(?P<slug>[^/]+)/$', views.delete_tag, name='delete_tag'),
     url(r'^(?P<slug>[^/]+)/$', views.get_tag, name='get_tag'),
+
 ]

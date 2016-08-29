@@ -248,7 +248,10 @@ def merge_tags(remain, destroy):
     destroy.delete()
 
 
-
+def delete_tag(request, slug):
+    # id= request.POST.get('id')
+    Tags.objects.get(slug=slug).delete()
+    return HttpResponse()
 
 
 # Create your views here.
