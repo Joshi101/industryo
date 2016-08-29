@@ -7,7 +7,7 @@
         <h4 class="modal-title">Write a new message</h4>
       </div>
       <div class="modal-body">
-        <form role="form" method="post" action="/messages/send/">
+        <form role="form" method="post" action="{% url 'messages:send_message' %}">
           {% csrf_token %}
           <div class="form-group">
             {% include "snippets/d_search.html" with search="person" placeholder="Search for a person ..." no_create=True %}

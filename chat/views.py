@@ -29,7 +29,8 @@ def send_message(request):
     conversation.last_active = datetime.now()
     conversation.save()
     response = {}
-    response['msg'] = render_to_string('inbox/sent_modal.html', {'msg': m})
+    response['msg'] = render_to_string('inbox/one_msg.html', {'msg': m, 'user': sender})
+    response['modal'] = render_to_string('inbox/sent_modal.html', {'msg': m, 'user': sender})
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
@@ -47,7 +48,8 @@ def reply(request):
     conversation.last_active = datetime.now()
     conversation.save()
     response = {}
-    response['msg'] = render_to_string('inbox/sent_modal.html', {'msg': m})
+    response['msg'] = render_to_string('inbox/one_msg.html', {'msg': m, 'user': sender})
+    response['modal'] = render_to_string('inbox/sent_modal.html', {'msg': m, 'user': sender})
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 

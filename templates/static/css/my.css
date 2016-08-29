@@ -4502,7 +4502,7 @@ input.not_wide{
 
 .new_form .help{
   margin: -8px 0 10px;
-  color: #999;
+  color: #ccc;
   /*! display: block; */
 }
 
@@ -6230,6 +6230,7 @@ and in bootstrap.css
 }
 
 .inbox_msg{
+  position: relative;
   border: 1px solid #ddd;
   margin: 5px;
   background: #fff;
@@ -6840,4 +6841,12 @@ and in bootstrap.css
 .new_msg .form-group .form-control:focus{
   border-color: #ccc;
   box-shadow: 0 0 1px #bbb inset;
+}
+
+.inbox_msg .top_opt{
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 16px;
+  text-align: right;
+  right: 0;
 }

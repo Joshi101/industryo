@@ -2990,7 +2990,7 @@ $('body').on('click', '.msg_send', function(event){
 
 function receiveModal($form, response){
     if(!$form.find('.success_modal').length){
-        $form.append(response.msg);
+        $form.append(response.modal);
     }
     $form.find('.success_modal').modal();
 }

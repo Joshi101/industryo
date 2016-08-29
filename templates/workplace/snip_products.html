@@ -25,25 +25,15 @@
   	</div>
   </div>
   {% endif %}
-
-  
-  <!-- {% if member %}
-  {% for product in workplace.products_set.all %}
-  
-    {% include "products/one_product_management.html" with product=product %}
-  {% endfor %}
-  {% else %} -->
   <ul id="products_list" class="products_list">
     {% include "enquiry/new_auth_modal.html" %}
     {% include "snippets/figure_modal.html" %}
     <div class="clearfix"></div>
-  {% for product in workplace.products_set.all %}
+  {% for product in products %}
   	{% include "products/one_product.html" with product=product %}
   	{% if forloop.counter|divisibleby:3 %}
   	<div class="clearfix"></div>
   	{% endif %}
   {% endfor %}
-  <!-- {% endif %} -->
-  
   </ul>
 </div>

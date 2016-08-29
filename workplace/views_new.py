@@ -105,6 +105,7 @@ def products(request, slug):
             member = True
     content_url = "workplace/snip_products.html"
     content_head_url = "workplace/snip_products_head.html"
+    products = workplace.products_set.all()
     if request.is_ajax():
         return render(request, content_url, locals())
     else:
