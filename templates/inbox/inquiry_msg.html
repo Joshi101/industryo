@@ -45,7 +45,7 @@
   </div>
 </div>
 <div id="reply{{result.id}}" class="reply">
-  <form method="post" action="{% url 'messages:send_message' %}">
+  <form method="post" action="{% if result.user %}{% url 'messages:send_message' %}{% else %}{% url 'messages:send_mail' %}{% endif %}">
     <h4 class="hide"><span class="fa fa-reply"></span> Conversation Regarding Inquiry</h4>
     {% csrf_token %}
     <input name="person" value="{{result.user}}" autocomplete="off" type="hidden">

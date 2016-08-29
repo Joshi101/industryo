@@ -53,12 +53,29 @@ def reply(request):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
-# def forward()
-
-
 def send_reply_to(from_user, to_user, subject, message):
     c = Conversation.objects.create(from_user=from_user, to_user=to_user, subject=subject, last_message_from=from_user,
                                     last_message_to=to_user, last_active=datetime.now())
     m = Message.objects.create(from_user=from_user, to_user=to_user, message=message)
     # c.save()
     return c
+
+
+def send_mail(request):
+    sender = request.user
+    message = request.POST.get('message')
+    to_user = request.POST.get('person')
+    subject = request.POST.get('subject')
+    c = request.POST.get('id')
+    receiver = User.objects.get(username=to_user)
+
+    conversation = Conversation.objects.create(user1=sender, user2=receiver, subject=subject)
+    m = Message.objects.create(message=message, conversation=conversation, from_user=sender, to_user=receiver)
+    conversation.last_message_from = sender
+    conversation.last_message_to = receiver
+    conversation.last_active = datetime.now()
+    conversation.save()
+    response = {}
+    response['msg'] = render_to_string('inbox/one_msg.html', {'msg': m, 'user': sender})
+    response['modal'] = render_to_string('inbox/sent_modal.html', {'msg': m, 'user': sender})
+    return HttpResponse(json.dumps(response), content_type="application/json")
