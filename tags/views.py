@@ -210,8 +210,9 @@ def merge_tags(remain, destroy):
         else:
             w.tags = remain
             w.save()
-        remain.count += 1
-        remain.save()
+    remain.count += destroy.count
+    remain.other_names = remain.other_names + ','+destroy.tag
+    remain.save()
 
     us = User.objects.filter(userprofile__interests=destroy)
     for u in us:

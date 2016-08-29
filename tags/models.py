@@ -5,6 +5,7 @@ from datetime import datetime
 
 class Tags(models.Model):
     tag = models.CharField(max_length=50, db_index=True)
+    other_names = models.CharField(max_length=1000, null=True, blank=True)
     tag_types = (('S', 'Segment'), ('C', 'City'), ('E', 'Event'), ('I', 'IndustrialArea'), ('D', 'ProductCategory'),
                  ('A', 'Asset'), ('O', 'Operation'), ('M', 'Material'), ('P', 'ParentInstitution'),
                  ('N', 'None'), ('T', 'Topic/Subject'))

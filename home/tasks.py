@@ -58,7 +58,7 @@ def send_mail_contacts(**kwargs):
     # my_username = 'rohit9gag@gmail.com'
     # my_password = 'SP@nitj.09'
 
-    from_email = 'rohit9gag@gmail.com'
+    from_email = 'sp@corelogs.com'
     my_use_tls = True
     connection = get_connection(host=my_host,
                                 port=my_port,
