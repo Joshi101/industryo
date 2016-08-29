@@ -9,6 +9,7 @@
   <h4>Inquiry on {{result.workplace}}</h4>
 {% endif %}
 {% with reply=result %}
+{% if result.user %}
 <div class="joint_name_new">
   <img src="{{reply.workplace.get_logo}}" alt="{{reply.workplace}}">
   <div class="names">
@@ -24,6 +25,17 @@
     </div>
   </div>
 </div>
+{% else %}
+<div class="joint_name_new">
+  <div class="names">
+    <span class="name">{{ reply.name }}</span>
+    <div class="extra">
+      Working at <span class="name">{{reply.company}}</span>
+      <span class="pull-right">{{reply.date}}</span>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endwith %}
 </header>
 <div class="form_card">

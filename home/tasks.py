@@ -83,6 +83,7 @@ def get_contacts(id):
     else:
         pass
 
+
 @background(schedule=2)
 def send_html_mail_post(id, n, subject, arguments):
     u = User.objects.get(id=id)

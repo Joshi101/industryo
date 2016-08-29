@@ -211,7 +211,10 @@ def merge_tags(remain, destroy):
             w.tags = remain
             w.save()
     remain.count += destroy.count
-    remain.other_names = remain.other_names + ','+destroy.tag
+    if remain.other_names:
+        remain.other_names = remain.other_names + ','+destroy.tag
+    else:
+        remain.other_names = destroy.tag
     remain.save()
 
     us = User.objects.filter(userprofile__interests=destroy)
@@ -222,7 +225,7 @@ def merge_tags(remain, destroy):
     ts2 = TagRelations.objects.filter(tag2=destroy)
     for t in ts1:
         if not t.tag2 == remain:
-            i = WpTags.objects.filter(Q(tag1=remain, tag2=t.tag2) | Q(tag2=remain, tag1=t.tag2)).first()
+            i = TagRelations.objects.filter(Q(tag1=remain, tag2=t.tag2) | Q(tag2=remain, tag1=t.tag2)).first()
             if i:
                 i.count += 1
                 i.save()
@@ -233,7 +236,7 @@ def merge_tags(remain, destroy):
             t.delete()
     for t in ts2:
         if not t.tag1 == remain:
-            i = WpTags.objects.filter(Q(tag1=remain, tag2=t.tag1) | Q(tag2=remain, tag1=t.tag1)).first()
+            i = TagRelations.objects.filter(Q(tag1=remain, tag2=t.tag1) | Q(tag2=remain, tag1=t.tag1)).first()
             if i:
                 i.count += 1
                 i.save()
