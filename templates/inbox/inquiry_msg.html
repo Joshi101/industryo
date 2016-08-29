@@ -1,57 +1,47 @@
+<div class="top_opt">
+  <a class="btn btn-default scrollto" href="#reply{{result.id}}"><span class="fa fa-reply"></span> Reply</a>
+  <a class="btn btn-default" href="#quot{{result.id}}" data-toggle='modal'><span class="fa fa-reply-all"></span> Send Quotation</a>
+</div>
 <header>
 {% if result.product %}
   <h4>Inquiry on <a href="{% url 'products:product' result.product.slug %}">{{result.product}}</a></h4>
 {% else %}
   <h4>Inquiry on {{result.workplace}}</h4>
 {% endif %}
-</header>
-<div class="form_card">
-  <div class="form-group">
-    {% if result.user %}
-    <h3 class="data">From <a href="{% url 'user:profile' result.user.username %}">{{result.user.userprofile}}</a></h3>
-    <p class="text-muted">
+{% with reply=result %}
+<div class="joint_name_new">
+  <img src="{{reply.workplace.get_logo}}" alt="{{reply.workplace}}">
+  <div class="names">
+    <a class="name" href="{% url 'user:profile' reply.user.username %}">{{ reply.user.get_full_name|default:user }}</a>
+    <div class="extra">
       {% if result.user.userprofile.job_position %}
         {{result.user.userprofile.job_position}} at
       {% else %}
         Working at
       {% endif %}
-      <a href="{% url 'workplace:workplace_profile' result.user.userprofile.primary_workplace.slug %}">{{result.user.userprofile.primary_workplace}}</a>
-      <span class="pull-right">{{result.date}}</span></p>
-    {% endif %}
+      <a class="name" href="{% url 'workplace:workplace_profile' reply.workplace %}">{{ reply.workplace }}</a>
+      <span class="pull-right">{{reply.date}}</span>
+    </div>
   </div>
+</div>
+{% endwith %}
+</header>
+<div class="form_card">
   <div class="form-group">
     <div class="data_title">Message</div>
     <p class="data">{{result.message}}</p>
   </div>
 </div>
-<div class="enq_user">
-<h4>From</h4>
-{% if result.user %}
-  <div>
-    User:
-    <a href="{% url 'user:profile' result.user.username %}" target="_blank">
-      <span class="name">{{ result.user.userprofile }}</span>
-    </a>
-  </div>
-  <div>Phone Number: {{result.phone_no}}</div>
-  {% if result.user.userprofile.primary_workplace %}
-
-  {% endif %}
-  </div>
-{% endif %}
-<!-- <div class='row'>
-<div class='col-md-4'>
-<div class="reply" title="Send a quotation to {{result.product.user.userprofile}}" data-toggle="tooltip">
-<a class="btn btn-success" data-toggle='modal' data-target='#quotation_modal' data-placement="bottom">
-  <span class="fa fa-reply inline_fa"></span> Send a Quotation</a>
-  </div>
-  </div>
-  <div class='col-md-4'>
-<div class="reply" title="Send a message to {{result.product.user.userprofile}}" data-toggle="tooltip">
-<a class="btn btn-success" data-toggle='modal' data-target='#msg_modal' data-placement="bottom">
-  <span class="fa fa-reply inline_fa"></span> Send a Reply</a>
-  </div>
-  </div>
-</div> -->
-{% include "messages/reply_to_modal.html" with user=result.user subject='Conversation Regarding Your Inquiry' result=result %}
-{% include "leads/quotation_form_modal.html" with enquiry=result %}
+<div id="reply{{result.id}}" class="reply">
+  <form method="post" action="{% url 'messages:send_message' %}">
+    <h4 class="hide"><span class="fa fa-reply"></span> Conversation Regarding Inquiry</h4>
+    {% csrf_token %}
+    <input name="person" value="{{result.user}}" autocomplete="off" type="hidden">
+    <input type="hidden" name="subject" value="Conversation Regarding Enquiry">
+    <textarea class="form-control" id="message" name="message" placeholder="Click here to Reply with a message" rows="3"></textarea>
+    <div class="text-right" style="margin-top: 15px;">
+      <button type="button" class="btn btn-primary hide msg_send">Send</button>
+    </div>
+  </form>
+</div>
+{% include "leads/quotation_modal.html" with enquiry=result %}
