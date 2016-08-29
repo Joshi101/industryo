@@ -360,8 +360,8 @@ def fill_emails():
 
 
 def fill_emails_daily():
-    # now =
-    users = User.objects.filter(userprofile__isnull=False, id__gte=145)
+    now = datetime.now()
+    users = User.objects.filter(userprofile__isnull=False, date_joined__range=[now-timedelta(days=1), now])
     for user in users:
         if user.userprofile.primary_workplace:
             wp = user.userprofile.primary_workplace
@@ -393,7 +393,7 @@ def fill_emails_daily():
         if wp:
             if wp.office_mail_id:
                 email1 = wp.office_mail_id.split(',')
-                print(email1)
+                # print(email1)
                 for em in email1:
                     try:
                         e = Emails.objects.get(email=em)
@@ -401,7 +401,7 @@ def fill_emails_daily():
                     except Exception:
                         eo = Emails.objects.create(email=em, workplace=wp, workplace_type=t)
 
-    wps = Workplace.objects.filter(userprofile__isnull=True)
+    wps = Workplace.objects.filter(userprofile__isnull=True, date__range=[now-timedelta(days=1), now])
     for w in wps:
         print(w.id)
         if w.office_mail_id:
