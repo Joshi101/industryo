@@ -116,28 +116,28 @@ class Workplace(models.Model):
 
     def set_tags(self, **kwargs):       # tags, typ, primary
         tags = kwargs['tags']
-        typ = kwargs['typ']
-        if kwargs['primary']:
+        typ = kwargs.get('typ', 'T')
+        if kwargs.get('primary'):
             primary = kwargs['primary']
         else:
             primary = True
         if tags:
             workplace_tags = tags.split(',')
             li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
+            for n in workplace_tags:
+                m = n.strip()
+                t = Tags.objects.filter(tag__iexact=m).first()
+                if not t:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type=typ)
                 li.append(t)
-                t.count += 1
-                t.save()
+
             for t in li:
-                try:
-                    e = WpTags.objects.get(workplace=self, tags=t, category=typ)
-                except Exception:
+                e = WpTags.objects.filter(workplace=self, tags=t, category=typ).first()
+                if not e:
                     e = WpTags.objects.create(workplace=self, tags=t, category=typ, primary=primary)
+                    t.count += 1
+                    t.save()
             # t = Thread(target=leads_mail, args=(l.id, 'created'))
             return li
 
