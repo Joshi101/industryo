@@ -10,6 +10,7 @@ from tags.models import Tags
 from leads.models import Leads
 from products.models import Products, Category
 from activities.views import create_notifications
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
@@ -107,6 +108,7 @@ def side_overview(request):
     return render(request, 'network/side_over.html', locals())
 
 
+@csrf_exempt
 def add_tag(request):
     if request.method == 'POST':
         user = request.user

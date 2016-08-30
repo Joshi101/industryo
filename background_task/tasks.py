@@ -15,8 +15,6 @@ from compat import import_module
 
 from .models import Task, CompletedTask
 
- 
-
 
 class Tasks(object):
     def __init__(self):
@@ -132,7 +130,7 @@ class DBTaskRunner(object):
         self.worker_name = str(os.getpid())
 
     def schedule(self, task_name, args, kwargs, run_at=None,
-                       priority=0, action=TaskSchedule.SCHEDULE):
+                 priority=0, action=TaskSchedule.SCHEDULE):
         '''Simply create a task object in the database'''
 
         task = Task.objects.new_task(task_name, args, kwargs,
@@ -164,7 +162,6 @@ class DBTaskRunner(object):
                 return locked_task
         return None
 
-
     # @transaction.autocommit
     @atomic
     def run_task(self, tasks, task):
@@ -191,18 +188,20 @@ class DBTaskRunner(object):
             logging.warn('Rescheduling %s', task, exc_info=(t, e, traceback))
             task.reschedule(t, e, traceback)
             del traceback
+
     @atomic
     def run_next_task(self, tasks):
         # we need to commit to make sure
         # we can see new tasks as they arrive
         task = self.get_task_to_run()
-        #transaction.commit()
+        # transaction.commit()
         if task:
             self.run_task(tasks, task)
-            #transaction.commit()
+            # transaction.commit()
             return True
         else:
             return False
+
 
 @python_2_unicode_compatible
 class TaskProxy(object):

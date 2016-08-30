@@ -5,9 +5,5 @@ from . import views
 
 
 urlpatterns = [
-
     url(r'^refer/$', views.refer, name='refer'),
-
-
-    # url(r'^edit/(?P<id>[^/]+)/$', 'forum.views.edit_ques', name='edit_ques'),
 ]

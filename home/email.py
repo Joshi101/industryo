@@ -12,13 +12,14 @@ from datetime import datetime
 import pytz
 from passwords.passwords import *
 from django.core.mail import EmailMultiAlternatives, get_connection
-import time, random
+import time
+import random
 
 
 # @login_required
 def send_all_sme():
     # now = datetime.now()
-    wps = Workplace.objects.filter(workplace_type__in=['A', 'B'])  #.exclude(id=1)
+    wps = Workplace.objects.filter(workplace_type__in=['A', 'B'])  # exclude(id=1)
     from_s = ['dashboard@corelogs.com', 'sme@corelogs.com', 'network@corelogs.com', 'arvind@corelogs.com',
               'sp@corelogs.com', 'info@corelogs.com', 'marketing@corelogs.com', 'admin@corelogs.com']
 
