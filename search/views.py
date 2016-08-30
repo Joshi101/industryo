@@ -24,7 +24,6 @@ def search(request):
         return render(request, 'search/search.html', locals())
 
     query = {}
-
     if what in ('questions', 'all'):
         for term in terms:
             q = Question.objects.filter(Q(title__icontains=term) | Q(question__icontains=term))

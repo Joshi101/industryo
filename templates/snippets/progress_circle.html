@@ -5,7 +5,7 @@ function CircleProgress(el) {
         size: el.getAttribute('data-size') || 115,
         lineWidth: el.getAttribute('data-line') || 15,
         rotate: el.getAttribute('data-rotate') || 0
-    }
+    };
     var canvas = document.createElement('canvas');
     var span = document.createElement('span');
     span.textContent = options.percent + '%';
@@ -29,7 +29,7 @@ function CircleProgress(el) {
         ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
         ctx.strokeStyle = color;
             ctx.lineCap = 'round'; // butt, round or square
-        ctx.lineWidth = lineWidth
+        ctx.lineWidth = lineWidth;
         ctx.stroke();
     };
     if (options.percent >= 75)
