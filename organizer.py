@@ -38,7 +38,8 @@ parser.feed(data)
 path = '.'
 counter = 0
 for (dirpath, dirnames, filenames) in walk(path):
+    if filename == 'views.py':
+        pass
     for filename in filenames:
         print(dirpath+'\\'+filename)
-        # if filename.endswith(".html"):
-        #     counter += 1
+        # if filename.endswith(".html"):     counter += 1
