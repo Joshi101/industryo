@@ -21,9 +21,9 @@ class Images(models.Model):
                                           format='JPEG',
                                           options={'quality': 70})
     image_thumbnail_sm = ProcessedImageField(upload_to='miny',
-                                          processors=[SmartResize(64, 64)],
-                                          format='JPEG',
-                                          options={'quality': 70}, null=True, blank=True)
+                                             processors=[SmartResize(64, 64)],
+                                             format='JPEG',
+                                             options={'quality': 70}, null=True, blank=True)
     # caption = models.CharField(max_length=255)
     time = models.TimeField(auto_now_add=True)
     # slug = models.SlugField(max_length=20, null=True)
