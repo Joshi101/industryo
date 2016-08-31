@@ -12,18 +12,35 @@ import os
 
 
 class Images(models.Model):
-    image = ProcessedImageField(upload_to='main',
-                                processors=[ResizeToCover(640, 640)],
-                                format='JPEG',
-                                options={'quality': 90})
-    image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-                                          processors=[SmartResize(128, 128)],
-                                          format='JPEG',
-                                          options={'quality': 70})
-    image_thumbnail_sm = ProcessedImageField(upload_to='miny',
-                                             processors=[SmartResize(64, 64)],
-                                             format='JPEG',
-                                             options={'quality': 70}, null=True, blank=True)
+# <<<<<<< HEAD
+#     image = ProcessedImageField(upload_to='main',
+#                                 processors=[ResizeToCover(640, 640)],
+#                                 format='JPEG',
+#                                 options={'quality': 90})
+#     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
+#                                           processors=[SmartResize(128, 128)],
+#                                           format='JPEG',
+#                                           options={'quality': 70})
+#     image_thumbnail_sm = ProcessedImageField(upload_to='miny',
+#                                              processors=[SmartResize(64, 64)],
+#                                              format='JPEG',
+#                                              options={'quality': 70}, null=True, blank=True)
+# =======
+    image = models.ImageField(upload_to='main')
+    image_thumbnail = models.ImageField(upload_to='thumbnails')
+    # image = ProcessedImageField(upload_to='main',
+    #                                       processors=[ResizeToCover(640, 640)],
+    #                                       format='JPEG',
+    #                                       options={'quality': 90})
+    # image_thumbnail = ProcessedImageField(upload_to='thumbnails',
+    #                                       processors=[SmartResize(128, 128)],
+    #                                       format='JPEG',
+    #                                       options={'quality': 70})
+    # image_thumbnail_sm = ProcessedImageField(upload_to='miny',
+    #                                       processors=[SmartResize(64, 64)],
+    #                                       format='JPEG',
+    #                                       options={'quality': 70}, null=True, blank=True)
+# >>>>>>> arvind/master
     # caption = models.CharField(max_length=255)
     time = models.TimeField(auto_now_add=True)
     # slug = models.SlugField(max_length=20, null=True)

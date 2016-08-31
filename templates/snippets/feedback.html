@@ -2,7 +2,7 @@
 	<h3 class="h3"><span class="fa fa-bullhorn inline_fa"></span><span class="">Got a feedback?</span></h3>
 	<form id="feedback_form" action="{% url 'feedback' %}">
 		<div class="form-group">
-			<textarea class="form-control" name="feedback" placeholder="Your feedback here ..." autocomplete="off"></textarea>
+			<textarea class="form-control" name="feedback" placeholder="Your feedback here ..."></textarea>
 		</div>
 		{% if user.is_authenticated %}
 		<div class="form-group">
