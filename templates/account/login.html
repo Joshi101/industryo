@@ -11,45 +11,47 @@
 
 {% block body %}
 
-{% get_providers as socialaccount_providers %}
-<div id="" class="container">
-  <div id="login" class="center-block cover_form wide_60">
-    <h1 class="text-center"><span>Sign In</span></h1>
-    {% if socialaccount_providers %}
-    <div class="socialaccount_ballot">
-      <ul class="socialaccount_providers list-group">
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </ul>
-    </div>
-    {% include "socialaccount/snippets/login_extra.html" %}
-    {% endif %}
-    {% csrf_token %}
-    <div class="form_eric wide_40">
-      <form method="POST" action="{% url 'account_login' %}" role='form'>
-        {% csrf_token %}
-        <p class="text-info text-center" style="margin-bottom: 25px">Or, if you have a CoreLogs account use your email to login</p>
-        <div>{{form.non_field_errors}}</div>
-        <div class="form-group">
-          <label>
-            Email Address<span class="req">*</span>
-          </label>
-          <input id="id_login" type="text" name="login">
-          <div>{{form.login.errors}}</div>
+  {% get_providers as socialaccount_providers %}
+  <div id="" class="container">
+    <div id="login" class="center-block cover_form wide_60">
+      <h1 class="text-center"><span>Sign In</span></h1>
+      {% if socialaccount_providers %}
+        <div class="socialaccount_ballot">
+          <ul class="socialaccount_providers list-group">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </ul>
         </div>
-        <div class="form-group">
-          <label>
-            Password<span class="req">*</span>
-          </label>
-          <input id="id_password" type="password" name="password" required>
-          <div>{{form.password.errors}}</div>
-        </div>
-        <p class="forgot"><a class="secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a></p>
-        <button type="submit" class="button button-block"/>Sign In</button>
-        <p style="margin-top: 10px;">
-          If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
-        </p>
-      </form>
+        {% include "socialaccount/snippets/login_extra.html" %}
+      {% endif %}
+      {% csrf_token %}
+      <div class="form_eric wide_40">
+        <form method="POST" action="{% url 'account_login' %}" role='form'>
+          {% csrf_token %}
+          <p class="text-info text-center" style="margin-bottom: 25px">Or, if you have a CoreLogs account use your email
+            to login</p>
+          <div>{{ form.non_field_errors }}</div>
+          <div class="form-group">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input id="id_login" type="text" name="login">
+            <div>{{ form.login.errors }}</div>
+          </div>
+          <div class="form-group">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input id="id_password" type="password" name="password" required>
+            <div>{{ form.password.errors }}</div>
+          </div>
+          <p class="forgot"><a class="secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+          </p>
+          <button type="submit" class="button button-block">Sign In</button>
+          <p style="margin-top: 10px;">
+            If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.
+          </p>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 {% endblock body %}

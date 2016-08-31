@@ -14,12 +14,12 @@
     position: absolute;
     z-index: 98;
     padding: 15px;
-    top: 0px;
+    top: 0;
     left: 0;
     width: 200px;
     height: 100%;
     background: #fff;
-    box-shadow: 2px 0px 2px -1px rgba(200,200,200,0.52);
+    box-shadow: 2px 0 2px -1px rgba(200,200,200,0.52);
     border-right: #eee;
 
     &.affix{
@@ -172,6 +172,18 @@
         margin-left: 25px;
     }
 }
+
+.flex_block{
+    width: 100%;
+    margin-left: 200px;
+    justify-content: space-around;
+    margin-right: 25px;
+
+    @media (max-width:768px){
+        margin-left: 25px;
+    }
+}
+
 
 .section_mid{
     flex: 3 1 30%;

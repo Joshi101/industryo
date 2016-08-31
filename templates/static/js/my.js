@@ -1845,7 +1845,7 @@ $('#add_prod_category').on('click', '.no_sub', function(){
     for (var i = 0; i < cats.length; i++) {
         if(cats[i]){
             if(i){
-                html = html + '<span class="fa fa-chevron-right inline_fa"></span>';
+                html += '<span class="fa fa-chevron-right inline_fa"></span>';
             }
             html = html + '<span>' + cats[i] + '</span>';
         }
@@ -2685,7 +2685,7 @@ function getBarValue(w, range, pixels){
     var i = 0;
     var w2 = w/2;
     for (; w > 1 ; i++) {
-        w = w/2;
+        w /= 2;
         if (pixels <= w)
             w = 0;
         else
