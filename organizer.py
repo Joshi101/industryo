@@ -1,6 +1,7 @@
 from os import walk
 from html.parser import HTMLParser
 import csv
+from bs4 import BeautifulSoup
 
 
 def write_out(result):
@@ -34,10 +35,10 @@ with open(r"C:\Users\Arvind\Documents\GitHub\industryo\templates\base.html") as 
 
 parser = MyHTMLParser()
 parser.feed(data)
-path = 'templates'
+path = '.'
 counter = 0
 for (dirpath, dirnames, filenames) in walk(path):
     for filename in filenames:
-        if filename.endswith(".html"):
-            counter += 1
-            print(dirpath+'\\'+filename)
+        print(dirpath+'\\'+filename)
+        # if filename.endswith(".html"):
+        #     counter += 1

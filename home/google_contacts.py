@@ -5,11 +5,9 @@ from xml.etree import ElementTree as etree
 from allauth.socialaccount.models import SocialToken
 
 
-
-
 def get_email_google(request):
     # social = request.user.social_auth.get(provider='google-oauth2')
-    user =request.user
+    user = request.user
 
     # Code dependent upon django-allauth. Will change if we shift to another module
 
@@ -26,7 +24,6 @@ def get_email_google(request):
     # return render(request, 'search/random_text_print.html', locals())
 
     result = []
-
 
     for entry in contacts_xml.findall('{http://www.w3.org/2005/Atom}entry'):
         for address in entry.findall('{http://schemas.google.com/g/2005}email'):

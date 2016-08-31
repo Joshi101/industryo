@@ -5,18 +5,8 @@
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Quill = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 (function (global){
-/**
- * @license
- * lodash 3.9.3 (Custom Build) <https://lodash.com/>
- * Build: `lodash modern include="difference,intersection,last,all,each,find,invoke,map,reduce,partition,bind,defer,partial,clone,extend,defaults,omit,values,isElement,isEqual,isFunction,isNumber,isObject,isString,uniqueId" --development --output .build/lodash.js`
- * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <https://lodash.com/license>
- */
-;(function() {
-
-  /** Used as a safe reference for `undefined` in pre-ES5 environments. */
+  (function () {
+    /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
 
   /** Used as the semantic version number. */
@@ -4437,9 +4427,8 @@
  * Copyright (c) 2013 hij1nx
  * Licensed under the MIT license.
  */
-;!function(undefined) {
-
-  var isArray = Array.isArray ? Array.isArray : function _isArray(obj) {
+  !function (undefined) {
+    var isArray = Array.isArray ? Array.isArray : function _isArray(obj) {
     return Object.prototype.toString.call(obj) === "[object Array]";
   };
   var defaultMaxListeners = 10;
@@ -5067,11 +5056,11 @@ Delta.prototype.push = function (newOp) {
     if (is.equal(newOp.attributes, lastOp.attributes)) {
       if (is.string(newOp.insert) && is.string(lastOp.insert)) {
         this.ops[index - 1] = { insert: lastOp.insert + newOp.insert };
-        if (is.object(newOp.attributes)) this.ops[index - 1].attributes = newOp.attributes
+        if (is.object(newOp.attributes)) this.ops[index - 1].attributes = newOp.attributes;
         return this;
       } else if (is.number(newOp.retain) && is.number(lastOp.retain)) {
         this.ops[index - 1] = { retain: lastOp.retain + newOp.retain };
-        if (is.object(newOp.attributes)) this.ops[index - 1].attributes = newOp.attributes
+        if (is.object(newOp.attributes)) this.ops[index - 1].attributes = newOp.attributes;
         return this;
       }
     }
@@ -5228,7 +5217,7 @@ Delta.prototype.transform = function (other, priority) {
       var otherOp = otherIter.next(length);
       if (thisOp['delete']) {
         // Our delete either makes their delete redundant or removes their retain
-        continue;
+        
       } else if (otherOp['delete']) {
         delta.push(otherOp);
       } else {
@@ -5379,9 +5368,8 @@ function Iterator(ops) {
   this.ops = ops;
   this.index = 0;
   this.offset = 0;
-};
-
-Iterator.prototype.hasNext = function () {
+}
+  Iterator.prototype.hasNext = function () {
   return this.peekLength() < Infinity;
 };
 
@@ -5390,7 +5378,7 @@ Iterator.prototype.next = function (length) {
   var nextOp = this.ops[this.index];
   if (nextOp) {
     var offset = this.offset;
-    var opLength = lib.length(nextOp)
+    var opLength = lib.length(nextOp);
     if (length >= opLength - offset) {
       length = opLength - offset;
       this.index += 1;
@@ -5522,10 +5510,8 @@ function diff_main(text1, text2) {
   }
   diff_cleanupMerge(diffs);
   return diffs;
-};
-
-
-/**
+}
+  /**
  * Find the differences between two texts.  Assumes that the texts do not
  * have any common prefix or suffix.
  * @param {string} text1 Old string to be diffed.
@@ -5583,10 +5569,8 @@ function diff_compute_(text1, text2) {
   }
 
   return diff_bisect_(text1, text2);
-};
-
-
-/**
+}
+  /**
  * Find the 'middle snake' of a diff, split the problem in two
  * and return the recursively constructed diff.
  * See Myers 1986 paper: An O(ND) Difference Algorithm and Its Variations.
@@ -5699,10 +5683,8 @@ function diff_bisect_(text1, text2) {
   // Diff took too long and hit the deadline or
   // number of diffs equals number of characters, no commonality at all.
   return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
-};
-
-
-/**
+}
+  /**
  * Given the location of the 'middle snake', split the diff in two parts
  * and recurse.
  * @param {string} text1 Old string to be diffed.
@@ -5722,10 +5704,8 @@ function diff_bisectSplit_(text1, text2, x, y) {
   var diffsb = diff_main(text1b, text2b);
 
   return diffs.concat(diffsb);
-};
-
-
-/**
+}
+  /**
  * Determine the common prefix of two strings.
  * @param {string} text1 First string.
  * @param {string} text2 Second string.
@@ -5754,10 +5734,8 @@ function diff_commonPrefix(text1, text2) {
     pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
   }
   return pointermid;
-};
-
-
-/**
+}
+  /**
  * Determine the common suffix of two strings.
  * @param {string} text1 First string.
  * @param {string} text2 Second string.
@@ -5786,10 +5764,8 @@ function diff_commonSuffix(text1, text2) {
     pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
   }
   return pointermid;
-};
-
-
-/**
+}
+  /**
  * Do the two texts share a substring which is at least half the length of the
  * longer text?
  * This speedup can produce non-minimal diffs.
@@ -5879,10 +5855,8 @@ function diff_halfMatch_(text1, text2) {
   }
   var mid_common = hm[4];
   return [text1_a, text1_b, text2_a, text2_b, mid_common];
-};
-
-
-/**
+}
+  /**
  * Reorder and merge like edit sections.  Merge equalities.
  * Any edit section can move as long as it doesn't cross an equality.
  * @param {Array} diffs Array of diff tuples.
@@ -6006,10 +5980,8 @@ function diff_cleanupMerge(diffs) {
   if (changes) {
     diff_cleanupMerge(diffs);
   }
-};
-
-
-var diff = diff_main;
+}
+  var diff = diff_main;
 diff.INSERT = DIFF_INSERT;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = DIFF_EQUAL;

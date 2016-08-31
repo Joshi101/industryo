@@ -15,6 +15,7 @@ from nodes.models import Node
 from itertools import chain
 from operator import itemgetter
 from home.tasks import execute_view
+import traceback
 
 
 @login_required
@@ -782,7 +783,6 @@ def category_update(request):
         c.save()
     return redirect('/')
 
-import traceback
 
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
@@ -830,14 +830,12 @@ def edit_add_product(request, id):
             # else:
             #     p_t = Products()
             #
-            return HttpResponse(json.dumps(response), content_type="application/json")
+            # return HttpResponse(json.dumps(response), content_type="application/json")
+        if user.userprofile.product_email:
+            no_prod_con = False
         else:
-            if user.userprofile.product_email:
-                no_prod_con = False
-            else:
-                no_prod_con = True
-
-            return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
+            no_prod_con = True
+        return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                           'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
                                                           'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
                                                           'no_prod_con': no_prod_con, 'delivery_details': dd,
@@ -846,7 +844,6 @@ def edit_add_product(request, id):
         p = Products.objects.get(id=id)
         dictionary = {}
         direct = p._meta.get_fields()
-        # print(direct)
         if request.method == 'POST' and user.userprofile.primary_workplace == p.producer:
             for key in request.POST:
                 if key in direct:

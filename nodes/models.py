@@ -13,9 +13,9 @@ import os
 
 class Images(models.Model):
     image = ProcessedImageField(upload_to='main',
-                                          processors=[ResizeToCover(640, 640)],
-                                          format='JPEG',
-                                          options={'quality': 90})
+                                processors=[ResizeToCover(640, 640)],
+                                format='JPEG',
+                                options={'quality': 90})
     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
                                           processors=[SmartResize(128, 128)],
                                           format='JPEG',

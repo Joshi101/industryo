@@ -71,7 +71,7 @@
     msg_count_url = "{% url 'messages:check_message' %}";
     {% endif %}
     function radio_select(rgroup,value){
-      console.log(rgroup,value)
+      console.log(rgroup,value);
       $(rgroup).find('input[value="'+value+'"]').prop('checked', 'checked');
     }
   </script>

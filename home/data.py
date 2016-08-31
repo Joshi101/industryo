@@ -8,6 +8,7 @@ from activities.models import Enquiry
 import pytz
 from contacts.models import MailSend
 
+
 @login_required
 def activity(request):
 

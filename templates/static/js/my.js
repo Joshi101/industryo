@@ -445,7 +445,7 @@ $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
     var $papa = $this.closest('.ajax_papa');
     var $form = $this.closest('form');
     var formData = new FormData($form[0]);
-    console.log(formData)
+    console.log(formData);
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -455,7 +455,7 @@ $(".ajax_andar").on('click', '.form-ajax-filed', function(event) {
         processData: false,
 
         success: function(response) {
-            console.log('the form with the file succesfully submited')
+            console.log('the form with the file succesfully submited');
             $form.find('.form-control').val('');
             if (response.fields) {
                 for (i = 0; i < response.fields.length; i++) {
@@ -767,7 +767,7 @@ $('.img_pre').on('click', '.close', function() {
 
 $('.ajax_andar').on('click', '.upvote', function() {
     $this = $(this);
-    console.log($(this))
+    console.log($(this));
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
     if ($this.attr('class').indexOf('done') >= 0) {
         $this.removeClass('done').tooltip('hide').attr('data-original-title', 'Vote Up').tooltip('fixTitle');
@@ -847,13 +847,13 @@ $('.detail').on({
 
 $('body').on('click', '.detail_add', function(event) {
     event.preventDefault();
-    console.log('clickku')
+    console.log('clickku');
     var $this = $(this);
-    console.log()
+    console.log();
     var save = $this.attr('data-save');
     var content = $this.data('content');
     var taggy = $this.data('taggy');
-    console.log(save,content,taggy)
+    console.log(save,content,taggy);
     var $forms = $('.edit_' + content);
     if (save == 'save') {
         console.log('save hoga');
@@ -880,13 +880,13 @@ $('body').on('click', '.detail_add', function(event) {
 
 $('body').on('click', '.detail_edit', function(event) {
     event.preventDefault();
-    console.log('oki')
+    console.log('oki');
     var $this = $(this);
     var content = $this.data('content');
     var $content = $('.content_' + content);
     var save = $this.data('save');
     if (save == 'save') {
-        console.log('abhi data-save "" hoga or agli baar daba k userwa edit krega')
+        console.log('abhi data-save "" hoga or agli baar daba k userwa edit krega');
         console.log(('#' + content), $('#' + content).serialize());
         $content.each(function() {
             var value = $(this).next().val();
@@ -896,7 +896,7 @@ $('body').on('click', '.detail_edit', function(event) {
         });
         $this.text('Edit').data('save', '').removeClass('form-ajax');
     } else {
-        console.log('abhi data-save save hoga or agli baar dabaenge to form submit hoga')
+        console.log('abhi data-save save hoga or agli baar dabaenge to form submit hoga');
         $content.each(function() {
             var value = $(this).text();
             console.log(value);
@@ -982,7 +982,7 @@ function count_messages() {
         type: 'GET',
 
         success: function(response) {
-            console.log(response.count, 'itna message')
+            console.log(response.count, 'itna message');
             if (response.count)
                 $('#messages .badge').text(response.count);
         },
@@ -1305,7 +1305,7 @@ $(document).ready(function(){
 });
 
 $('.body').on('click', '.call_car', function(){
-    console.log('image bada ho ja')
+    console.log('image bada ho ja');
     var $this = $(this);
     var $feed = $this.closest('.feed_box_body');
     var title = $feed.find('.summary_title').text();
@@ -1315,7 +1315,7 @@ $('.body').on('click', '.call_car', function(){
     $('#figure_modal').on('shown.bs.modal', function(){
         var h_head = $(this).find('.modal-header').outerHeight(true);
         var h_foot = $(this).find('.modal-footer').outerHeight(true);
-        console.log(win_height, h_head, h_foot)
+        console.log(win_height, h_head, h_foot);
         $(this).find('.modal-body').css('height',(win_height-h_head-h_foot));
     });
 });
@@ -1325,7 +1325,7 @@ if($('#set_workplace').length){
     console.log('b');
     $('#set_workplace').find('input[name=workplace]').change(function(){
         var $this = this;
-        console.log('a',$this.find('button[type=submit]').attr('disabled'))
+        console.log('a',$this.find('button[type=submit]').attr('disabled'));
         $this.find('button[type=submit]').attr('disabled','false');
     });
 }
@@ -1392,7 +1392,7 @@ $(document).ready(function(){
             type = 'POST';
             data = {'data': $(post).val()};
         }
-        console.log(url, data)
+        console.log(url, data);
         $.ajax({
             url: url,
             type: type,
@@ -1421,7 +1421,7 @@ $(document).ready(function(){
             type = 'POST';
             data = {'data': $(post).val()};
         }
-        console.log(url, data)
+        console.log(url, data);
         $.ajax({
             url: url,
             type: type,
@@ -1597,7 +1597,7 @@ $('body').on('click', '.ajax_a2', function(event){
 $('.nav_flex').on('click', 'li', function(){
     $(this).addClass('active');
     $(this).siblings('li').removeClass('active');
-})
+});
 
 $('.select_dropdown').on('click', '.dropdown-menu a', function(){
     console.log($(this).text());
@@ -1642,7 +1642,7 @@ $('#search_toggle').on('click', function(){
         $('#top_search').animate({'left':'0%','min-width':'250px'}).css({'overflow':'visible'});
         $('#pre_nav .orelogs').animate({'width':0});
     }
-})
+});
 
 /*$('#top_search').on('show.bs.dropdown', '.dropdown', function(){
     $('#top_search .d_menu').css('z-index','1000');
@@ -1686,7 +1686,7 @@ $(lazyImages);
 function changeSource($this, change, src, $farzi_now){
     if (change) {
         $this.attr('src',src);
-    };
+    }
     $farzi_now.remove();
 }
 
@@ -1755,7 +1755,7 @@ function changeComplete($form, response){
 }
 
 $('body').on('click','.info_field_edit .close', function(){
-    console.log('delete this tag')
+    console.log('delete this tag');
     deleteWPTag($(this).closest('.tag'));
 });
 
@@ -1904,13 +1904,13 @@ $('#add_product_form').on('click', '.ajx_form', function(e){
 $('#add_product_form').on('click', '.select_btn', function(e){
     var w = $('#add_product_form').outerWidth();
     if (w < 900){
-        var $this = $(this)
+        var $this = $(this);
         console.log('step 1');
         $this.closest('.c_col').css('display', 'none');
         $('#prev_col').css('display', 'block').attr({
             'data-prevcol': $this.closest('.c_col').attr('id'),
             'data-nextcol': $this.attr('href')
-        });;
+        });
     }
 });
 
@@ -1930,7 +1930,7 @@ $('#add_product_form').on('click', '#prev_col', function(e){
 
 function ajx_form_file($form, onSuccess, onFailure){
     var formData = new FormData($form[0]);
-    console.log($form,formData)
+    console.log($form,formData);
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -2286,7 +2286,7 @@ function autoSubmit($this, data_response){
         success: function(response) {
             autoSubmitDone($field);
             if (data_response){
-                console.log(data_response)
+                console.log(data_response);
                 window[data_response]($field, response);
             }
             else if ($form.data('response')){
@@ -2323,14 +2323,14 @@ function productCreated($field,response){
     console.log($field.closest('form').attr('action'));
 }
 function leadCreated($field,response){
-    console.log(response)
+    console.log(response);
     $('#lead_from').html(response);
     /*$field.closest('form').attr('action',"/leads/edit_add/"+response['l_slug']+"/");
     console.log($field.closest('form').attr('action'));*/
 }
 
 function UpdateScore($field,response){
-    console.log(response)
+    console.log(response);
     var el = $('#info_score').find('.circle_bar').attr('data-percent', response.info_score)[0];
     CircleProgress(el);
 }
@@ -2660,7 +2660,7 @@ $("body").on('mousemove mouseleave', "#prod_analysis", function(e) {
             var def = parseInt($(this).attr('data-default'));
             var range = $(this).siblings('.progress').find('.progress-bar').attr('aria-valuemax');
             var s = $(this).siblings('.progress').find('.progress-bar').width();
-            console.log(def, range, w, getBarPixels(w, range, def)+'px')
+            console.log(def, range, w, getBarPixels(w, range, def)+'px');
             $(this).css('left', getBarPixels(w, range, def)+'px').text(def);
             $(this).siblings('.progress').find('.progress-bar.trans').css('width', getBarPixels(w, range, def)-s+'px').removeClass('progress-bar-striped');
         });
@@ -2699,7 +2699,7 @@ function getBarValue(w, range, pixels){
 var setg = true;
 function setgraph(){
     if ($('#prod_analysis').length){
-        console.log('hoinga')
+        console.log('hoinga');
         p = parseInt($('#p').find('.progress_data').first().text());
         i = Math.floor((1.2*p/10)+1);
         v = Math.floor(10*(Math.sqrt((2*p)+10)));
@@ -2710,7 +2710,7 @@ function setgraph(){
             var solid = parseInt($el.find('.progress_data').first().text());
             var range = $el.find('.progress-bar').attr('aria-valuemax');
             var s_pix = getBarPixels(w, range, solid);
-            console.log(solid, range, s_pix, index)
+            console.log(solid, range, s_pix, index);
             $el.find('.progress-bar').first().width(s_pix);
             $el.find('.progress_data').first().css('left', s_pix);
             if (index){
@@ -2764,7 +2764,7 @@ $(function(){
     }, 20000);
 });
 $('body').on('mouseleave', function(e) {
-    console.log(modalTimer, bodyleave)
+    console.log(modalTimer, bodyleave);
     if (!bodyleave && mouseY <= 100){
         bodyleave = true;
         $("#irritate_modal").modal();
@@ -2823,7 +2823,7 @@ $('body').on('click', '.btn_form', function(){
     if (name){
         form.find("input[name="+name+"]").val($this.val());
     }
-    console.log(form.serialize())
+    console.log(form.serialize());
     ajx_form(form, buttonColor, ajaxError);
 });
 
@@ -2838,7 +2838,7 @@ function ajaxError($form, response){
 $('.page_search').on('keydown', 'input', function(e){
     clearTimeout(typingTimer);
     typingTimer = setTimeout(pageSearch, doneTypingInterval);
-})
+});
 
 function pageSearch() {
     var d_on = true;
@@ -2885,7 +2885,7 @@ $("body").on('mouseenter', '.feed_box.feed', function() {
     var check = $this.attr('data-content');
     var body = $this.find('.summary_body');
     if (check!='checked'){
-        console.log(body.height(), body[0].scrollHeight)
+        console.log(body.height(), body[0].scrollHeight);
         if (body[0].scrollHeight > body.height()){
             body.append(more_less).addClass('ex_content');
         }

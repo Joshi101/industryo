@@ -63,13 +63,13 @@
 (maybe the about Section of company website)" maxlength="2000">{{about|default:''}}</textarea>
               <span class="char_count">2000</span>
             </div>
-            <!-- <div class="form-group">
-              <label for="wp_history">History</label>
-              <textarea class=" textarea_md count_field" id="wp_history" name="history" maxlength="1000">{{history}}</textarea>
-              <span class="char_count">1000</span>
-            </div> -->
             <div class="form-group">
-              <label for="wp_loc">Locations</label>
+              <label for="wp_address">Street Address</label>
+              <textarea class=" textarea_md count_field" id="wp_address" name="address" maxlength="200">{{address|default:''}}</textarea>
+              <span class="char_count">200</span>
+            </div>
+            <div class="form-group">
+              <label for="wp_loc">Cities</label>
               {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
             </div>
             <div class="row">
@@ -172,11 +172,6 @@
                   <input class="" id="wp_rev" name="linkedin_page" value="{{linkedin_page|default:''}}" placeholder="Copy &amp; Paste the URL">
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="wp_address">Address</label>
-              <textarea class=" textarea_md count_field" id="wp_address" name="address" maxlength="200">{{address|default:''}}</textarea>
-              <span class="char_count">200</span>
             </div>
           </div>
           <a href="#extra_info" class="collapse_h" data-toggle="collapse">Specialized Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>

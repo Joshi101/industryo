@@ -134,7 +134,7 @@
     $('.switch_open').find('.opened').removeClass('hide');
   }
   $('.switch_open').on('change','input',function(){
-    console.log('changeing')
+    console.log('changeing');
     var status = $(this).closest('.switch_open').attr('data-status');
     if (status == 'closed'){
       $('.switch_open').attr('data-status','');
