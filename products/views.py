@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse, render_to_response
+from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
 from products.models import *
@@ -12,7 +12,6 @@ from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
-from itertools import chain
 from operator import itemgetter
 from home.tasks import execute_view
 import traceback
@@ -32,13 +31,14 @@ def set_tags_short(request, slug):
 
         new_interest = t
         r_elements = ['info_field_value']
-        r_html['info_field_value'] = render_to_string('snippets/tag_short.html', {'tags': new_interest})
+        r_html['info_field_value'] = render_to_string(
+            'snippets/tag_short.html', {'tags': new_interest})
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = False
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
-        return redirect('/user/'+request.user.username)
+        return redirect('/user/' + request.user.username)
 
 
 @login_required
@@ -59,6 +59,7 @@ def set_details(request, id):
             return HttpResponse()
     else:
         return redirect('/products/' + id)
+
 
 @login_required
 def new_category(request):
@@ -103,8 +104,8 @@ def change_category(a, b):
     for p in ps:
         p.level = 3
         p.save()
-        Product_Categories.objects.create(product=p.product, level=2, category=cat2)
-
+        Product_Categories.objects.create(
+            product=p.product, level=2, category=cat2)
 
 
 @login_required
@@ -132,7 +133,8 @@ def edit_category(request, id):
             if q:
                 q.delete()
             for c in categories:
-                Product_Categories.objects.create(product=p, category=c, level=c.level)
+                Product_Categories.objects.create(
+                    product=p, category=c, level=c.level)
             return HttpResponse()
     else:
         return redirect('/products/' + id)
@@ -142,7 +144,8 @@ def product(request, slug):
     c1_all = Category.objects.filter(level=1)
     product = Products.objects.get(slug=slug)
     producer = product.producer
-    members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
+    members = UserProfile.objects.filter(
+        primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     # categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
@@ -150,10 +153,10 @@ def product(request, slug):
     all = Products.objects.filter(producer=producer)
     all_list = list(all)
     c = all_list.index(product)
-    if not len(all_list) == c+1:
-        next = all_list[c+1]
+    if not len(all_list) == c + 1:
+        next = all_list[c + 1]
     if not c == 0:
-        previous = all_list[c-1]
+        previous = all_list[c - 1]
     return render(request, 'products/product.html', locals())
 
 
@@ -165,6 +168,7 @@ def delete(request):
         product.delete()
     return redirect('/workplace/add_products')
 
+
 @login_required
 def edit_desc(request, id):
     p = Products.objects.get(id=id)
@@ -175,9 +179,9 @@ def edit_desc(request, id):
             desc = request.POST.get('description')
             p.description = desc
             p.save()
-            return redirect('/products/'+p.slug)
+            return redirect('/products/' + p.slug)
     else:
-        return redirect('/products/'+p.slug)
+        return redirect('/products/' + p.slug)
 
 
 @login_required
@@ -189,12 +193,13 @@ def change_image(request, id):
     if request.method == 'POST':
         if p.producer == workplace:
             image = request.FILES.get('image')
-            i = Images.objects.create(image=image, user=user, image_thumbnail=image)
+            i = Images.objects.create(
+                image=image, user=user, image_thumbnail=image)
             p.image = i
             p.save()
-            return redirect('/products/'+p.slug)
+            return redirect('/products/' + p.slug)
     else:
-        return redirect('/products/'+p.slug)
+        return redirect('/products/' + p.slug)
 
 
 def random(request):
@@ -237,18 +242,22 @@ def enquire(request):
                     users = e.product.producer.get_members()
                     user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
-                return redirect('/products/'+prod.slug)
+                    execute_view('check_no_inquiry', e.id,
+                                 schedule=timedelta(seconds=30))
+                return redirect('/products/' + prod.slug)
 
             if w:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
-                    # Checking if the same person has created more than 5 inquiries that day
-                    e = Enquiry.objects.create(workplace=workplace, user=user, message=message, phone_no=phone)
+                    # Checking if the same person has created more than 5
+                    # inquiries that day
+                    e = Enquiry.objects.create(
+                        workplace=workplace, user=user, message=message, phone_no=phone)
                     users = workplace.get_members()
                     user.userprofile.notify_inquired(e, users)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
-                return redirect('/workplace/'+workplace.slug)
+                    execute_view('check_no_inquiry', e.id,
+                                 schedule=timedelta(seconds=30))
+                return redirect('/workplace/' + workplace.slug)
         else:
             email = request.POST.get('email')
             name = request.POST.get('name')
@@ -262,22 +271,26 @@ def enquire(request):
             if p:
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
-                    # Checking if the same person has created more than 5 inquiries that day
-                    e = Enquiry.objects.create(product=prod, name=name, company=company, email=email, message=message,
+                    # Checking if the same person has created more than 5
+                    # inquiries that day
+                    e = Enquiry.objects.create(product=prod, name=name, company=company,
+                                               email=email, message=message,
                                                phone_no=phone)
                     up = prod.user.userprofile
                     # up.notify_inquired(e)
                     # send_enq_mail(e)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
-                return redirect('/products/'+prod.slug)
+                    execute_view('check_no_inquiry', e.id,
+                                 schedule=timedelta(seconds=30))
+                return redirect('/products/' + prod.slug)
             if w:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
-                    e = Enquiry.objects.create(workplace=workplace, name=name, company=company, message=message,
-                                               phone_no=phone)
+                    e = Enquiry.objects.create(workplace=workplace, name=name, company=company,
+                                               message=message, phone_no=phone)
                     # up.notify_inquired(e)
-                    execute_view('check_no_inquiry', e.id, schedule=timedelta(seconds=30))
-                return redirect('/workplace/'+workplace.slug)
+                    execute_view('check_no_inquiry', e.id,
+                                 schedule=timedelta(seconds=30))
+                return redirect('/workplace/' + workplace.slug)
 
 
 @login_required
@@ -313,7 +326,8 @@ def int_add_product(request):
         p = {}
         if len(pro) > 3:
             product = pro
-            p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
+            p = Products.objects.create(
+                product=product, producer=workplace, description=description, user=user, cost=cost)
             p.set_tags(tags)
         if image0:
             i = Images()
@@ -322,7 +336,8 @@ def int_add_product(request):
             p.save()
 
         for c in categories:
-            Product_Categories.objects.create(product=p, category=c, level=c.level)
+            Product_Categories.objects.create(
+                product=p, category=c, level=c.level)
 
         return redirect('/internal/add_product')
     else:
@@ -332,15 +347,18 @@ def int_add_product(request):
 
         return render(request, 'activities/p/add_product.html', {'c1_all': c1_all, 'p': p})
 
+
 @login_required
 def int_product(request, slug):
     c1_all = Category.objects.filter(level=1)
     product = Products.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=product.user.userprofile.primary_workplace.pk)
+    members = UserProfile.objects.filter(
+        primary_workplace=product.user.userprofile.primary_workplace.pk)
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     categories = product.categories.all()
     return render(request, 'activities/p/product.html', locals())
+
 
 @login_required
 def int_change_image(request, id):
@@ -349,12 +367,14 @@ def int_change_image(request, id):
     user = p.user
     if request.method == 'POST':
         image = request.FILES.get('image')
-        i = Images.objects.create(image=image, user=user, image_thumbnail=image)
+        i = Images.objects.create(
+            image=image, user=user, image_thumbnail=image)
         p.image = i
         p.save()
-        return redirect('/internal/products/'+p.slug)
+        return redirect('/internal/products/' + p.slug)
     else:
-        return redirect('/products/'+p.slug)
+        return redirect('/products/' + p.slug)
+
 
 @login_required
 def int_edit_desc(request, id):
@@ -363,9 +383,10 @@ def int_edit_desc(request, id):
         desc = request.POST.get('description')
         p.description = desc
         p.save()
-        return redirect('/internal/products/'+p.slug)
+        return redirect('/internal/products/' + p.slug)
     else:
-        return redirect('/products/'+p.slug)
+        return redirect('/products/' + p.slug)
+
 
 @login_required
 def set_int_details(request, id):
@@ -384,28 +405,30 @@ def set_int_details(request, id):
     else:
         return redirect('/products/' + id)
 
+
 @login_required
 def int_edit_category(request, id):
     p = Products.objects.get(id=id)
     if request.method == 'POST':
-            li = []
-            c1 = request.POST.get('category1')
-            if c1:
-                li.append(c1)
-            c2 = request.POST.get('category2')
-            if c2:
-                li.append(c2)
-            c3 = request.POST.get('category3')
-            if c3:
-                li.append(c3)
-            categories = Category.objects.filter(pk__in=li)
-            q = Product_Categories.objects.filter(product=p)
-            if q:
-                q.delete()
-            for c in categories:
+        li = []
+        c1 = request.POST.get('category1')
+        if c1:
+            li.append(c1)
+        c2 = request.POST.get('category2')
+        if c2:
+            li.append(c2)
+        c3 = request.POST.get('category3')
+        if c3:
+            li.append(c3)
+        categories = Category.objects.filter(pk__in=li)
+        q = Product_Categories.objects.filter(product=p)
+        if q:
+            q.delete()
+        for c in categories:
 
-                Product_Categories.objects.create(product=p, category=c, level=c.level)
-            return HttpResponse()
+            Product_Categories.objects.create(
+                product=p, category=c, level=c.level)
+        return HttpResponse()
     else:
         return redirect('/internal/products/' + id)
 
@@ -441,7 +464,8 @@ def all_products(request):
                 q2 = Category.objects.get(id=q2)
                 curr_cat = q2
                 lvl = 4
-                p = Products.objects.filter(categories=curr_cat).order_by('-date')
+                p = Products.objects.filter(
+                    categories=curr_cat).order_by('-date')
                 if len(p) < 3:
                     related = curr_cat.related_categories()
                     for cat in related:
@@ -464,15 +488,17 @@ def all_products(request):
             # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
+                # If page is out of range (e.g. 9999), deliver last page of
+                # results.
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
         return render(request, 'marketplace/20_products.html', {'result_list': result_list})
     else:
-        return render(request, 'marketplace/marketplace.html', {'result_list': result_list, 'c1_all': c1_all,
-                                                                'c1_some': c1_some, 'lvl': lvl, 'q': q, 'q1': q1,
-                                                                'q2': q2,})
+        return render(request, 'marketplace/marketplace.html',
+                      {'result_list': result_list, 'c1_all': c1_all,
+                       'c1_some': c1_some, 'lvl': lvl, 'q': q, 'q1': q1,
+                       'q2': q2, })
 
 
 def all_products_old(request):
@@ -498,7 +524,8 @@ def all_products_old(request):
                 t = Tags.objects.get(id=i)
                 n = i
                 p = Products.sell.filter(tags=t)
-                tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+                tags3 = Tags.objects.filter(
+                    products__in=p).distinct().exclude(id__in=li1)
             else:
                 p = Products.sell.filter(target_segment__contains='B')
         if querystring == 'C':
@@ -509,12 +536,14 @@ def all_products_old(request):
                 t = Tags.objects.get(id=i)
                 n = i
                 p = Products.sell.filter(tags=t)
-                tags3 = Tags.objects.filter(products__in=p).distinct().exclude(id__in=li1)
+                tags3 = Tags.objects.filter(
+                    products__in=p).distinct().exclude(id__in=li1)
                 if 'q3' in request.GET:
                     j = request.GET.get('q3')
                     t1 = Tags.objects.filter(id__in=[j])
                     m = j
-                    p = Products.sell.filter(tags=t1, target_segment__contains='C')
+                    p = Products.sell.filter(
+                        tags=t1, target_segment__contains='C')
             else:
                 p = Products.sell.filter(tags__in=tags).distinct()
         if querystring == 'O':
@@ -543,7 +572,8 @@ def all_products_old(request):
             # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
+                # If page is out of range (e.g. 9999), deliver last page of
+                # results.
         return
         # result_list = paginator.page(paginator.num_pages)
     if page:
@@ -553,6 +583,7 @@ def all_products_old(request):
         return render(request, 'marketplace/marketplace.html', {'result_list': result_list,
                                                                 'tags': tags, 'tags2': tags2, 'n': n, 'm': m})
 
+
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def add_product(request):
@@ -561,10 +592,13 @@ def add_product(request):
     user = request.user
     workplace = request.user.userprofile.primary_workplace
     if request.method == 'POST':
-        product_email = request.POST.get('u_email')     # email of the uploader, only for the first product
-        product_phone = request.POST.get('u_phone')     # phone of the uploader, only for the first product
+        # email of the uploader, only for the first product
+        product_email = request.POST.get('u_email')
+        # phone of the uploader, only for the first product
+        product_phone = request.POST.get('u_phone')
         up = user.userprofile
-        up.set_product_contacts(product_email=product_email, product_phone=product_phone)
+        up.set_product_contacts(
+            product_email=product_email, product_phone=product_phone)
         pro = request.POST.get('product')
         description = request.POST.get('description')
         cost = request.POST.get('cost')
@@ -590,7 +624,8 @@ def add_product(request):
         p = {}
         if len(pro) > 3:
             product = pro
-            p = Products.objects.create(product=product, producer=workplace, description=description, user=user, cost=cost)
+            p = Products.objects.create(
+                product=product, producer=workplace, description=description, user=user, cost=cost)
         if image0:
             i = Images()
             x = i.upload_image(image=image0, user=user)
@@ -598,18 +633,23 @@ def add_product(request):
             p.save()
 
         for c in categories:
-            Product_Categories.objects.create(product=p, category=c, level=c.level)
+            Product_Categories.objects.create(
+                product=p, category=c, level=c.level)
         todaydate = date.today()
         startdate = todaydate + timedelta(days=1)
         enddate = startdate - timedelta(days=1)
-        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(workplace.slug, workplace)
-        pp = Products.objects.filter(date__range=[enddate, startdate], user=user)
+        node = '''We have just listed a few products on behalf of <a href="/workplace/{0}">{1}</a>. Have a look at our profile for more details.'''.format(
+            workplace.slug, workplace)
+        pp = Products.objects.filter(
+            date__range=[enddate, startdate], user=user)
         if len(pp) < 2:
-            n = Node.objects.create(post=node, user=user, category='D', w_type=workplace.workplace_type)
+            n = Node.objects.create(
+                post=node, user=user, category='D', w_type=workplace.workplace_type)
             if image0:
                 n.images = [x]
         response = {}
-        response['alert'] = render_to_string('products/add_prod_alert.html', {'p': p})
+        response['alert'] = render_to_string(
+            'products/add_prod_alert.html', {'p': p})
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         p = Products.objects.filter(producer=workplace).last()
@@ -620,7 +660,8 @@ def add_product(request):
 
         c = {}
         if p:
-            c = Product_Categories.objects.filter(product=p.id).order_by('level')
+            c = Product_Categories.objects.filter(
+                product=p.id).order_by('level')
         c1_all = Category.objects.filter(level=1)
         c1_1 = itemgetter(0, 1, 2)(c1_all)
         c1_2 = itemgetter(3, 4, 13)(c1_all)
@@ -633,7 +674,7 @@ def add_product(request):
 
         return render(request, 'products/add_product.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
                                                              'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': False,})
+                                                             'c1_8': c1_8, 'p': p, 'c': c, 'first_time': False, })
 
 
 def initial_category(request):
@@ -660,7 +701,8 @@ def c_r(request):
     p = pp.product
     q = Product_Categories.objects.filter(product=p)
     for t in q:
-        Product_Categories.objects.create(product=pro, category=t.category, level=t.level)
+        Product_Categories.objects.create(
+            product=pro, category=t.category, level=t.level)
     return redirect('/internal/activity/?q=p')
 
 
@@ -723,7 +765,8 @@ def category_prod(request, slug):        # Products
             # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
+                # If page is out of range (e.g. 9999), deliver last page of
+                # results.
         return
         # result_list = paginator.page(paginator.num_pages)
     if request.is_ajax():
@@ -731,7 +774,7 @@ def category_prod(request, slug):        # Products
             return render(request, {'products': result_list})
         else:
             return render(request, content_url, {'content_head_url': content_head_url,
-                                    'products': result_list, 'category': category})
+                                                 'products': result_list, 'category': category})
         # return render(request, 'products/category.html', locals())
         # return render(request, content_url, locals())
     else:
@@ -747,7 +790,8 @@ def category_prod(request, slug):        # Products
 
 def category_wp(request, slug):        # Workplace
     category = Category.objects.get(slug=slug)
-    products = Products.objects.filter(categories=category).select_related('producer')
+    products = Products.objects.filter(
+        categories=category).select_related('producer')
     workplaces = []
     for p in products:
         if p.producer not in workplaces:
@@ -772,11 +816,11 @@ def category_update(request):
         text = ''
         if subs:
             for s in subs:
-                n = s.name+', '
+                n = s.name + ', '
                 text += n
         if parents:
             for s in parents:
-                n = s.name+','
+                n = s.name + ','
                 text += n
 
         c.meta_des = text[:150]
@@ -824,7 +868,8 @@ def edit_add_product(request, id):
                                             delivery_details=dd, delivery_charges=dc, minimum=minimum)
                 if c:
                     for t in c:
-                        Product_Categories.objects.create(product=p, category=t.category, level=t.level)
+                        Product_Categories.objects.create(
+                            product=p, category=t.category, level=t.level)
                 up = user.userprofile
                 up.points += 5
                 up.save()
@@ -841,16 +886,17 @@ def edit_add_product(request, id):
             # else:
             #     p_t = Products()
             #
-            # return HttpResponse(json.dumps(response), content_type="application/json")
+            # return HttpResponse(json.dumps(response),
+            # content_type="application/json")
         if user.userprofile.product_email:
             no_prod_con = False
         else:
             no_prod_con = True
         return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
-                                                          'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-                                                          'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
-                                                          'no_prod_con': no_prod_con, 'delivery_details': dd,
-                                                          'delivery_charges': dc, 'minimum': minimum})
+                                                      'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
+                                                      'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
+                                                      'no_prod_con': no_prod_con, 'delivery_details': dd,
+                                                      'delivery_charges': dc, 'minimum': minimum})
     else:
         p = Products.objects.get(id=id)
         dictionary = {}
@@ -880,7 +926,8 @@ def edit_add_product(request, id):
             response['p_id'] = p.id
             return HttpResponse(json.dumps(response), content_type="application/json")
         else:
-            c = Product_Categories.objects.filter(product=p.id).order_by('level')
+            c = Product_Categories.objects.filter(
+                product=p.id).order_by('level')
             dictionary = {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2, 'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5,
-                          'c1_6': c1_6,'c1_8': c1_8, 'product': p, 'c': c, 'first_time': True}
+                          'c1_6': c1_6, 'c1_8': c1_8, 'product': p, 'c': c, 'first_time': True}
             return render(request, 'products/edit.html', dict(list(p.__dict__.items()) + list(dictionary.items())))
