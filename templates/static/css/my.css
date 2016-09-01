@@ -4782,7 +4782,7 @@ input.not_wide{
 .image_box a{
   color: #bbb;
   text-align: center;
-  padding: 25px;
+  padding: 10px;
   font-size: 16px;
   display: block;
 }
@@ -6405,13 +6405,14 @@ and in bootstrap.css
   display: flex;
   text-align: center;
   padding: 15px 15px 0;
+  flex-wrap: wrap;
 }
 
 .welcome .note{
+  flex: 1 0 250px;
   padding: 15px 15px 0;
   transition: 0.5s all ease-in-out;
   color: #777;
-  flex: 1;
   border: 1px solid transparent;
 }
 

@@ -25,7 +25,6 @@ br { display: block; line-height: 1.6em; }
 .form_card .form-group.active{
 }
 .form_card .form-group.active, .form_card .form-group.active textarea, .form_card .form-group.active input{
-  
   color: #222;
   transition: all linear .3s;
 }
@@ -39,7 +38,7 @@ br { display: block; line-height: 1.6em; }
   font-weight: bold;
   text-transform: uppercase;
   color: #333;
-  margin-bottom: 0;
+  margin-bottom: 2px;
   position: relative;
 }
 
@@ -47,40 +46,34 @@ br { display: block; line-height: 1.6em; }
   display: block;
   position: relative;
   width: 100%;
-  min-height: 37px;
+  min-height: 39px;
   line-height: 27px;
-  margin: 0 -5px;
-  padding: 7px 5px 3px;
+  margin: 0;
+  padding: 5px 5px 5px;
   border: none;
   outline: none;
   color: #777;
   font-family: 'Titillium Web', Arial, sans-serif;
-  
   font-size: 16px;
-  
   transition: all linear .3s;
 }
 
-.form_card select {
-  width: auto;
-  padding: 0;
-  color: #555;
-  margin: 5px 0;
-  background: transparent;
-  border: 1px solid #eee;
-  height: 27px;
+.form_card input, .form_card textarea, .form_card select{
+  background: #f5f5f5;
+  border: 1px dashed transparent;
 }
 
 .form_card .form-control{
-  padding-top: 1px;
-  padding-bottom: 2px;
-  min-height: 32px;
-  height: 32px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  min-height: 39px;
+  height: 39px;
+  border: 1px dashed transparent;
 }
 
 .form_card .form-control:focus{
-  border: 1px dashed #e4e4e4;
-  margin: 0;
+  border: 1px dashed #ccc;
+  padding-left: 10px;
 }
 
 .form_card .radio_group{
@@ -116,7 +109,8 @@ br { display: block; line-height: 1.6em; }
 
 .form_card input:focus, .form_card select:focus, .form_card textarea:focus {
   opacity: 1;
-  margin: 0;
+  padding-left: 10px;
+  border: 1px dashed #ccc;
 }
 
 .form_card input[type=radio]:focus, .form_card input[type=checkbox]:focus{
@@ -169,7 +163,10 @@ br { display: block; line-height: 1.6em; }
   margin: 0;
 }
 
-.form_card .col-sm-9, .form_card .col-sm-6, .form_card .col-sm-4, .form_card .col-sm-3{
+.form_card .col-sm-12, .form_card .col-sm-9, .form_card .col-sm-6, .form_card .col-sm-4, .form_card .col-sm-3, .form_card .col-sm-2,
+.form_card .col-sm-12, .form_card .col-md-9, .form_card .col-md-6, .form_card .col-md-4, .form_card .col-md-3, .form_card .col-md-2,
+.form_card .col-sm-12, .form_card .col-lg-9, .form_card .col-lg-6, .form_card .col-lg-4, .form_card .col-lg-3, .form_card .col-lg-2
+{
   padding: 0;
 }
 
@@ -180,8 +177,8 @@ br { display: block; line-height: 1.6em; }
 .form_card .char_count{
   display: block;
   position: absolute;
-  right: 20px;
-  bottom: 10px;;
+  right: 25px;
+  bottom: 12px;
   color: #aaa;
 }
 
@@ -190,7 +187,7 @@ br { display: block; line-height: 1.6em; }
 }
 
 .form_card .input_tags{
-  margin-top: 7px;
+  margin-top: 5px;
   margin-bottom: 0;
 }
 
@@ -262,12 +259,16 @@ a.submitbtn:hover, a.submitbtn:focus{
 
 .form_card .pre_input .pre{
   position: absolute;
-  left: 15px;
+  left: 25px;
   top: 47px;
   font-size: 16px;
   color: #aaa;
   font-family: 'Titillium Web';
   line-height: 27px;
+}
+
+.form_card .pre_input .pre .fa{
+  margin-right: 0;
 }
 
 /** responsive design **/
@@ -309,4 +310,80 @@ a.submitbtn:hover, a.submitbtn:focus{
 
 .form_card .tags{
   color: #777;
+}
+
+.form_card_thin input{
+  font-size: 13px;
+}
+
+.form_card_thin label{
+  font-size: 12px;
+  /* line-height: 18px; */
+}
+
+.form_card_thin .form-group{
+  padding: 7px 10px 7px;
+}
+
+.form_card_thin input, .form_card_thin textarea, .form_card_thin select{
+    min-height: 19px;
+    line-height: 17px;
+    margin: 0;
+    padding: 5px 5px;
+    color: #777;
+    font-size: 13px;
+}
+
+.form_card_thin select{
+  display: block;
+  padding: 3px 5px 2px;
+}
+
+.form_card_thin textarea{
+  min-height: 91px;
+}
+
+.form_card_thin .pre_input .pre {
+    position: absolute;
+    left: 15px;
+    top: 32px;
+    font-size: 13px;
+    color: #aaa;
+    font-family: 'Titillium Web';
+    line-height: 17px;
+}
+
+.form_card_thin input:focus, .form_card_thin select:focus, .form_card_thin textarea:focus {
+  opacity: 1;
+  padding-left: 5px;
+  border: 1px dashed #ccc;
+  background: #fff;
+}
+
+.form_card_thin .char_count {
+    /* display: block; */
+    /* position: absolute; */
+    right: 11px;
+    left: 11px;
+    text-align: right;
+    bottom: 8px;
+    background: #f5f5f5;
+    font-size: 12px;
+    padding: 0 9px 2px 0;
+    /* color: #aaa; */
+}
+
+.form_card .count_field {
+    padding-bottom: 25px;
+}
+
+.form_card .count_field:focus + .char_count{
+  background: #fff;
+  transition: all linear .3s;
+}
+
+.form_card_thin .image_box{
+  width: 100%;
+  margin: 0;
+  max-height: 112px;
 }

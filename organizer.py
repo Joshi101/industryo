@@ -1,3 +1,7 @@
+"""
+
+"""
+
 from os import walk
 from html.parser import HTMLParser
 import csv

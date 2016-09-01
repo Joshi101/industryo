@@ -33,7 +33,7 @@
     left: 0px; }
     @media (max-width: 768px) {
       .menu_left .toggle {
-        margin-left: -5px; } }
+        margin-left: 0px; } }
   .menu_left a[data-status='closed'] {
     color: #000;
     transition: 0.5s all ease-out; }
@@ -129,8 +129,10 @@
 .flex_block {
   width: 100%;
   margin-left: 200px;
-  justify-content: space-around;
-  margin-right: 25px; }
+  /* justify-content: space-around; */
+  /*     margin-right: 25px; */
+  padding: 0 5%;
+  }
   @media (max-width: 768px) {
     .flex_block {
       margin-left: 25px; } }

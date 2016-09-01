@@ -13,13 +13,15 @@
       </div>
       <div class="form-group">
         <div class="data_title">Operating in</div>
-        <div class="tags">
-          <span class="fa fa-map-o fa-fw"></span>
-          {% for tag in tags.city %}
+        <div class="data">
+          <div class="tags">
+            <span class="fa fa-map-o fa-fw"></span>
+            {% for tag in tags.city %}
             <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-          {% empty %}
+            {% empty %}
             {{na}}
-          {% endfor %}
+            {% endfor %}
+          </div>
         </div>
       </div>
       {% if workplace.year_established or workplace.number_of_employees or workplace.get_legal_status %}
@@ -74,35 +76,41 @@
       </div>
       <div class="form-group">
         <div class="data_title">Segements</div>
-        <div class="tags">
-          <span class="fa fa-industry fa-fw"></span>
-          {% for tag in tags.segments %}
-            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-          {% empty %}
-          {{na}}
-          {% endfor %}
+        <div class="data">
+          <div class="tags">
+            <span class="fa fa-industry fa-fw"></span>
+            {% for tag in tags.segments %}
+              <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+            {% empty %}
+            {{na}}
+            {% endfor %}
+          </div>
         </div>
       </div>
       <div class="form-group">
         <div class="data_title">Operations</div>
-        <div class="tags">
-          <span class="fa fa-fire-extinguisher fa-fw"></span>
-          {% for tag in tags.operations %}
-            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-          {% empty %}
-          {{na}}
-          {% endfor %}
+        <div class="data">
+          <div class="tags">
+            <span class="fa fa-fire-extinguisher fa-fw"></span>
+            {% for tag in tags.operations %}
+              <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+            {% empty %}
+            {{na}}
+            {% endfor %}
+          </div>
         </div>
       </div>
       <div class="form-group">
         <div class="data_title">Machinery &amp; Assets</div>
-        <div class="tags">
-          <span class="fa fa-cogs fa-fw"></span>
-          {% for tag in tags.assets %}
-            <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-          {% empty %}
-          {{na}}
-          {% endfor %}
+        <div class="data">
+          <div class="tags">
+            <span class="fa fa-cogs fa-fw"></span>
+            {% for tag in tags.assets %}
+              <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
+            {% empty %}
+            {{na}}
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
@@ -140,7 +148,7 @@
     "@context": "http://schema.org",
     "@type": "Organization",
     "name": "{{workplace.name}}",
-    "url": "{{workplace.get_website|default:''}}",
+    "url": "{{workplace.get_website}}",
     "logo": "http://www.corelogs.com{{workplace.get_logo}}",
     "description": "{{workplace.about|default:''}}",
     "location": [

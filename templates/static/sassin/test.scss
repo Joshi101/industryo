@@ -40,7 +40,7 @@
         left: 0px;
 
         @media (max-width: 768px){
-            margin-left: -5px;
+            margin-left: 0px;
             
         }
     }
@@ -177,7 +177,8 @@
     width: 100%;
     margin-left: 200px;
     justify-content: space-around;
-    margin-right: 25px;
+/*     margin-right: 25px; */
+    padding: 0 5%;
 
     @media (max-width:768px){
         margin-left: 25px;
