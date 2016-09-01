@@ -1517,23 +1517,6 @@ $(function () {
       cb(matches);
     };
   };
-
-  $.ajax({
-    url: '/messages/users/',
-    cache: false,
-    success: function (data) {
-      /*$('#to').typeahead({
-        hint: true,
-        highlight: true,
-        minLength: 1
-      },
-      {
-        name: 'data',
-        displayKey: 'value',
-        source: substringMatcher(data)
-      });*/
-    }
-  });
 });
 
 function nav_active(a){

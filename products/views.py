@@ -784,6 +784,8 @@ def category_update(request):
     return redirect('/')
 
 
+from io import StringIO, BytesIO
+
 @login_required
 # @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def edit_add_product(request, id):
@@ -827,6 +829,15 @@ def edit_add_product(request, id):
                 up.points += 5
                 up.save()
                 response['p_id'] = p.id
+            image1 = request.FILES.get('photo', None)
+            if image1:
+                image = StringIO()
+                image1.save(image, image1.name.split('.')[-1])
+                # i = Images()
+                # x = i.upload_image(image=image1, user=user)
+                # p.image = x
+                # p.save()
+            response['p_id'] = p.id
             # else:
             #     p_t = Products()
             #

@@ -13,21 +13,22 @@ import os
 
 class Images(models.Model):
 # <<<<<<< HEAD
-#     image = ProcessedImageField(upload_to='main',
-#                                 processors=[ResizeToCover(640, 640)],
-#                                 format='JPEG',
-#                                 options={'quality': 90})
-#     image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-#                                           processors=[SmartResize(128, 128)],
-#                                           format='JPEG',
-#                                           options={'quality': 70})
-#     image_thumbnail_sm = ProcessedImageField(upload_to='miny',
-#                                              processors=[SmartResize(64, 64)],
-#                                              format='JPEG',
-#                                              options={'quality': 70}, null=True, blank=True)
+    image = ProcessedImageField(upload_to='main',
+                                processors=[ResizeToCover(640, 640)],
+                                format='JPEG',
+                                options={'quality': 90})
+    image_thumbnail = ProcessedImageField(upload_to='thumbnails',
+                                          processors=[SmartResize(128, 128)],
+                                          format='JPEG',
+                                          options={'quality': 70})
+    image_thumbnail_sm = ProcessedImageField(upload_to='miny',
+                                             processors=[SmartResize(64, 64)],
+                                             format='JPEG',
+                                             options={'quality': 70}, null=True, blank=True)
 # =======
-    image = models.ImageField(upload_to='main')
-    image_thumbnail = models.ImageField(upload_to='thumbnails')
+#     image = models.ImageField(upload_to='main')
+#     image_thumbnail = models.ImageField(upload_to='thumbnails')
+#     image_thumbnail_sm = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     # image = ProcessedImageField(upload_to='main',
     #                                       processors=[ResizeToCover(640, 640)],
     #                                       format='JPEG',
@@ -52,6 +53,7 @@ class Images(models.Model):
     def upload_image(self, image, user):
         if len(image.name) > 30:
             image.name = image.name[:20]
+        image.open()
         i = Images.objects.create(image=image, image_thumbnail=image, user=user)
         return i
 

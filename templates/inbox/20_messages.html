@@ -45,7 +45,7 @@
             <input type="hidden" name="id" value="{{result.id}}">
           </form>
           <span class="label label-info">Message</span>
-          <span class="trunc name">{% if result.user1 == user %}{{result.user2}}{% else %}{{result.user2}}{% endif %}</span>
+          <span class="trunc name">{% if result.user1 == user %}{{result.user2}}{% else %}{{result.user1}}{% endif %}</span>
           <span class="subject trunc">{{result.subject}} ({{result.get_msg_count}})</span>
           <time class="trunc">{{result.date}}</time>
         </a>

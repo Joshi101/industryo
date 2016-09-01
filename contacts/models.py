@@ -122,6 +122,9 @@ class Emails(models.Model):
         return self.email
 
 
+class SmeInteraction(models.Model):
+    sme = models.ForeignKey(Workplace)
+
 
 
 

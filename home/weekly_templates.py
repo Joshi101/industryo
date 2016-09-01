@@ -1,0 +1,7 @@
+Monday_template = ''''''
+Tuesday_template = ''''''
+Wednesday_template = ''''''
+Thursday_template = ''''''
+Friday_template = ''''''
+Saturday_template = ''''''
+Sunday_template = ''''''

@@ -126,7 +126,7 @@ class Workplace(models.Model):
             li = []
             for n in workplace_tags:
                 m = n.strip()
-                t = Tags.objects.filter(tag__iexact=m).first()
+                t = Tags.objects.filter(Q(tag__iexact=m) | Q(tag__iexact=n)).first()
                 if not t:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type=typ)
@@ -138,7 +138,6 @@ class Workplace(models.Model):
                     e = WpTags.objects.create(workplace=self, tags=t, category=typ, primary=primary)
                     t.count += 1
                     t.save()
-            # t = Thread(target=leads_mail, args=(l.id, 'created'))
             return li
 
     def set_events(self, events):

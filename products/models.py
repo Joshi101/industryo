@@ -377,7 +377,8 @@ class Product_Categories(models.Model):
         db_table = 'Product_Categories'
 
 
-
+# class Product(object):
+#     def __init__(self):
 
 
 

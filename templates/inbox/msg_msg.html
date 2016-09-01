@@ -16,7 +16,7 @@
 {% for msg in result.get_messages %}
   <div class="msg {% if msg.from_user == user %}self{% endif %}">
     <img class="lazy_img thmb_sm" src="/images/user_man.png" data-src="{{msg.from_user.userprofile.get_profile_image}}" alt="{{msg.from_user}}">
-    <span class="text">{{msg.message|urlize}}</span>
+    <span class="text">{{msg.message|safe|urlize}}</span>
   </div>
 {% endfor %}
 </div>
