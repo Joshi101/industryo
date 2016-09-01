@@ -1,18 +1,15 @@
-from django.conf.urls import include, url
-from django.contrib import admin
-from . import views
+from django.conf.urls import url
+from . import views, views_new
 
 urlpatterns = [
-
-    # url(r'^accounts/', include('allauth.urls')),
-    # url(r'^$', 'home.views.home', name='home'),
 
     url(r'^$', views.all_products, name='marketplace'),
     url(r'^home/$', views.home, name='home'),
 
     url(r'^random/$', views.random, name='random'),
     url(r'^delete/$', views.delete, name='delete'),
-    url(r'^add_product/$', views.add_product, name='add_product'),
+    # url(r'^add_product/$', views.add_product, name='add_product'),
+    url(r'^add_product/$', views_new.add_product, name='add_product'),
 
     url(r'^edit_add/(?P<id>[^/]+)/$', views.edit_add_product, name='edit_add'),
 

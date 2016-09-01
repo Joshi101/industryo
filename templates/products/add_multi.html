@@ -1,0 +1,66 @@
+{% extends "base_new.html" %}
+
+{% load filter %}
+
+{% block title %}Add Products | CoreLogs{% endblock title %}
+
+{% block meta_description %}Add a new product provided by {{workplace}}{% endblock meta_description %}
+
+{% block meta_og_title %}Add Product{% endblock meta_og_title %}
+{% block meta_og_description %}Add a new product provided by {{workplace}}{% endblock meta_og_description %}
+{% block meta_og_image %}{{workplace.get_logo}}{% endblock meta_og_image %}
+{% block meta_og_image_dim %}
+  <meta property="og:image:width" content="128">
+  <meta property="og:image:height" content="128">
+{% endblock meta_og_image_dim %}
+
+{% block page_id %}add_product{% endblock page_id %}
+
+{% block top %}
+  {% include "snippets/top_navigation.html" with what='Products' %}
+{% endblock top %}
+
+{% block body %}
+<div class="menu_left" data-spy="affix" data-offset-top="50">
+  <a class="toggle" href="#" data-slide="#all_categories" data-status="open"><span class="fa fa-bars slim_fa"></span></a>
+  <nav>
+    <ul class="tab_list">
+      <li>
+        <a href="{% url 'network:network' %}">
+          <span class="fa fa-globe"></span>
+          Network
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'forum:questions' %}">
+          <span class="fa fa-lightbulb-o"></span>
+          Forum
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'nodes:articles' %}">
+          <span class="fa fa-newspaper-o"></span>
+          Articles
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="flex_block">
+  <div class="">
+    {% if p %}
+  	<div class="alert alert-info">
+  	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  	  <p><strong>Hello {{request.user.userprofile}} !</strong></p>
+  	  <p>The last product listed by your workplace was <a href="{% url 'products:product' p.slug %}"><strong>{{p}}</strong></a>. Continue adding more products</p>
+  	</div>
+  	{% endif %}
+  	<div class="alert alert-info">
+  	  <p>List Products here or send a list of products in excel with name, specifications, images and cost to <strong>admin@corelogs.com</strong></p>
+  	</div>
+    {% for i in "1234567890" %}
+      {% include "products/add_multi_form.html" with n=forloop.counter %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}

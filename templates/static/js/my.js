@@ -1302,6 +1302,7 @@ $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   autosize($('textarea'));
   autosize.update($('textarea'));
+  autosize.destroy($('.form_card_thin textarea'));
 });
 
 $('.body').on('click', '.call_car', function(){
@@ -1828,13 +1829,13 @@ $('#add_prod_category').on('click', '.no_sub', function(){
     for (var i = 0; i < cats.length; i++) {
         if(cats[i]){
             if(i){
-                html += '<span class="fa fa-chevron-right inline_fa"></span>';
+                html += ' <span class="fa fa-chevron-right inline_fa"></span>';
             }
             html = html + '<span>' + cats[i] + '</span>';
         }
     }
     $("#selected_category").html(html);
-
+    $(this).closest('.modal').modal('hide');
 });
 
 $('#add_prod_category').on('click', '.new_category_btn', function(){
@@ -2199,7 +2200,14 @@ $('#all_categories .hoverdown_toggle').on('mouseenter', function(){
 
 $(function(){
     $('.pre_input').each(function(){
-       $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth()));
+        if ($(this).closest('.form_card').length){
+            if ($(this).closest('.form_card').attr('class').indexOf('form_card_thin') >= 0) {
+                $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth() + 5));
+            }
+            else{
+                $(this).find('input, textarea').css('padding-left',($(this).find('.pre').outerWidth() + 10));
+            }
+        }
     });
     $('.char_count').each(function(){
         var f = $(this).parent().find('input, textarea');
@@ -2977,3 +2985,4 @@ function receiveModal($form, response){
     }
     $form.find('.success_modal').modal();
 }
+

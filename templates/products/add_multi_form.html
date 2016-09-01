@@ -1,0 +1,48 @@
+<div class="form_card form_card_thin tile_flat">
+  <form id="add_prod_form_{{n}}" role="form" action="" method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <div class="image_box">
+            <div class="img_pre">
+              <a class="fake_btn" data-btn="#product_image_btn_{{n}}"><span class="fa fa-plus"></span><span>Add Image</span></a>
+            </div>
+            <a class="fake_btn hover_btn" data-btn="#product_image_btn_{{n}}"><span class="fa fa-plus"></span><span>Change Image</span></a>
+            <input id="product_image_btn_{{n}}" class="hidden" type="file" name="photo" value="" placeholder="">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="prod_name_{{n}}">Product Name</label>
+            <input id="prod_name_{{n}}" name="product" value="" placeholder ='Enter the complete name of your product or service'>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Type</label>
+            <select name="product_type">
+              <option value="A">Single Item</option>
+              <option value="B">Bulk Item</option>
+              <option value="C">Service</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Cost</label>
+            <input id="peod_cost" name="cost" value="" placeholder ='00'>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="wp_turnovr">Description</label>
+          <textarea class=" textarea_md count_field" id="wp_prod_details" name="description" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity You can list products individually later" maxlength="1000"></textarea>
+          <span class="char_count">1000</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
