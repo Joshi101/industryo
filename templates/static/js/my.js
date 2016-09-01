@@ -1887,7 +1887,7 @@ $('.select_btn').on('click', function(){
     }
 });
 
-$('#add_product_form').on('click', '.ajx_form', function(e){
+$('.add_prod').on('click', '.ajx_form', function(e){
     e.preventDefault();
     ajx_form_file($(this).closest('form'), prodSuccess, showFailureModal);
 });
