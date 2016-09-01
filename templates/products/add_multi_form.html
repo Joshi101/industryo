@@ -1,5 +1,5 @@
 <div class="form_card form_card_thin tile_flat">
-  <form id="add_prod_form_{{n}}" role="form" action="" method="POST" enctype="multipart/form-data">
+  <form id="add_prod_form_{{n}}" class="add_prod" role="form" action="" method="POST" enctype="multipart/form-data">
     <div class="row">
       <div class="col-sm-2">
         <div class="form-group">
@@ -16,13 +16,13 @@
         <div class="col-sm-12">
           <div class="form-group">
             <label for="prod_name_{{n}}">Product Name</label>
-            <input id="prod_name_{{n}}" name="product" value="" placeholder ='Enter the complete name of your product or service'>
+            <input id="prod_name_{{n}}" name="product" value="" placeholder ='The complete name of product or service'>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label>Type</label>
-            <select name="product_type">
+            <label for="prod_type_{{n}}">Type</label>
+            <select id="prod_type_{{n}}" name="product_type">
               <option value="A">Single Item</option>
               <option value="B">Bulk Item</option>
               <option value="C">Service</option>
@@ -31,18 +31,83 @@
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label>Cost</label>
-            <input id="peod_cost" name="cost" value="" placeholder ='00'>
+            <label for="prod_cost_{{n}}">Cost</label>
+            <input id="prod_cost_{{n}}" name="cost" value="" placeholder ='00.00'>
           </div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="wp_turnovr">Description</label>
-          <textarea class=" textarea_md count_field" id="wp_prod_details" name="description" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity You can list products individually later" maxlength="1000"></textarea>
+          <label for="prod_desc_{{n}}">Description</label>
+          <textarea class=" textarea_md count_field" id="prod_desc_{{n}}" name="description" placeholder="Describe the product here..." maxlength="1000"></textarea>
           <span class="char_count">1000</span>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Category</label> <span class="help">(click below to change)</span>
+          <div class="data click_data">
+            <a id="change_cat_btn_{{n}}" class="change_prod_category" data-toggle="modal" href="#categories_modal">
+              {% if c %}
+              {% for category in c %}
+              <span>{{category.category}}</span>
+              {% if not forloop.last %}
+              <span class="fa fa-angle-right mid_fa"></span>
+              {% endif %}
+              {% endfor %}
+              {% else %}
+              Select a Category for your Product
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Delivery Details</label>
+            <div class="data click_data">
+              <a href="#add_prod_extra_{{n}}" data-toggle="collapse"><span class="fa fa-plus-circle"></span> Click to change</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 text-right">
+          <div class="form-group">
+            <div class="data">
+              <button type="button" name="button" class="btn btn-success btn-lg ajx_form" style="position: relative; top: 4px; margin-top: -7px;">Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="add_prod_extra_{{n}}" class="collapse">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="prod_dcharge_{{n}}">Delivery Charges</label>
+            <input id="prod_dcharge_{{n}}" name="delivery_charges" value="" placeholder ='00.00'>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="prod_dmin_{{n}}">Minumum Order</label> <span class="help">(if any)</span>
+            <input id="prod_dmin_{{n}}" name="minimmum" value="" placeholder ='0'>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="prod_ddetails_{{n}}">Delivery Details</label>
+            <textarea class=" textarea_md count_field" id="prod_ddetails_{{n}}" name="delivery_details" placeholder="Describe the the details of delivery..." maxlength="1000"></textarea>
+            <span class="char_count">1000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
+    <input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
+    <input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
   </form>
 </div>
+{% include "products/categories_modal.html" %}
