@@ -3871,22 +3871,30 @@ footer .contact li{
   height: auto;
 }
 
-.form-control::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder,
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
    color: #bbb;
+/*    font-style: italic; */
 }
 
-.form-control:-moz-placeholder { /* Firefox 18- */
+.form-control:-moz-placeholder,
+input:-moz-placeholder,
+textarea:-moz-placeholder { /* Firefox 18- */
    color: #bbb;  
 }
 
-.form-control::-moz-placeholder {  /* Firefox 19+ */
+.form-control::-moz-placeholder,
+input::-moz-placeholder,
+textarea::-moz-placeholder {  /* Firefox 19+ */
    color: #bbb;  
 }
 
-.form-control:-ms-input-placeholder {  
+.form-control:-ms-input-placeholder,
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {  
    color: #bbb;  
 }
-
 #top_search .form-control::-webkit-input-placeholder {
    color: #777;
 }
@@ -6851,4 +6859,8 @@ and in bootstrap.css
   margin-bottom: 16px;
   text-align: right;
   right: 0;
+}
+
+.mid_fa{
+  margin: 0 5px;
 }
