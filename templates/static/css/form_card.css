@@ -330,7 +330,12 @@ a.submitbtn:hover, a.submitbtn:focus{
     padding: 5px 5px;
     color: #333;
     font-size: 14px;
+    background: #f9f9f9;
     /*     font-family: 'Open sans'; */
+}
+
+.form_card_thin .data{
+  background: transparent;
 }
 
 .form_card_thin select{
@@ -343,7 +348,7 @@ a.submitbtn:hover, a.submitbtn:focus{
 }
 
 .form_card_thin .click_data{
-  margin-left: -5px;
+  background: #f9f9f9;
 }
 
 .form_card_thin .click_data .fa{

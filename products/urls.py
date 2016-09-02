@@ -11,6 +11,7 @@ urlpatterns = [
     # url(r'^add_product/$', views.add_product, name='add_product'),
     url(r'^add_product/$', views_new.add_product, name='add_product'),
     url(r'^add_image/$', views_new.add_image, name='add_image'),
+    url(r'^add_products_file/$', views_new.add_products_file, name='add_products_file'),
 
     url(r'^edit_add/(?P<id>[^/]+)/$', views.edit_add_product, name='edit_add'),
 

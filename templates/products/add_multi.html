@@ -55,34 +55,39 @@
       <p>
         <strong>Or</strong> alternatively, use the Spreadsheet Template!
       </p>
-      <form action="{% url 'products:add_product' %}" method="post" style="margin: 10px 0 5px">
+      <form action="{% url 'products:add_products_file' %}" method="post" style="margin: 10px 0 5px">
         <a href="#" class="btn btn-primary btn-sm">Download Template <span class="fa fa-file-excel-o"></span></a>
         <a href="#" class="fake_btn btn btn-success btn-sm pull-right" data-btn="#product_list_file">Upload Completed Sheet <span class="fa fa-upload"></span></a>
+        <input id="product_list_file" class="hidden up_file" type="file" name="product_list">
       </form>
       <p class="text-right">
         or send a mail to <strong>admin@corelogs.com</strong>
       </p>
-      <input id="product_list_file" class="hidden" type="file" name="product_list">
   	</div>
     <h5>Recently Added Products</h5>
-    <ul class="product_list_sm list-unstyled">
+    <ul id="recent_prods" class="product_list_sm list-unstyled">
       {% for product in previous_prods %}
         {% include "products/small_product.html" with product=product %}
         {% if forloop.last %}
-          <li class="product_sm text-right">
+          <li style="padding-left: 39px;">
             <a href="">See More <span class="fa fa-angle-double-right"></span></a>
           </li>
         {% endif %}
       {% empty %}
-        <li class="product_sm">
+        <li>
           Your most recently added products will appear here.
         </li>
       {% endfor %}
     </ul>
-    {% for i in "12" %}
-      {% include "products/add_multi_form.html" with n=forloop.counter %}
-    {% endfor %}
-    {% include "products/categories_modal.html" %}
+    <div class="form_pool">
+      {% for i in "12345" %}
+        {% include "products/add_multi_form.html" with n=forloop.counter %}
+      {% endfor %}
+      {% include "products/categories_modal.html" %}
+      <div class="text-center">
+        <button type="button" name="submit" class="btn btn-success btn-lg form_show" style="margin-top: 15px;"><span class="fa fa-plus fa-fw" style="color: #fff;"></span> Add More</button>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock body %}

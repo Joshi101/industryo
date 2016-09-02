@@ -22,8 +22,12 @@ def add_product(request):
     response = {}
     if request.method == 'POST':
         # add product and return something
+        n = request.POST.get('index')
+        n = int(n) + 5
         product = Products.objects.filter(producer=workplace)[0]
-        response = render_to_string('snippets/comment.html', {'product': product})
+        response['last_p'] = render_to_string('products/small_product.html', {'product': product})
+        response['new_form'] = render_to_string('products/add_multi_form.html', {'n': n})
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         # show the add products page
         p = Products.objects.filter(producer=workplace).last()
@@ -53,8 +57,15 @@ def add_product(request):
 @login_required
 def add_image(request):
     if request.method == 'POST':
-        image = request.POST.get('image')
-        image2 = request.FILES.get('image')
+        image = request.FILES.get('image')
         transformation = request.POST.get('transformation')
-        print(image,image2,transformation)
+        print(image,transformation)
+    return HttpResponse()
+
+
+@login_required
+def add_products_file(request):
+    if request.method == 'POST':
+        file = request.FILES.get('product_list')
+        print(file)
     return HttpResponse()
