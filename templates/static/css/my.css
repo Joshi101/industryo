@@ -1759,11 +1759,10 @@ a {
 .cropit-preview{
   width: 250px;
   height: 250px;
-  margin-top: 7px;
-
+  /* margin-top: 9px; */
   cursor: move;
-
-  border: 1px solid #ccc;
+  margin: 15px auto;
+  border: 1px dashed #ccc;
   border-radius: 3px;
   background-color: #f8f8f8;
   background-size: cover;
@@ -1771,8 +1770,12 @@ a {
 
 .cropit-image-background {
   cursor: auto;
-
   opacity: .2;
+}
+
+.cropit-boundary{
+  margin: 15px;
+  overflow: hidden;
 }
 
 .image-size-label {
@@ -4777,66 +4780,6 @@ input.not_wide{
   margin-bottom: 200px;
 }
 
-.image_box{
-  margin-top: 20px;
-  border: 1px dashed #8AA5C8;
-  height: 150px;
-  background-color: #fff;
-  width: 225px;
-  overflow: hidden;
-  position: relative;
-}
-
-.image_box a{
-  color: #bbb;
-  text-align: center;
-  padding: 10px;
-  font-size: 16px;
-  display: block;
-}
-
-.image_box a:hover{
-  text-decoration: none;
-  color: #197;
-}
-
-.image_box a span{
-  display: block;
-}
-
-.image_box a .fa-plus{
-  font-size: 60px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  line-height: 1;
-}
-.image_box img{
-  /*! width: 150px; */
-  height: 150px;
-  /*! margin: auto; */
-}
-
-.img_pre img{
-  border: 0;
-}
-
-.image_box .hover_btn{
-  display: none;
-  position: absolute;
-  right: 50px;
-  color: #333;
-  z-index: 10;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(255,255,255,0.5)
-}
-
-.image_box .hover_btn:hover{
-  color: #444;
-}
-
 .dash_card .row{
   margin-left: -10px;
   margin-right: -10px;
@@ -6863,4 +6806,169 @@ and in bootstrap.css
 
 .mid_fa{
   margin: 0 5px;
+}
+
+.img_box_container{
+  display: flex;
+  flex-direction: column;
+}
+
+.image_box{
+  flex-grow: 1;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  /*   border: 1px dashed #8AA5C8; */
+  background-color: #fff;
+  overflow: visible;
+  position: relative;
+  height: 100%;
+  /* padding-bottom: 100%; */
+}
+
+.image_box a:hover,
+.image_box a:focus,
+.image_box a:active{
+  text-decoration: none;
+  color: #197;
+}
+
+.image_box a:hover .fa,
+.image_box a:hover span{
+  color: #197;
+}
+
+.image_box .add_btn{
+  color: #bbb;
+  text-align: center;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  border: 1px dashed #8AA5C8;
+  padding: 10px;
+}
+
+.image_box .add_btn span{
+  display: block;
+}
+
+.image_box .add_btn .fa-plus{
+  font-size: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 1;
+  margin-right: 0;
+}
+
+/* .image_box .ajax_image{
+  position: absolute;
+  border: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image_box .ajax_image:focus,
+.image_box .ajax_image:active{
+  opacity: 0;
+}
+
+.image_box .ajax_image:hover + .add_btn span{
+  color: #197;
+  border-color: #197;
+} */
+
+.image_box .image_preview_box{
+  height: 96px;
+  width: 96px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.image_box .image_preview{
+  display: block;
+  /* flex: 0 0 100%; */
+  /* margin: 30px 0; */
+  /*   flex: 0 0 100px; */
+  width: 100%;
+  height: auto;
+  border: 1px dashed #ccc;
+  overflow: hidden;
+  text-align: center;
+}
+
+.image_box .image_preview img{
+  max-width: 100%;
+  max-height: 100px;
+  /*   padding-bottom: 100%; */
+  display: block;
+  /* overflow: visible; */
+}
+
+.image_box .options{
+  font-size: 11px;
+  /*   line-height: 20px; */
+  position: absolute;
+  background: rgba(255,255,255,0.5);
+  display: block;
+  width: 100%;
+  bottom: -2px;
+}
+
+.image_box .change{
+  display: block;
+  padding-top: 2px;
+}
+
+.image_box .modify{
+  position: absolute;
+/*   top: -5px; */
+  right: 0;
+}
+
+.image_crop_modal{
+  text-align: center;
+}
+
+.cropit-preview-background{
+  opacity: 0.2;
+}
+
+.cropit-image-zoom-input{
+  margin: 10px auto;
+}
+
+.product_sm{
+  display: flex;
+  font-size: 14px;
+  line-height: 24px;
+  border: 1px solid #eee;
+  background: #fff;
+  border-bottom: 0;
+  padding: 3px 5px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.product_sm img{
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.product_sm .name{
+  flex-basis: 30%;
+}
+
+.product_sm .extra{
+  flex-grow: 1;
+}
+
+.product_sm:last-child{
+  border-bottom: 1px solid #eee;
 }

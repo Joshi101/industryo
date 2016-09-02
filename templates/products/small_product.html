@@ -1,0 +1,6 @@
+<li class="product_sm">
+  <img class="thmb_sm" src="{{product.get_image}}" alt="{{product}}">
+  <a class='name' href="{% url 'products:product' product.slug %}">{{ product }}</a>
+  <span class='extra'>{% for c in product.categories.all %}{{c}}{% endfor %}</span>
+  <a class='edit2' href="{% url 'products:product' product.slug %}"><span class="fa fa-pencil"></span> Edit</a>
+</li>

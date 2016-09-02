@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^delete/$', views.delete, name='delete'),
     # url(r'^add_product/$', views.add_product, name='add_product'),
     url(r'^add_product/$', views_new.add_product, name='add_product'),
+    url(r'^add_image/$', views_new.add_image, name='add_image'),
 
     url(r'^edit_add/(?P<id>[^/]+)/$', views.edit_add_product, name='edit_add'),
 

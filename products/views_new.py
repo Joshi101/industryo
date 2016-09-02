@@ -19,12 +19,16 @@ from home.tasks import execute_view
 def add_product(request):
     user = request.user
     workplace = request.user.userprofile.primary_workplace
+    response = {}
     if request.method == 'POST':
         # add product and return something
-        return render(request, 'products/add_multi.html', {'first_time': False})
+        product = Products.objects.filter(producer=workplace)[0]
+        response = render_to_string('snippets/comment.html', {'product': product})
     else:
         # show the add products page
         p = Products.objects.filter(producer=workplace).last()
+        # last added products
+        previous_prods = Products.objects.filter(producer=workplace)[:1]
         if user.userprofile.product_email:
             no_prod_con = False
         else:
@@ -44,3 +48,13 @@ def add_product(request):
         c1_8 = itemgetter(13, 14, 15)(c1_all)
         first_time = False
         return render(request, 'products/add_multi.html', locals())
+
+
+@login_required
+def add_image(request):
+    if request.method == 'POST':
+        image = request.POST.get('image')
+        image2 = request.FILES.get('image')
+        transformation = request.POST.get('transformation')
+        print(image,image2,transformation)
+    return HttpResponse()
