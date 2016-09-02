@@ -1872,7 +1872,8 @@ $('.select_btn').on('click', function(){
 
 $('.add_prod').on('click', '.ajx_form', function(e){
     e.preventDefault();
-    ajx_form_file($(this).closest('form'), prodSuccess, showFailureModal);
+    $(this).find('.fa').removeClass('fa-check').addClass('fa-cog fa-spin');
+    ajx_form_file($(this).closest('form'), prodSuccess, showFailureModalCommon);
 });
 
 $('#add_product_form').on('click', '.select_btn', function(e){
@@ -1942,9 +1943,10 @@ function ajx_form($form, onSuccess, onFailure){
 }
 
 function prodSuccess($form, response){
-    showSuccessModal($form);
-    $('#add_product > .container').find('.alert-info').alert("close");
-    $('#add_product > .container').prepend(response.alert);
+    $form.closest('.form_card').animate({'height': '0', 'margin': '0'}, 200, function(){
+        $(this).remove();
+    });
+    // showSuccessModal($form);
 }
 
 function showSuccessModal($form){
@@ -1958,6 +1960,11 @@ function showSuccessModal($form){
 function showFailureModal($form){
     var id = $form.attr('id');
     $("#" + id + "_errModal").modal();
+}
+
+function showFailureModalCommon($form){
+    var id = $form.attr('id');
+    $("#errModal").modal();
 }
 
 $("#wp_set_form").on('click','button[type=button]', function(){
@@ -2219,9 +2226,6 @@ function autoSubmitReady($this){
     if ($this.attr('type') == 'hidden'){
         customValidate($this);
         autoSubmit($this,$this.data('response'));
-    }
-    else if ($this.attr('type') == 'file'){
-        imageUpload($this);
     }
     else {
         customValidate($this);
@@ -2976,3 +2980,101 @@ function receiveModal($form, response){
     $form.find('.success_modal').modal();
 }
 
+
+//  image upload ka naya complete wyawastha
+
+$(function(){
+    $('.image_box').cropit({ imageBackground: true });
+});
+
+$('body').on('click', '.image_box .file_btn', function(e){
+    $(this).closest('.image_box').find('.ajax_image').trigger('click');
+});
+
+$(".image_crop_modal").on('hide.bs.modal', function (e) {
+    var $this = $(this);
+    var $image_box = $this.closest('.image_box');
+    //the cropped image uri
+    var imageData = $image_box.cropit('export');
+    // correct preview
+    $image_box.find('.image_preview img').attr('src', imageData);
+    // transformation matrix
+    var a = $this.find('.cropit-preview-image').css('transform');
+    var values = a.match(/-?[\d\.]+/g); // conversion to array
+    console.log(a, values);
+    // the original image
+    var file = $this.find('.ajax_image')[0].files[0];
+    // send image
+    var fd = new FormData();
+    fd.append('image', file);
+    fd.append('transformation', values);
+    $.ajax({
+        url: $image_box.attr('data-url'),
+        type: "POST",
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            //Upload progress
+            xhr.upload.addEventListener("progress", function(evt)
+            {
+              if (evt.lengthComputable) {
+                var percentComplete = evt.loaded / evt.total;
+                //Do something with upload progress
+                console.log(percentComplete);
+              }
+            }, false);
+            //Download progress
+            xhr.addEventListener("progress", function(evt) {
+              if (evt.lengthComputable) {
+                var percentComplete = evt.loaded / evt.total;
+                //Do something with download progress
+                console.log(percentComplete);
+              }
+            }, false);
+            return xhr;
+        },
+
+        success: function(response) {
+            $this.find('.ajax_image').attr('disabled',true);
+        },
+
+        error: function(xhr, errmsg, err) {
+            console.log(errmsg, err);
+            autoSubmitFailed($field);
+        }
+    });
+});
+
+$('body').on('change', '.ajax_image', function(e){
+    // show and hide elements
+    var $this = $(this);
+    var $clone = $this.clone();
+    var $image_box = $this.closest('.image_box');
+    var $preview = $image_box.find('.image_preview_box');
+    $this.addClass('hide');
+    $image_box.find('.add_btn').addClass('hide');
+    $preview.removeClass('hide');
+    // handle the image file
+    var file = $this[0].files[0];
+    // declare a new filereader
+    var reader = new FileReader();
+    // se what happens once the file loads in the filereader
+    var image;
+    reader.onloadend = function() {
+        $preview.find('img').attr('src', reader.result);
+        image = reader.result;
+        // show crop modal
+        $image_box.find('.options').removeClass('hide');
+        $image_box.find('.image_crop_modal').modal();
+        console.log('image_preview set');
+    };
+
+    if (file) {
+        // read file as url, load is fired after this
+        reader.readAsDataURL(file);
+    }
+});

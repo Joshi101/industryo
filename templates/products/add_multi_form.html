@@ -3,12 +3,8 @@
     <div class="row">
       <div class="col-sm-2">
         <div class="form-group">
-          <div class="image_box">
-            <div class="img_pre">
-              <a class="fake_btn" data-btn="#product_image_btn_{{n}}"><span class="fa fa-plus"></span><span>Add Image</span></a>
-            </div>
-            <a class="fake_btn hover_btn" data-btn="#product_image_btn_{{n}}"><span class="fa fa-plus"></span><span>Change Image</span></a>
-            <input id="product_image_btn_{{n}}" class="hidden" type="file" name="photo" value="" placeholder="">
+          <div class="img_box_container">
+            {% include "snippets/add_image_box.html" with name="photo" %}
           </div>
         </div>
       </div>
@@ -64,8 +60,8 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="col-sm-6">
+      <div class="col-sm-6" style="display: flex;">
+        <div class="col-sm-6" style="flex-grow: 1;">
           <div class="form-group">
             <label>Delivery Details</label>
             <div class="data click_data">
@@ -76,7 +72,7 @@
         <div class="col-sm-6 text-right">
           <div class="form-group">
             <div class="data">
-              <button type="button" name="button" class="btn btn-success btn-lg ajx_form" style="position: relative; top: 4px; margin-top: -7px;">Done</button>
+              <button type="button" name="submit" class="btn btn-success btn-lg ajx_form" style="position: relative; top: 5px; margin-top: -8px;"><span class="fa fa-check fa-fw" style="color: #fff;"></span> Done</button>
             </div>
           </div>
         </div>
@@ -92,8 +88,8 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label for="prod_dmin_{{n}}">Minumum Order</label> <span class="help">(if any)</span>
-            <input id="prod_dmin_{{n}}" name="minimmum" value="" placeholder ='0'>
+            <label for="prod_dmin_{{n}}">Minimum Order</label> <span class="help">(if any)</span>
+            <input id="prod_dmin_{{n}}" name="minimum" value="" placeholder ='0'>
           </div>
         </div>
         <div class="col-sm-6">
@@ -108,6 +104,6 @@
     <input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
     <input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
     <input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
+    <input type="hidden" name="index" value="{{n}}" autocomplete="off">
   </form>
 </div>
-{% include "products/categories_modal.html" %}
