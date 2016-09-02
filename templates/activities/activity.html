@@ -34,6 +34,7 @@
          class="list-group-item {% if s == "enq" %}active{% endif %}">Enquiries</a>
       <a href="/internal/details/?q=c" class="list-group-item {% if s == "c" %}active{% endif %}">Categories</a>
       <a href="/internal/details/?q=ms" class="list-group-item {% if s == "ms" %}active{% endif %}">Mailsend</a>
+      <a href="/internal/details/?q=tt" class="list-group-item {% if s == "ms" %}active{% endif %}">Tags</a>
     </div>
     {% if not lis %}
       <h4>Mail Sent today = {{ c_s }}</h4>
@@ -133,6 +134,12 @@
                 </li>
               {% endfor %}
             </ol>
+          {% elif tt == "tt" %}
+          
+              {% for u in lis %}
+                  <li>{{u.id}} : <a href='{% url 'tags:get_tag' u.slug %}' class="">{{u}}</a> : {{u.count}} <a href='{% url 'tags:delete_tag' u.slug %}' class=""> Delete</a></li>
+              {% endfor %}
+          
           {% else %}
             <ol type="1">
               {% for u in lis reversed %}

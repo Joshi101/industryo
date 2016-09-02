@@ -335,8 +335,8 @@ class Workplace(models.Model):
         return count
 
     def get_count(self):
-        ups = self.userprofile_set.all()
-        count = ups.count()
+        count = self.userprofile_set.all().count()
+        # count = ups.count()
         return count
 
     def get_member_score(self):
@@ -431,8 +431,22 @@ class Workplace(models.Model):
         cons = Connections.objects.filter(Q(my_company=self) | Q(other_company=self))
         li = []
         for c in cons:
-            li.append(c.get_other_company().id)
+            li.append(c.get_other_company(self).id)
         return li
+
+    def get_emails(self):
+        em = self.emails_set.all()
+        emails = []
+        for e in em:
+            emails.append(e.email)
+        return emails
+
+    def get_emails_free(self):
+        em = self.emails_set.filter(user=None)
+        emails = []
+        for e in em:
+            emails.append(e.email)
+        return emails
 
 
 class WpTags(models.Model):

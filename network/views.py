@@ -11,6 +11,7 @@ from leads.models import Leads
 from products.models import Products, Category
 from activities.views import create_notifications
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -28,16 +29,30 @@ def network_companies(request):
     tags = Tags.objects.filter(tag__in=data)
     user = request.user
     t = user.userprofile.primary_workplace.workplace_type
-    workplaces = Workplace.objects.none()
-    cons = Connections.objects.filter(my_company=user.userprofile.primary_workplace)
+    workplaces = []
+    connections = user.userprofile.primary_workplace.get_connection_list()
+    # connections = [850, 2, 235, 701]
     if t in ['A', 'B']:
         li = ['A', 'B']
     else:
         li = ['C', 'O']
     for tag in tags:
         wps = tag.wptags.filter(workplace_type__in=li)
-        workplaces = workplaces | wps
-    return render(request, 'network/companies.html', locals())
+        for w in wps:
+            if not w in workplaces:
+                workplaces.append(w)
+    paginator = Paginator(workplaces, 20)
+    page = request.GET.get('page')
+    try:
+        result_list = paginator.page(page)
+    except PageNotAnInteger:
+        result_list = paginator.page(1)
+    except EmptyPage:
+        return
+    if page:
+        return render(request, 'network/companies.html', {'workplaces': result_list, 'connections': connections})
+    else:
+        return render(request, 'network/20_companies.html', {'workplaces': result_list, 'connections': connections})
 
 
 def network_feeds(request):

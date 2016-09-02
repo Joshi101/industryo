@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, time, date
 from activities.models import Enquiry
 import pytz
 from contacts.models import MailSend
+from tags.models import Tags
 
 
 @login_required
@@ -109,6 +110,10 @@ def details(request):
             lis = MailSend.objects.filter(date__range=[startdate-timedelta(days=1), startdate])
             tt = "ms"
             text = "Mail Send in Queue for today"
+        elif s == 'tt':
+            lis = Tags.objects.filter(date__range=[startdate - timedelta(days=100), startdate])
+            tt = "tt"
+            text = "Tags Created in last 4 days"
         c = len(lis)
         return render(request, 'activities/activity.html', locals())
     else:

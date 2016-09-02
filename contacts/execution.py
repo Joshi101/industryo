@@ -25,7 +25,7 @@ import random
 def check_executable():
     start_time = datetime.now(pytz.utc)
     end_time = start_time - timedelta(days=30)
-    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)[:4]
+    mails = MailSend.objects.filter(date__range=[end_time, start_time], sent=False)[:10]
     for mail in mails:
 
         if mail.reasons in ['pim', 'wim']:
@@ -78,7 +78,7 @@ def check_executable():
                                from_e=mail.from_email, text=mail.text_content)
             mail.sent = True
             mail.save()
-        elif mail.reasons == 'nm':
+        elif mail.reasons in ['nm', 'wm']:
             send_mail_contacts(email=mail.email, body=mail.body, subject=mail.subject,
                                from_e=mail.from_email, text=mail.text_content)
             mail.sent = True
