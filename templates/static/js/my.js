@@ -1788,12 +1788,12 @@ $('body').on('click', '.next_nav', function(){
 });
 
 
-var $prod_cat_a, $prod_cat_form;
+var $prod_cat_a, $prod_cat_form, $other_forms;
 
 $('#add_prod_category').on('click', '.select_btn', function(){
     var name = $(this).data('name');
     $prod_cat_form.find('input[name=' + name + ']').val($(this).data('value')).attr('data-text',$(this).text());
-    $prod_cat_form.find('.active_selection').removeClass('active_selection');
+    // $prod_cat_form.find('.active_selection').removeClass('active_selection');
     var cat = $(this).data('name');
     if (cat == 'category1') {
         $prod_cat_form.find('input[name="category2"], input[name="category3"]').val("").attr('data-text', '');
@@ -1801,12 +1801,23 @@ $('#add_prod_category').on('click', '.select_btn', function(){
     else if (cat == 'category2') {
         $prod_cat_form.find('input[name="category3"]').val("").attr('data-text', '');
     }
+    for (var i = $other_forms.length - 1; i >= 0; i--) {
+        $($other_forms[i]).find('input[name=' + name + ']').val($(this).data('value')).attr('data-text',$(this).text());
+        var cat = $(this).data('name');
+        if (cat == 'category1') {
+            $($other_forms[i]).find('input[name="category2"], input[name="category3"]').val("").attr('data-text', '');
+        }
+        else if (cat == 'category2') {
+            $($other_forms[i]).find('input[name="category3"]').val("").attr('data-text', '');
+        }
+    }
 });
 
 
 $('body').on('click', '.change_prod_category', function(){
     $prod_cat = $(this);
     $prod_cat_form = $prod_cat.closest('form');
+    $other_forms = $prod_cat_form.closest('.form_card').nextAll('.form_card');
 });
 
 $('#add_prod_category').on('click', '.no_sub', function(){
@@ -1825,6 +1836,9 @@ $('#add_prod_category').on('click', '.no_sub', function(){
         }
     }
     $prod_cat.html(html);
+    for (var i = $other_forms.length - 1; i >= 0; i--) {
+        $($other_forms[i]).find('.change_prod_category').html(html);
+    }
     $(this).closest('.modal').modal('hide');
 });
 
@@ -3044,7 +3058,7 @@ $(".image_crop_modal").on('hide.bs.modal', function (e) {
         },
 
         success: function(response) {
-            $this.find('.ajax_image').attr('disabled',true);
+            // $this.find('.ajax_image').attr('disabled',true);
         },
 
         error: function(xhr, errmsg, err) {
