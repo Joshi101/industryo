@@ -1,34 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tags.models import Tags
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill, ResizeToCover, SmartResize
 from industryo.unique_slug import unique_slugify
 from activities.models import Activity
 from django.utils.timezone import now
 import os
-# from userprofile.models import UserProfile
-# from background_task import background
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 
 class Images(models.Model):
-# <<<<<<< HEAD
-    image = ProcessedImageField(upload_to='main',
-                                processors=[ResizeToCover(640, 640)],
-                                format='JPEG',
-                                options={'quality': 90})
-    image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-                                          processors=[SmartResize(128, 128)],
-                                          format='JPEG',
-                                          options={'quality': 70})
-    image_thumbnail_sm = ProcessedImageField(upload_to='miny',
-                                             processors=[SmartResize(64, 64)],
-                                             format='JPEG',
-                                             options={'quality': 70}, null=True, blank=True)
-# =======
-#     image = models.ImageField(upload_to='main')
-#     image_thumbnail = models.ImageField(upload_to='thumbnails')
-#     image_thumbnail_sm = models.ImageField(upload_to='thumbnails', null=True, blank=True)
+    image = models.ImageField(upload_to='main')
+    image_thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
+    image_thumbnail_sm = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     # image = ProcessedImageField(upload_to='main',
     #                                       processors=[ResizeToCover(640, 640)],
     #                                       format='JPEG',
@@ -41,7 +25,6 @@ class Images(models.Model):
     #                                       processors=[SmartResize(64, 64)],
     #                                       format='JPEG',
     #                                       options={'quality': 70}, null=True, blank=True)
-# >>>>>>> arvind/master
     # caption = models.CharField(max_length=255)
     time = models.TimeField(auto_now_add=True)
     # slug = models.SlugField(max_length=20, null=True)
@@ -55,6 +38,16 @@ class Images(models.Model):
             image.name = image.name[:20]
         image.open()
         i = Images.objects.create(image=image, image_thumbnail=image, user=user)
+        return i
+
+    def upload_image1(self, image, user, name, image1):
+
+        if len(image1.name) > 30:
+            image1.name = image1.name[:20]
+        i = Images.objects.create(image=image1, user=user)
+        new_image_io = BytesIO()
+        image.save(new_image_io, format='JPEG')
+        i.image_thumbnail.save(name, content=ContentFile(new_image_io.getvalue()))
         return i
 
 

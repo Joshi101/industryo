@@ -9,6 +9,35 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from nodes.models import Node
 from operator import itemgetter
 from home.tasks import execute_view
+import json
+from PIL import Image
+import os, sys
+
+
+@login_required
+def add_image(request):
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        user = request.user
+        p = Products.objects.filter(user=user).last()
+        transformation = request.POST.get('transformation')
+        trans = transformation.split(',')
+        x = float(trans[4])
+        y = float(trans[5])
+        scale = float(trans[0])
+        x1 = -x/scale
+        y1 = -y/scale
+        x2 = (-x+250)/scale
+        y2 = (-y+250)/scale
+        box = (x1, y1, x2, y2)
+        image1 = Image.open(image)
+        img = image1.crop(box)
+
+        i = Images()
+        x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
+        p.image = x
+        p.save()
+    return HttpResponse()
 
 
 @login_required
@@ -18,9 +47,12 @@ def add_product(request):
     response = {}
     if request.method == 'POST':
         # add product and return something
+        n = request.POST.get('index')
+        n = int(n) + 5
         product = Products.objects.filter(producer=workplace)[0]
-        response = render_to_string('products/small_product.html', {'product': product})
-        return HttpResponse()
+        response['last_p'] = render_to_string('products/small_product.html', {'product': product})
+        response['new_form'] = render_to_string('products/add_multi_form.html', {'n': n})
+        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         # show the add products page
         p = Products.objects.filter(producer=workplace).last()
@@ -47,11 +79,12 @@ def add_product(request):
         return render(request, 'products/add_multi.html', locals())
 
 
+
+
+
 @login_required
-def add_image(request):
+def add_products_file(request):
     if request.method == 'POST':
-        image = request.POST.get('image')
-        image2 = request.FILES.get('image')
-        transformation = request.POST.get('transformation')
-        print(image, image2, transformation)
+        file = request.FILES.get('product_list')
+        print(file)
     return HttpResponse()

@@ -1946,6 +1946,10 @@ function prodSuccess($form, response){
     $form.closest('.form_card').animate({'height': '0', 'margin': '0'}, 200, function(){
         $(this).remove();
     });
+    $form.closest('.form_pool').find('.form_card.hide').first().removeClass('hide');
+    $form.closest('.form_pool').append(response.new_form);
+    $('#recent_prods').find('.product_sm').first().addClass('hide');
+    $('#recent_prods').find('.product_sm').last().after(response.last_p);
     // showSuccessModal($form);
 }
 
@@ -3024,6 +3028,7 @@ $(".image_crop_modal").on('hide.bs.modal', function (e) {
               if (evt.lengthComputable) {
                 var percentComplete = evt.loaded / evt.total;
                 //Do something with upload progress
+                $image_box.find('.aj_progress .level').width((percentComplete*100)+'%');
                 console.log(percentComplete);
               }
             }, false);
@@ -3078,3 +3083,15 @@ $('body').on('change', '.ajax_image', function(e){
         reader.readAsDataURL(file);
     }
 });
+
+
+$('body').on('click', '.form_show', function(){
+    $(this).closest('.form_pool').find('.form_card.hide').first().removeClass('hide');
+})
+
+$('body').on('change', '.up_file', function(e){
+    e.preventDefault();
+    ajx_form_file($(this).closest('form'));
+});
+
+var progress = '<div class="aj_progress"><div class="level"></div></div>';
