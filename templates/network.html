@@ -4,56 +4,56 @@
   <div class="menu_left" data-spy="affix" data-offset-top="50">
     <a class="toggle" href="#" data-slide="#all_categories" data-status="open"><span class="fa fa-bars slim_fa"></span></a>
     <nav>
-  	  <ul class="tab_list">
+  	  <ul class="tab_list fa-ul">
         <li>
           <a href="#sub_menu1" data-toggle="collapse">
-            <span class="fa_img"><img src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace}}"></span>
+            <span class="fa_img fa-li"><img src="{{user.userprofile.primary_workplace.get_logo}}" alt="{{user.userprofile.primary_workplace}}"></span>
             {{user.userprofile.primary_workplace}}
             <span class="plus-sign"></span>
           </a>
-          <ul id="sub_menu1" class="collapse list-unstyled sub_menu">
+          <ul id="sub_menu1" class="collapse list-unstyled sub_menu fa-ul">
             <li>
               <a href="{% url 'workplace:dashboard' workplace.slug %}">
-                <span class="fa fa-dashboard"></span>
+                <span class="fa fa-dashboard fa-li"></span>
                 Dashboard
               </a>
             </li>
             <li>
               <a href="{% url 'workplace:products' workplace.slug %}">
-                <span class="fa fa-cubes"></span>
+                <span class="fa fa-cubes fa-li"></span>
                 Products
               </a>
             </li>
             <li>
               <a href="{% url 'workplace:activity' workplace.slug %}">
-                <span class="fa fa-rss"></span>
+                <span class="fa fa-rss fa-li"></span>
                 Activity
               </a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="{% url 'inbox:inbox' %}"><span class="fa fa-inbox fa-fw"></span>
+          <a href="{% url 'inbox:inbox' %}"><span class="fa fa-inbox fa-li"></span>
             Inbox
           </a>
         </li>
       </ul>
-      <ul class="tab_list">
+      <ul class="tab_list fa-ul">
         <li>
           <a href="{% url 'network:network' %}">
-            <span class="fa fa-globe"></span>
+            <span class="fa fa-globe fa-li"></span>
             Network
           </a>
         </li>
         <li>
           <a href="{% url 'forum:questions' %}">
-            <span class="fa fa-lightbulb-o"></span>
+            <span class="fa fa-lightbulb-o fa-li"></span>
             Forum
           </a>
         </li>
         <li>
           <a href="{% url 'nodes:articles' %}">
-            <span class="fa fa-newspaper-o"></span>
+            <span class="fa fa-newspaper-o fa-li"></span>
             Articles
           </a>
         </li>

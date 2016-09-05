@@ -13,7 +13,7 @@ from django.db.models import Q
 def add_image(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
-        n = request.POST['index']
+        n = request.POST.get('index')
         user = request.user
         p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')
@@ -44,7 +44,7 @@ def add_product(request):
     workplace = user.userprofile.primary_workplace
     response = {}
     if request.method == 'POST':
-        n = request.POST.get('index')
+        n = int(request.POST.get('index'))
         if request.POST.get('product'):
             last = Products.objects.filter(Q(user=user) | Q(producer=workplace)).last()
             dd = last.delivery_details
@@ -64,21 +64,22 @@ def add_product(request):
                 if c:
                     p.set_categories(li)
             i = Images.objects.filter(user=user, temp_key=n).first()
-            p.image = i
+            if i:
+                p.image = i
+                i.temp_key = None
+                i.save()
             p.save()
-            i.temp_key = None
-            i.save()
             user.userprofile.add_points(5)
             response['p_id'] = p.id
             # return HttpResponse(json.dumps(response))
+            n = request.POST.get('index')
+            n = int(n) + 5
+            product = Products.objects.filter(producer=workplace)[0]
+            response['last_p'] = render_to_string('products/small_product.html', {'product': p})
+            response['new_form'] = render_to_string('products/add_multi_form.html', {'n': n})
+            return HttpResponse(json.dumps(response), content_type="application/json")
         else:
             return HttpResponse()
-        n = request.POST.get('index')
-        n = int(n) + 5
-        product = Products.objects.filter(producer=workplace)[0]
-        response['last_p'] = render_to_string('products/small_product.html', {'product': product})
-        response['new_form'] = render_to_string('products/add_multi_form.html', {'n': n})
-        return HttpResponse(json.dumps(response), content_type="application/json")
     else:
         # show the add products page
         p = Products.objects.filter(producer=workplace).last()
