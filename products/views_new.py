@@ -1,23 +1,19 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from products.models import Category, Product_Categories, Products
-from nodes.models import Images
+from nodes.models import Images, Document
 from django.contrib.auth.decorators import login_required, user_passes_test
-from activities.models import Enquiry
-from datetime import datetime, timedelta, time, date
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from nodes.models import Node
 from operator import itemgetter
-from home.tasks import execute_view
 import json
 from PIL import Image
-import os, sys
+from django.db.models import Q
 
 
 @login_required
 def add_image(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
+        n = request.POST['index']
         user = request.user
         p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')
@@ -35,18 +31,48 @@ def add_image(request):
 
         i = Images()
         x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
-        p.image = x
-        p.save()
+        # p.image = x
+        # p.save()
+        x.temp_key = n
+        x.save()
     return HttpResponse()
 
 
 @login_required
 def add_product(request):
     user = request.user
-    workplace = request.user.userprofile.primary_workplace
+    workplace = user.userprofile.primary_workplace
     response = {}
     if request.method == 'POST':
-        # add product and return something
+        n = request.POST.get('index')
+        if request.POST.get('product'):
+            last = Products.objects.filter(Q(user=user) | Q(producer=workplace)).last()
+            dd = last.delivery_details
+            dc = last.delivery_charges
+            minimum = last.minimum
+            if request.POST.get('delivery_details'):
+                dd = request.POST.get('delivery_details')
+            if request.POST.get('delivery_charges'):
+                dc = request.POST.get('delivery_charges')
+            if request.POST.get('minimum'):
+                minimum = request.POST.get('minimum')
+            p = Products.objects.create(product=request.POST['product'], user=user, producer=workplace, minimum=minimum,
+                                        delivery_details=dd, delivery_charges=dc, description=request.POST['description'])
+            li = [request.POST.get('category1'), request.POST.get('category2'), request.POST.get('category3')]
+            if not li:
+                c = Product_Categories.objects.filter(product=last.id).order_by('level')
+                if c:
+                    p.set_categories(li)
+            i = Images.objects.filter(user=user, temp_key=n).first()
+            p.image = i
+            p.save()
+            i.temp_key = None
+            i.save()
+            user.userprofile.add_points(5)
+            response['p_id'] = p.id
+            # return HttpResponse(json.dumps(response))
+        else:
+            return HttpResponse()
         n = request.POST.get('index')
         n = int(n) + 5
         product = Products.objects.filter(producer=workplace)[0]
@@ -79,12 +105,14 @@ def add_product(request):
         return render(request, 'products/add_multi.html', locals())
 
 
-
-
-
 @login_required
 def add_products_file(request):
     if request.method == 'POST':
-        file = request.FILES.get('product_list')
-        print(file)
-    return HttpResponse()
+        user = request.user
+        file = request.FILES.get('product_list', None)
+        d = Document()
+        x = d.upload_product_doc(doc=file, user=user)
+        print('dsdasd')
+        return HttpResponse()
+    else:
+        return render(request, 'products/upload_bulk.html')

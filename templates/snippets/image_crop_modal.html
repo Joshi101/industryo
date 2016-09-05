@@ -12,6 +12,9 @@
         </div>
         <input type="range" class="cropit-image-zoom-input" />
         <input type="file" class="cropit-image-input ajax_image" />
+        {% if n %}
+        <input type="hidden" name="index" value="{{n}}" autocomplete="off">
+        {% endif %}
         <button type="button" class="btn btn-info" data-dismiss="modal">Submit</button>
 		    <input type="hidden" name="image-data" class="hidden-image-data" />
       </div>

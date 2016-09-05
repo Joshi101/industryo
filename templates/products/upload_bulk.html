@@ -60,30 +60,23 @@
 </div>
 <div class="flex_block">
   <div class="">
-    <h5>Recently Added Products</h5>
-    <ul id="recent_prods" class="product_list_sm list-unstyled">
-      {% for product in previous_prods %}
-        {% include "products/small_product.html" with product=product %}
-        {% if forloop.last %}
-          <li style="padding-left: 39px;">
-            <a href="">See More <span class="fa fa-angle-double-right"></span></a>
-          </li>
-        {% endif %}
-      {% empty %}
-        <li>
-          Your most recently added products will appear here.
-        </li>
-      {% endfor %}
-    </ul>
-    <div class="form_pool">
-      {% for i in "12345" %}
-        {% include "products/add_multi_form.html" with n=forloop.counter %}
-      {% endfor %}
-      {% include "products/categories_modal.html" %}
-      <div class="text-center">
-        <button type="button" name="submit" class="btn btn-success btn-lg form_show" style="margin-top: 15px;"><span class="fa fa-plus fa-fw" style="color: #fff;"></span> Add More</button>
-      </div>
-    </div>
+  	<div class="alert alert-info">
+  	  <p>
+        <strong>Hello {{request.user.userprofile}} !</strong> Add Multiple Products quickly using our super-smooth interafce!
+      </p>
+      <p>
+        <strong>Or</strong> alternatively, use the Spreadsheet Template!
+      </p>
+      <form action="{% url 'products:add_products_file' %}" method="post" style="margin: 10px 0 5px">
+        <a href="/docs/docs/product_upload_template.xlsm" class="btn btn-primary btn-sm">Download Template <span class="fa fa-file-excel-o"></span></a>
+      
+        <a href="#" class="fake_btn btn btn-success btn-sm pull-right" data-btn="#product_list_file">Upload Completed Sheet <span class="fa fa-upload"></span></a>
+        <input id="product_list_file" class="hidden up_file" type="file" name="product_list">
+      </form>
+      <p class="text-right">
+        or send a mail to <strong>admin@corelogs.com</strong>
+      </p>
+  	</div>
   </div>
 </div>
 {% endblock body %}

@@ -3020,12 +3020,14 @@ $(".image_crop_modal").on('hide.bs.modal', function (e) {
     var a = $this.find('.cropit-preview-image').css('transform');
     var values = a.match(/-?[\d\.]+/g); // conversion to array
     console.log(a, values);
+    // console.log(index)
     // the original image
     var file = $this.find('.ajax_image')[0].files[0];
     // send image
     var fd = new FormData();
     fd.append('image', file);
     fd.append('transformation', values);
+    // fd.append('index', n);
     $.ajax({
         url: $image_box.attr('data-url'),
         type: "POST",

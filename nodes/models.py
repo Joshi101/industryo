@@ -29,6 +29,7 @@ class Images(models.Model):
     time = models.TimeField(auto_now_add=True)
     # slug = models.SlugField(max_length=20, null=True)
     user = models.ForeignKey(User)
+    temp_key = models.SmallIntegerField(null=True, blank=True)
 
     def __str__(self):
         return str(self.pk)
@@ -54,6 +55,7 @@ class Images(models.Model):
 class Document(models.Model):
     name = models.CharField(max_length=100)
     doc = models.FileField(upload_to='docs')
+    product_doc = models.FileField(upload_to='product_doc', null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User)
 
@@ -64,10 +66,22 @@ class Document(models.Model):
         filename = doc.name
         ext = os.path.splitext(filename)[1]
         ext = ext.lower()
-        if ext in ('.doc', '.pdf', '.docx', '.xls', '.xlsx'):
+        if ext in ('.doc', '.pdf', '.docx', '.xls', '.xlsx', '.csv', '.xlsm'):
             if len(doc.name) > 30:
                 doc.name = doc.name[:20]
             d = Document.objects.create(doc=doc, user=user, name=doc.name)
+            return d
+        else:
+            raise TypeError('Filetype not accepted')
+
+    def upload_product_doc(self, doc, user):
+        filename = doc.name
+        ext = os.path.splitext(filename)[1]
+        ext = ext.lower()
+        if ext in ('.doc', '.pdf', '.docx', '.xls', '.xlsx', '.csv', '.xlsm'):
+            if len(doc.name) > 30:
+                doc.name = doc.name[:20]
+            d = Document.objects.create(product_doc=doc, user=user, name=doc.name)
             return d
         else:
             raise TypeError('Filetype not accepted')

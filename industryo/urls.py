@@ -112,4 +112,7 @@ urlpatterns = [
 
     url(r'^images/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
+    url(r'^docs/(?P<path>.*)$', serve,
+        {'document_root': settings.MEDIA_ROOT}),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

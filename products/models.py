@@ -211,6 +211,11 @@ class Products(models.Model):
 
         return categories
 
+    def set_prod_category(self, c):
+        if c:
+            for t in c:
+                Product_Categories.objects.create(product=self, category=t.category, level=t.level)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=70)

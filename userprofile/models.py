@@ -197,6 +197,11 @@ class UserProfile(models.Model):
             emails.append(e.email)
         return emails
 
+    def add_points(self, points):
+        self.points += points
+        self.save()
+        return self
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

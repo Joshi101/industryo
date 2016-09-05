@@ -867,9 +867,7 @@ def edit_add_product(request, id):
                 p = Products.objects.create(product=request.POST['product'], user=user, producer=wp,
                                             delivery_details=dd, delivery_charges=dc, minimum=minimum)
                 if c:
-                    for t in c:
-                        Product_Categories.objects.create(
-                            product=p, category=t.category, level=t.level)
+                    p.set_prod_category(c)
                 up = user.userprofile
                 up.points += 5
                 up.save()

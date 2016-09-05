@@ -1,9 +1,9 @@
-<p><span class="color">{{locations|length}}</span> Industries related to locations of <br>
+<p><span class="color">{{locations|length}}</span> Companies related to <span class="color">{{locations|length}}</span> locations <br>
   {% for tag in locations %}
   <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{% if tag.description %}{{tag.description|truncatewords:25}}{% else %}No description available{% endif %}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
   {% endfor %}
 </p>
-<p><span class="color">{{segments|length}}</span> Industries related to segments of <br>
+<p><span class="color">{{segments|length}}</span> Companies related to <span class="color">{{segments|length}}</span> segments <br>
   {% for tag in segments %}
   <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{% if tag.description %}{{tag.description|truncatewords:25}}{% else %}No description available{% endif %}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
   {% endfor %}

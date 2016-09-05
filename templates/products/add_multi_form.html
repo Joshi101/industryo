@@ -4,7 +4,7 @@
       <div class="col-sm-2">
         <div class="form-group">
           <div class="img_box_container">
-            {% include "snippets/add_image_box.html" with name="photo" %}
+            {% include "snippets/add_image_box.html" with name="photo" n=n %}
           </div>
         </div>
       </div>
@@ -12,7 +12,7 @@
         <div class="col-sm-12">
           <div class="form-group">
             <label for="prod_name_{{n}}">Product Name</label>
-            <input id="prod_name_{{n}}" name="product" value="" placeholder ='The complete name of product or service'>
+            <input id="prod_name_{{n}}" name="product" value="" placeholder ='Name of product or service'>
           </div>
         </div>
         <div class="col-sm-6">
