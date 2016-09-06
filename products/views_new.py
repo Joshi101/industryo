@@ -13,7 +13,7 @@ from django.db.models import Q
 def add_image(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
-        n = request.POST['index']
+        n = request.POST.get('index')
         user = request.user
         p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')

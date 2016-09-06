@@ -117,12 +117,14 @@ class Workplace(models.Model):
     def set_tags(self, **kwargs):       # tags, typ, primary
         tags = kwargs['tags']
         typ = kwargs.get('typ', 'T')
+        print(typ)
         if kwargs.get('primary'):
             primary = kwargs['primary']
         else:
             primary = True
         if tags:
             workplace_tags = tags.split(',')
+            print(workplace_tags)
             li = []
             for n in workplace_tags:
                 m = n.strip()
@@ -131,6 +133,7 @@ class Workplace(models.Model):
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type=typ)
                 li.append(t)
+            print(li)
 
             for t in li:
                 e = WpTags.objects.filter(workplace=self, tags=t, category=typ).first()

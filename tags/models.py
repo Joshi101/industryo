@@ -31,7 +31,6 @@ class Tags(models.Model):
         if not self.id:                  # Newly created object, so set slug
             slug_str = self.tag
             unique_slugify(self, slug_str)
-            # self.slug = slugify(self.get_full_name()).__str__()
         super(Tags, self).save(*args, **kwargs)
 
     def get_logo(self):

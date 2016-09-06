@@ -34,16 +34,13 @@ def create_tag(request):
 
 
 def search_tag(request):
-    if request.method == 'GET':
-        tag = request.GET['the_query']
-        type = request.GET['the_type']
-        if type == 'All':
-            o = Tags.objects.filter(tag__icontains=tag)[:6]
-        else:
-            o = Tags.objects.filter(type=type, tag__icontains=tag)[:6]
-        return render(request, 'tags/list.html', {'objects': o})
+    tag = request.GET['the_query']
+    type = request.GET['the_type']
+    if type == 'All':
+        o = Tags.objects.filter(Q(tag__icontains=tag) | Q(other_names__icontains=tag))[:6]
     else:
-        return render(request, 'tags/list.html')
+        o = Tags.objects.filter(type=type).filter(Q(tag__icontains=tag) | Q(other_names__icontains=tag))[:6]
+    return render(request, 'tags/list.html', {'objects': o, 'query': tag})
 
 
 def search_interests(request):                  # for searching the workplace

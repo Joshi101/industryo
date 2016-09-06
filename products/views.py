@@ -859,42 +859,43 @@ def edit_add_product(request, id):
     c1_8 = itemgetter(13, 14, 15)(c1_all)
 
     if id == 'new':
-        dictionary = {}
-        ps = Products()
-        p = None
-        if request.method == 'POST':
-            if request.POST.get('product'):
-                p = Products.objects.create(product=request.POST['product'], user=user, producer=wp,
-                                            delivery_details=dd, delivery_charges=dc, minimum=minimum)
-                if c:
-                    p.set_prod_category(c)
-                up = user.userprofile
-                up.points += 5
-                up.save()
-                response['p_id'] = p.id
-            image1 = request.FILES.get('photo', None)
-            if image1:
-                image = StringIO()
-                image1.save(image, image1.name.split('.')[-1])
-                # i = Images()
-                # x = i.upload_image(image=image1, user=user)
-                # p.image = x
-                # p.save()
-            response['p_id'] = p.id
-            # else:
-            #     p_t = Products()
-            #
-            # return HttpResponse(json.dumps(response),
-            # content_type="application/json")
-        if user.userprofile.product_email:
-            no_prod_con = False
-        else:
-            no_prod_con = True
-        return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
-                                                      'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
-                                                      'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
-                                                      'no_prod_con': no_prod_con, 'delivery_details': dd,
-                                                      'delivery_charges': dc, 'minimum': minimum})
+        return redirect('/products/add_product/')
+        # dictionary = {}
+        # ps = Products()
+        # p = None
+        # if request.method == 'POST':
+        #     if request.POST.get('product'):
+        #         p = Products.objects.create(product=request.POST['product'], user=user, producer=wp,
+        #                                     delivery_details=dd, delivery_charges=dc, minimum=minimum)
+        #         if c:
+        #             p.set_prod_category(c)
+        #         up = user.userprofile
+        #         up.points += 5
+        #         up.save()
+        #         response['p_id'] = p.id
+        #     image1 = request.FILES.get('photo', None)
+        #     if image1:
+        #         image = StringIO()
+        #         image1.save(image, image1.name.split('.')[-1])
+        #         # i = Images()
+        #         # x = i.upload_image(image=image1, user=user)
+        #         # p.image = x
+        #         # p.save()
+        #     response['p_id'] = p.id
+        #     # else:
+        #     #     p_t = Products()
+        #     #
+        #     # return HttpResponse(json.dumps(response),
+        #     # content_type="application/json")
+        # if user.userprofile.product_email:
+        #     no_prod_con = False
+        # else:
+        #     no_prod_con = True
+        # return render(request, 'products/edit.html', {'c1_all': c1_all, 'c1_1': c1_1, 'c1_2': c1_2,
+        #                                               'c1_3': c1_3, 'c1_4': c1_4, 'c1_5': c1_5, 'c1_6': c1_6,
+        #                                               'c1_8': c1_8, 'p': p, 'c': c, 'first_time': True,
+        #                                               'no_prod_con': no_prod_con, 'delivery_details': dd,
+        #                                               'delivery_charges': dc, 'minimum': minimum})
     else:
         p = Products.objects.get(id=id)
         dictionary = {}
