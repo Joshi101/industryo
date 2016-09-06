@@ -1,63 +1,6 @@
-{% extends "base_new.html" %}
+{% extends "products/add_multi.html" %}
 
-{% load filter %}
-
-{% block title %}Add Products | CoreLogs{% endblock title %}
-
-{% block meta_description %}Add a new product provided by {{workplace}}{% endblock meta_description %}
-
-{% block meta_og_title %}Add Product{% endblock meta_og_title %}
-{% block meta_og_description %}Add a new product provided by {{workplace}}{% endblock meta_og_description %}
-{% block meta_og_image %}{{workplace.get_logo}}{% endblock meta_og_image %}
-{% block meta_og_image_dim %}
-  <meta property="og:image:width" content="128">
-  <meta property="og:image:height" content="128">
-{% endblock meta_og_image_dim %}
-
-{% block page_id %}add_product{% endblock page_id %}
-
-{% block top %}
-  {% include "snippets/top_navigation.html" with what='Products' %}
-{% endblock top %}
-
-{% block body %}
-<div class="menu_left" data-spy="affix" data-offset-top="50">
-  <a class="toggle" href="#" data-slide="#all_categories" data-status="open"><span class="fa fa-bars slim_fa"></span></a>
-  <nav>
-    <ul class="tab_list">
-      <li>
-        <a href="{% url 'network:network' %}">
-          <span class="fa fa-globe"></span>
-          Network
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'workplace:products' user.userprofile.primary_workplace.slug %}">
-          <span class="fa fa-lightbulb-o"></span>
-          My Products
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'workplace:dashboard' user.userprofile.primary_workplace.slug %}">
-          <span class="fa fa-newspaper-o"></span>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'products:add_product' %}">
-          <span class="fa fa-newspaper-o"></span>
-          Smooth Upload
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'products:add_products_file' %}">
-          <span class="fa fa-newspaper-o"></span>
-          Bulk Upload in Excel
-        </a>
-      </li>
-    </ul>
-  </nav>
-</div>
+{% block add_prod_body %}
 <div class="flex_block">
   <div class="">
   	<div class="alert alert-info">
@@ -68,8 +11,8 @@
         <strong>Or</strong> alternatively, use the Spreadsheet Template!
       </p>
       <form action="{% url 'products:add_products_file' %}" method="post" style="margin: 10px 0 5px">
-        <a href="/docs/docs/product_upload_template.xlsm" class="btn btn-primary btn-sm">Download Template <span class="fa fa-file-excel-o"></span></a>
-      
+        <a href="/docs/docs/product_upload_template.xlsm" class="btn btn-primary btn-sm" download target="_blank">Download Template <span class="fa fa-file-excel-o"></span></a>
+
         <a href="#" class="fake_btn btn btn-success btn-sm pull-right" data-btn="#product_list_file">Upload Completed Sheet <span class="fa fa-upload"></span></a>
         <input id="product_list_file" class="hidden up_file" type="file" name="product_list">
       </form>
@@ -79,4 +22,4 @@
   	</div>
   </div>
 </div>
-{% endblock body %}
+{% endblock %}

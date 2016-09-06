@@ -26,7 +26,7 @@
       /*         background-color: #555; */ } }
   .menu_left .toggle {
     display: inline-block;
-    margin: 0 15px 5px;
+    margin: 0 10px 5px;
     font-size: 25px;
     color: #ccc;
     position: relative;
@@ -39,31 +39,34 @@
     transition: 0.5s all ease-out; }
   .menu_left nav {
     height: 100%;
-    overflow: auto; }
+    overflow: auto;
+    padding-left: 7px; }
 
 .tab_list {
   list-style: none;
   margin-bottom: 15px; }
   .tab_list .fa {
     font-size: 18px;
-    width: 22px;
+    /*         width: 22px; */
     text-align: center;
     vertical-align: middle;
     line-height: 19px; }
   .tab_list .fa_img {
     display: inline-block;
-    width: 22px;
+    /*         width: 22px; */
     height: 22px;
-    margin-right: 5px;
-    vertical-align: middle; }
+    vertical-align: middle;
+    top: 0;
+    text-align: center; }
     .tab_list .fa_img img {
-      width: 100%;
-      height: 100%;
-      display: block; }
+      width: 22px;
+      height: 22px;
+      vertical-align: top;
+      /*             display: block; */ }
   .tab_list a {
     display: block;
-    padding: 5px 10px;
-    margin: 5px 5px 0;
+    /*         padding: 5px 10px; */
+    margin: 15px 5px 0 0;
     position: relative;
     color: #777;
     font-size: 16px;
@@ -75,15 +78,16 @@
     .tab_list a .plus-sign {
       position: absolute;
       right: 0;
-      top: 11px; }
+      top: 6px; }
 
 .sub_menu a {
-  vertical-align: baseline;
+  /*     vertical-align: baseline; */
+  display: block;
   color: #999;
   font-weight: 500;
   font-size: 14px;
   border: 0;
-  margin: 0 15px 0 25px; }
+  margin: 7px 15px 0 0; }
   .sub_menu a .fa {
     font-size: 14px;
     width: 1.28571429em;
@@ -118,7 +122,7 @@
     border-top-left-radius: 0px; }
 
 .flex_section {
-  margin-left: 200px;
+  margin-left: 215px;
   display: flex;
   justify-content: space-around;
   margin-right: 25px; }
@@ -129,10 +133,9 @@
 .flex_block {
   width: 100%;
   margin-left: 200px;
-  /* justify-content: space-around; */
+  justify-content: space-around;
   /*     margin-right: 25px; */
-  padding: 0 5%;
-  }
+  padding: 0 5%; }
   @media (max-width: 768px) {
     .flex_block {
       margin-left: 25px; } }

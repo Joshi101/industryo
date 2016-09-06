@@ -1777,7 +1777,7 @@ $('body').on('click', '.more', function(){
 
 $('body').on('click', '.less', function(){
     var $this = $(this);
-    $(this).parent().stop().animate({'height':'50px'},500, function(){
+    $(this).parent().stop().animate({'height':'30px'},500, function(){
         $this.parent().removeClass('expanded');
         $this.removeClass('less').addClass('more').html('more <span class="fa fa-chevron-down"></span>');
     });
@@ -1884,10 +1884,10 @@ $('.select_btn').on('click', function(){
     }
 });
 
-$('.add_prod').on('click', '.ajx_form', function(e){
+$('body').on('click', '.add_prod .ajx_form', function(e){
     e.preventDefault();
     $(this).find('.fa').removeClass('fa-check').addClass('fa-cog fa-spin');
-    ajx_form_file($(this).closest('form'), prodSuccess, showFailureModalCommon);
+    ajx_form($(this).closest('form'), prodSuccess, showFailureModalCommon);
 });
 
 $('#add_product_form').on('click', '.select_btn', function(e){
@@ -3027,7 +3027,7 @@ $(".image_crop_modal").on('hide.bs.modal', function (e) {
     var fd = new FormData();
     fd.append('image', file);
     fd.append('transformation', values);
-    // fd.append('index', n);
+    fd.append('index', $image_box.find('input[name=index]').val());
     $.ajax({
         url: $image_box.attr('data-url'),
         type: "POST",
@@ -3102,7 +3102,7 @@ $('body').on('change', '.ajax_image', function(e){
 
 
 $('body').on('click', '.form_show', function(){
-    $(this).closest('.form_pool').find('.form_card.hide').first().removeClass('hide');
+    $(this).siblings('.form_pool').find('.form_card.hide').first().removeClass('hide');
 })
 
 $('body').on('change', '.up_file', function(e){

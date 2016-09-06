@@ -24,40 +24,41 @@
 <div class="menu_left" data-spy="affix" data-offset-top="50">
   <a class="toggle" href="#" data-slide="#all_categories" data-status="open"><span class="fa fa-bars slim_fa"></span></a>
   <nav>
-    <ul class="tab_list">
+    <ul class="tab_list fa-ul">
       <li>
         <a href="{% url 'network:network' %}">
-          <span class="fa fa-globe"></span>
+          <span class="fa fa-globe fa-li"></span>
           Network
         </a>
       </li>
       <li>
         <a href="{% url 'workplace:products' user.userprofile.primary_workplace.slug %}">
-          <span class="fa fa-lightbulb-o"></span>
+          <span class="fa fa-cubes fa-li"></span>
           My Products
         </a>
       </li>
       <li>
         <a href="{% url 'workplace:dashboard' user.userprofile.primary_workplace.slug %}">
-          <span class="fa fa-newspaper-o"></span>
+          <span class="fa fa-dashboard fa-li"></span>
           Dashboard
         </a>
       </li>
       <li>
         <a href="{% url 'products:add_product' %}">
-          <span class="fa fa-newspaper-o"></span>
-          Smooth Upload
+          <span class="fa fa-upload fa-li"></span>
+          Product Upload
         </a>
       </li>
       <li>
         <a href="{% url 'products:add_products_file' %}">
-          <span class="fa fa-newspaper-o"></span>
+          <span class="fa fa-file-excel-o fa-li"></span>
           Bulk Upload in Excel
         </a>
       </li>
     </ul>
   </nav>
 </div>
+{% block add_prod_body %}
 <div class="flex_block">
   <div class="">
     <h5>Recently Added Products</h5>
@@ -66,7 +67,7 @@
         {% include "products/small_product.html" with product=product %}
         {% if forloop.last %}
           <li style="padding-left: 39px;">
-            <a href="">See More <span class="fa fa-angle-double-right"></span></a>
+            <a href="">See All <span class="fa fa-angle-double-right"></span></a>
           </li>
         {% endif %}
       {% empty %}
@@ -80,10 +81,11 @@
         {% include "products/add_multi_form.html" with n=forloop.counter %}
       {% endfor %}
       {% include "products/categories_modal.html" %}
-      <div class="text-center">
-        <button type="button" name="submit" class="btn btn-success btn-lg form_show" style="margin-top: 15px;"><span class="fa fa-plus fa-fw" style="color: #fff;"></span> Add More</button>
-      </div>
+    </div>
+    <div class="text-center">
+      <button type="button" name="submit" class="btn btn-success btn-lg form_show" style="margin-top: 15px;"><span class="fa fa-plus fa-fw" style="color: #fff;"></span> Add More</button>
     </div>
   </div>
 </div>
+{% endblock %}
 {% endblock body %}

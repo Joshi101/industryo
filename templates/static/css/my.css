@@ -2140,7 +2140,7 @@ input.cropit-image-input {
 
 .product{
   display: inline-block;
-  width: 300px;
+  width: 202px;
   margin: 20px 1%;
   overflow: hidden;
   background-color: #fff;
@@ -2149,7 +2149,7 @@ input.cropit-image-input {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
   text-align: center;
   vertical-align: middle;
-  height: 380px;
+  height: 350px;
 }
 
 .product a:hover{
@@ -2159,7 +2159,7 @@ input.cropit-image-input {
 .product .image{
   width: auto;
   height: 200px;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
   text-align: center;
   overflow: hidden;
   /*! margin: 2px; */
@@ -2168,7 +2168,7 @@ input.cropit-image-input {
 .product .thmb_lg{
   margin: auto;
   /*! max-height: 140px; */
-  max-width: 100%;
+  max-width: 200px;
   height: 200px;
   width: auto;
 }
@@ -2185,8 +2185,8 @@ input.cropit-image-input {
   font-size: 16px;
   /*! border-bottom: 1px solid #f5f5f5; */
   margin: 0;
-  margin-bottom: 2px;
-  padding: 0 5px 5px;
+  /* margin-bottom: 2px; */
+  /* padding: 0 5px 5px; */
   font-weight: 700;
   max-height: 20px;
   overflow: hidden;
@@ -2207,7 +2207,7 @@ input.cropit-image-input {
 
 .product .product_desc {
   position: relative;
-  height: 50px;
+  height: 30px;
   text-align: center;
   font-size: 13px;
 }
@@ -3460,7 +3460,7 @@ footer .contact li{
 
 .product .more, .product .less{
   cursor: pointer;
-  box-shadow: -25px 0px 5px 0px #fff;
+  box-shadow: -10px 0px 10px 0px #fff;
   line-height: 12px;
   font-size: 10px;
   padding: 1px 4px 2px;
@@ -5096,7 +5096,7 @@ input.not_wide{
 }
 
 #workplace .product{
-  width: 250px;
+  width: 202px;
 }
 
 #random_card header{
@@ -5574,7 +5574,7 @@ a:hover, a:focus{
 
 .fa{
   line-height: 1.42857143;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 }
 
 .fa-stack .fa{
@@ -6349,22 +6349,25 @@ and in bootstrap.css
 }
 
 .welcome{
-  margin: 30px 25px;
+  margin: 30px 0;
 }
 
 .welcome .note_group{
   display: flex;
   text-align: center;
-  padding: 15px 15px 0;
+  /* padding: 15px 15px 0; */
   flex-wrap: wrap;
 }
 
 .welcome .note{
   flex: 1 0 250px;
   padding: 15px 15px 0;
+  margin: 15px;
   transition: 0.5s all ease-in-out;
   color: #777;
   border: 1px solid transparent;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px #ddd, 0 2px 7px #aaa;
 }
 
 .welcome .note:hover{
@@ -6400,7 +6403,7 @@ and in bootstrap.css
 }
 
 .welcome .note:not(:last-child){
-  border-right: 1px solid #eee;
+/*   border-right: 1px solid #eee; */
 }
 
 .intro_modal .modal-header .close{
@@ -6846,7 +6849,7 @@ and in bootstrap.css
   flex-direction: column;
   flex-grow: 1;
   justify-content: center;
-  border: 1px dashed #8AA5C8;
+  border: 2px dashed #8AA5C8;
   padding: 10px;
 }
 
