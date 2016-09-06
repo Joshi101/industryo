@@ -3,6 +3,7 @@ from home.weekly_templates import *
 from datetime import datetime
 from workplace.models import Workplace
 import time
+import traceback
 
 
 '''
@@ -35,25 +36,28 @@ def weekly_send():
     now = datetime.now()
     # multiple templates same day
     if day == 0:
+        print('Monday')
         for wp in workplaces:
+            print(wp)
             up = wp
             subject = "This Week's Overview of your Company Profile"
             body = Monday_template.format(up, wp, wp.slug, wp.hits, '34')
             text = Monday_template_text.format(up, wp, wp.slug, wp.hits, '34')
             emails = wp.get_emails_free()
             if emails:
-                m2 = MailSend.objects.filter(email=emails, body=body, text_content=text, subject=subject,
+                m2 = MailSend.objects.create(email=emails, body=body, text_content=text, subject=subject,
                                              date=now, reasons='wm')
             users = wp.get_members()
             for up in users:
                 subject = "This Week's Overview of your Company Profile"
                 body = Monday_template.format(up, wp, wp.slug, wp.hits, '34')
                 text = Monday_template_text.format(up, wp, wp.slug, wp.hits, '34')
-                m = MailSend.objects.filter(email=up.get_emails(), body=body, text_content=text, subject=subject,
+                m = MailSend.objects.create(email=up.get_emails(), body=body, text_content=text, subject=subject,
                                             date=now, reasons='wm')
 
             time.sleep(0.1)
-    if day == 1:
+    elif day == 1:
+        print('Tuesday')
         for wp in workplaces:
             up = wp
             subject = 'Bring Your Colleagues to CoreLogs'
@@ -61,36 +65,40 @@ def weekly_send():
             text = Tuesday_template_text.format(up)
             emails = wp.get_emails_free()
             if emails:
-                m2 = MailSend.objects.filter(email=emails, body=body, text_content=text, subject=subject,
+                m2 = MailSend.objects.create(email=emails, body=body, text_content=text, subject=subject,
                                              date=now, reasons='wm')
             users = wp.get_members()
             for up in users:
                 subject = 'Bring Your Colleagues to CoreLogs'
                 body = Tuesday_template.format(up)
                 text = Tuesday_template_text.format(up)
-                m = MailSend.objects.filter(email=up.get_emails(), body=body, text_content=text, subject=subject,
+                m = MailSend.objects.create(email=up.get_emails(), body=body, text_content=text, subject=subject,
                                             date=now, reasons='wm')
             time.sleep(0.1)
-    if day == 2:
+        traceback.print_exc()
+    elif day == 2:
+        print('Wednesday')
         for wp in workplaces:
+            print(wp)
             up = wp
             subject = 'Join Your Business Network And Expand it.'
             body = Wednesday_template.format(up)
             text = Wednesday_template_text.format(up)
             emails = wp.get_emails_free()
             if emails:
-                m2 = MailSend.objects.filter(email=emails, body=body, text_content=text, subject=subject,
+                m2 = MailSend.objects.create(email=emails, body=body, text_content=text, subject=subject,
                                              date=now, reasons='wm')
             users = wp.get_members()
             for up in users:
                 subject = 'Join Your Business Network And Expand it.'
                 body = Wednesday_template.format(up)
                 text = Wednesday_template_text.format(up)
-                m = MailSend.objects.filter(email=up.get_emails(), body=body, text_content=text, subject=subject,
+                m = MailSend.objects.create(email=up.get_emails(), body=body, text_content=text, subject=subject,
                                             date=now, reasons='wm')
             time.sleep(0.1)
 
-    if day == 3:
+    elif day == 3:
+        print('Thursday')
         for wp in workplaces:
             up = wp
             subject = 'Your Company Profile and Dashboard - Measure your Reach'
@@ -100,7 +108,7 @@ def weekly_send():
                                                  wp.get_tags_score)
             emails = wp.get_emails_free()
             if emails:
-                m2 = MailSend.objects.filter(email=emails, body=body, text_content=text, subject=subject,
+                m2 = MailSend.objects.create(email=emails, body=body, text_content=text, subject=subject,
                                              date=now, reasons='wm')
             users = wp.get_members()
             for up in users:
@@ -109,10 +117,11 @@ def weekly_send():
                                                 wp.get_tags_score)
                 text = Thursday_template_text.format(up, wp, wp.slug, wp.get_info_score, wp.get_product_score,
                                                      wp.get_tags_score)
-                m = MailSend.objects.filter(email=up.get_emails(), body=body, text_content=text, subject=subject,
+                m = MailSend.objects.create(email=up.get_emails(), body=body, text_content=text, subject=subject,
                                             date=now, reasons='wm')
             time.sleep(0.1)
-    if day == 4:
+    elif day == 4:
+        print('Friday')
         for wp in workplaces:
             up = wp
             subject = "List Your Products. That's On You."
@@ -120,17 +129,18 @@ def weekly_send():
             text = Friday_template_text.format(up, wp.get_product_count())
             emails = wp.get_emails_free()
             if emails:
-                m2 = MailSend.objects.filter(email=emails, body=body, text_content=text, subject=subject,
+                m2 = MailSend.objects.create(email=emails, body=body, text_content=text, subject=subject,
                                              date=now, reasons='wm')
             users = wp.get_members()
             for up in users:
                 subject = "List Your Products. That's On You."
                 body = Friday_template.format(up, wp.get_product_count())
                 text = Friday_template_text.format(up, wp.get_product_count())
-                m = MailSend.objects.filter(email=up.get_emails(), body=body, text_content=text, subject=subject,
+                m = MailSend.objects.create(email=up.get_emails(), body=body, text_content=text, subject=subject,
                                             date=now, reasons='wm')
             time.sleep(0.1)
-    if day == 5:
+    elif day == 5:
+        print('Saturday')
         for wp in workplaces:
             up = wp
             subject = 'Cloud CRM for your Business. Tell us what features you want'
@@ -138,7 +148,7 @@ def weekly_send():
             text = Saturday_template_text.format(up)
             emails = wp.get_emails_free()
             if emails:
-                m2 = MailSend.objects.filter(email=emails, body=body, text_content=text, subject=subject,
+                m2 = MailSend.objects.create(email=emails, body=body, text_content=text, subject=subject,
                                              date=now, reasons='wm')
             
             users = wp.get_members()
@@ -146,11 +156,11 @@ def weekly_send():
                 subject = 'Cloud CRM for your Business. Tell us what features you want'
                 body = Saturday_template.format(up)
                 text = Saturday_template_text.format(up)
-                m = MailSend.objects.filter(email=up.get_emails(), body=body, text_content=text, subject=subject,
+                m = MailSend.objects.create(email=up.get_emails(), body=body, text_content=text, subject=subject,
                                             date=now, reasons='wm')
                 
-    if day == 6:
-        pass
+    elif day == 6:
+        print('Its Sunday')
     else:
         print('WTF')
 
