@@ -1,5 +1,5 @@
 {% for o in objects %}
 	<li class="list-group-item option"><span class="option_value">{{o}}</span></li>
 {% empty %}
-	<li class="list-group-item text-danger disabled">No items found matching your query !</li>
+	<li class="list-group-item text-danger disabled">No existing item matching {{query}} </li>
 {% endfor %}

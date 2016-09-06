@@ -8,31 +8,31 @@ def nav_suggest(request):
     path = request.META['HTTP_REFERER']
     if request.user.is_authenticated():
         message = "Listing more Products brings you more Inquiries Directly and makes your Company profile stronger"
-        link = "/products/edit_add/new/"
+        link = "/products/add_product/"
         link_text = "List Products Here."
         # wp = reverse('workplace:workplace_profile', kwargs={'slug': request.user.userprofile.primary_workplace.slug})
-        print(path)
+        # print(path)
         if path[:5] == '/tags':
             message = ""
         if path[:5] == '/user':
             message = 'Listing more Products brings more business. You will get Product Inquiries directly in Inbox'
-            link = "/products/edit_add/new/"
+            link = "/products/add_product/"
             link_text = "List Products Here."
         if path[:5] == '/work':
             message = 'Listing more Products brings more business. You will get Product Inquiries directly in Inbox'
-            link = "/products/edit_add/new/"
+            link = "/products/add_product/"
             link_text = "List Products Here."
         if path[:5] == '/mark':
             message = 'Companies are listing 100s of Products. Simple Relation. More Products>> More Inquiries>> More Business'
-            link = "/products/edit_add/new/"
+            link = "/products/add_product/"
             link_text = "List Products Here."
         if path[:5] == '/cate':
-            message = 'Companies are listing 100s of Products. Simple Relation. More Products>> More Inquiries>> More Business'
-            link = "/products/edit_add/new/"
+            message = 'Companies are listing 100s of Products. Simple Relation. More Products >> More Inquiries>> More Business'
+            link = "/products/add_product/"
             link_text = "List Products Here."
         if path[:5] == '/lead':
             message = 'You can send Direct Quotations. It will be seen only by the person who created th lead'
-            link = "/products/edit_add/new/"
+            link = "/products/add_product/"
             link_text = "List Products Here."
 
     else:
