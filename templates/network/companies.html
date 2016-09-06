@@ -1,12 +1,6 @@
 <div class="eq_flex">
-  {% for w in workplaces %}
-    {% if w.id in connections %}
-      {% include "network/workplace_card.html" with w=w connected=True %}
-    {% else %}
-      {% include "network/workplace_card.html" with w=w %}
-    {% endif %}
-  {% endfor %}
-  <div class="paginator" data-next_page="2" data-url="{% url 'network:companies' %}">
+  {% include "network/20_companies.html" %}
+  <div class="paginator" data-next_page="2" data-url="{% url 'network:companies' %}" data-post="#filter_tag .d_value">
     <h5>Loading more content</h5>
     <span class="fa fa-spin fa-circle-o-notch"></span>
   </div>

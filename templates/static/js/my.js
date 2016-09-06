@@ -520,12 +520,17 @@ $(window).scroll(function() {
             if (!pg_url){
                 pg_url = window.location;
             }
+            var post = $pg.data('post');
+            var data = {'page': nxt};
+            type = 'GET';
+            if (post){
+                type = 'POST';
+                data = {'page': nxt, 'data': $(post).val()};
+            }
             $.ajax({
                 url: pg_url,
-                type: "GET",
-                data: {
-                    'page': nxt
-                },
+                type: type,
+                data: data,
 
                 success: function(response) {
                     nxt++;
