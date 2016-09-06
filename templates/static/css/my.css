@@ -5574,7 +5574,7 @@ a:hover, a:focus{
 
 .fa{
   line-height: 1.42857143;
-  /* margin-right: 5px; */
+  margin-right: 5px;
 }
 
 .fa-stack .fa{

@@ -11,7 +11,6 @@ from leads.models import Leads
 from products.models import Products, Category
 from activities.views import create_notifications
 from django.views.decorators.csrf import csrf_exempt
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -39,7 +38,7 @@ def network_companies(request):
     for tag in tags:
         wps = tag.wptags.filter(workplace_type__in=li)
         for w in wps:
-            if not w in workplaces:
+            if w not in workplaces:
                 workplaces.append(w)
     paginator = Paginator(workplaces, 20)
     page = request.GET.get('page')
