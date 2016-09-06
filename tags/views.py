@@ -34,12 +34,27 @@ def create_tag(request):
 
 
 def search_tag(request):
-    tag = request.GET['the_query']
+    tagx = request.GET['the_query'].strip()
     type = request.GET['the_type']
-    if type == 'All':
-        o = Tags.objects.filter(Q(tag__icontains=tag) | Q(other_names__icontains=tag))[:6]
-    else:
-        o = Tags.objects.filter(type=type).filter(Q(tag__icontains=tag) | Q(other_names__icontains=tag))[:6]
+    o = []
+    if ',' in tagx:
+        # tagx =
+        tagx = ' '.join(tagx.replace(',', ' ').split())
+    tags = tagx.split(' ')
+
+    # else:
+    #     tags = [tagx]
+
+    for tag in tags:
+        if type == 'All':
+            p = Tags.objects.filter(Q(tag__icontains=tag) | Q(other_names__icontains=tag)).order_by('-count')
+        else:
+            p = Tags.objects.filter(type=type).filter(Q(tag__icontains=tag) | Q(other_names__icontains=tag)).order_by('-count')
+        if not o:
+            o = p
+        else:
+            o = p | o
+        o = o[:6]
     return render(request, 'tags/list.html', {'objects': o, 'query': tag})
 
 
