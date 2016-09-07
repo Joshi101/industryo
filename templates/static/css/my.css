@@ -7031,3 +7031,7 @@ and in bootstrap.css
   font-size: 16px;
   text-align: center;
 }
+
+.edit_in{
+  margin: 5px;
+}

@@ -24,6 +24,9 @@
     <div class="row">
       <div class="col-md-9">
         {% include "snippets/figure_modal.html" %}
+        <div class="text-right edit_in">
+          <a href="{% url 'products:edit_add' product.id %}"><span class="fa fa-pencil"></span> Edit</a>
+        </div>
         <div class="prod_details">
           <div class="row">
             <div class="prod_img col-sm-5">
@@ -73,7 +76,10 @@
       <div class="col-md-3">
         <div class="prod_action bg-info">
           {% if request.user.userprofile in members %}
-
+            <p>
+              {{inq|default:"0"}} Inquiries
+            </p>
+            <a class="btn btn-lg btn-success" href="{% url 'inbox:inbox' %}"><i class="fa fa-inbox"></i> Goto Inbox</a>
           {% else %}
           <p class="text-success">
             <strong>Interested in the Product?</strong><br>

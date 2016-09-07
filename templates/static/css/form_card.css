@@ -15,7 +15,7 @@ br { display: block; line-height: 1.6em; }
 .form_card .form-group {
   position: relative;
   display: block;
-  padding: 20px 20px 10px;
+  padding: 20px 20px 15px;
   vertical-align: top;
   border-bottom: 1px solid #e4e4e4;
   margin-bottom: 0;
@@ -38,7 +38,7 @@ br { display: block; line-height: 1.6em; }
   font-weight: bold;
   text-transform: uppercase;
   color: #333;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   position: relative;
 }
 
@@ -176,7 +176,7 @@ br { display: block; line-height: 1.6em; }
   display: block;
   position: absolute;
   right: 25px;
-  bottom: 12px;
+  bottom: 17px;
   color: #aaa;
   background: transparent;
 }
@@ -186,7 +186,7 @@ br { display: block; line-height: 1.6em; }
 }
 
 .form_card .input_tags{
-  margin-top: 5px;
+  /* margin-top: 5px; */
   margin-bottom: 0;
 }
 

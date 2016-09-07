@@ -47,9 +47,14 @@ def add_product(request):
         n = int(request.POST.get('index'))
         if request.POST.get('product'):
             last = Products.objects.filter(Q(user=user) | Q(producer=workplace)).last()
-            dd = last.delivery_details
-            dc = last.delivery_charges
-            minimum = last.minimum
+            if last:
+                dd = last.delivery_details
+                dc = last.delivery_charges
+                minimum = last.minimum
+            else:
+                dd = None
+                dc = None
+                minimum = None
             if request.POST.get('delivery_details'):
                 dd = request.POST.get('delivery_details')
             if request.POST.get('delivery_charges'):

@@ -1,0 +1,14 @@
+<div class="image_box" data-url="{% url 'products:add_image' %}">
+  {% include "snippets/image_crop_modal.html" with name="photo" n=n %}
+  <div class="image_preview_box">
+    <a class="image_preview file_btn">
+      <img src="{{product.get_image}}" alt="{{product}}" />
+    </a>
+    <div class="aj_progress">
+      <div class="level"></div>
+    </div>
+  </div>
+  <div class="options text-center">
+    <a href="#" class="change file_btn"><span class="fa fa-crop" style="color: #555;"></span> Modify</a>
+  </div>
+</div>
