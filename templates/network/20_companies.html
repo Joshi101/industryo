@@ -1,1 +1,7 @@
-{% include "network/companies.html" with workplaces=workplaces connections=connections %}
+{% for w in workplaces %}
+  {% if w.id in connections %}
+    {% include "network/workplace_card.html" with w=w connected=True %}
+  {% else %}
+    {% include "network/workplace_card.html" with w=w %}
+  {% endif %}
+{% endfor %}

@@ -158,6 +158,16 @@ class Products(models.Model):
             status = 'For Rent'
         return status
 
+    def get_type(self):
+        type = None
+        if self.product_type == 'A':
+            type = 'Single Item'
+        elif self.product_type == 'B':
+            type = 'Bilk Item'
+        elif self.product_type == 'C':
+            type = 'Service'
+        return type
+
     def get_category1(self):
         try:
             category1 = self.categories.get(level=1)

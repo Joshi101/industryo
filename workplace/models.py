@@ -124,8 +124,11 @@ class Workplace(models.Model):
         if tags:
             workplace_tags = tags.split(',')
             li = []
+            i = 0
             for n in workplace_tags:
+                i += 1
                 m = n.strip()
+                print(n, m)
                 t = Tags.objects.filter(Q(tag__iexact=m) | Q(tag__iexact=n)).first()
                 if not t:
                     if len(m) > 2:

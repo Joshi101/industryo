@@ -11,7 +11,6 @@ from leads.models import Leads
 from products.models import Products, Category
 from activities.views import create_notifications
 from django.views.decorators.csrf import csrf_exempt
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -39,10 +38,10 @@ def network_companies(request):
     for tag in tags:
         wps = tag.wptags.filter(workplace_type__in=li)
         for w in wps:
-            if not w in workplaces:
+            if w not in workplaces:
                 workplaces.append(w)
     paginator = Paginator(workplaces, 20)
-    page = request.GET.get('page')
+    page = request.POST.get('page')
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -50,9 +49,9 @@ def network_companies(request):
     except EmptyPage:
         return
     if page:
-        return render(request, 'network/companies.html', {'workplaces': result_list, 'connections': connections})
-    else:
         return render(request, 'network/20_companies.html', {'workplaces': result_list, 'connections': connections})
+    else:
+        return render(request, 'network/companies.html', {'workplaces': result_list, 'connections': connections})
 
 
 def network_feeds(request):
@@ -76,8 +75,7 @@ def network_feeds(request):
         chain(related_node, question),
         key=attrgetter('date'), reverse=True)
     paginator = Paginator(all_result_list, 10)
-
-    page = request.GET.get('page')
+    page = request.POST.get('page')
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
@@ -85,7 +83,7 @@ def network_feeds(request):
     except EmptyPage:
         return
     if page:
-        return render(request, 'network/feed_list.html', locals())
+        return render(request, 'network/feed_list_content.html', locals())
     else:
         return render(request, 'network/feed_list.html', locals())
 

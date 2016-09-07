@@ -2617,7 +2617,7 @@ footer .contact li{
 }
 
 .pressme{
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 
 .summary_fig, .post_fig{
@@ -2650,8 +2650,28 @@ footer .contact li{
   margin-top: 0;
 }
 
-.product_status{
-  margin-bottom: 10px;
+.product_cost{
+  margin: 25px 0 0;
+  font-size: 20px;
+  font-family: 'Titillium Web';
+  color: #54bd48;
+}
+
+.product_type{
+  font-size: 12px;
+}
+
+.product_desc{
+  font-family: 'Titillium Web';
+  font-size: 16px;
+}
+
+.product_desc .title{
+  font-weight: 700;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+
 }
 
 .info_title .verified{
@@ -3010,6 +3030,7 @@ footer .contact li{
 }
 
 .prod_img{
+  padding: 15px 0;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -3020,8 +3041,8 @@ footer .contact li{
 
 .prod_img img{
   width: 100%;
-  border: 1px solid #ddd;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  /* border: 1px solid #ddd; */
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   max-width: 256px;
   display: block;
@@ -3041,10 +3062,22 @@ footer .contact li{
 }
 
 .prod_action{
-  border: 1px solid #eee;
-  border-top: 0;
-  background: #fff;
-  padding: 10px 0 20px;
+  text-align: center;
+  padding: 15px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+  border: 1px solid rgba(0,0,0,.05);
+}
+
+.prod_extra{
+  margin: 50px 0px 25px;
+}
+
+.prod_extra h3{
+  color: #777;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+/*   border-bottom: 1px solid #eee; */
 }
 
 .more_products{
@@ -3649,18 +3682,9 @@ footer .contact li{
 
 .prod_categories{
   padding: 5px;
-  margin-bottom: 10px;
+  margin: 5px 0 20px;
   color: #197;
   border-bottom: 1px solid #f5f5f5;
-}
-
-.prod_categories .info_field{
-  margin: 0;
-  padding: 0;
-}
-
-.prod_categories .info_field_edit{
-  display: block;
 }
 
 .prod_category + .prod_category:before{
@@ -5574,7 +5598,7 @@ a:hover, a:focus{
 
 .fa{
   line-height: 1.42857143;
-  /* margin-right: 5px; */
+  margin-right: 5px;
 }
 
 .fa-stack .fa{

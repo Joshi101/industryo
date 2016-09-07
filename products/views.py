@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import SetLogoForm
 from products.models import *
+from workplace.models import Workplace
 from userprofile.models import UserProfile
 from django.contrib.auth.models import User
 from tags.models import Tags
@@ -219,19 +220,17 @@ def enquire(request):
     yesterday = date.today() - timedelta(days=1)
     if request.method == 'POST':
         message = request.POST.get('message')
-        if len(message.split(' ')) == 1:
-            pass
-        elif len(message.split(' ')) < 4:
-            if 'http' or 'www' in message:
-                pass
-        elif len(message.split(' ')) > 70:
-            pass
-
-        elif request.user.is_authenticated():
+        # if len(message.split(' ')) == 1:
+        #     pass
+        # elif len(message.split(' ')) < 4:
+        #     if 'http' or 'www' in message:
+        #         pass
+        # elif len(message.split(' ')) > 70:
+        #     pass
+        if request.user.is_authenticated():
             p = request.POST.get('pid')
             w = request.POST.get('wid')
             user = request.user
-            message = request.POST.get('message')
             phone = request.POST.get('phone')
             e = Enquiry.objects.filter(user=user, date__gt=yesterday)
             if p:
@@ -240,11 +239,10 @@ def enquire(request):
                     e = Enquiry.objects.create(product=prod, user=user, message=message, phone_no=phone,
                                                workplace=prod.producer)
                     users = e.product.producer.get_members()
-                    user.userprofile.notify_inquired(e, users)
+                    # user.userprofile.notify_inquired(e, users)
                     # send_enq_mail(e)
                     execute_view('check_no_inquiry', e.id,
                                  schedule=timedelta(seconds=30))
-                return redirect('/products/' + prod.slug)
 
             if w:
                 workplace = Workplace.objects.get(id=w)
@@ -254,10 +252,9 @@ def enquire(request):
                     e = Enquiry.objects.create(
                         workplace=workplace, user=user, message=message, phone_no=phone)
                     users = workplace.get_members()
-                    user.userprofile.notify_inquired(e, users)
+                    # user.userprofile.notify_inquired(e, users)
                     execute_view('check_no_inquiry', e.id,
                                  schedule=timedelta(seconds=30))
-                return redirect('/workplace/' + workplace.slug)
         else:
             email = request.POST.get('email')
             name = request.POST.get('name')
@@ -281,7 +278,6 @@ def enquire(request):
                     # send_enq_mail(e)
                     execute_view('check_no_inquiry', e.id,
                                  schedule=timedelta(seconds=30))
-                return redirect('/products/' + prod.slug)
             if w:
                 workplace = Workplace.objects.get(id=w)
                 if e.count() < 5:
@@ -290,7 +286,7 @@ def enquire(request):
                     # up.notify_inquired(e)
                     execute_view('check_no_inquiry', e.id,
                                  schedule=timedelta(seconds=30))
-                return redirect('/workplace/' + workplace.slug)
+        return HttpResponse()
 
 
 @login_required

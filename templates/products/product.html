@@ -2,6 +2,12 @@
 
 {% load filter %}
 
+{% load staticfiles %}
+
+{% block head_css %}
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
+{% endblock head_css %}
+
 {% block title %}{{product}} | CoreLogs{% endblock title %}
 
 {% block meta_description %}{{ product.description }}{% endblock meta_description %}
@@ -10,155 +16,85 @@
 
 {% block body %}
   <div class="container">
+    <div class="prod_categories">
+    {% for c in categories %}
+      <span class="prod_category">{{c}}</span>
+    {% endfor %}
+    </div>
     <div class="row">
-      <div class="col-sm-12">
-      {% block content %}
-        {% include "snippets/img_upload_modal.html" with url='products:change_image' url_slug=product.id form=prod_img_form.image %}
-        <div class="row">
-          <div class="info_head text-center col-md-5">
-            <header class="info_title">
-              <h2 class="text-uppercase" property='name'>{{ product }}</h2>
-            <div class="text-muted ">provided by <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a></div>
-            </header>
-            <div class="product_status">
-              <span class="label label-success">{{product.get_status}}</span>
+      <div class="col-md-9">
+        {% include "snippets/figure_modal.html" %}
+        <div class="prod_details">
+          <div class="row">
+            <div class="prod_img col-sm-5">
+              <img src="/images/product.png" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img call_car pressme" data-toggle='modal' data-target="#figure_modal">
             </div>
-          </div>
-        </div>
-        
-        <div class="row prod_details">
-          <div class="prod_img col-md-5">
-            {% if user == product.user %}
-            <button class="btn_alt" data-toggle='modal' data-target='#img_upload_modal'><span class="fa fa-wrench inline_fa"></span>Change Image</button>
-            {% endif %}
-            <img src="/images/product.png" data-src="{{product.get_image}}" alt="{{ product }}-{{product.producer}}" class="lazy_img call_car pressme" data-toggle='modal' data-target='#figure_modal'>
-          </div>
-          {% include "snippets/figure_modal.html" %}
-          <div id="details_prod" class="col-md-7">
-            <div class="info_field_grp ajax_andar">
-              {% if user.userprofile in members %}
-              <form id="prod_category_form" class="info_form" action="{% url 'products:edit_category' product.id %}" method="POST">
-                <button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Change Category</button>
-                <button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
-                <button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
-                {% csrf_token %}
-              </form>
-              {% endif %}
-              <div class="prod_categories">
-                <div class="info_field ajax_papa">
-                  <div class="info_field_value">
-                  {% for c in categories %}
-                    <span class="prod_category">{{c}}</span>
-                  {% endfor %}
-                  </div>
-                  {% if user.userprofile in members %}
-                  <div class="info_field_edit hide">
-                    <div id="add_prod_category" class="row">
-                      <div class="hidden new_val"></div>
-                      <ul class="nav nav-pills nav-stacked col-xs-4">
-                      {% for t1 in c1_all %}
-                        <li>
-                          <a class="select_btn" data-name="category1" data-value="{{t1.id}}" data-toggle="pill" href="#t1_{{t1|cut:'&'|cut:' '|cut:','|cut:'.'}}">{{t1}}<span class="fa fa-fw fa-chevron-right"></span></a>
-                        </li>
-                      {% endfor %}
-                      </ul>
-                      <div class="tab-content col-xs-8">
-                      {% for t1 in c1_all %}
-                        <div id="t1_{{t1|cut:'&'|cut:' '|cut:','|cut:'.'}}" class="tab-pane fade">
-                          <ul class="nav nav-pills nav-stacked col-xs-6">
-                          {% for t2 in t1.get_sub %}
-                            <li>
-                              <a class="select_btn" data-name="category2" data-value="{{t2.id}}" data-toggle="pill" href="#t2_{{t2|cut:'&'|cut:' '|cut:','|cut:'.'}}">{{t2}}<span class="fa fa-fw fa-chevron-right"></span></a>
-                            </li>
-                          {% empty %}
-                            <li>
-                              <a class="no_sub">{{t1}}<span class="fa fa-fw fa-check"></span></a>
-                            </li>
-                          {% endfor %}
-                          </ul>
-                          <div class="tab-content col-md-6">
-                          {% for t2 in t1.get_sub %}
-                            <div id="t2_{{t2|cut:'&'|cut:' '|cut:','|cut:'.'}}" class="tab-pane fade">
-                              <ul class="nav nav-pills nav-stacked">
-                              {% for t3 in t2.get_sub %}
-                                <li>
-                                  <a class="select_btn no_sub" data-name="category3" data-value="{{t3.id}}">{{t3}}<span class="fa fa-fw fa-check"></span></a>
-                                </li>
-                              {% empty %}
-                                <li>
-                                  <a class="no_sub">{{t2}}<span class="fa fa-fw fa-check"></span></a>
-                                </li>
-                              {% endfor %}
-                              </ul>
-                            </div>
-                          {% endfor %}
-                          </div>
-                        </div>
-                      {% endfor %}
-                      </div>
-                      <input data-text="" class="form-control" form="prod_category_form" type="hidden" name="category1" value="">
-                      <input data-text="" class="form-control" form="prod_category_form" type="hidden" name="category2" value="">
-                      <input data-text="" class="form-control" form="prod_category_form" type="hidden" name="category3" value="">
-                    </div>
-                  </div>
-                  {% endif %}
-                </div>
+            <div id="details_prod" class="col-sm-7">
+              <div class="info_head">
+                <header class="info_title">
+                  <h2 class="text-uppercase" property='name'>{{ product }}</h2>
+                  <div class="text-muted ">provided by <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a></div>
+                </header>
+                {% if product.get_type %}
+                <div class="label label-primary product_type">{{product.get_type}}</div>
+                {% endif %}
+                <div class="product_cost"><span class="fa fa-inr"></span> {{product.cost|default:"Get price on Inquiry"}}</div>
               </div>
-            </div>
-            <div class="info_field_grp ajax_andar">
-              {% if user.userprofile in members %}
-              <form id="details_prod_form" class="info_form" action="{% url 'products:set_details' product.id %}" method="POST">
-                <button class="btn_alt field_edit" type="button"><i class="fa fa-wrench inline_fa"></i>Edit</button>
-                <button class="btn_alt saving hide" type="button"><i class="fa fa-cog fa-spin inline_fa"></i>Saving</button>
-                <button class="btn_alt save hide" type="button"><i class="fa fa-check-square inline_fa"></i>Save</button>
-                {% csrf_token %}
-              </form>
-              {% endif %}
-              <div class="panel panel-default">
-                <div class="info_field ajax_papa">
-                  <div class="info_field_label"><span class="fa fa-inr fa-fw"></span>Cost</div>
-                  <span class="colon">:</span>
-                  <div class="info_field_value">{{product.cost}}</div>
-                  {% if user.userprofile in members %}
-                  <div class="info_field_edit hide">
-                    <input name="cost" form="details_prod_form" class="form-control new_val open_input" value="{{product.cost|default:''}}" placeholder="Cost per unit">
-                  </div>
-                  {% endif %}
-                </div>
-                
-                <div class="info_field v2 ajax_papa">
-                  <div class="info_field_value">
-                    {% if product.description %}{{product.description|urlize|new_tab|safe}}{% elif user.userprofile in members %}<i class="text-muted text-center center-block">Add a breif description of the product for the rest of the world</i>{% endif %}
-                  </div>
-                  <div class="info_field_edit hide">
-                    <textarea name="desc" form="details_prod_form" rows="3" class="form-control new_val new_val">{{product.description}}</textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="uploaded_by">
-                Uploaded by <a href="{% url 'user:profile' product.user.username %}" class="tag"><span class="value">{{product.user.userprofile}}</span></a>
+              <div class="product_desc">
+                <div class="title">Product Description</div>
+                <p class="data">{{product.description|default:"Description Not Available"}}</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="prod_action">
-          <h3 class="text-muted text-center">
-          {% if request.user.userprofile in members %}
-            <a href="{% url "products:add_product" %}"><i class="fa fa-plus-circle inline_fa"></i>Add More Products</a>
-          {% else %}
-            <button class="btn_alt" data-toggle='modal' data-target='#enquiry_modal'><i class="fa fa-plus-circle fa-lg inline_fa"></i>Send an Enquiry</button>
+        <div class="prod_extra tile">
+          <h3>Delivery Details</h3>
+          {% if product.delivery_details %}
+          <div class="product_desc">
+            <p class="data">{{product.delivery_details}}</p>
+          </div>
           {% endif %}
-          </h3>
-          {% include "products/new_modal.html" %}
-          {% include "enquiry/new_auth_modal.html" %}    
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="product_desc">
+                <div class="title">Delivery Charges</div>
+                <p class="data">{{product.delivery_charges|default:"On Inquiry"}}</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="product_desc">
+                <div class="title">Minimum Order</div>
+                <p class="data">{{product.minimum|default:"On Inquiry"}}</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="more_products row">
-          <a class="col-xs-3 text-left" {% if previous %} href="{% url 'products:product' previous.slug %}" {% endif %}><span class="fa fa-chevron-left inline_fa"></span>Previous</a>
-          <h3 class="text-muted col-xs-6 text-center">More Products from <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a></h3>
-          <a class="col-xs-3 text-right" {% if next %} href="{% url 'products:product' next.slug %}" {% endif %}>Next<span class="fa fa-chevron-right inline_fa"></span></a>
-        </div>
-      {% endblock %}
       </div>
+      <div class="col-md-3">
+        <div class="prod_action bg-info">
+          {% if request.user.userprofile in members %}
+
+          {% else %}
+          <p class="text-success">
+            <strong>Interested in the Product?</strong><br>
+            Get in touch with the supplier...
+          </p>
+          <form action="{% url 'products:enquire' %}" method="POST">
+            <div class="form-group">
+              <textarea class="form-control text-center" name="message" rows="3" placeholder="Enter your inquiry here..."></textarea>
+            </div>
+            <button class="btn btn-lg btn-success ajx_form"><i class="fa fa-send-o"></i> Send Enquiry</button>
+            <span class="btn btn-lg btn-success ajx_form_done hide"><i class="fa fa-check"></i> Enquiry Sent</button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="more_products row">
+      <a class="col-xs-3 text-left" {% if previous %} href="{% url 'products:product' previous.slug %}" {% endif %}><span class="fa fa-chevron-left inline_fa"></span>Previous</a>
+      <h3 class="text-muted col-xs-6 text-center">More Products from <a href="{% url 'workplace:workplace_profile' product.producer.slug %}">{{product.producer}}</a></h3>
+      <a class="col-xs-3 text-right" {% if next %} href="{% url 'products:product' next.slug %}" {% endif %}>Next<span class="fa fa-chevron-right inline_fa"></span></a>
     </div>
   </div>
 {% endblock body %}

@@ -520,12 +520,17 @@ $(window).scroll(function() {
             if (!pg_url){
                 pg_url = window.location;
             }
+            var post = $pg.data('post');
+            var data = {'page': nxt};
+            type = 'GET';
+            if (post){
+                type = 'POST';
+                data = {'page': nxt, 'data': $(post).val()};
+            }
             $.ajax({
                 url: pg_url,
-                type: "GET",
-                data: {
-                    'page': nxt
-                },
+                type: type,
+                data: data,
 
                 success: function(response) {
                     nxt++;
@@ -3111,3 +3116,15 @@ $('body').on('change', '.up_file', function(e){
 });
 
 var progress = '<div class="aj_progress"><div class="level"></div></div>';
+
+$('body').on('click', '.prod_action .ajx_form', function(e){
+    e.preventDefault();
+    $(this).find('.fa').removeClass('fa-send-o').addClass('fa-cog fa-spin');
+    ajx_form($(this).closest('form'), enqSuccess, showFailureModalCommon);
+});
+
+function enqSuccess($form, response){
+    $form.find('.form-group').addClass('hide');
+    $form.find('.ajx_form').addClass('hide');
+    $form.find('.ajx_form_done').removeClass('hide');
+}
