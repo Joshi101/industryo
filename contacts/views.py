@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from allauth.socialaccount.models import SocialAccount, SocialToken
 import urllib.request as urllib2
 from xml.etree import ElementTree as etree
@@ -441,5 +441,12 @@ def up_email(up):
         except Exception:
             elsa = Emails.objects.create(email=up.email, user=up.user, workplace=wp, workplace_type=t)
 
+
+def un_subscribe(request):
+    email = request.GET.get('email')
+    c = Emails.objects.get(email=email)
+    c.unsubscribed = 1
+    c.save()
+    return HttpResponse()
 
 # def send_weekly_overview():

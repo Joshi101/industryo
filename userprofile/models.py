@@ -8,6 +8,7 @@ from tags.models import Tags
 from activities.models import Notification
 from home import tasks
 from datetime import datetime, timedelta
+from django.db.models import Q
 
 
 class UserProfile(models.Model):
@@ -108,15 +109,15 @@ class UserProfile(models.Model):
         if interests:
             workplace_tags = interests.split(',')
             li = []
-            for m in workplace_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)
-                except Exception:
+            for n in workplace_tags:
+                m = n.strip()
+                t = Tags.objects.filter(Q(tag__iexact=m) | Q(tag__iexact=n)).first()
+                if t is None:
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type='T')
-                li.append(t)
-                t.count += 1
-                t.save()
+                        li.append(t.id)
+                else:
+                    li.append(t.id)
             self.interests.add(*li)
             return li
 
@@ -192,7 +193,7 @@ class UserProfile(models.Model):
 
     def get_emails(self):
         emails = []
-        em = self.user.emails_set.all()
+        em = self.user.emails_set.filter(unsubscribed=0)
         for e in em:
             emails.append(e.email)
         return emails

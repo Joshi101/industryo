@@ -4,6 +4,7 @@ from datetime import datetime
 from workplace.models import Workplace
 import time
 import traceback
+import pytz
 
 
 '''
@@ -33,7 +34,7 @@ Saturday: CRM
 def weekly_send():
     day = datetime.today().weekday()
     workplaces = Workplace.objects.filter(workplace_type__in=['A', 'B'])
-    now = datetime.now()
+    now = datetime.now(pytz.utc)
     # multiple templates same day
     if day == 0:
         print('Monday')

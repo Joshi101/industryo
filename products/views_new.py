@@ -31,8 +31,6 @@ def add_image(request):
 
         i = Images()
         x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
-        # p.image = x
-        # p.save()
         x.temp_key = n
         x.save()
     return HttpResponse()
@@ -64,10 +62,13 @@ def add_product(request):
             p = Products.objects.create(product=request.POST['product'], user=user, producer=workplace, minimum=minimum,
                                         delivery_details=dd, delivery_charges=dc, description=request.POST['description'])
             li = [request.POST.get('category1'), request.POST.get('category2'), request.POST.get('category3')]
+            print(li)
             if not li:
                 c = Product_Categories.objects.filter(product=last.id).order_by('level')
                 if c:
                     p.set_categories(li)
+            else:
+                p.set_categories(li)
             i = Images.objects.filter(user=user, temp_key=n).first()
             if i:
                 p.image = i

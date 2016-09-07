@@ -117,7 +117,6 @@ class Workplace(models.Model):
     def set_tags(self, **kwargs):       # tags, typ, primary
         tags = kwargs['tags']
         typ = kwargs.get('typ', 'T')
-        print(typ)
         if kwargs.get('primary'):
             primary = kwargs['primary']
         else:
@@ -135,7 +134,6 @@ class Workplace(models.Model):
                     if len(m) > 2:
                         t = Tags.objects.create(tag=m, type=typ)
                 li.append(t)
-            print(li)
 
             for t in li:
                 e = WpTags.objects.filter(workplace=self, tags=t, category=typ).first()
@@ -330,6 +328,13 @@ class Workplace(models.Model):
         count = len(a)
         return count
 
+    def get_tags_id(self):
+        a = self.wptags.all()
+        li = []
+        for tag in a:
+            li.append(tag.id)
+        return li
+
     def get_enq_count(self):
         a = self.enquiry_set.filter(seen=False).count()
         b = self.enquiry_set.all().count()
@@ -440,14 +445,14 @@ class Workplace(models.Model):
         return li
 
     def get_emails(self):
-        em = self.emails_set.all()
+        em = self.emails_set.filter(unsubscribed=0)
         emails = []
         for e in em:
             emails.append(e.email)
         return emails
 
     def get_emails_free(self):
-        em = self.emails_set.filter(user=None)
+        em = self.emails_set.filter(user=None, unsubscribed=0)
         emails = []
         for e in em:
             emails.append(e.email)

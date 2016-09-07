@@ -3,7 +3,11 @@
     <h3>Cities and Industrial Areas</h3>
     <div class="eq_flex">
       {% for tag in tags1 %}
-        {% include "network/tag_box.html" with tag_type="city"%}
+        {% if tag.id in added %}
+          {% include "network/tag_box.html" with tag_type="city" haha=True %}
+        {% else %}
+          {% include "network/tag_box.html" with tag_type="city"%}
+        {% endif %}
       {% empty %}
         <p class="text-muted">
           No tags found matching your query!
@@ -15,7 +19,11 @@
     <h3>Market Segments</h3>
     <div class="eq_flex">
       {% for tag in tags2 %}
-        {% include "network/tag_box.html" with tag_type="segment" %}
+        {% if tag.id in added %}
+          {% include "network/tag_box.html" with tag_type="segment" haha=True %}
+        {% else %}
+          {% include "network/tag_box.html" with tag_type="segment" %}
+        {% endif %}
       {% empty %}
         <p class="text-muted">
           No tags found matching your query!
