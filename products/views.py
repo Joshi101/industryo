@@ -899,10 +899,9 @@ def edit_add_product(request, id):
     else:
         p = Products.objects.get(id=id)
         dictionary = {}
-        direct = p._meta.get_fields()
+        direct = [f.name for f in Products._meta.get_fields()]
         if request.method == 'POST' and user.userprofile.primary_workplace == p.producer:
             for key in request.POST:
-                print(key, request.POST.get(key))
                 if key in direct:
                     try:
                         dictionary[key] = request.POST[key]
