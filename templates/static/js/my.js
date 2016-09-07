@@ -2401,7 +2401,7 @@ $('body').on('mouseleave', '.hover_a_container', function(){
     $(this).find('.hovering_a').css('display', 'none');
 });
 
-$('.form_eric').find('input, textarea').on('keyup blur focus', function (e) {
+$('body').find('.form_eric input, .form_eric textarea').on('keyup blur focus', function (e) {
     var $this = $(this),
     label = $this.prev('label');
     if (e.type === 'blur') {
@@ -3127,4 +3127,13 @@ function enqSuccess($form, response){
     $form.find('.form-group').addClass('hide');
     $form.find('.ajx_form').addClass('hide');
     $form.find('.ajx_form_done').removeClass('hide');
+    if (response.data) {
+        var $modal = $("#login_modal");
+        $modal.find("#id_name").val(response.data.name).trigger('change').closest('.form-group').find('label').addClass('active');
+        $modal.find("#id_email").val(response.data.email).trigger('change').trigger('blur').closest('.form-group').find('label').addClass('active');
+        $modal.find('.nav-pills li a').first().click();
+        $modal.find('#id_password1').focus();
+        $modal.find('#signup_msg').removeClass('hide');
+        $modal.modal();
+    }
 }
