@@ -9,6 +9,7 @@ from tags.models import Tags
 import json
 from nodes.models import Images
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.decorators.csrf import csrf_exempt
 from activities.models import Enquiry
 from datetime import datetime, timedelta, time, date
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -216,6 +217,7 @@ def random(request):
     return render(request, 'snippets/right/products.html', {'products': products})
 
 
+@csrf_exempt
 def enquire(request):
     yesterday = date.today() - timedelta(days=1)
     if request.method == 'POST':
@@ -255,6 +257,7 @@ def enquire(request):
                     # user.userprofile.notify_inquired(e, users)
                     execute_view('check_no_inquiry', e.id,
                                  schedule=timedelta(seconds=30))
+            return HttpResponse()
         else:
             email = request.POST.get('email')
             name = request.POST.get('name')
@@ -264,7 +267,7 @@ def enquire(request):
             message = request.POST.get('message')
             phone = request.POST.get('phone')
             e = Enquiry.objects.filter(email=email, date__gt=yesterday)
-
+            response = {}
             if p:
                 prod = Products.objects.get(id=p)
                 if e.count() < 5:
@@ -286,7 +289,8 @@ def enquire(request):
                     # up.notify_inquired(e)
                     execute_view('check_no_inquiry', e.id,
                                  schedule=timedelta(seconds=30))
-        return HttpResponse()
+            response['data'] = {'name': name, 'company': company, 'email': email}
+            return HttpResponse(json.dumps(response), content_type="application/json")
 
 
 @login_required

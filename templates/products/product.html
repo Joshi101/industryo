@@ -80,9 +80,27 @@
             Get in touch with the supplier...
           </p>
           <form action="{% url 'products:enquire' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group">
-              <textarea class="form-control text-center" name="message" rows="3" placeholder="Enter your inquiry here..."></textarea>
+              <textarea class="form-control" name="message" rows="3" placeholder="Enter your inquiry here..."></textarea>
             </div>
+            {% if user.is_authenticated %}
+              {% if not user.userprofile.mobile_contact %}
+              <div class="form-group">
+                <input class="form-control" name="phone" value="" placeholder="Contact Number">
+              </div>
+              {% endif %}
+            {% else %}
+              <div class="form-group">
+                <input class="form-control" name="name" placeholder="Your Name">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="company" placeholder="Your Company Name">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="email" type="email" value="" placeholder="Email Id">
+              </div>
+            {% endif %}
             <button class="btn btn-lg btn-success ajx_form"><i class="fa fa-send-o"></i> Send Enquiry</button>
             <span class="btn btn-lg btn-success ajx_form_done hide"><i class="fa fa-check"></i> Enquiry Sent</button>
           </form>
