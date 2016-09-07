@@ -1,6 +1,6 @@
 <li class="product">
 	<div class="image">
-		<img class="thmb_lg lazy_img call_car pressme" src="/images/product.png" data-src="{{product.get_image}}" alt="{{product}}"  data-toggle='modal' data-target='#figure_modal'>
+		<img class="thmb_lg lazy_img call_car pressme" src="/images/product.png" data-src="{{product.get_image_thumbnail}}" alt="{{product}}"  data-toggle='modal' data-target='#figure_modal'>
 	</div>
 	<div class="details">
 		<h4 class="product_name"><a href="{% url 'products:product' product.slug %}">{{ product }}</a></h4>

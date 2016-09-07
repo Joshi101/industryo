@@ -144,6 +144,7 @@ def search_tags(request):
     else:
         tags1 = Tags.objects.filter(type__in=['C', 'I']).order_by('-count')[:20]
         tags2 = Tags.objects.filter(type__in=['S', 'O']).order_by('-count')[:20]
+    added = request.user.userprofile.primary_workplace.get_tags_id()
     return render(request, 'network/add_tags_list.html', locals())
 
 

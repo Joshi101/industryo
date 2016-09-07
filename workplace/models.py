@@ -328,6 +328,13 @@ class Workplace(models.Model):
         count = len(a)
         return count
 
+    def get_tags_id(self):
+        a = self.wptags.all()
+        li = []
+        for tag in a:
+            li.append(tag.id)
+        return li
+
     def get_enq_count(self):
         a = self.enquiry_set.filter(seen=False).count()
         b = self.enquiry_set.all().count()
