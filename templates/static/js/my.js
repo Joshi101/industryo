@@ -3116,3 +3116,15 @@ $('body').on('change', '.up_file', function(e){
 });
 
 var progress = '<div class="aj_progress"><div class="level"></div></div>';
+
+$('body').on('click', '.prod_action .ajx_form', function(e){
+    e.preventDefault();
+    $(this).find('.fa').removeClass('fa-send-o').addClass('fa-cog fa-spin');
+    ajx_form($(this).closest('form'), enqSuccess, showFailureModalCommon);
+});
+
+function enqSuccess($form, response){
+    $form.find('.form-group').addClass('hide');
+    $form.find('.ajx_form').addClass('hide');
+    $form.find('.ajx_form_done').removeClass('hide');
+}
