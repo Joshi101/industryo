@@ -101,6 +101,11 @@ class MailSend(models.Model):
         return company
 
 
+class SubscribedManager(models.Manager):
+    def get_queryset(self):
+        return super(SubscribedManager, self).get_queryset().filter(unsubscribed=0).order_by('-date')
+
+
 class Emails(models.Model):
     email = models.EmailField(unique=True)
     user = models.ForeignKey(User, null=True, blank=True)
@@ -112,8 +117,12 @@ class Emails(models.Model):
     primary_for_workplace = models.BooleanField(default=False)
 
     deliverable = models.BooleanField(default=True)
+    unsubscribed = models.BooleanField(default=0)
     sent = models.IntegerField(default=0)
     opened = models.IntegerField(default=0)
+
+    subscribed = SubscribedManager()
+    objects = models.Manager()
 
     class Meta:
         db_table = 'Emails'

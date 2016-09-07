@@ -20,12 +20,6 @@ class RentManager(models.Manager):
             filter(status=2).order_by('-date')
 
 
-class SellSMEManager(models.Manager):
-    def get_queryset(self):
-        return super(SellSMEManager, self).get_queryset().\
-            filter(target_segment__contains='B', status=1).order_by('-date')
-
-
 class Products(models.Model):
     product = models.CharField(max_length=100)
     producer = models.ForeignKey(Workplace)
@@ -34,34 +28,19 @@ class Products(models.Model):
     image = models.ForeignKey(Images, null=True, blank=True)
     tags = models.ManyToManyField(Tags, blank=True)
     description = models.TextField(max_length=10000, null=True, blank=True)
-    LargeScaleIndustry = 'A'
-    SME = 'B'
-    SAE_Team = 'C'
-    Educational_Institution = 'O'
-    target_segments = (
-        (LargeScaleIndustry, 'Large Scale Industry'),
-        (SME, 'Small & Medium Scale Enterprise'),
-        (SAE_Team, 'SAE Collegiate club'),
-        (Educational_Institution, 'Educational Institution')
-    )
-    target_segment = models.CharField(max_length=4, null=True, blank=True)
+
     admin_score = models.FloatField(default=1)
     score = models.FloatField(default=0)
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True)
 
-    # new
     status = models.CharField(max_length=1, default=1)     # 0=showcase, 1=sell, 2 rent
     cost = models.CharField(max_length=50, null=True, blank=True)
     # offer = models.CharField(max_length=500, null=True, blank=True)
     Single_item = 'A'
     Bulk = 'B'
     Service = 'C'
-    product_types = (
-        (Single_item, 'Single Item Sale'),
-        (Bulk, 'Bulk Product'),
-        (Service, 'Service'),
-    )
+    product_types = ((Single_item, 'Single Item Sale'), (Bulk, 'Bulk Product'), (Service, 'Service'),)
     product_type = models.CharField(max_length=1, choices=product_types, null=True, blank=True)
 
     delivery_details = models.CharField(max_length=200, blank=True, null=True)
@@ -70,12 +49,13 @@ class Products(models.Model):
 
     categories = models.ManyToManyField('Category', through='Product_Categories', blank=True)
 
-    # available = models.BooleanField(default=True)
+    available = models.BooleanField(default=True)
+    manufactured = models.BooleanField(default=True)
 
     objects = models.Manager()
     sell = SellManager()
     rent = RentManager()
-    sell_SME = SellSMEManager()
+    # sell_SME = SellSMEManager()
 
     class Meta:
         db_table = 'Products'
@@ -89,26 +69,6 @@ class Products(models.Model):
             unique_slugify(self, slug_str)
             # self.slug = slugify(self.get_full_name()).__str__()
         super(Products, self).save(*args, **kwargs)
-
-    def set_tags(self, tags):
-        if tags:
-            question_tags = tags.split(',')
-            li = []
-            for m in question_tags:
-                try:
-                    t = Tags.objects.get(tag__iexact=m)  # iexact
-                    print(t)
-                except Exception:
-                    if len(m) > 2:
-                        t = Tags.objects.create(tag=m, type='D')
-                li.append(t)
-                t.count += 1
-                t.save()
-            self.tags = li
-
-    def get_tags(self):
-        tags = self.tags.all()
-        return tags
 
     def get_image(self):
         default_image = '/images/main/product.png'
@@ -125,29 +85,6 @@ class Products(models.Model):
             return image_url
         else:
             return default_image
-
-    def set_target_segments(self, li):
-        l = len(li)
-        if l == 1:
-            q = li[0]
-            self.target_segment = q
-            self.target_segment = q
-        elif l == 2:
-            q = li[0] + li[1]
-            self.target_segment = q
-            self.target_segment = q
-
-        elif l == 3:
-            q = li[0] + li[1] + li[2]
-            self.target_segment = q
-            self.target_segment = q
-        elif l == 4:
-            q = li[0] + li[1] + li[2] + li[3]
-            self.target_segment = q
-            self.target_segment = q
-        else:
-            pass
-        self.save()
 
     def get_status(self):
         if self.status == '0':
@@ -326,7 +263,6 @@ class Category(models.Model):
         # hierarchy = hierarchy | self_cat
         return hierarchy
 
-
     def related_categories(self):
         if self.level == '3':
             immediate_parent = self.sub_cat.filter(level=2)
@@ -390,11 +326,6 @@ class Product_Categories(models.Model):
 
     class Meta:
         db_table = 'Product_Categories'
-
-
-# class Product(object):
-#     def __init__(self):
-
 
 
 

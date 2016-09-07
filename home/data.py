@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta, time, date
 from activities.models import Enquiry
 import pytz
-from contacts.models import MailSend
+from contacts.models import MailSend, Emails
 from tags.models import Tags
 
 
@@ -114,6 +114,10 @@ def details(request):
             lis = Tags.objects.filter(date__range=[startdate - timedelta(days=100), startdate])
             tt = "tt"
             text = "Tags Created in last 4 days"
+        elif s == 'ee':
+            lis = Emails.subscribed.all()
+            tt = "ee"
+            text = "Subscribed Email"
         c = len(lis)
         return render(request, 'activities/activity.html', locals())
     else:

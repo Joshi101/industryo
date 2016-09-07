@@ -445,14 +445,14 @@ class Workplace(models.Model):
         return li
 
     def get_emails(self):
-        em = self.emails_set.all()
+        em = self.emails_set.filter(unsubscribed=0)
         emails = []
         for e in em:
             emails.append(e.email)
         return emails
 
     def get_emails_free(self):
-        em = self.emails_set.filter(user=None)
+        em = self.emails_set.filter(user=None, unsubscribed=0)
         emails = []
         for e in em:
             emails.append(e.email)
