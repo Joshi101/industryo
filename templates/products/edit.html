@@ -4,6 +4,7 @@
 <div class="flex_block">
   <div class="form_card tile_flat {% if n > 2 %}hide{% endif %}">
     <form id="add_prod_form_{{n}}" class="add_prod auto_form" role="form" action="" method="POST" enctype="multipart/form-data">
+      <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
       <div class="form-group">
         <div class="img_box_container">
           {% if product.image %}
