@@ -105,6 +105,7 @@ function doneTyping() {
         //d_on = false;
         $d_search.find('.create').addClass('hide');
         $this.siblings('.form-control-feedback').children('.fback_wait').removeClass('hide');
+        $d_search.find('.dropdown').find(".d_list").html(result);
         console.log(query, search, type);
         $.ajax({
             url: search,
@@ -3139,6 +3140,9 @@ $('body').on('click', '.prod_action .ajx_form', function(e){
     $(this).find('.fa').removeClass('fa-send-o').addClass('fa-cog fa-spin');
     ajx_form($(this).closest('form'), enqSuccess, showFailureModalCommon);
 });
+
+
+
 
 function enqSuccess($form, response){
     $form.find('.form-group').addClass('hide');

@@ -1,0 +1,27 @@
+<div class="d_search has-feedback">
+{% if not no_tags %}
+  <div class="input_tags new_val">
+  {% for tag in tags %}
+    <div class="tag"><a class="close">&times;</a><span class="value">{{tag}}</span></div>
+  {% endfor %}
+  </div>
+{% endif %}
+  <input id="id_{{search}}" class="form-control d_input" name="pre_{{search}}" data-search={{search}} placeholder="{{placeholder}}" maxlength="100" autocomplete="off">
+  <span class="form-control-feedback">
+    <i class="fa fa-pulse fa-spinner fback_wait hide"></i>
+  </span>
+  <div class="dropdown">
+    <div class="d_menu">
+      <ul class="dropdown-menu list-group">
+        <div class="d_list many_list">
+          <li class="list-group-item disabled">Enter atleast 3 characters to search ...</li>
+        </div>
+        {% if not no_create %}
+        <a class="list-group-item list-group-item-info create hide"><span class="fa fa-plus"></span>&nbsp;Create only if it's Generic</a>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  <input class="d_type" name="type" value="{% if type %}{{type}}{% else %}All{% endif %}" type="hidden">
+  <input class="d_value" {% if d_form %}form={{d_form}}{% endif %} name={% if name %}{{name}}{% else %}{{search}}{% endif %} value="{% for tag in tags %}{{tag}}{% if not forloop.last %},{% endif %}{% endfor %}" type="hidden" autocomplete=off>
+</div>
