@@ -7002,6 +7002,8 @@ and in bootstrap.css
 
 .product_sm .extra{
   flex-grow: 1;
+  /* background-color: white; */
+  font-size: 13px;
 }
 
 .product_list_sm li:last-child{

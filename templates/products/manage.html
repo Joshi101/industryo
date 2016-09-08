@@ -1,0 +1,18 @@
+{% extends "products/add_multi.html" %}
+
+{% block add_prod_body %}
+<div class="flex_block">
+  <ul id="recent_prods" class="product_list_sm list-unstyled">
+    {% for p in products %}
+      {% include "products/small_product.html" with product=p %}
+      {% if forloop.last %}
+        
+      {% endif %}
+    {% empty %}
+      <li>
+        Products add by your workplace will appear here.
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

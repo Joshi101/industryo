@@ -1801,7 +1801,7 @@ $('#add_prod_category').on('click', '.select_btn', function(){
     // $prod_cat_form.find('.active_selection').removeClass('active_selection');
     var cat = $(this).data('name');
     if (cat == 'category1') {
-        $prod_cat_form.find('input[name="category2"], input[name="category3"]').val("").attr('data-text', '');
+        $prod_cat_form.find('input[name="category2"], input[name="category3"]').val("").attr('data-text', '').trigger('change');
     }
     else if (cat == 'category2') {
         $prod_cat_form.find('input[name="category3"]').val("").attr('data-text', '');
@@ -1845,6 +1845,23 @@ $('#add_prod_category').on('click', '.no_sub', function(){
         $($other_forms[i]).find('.change_prod_category').html(html);
     }
     $(this).closest('.modal').modal('hide');
+    if ($prod_cat.attr('data-auto')){
+        autoSubmitShow($prod_cat);
+        $.ajax({
+            url: $prod_cat_form.attr('action'),
+            type: $prod_cat_form.attr('method'),
+            data: $prod_cat_form.find('.categories_data input').serialize(),
+
+            success: function(response) {
+                autoSubmitDone($prod_cat);
+            },
+
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg, err);
+                autoSubmitFai($('.change_prod_category'));
+            }
+        });
+    }
 });
 
 $('#add_prod_category').on('click', '.new_category_btn', function(){

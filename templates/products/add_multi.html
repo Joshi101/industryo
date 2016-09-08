@@ -32,15 +32,15 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'workplace:products' user.userprofile.primary_workplace.slug %}">
-          <span class="fa fa-cubes fa-li"></span>
-          My Products
-        </a>
-      </li>
-      <li>
         <a href="{% url 'workplace:dashboard' user.userprofile.primary_workplace.slug %}">
           <span class="fa fa-dashboard fa-li"></span>
           Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'products:manage' %}">
+          <span class="fa fa-cubes fa-li"></span>
+          My Products
         </a>
       </li>
       <li>

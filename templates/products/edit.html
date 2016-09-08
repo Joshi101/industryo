@@ -3,21 +3,17 @@
 {% block add_prod_body %}
 <div class="flex_block">
   <div class="form_card tile_flat {% if n > 2 %}hide{% endif %}">
-    <form id="add_prod_form_{{n}}" class="add_prod auto_form" role="form" action="" method="POST" enctype="multipart/form-data">
+    <form id="add_prod_form_{{n}}" class="add_prod" role="form" action="" method="POST" enctype="multipart/form-data">
       <span class="saving original hide">Saving ...<span class="fa fa-fw fa-spin fa-cog"></span></span>
       <div class="form-group">
         <div class="img_box_container">
-          {% if product.image %}
           {% include "snippets/edit_image_box.html" with name="photo" n=1 %}
-          {% else %}
-          {% include "snippets/add_image_box.html" with name="photo" n=1 %}
-          {% endif %}
         </div>
       </div>
       <div class="form-group">
         <label>Category</label> <span class="help">(click below to change)</span>
         <div class="data click_data">
-          <a id="change_cat_btn_{{n}}" class="change_prod_category" data-toggle="modal" href="#categories_modal">
+          <a id="change_cat_btn_{{n}}" class="change_prod_category" data-toggle="modal" href="#categories_modal" data-auto=true>
             {% if c %}
             {% for category in c %}
             <span>{{category.category}}</span>
@@ -30,71 +26,75 @@
             {% endif %}
           </a>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="prod_name_{{n}}">Product Name</label>
-        <input id="prod_name_{{n}}" name="product" value="{{product}}" placeholder ='Name of product or service'>
-      </div>
-      <div class="form-group">
-        <label for="prod_desc_{{n}}">Description</label>
-        <textarea class=" textarea_md count_field" id="prod_desc_{{n}}" name="description" placeholder="Describe the product here..." maxlength="1000">{{product.description|default:""}}</textarea>
-        <span class="char_count">1000</span>
-      </div>
-      <div class="form-group">
-        <label for="prod_cost_{{n}}">Cost</label>
-        <input id="prod_cost_{{n}}" name="cost" value="{{product.cost|default:''}}" placeholder ='00.00'>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="prod_type_{{n}}">Type of Product</label>
-            <select id="prod_type_{{n}}" name="product_type">
-              <option {% if product.product_type == 'A' %}selected="selected"{% endif %} value="A">Single Item</option>
-              <option {% if product.product_type == 'B' %}selected="selected"{% endif %} value="B">Bulk Item</option>
-              <option {% if product.product_type == 'C' %}selected="selected"{% endif %} value="C">Service</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="producer_type_{{n}}">Type of Seller</label>
-            <select id="producer_type_{{n}}" name="producer_type">
-              <option value="A">Manufacturer</option>
-              <option value="B">Seller Only</option>
-            </select>
-          </div>
+        <div class="categories_data">
+          <input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
+          <input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
+          <input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
         </div>
       </div>
-      <div class="form-group">
-        <label for="prod_ddetails_{{n}}">Delivery Details</label>
-        <textarea class=" textarea_md count_field" id="prod_ddetails_{{n}}" name="delivery_details" placeholder="Describe the the details of delivery..." maxlength="1000">{{product.delivery_details|default:''}}</textarea>
-        <span class="char_count">1000</span>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="prod_dcharge_{{n}}">Delivery Charges</label>
-            <input id="prod_dcharge_{{n}}" name="delivery_charges" value="{{product.delivery_charges|default:''}}" placeholder ='00.00'>
+      <div class="auto_form">
+        <div class="form-group">
+          <label for="prod_name_{{n}}">Product Name</label>
+          <input id="prod_name_{{n}}" name="product" value="{{product}}" placeholder ='Name of product or service'>
+        </div>
+        <div class="form-group">
+          <label for="prod_desc_{{n}}">Description</label>
+          <textarea class=" textarea_md count_field" id="prod_desc_{{n}}" name="description" placeholder="Describe the product here..." maxlength="1000">{{product.description|default:""}}</textarea>
+          <span class="char_count">1000</span>
+        </div>
+        <div class="form-group">
+          <label for="prod_cost_{{n}}">Cost</label>
+          <input id="prod_cost_{{n}}" name="cost" value="{{product.cost|default:''}}" placeholder ='00.00'>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="prod_type_{{n}}">Type of Product</label>
+              <select id="prod_type_{{n}}" name="product_type">
+                <option {% if product.product_type == 'A' %}selected="selected"{% endif %} value="A">Single Item</option>
+                <option {% if product.product_type == 'B' %}selected="selected"{% endif %} value="B">Bulk Item</option>
+                <option {% if product.product_type == 'C' %}selected="selected"{% endif %} value="C">Service</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="producer_type_{{n}}">Type of Seller</label>
+              <select id="producer_type_{{n}}" name="producer_type">
+                <option value="A">Manufacturer</option>
+                <option value="B">Seller Only</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="prod_dmin_{{n}}">Minimum Order</label> <span class="help">(if any)</span>
-            <input id="prod_dmin_{{n}}" name="minimum" value="{{product.minimum|default:''}}" placeholder ='0'>
+        <div class="form-group">
+          <label for="prod_ddetails_{{n}}">Delivery Details</label>
+          <textarea class=" textarea_md count_field" id="prod_ddetails_{{n}}" name="delivery_details" placeholder="Describe the the details of delivery..." maxlength="1000">{{product.delivery_details|default:''}}</textarea>
+          <span class="char_count">1000</span>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="prod_dcharge_{{n}}">Delivery Charges</label>
+              <input id="prod_dcharge_{{n}}" name="delivery_charges" value="{{product.delivery_charges|default:''}}" placeholder ='00.00'>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="prod_dmin_{{n}}">Minimum Order</label> <span class="help">(if any)</span>
+              <input id="prod_dmin_{{n}}" name="minimum" value="{{product.minimum|default:''}}" placeholder ='0'>
+            </div>
           </div>
         </div>
       </div>
 
-      <input type="hidden" name="category1" value="{{c.0.category.id}}" autocomplete="off">
-      <input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
-      <input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
-      <input type="hidden" name="index" value="{{n}}" autocomplete="off">
+      <input type="hidden" name="index" value="1" autocomplete="off">
 
       <div class="col-submit">
-        <a class="submitbtn" href=""><span class="fa fa-check fa-fw"></span> Done</a>
+        <a class="submitbtn" href="{% url 'products:manage' %}"><span class="fa fa-check fa-fw"></span> Done</a>
       </div>
     </form>
   </div>
-  {% include "products/categories_modal.html" %}
+  {% include "products/categories_modal.html" with auto=True %}
 </div>
 {% endblock %}

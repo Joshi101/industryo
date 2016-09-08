@@ -37,6 +37,32 @@ def add_image(request):
 
 
 @login_required
+def change_image(request, id):
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        user = request.user
+        p = Products.objects.filter(id=id)
+        transformation = request.POST.get('transformation')
+        trans = transformation.split(',')
+        x = float(trans[4])
+        y = float(trans[5])
+        scale = float(trans[0])
+        x1 = -x/scale
+        y1 = -y/scale
+        x2 = (-x+250)/scale
+        y2 = (-y+250)/scale
+        box = (x1, y1, x2, y2)
+        image1 = Image.open(image)
+        img = image1.crop(box)
+
+        i = Images()
+        x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
+        x.save()
+        p.image = x
+    return HttpResponse()
+
+
+@login_required
 def add_product(request):
     user = request.user
     workplace = user.userprofile.primary_workplace
@@ -123,3 +149,9 @@ def add_products_file(request):
         return HttpResponse()
     else:
         return render(request, 'products/upload_bulk.html')
+
+
+@login_required
+def manage(request):
+    products = Products.objects.filter(producer=request.user.userprofile.primary_workplace)
+    return render(request, 'products/manage.html', locals())
