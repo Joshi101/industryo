@@ -449,4 +449,18 @@ def un_subscribe(request):
     c.save()
     return HttpResponse()
 
+gist = ['neeraj@orbit-elite.com', 'enquiry@shreeram-metfusion.com', 'eastmeter@yahooo.com', 'sreenathan@zenelec.om', 'varun@calcopolychem.com', 'pitambera@sify.com', 'harshafilters@yahoo.cm', 'akggroup@airtelmail.com', 'info@pmsexports.in', 'info@jetmgic.in', 'contact@respicureincorp.com', 'info@shreeshaniswarengineeringworks.com', 'info@beecoelectronics.in', 'info@ptftechnocom.in', 'info@boomansheet.ir', 'shriji25@sify.com', 'ksda@jjhj.com', 'aniruddha.shimpi@geometric.global.com', 'parv.gupta@gangapolymers.in', 'saja@adqw.com', 'info@rdra-x.com', 'enquiry@starfiresafety.in', 'sales@arabianagri.com', 'test2@corelogs.com', 'test1@corelogs.com', 'Martkscorporation@gmail.com', 'nicecircuite@yahoo.in', 'suyogk@hotmail.com', 'bshivaganeshbe82@gmail.com', 'niecraja@vsnl.com', 'dalilelec@gmail.com', 'harshal.makasare@lanxess.com', 'kiran_arihant@hotmail.com', 'v.girish@neobags.biz', 'esree@qatarpac.net', 'girirajtc@vsnl.net', 'hyd2_rajpacj@bsnl.in', 'gpai@corpemail.com', 'devan@extremecoating.com', 'info@jyotiplastics.com', 'vhpl@bom5.vsnl.net.in', 'aristo@bom7.vsnl.net.in', 'kemco@vsnl.net', 'spdehar@satyam.net.in', 'Iandmarkextrusion@gmail.com', 'rsinghvi@srmtl.com', 'shriram@bom7.vsnl.net.in', 'billion@bom3.vsnl.net.in', 'navin@gpikuwait.com', 'mehul.javeri@fitcoindia.com', 'megaarkgroup@gmail.com', 'krishanapharma2010@gmail.com', 'kashyap_shah@hotmail.com', 'manindersingh19894@gmail.com', 'chowdarysj@technovisiontools.com', 'technopet@vsnl.net', 'Noneinfo@tritechsmartsolutions.com', 'emquiry@tud.my', 'imd.denims@gmail.com', 'inpratheek@gmail.com', 'deshwaan@flowmeter.in', 'sharon@pcbdvr.com', 'niyakibuilware1@gmail.com', 'info@responsivestorelocator.com', 'skystar.faizan@gmail.com', 'jalaj@gmail.com', 'cussout@mail.ru', 'sbhushan.nitsr@gmail.com', 'mail@foodnfoodcaterers.co.in', 'kedar_gokhale@vsnl.com']
+
+
+def uns():
+    for id in gist:
+        e = Emails.objects.filter(email=id).first()
+        if e:
+            e.deliverable = False
+            e.save()
+        else:
+            print(id)
+    print('Done')
+
+
 # def send_weekly_overview():
