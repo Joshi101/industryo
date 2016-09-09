@@ -193,7 +193,7 @@ class UserProfile(models.Model):
 
     def get_emails(self):
         emails = []
-        em = self.user.emails_set.filter(unsubscribed=0)
+        em = self.user.emails_set.filter(unsubscribed=0, deliverable=1)
         for e in em:
             emails.append(e.email)
         return emails
