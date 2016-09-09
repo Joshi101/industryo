@@ -103,7 +103,7 @@ class MailSend(models.Model):
 
 class SubscribedManager(models.Manager):
     def get_queryset(self):
-        return super(SubscribedManager, self).get_queryset().filter(unsubscribed=0).order_by('-date')
+        return super(SubscribedManager, self).get_queryset().filter(unsubscribed=0, deliverable=True).order_by('-date')
 
 
 class Emails(models.Model):
