@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views, views_new
+from inbox import unified
 
 urlpatterns = [
 
@@ -17,7 +18,7 @@ urlpatterns = [
 
     url(r'^edit_add/(?P<id>[^/]+)/$', views.edit_add_product, name='edit_add'),
 
-    url(r'^enquire/$', views.enquire, name='enquire'),
+    url(r'^enquire/$', unified.enquire, name='enquire'),
     url(r'^int_c/$', views.initial_category, name='initial_category'),
     url(r'^c_r/$', views.c_r, name='c_r'),
     url(r'^cat_u/$', views.category_update, name='cat_u'),

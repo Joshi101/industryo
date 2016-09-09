@@ -25,6 +25,7 @@ def delete_tag(request, id):
 
 def edit_add_lead(request, slug):
     user = request.user
+    direct = [f.name for f in Leads._meta.get_fields()]
     response = {}
     if slug == 'new':
         if request.method == 'POST':
@@ -41,7 +42,7 @@ def edit_add_lead(request, slug):
                         l = Leads.objects.create(lead=request.POST['lead'], name=request.POST['user_name'], email=request.POST['user_email'], company_name=request.POST['user_company'], mobile_number=request.POST['user_mobile'])
                     t = Thread(target=leads_mail, args=(l.id, 'created'))
                     t.start()
-                    direct = l._meta.get_all_field_names()
+
                     dictionary = {}
                     for key in request.POST:
                         if key in direct:
@@ -86,7 +87,6 @@ def edit_add_lead(request, slug):
             return render(request, 'leads/edit.html', {'first_time': False})
     else:
         l = Leads.objects.get(slug=slug)
-        direct = l._meta.get_all_field_names()
         dictionary = {}
         if request.method == 'POST' and user == l.user:
             for key in request.POST:

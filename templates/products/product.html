@@ -25,9 +25,11 @@
     <div class="row">
       <div class="col-md-9">
         {% include "snippets/figure_modal.html" %}
+        {% if user in members %}
         <div class="text-right edit_in">
           <a href="{% url 'products:edit_add' product.id %}"><span class="fa fa-pencil"></span> Edit</a>
         </div>
+        {% endif %}
         <div class="prod_details">
           <div class="row">
             <div class="prod_img col-sm-5">
