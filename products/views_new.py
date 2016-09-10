@@ -91,12 +91,12 @@ def add_product(request):
                                         delivery_details=dd, delivery_charges=dc, description=request.POST['description'])
             li = [request.POST.get('category1'), request.POST.get('category2'), request.POST.get('category3')]
             print(li)
-            if li.count('') == len(li):
-                print('not')
-                c = Product_Categories.objects.filter(product=last.id).order_by('level')
-            else:
-                print('ee not')
-                p.set_categories(li)
+            p.set_categories(li)
+            # if li.count('') == len(li):
+            #     # c = Product_Categories.objects.filter(product=last.id).order_by('level')
+            #     pass
+            # else:
+            #     p.set_categories(li)
             i = Images.objects.filter(user=user, temp_key=n).first()
             if i:
                 p.image = i
