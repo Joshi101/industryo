@@ -6,7 +6,7 @@
 
 
 $('.qa_wyg').trumbowyg({
-      btns: [
+    btns: [
         // ['viewHTML'],
         // ['formatting'],
         'btnGrp-semantic',
@@ -18,11 +18,11 @@ $('.qa_wyg').trumbowyg({
         ['horizontalRule'],
         ['removeformat'],
         ['fullscreen']
-      ]
-    });
+    ]
+});
 
 $('.wyg').trumbowyg({
-      btns: [
+    btns: [
         ['formatting'],
         'btnGrp-semantic',
         ['superscript', 'subscript'],
@@ -33,13 +33,13 @@ $('.wyg').trumbowyg({
         ['horizontalRule'],
         ['removeformat'],
         // ['fullscreen']
-      ]
-    });
+    ]
+});
 
 /* global parameters */
 
 $(function () {
-  $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover();
 });
 
 var top_nav_width, win_width, win_height, foot_height, mid_wide, side_wide;
@@ -100,11 +100,14 @@ function doneTyping() {
     if (query.length < 3){
         console.log('e to chotu h');
         d_on = false;
+        $d_search.find('.d_info').removeClass('hide');
     }
     if (d_on) {
         //d_on = false;
+        $d_search.find('.d_info').addClass('hide');
         $d_search.find('.create').addClass('hide');
         $this.siblings('.form-control-feedback').children('.fback_wait').removeClass('hide');
+        $d_search.find('.dropdown').find('.d_feedback').removeClass('hide');
         console.log(query, search, type);
         $.ajax({
             url: search,
@@ -119,6 +122,7 @@ function doneTyping() {
                 $d_search.find('.dropdown')
                     .find(".d_list").html(result);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
+                $d_search.find('.dropdown').find('.d_feedback').addClass('hide');
                 $d_search.find('.create').removeClass('hide');
             },
             error: function(xhr, errmsg, err) {
@@ -126,6 +130,7 @@ function doneTyping() {
                 $d_search.find('.dropdown')
                     .find(".d_list").html("<li class='list-group-item list-group-item-warning'>Sorry, unable to fetch results. Try later.</li>");
                 console.log(errmsg, err);
+                $d_search.find('.dropdown').find('.d_feedback').addClass('hide');
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
             }
         });
@@ -648,7 +653,7 @@ $('body').on('click', '.delete', function() {
 
         success: function(response) {
             console.log('deleted');
-            $this.tooltip("hide").parent().remove();
+            $this.tooltip('hide').parent().remove();
 
         },
 
@@ -3124,8 +3129,8 @@ $('body').on('change', '.ajax_image', function(e){
 
 
 $('body').on('click', '.form_show', function(){
-    $(this).siblings('.form_pool').find('.form_card.hide').first().removeClass('hide');
-})
+    $(this).closest('.flex_block').find('.form_pool').find('.form_card.hide').first().removeClass('hide');
+});
 
 $('body').on('change', '.up_file', function(e){
     e.preventDefault();

@@ -10,7 +10,7 @@
 }
 
 .navbar-nav{
-  margin: 0; 
+  margin: 0;
 }
 
 .label{
@@ -28,7 +28,7 @@
 
 @media (max-width:786px){
   .page-header {
-    margin-top: 0px;
+    margin-top: 0;
   }
 }
 
@@ -74,7 +74,7 @@
 
 .dropdown-menu{
   border: 0;
-  border-radius: 0px;
+  border-radius: 0;
   width: 100%;
 }
 
@@ -273,7 +273,7 @@ img{
 
 #cover input, .unboxed input {
   font-size: 15px;
-  
+
   height: 40px;
   padding: 0 15px;
   border: 0;
@@ -343,7 +343,7 @@ img{
 
 @media (min-width:768px){
   #signup_modal .form-group .btn{
-   margin: 15px 0; 
+   margin: 15px 0;
   }
 }
 
@@ -432,7 +432,7 @@ img{
   text-align: center;
 }
 
-.socialaccount_providers li{  
+.socialaccount_providers li{
   margin-bottom: 15px;
 }
 
@@ -807,7 +807,7 @@ pre {
     background: rgba(0,0,0,0.15);
     border-color: rgba(0,0,0,0.19);
   }
-  
+
 }
 
 .d_menu img{
@@ -820,7 +820,7 @@ pre {
 .d_menu .name{
   line-height: 20px;
   height: 20px;
-  font-weight: 500; 
+  font-weight: 500;
   display: block;
   white-space:nowrap;
   text-overflow: ellipsis;
@@ -949,7 +949,7 @@ pre {
 
 @media (max-width: 768px){
   #notifications .badge, #messages .badge{
-    bottom: 15px; 
+    bottom: 15px;
   }
 }
 
@@ -1109,12 +1109,12 @@ pre {
   .nav-pills {
     border: 0;
   }
-  
+
   .nav-pills li a {
     padding: 10px 5px;
     border-radius: 0;
   }
-  
+
   .nav_justified_xs > li {
     display: table-cell;
     width: 1%;
@@ -1218,7 +1218,7 @@ pre {
   display: block;
 
   width: 100%;
-  
+
   line-height: 128px;
 
   text-align: center;
@@ -2089,7 +2089,7 @@ input.cropit-image-input {
 
   width: 31%;
   margin: 10px 1%;
-  
+
   overflow: hidden;
   list-style: none;
   text-align: center;
@@ -2232,7 +2232,7 @@ input.cropit-image-input {
 }
 
 .product .enq_btn{
-  
+
   height: 36px;
   background-color: #eee;
   width: 100%;
@@ -2675,7 +2675,7 @@ footer .contact li{
 }
 
 .info_title .verified{
-  
+
 }
 
 .info_links a{
@@ -2728,7 +2728,7 @@ footer .contact li{
 @media(max-width:500px){
   .info_field_value, .info_field_edit{
     display: block;
-    margin-top: 5px;    
+    margin-top: 5px;
   }
   .info_field .colon{
     display: none;
@@ -2816,7 +2816,7 @@ footer .contact li{
 .left_menu li .fa{
   width: 2em;
   text-align: center;
-  
+
 }
 
 .left_menu li a:active, .left_menu li a:focus, .left_menu li a:hover{
@@ -2921,8 +2921,8 @@ footer .contact li{
 }
 
 .conversation-portrait {
-  width: 20px; 
-  border-radius: 3px; 
+  width: 20px;
+  border-radius: 3px;
   margin-right: 5px;
 }
 
@@ -3304,7 +3304,7 @@ footer .contact li{
 }
 
 .nav_flex > li:first-child{
-  
+
 }
 
 .nav_flex > li > a{
@@ -3312,7 +3312,7 @@ footer .contact li{
   /*! border: 1px solid #eee; */
   border-bottom: 0;
   padding: 10px 15px 10px;
-  
+
   border: 1px solid transparent;
   transition: all linear 1s;
 }
@@ -3325,11 +3325,11 @@ footer .contact li{
 
 .nav_flex li > a:hover, .nav_flex li > a:focus{
   background-color: transparent;
-  
+
 }
 
 .nav_flex .active > a:hover, .nav_flex .active > a:focus{
-  
+
 }
 
 .info_title .fa{
@@ -3405,11 +3405,11 @@ footer .contact li{
 .info_lg .badge{
   margin: 0 5px;
   background-color: #666;
-  
+
 }
 
 #marketplace_top{
-  
+
 }
 
 .drop_nav > li >a{
@@ -3435,7 +3435,7 @@ footer .contact li{
   top: 43px;
   margin: 0 5px;
   padding: 15px 5px 5px;
-  
+
 }
 
 .drop_nav .dropdown-toggle{
@@ -3544,7 +3544,7 @@ footer .contact li{
   overflow: hidden;
   color: #fff;
   display: block;
-  
+
   text-align: center;
 }
 
@@ -3639,7 +3639,7 @@ footer .contact li{
   right: 7px;
   line-height: 1.42857143;
   color: #999;
-  
+
 }
 
 #add_prod_category .nav-pills li .no_sub .fa{
@@ -3827,12 +3827,12 @@ footer .contact li{
 }
 
 .form_lg .form-control:focus{
-  
+
   box-shadow: 0 -5px 10px -7px #999;
   border-color: transparent transparent #179;
   border-bottom-style: dashed;
   border-bottom-width: 2px;
-  
+
 }
 
 .shadow_in{
@@ -3914,19 +3914,19 @@ textarea::-webkit-input-placeholder {
 .form-control:-moz-placeholder,
 input:-moz-placeholder,
 textarea:-moz-placeholder { /* Firefox 18- */
-   color: #bbb;  
+   color: #bbb;
 }
 
 .form-control::-moz-placeholder,
 input::-moz-placeholder,
 textarea::-moz-placeholder {  /* Firefox 19+ */
-   color: #bbb;  
+   color: #bbb;
 }
 
 .form-control:-ms-input-placeholder,
 input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {  
-   color: #bbb;  
+textarea:-ms-input-placeholder {
+   color: #bbb;
 }
 #top_search .form-control::-webkit-input-placeholder {
    color: #777;
@@ -3937,11 +3937,11 @@ textarea:-ms-input-placeholder {
 }
 
 #top_search .form-control::-moz-placeholder {  /* Firefox 19+ */
-   color: #bbb;  
+   color: #bbb;
 }
 
-#top_search .form-control:-ms-input-placeholder {  
-   color: #777;  
+#top_search .form-control:-ms-input-placeholder {
+   color: #777;
 }
 
 
@@ -4175,7 +4175,7 @@ textarea:-ms-input-placeholder {
 
 .dash_stat_link:hover .number{
   color: #000;
-  
+
 }
 
 .dashboard{
@@ -4203,7 +4203,7 @@ textarea:-ms-input-placeholder {
 #error_page h1{
   font-size: 60px;
   margin-bottom: 50px;
-  
+
   margin-top: 40px;
 }
 
@@ -4595,7 +4595,7 @@ input.not_wide{
 }
 
 .new_form .radio_group label{
-  
+
 }
 
 .new_form .radio-inline{
@@ -4939,7 +4939,7 @@ input.not_wide{
     padding-left: 7px;
     text-align: left;
   }
-  
+
   .circle_bar_container{
     margin-left: -10px;
     margin-right: -10px;
@@ -5565,7 +5565,7 @@ input.not_wide{
 }
 
 .left_right{
-  
+
 }
 
 .input-group-btn .fa{
@@ -5622,7 +5622,7 @@ h5{
 }
 
 .valid{
-  
+
 }
 
 .well{
@@ -5788,7 +5788,7 @@ h5{
 
 .top_info_icon{
   float: right;
-  
+
 }
 
 .top_info_points{
@@ -5797,7 +5797,7 @@ h5{
 
   //padding: 0 1px 0 2px;
   //margin: 0 3px;
-  
+
   position: absolute;
   right: 8px;
   top: 28px;
@@ -5817,11 +5817,11 @@ h5{
     background-color: rgba(0,0,0,0.1);
     text-align: center;
   }
-  
+
   .top_info_icon{
     float: none;
   }
-  
+
   .top_info_box .fa{
     position: absolute;
     top: 45px;
@@ -5831,7 +5831,7 @@ h5{
     font-size: 12px;
     width: 100%;
   }
-  
+
   .top_info_points {
     //line-height: 14px;
     //height: 12px;
@@ -5879,7 +5879,7 @@ h5{
 
 .top_acc .dropdown-menu {
   font-size: 12px;
-	
+
 	background-color: #fff;
 	width: 300px;
   padding: 10px;
@@ -5927,25 +5927,25 @@ h5{
   /* margin-bottom: 10px; */
 }
 
-/**.modal { 
-    position: fixed; 
-    top: 3%; 
-    right: 3%; 
-    left: 3%; 
-    width: auto; 
-    margin: 0; 
+/**.modal {
+    position: fixed;
+    top: 3%;
+    right: 3%;
+    left: 3%;
+    width: auto;
+    margin: 0;
 }
-.modal-body { 
-    height: 60%; 
+.modal-body {
+    height: 60%;
 }
 
 and in bootstrap.css
 
-.modal-body { 
-    max-height: 350px; 
-    padding: 15px; 
-    overflow-y: auto; 
-    -webkit-overflow-scrolling: touch; 
+.modal-body {
+    max-height: 350px;
+    padding: 15px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
  }**/
 
 .notify_box li {
@@ -6057,7 +6057,7 @@ and in bootstrap.css
 }
 
 .flexitfix{
-  flex-grow: 0; 
+  flex-grow: 0;
   /*! align-self: flex-end; */
 }
 
@@ -6109,11 +6109,11 @@ and in bootstrap.css
 
 .progress_thin .exp .fa{
   margin-right: 2px;
-  
+
 }
 
 .progress_thin .exp{
-  
+
 }
 
 .progress_thin_box:hover .hidethis{
@@ -6148,7 +6148,7 @@ and in bootstrap.css
 
 .mailbox h4{
   margin: 0;
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 .mailbox h4 a{
@@ -7036,4 +7036,10 @@ and in bootstrap.css
 
 .edit_in{
   margin: 5px;
+}
+
+
+.d_feedback{
+  display: block;
+/*   padding: 15px 10px; */
 }

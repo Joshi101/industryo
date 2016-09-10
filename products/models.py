@@ -134,6 +134,7 @@ class Products(models.Model):
         return categories
 
     def set_categories(self, li):
+        li.remove('')
         categories = Category.objects.filter(pk__in=li)
         for c in categories:
             try:
