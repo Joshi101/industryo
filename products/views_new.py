@@ -62,6 +62,8 @@ def change_image(request, id):
     return HttpResponse()
 
 
+from threading import Thread
+
 @login_required
 def add_product(request):
     user = request.user
@@ -89,7 +91,7 @@ def add_product(request):
                                         delivery_details=dd, delivery_charges=dc, description=request.POST['description'])
             li = [request.POST.get('category1'), request.POST.get('category2'), request.POST.get('category3')]
             print(li)
-            if not li:
+            if not li == ['','','']:
                 c = Product_Categories.objects.filter(product=last.id).order_by('level')
                 if c:
                     p.set_categories(li)
