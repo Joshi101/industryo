@@ -1035,6 +1035,7 @@ $('#info_head').on({
     }
 });
 
+
 function checkValidity() {
     console.log('checking');
     var editor = $("#editor");
@@ -1167,7 +1168,7 @@ $(document).ready(function() {
         },
         'keyup': function(event) {
             if (ctrlDown && event.keyCode == 86) {
-                checkValidity();
+                // checkValidity();
             }
         },
         'blur': function() {
