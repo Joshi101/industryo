@@ -36,7 +36,7 @@
               <img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" alt="{{name}}">
               <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
             </div>
-            <div class="img_profile_label">Company Logo</div>
+            <div class="img_profile_label">Team Logo</div>
           </div>
           <div class="col-md-9">
             <header class="info_title">
@@ -45,7 +45,7 @@
               <span class="fa fa-check-circle" title="Verified!" data-toggle="tooltip"></span>
               {% endif %}
             </header>
-            <span class="text-muted">The Data You Fill Here will be what Others will See on Your Company profile.<br>Fill more data to get found easily</span>
+            <span class="text-muted">The Data You Fill Here will be what Others will See on Your Team profile.</span>
           </div>
         </div>
         <form id="edit_wp_form" class="ajax_andar auto_form" role="form" action="{% url 'workplace:edit' %}" method="POST" enctype="multipart/form-data" data-response="UpdateScore">
@@ -59,74 +59,47 @@
               <a class="pull-right" data-toggle="popover" data-trigger="hover click" data-placement="bottom" data-title="What it does?" data-content="And here's some amazing facts to convince you. Right?"><span class="fa fa-fw fa-question-circle"></span></a>
               <span class="help">A brief introduction of {{workplace}} for visitors on your profile</span>
               -->
-              <textarea class="textarea_lg count_field" id="wp_about" name="about" placeholder="A Basic Introduction of your Company in about 500 words or less
-(maybe the about Section of company website)" maxlength="2000">{{about|default:''}}</textarea>
+              <textarea class="textarea_lg count_field" id="wp_about" name="about" placeholder="A Basic Introduction of your Team/ College in about 500 words or less" maxlength="2000">{{about|default:''}}</textarea>
               <span class="char_count">2000</span>
             </div>
             <div class="form-group">
-              <label for="wp_address">Street Address</label>
-              <textarea class=" textarea_md count_field" id="wp_address" name="address" maxlength="200">{{address|default:''}}</textarea>
-              <span class="char_count">200</span>
-            </div>
-            <div class="form-group">
               <label for="wp_loc">City</label>
-              {% include "snippets/d_search_tags_new.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+              {% include "snippets/d_search_tags_new.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' placeholder='Type the name of the City & select from dropdown' %}
             </div>
             <div class="row">
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label for="wp_est">Established</label>
-                  <input class="" id="wp_est" name="year_established" value="{{year_established|default:''}}" placeholder="YYYY">
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <label for="wp_turnovr">No. of Employees</label>
+                  <label for="wp_turnovr">No. of Members</label>
                   <input class="" id="wp_emp" name="number_of_employees" value="{{number_of_employees|default:''}}" placeholder ='00'>
                 </div>
               </div>
-              <div class="col-sm-3">
-                <div class="form-group pre_input">
-                  <label for="wp_rev">Annual Revenue</label>
-                  <input class="" id="wp_rev" name="revenue" value="{{revenue|default:''}}" placeholder="00">
-                  <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="form-group pre_input">
-                  <label for="wp_turnovr">Turnover</label>
-                  <input class="" id="wp_turnovr" name="turnover" value="{{turnover|default:''}}" placeholder ='00'>
-                  <span class="pre"><span class="fa fa-fw fa-inr"></span></span>
+              <div class="col-sm-9">
+                <div class="form-group">
+                  <label for="wp_address">Mailing (Street) Address</label>
+                  <textarea class=" textarea_md count_field" id="wp_address" name="address" maxlength="200">{{address|default:''}}</textarea>
+                  <span class="char_count">200</span>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="wp_type">Type of SME</label>
-              <div class="radio_group">
-                <label class="radio-inline"><input type="radio" value='A' name="sme_type">Manufacturing</label>
-                <label class="radio-inline"><input type="radio" value='C' name="sme_type">Supplier</label>
-                <label class="radio-inline"><input type="radio" value='B' name="sme_type">Service Provider</label>
-              </div>
+              <label for="wp_prod_details">Project Description</label>
+              <textarea class=" textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Description of the projects your team has done so far and your performance in different events." maxlength="1000"> {{product_details|default:''}}</textarea>
+              <span class="char_count">1000</span>
             </div>
             <div class="form-group">
-              <label for="legal_status">Legal Status{{workplace.get_legal_status}}</label>
-              <div class="radio_group">
-                <label class="radio-inline"><input type="radio" name="legal_status" value="A">Private Limited</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="B">Proprietorship</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="D">Public</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="E">Partnership Firm</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="U">Unregistered</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="O">Other</label>
-                <label class="radio-inline"><input type="radio" name="legal_status" value="C">Limited Liability Partnership</label>
-              </div>
+              <label for="wp_segments">Segments</label>
+              {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segments name='segments' placeholder='Type the name of the Segments, eg. Manufacturing, Electronics, Baja, Formula, AeroDesign etc.' %}
             </div>
-          </div>
+            <div class="form-group">
+              <label for="wp_operations">Events</label>
+              {% include "snippets/d_search_tags.html" with search="tag" type='E' tags=workplace.get_tags.operations name='events' placeholder='Specific Events You Participate in. Eg: Supra SAE, Mega ATV Championship, BAJA SAE India etc.' %}
+            </div>
           <a href="#contact_info" class="collapse_h" data-toggle="collapse">Contact Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
           <div id="contact_info" class="collapse in">
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="wp_est">Office Phone</label>
+                  <label for="wp_est">Desk Phone (if any)</label>
                   <input class="" id="wp_est" name="contact" type="tel" value="{{contact|default:''}}">
                 </div>
               </div>
@@ -174,28 +147,8 @@
               </div>
             </div>
           </div>
-          <a href="#extra_info" class="collapse_h" data-toggle="collapse">Specialized Information<span class="fa fa-fw fa-angle-down pull-right"></span></a>
-          <div id="extra_info" class="collapse in">
-            <div class="form-group">
-              <label for="wp_prod_details">Product Description</label>
-              <textarea class=" textarea_md count_field" id="wp_prod_details" name="product_details" placeholder="A Brief Intro of the kind of products yo manufacture, who are your customers &amp; what is the capacity You can list products individually later" maxlength="1000"> {{product_details|default:''}}</textarea>
-              <span class="char_count">1000</span>
-            </div>
-            <div class="form-group">
-              <label for="wp_segments">Segments</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='S' tags=workplace.get_tags.segments name='segments' placeholder='Type the name of the Segments, eg. Manufacturing, Industrial Consultancy, Metal Processing, Plastics' %}
-            </div>
-            <div class="form-group">
-              <label for="wp_operations">Operations</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='O' tags=workplace.get_tags.operations name='operations' placeholder='Operations your SME performs, eg. Welding, Web Designing, CAD, Transportation' %}
-            </div>
-            <div class="form-group">
-              <label for="wp_machinery">Machinery &amp; Assets</label>
-              {% include "snippets/d_search_tags.html" with search="tag" type='A' tags=workplace.get_tags.assets name='machinery' placeholder='Assets &amp; Machinery eg. Milling machine, Boilers, CNC, etc.' %}
-            </div>
-          </div>
           <div class="col-submit">
-            <a class="submitbtn" href="{% url 'workplace:dashboard' workplace.slug %}">Continue to Company Dashboard</a>
+            <a class="submitbtn" href="{% url 'workplace:dashboard' workplace.slug %}">Continue to Team Dashboard</a>
           </div>
         </form>
       </div>

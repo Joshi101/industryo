@@ -1,9 +1,11 @@
 <nav>
   <ul id="wp_nav" class="nav nav_flex nav_ajax">
+    {% if workplace.workplace_type == 'A' or workplace.workplace_type == 'B' %}
     {% if member %}
     <li>
       <a id="wp_nav_dashboard" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:dashboard' workplace.slug %}"><span class="fa inline_fa fa-dashboard"></span>Dashboard</a>
     </li>
+    {% endif %}
     {% endif %}
     <li>
       <a id="wp_nav_about" class="ajax_a" data-place="#wp_content" href="{% url 'workplace:workplace_profile' workplace.slug %}"><span class="fa inline_fa fa-info-circle"></span>About</a>

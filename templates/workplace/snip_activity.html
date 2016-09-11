@@ -11,6 +11,9 @@
   </div>
   <div class="tab-content ajax_papa">
   	<div class="ajax_andar feeds">
+      {% if request.user.is_authenticated %}
+      {% include "snippets/feed_form.html" %}
+      {% endif %}
   		{% include "snippets/figure_modal.html" %}
   		{% include 'nodes/five_nodes.html' with result_list=result_list %}
   		<div class="paginator" data-next_page="2" data-url="{% url 'workplace:activity' workplace.slug %}">

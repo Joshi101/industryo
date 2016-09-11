@@ -24,54 +24,23 @@
           </div>
         </div>
       </div>
-      {% if workplace.year_established or workplace.number_of_employees or workplace.get_legal_status %}
+      
       <div class="form-group">
-        <div class="data_inline">
-          {% if workplace.year_established %}
-          <span class="fa fa-history fa-fw"></span>&nbsp;Established In {{workplace.year_established}}
-          {% else %}
-          Date of Establishment Not Available
-          {% endif %}
-        </div>
         <div class="data_inline">
           {% if workplace.number_of_employees %}
-          <span class="fa fa-users fa-fw"></span>&nbsp;{{workplace.number_of_employees}} {% if workplace.workplace_type == 'C' or workplace.workplace_type == 'O' %}Members{% else %}Employees{% endif %}
+          <span class="fa fa-users fa-fw"></span>&nbsp;{{workplace.number_of_employees}} Members
           {% else %}
-          Number of Employees Not Available
+          Number of Members Not Available
           {% endif %}
         </div>
         <div class="data_inline">
-          {% if workplace.get_legal_status %}
-          <span class="fa fa-legal fa-fw"></span>&nbsp;{{workplace.get_legal_status}}
-          {% else %}
-          Legal Status Not Available
-          {% endif %}
-        </div>
+          
+        	<span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address|default:'Postal Address not available'}}
+      	  </div>
+        
       </div>
-      {% endif %}
-      {% if workplace.workplace_type == 'A' or workplace.workplace_type == 'B' %}
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="data_title">Annual Revenue</div>
-            <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.revenue|default:na}}</p>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="data_title">Turnover</div>
-            <p class="data"><span class="fa fa-inr inline_fa"></span>{{workplace.turnover|default:na}}</p>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-  <div class="form_card tile_flat">
-    <div class="collapse_h">Specialization<span class="fa fa-fw fa-barcode pull-right"></span></div>
-    <div id="extra_info" class="collapse in">
       <div class="form-group">
-        <div class="data_title">Product Description</div>
+        <div class="data_title">Project Description</div>
         <p class="data">{{workplace.product_details|default:na}}</p>
       </div>
       <div class="form-group">
@@ -88,24 +57,11 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="data_title">Operations</div>
+        <div class="data_title">Events</div>
         <div class="data">
           <div class="tags">
             <span class="fa fa-fire-extinguisher fa-fw"></span>
-            {% for tag in tags.operations %}
-              <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
-            {% empty %}
-            {{na}}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="data_title">Machinery &amp; Assets</div>
-        <div class="data">
-          <div class="tags">
-            <span class="fa fa-cogs fa-fw"></span>
-            {% for tag in tags.assets %}
+            {% for tag in tags.events %}
               <a href="{% url 'tags:get_tag' tag.slug %}" class="tag" title="{{tag.description}}" data-toggle="tooltip" data-placement="bottom">{{tag}}</a>
             {% empty %}
             {{na}}
@@ -137,9 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="data_inline"><span class="fa fa-map-signs fa-fw"></span>&nbsp;{{workplace.address|default:'Postal Address not available'}}</div>
-      </div>
+      
     </div>
   </div>
 
