@@ -36,7 +36,7 @@ $('.wyg').trumbowyg({
     ]
 });
 
-/* global parameters */
+/* Global parameters */
 
 $(function () {
     $('[data-toggle="popover"]').popover();
@@ -64,13 +64,13 @@ function body_slide() {
 
 /* function to adjust left and right menus */
 function left_right(){
-    $mid_body = $('.mid_body');
+    var $mid_body = $('.mid_body');
     if ($mid_body.length){
-        $parent = $mid_body.parent();
-        $side_body = $('.side_body');
+        var $parent = $mid_body.parent();
+        var $side_body = $('.side_body');
         mid_wide = $mid_body.outerWidth();
         side_wide = ($parent.width() - mid_wide)/2;
-        side_aithan = $side_body.find('.aithan').data('aithan');
+        var side_aithan = $side_body.find('.aithan').data('aithan');
         if (side_wide < side_aithan){
             $side_body.css('width', side_wide).addClass('hide');
         }
@@ -92,7 +92,7 @@ function doneTyping() {
     var $this = d_this;
     var $d_search = $this.closest('.d_search');
     var query = $this.val(),
-        search = "/search" + $this.data('search') + "/";
+        search = '/search' + $this.data('search') + '/';
     var type = $d_search.find('.d_type').val();
     console.log(type);
     if (!type)
@@ -111,7 +111,7 @@ function doneTyping() {
         console.log(query, search, type);
         $.ajax({
             url: search,
-            type: "GET",
+            type: 'GET',
             data: {
                 'the_query': query,
                 'the_type': type
@@ -120,7 +120,7 @@ function doneTyping() {
                 //d_on = true;
                 // console.log(result);
                 $d_search.find('.dropdown')
-                    .find(".d_list").html(result);
+                    .find('.d_list').html(result);
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
                 $d_search.find('.dropdown').find('.d_feedback').addClass('hide');
                 $d_search.find('.create').removeClass('hide');
@@ -128,7 +128,7 @@ function doneTyping() {
             error: function(xhr, errmsg, err) {
                 //d_on = true;
                 $d_search.find('.dropdown')
-                    .find(".d_list").html("<li class='list-group-item list-group-item-warning'>Sorry, unable to fetch results. Try later.</li>");
+                    .find('.d_list').html('<li class="list-group-item list-group-item-warning">Sorry, unable to fetch results. Try later.</li>');
                 console.log(errmsg, err);
                 $d_search.find('.dropdown').find('.d_feedback').addClass('hide');
                 $this.siblings('.form-control-feedback').children('.fback_wait').addClass('hide');
@@ -165,11 +165,11 @@ function d_input_show_error($this,sign,msg){
 
 
 $('body').on('keydown', '.d_input', function(event) {
-    $(".d_input").on('blur', d_input_blur);
+    $('.d_input').on('blur', d_input_blur);
     var $this = $(this);
     d_input_remove_error($this,true,false);
     d_this = $this;
-    $d_search = $this.closest('.d_search');
+    var $d_search = $this.closest('.d_search');
     if (event.keyCode == '13') {
         event.preventDefault();
         if ($d_search.find('.dropdown').attr('class').indexOf('open') >= 0){
@@ -184,7 +184,7 @@ $('body').on('keydown', '.d_input', function(event) {
 
 
 $('body').on('click', '.d_search .one_value .close', function() {
-    $d_search = $(this).closest('.d_search');
+    var $d_search = $(this).closest('.d_search');
     $d_search.find('.d_input').removeClass('hide').focus();
     $d_search.find('.d_value').val('');
     $(this).closest('.one_value').addClass('hide');
@@ -1035,154 +1035,6 @@ $('#info_head').on({
     }
 });
 
-
-function checkValidity() {
-    console.log('checking');
-    var editor = $("#editor");
-    var content = editor.html();
-    console.log(content);
-    var check = true,
-        pos = -1,
-        allow_pos = [],
-        allowed = 0,
-        att = false;
-    var i = 0;
-    while (i <= content.length) {
-        var text = content[i];
-        if (text == '<') {
-            //i may is indexing the start of an opening or a closing tag
-            pos = i;
-            //the portion of string not yet checked
-            var unchecked = content.slice(pos, content.length);
-            var nxt = unchecked.search(">");
-            var end = pos + nxt;
-            //pos indexes the opening of tag
-            //end indexes closing of tag
-            var allowedy = allowed;
-            if (allowed) {
-                //check wether its a closing tag
-                if (content[pos + 1] == '/') {
-                    //check if its the closing tag of allowed (except 'img')
-                    if (content[pos + 2] == 'b' || content[pos + 2] == 'i' || content[pos + 2] == 'u' || content[pos + 2] == 'a' || content[pos + 2] == 'l' || content[pos + 2] == 'o') {
-                        //might be a recognised tag
-                        if (content[pos + 3] == '>') {
-                            //confirmed a/b/i/u
-                            allowed--;
-                            console.log('allowed ka closing', content[pos + 2], pos, allowed, allowedy);
-                            if (content[pos + 2] == 'a')
-                                att = 'href';
-                        } else if (content[pos + 3] == 'r' || content[pos + 3] == 'l' || content[pos + 3] == 'i') {
-                            //might be br/ul/ol/li
-                            if (content[pos + 4] == '>') {
-                                //confirmed br/ul/ol/li
-                                allowed--;
-                                console.log('allowed ka closing');
-                            }
-                        }
-                    }
-                }
-            }
-            if (!allowedy || (allowedy == allowed)) {
-                console.log('yahi na', content[pos], pos);
-                allowedy = allowed;
-                //check for allowed tags
-                if (content[pos + 1] == 'b' || content[pos + 1] == 'i' || content[pos + 1] == 'u' || content[pos + 1] == 'a' || content[pos + 1] == 'l' || content[pos + 2] == 'o') {
-                    //might be a recognised tag
-                    console.log('lvl 1 a', content[pos + 2]);
-                    if (content[pos + 2] == '>' || content[pos + 2] == ' ') {
-                        //confirmed a/b/i/u
-                        console.log('lvl 2 a');
-                        allowed++;
-                        if (content[pos + 1] == 'a')
-                            att = 'href';
-                    } else if (content[pos + 2] == 'r' || content[pos + 2] == 'm' || content[pos + 2] == 'l' || content[pos + 2] == 'i') {
-                        //might be 'br/ul/ol/li/img
-                        console.log('lvl 2 b');
-                        if (content[pos + 3] == '>' || content[pos + 3] == ' ') {
-                            //confirmed br/ul/ol/li
-                            console.log('lvl 3 a');
-                            allowed++;
-                        } else if (content[pos + 3] == 'g') {
-                            //might be 'img'
-                            console.log('lvl 3 b');
-                            if (content[pos + 4] == '>' || content[pos + 4] == ' ') {
-                                //confirmed img
-                                console.log('lvl 4 a');
-                                allowed++;
-                                att = 'src';
-                            }
-                        }
-                    }
-                }
-            }
-            if (allowedy == allowed) {
-                console.log(pos, end);
-                var part1 = content.slice(0, pos);
-                //console.log(part1);
-                var part2 = content.slice(end + 1, content.length);
-                //console.log(part2);
-                content = part1 + part2;
-                i--;
-            } else {
-                allow_pos[allowed] = pos;
-                console.log(allowed, allow_pos[allowed]);
-            }
-        }
-        i++;
-    }
-    console.log(content, allowed);
-    editor.html(content);
-    while (allowed) {
-        console.log('ego adha aa giya');
-        pos = allow_pos[allowed - 1];
-        var nxt = unchecked.search(">");
-        var end = pos + nxt;
-        var part1 = content.slice(0, pos);
-        //console.log(part1);
-        var part2 = content.slice(end + 1, content.length);
-        //console.log(part2);
-        content = part1 + part2;
-        allowed--;
-    }
-}
-
-
-$(document).ready(function() {
-    var ctrlDown = false;
-    var ctrlKey = 17,
-        vKey = 86,
-        cKey = 67;
-    $(document).keydown(function(e) {
-        if (e.keyCode == ctrlKey) ctrlDown = true;
-    }).keyup(function(e) {
-        if (e.keyCode == ctrlKey) ctrlDown = false;
-    });
-
-    $('#editor').on({
-        'focus': function() {
-            if ($(this).attr('class') == 'empty') {
-                $(this).html('').removeClass('empty');
-                //setInterval(checkValidity, 5000);
-            }
-            //checkValidity();
-            // asrers
-        },
-        'keyup': function(event) {
-            if (ctrlDown && event.keyCode == 86) {
-                // checkValidity();
-            }
-        },
-        'blur': function() {
-            console.log('blured');
-            if ($(this).html() === '') {
-                $(this).html('<div class="text-muted">The Awesome Body goes here ...</div>').addClass('empty');
-            }
-            //checkValidity();
-        }
-    });
-
-
-});
 
 var nones = $('span.none');
 if (nones.siblings('span').length) {
@@ -2398,7 +2250,7 @@ function imageUpload($this){
 
             error: function(xhr, errmsg, err) {
                 console.log(errmsg, err);
-                autoSubmitFailed($field);
+                // autoSubmitFailed($field);
             }
         });
     };
@@ -2407,7 +2259,7 @@ function imageUpload($this){
         console.log('img_pre showing');
     }
     else {
-        preview.attr('src', "");
+        preview.attr('src', '');
     }
 }
 
@@ -3070,20 +2922,20 @@ $(".image_crop_modal").on('hide.bs.modal', function (e) {
             //Upload progress
             xhr.upload.addEventListener("progress", function(evt)
             {
-              if (evt.lengthComputable) {
-                var percentComplete = evt.loaded / evt.total;
-                //Do something with upload progress
-                $image_box.find('.aj_progress .level').width((percentComplete*100)+'%');
-                console.log(percentComplete);
-              }
+                if (evt.lengthComputable) {
+                    var percentComplete = evt.loaded / evt.total;
+                    //Do something with upload progress
+                    $image_box.find('.aj_progress .level').width((percentComplete*100)+'%');
+                    console.log(percentComplete);
+                }
             }, false);
             //Download progress
-            xhr.addEventListener("progress", function(evt) {
-              if (evt.lengthComputable) {
-                var percentComplete = evt.loaded / evt.total;
-                //Do something with download progress
-                console.log(percentComplete);
-              }
+            xhr.addEventListener('progress', function(evt) {
+                if (evt.lengthComputable) {
+                    var percentComplete = evt.loaded / evt.total;
+                    //Do something with download progress
+                    console.log(percentComplete);
+                }
             }, false);
             return xhr;
         },
@@ -3102,7 +2954,7 @@ $(".image_crop_modal").on('hide.bs.modal', function (e) {
 $('body').on('change', '.ajax_image', function(e){
     // show and hide elements
     var $this = $(this);
-    var $clone = $this.clone();
+    // var $clone = $this.clone();
     var $image_box = $this.closest('.image_box');
     var $preview = $image_box.find('.image_preview_box');
     $this.addClass('hide');
@@ -3113,10 +2965,9 @@ $('body').on('change', '.ajax_image', function(e){
     // declare a new filereader
     var reader = new FileReader();
     // se what happens once the file loads in the filereader
-    var image;
     reader.onloadend = function() {
-        $preview.find('img').attr('src', reader.result);
-        image = reader.result;
+        var image = reader.result;
+        $preview.find('img').attr('src', image);
         // show crop modal
         $image_box.find('.options').removeClass('hide');
         $image_box.find('.image_crop_modal').modal();
@@ -3152,9 +3003,9 @@ function enqSuccess($form, response){
     $form.find('.ajx_form').addClass('hide');
     $form.find('.ajx_form_done').removeClass('hide');
     if (response.data) {
-        var $modal = $("#login_modal");
-        $modal.find("#id_name").val(response.data.name).trigger('change').closest('.form-group').find('label').addClass('active');
-        $modal.find("#id_email").val(response.data.email).trigger('change').trigger('blur').closest('.form-group').find('label').addClass('active');
+        var $modal = $('#login_modal');
+        $modal.find('#id_name').val(response.data.name).trigger('change').closest('.form-group').find('label').addClass('active');
+        $modal.find('#id_email').val(response.data.email).trigger('change').trigger('blur').closest('.form-group').find('label').addClass('active');
         $modal.find('.nav-pills li a').first().click();
         $modal.find('#id_password1').focus();
         $modal.find('#signup_msg').removeClass('hide');

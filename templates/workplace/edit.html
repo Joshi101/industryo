@@ -30,6 +30,12 @@
     <div class="wide_80 mid_body">
       <div class="form_card tile_flat">
         <div class="row edit_title">
+          <div class="col-md-3">
+            {% url 'products:add_image' as add_link %}
+            {% include "snippets/add_image_box.html" with name="photo" n=n url=add_link %}
+          </div>
+        </div>
+        <div class="row edit_title">
           {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
           <div class="col-md-3">
             <div id="img_profile_box">
@@ -70,7 +76,7 @@
             </div>
             <div class="form-group">
               <label for="wp_loc">Cities</label>
-              {% include "snippets/d_search_tags_new.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
+              {% include "snippets/d_search_tags.html" with search="tag" type='C' tags=workplace.get_tags.city name='city' placeholder='Type the name of the City or Industrial area & select from dropdown' %}
             </div>
             <div class="row">
               <div class="col-sm-3">

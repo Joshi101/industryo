@@ -4,7 +4,8 @@
       <div class="col-sm-2">
         <div class="form-group">
           <div class="img_box_container">
-            {% include "snippets/add_image_box.html" with name="photo" n=n %}
+            {% url 'products:add_image' as add_link %}
+            {% include "snippets/add_image_box.html" with name="photo" n=n url=add_link %}
           </div>
         </div>
       </div>

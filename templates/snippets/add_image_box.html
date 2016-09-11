@@ -1,4 +1,4 @@
-<div class="image_box" data-url="{% url 'products:add_image' %}">
+<div class="image_box" data-url={{url}}>
   {% include "snippets/image_crop_modal.html" with name="photo" n=n %}
   <a href="#" class="add_btn file_btn">
     <span class="fa fa-plus"></span>
@@ -6,7 +6,7 @@
   </a>
   <div class="image_preview_box hide">
     <a class="image_preview file_btn">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="product image" />
+      <img src={{blank_gif}} alt="product image" />
     </a>
     <div class="aj_progress">
       <div class="level"></div>
