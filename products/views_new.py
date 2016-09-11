@@ -90,7 +90,6 @@ def add_product(request):
             p = Products.objects.create(product=request.POST['product'], user=user, producer=workplace, minimum=minimum,
                                         delivery_details=dd, delivery_charges=dc, description=request.POST['description'])
             li = [request.POST.get('category1'), request.POST.get('category2'), request.POST.get('category3')]
-            print(li)
             p.set_categories(li)
             # if li.count('') == len(li):
             #     # c = Product_Categories.objects.filter(product=last.id).order_by('level')
