@@ -130,3 +130,26 @@ def members(request, slug):
         t.start()
         meta = True
         return render(request, 'workplace/profile.html', locals())
+
+from openpyxl import workbook, load_workbook
+# import win32com.client as win32
+
+import zipfile
+# XLSname = "/Users/user/myfile.xlsx"
+
+
+def pcx():
+    path = 'C:\\Users\\sp\\cpl.xlsx'
+    wb = load_workbook(filename='C:\\Users\\sp\\cpl.xlsx', read_only=True)
+    ws = wb.active
+    for row in ws.rows:
+        for cell in row:
+            if cell.value:
+                pass
+                # print(cell.value)
+        EmbeddedFiles = zipfile.ZipFile(path).namelist()
+        ImageFiles = [F for F in EmbeddedFiles if F.count('.jpg') or F.count('.jpeg')]
+
+        for Image in ImageFiles:
+            a = zipfile.ZipFile(path).extract(Image)
+            print(a)
