@@ -17,20 +17,26 @@ def add_image(request):
         user = request.user
         p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')
-        trans = transformation.split(',')
-        x = float(trans[4])
-        y = float(trans[5])
-        scale = float(trans[0])
-        x1 = -x/scale
-        y1 = -y/scale
-        x2 = (-x+250)/scale
-        y2 = (-y+250)/scale
-        box = (x1, y1, x2, y2)
-        image1 = Image.open(image)
-        img = image1.crop(box)
+        if len(transformation) > 5:
+            trans = transformation.split(',')
+            x = float(trans[4])
+            y = float(trans[5])
+            scale = float(trans[0])
+            x1 = -x/scale
+            y1 = -y/scale
+            x2 = (-x+250)/scale
+            y2 = (-y+250)/scale
+            box = (int(x1), int(y1), int(x2), int(y2))
+            image1 = Image.open(image)
+            img = image1.crop(box)
+        else:
+            img = Image.open(image)
 
         i = Images()
-        x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
+        x = i.upload_image1(image=img, user=user, name=image.name)
+        ii = Images.objects.filter(user=user, temp_key=n)
+        if ii:
+            ii.delete()
         x.temp_key = n
         x.save()
     return HttpResponse()
@@ -44,6 +50,7 @@ def change_image(request, id):
         p = Products.objects.filter(id=id)
         transformation = request.POST.get('transformation')
         trans = transformation.split(',')
+        print(trans)
         x = float(trans[4])
         y = float(trans[5])
         scale = float(trans[0])
@@ -51,18 +58,15 @@ def change_image(request, id):
         y1 = -y/scale
         x2 = (-x+250)/scale
         y2 = (-y+250)/scale
-        box = (x1, y1, x2, y2)
+        box = (int(x1), int(y1), int(x2), int(y2))
         image1 = Image.open(image)
         img = image1.crop(box)
 
         i = Images()
-        x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
-        x.save()
+        x = i.upload_image1(image=img, user=user, name=image.name)
         p.image = x
     return HttpResponse()
 
-
-from threading import Thread
 
 @login_required
 def add_product(request):
@@ -96,6 +100,7 @@ def add_product(request):
             #     pass
             # else:
             #     p.set_categories(li)
+            # ii = Images.objects.filter(user=user, temp_key=n)
             i = Images.objects.filter(user=user, temp_key=n).first()
             if i:
                 p.image = i
@@ -146,7 +151,6 @@ def add_products_file(request):
         file = request.FILES.get('product_list', None)
         d = Document()
         x = d.upload_product_doc(doc=file, user=user)
-        print('dsdasd')
         return HttpResponse()
     else:
         return render(request, 'products/upload_bulk.html')

@@ -147,7 +147,7 @@ def product(request, slug):
     c1_all = Category.objects.filter(level=1)
     product = Products.objects.get(slug=slug)
     producer = product.producer
-    members = producer.get_members()
+    members = producer.get_members_user()
     tagss = product.tags.all()
     prod_img_form = SetLogoForm()
     # categories = Product_Categories.objects.filter(product_id=product.id).order_by('level')
@@ -180,24 +180,6 @@ def edit_desc(request, id):
         if p.producer == workplace:
             desc = request.POST.get('description')
             p.description = desc
-            p.save()
-            return redirect('/products/' + p.slug)
-    else:
-        return redirect('/products/' + p.slug)
-
-
-@login_required
-def change_image(request, id):
-    form = SetLogoForm(request.POST, request.FILES)
-    p = Products.objects.get(id=id)
-    user = request.user
-    workplace = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        if p.producer == workplace:
-            image = request.FILES.get('image')
-            i = Images.objects.create(
-                image=image, user=user, image_thumbnail=image)
-            p.image = i
             p.save()
             return redirect('/products/' + p.slug)
     else:
