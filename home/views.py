@@ -46,8 +46,10 @@ def home(request):
     if request.user.is_authenticated():
         s = Session.objects.get(session_key=request.session.session_key)
         t = Tracker.objects.create(session=s, source='2')
-        if request.user.userprofile.primary_workplace:
+        if request.user.userprofile.workplace_type in ['A', 'B']:
             return render(request, 'home.html')
+        elif request.user.userprofile.workplace_type in ['C', 'O']:
+            return redirect('/feed')
         else:
             return redirect('/set/')
     else:
@@ -106,7 +108,8 @@ def feed(request):
             if page:
                 return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
             else:
-                return render(request, 'feed.html', {'result_list': result_list, 'workplace': workplace, 'feed_img_form': UploadImageForm()})
+                return render(request, 'feed.html', {'result_list': result_list, 'workplace': workplace,
+                                                     'feed_img_form': UploadImageForm()})
         else:
             return redirect('/set/')
     else:

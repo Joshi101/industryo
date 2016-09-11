@@ -14,27 +14,30 @@ def nav_suggest(request):
         # print(path)
         if path[:5] == '/tags':
             message = ""
-        if path[:5] == '/user':
+        elif path[:5] == '/user':
             message = 'Listing more Products brings more business. You will get Product Inquiries directly in Inbox'
             link = "/products/add_product/"
             link_text = "List Products Here."
-        if path[:5] == '/work':
+        elif path[:5] == '/work':
             message = 'Listing more Products brings more business. You will get Product Inquiries directly in Inbox'
             link = "/products/add_product/"
             link_text = "List Products Here."
-        if path[:5] == '/mark':
+        elif path[:5] == '/mark':
             message = 'Companies are listing 100s of Products. Simple Relation. More Products>> More Inquiries>> More Business'
             link = "/products/add_product/"
             link_text = "List Products Here."
-        if path[:5] == '/cate':
+        elif path[:5] == '/cate':
             message = 'Companies are listing 100s of Products. Simple Relation. More Products >> More Inquiries>> More Business'
             link = "/products/add_product/"
             link_text = "List Products Here."
-        if path[:5] == '/lead':
+        elif path[:5] == '/lead':
             message = 'You can send Direct Quotations. It will be seen only by the person who created th lead'
             link = "/products/add_product/"
             link_text = "List Products Here."
-
+        if request.user.userprofile.workplace_type in ['C', 'D']:
+            message = 'You can search for suppliers selling Baja/ Formula/ GoKart related Equipments'
+            link = "/category/sae-teams-related-items/"
+            link_text = "See Products Here."
     else:
         message = "Register your Company to get a free Company Profile in the Network and Connect to other SMEs online"
         link = "/accounts/signup/"

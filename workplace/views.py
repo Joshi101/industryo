@@ -55,6 +55,7 @@ def set_workplace(request):
         return render(request, 'userprofile/set.html', {'form_set_workplace': SetWorkplaceForm(),
                                                         'form_create_workplace': WorkplaceForm()})
 
+
 @login_required
 def set_others_wp(request, username):
     if request.method == 'POST':
@@ -121,368 +122,10 @@ def search_workplace(request):                  # for searching the workplace
     return render(request, 'tags/list_wp.html', {'objects': q, 'query': w})
 
 
-def workplace_profile(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    tags = workplace.get_tags()
-    type = workplace.workplace_type
-    if type == 'C':
-        tags1 = tags['city']
-        tags2 = tags['segments']
-        tags3 = tags['institution']
-        b_type = 'P'
-    elif type == 'B':
-        tags1 = tags['city']
-        tags2 = tags['segments']
-        b_type = 'S'
-    elif type == 'A':
-        tags1 = tags['city']
-        tags2 = tags['segments']
-        b_type = 'S'
-    elif type == 'O':
-        tags1 = tags['city']
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    products = Products.objects.filter(producer=workplace.pk)
-    product_count = products.count()
-    workplace_logo_form = SetLogoForm()
-    member_count = members.count()
-
-    inquiry_count = Enquiry.objects.filter(product__in=products).count()
-    new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
-    node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
-    q_count = Question.objects.filter(user__userprofile__primary_workplace=workplace).count()
-    a_count = Answer.objects.filter(user__userprofile__primary_workplace=workplace).count()
-    if member_count > 0:
-        completion_score = int(round((workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
-                               workplace.points/(10*member_count) + workplace.get_member_score())/5))
-    else:
-        completion_score = 0
-    products = Products.objects.filter(producer=workplace.pk)
-    r_assets = Tags.objects.filter(type='A').order_by('?')[:5]
-    inq_count = Enquiry.objects.filter(workplace=workplace).count()
-
-    t = Thread(target=no_hits, args=(workplace.id,))
-    t.start()
-
-    return render(request, 'workplace/profile.html', locals())
-
-
 def no_hits(id):
     q = Workplace.objects.get(id=id)
     q.hits +=1
     q.save()
-
-
-def workplace_about(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    tags = workplace.get_tags()
-    type = workplace.workplace_type
-    if type == 'C':
-        tags1 = tags['city']
-        tags2 = tags['institution']
-        b_type = 'P'
-    elif type == 'B':
-        tags1 = tags['city']
-        tags2 = tags['segments']
-        b_type = 'S'
-    elif type == 'A':
-        tags1 = tags['city']
-        tags2 = tags['segments']
-        b_type = 'S'
-    elif type == 'O':
-        tags1 = tags['city']
-    if request.is_ajax():
-        return render(request, 'workplace/snip_about.html', locals())
-    else:
-        tab = 'about'
-        return render(request, 'workplace/profile.html', locals())
-
-@login_required
-def workplace_dash(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    workplace_logo_form = SetLogoForm()
-    member_count = members.count()
-    products = Products.objects.filter(producer=workplace.pk)
-    inquiry_count = Enquiry.objects.filter(product__in=products).count()
-    new_inq_count = Enquiry.objects.filter(product__in=products, seen=False).count()
-    com_mail = request.user.userprofile.product_email
-
-    node_count = Node.objects.filter(user__userprofile__primary_workplace=workplace).count()
-
-    completion_score = (workplace.get_tags_score() + workplace.get_product_score() + workplace.get_info_score() +
-                        workplace.points/(10*member_count) + workplace.get_member_score())/5
-
-    return render(request, 'workplace/snip_dashboard.html', locals())
-
-
-def workplace_activity(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    workplace_logo_form = SetLogoForm()
-
-    if member_count < 2:
-        n=1
-    elif member_count in range(2,5):
-        n = 2
-    elif member_count in range(5,10):
-        n=3
-    elif member_count in range(10, 20):
-        n=4
-    else:
-        n=5
-
-    li = [workplace.contact, workplace.mobile_contact1, workplace.website, workplace.fb_page,
-          workplace.linkedin_page, workplace.address, workplace.office_mail_id]
-    a = list(filter(lambda x: x!='None', li))
-    b = list(filter(lambda x: x!=None, a))
-    m = len(b)
-
-    o = workplace.get_tags.operations
-    return render(request, 'workplace/snip_dashboard.html', locals())
-
-
-def activity(request, slug):                             # In Place of dashboard
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    workplace_logo_form = SetLogoForm()
-    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    answers = Question.objects.filter(answer__user__userprofile__primary_workplace=workplace).select_related('user')
-    feeds = Node.objects.filter(user__userprofile__primary_workplace=workplace, category__in=['F', 'D']).select_related('user')
-    articles = Node.objects.filter(user__userprofile__primary_workplace=workplace, category='A').select_related('user')
-    all_result_list = sorted(
-        chain(feeds, questions, answers, articles),
-        key=attrgetter('date'), reverse=True)
-    paginator = Paginator(all_result_list, 5)
-    page = request.GET.get('page')
-    try:
-        result_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        result_list = paginator.page(1)
-    except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
-        return
-                # result_list = paginator.page(paginator.num_pages)
-    if page:
-        return render(request, 'nodes/five_nodes.html', {'result_list': result_list})
-    else:
-        return render(request, 'workplace/snip_activity.html', locals())
-
-
-def workplace_capabilities(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    workplace_logo_form = SetLogoForm()
-    return render(request, 'workplace/snip_capabilities.html', locals())
-
-
-def workplace_members(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    workplace_logo_form = SetLogoForm()
-    products = Products.objects.filter(producer=workplace.pk)
-    return render(request, 'workplace/snip_members.html', locals())
-
-
-def workplace_products(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.pk)
-    member_count = members.count()
-    workplace_logo_form = SetLogoForm()
-    products = Products.objects.filter(producer=workplace.pk)
-    return render(request, 'workplace/snip_products.html', locals())
-
-
-def workplace_questions(request, id):
-    workplace = Workplace.objects.get(id=id)
-    questions = Question.objects.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    paginator = Paginator(questions, 5)
-    page = request.GET.get('page')
-
-    try:
-        result_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        result_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        return
-
-    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
-
-
-def workplace_answers(request, id):
-    workplace = Workplace.objects.get(id=id)
-    answers = Answer.objects.filter(question__user__userprofile__primary_workplace=workplace).select_related('user')
-    paginator = Paginator(answers, 5)
-    page = request.GET.get('page')
-    try:
-        result_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        result_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        return
-    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
-
-
-def workplace_feeds(request, id):
-    workplace = Workplace.objects.get(id=id)
-    feeds = Node.feed.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    paginator = Paginator(feeds, 5)
-    page = request.GET.get('page')
-    try:
-        result_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        result_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        return
-    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
-
-
-def workplace_articles(request, id):
-    workplace = Workplace.objects.get(id=id)
-    articles = Node.article.filter(user__userprofile__primary_workplace=workplace).select_related('user')
-    paginator = Paginator(articles, 5)
-    page = request.GET.get('page')
-    try:
-        result_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        result_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        return
-    return render(request, 'nodes/five_nodes.html', {'articles': result_list})
-
-
-def get_top_scorers(request, slug):
-    workplace = Workplace.objects.get(slug=slug)
-    members = UserProfile.objects.filter(primary_workplace=workplace.id).order_by('?')[:3]
-    return render(request, 'workplace/snippets/wp_right.html', {'people': members})
-
-
-@login_required
-def set_about(request):
-    user = request.user
-    wp = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        about = request.POST.get('about')
-        wp.about = about
-        wp.save()
-        return HttpResponse()
-    else:
-        return redirect('/workplace/'+wp.slug)
-
-
-@login_required
-def set_details(request):
-    user = request.user
-    wp = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        response = {}
-        website = request.POST.get('website')
-        address = request.POST.get('address')
-        contact = request.POST.get('contact')
-        contact1 = request.POST.get('contact1')
-        email = request.POST.get('email')
-        linkedin = request.POST.get('linkedin')
-        fb = request.POST.get('fb')
-        city = request.POST.get('city')
-        segement = request.POST.get('segement')
-
-        if city:
-            t1 = wp.set_city(city)
-        if segement:
-            t2 = wp.set_segments(segement)
-        wp.website = website
-        wp.address = address
-        wp.contact = contact
-        wp.mobile_contact1 = contact1
-        wp.office_mail_id = email
-        wp.linkedin_page = linkedin
-        wp.fb_page = fb
-        wp.save()
-        return HttpResponse()
-    else:
-        return redirect('/workplace/'+wp.slug)
-
-@login_required
-def edit_links(request):
-    user = request.user
-    wp = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        response = {}
-        website = request.POST.get('website')
-        fb_page = request.POST.get('fb_page')
-        linkedin_page = request.POST.get('linkedin_page')
-        wp.website = website
-        wp.fb_page = fb_page
-        wp.linkedin_page = linkedin_page
-        wp.save()
-        w = user.userprofile.primary_workplace
-        return HttpResponse()
-    else:
-        return redirect('/workplace/'+wp.slug)
-
-
-@login_required
-def edit_contacts(request):
-    user = request.user
-    wp = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        response = {}
-        office_mail = request.POST.get('office_mail')
-        contact = request.POST.get('contact')
-        mobile_1 = request.POST.get('mobile_1')
-        mobile_2 = request.POST.get('mobile_2')
-        address = request.POST.get('address')
-        wp.office_mail_id = office_mail
-        wp.contact = contact
-        wp.mobile_contact1 = mobile_1
-        wp.mobile_contact2 = mobile_2
-        wp.address = address
-        wp.save()
-        w = user.userprofile.primary_workplace
-        return HttpResponse()
-    else:
-        return redirect('/workplace/'+wp.slug)
-
-
-@login_required
-def set_capabilities(request):
-    user = request.user
-    wp = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        response = {}
-        capabilities = request.POST.get('capabilities')
-        wp.capabilities = capabilities
-        wp.save()
-        return HttpResponse()
-    else:
-        return redirect('/workplace/'+wp.slug)
-
-@login_required
-def set_product_details(request):
-    user = request.user
-    wp = user.userprofile.primary_workplace
-    if request.method == 'POST':
-        response = {}
-        product_details = request.POST.get('product_details')
-        wp.product_details = product_details
-        wp.save()
-        return HttpResponse()
-    else:
-        return redirect('/workplace/'+wp.slug)
 
 
 @login_required
@@ -498,7 +141,6 @@ def delete_tag(request):
         except:
             up.interests.remove(t)
         return HttpResponse()
-# def delete_tags
 
 
 def side_panel(request):
@@ -532,16 +174,12 @@ def todder(request):
     try:
         result_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         result_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         return
-        # result_list = paginator.page(paginator.num_pages)
     if page:
         return render(request, 'workplace/20_workplaces.html', {'result_list': result_list})
     else:
-        # return render(request, 'home.html', {'result_list': result_list})
         return render(request, 'workplace/workplace_tag.html', {'result_list': result_list})
 
 
@@ -604,6 +242,7 @@ def join_wp(request, slug):
     user.userprofile.save()
     return redirect('/workplace/'+workplace.slug)
 
+
 @login_required
 def add_tag(request):
     user = request.user
@@ -651,6 +290,9 @@ def edit_workplace(request):
                 if key == 'city':
                     wp.set_tags(tags=request.POST[key], typ='C')
                     interest = interest+request.POST[key]+','
+                if key == 'events':
+                    wp.set_tags(tags=request.POST[key], typ='E')
+                    interest = interest + request.POST[key] + ','
 
                 for u in workplace.get_members():
                     u.set_interests(interest)
@@ -668,7 +310,10 @@ def edit_workplace(request):
         dict = workplace.__dict__
         dict['workplace'] = workplace
         dict['workplace_logo_form'] = SetLogoForm()
-        return render(request, 'workplace/edit.html', dict)
+        if workplace.workplace_type in ['C', 'O']:
+            return render(request, 'workplace/edit_team.html', dict)
+        else:
+            return render(request, 'workplace/edit.html', dict)
 
 
 def set_interest_all():

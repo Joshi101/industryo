@@ -10,24 +10,10 @@ from django.core.files.base import ContentFile
 
 
 class Images(models.Model):
-    image = models.ImageField(upload_to='main')
+    image = models.ImageField(upload_to='main', null=True, blank=True)
     image_thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
-    image_thumbnail_sm = models.ImageField(upload_to='thumbnails', null=True, blank=True)
-    # image = ProcessedImageField(upload_to='main',
-    #                                       processors=[ResizeToCover(640, 640)],
-    #                                       format='JPEG',
-    #                                       options={'quality': 90})
-    # image_thumbnail = ProcessedImageField(upload_to='thumbnails',
-    #                                       processors=[SmartResize(128, 128)],
-    #                                       format='JPEG',
-    #                                       options={'quality': 70})
-    # image_thumbnail_sm = ProcessedImageField(upload_to='miny',
-    #                                       processors=[SmartResize(64, 64)],
-    #                                       format='JPEG',
-    #                                       options={'quality': 70}, null=True, blank=True)
-    # caption = models.CharField(max_length=255)
+    image_thumbnail_sm = models.ImageField(upload_to='thumbnails_sm', null=True, blank=True)
     time = models.TimeField(auto_now_add=True)
-    # slug = models.SlugField(max_length=20, null=True)
     user = models.ForeignKey(User)
     temp_key = models.SmallIntegerField(null=True, blank=True)
 
@@ -37,18 +23,20 @@ class Images(models.Model):
     def upload_image(self, image, user):
         if len(image.name) > 30:
             image.name = image.name[:20]
-        image.open()
-        i = Images.objects.create(image=image, image_thumbnail=image, user=user)
+        # image.open()
+        i = Images.objects.create(image=image, image_thumbnail=image, image_thumbnail_sm=image, user=user)
         return i
 
-    def upload_image1(self, image, user, name, image1):
+    def upload_image1(self, image, user, name):
+        if len(name) > 30:
+            name = name[:20]
+        i = Images.objects.create(user=user)
 
-        if len(image1.name) > 30:
-            image1.name = image1.name[:20]
-        i = Images.objects.create(image=image1, user=user)
         new_image_io = BytesIO()
         image.save(new_image_io, format='JPEG')
+        i.image.save(name, content=ContentFile(new_image_io.getvalue()))
         i.image_thumbnail.save(name, content=ContentFile(new_image_io.getvalue()))
+        i.image_thumbnail_sm.save(name, content=ContentFile(new_image_io.getvalue()))
         return i
 
 
