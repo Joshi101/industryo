@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head_css %}
+
+{% endblock head_css %}
+
+{% block page_id %}cover{% endblock page_id %}
+
+{% block body %}
+  <div class="cover_top push_up">
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <header class="cover_title">
+          <h1>A Business Enabling Network of small, medium and large Companies</h1>
+          <p>
+            CoreLogs is a Business Enabling Network of all small, medium &amp; large companies, gives SMEs a uniform identity and helps you connect with customers directly through leads, Quotations &amp; Inquiries
+          </p>
+        </header>
+        <div class="cover_btn">
+          <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#login_modal">Get Your Company Profile</button>
+          <p class="text-muted">
+            <sup>*</sup>It's Free, no hidden charges.
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <img class='thelogo' src="/images/logo/thelogos.png" alt="CoreLogs" />
+        <div class="cover_img">
+          <div class="cover_desktop img_frame_container">
+            <div id="img_carousel" class="carousel slide img_in" data-ride="carousel" data-interval="2500">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="/images/cover/d2-1.jpg" alt="Company Dashboard">
+                  <div class="carousel-caption">
+                    <h3>Enhance with the Dashboard</h3>
+                  </div>
+                </div>
+                <div class="item">
+                  <img src="/images/cover/d2-2.jpg" alt="Business Leads">
+                  <div class="carousel-caption">
+                    <h3>Expand with Business Leads</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="img_frame">
+            </div>
+          </div>
+          <div class="cover_mobile img_frame_container">
+            <div id="img_carousel" class="carousel slide img_in" data-ride="carousel" data-interval="2500">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="/images/cover/m2-1.jpg" alt="Company Profile">
+                </div>
+                <div class="item">
+                  <img src="/images/cover/m2-2.jpg" alt="Business Leads">
+                </div>
+              </div>
+            </div>
+            <div class="img_frame">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

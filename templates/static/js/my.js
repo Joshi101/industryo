@@ -1165,6 +1165,7 @@ $(document).ready(function() {
                 //setInterval(checkValidity, 5000);
             }
             //checkValidity();
+            // asrers
         },
         'keyup': function(event) {
             if (ctrlDown && event.keyCode == 86) {

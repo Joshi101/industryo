@@ -57,7 +57,10 @@ def home(request):
         except Exception:
             s = None
         t = Tracker.objects.create(session=s, source=q)
-        return render(request, 'cover.html', {'form_signup': SignupForm(), 'form_login': LoginForm()})
+        if request.GET.get('audience') == 'team':
+            return render(request, 'cover_team.html', {'form_signup': SignupForm(), 'form_login': LoginForm()})
+        else:
+            return render(request, 'cover.html', {'form_signup': SignupForm(), 'form_login': LoginForm()})
 
 
 def feed(request):
