@@ -155,11 +155,11 @@ def set_logo(request):
         y1 = -y/scale
         x2 = (-x+250)/scale
         y2 = (-y+250)/scale
-        box = (x1, y1, x2, y2)
+        box = (int(x1), int(y1), int(x2), int(y2))
         image1 = Image.open(image)
         img = image1.crop(box)
         i = Images()
-        x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
+        x = i.upload_image1(image=img, user=user, name=image.name)
         x.save()
         workplace.logo = x
         workplace.save()

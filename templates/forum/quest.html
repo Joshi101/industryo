@@ -15,7 +15,7 @@
 	<div class="container ajax_papa">
 		<div id="question" class="node ajax_andar ajax_papa">
 			{% include "snippets/figure_modal.html" %}
-			{% if q.user.pk == request.user.pk %}
+			{% if q.user == request.user %}
 			<a class="edit_post pull-right" href="{% url 'forum:edit_ques' q.id %}">
 			  <i class="fa fa-edit sign fa-lg"></i>
 			</a>
