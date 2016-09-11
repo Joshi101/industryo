@@ -6931,7 +6931,7 @@ and in bootstrap.css
   /*   flex: 0 0 100px; */
   width: 100%;
   height: auto;
-  border: 1px dashed #ccc;
+  /* border: 0px dashed #ccc; */
   overflow: hidden;
   text-align: center;
   /* position: relative; */
@@ -7021,11 +7021,12 @@ and in bootstrap.css
 .aj_progress .level{
   width: 0%;
   height: 3px;
-  background-color: #197;
+  background-color: green;
 }
 
 .image_box .aj_progress{
-  bottom: 1px;
+  top: 1px;
+  margin-top: 100%;
 }
 
 #signup_msg{
