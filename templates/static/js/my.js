@@ -567,45 +567,21 @@ $(window).scroll(function() {
     }
 });
 
-//profile page
-$('#img_profile_box').on({
-    mouseover: function() {
-        $('#img_upload').stop().animate({
-            'height': '28px',
-            'top': '-49px',
-            'padding': '4px 0px'
-        });
-        $('#img_upload').on('click', function() {
-            $('#img_upload').stop().animate({
-                'height': '0px',
-                'top': '-20px',
-                'padding': '0px'
-            });
-        });
-    },
-    mouseout: function() {
-        $('#img_upload').stop().animate({
-            'height': '0px',
-            'top': '-20px',
-            'padding': '0px'
-        });
-    }
-});
 $(function() {
     $('.image-editor').cropit();
     $('.select-image-btn').click(function() {
-      $('.cropit-image-input').click();
+        $('.cropit-image-input').click();
     });
-    $('form').submit(function() {
-        // Move cropped image data to hidden input
-        var imageData = $('.image-editor').cropit('export');
-        $('.hidden-image-data').val(imageData);
-        $('#id_image').val(imageData);
-        a = $('.cropit-preview-image').css('transform');
-        var values = a.match(/-?[\d\.]+/g);
-        // console.log(values)
-        var formValue = $(this).serialize();
-    });
+    // $('form').submit(function() {
+    //     // Move cropped image data to hidden input
+    //     var imageData = $('.image-editor').cropit('export');
+    //     $('.hidden-image-data').val(imageData);
+    //     $('#id_image').val(imageData);
+    //     var a = $('.cropit-preview-image').css('transform');
+    //     var values = a.match(/-?[\d\.]+/g);
+    //     // console.log(values)
+    //     var formValue = $(this).serialize();
+    // });
 });
 
 // // function for main feeder
@@ -1021,20 +997,6 @@ $('.little_edit').each(function() {
         }
     });
 });
-
-$('#info_head').on({
-    'mouseenter': function() {
-        $(this).find('.detail_add').each(function() {
-            $(this).removeClass('hide');
-        });
-    },
-    'mouseleave': function() {
-        $(this).find('.detail_add').each(function() {
-            $(this).addClass('hide');
-        });
-    }
-});
-
 
 var nones = $('span.none');
 if (nones.siblings('span').length) {

@@ -31,16 +31,9 @@
       <div class="form_card tile_flat">
         <div class="row edit_title">
           <div class="col-md-3">
-            {% url 'products:add_image' as add_link %}
-            {% include "snippets/add_image_box.html" with name="photo" n=n url=add_link %}
-          </div>
-        </div>
-        <div class="row edit_title">
-          {% include "snippets/img_upload_modal.html" with url='nodes:set_logo' form=workplace_logo_form.image %}
-          <div class="col-md-3">
             <div id="img_profile_box">
-              <img id="img_profile" class="thumbnail" width="120" height="120" src="{{workplace.get_logo}}" alt="{{name}}">
-              <a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Set Logo</a>
+              {% url 'products:change_image' product.id as add_link %}
+              {% include "snippets/edit_image_box.html" with name="photo" n=1 url=add_link image=workplace.logo %}
             </div>
             <div class="img_profile_label">Company Logo</div>
           </div>

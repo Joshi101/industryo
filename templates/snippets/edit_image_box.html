@@ -1,24 +1,24 @@
-<div class="image_box" data-url="{% url 'products:change_image' product.id %}">
+<div class="image_box" data-url="{{url}}">
   {% include "snippets/image_crop_modal.html" with name="photo" n=n %}
-  {% if not product.image %}
+  {% if not image %}
   <a href="#" class="add_btn file_btn">
     <span class="fa fa-plus"></span>
     <span>Add Image</span>
   </a>
   {% endif %}
-  <div class="image_preview_box {% if not product.image %}hide{% endif %}">
+  <div class="image_preview_box {% if not image %}hide{% endif %}">
     <a class="image_preview file_btn">
-      {% if product.image %}
-      <img src="{{product.get_image}}" alt="{{product}}" />
+      {% if image %}
+      <img src="/images/{{image.image_thumbnail}}" alt="Current Image" />
       {% else %}
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="product image" />
+      <img src={{blank_gif}} alt="product image" />
       {% endif %}
     </a>
     <div class="aj_progress">
       <div class="level"></div>
     </div>
   </div>
-  <div class="options text-center {% if not product.image %}hide{% endif %}">
+  <div class="options text-center {% if not image %}hide{% endif %}">
     <a href="#" class="change file_btn"><span class="fa fa-crop" style="color: #555;"></span> Modify</a>
   </div>
 </div>

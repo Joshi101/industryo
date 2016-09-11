@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^random_card/$', views.random_card, name='random_card'),
     url(r'^change_type/$', views.change_type, name='change_type'),
 
+    url(r'^set_logo/$', views_new.set_logo, name='set_logo'),
     url(r'^(?P<slug>[^/]+)/$', views_new.workplace_profile, name='workplace_profile'),
 
 ]

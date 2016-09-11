@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from PIL import Image
+from django.shortcuts import render, redirect, HttpResponse
 from workplace.models import *
 from nodes.models import Node
 from products.models import Products
@@ -9,6 +10,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from itertools import chain
 from operator import attrgetter
 from workplace.views import no_hits
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from nodes.models import Images
+from threading import Thread
 
 
 def workplace_profile(request, slug):
@@ -130,3 +135,31 @@ def members(request, slug):
         t.start()
         meta = True
         return render(request, 'workplace/profile.html', locals())
+
+
+@login_required
+def set_logo(request):
+    user = request.user
+    workplace = user.userprofile.primary_workplace
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        transformation = request.POST.get('transformation')
+        trans = transformation.split(',')
+        x = float(trans[4])
+        y = float(trans[5])
+        scale = float(trans[0])
+        x1 = -x/scale
+        y1 = -y/scale
+        x2 = (-x+250)/scale
+        y2 = (-y+250)/scale
+        box = (x1, y1, x2, y2)
+        image1 = Image.open(image)
+        img = image1.crop(box)
+        i = Images()
+        x = i.upload_image1(image=img, user=user, name=image.name, image1=image)
+        x.save()
+        workplace.logo = x
+        workplace.save()
+        return HttpResponse()
+    else:
+        return render(request, reverse('workplace:edit'))
