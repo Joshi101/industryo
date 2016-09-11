@@ -17,9 +17,23 @@ from django.views.decorators.csrf import csrf_exempt
 @user_passes_test(lambda u: u.userprofile.workplace_type != 'N', login_url='/set')
 def network(request):
     workplace = request.user.userprofile.primary_workplace
-    tags = workplace.get_tags()
-    if len(tags['city']) == 0 or len(tags['segments']) == 0:
+    tags = []
+    ts = workplace.get_tags()
+    if len(ts['city']) == 0:
         add_tags = True
+    else:
+        if len(ts['city']) < 3:
+            tags.extend(ts['city'])
+        else:
+            tags.extend(ts['city'][:3])
+    if len(ts['segments']) == 0:
+        add_tags = True
+    else:
+        if len(ts['segments']) < 3:
+            tags.extend(ts['segments'])
+        else:
+            tags.extend(ts['segments'][:3])
+
     return render(request, 'network.html', locals())
 
 
@@ -74,6 +88,17 @@ def network_feeds(request):
     all_result_list = sorted(
         chain(related_node, question),
         key=attrgetter('date'), reverse=True)
+    if len(all_result_list) < 5:
+        if t in ['A', 'B']:
+            related_node = Node.objects.filter(w_type__in=['A', 'B']).select_related('user__userprofile')
+            question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t) \
+                .select_related('user__userprofile')
+        else:
+            related_node = Node.objects.filter(w_type__in=['C', 'O']).select_related('user__userprofile')
+            question = Question.objects.filter(user__userprofile__primary_workplace__workplace_type=t) \
+                .select_related('user__userprofile')
+        all_result_list = sorted(chain(related_node, question),
+                                 key=attrgetter('date'), reverse=True)
     paginator = Paginator(all_result_list, 10)
     page = request.POST.get('page')
     try:
@@ -121,6 +146,20 @@ def side_overview(request):
     tags = wp.get_tags()
     locations = tags['city']
     segments = tags['segments']
+    seg_c = []
+    loc_c = []
+    for tag in locations:
+        wcs = tag.wptags.all()
+        for w in wcs:
+            if w not in loc_c:
+                loc_c.append(w)
+    for tag in segments:
+        wss = tag.wptags.all()
+        for w in wss:
+            if w not in seg_c:
+                seg_c.append(w)
+    cc = len(loc_c)
+    sc = len(seg_c)
     return render(request, 'network/side_over.html', locals())
 
 
