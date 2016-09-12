@@ -7,6 +7,7 @@ from operator import itemgetter
 import json
 from PIL import Image
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -15,7 +16,9 @@ def add_image(request):
         image = request.FILES.get('image')
         n = request.POST.get('index')
         user = request.user
-        p = Products.objects.filter(user=user).last()
+        if request.POST.get('user'):
+            user = User.objects.filter(request.POST.get('person'))
+        # p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')
         if len(transformation) > 5:
             trans = transformation.split(',')
@@ -70,7 +73,12 @@ def change_image(request, id):
 
 @login_required
 def add_product(request):
+    path = request.get_full_path()
+    if 'internal' in path:
+        internal = True
     user = request.user
+    if request.POST.get('person'):
+        user = User.objects.filter(request.POST.get('person'))
     workplace = user.userprofile.primary_workplace
     response = {}
     if request.method == 'POST':

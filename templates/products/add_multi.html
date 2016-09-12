@@ -76,6 +76,14 @@
         </li>
       {% endfor %}
     </ul>
+    {% if internal %}
+      <div class="form-group">
+        <label for="user" class="col-sm-2 control-label">To</label>
+        <div class="col-sm-10">
+          {% include "snippets/d_search.html" with search="person" placeholder="Search for a person ..." parent=False %}
+        </div>
+      </div>
+    {% endif %}
     <div class="form_pool">
       {% for i in "12345" %}
         {% include "products/add_multi_form.html" with n=forloop.counter %}
