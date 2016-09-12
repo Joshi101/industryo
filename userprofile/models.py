@@ -79,13 +79,12 @@ class UserProfile(models.Model):
     def get_profile_image(self):
         default_image = '/images/user_man.png'
         if self.profile_image:
-            image_url = '/images/'+str(self.profile_image.image_thumbnail)
-            return image_url
+            return self.profile_image
         else:
             try:
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
                 if len(fb_uid):
-                    return "http://graph.facebook.com/{}/picture?width=120&height=120".format(fb_uid[0].uid)
+                    return "http://graph.facebook.com/{}/picture?width=89&height=89".format(fb_uid[0].uid)
                 return "http://www.gravatar.com/avatar/{}?s=40".format(hashlib.md5(self.user.email).hexdigest())
 
             except Exception:

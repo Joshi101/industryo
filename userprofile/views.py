@@ -1,3 +1,4 @@
+from PIL import Image
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
@@ -5,7 +6,7 @@ from userprofile.models import UserProfile
 from userprofile.forms import EditProfileForm, SetInterestsForm, UserDetailsForm
 from nodes.forms import *
 from forum.models import Question, Answer
-from nodes.models import Node
+from nodes.models import Node, Images
 from django.contrib.auth.decorators import login_required
 from tags.models import Tags
 import json
@@ -218,3 +219,21 @@ def check_username(request):
             except User.DoesNotExist:
                 response['valid'] = 0
         return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+@login_required
+def set_logo(request):
+    user = request.user
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        transformation = request.POST.get('transformation')
+        trans = transformation.split(',')
+        file = Image.open(image)
+        i = Images()
+        x = i.upload_image_new(file=file, user=user, name=image.name, trans=trans)
+        x.save()
+        user.userprofile.profile_image = x
+        user.userprofile.save()
+        return HttpResponse()
+    else:
+        return render(request, reverse('user:profile', kwargs={'username': user.username}))

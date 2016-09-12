@@ -8,7 +8,7 @@
       <div class="form-group">
         <div class="img_box_container">
           {% url 'products:change_image' product.id as add_link %}
-          {% include "snippets/edit_image_box.html" with name="photo" n=1 url=add_link %}
+          {% include "snippets/edit_image_box.html" with name="photo" n=1 url=add_link image=product.image %}
         </div>
       </div>
       <div class="form-group">

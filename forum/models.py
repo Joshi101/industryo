@@ -51,6 +51,7 @@ class Question(models.Model):
         if tags:
             question_tags = tags.split(',')
             li = []
+            t = None
             for m in question_tags:
                 if m:
                     try:
@@ -58,9 +59,10 @@ class Question(models.Model):
                     except Exception:
                         if len(m) > 2:
                             t = Tags.objects.create(tag=m, type='T')
-                    li.append(t)
-                    t.count += 1
-                    t.save()
+                    if t:
+                        li.append(t)
+                        t.count += 1
+                        t.save()
             self.tags = li
 
     def get_q_upvoters(self):

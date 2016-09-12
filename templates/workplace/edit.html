@@ -32,7 +32,7 @@
         <div class="row edit_title">
           <div class="col-md-3">
             <div id="img_profile_box">
-              {% url 'products:change_image' product.id as add_link %}
+              {% url 'workplace:set_logo' as add_link %}
               {% include "snippets/edit_image_box.html" with name="photo" n=1 url=add_link image=workplace.logo %}
             </div>
             <div class="img_profile_label">Company Logo</div>
