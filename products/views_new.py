@@ -16,9 +16,9 @@ def add_image(request):
         image = request.FILES.get('image')
         n = request.POST.get('index')
         user = request.user
-        path = request.META.get('HTTP_REFERER')
-        if 'internal' in path:
-            user = User.objects.get(id=1)
+        # path = request.META.get('HTTP_REFERER')
+        # if 'internal' in path:
+        #     user = User.objects.get(username='jainamshah777')
         # p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')
         if len(transformation) > 5:
@@ -76,9 +76,9 @@ def change_image(request, id):
 def add_product(request):
     path = request.get_full_path()
     user = request.user
-    if 'internal' in path:
-        internal = True
-        user = User.objects.get(id=1)
+    # if 'internal' in path:
+    #     internal = True
+    #     user = User.objects.get(username='jainamshah777')
     workplace = user.userprofile.primary_workplace
     response = {}
     if request.method == 'POST':
