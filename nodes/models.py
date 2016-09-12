@@ -1,3 +1,4 @@
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 from tags.models import Tags
@@ -7,15 +8,24 @@ from django.utils.timezone import now
 import os
 from io import BytesIO
 from django.core.files.base import ContentFile
+from django.conf import settings
 
+
+THUMB_SIZES = [
+    (233, 233),
+    (89, 89),
+    (34, 34)
+]
 
 class Images(models.Model):
     image = models.ImageField(upload_to='main', null=True, blank=True)
     image_thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
     image_thumbnail_sm = models.ImageField(upload_to='thumbnails_sm', null=True, blank=True)
+    image_thumbnail_xs = models.ImageField(upload_to='thumbnails_xs', null=True, blank=True)
     time = models.TimeField(auto_now_add=True)
     user = models.ForeignKey(User)
     temp_key = models.SmallIntegerField(null=True, blank=True)
+    image_format = models.CharField(null=True, blank=True, max_length=5)
 
     def __str__(self):
         return str(self.pk)
@@ -38,6 +48,66 @@ class Images(models.Model):
         i.image_thumbnail.save(name, content=ContentFile(new_image_io.getvalue()))
         i.image_thumbnail_sm.save(name, content=ContentFile(new_image_io.getvalue()))
         return i
+
+    # this function needs threading
+    def upload_image_new(self, file, user, name, trans=None):
+        f_format = file.format
+        if len(name) >= 30:
+            name = name[:25] + '.' + f_format
+        # crop if trans is set
+        if trans:
+            x = float(trans[4])
+            y = float(trans[5])
+            scale = float(trans[0])
+            x1 = -x/scale
+            y1 = -y/scale
+            x2 = (-x+250)/scale
+            y2 = (-y+250)/scale
+            box = (int(x1), int(y1), int(x2), int(y2))
+            file = file.crop(box)
+        file.load()
+        image_io = BytesIO()
+        file.save(image_io, f_format)
+        self.user = user
+        self.image_format = f_format
+        self.image.save(name, content=ContentFile(image_io.getvalue()))
+        #  image is successfully saved till here, proceed to gve a feedback
+        #  any further calculation better be transferred to another thread
+        #  because they may get expensive
+        thumb = []
+        if len(file.split()) == 4:
+            background = Image.new("RGB", file.size, (255, 255, 255))
+            background.paste(file, mask=file.split()[3])  # 3 is the alpha channel
+            back_io = BytesIO()
+            background.save(back_io, 'JPEG')
+            fc = background
+        else:
+            fc = file
+        for size in THUMB_SIZES:
+            f_thumb = fc
+            f_thumb.thumbnail(size, resample=2)
+            thumb_io = BytesIO()
+            if size[0] > 50:
+                f_thumb.save(thumb_io, 'JPEG', optimize=True, progressive=True)
+            else:
+                f_thumb.save(thumb_io, 'JPEG', optimize=True)
+            thumb.append(thumb_io)
+        self.image_thumbnail.save(name, content=ContentFile(thumb[0].getvalue()))
+        self.image_thumbnail_sm.save(name, content=ContentFile(thumb[1].getvalue()))
+        self.image_thumbnail_xs.save(name, content=ContentFile(thumb[2].getvalue()))
+        return self
+
+    def get_full_image(self):
+        return settings.MEDIA_URL+str(self.image)
+
+    def get_image_thumb(self):
+        return settings.MEDIA_URL+str(self.image_thumbnail)
+
+    def get_image_thumb_sm(self):
+        return settings.MEDIA_URL+str(self.image_thumbnail_sm)
+
+    def get_image_thumb_xs(self):
+        return settings.MEDIA_URL+str(self.image_thumbnail_xs)
 
 
 class Document(models.Model):

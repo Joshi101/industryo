@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^edit/$', views.edit, name='edit'),
     url(r'^check_email/$', views.check_email, name='check_email'),
     url(r"^check_username/$", views.check_username, name="check_username"),
+    url(r"^set_logo/$", views.set_logo, name="set_logo"),
     url(r'^(?P<username>[^/]+)/$', views.profile, name='profile'),
 ]

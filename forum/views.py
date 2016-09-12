@@ -46,7 +46,8 @@ def ask(request, tag=None):
                 a = i.upload_image(image=image2, user=user)
                 question.images.add(a)
             tags = request.POST.get('tag')
-            question.set_tags(tags)
+            if len(tags):
+                question.set_tags(tags)
             slug = question.slug
             return HttpResponseRedirect('/forum/'+slug)
     else:

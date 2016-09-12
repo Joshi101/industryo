@@ -148,18 +148,11 @@ def set_logo(request):
         image = request.FILES.get('image')
         transformation = request.POST.get('transformation')
         trans = transformation.split(',')
-        x = float(trans[4])
-        y = float(trans[5])
-        scale = float(trans[0])
-        x1 = -x/scale
-        y1 = -y/scale
-        x2 = (-x+250)/scale
-        y2 = (-y+250)/scale
-        box = (int(x1), int(y1), int(x2), int(y2))
-        image1 = Image.open(image)
-        img = image1.crop(box)
+        file = Image.open(image)
         i = Images()
-        x = i.upload_image1(image=img, user=user, name=image.name)
+        if len(trans) != 6:
+            trans = None
+        x = i.upload_image_new(file=file, user=user, name=image.name, trans=trans)
         x.save()
         workplace.logo = x
         workplace.save()
