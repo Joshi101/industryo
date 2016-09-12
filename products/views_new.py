@@ -16,8 +16,9 @@ def add_image(request):
         image = request.FILES.get('image')
         n = request.POST.get('index')
         user = request.user
-        if request.POST.get('user'):
-            user = User.objects.filter(request.POST.get('person'))
+        path = request.META.get('HTTP_REFERER')
+        if 'internal' in path:
+            user = User.objects.get(id=1)
         # p = Products.objects.filter(user=user).last()
         transformation = request.POST.get('transformation')
         if len(transformation) > 5:
@@ -74,11 +75,10 @@ def change_image(request, id):
 @login_required
 def add_product(request):
     path = request.get_full_path()
+    user = request.user
     if 'internal' in path:
         internal = True
-    user = request.user
-    if request.POST.get('person'):
-        user = User.objects.filter(request.POST.get('person'))
+        user = User.objects.get(id=1)
     workplace = user.userprofile.primary_workplace
     response = {}
     if request.method == 'POST':
@@ -168,3 +168,7 @@ def add_products_file(request):
 def manage(request):
     products = Products.objects.filter(producer=request.user.userprofile.primary_workplace)
     return render(request, 'products/manage.html', locals())
+
+
+# def change_owner(request):
+#

@@ -4,7 +4,7 @@
       <div class="col-sm-2">
         <div class="form-group">
           <div class="img_box_container">
-            {% url 'products:add_image' as add_link %}
+            {% url 'products:add_image'  as add_link %}
             {% include "snippets/add_image_box.html" with name="photo" n=n url=add_link %}
           </div>
         </div>
@@ -106,6 +106,5 @@
     <input type="hidden" name="category2" value="{{c.1.category.id}}" autocomplete="off">
     <input type="hidden" name="category3" value="{{c.2.category.id}}" autocomplete="off">
     <input type="hidden" name="index" value="{{n}}" autocomplete="off">
-    <input type="hidden" name="person" value="{{person}}" autocomplete="off">
   </form>
 </div>
