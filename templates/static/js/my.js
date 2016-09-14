@@ -4,6 +4,7 @@
  * Date: 22-06-2015
  */
 
+$.trumbowyg.svgPath = false;
 
 $('.qa_wyg').trumbowyg({
     btns: [
@@ -18,7 +19,8 @@ $('.qa_wyg').trumbowyg({
         ['horizontalRule'],
         ['removeformat'],
         ['fullscreen']
-    ]
+    ],
+    removeformatPasted: true
 });
 
 $('.wyg').trumbowyg({
@@ -33,7 +35,8 @@ $('.wyg').trumbowyg({
         ['horizontalRule'],
         ['removeformat'],
         // ['fullscreen']
-    ]
+    ],
+    removeformatPasted: true
 });
 
 /* Global parameters */
@@ -752,7 +755,7 @@ $('.img_pre').on('click', '.close', function() {
 });
 
 $('.ajax_andar').on('click', '.upvote', function() {
-    $this = $(this);
+    var $this = $(this);
     console.log($(this));
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
     if ($this.attr('class').indexOf('done') >= 0) {
@@ -767,7 +770,7 @@ $('.ajax_andar').on('click', '.upvote', function() {
 });
 
 $('.ajax_andar').on('click', '.downvote', function() {
-    $this = $(this);
+    var $this = $(this);
     var val = parseInt($(this).closest('.ajax_papa').find('.votes').text());
     if ($this.attr('class').indexOf('done') >= 0) {
         $this.removeClass('done').tooltip('hide').attr('data-original-title', 'Vote Down').tooltip('fixTitle');
@@ -781,7 +784,7 @@ $('.ajax_andar').on('click', '.downvote', function() {
 });
 
 $('.ajax_andar').on('click', '.like', function() {
-    $this = $(this);
+    var $this = $(this);
     var val = parseInt($(this).closest('.ajax_papa').find('.likes').text());
     if ($this.attr('class').indexOf('done') >= 0) {
         $this.removeClass('done').tooltip('hide').attr('data-original-title', 'Like').tooltip('fixTitle');
@@ -2974,3 +2977,16 @@ function enqSuccess($form, response){
         $modal.modal();
     }
 }
+
+$('body').on('focus', '.hide_pane .trumbowyg-editor', function(){
+    $(this).closest('.hide_pane').addClass('see');
+});
+$('body').on('blur', '.hide_pane .trumbowyg-editor', function(){
+    $(this).closest('.hide_pane').removeClass('see');
+});
+
+$('body').on('click', '.hide_pane .trumbowyg-button-pane', function(){
+    if($(this).attr('class').indexOf('see') < 0){
+        $(this).closest('.trumbowyg-box').find('.trumbowyg-editor').focus();
+    }
+});

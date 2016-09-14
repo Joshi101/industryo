@@ -68,17 +68,11 @@
 			</div>
 		</div>
 		{% if user.is_authenticated %}
-		<form class="answer_form ajax_andar text-center" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
+		<form class="answer_form ajax_andar text-center wide_80" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
 			<div class="collapse text-left">
-				<div class="form-group">
-			    <div class="advanced-wrapper">
-						{% include "snippets/richtext_toolbar.html" %}
-				    <div class="editor-container">
-				    	<label class="placeholder">Write your answer here ...</label>
-				    </div>
-				    <input id="post" type="hidden" name="answer">
-				  </div>
-				</div>
+        <div class="form-group">
+          <textarea class="form-control qa_wyg" id="post" name="answer" rows="5" required placeholder="Write your answer here..."></textarea>
+        </div>
 				<input type="hidden" name="id" value="{{ q.id }}">
 				<input type="hidden" name="aid" value="" autocomplete="off">
 				<input type="hidden" name="slug" value="{{ q.slug }}">
@@ -134,7 +128,4 @@
 		$('.a_detail').find('p').attr('class','');
 		$('.a_detail').find('p').attr('style','');
 	</script>
-
-	<script type="text/javascript" src={% static 'quill/quill.js' %}></script>
-	<script type="text/javascript" src={% static 'quill/advanced.js' %}></script>
 {% endblock body %}

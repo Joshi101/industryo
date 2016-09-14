@@ -79,7 +79,7 @@ class UserProfile(models.Model):
     def get_profile_image(self):
         default_image = '/images/user_man.png'
         if self.profile_image:
-            return self.profile_image
+            return self.profile_image.get_image_thumb()
         else:
             try:
                 fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')

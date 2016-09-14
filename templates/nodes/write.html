@@ -3,25 +3,19 @@
 {% load staticfiles %}
 
 {% block head_css %}
-  <link rel="stylesheet" type="text/css" href={% static 'quill/quill.snow.css' %}>
+  <link rel="stylesheet" href={% static 'css/form_card.css' %}>
 {% endblock head_css %}
 
 {% block body %}
 <div class="container">
 	<div class="col-sm-9">
-		<form class="article_form" role="form" action="{% url 'nodes:write' %}" method="POST" enctype="multipart/form-data">
+		<form class="article_form tile" role="form" action="{% url 'nodes:write' %}" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
-				<input class="form-control open_input title_input" type="text" placeholder="Give your Article a Title ..." name="title" required>
+				<input class="form-control title_input" type="text" placeholder="Give your Article a Title ..." name="title" required>
 			</div>
-			<div class="form-group">
-		    <div class="advanced-wrapper">
-					{% include "snippets/richtext_toolbar.html" %}
-			    <div class="editor-container">
-			    	<label class="placeholder">Start Writing here ...</label>
-			    </div>
-			    <input id="post" type="hidden" name="post">
-			  </div>
-			</div>
+      <div class="form-group hide_pane">
+        <textarea class="form-control qa_wyg" id="post" name="post" rows="5" required placeholder="Body of the article ..."></textarea>
+      </div>
 			<div class="form-group">
 				<div class="hide">
 	      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
@@ -55,18 +49,16 @@
 	</div>
 	<div id="right" class="col-sm-3">
 		<div class="side_help">
-	    <h3 class="side_head"><a href="{% url 'nodes:what_to_write' %}">How &amp; What to Ask</a><br>
+	    <h3 class="side_head"><a href="{% url 'nodes:what_to_write' %}">How &amp; What to Write</a><br>
 			<small>CoreLogs - The Engineer's Blog</small></h3>
-			<ul> 
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>We accept technical &amp; Industry related Articles.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>The Title of the article should clearly summarize the topic you are writing about.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can write articles as a Engineering related blog and your CoreLogs profile would contain all your blogs at one place.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>Tag the Article with appropriate topics for classification.</li>
-			<li><i class="fa fa-hand-o-right fa_li_style"></i>You can add upto 3 images to your article for explanation</li>
+			<ul class="fa-ul">
+			<li><i class="fa fa-hand-o-right fa-li"></i>We accept technical &amp; Industry related Articles.</li>
+			<li><i class="fa fa-hand-o-right fa-li"></i>The Title of the article should clearly summarize the topic you are writing about.</li>
+			<li><i class="fa fa-hand-o-right fa-li"></i>You can write articles as a Engineering related blog and your CoreLogs profile would contain all your blogs at one place.</li>
+			<li><i class="fa fa-hand-o-right fa-li"></i>Tag the Article with appropriate topics for classification.</li>
+			<li><i class="fa fa-hand-o-right fa-li"></i>You can add upto 3 images to your article for explanation</li>
 			</ul>
 	  </div>
 	</div>
 </div>
-	<script type="text/javascript" src={% static 'quill/quill.js' %}></script>
-  <script type="text/javascript" src={% static 'quill/advanced.js' %}></script>
 {% endblock %}

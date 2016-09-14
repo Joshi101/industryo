@@ -2842,9 +2842,9 @@ footer .contact li{
   margin-bottom: 10px;
   padding: 10px;
   font-size: 1em;
-  text-align: justify;
+  /* text-align: justify; */
   color: #666;
-  background-color: #dff0d8;
+  background-color: #fff;
   border: 1px solid #ddf;
 }
 
@@ -2853,7 +2853,7 @@ footer .contact li{
 }
 
 .side_help ul{
-  padding-left: 25px;
+  /* padding-left: 25px; */
   list-style: none;
 }
 
@@ -2877,13 +2877,6 @@ footer .contact li{
 
 .side_show li{
   margin-bottom: 10px;
-}
-
-
-.fa_li_style{
-  margin-left: -25px;
-  margin-right: 10px;
-  color: #197;
 }
 
 .conversation {
@@ -3121,12 +3114,6 @@ footer .contact li{
   text-align: center;
 }
 
-.editor-container .placeholder{
-  color: #8a9;
-  font-size: 20px;
-  letter-spacing: 2px;
-}
-
 .open_input{
   border: 0;
   background-color: #fff;
@@ -3136,8 +3123,8 @@ footer .contact li{
 .article_form .title_input{
   font-size: 24px;
   letter-spacing: 1px;
-  height: 40px;
-  padding: 0 12px;
+  height: 55px;
+  padding: 6px 12px;
 }
 
 .open_input:focus{
@@ -5395,7 +5382,7 @@ input.not_wide{
   margin-top: 10px;
   color: #086;
   margin-bottom: 30px;
-  text-shadow: 0 1px 5px rgba(16,112,144,0.46);
+  text-shadow: 0 1px 2px rgba(16,112,144,0.3);
 }
 
 .cover_top header p{
@@ -6733,6 +6720,8 @@ and in bootstrap.css
   background-color: #fff;
   border-color: #72e0c4 #72e0c4 transparent;
   transition: 0.1s all linear;
+  text-align: left;
+  padding-left: 34px;
 }
 
 .shell_container.touched .shell_input.open .fa{
@@ -6750,6 +6739,8 @@ and in bootstrap.css
 
 .shell_form.open{
   border: 1px solid #72e0c4;
+  height: auto;
+  opacity: 1;
 }
 
 .shell_form form{
