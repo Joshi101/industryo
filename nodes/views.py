@@ -29,8 +29,10 @@ def post(request):
         image2 = request.FILES.get('image2', None)
         if not image0:
             if post:
+                print('a')
                 node = Node.objects.create(post=post, user=user, w_type=type)
         else:
+            print('b')
             node = Node.objects.create(post=post, user=user, w_type=type)
         if image0:
             i = Images()

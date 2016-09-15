@@ -6768,6 +6768,7 @@ and in bootstrap.css
   background-color: #fff;
   overflow: hidden;
   top: -1px;
+  margin-bottom: 15px;
 }
 
 .reply{

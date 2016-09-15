@@ -17,20 +17,6 @@
         <textarea class="form-control qa_wyg" id="post" name="post" rows="5" required placeholder="Body of the article ..."></textarea>
       </div>
 			<div class="form-group">
-				<div class="hide">
-	      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-						<input id="id_image_0" type="file" name="image0">
-	    		</span>
-	  		</div>
-	      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-	      	<span class="fa fa-camera"></span> Add Photo
-	    	</span>
-			</div>
-			<div class="form-group">
-				<div class="img_pre hide" data-index=0>
-				</div>
-			</div>
-			<div class="form-group">
 	      <label class="control-label" for="id_tags">Tags: Topics under which the Article might fall</label>
 				{% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Relevent tags help your article reach out to the right people" %}
 			  <p class="help-block">

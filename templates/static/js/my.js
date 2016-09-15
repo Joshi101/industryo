@@ -20,6 +20,7 @@ $('.qa_wyg').trumbowyg({
         ['removeformat'],
         ['fullscreen']
     ],
+    autogrow: true,
     removeformatPasted: true
 });
 
@@ -36,6 +37,7 @@ $('.wyg').trumbowyg({
         ['removeformat'],
         // ['fullscreen']
     ],
+    autogrow: true,
     removeformatPasted: true
 });
 

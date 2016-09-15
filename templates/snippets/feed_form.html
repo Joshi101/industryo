@@ -25,10 +25,12 @@
         <input type="hidden" name="tag" value="{{ tag }}">
         <textarea rows="2" class="form-control" name="post" placeholder="Share your thoughts for the industry, directly to the industry..." required></textarea>
         <span class="input-group-addon">
+          {% comment %}
           <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file img_pre_in'>
             <span class="fa fa-camera fa-fw"></span>
             <input id="id_image_0" type="file" name="image0">
           </span>
+          {% endcomment %}
         </span>
       </div>
       <div class="img_pre hide" data-index=0>
