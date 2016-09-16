@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# {% block head_og_prefix %}website: http://ogp.me/ns/website#{% endblock head_og_prefix %}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:site_name" content="CoreLogs">
@@ -16,15 +16,16 @@
   <meta property="og:type" content="{% block meta_og_type %}website{% endblock meta_og_type %}">
   {% block meta_og_type_extra %}
   {% endblock meta_og_type_extra %}
-  <meta property="og:image" content="http://www.corelogs.com{% block meta_og_image %}{% static 'css/screenshot2.jpg' %}{% endblock %}">
+  <meta property="og:image" content="http://www.corelogs.com{% block meta_og_image %}/images/cover/screenshot.jpg{% endblock %}">
   <meta property="og:image:type" content="image/jpeg">
   {% block meta_og_image_dim %}
   <meta property="og:image:width" content="1280">
-  <meta property="og:image:height" content="600">
+  <meta property="og:image:height" content="720">
   {% endblock meta_og_image_dim %}
 
   <!-- facebook domain insight -->
   <meta property="fb:app_id" content="1584559205143714">
+  <meta property="fb:pages" content="1593585804239071">
   <meta property="fb:admins" content="100001247536612">
 
   <!-- microsoft analytics -->
