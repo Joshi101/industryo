@@ -54,8 +54,8 @@
 
 .form_eric label {
   position: absolute;
-  -webkit-transform: translateY(8px);
-          transform: translateY(8px);
+  -webkit-transform: translateY(9px);
+  transform: translateY(9px);
   left: 13px;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
@@ -65,6 +65,27 @@
   font-weight: 300;
   color: #999;
   margin-bottom: 0;
+  z-index: 9;
+}
+.form_eric .checkbox label {
+  position: relative;
+  left: 0;
+  pointer-events: all;
+  transform: initial;
+  padding-left: 30px;
+}
+.form_eric .checkbox label.active {
+  -webkit-transform: initial;
+          transform: initial;
+  left: 0px;
+  font-size: 18px;
+}
+.form_eric .checkbox input {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin-left: -30px;
+
 }
 .form_eric label .req {
   margin: 2px;
@@ -83,6 +104,10 @@
 
 .form_eric label.highlight {
   color: #333;
+}
+
+.form_eric .d_search{
+  min-height: 43px;
 }
 
 .form_eric input, .form_eric textarea {

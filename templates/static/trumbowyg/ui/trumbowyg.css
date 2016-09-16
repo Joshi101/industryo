@@ -30,6 +30,7 @@
 
 .trumbowyg-box{
   overflow: hidden;
+  /* margin: 0 10px; */
 }
 
 .trumbowyg-box,
@@ -38,8 +39,8 @@
   position: relative;
   border: 1px solid #DDD;
   width: 100%;
-  min-height: 150px;
-  margin: 17px auto;
+  min-height: 350px;
+  /* margin: 17px auto; */
   background: #fff;
   }
 
@@ -54,8 +55,8 @@
 .trumbowyg-textarea {
   position: relative;
   box-sizing: border-box;
-  padding: 20px;
-  min-height: 150px;
+  padding: 20px 5px;
+  min-height: 300px;
   width: 100%;
   border-style: none;
   resize: none;
@@ -154,7 +155,7 @@
     right: 0;
     width: 100%;
     height: 1px;
-    background: #d7e0e2;
+    background: #eee;
     }
   .trumbowyg-button-pane .trumbowyg-button-group {
     display: -webkit-box;
@@ -219,12 +220,14 @@
 
 .trumbowyg-dropdown {
   width: 200px;
+  margin-top: 1px;
   border: 1px solid #ecf0f1;
-  padding: 5px 0;
+  padding: 0;
   border-top: none;
   background: #FFF;
   margin-left: -1px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 3px; }
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 3px;
+  }
   .trumbowyg-dropdown button {
     display: block;
     width: 100%;
@@ -426,7 +429,9 @@ body.trumbowyg-body-fullscreen {
   .trumbowyg-editor embed,
   .trumbowyg-editor video,
   .trumbowyg-editor img {
-    max-width: 100%; }
+    max-width: 100%;
+    margin: 25px 0;
+    }
   .trumbowyg-editor video,
   .trumbowyg-editor img {
     height: auto; }
@@ -665,7 +670,8 @@ body.trumbowyg-body-fullscreen {
 .trumbowyg-unorderedList-button:before { content: "\f0ca"; }
 .trumbowyg-orderedList-button:before { content: "\f0cb"; }
 
-.trumbowyg-insertImage-button:before { content: "\f03e"; }
+.trumbowyg-insertImage-button:before,
+.trumbowyg-upload-button:before { content: "\f03e"; }
 .trumbowyg-link-button:before,
 .trumbowyg-createLink-dropdown-button:before { content: "\f0c1"; }
 .trumbowyg-createLink-dropdown-button:after { content: "Add Link"; }
@@ -703,7 +709,7 @@ body.trumbowyg-body-fullscreen {
 
 .hide_pane .trumbowyg-button-pane {
   position: absolute;
-  opacity: 0;
+  /* opacity: 0; */
   background: transparent;
   cursor: text;
   z-index: 99;
@@ -720,7 +726,7 @@ body.trumbowyg-body-fullscreen {
 }
 
 .hide_pane .trumbowyg-button-pane button{
-  height: 0;
+  /* height: 0; */
   padding: 0;
 }
 
