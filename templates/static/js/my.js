@@ -4,6 +4,8 @@
  * Date: 22-06-2015
  */
 
+var imageUrl = $('.qa_wyg').closest('form').data('image');
+
 $.trumbowyg.svgPath = false;
 
 $('.qa_wyg').trumbowyg({
@@ -23,7 +25,9 @@ $('.qa_wyg').trumbowyg({
     removeformatPasted: true,
     plugins: {
         upload: {
-            serverPath: '/nodes/add_image/',
+            serverPath: function(){
+                return imageUrl;
+            }(),
             fileFieldName: 'image',
             urlPropertyName: 'link'
         }
@@ -2077,7 +2081,7 @@ function autoSubmitReady($this){
         customValidate($this);
         autoSubmit($this,$this.data('response'));
     }
-    else {
+    else if ($this.attr('type') != 'file'){
         customValidate($this);
         autoSubmit($this,$this.data('response'));
     }
@@ -2091,7 +2095,7 @@ function customValidate($this){
             console.log(err)
         }
     }
-    console.log($this[0].checkValidity());
+//     console.log($this[0].checkValidity());
 }
 
 function autoSubmit($this, data_response){
@@ -2112,7 +2116,7 @@ function autoSubmit($this, data_response){
             console.log(f_data);
         }
     }
-    console.log($form.attr('action'),f_data);
+//     console.log($form.attr('action'),f_data);
     $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
@@ -2598,13 +2602,13 @@ $(function(){
         bodyleave = false;
     }, 20000);
 });
-$('body').on('mouseleave', function(e) {
-    console.log(modalTimer, bodyleave);
-    if (!bodyleave && mouseY <= 100){
-        bodyleave = true;
-        $("#irritate_modal").modal();
-    }
-});
+// $('body').on('mouseleave', function(e) {
+//     console.log(modalTimer, bodyleave);
+//     if (!bodyleave && mouseY <= 100){
+//         bodyleave = true;
+//         $("#irritate_modal").modal();
+//     }
+// });
 
 $('.dropdown-toggle_hover').on('mouseenter', function(){
     $(this).closest('.dropdown').addClass('open');
@@ -2978,7 +2982,31 @@ $('body').on('click', '.hide_pane .trumbowyg-button-pane', function(){
 });
 
 $('body').on('click', '.trumbowyg-upload-button', function(){
-    var imageUrl = $(this).closest('form').data('image');
-    $.trumbowyg.plugins.upload.serverPath = imageUrl;
+    // var imageUrl = $(this).closest('form').data('image');
+    // $.trumbowyg.plugins.upload.serverPath = imageUrl;
+    // $.extend(true, $.trumbowyg.upload, {
+    //     serverPath: imageUrl,
+    // });
     console.log($.trumbowyg.plugins.upload.serverPath, imageUrl);
+});
+
+var tbwHtml;
+var tbwTimer;
+$('.trumbowyg-editor').on('keydown', function(){
+    tbwHtml = $(this).html();
+});
+$('.trumbowyg-editor').on('keyup', function(){
+    var $this = $(this);
+    if ($this.html() != tbwHtml){
+        console.log('here1');
+        clearTimeout(tbwTimer);
+        tbwTimer = setTimeout(function(){
+            console.log('here2');
+            $this.closest('.form-group').find('textarea').trigger('change');
+        }, 2000);
+    }
+});
+$('.qa_wyg').on('tbwuploadsuccess', function(){
+    console.log('image iuped')
+    $(this).closest('.form-group').find('textarea').trigger('change');
 });

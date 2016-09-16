@@ -13,10 +13,11 @@
 {% endblock head_css %}
 
 {% block body %}
-<div class="container">
+<div class="container-fluid">
 	<div class="col-sm-9">
     <div class="tile">
-      <form class="article_form" role="form" action="{% url 'nodes:write' %}" data-image="{% url 'nodes:add_image' %}" method="POST" enctype="multipart/form-data">
+      <form class="article_form auto_form" role="form" action="" data-image="{% url 'nodes:add_image' %}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="name" value="">
         <div class="form_eric">
           <div class="form-group">
             <input class="form-control title_input" type="text" placeholder="Title of your Article ..." name="title">
@@ -27,6 +28,9 @@
         </div>
         <div class="form_eric">
     			<div class="form-group">
+            <div class="classic_label">
+              <span class="fa fa-tags fa-fw"></span> Tag your article
+            </div>
     	      <div class="inline_tags">
       				{% include "snippets/d_search_tags.html" with search="tag" type="All" placeholder="Add relevent tags to reach out to the right audience..." %}
             </div>

@@ -216,3 +216,16 @@
   text-align: right;
   padding-top: 5px;
 }
+
+.form_eric .classic_label{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.form_eric .classic_label .fa{
+  position: relative;
+  top: 0;
+  right: 0;
+  font-size: inherit;
+}

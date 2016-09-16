@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^comment/$', views.comment, name='comment'),
     url(r'^upload/$', views.upload_image, name='upload'),
     url(r'^add_image/$', views.add_image, name='add_image'),
+    url(r'^change_image/(?P<id>[^/]+)$', views.change_image, name='change_image'),
     url(r'^post/$', views.post, name='post'),
     url(r'^delete/$', views.delete, name='delete'),
     url(r'^delete_image/$', views.delete_node_image, name='delete_image'),

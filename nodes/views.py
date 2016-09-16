@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from PIL import Image
 from django.conf import settings
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
@@ -63,70 +64,85 @@ def post(request):
 @login_required
 def edit(request, id):
     node = Node.objects.get(id=id)
+    user = request.user
+    if request.is_ajax():
+        dictionary = {}
+        direct = [f.name for f in Node._meta.get_fields()]
+        direct.remove('title')
+        for key in request.POST:
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+            else:
+                print('unknown key ' + key)
+        for key in dictionary:
+            setattr(node, key, dictionary[key])
+        node.save()
+        return HttpResponse()
     if request.method == 'POST':
         node.post = request.POST.get('post')
         node.title = request.POST.get('title')
-        user = request.user
-        tags = request.POST['tags']
+        tags = request.POST.get('tag')
         anonymous = request.POST.get('anonymous')
         if anonymous == 'true':
             node.anonymous = True
         node.save()
-        image0 = request.FILES.get('image0', None)
-        image1 = request.FILES.get('image1', None)
-        image2 = request.FILES.get('image2', None)
-        if image0:
-            i = Images()
-            a = i.upload_image(image=image0, user=user)
-            node.images.add(a)
-        if image1:
-            i = Images()
-            a = i.upload_image(image=image1, user=user)
-            node.images.add(a)
-        if image2:
-            i = Images()
-            a = i.upload_image(image=image2, user=user)
-            node.images.add(a)
-        # node.set_tags(tags)
-        return redirect('/nodes/articles')
+        node.set_tags(tags)
+        # add some function to remove unused images from node.images
+        return redirect(reverse('nodes:node', kwargs={'slug': node.slug}))
     return render(request, 'nodes/edit.html', locals())
 
 @login_required
-def write(request):                 ## Write an article
-    if request.method == 'POST':
+def write(request):                 # Write an article
+    user = request.user
+    if request.is_ajax():
+        untitled = Node.objects.get(title='untitled', user=user, category='A')
+        dictionary = {}
+        direct = [f.name for f in Node._meta.get_fields()]
+        direct.remove('title')
+        for key in request.POST:
+            if key in direct:
+                try:
+                    dictionary[key] = request.POST[key]
+                except:
+                    tb = traceback.format_exc()
+            else:
+                print('unknown key ' + key)
+        for key in dictionary:
+            setattr(untitled, key, dictionary[key])
+        untitled.save()
+        return HttpResponse()
+    elif request.method == 'POST':
         post = request.POST.get('post')
         title = request.POST.get('title')
-        user = request.user
         tags = request.POST['tag']
         anonymous = request.POST.get('anonymous')
         draft = request.POST.get('draft')
-
+        untitled = Node.objects.get(title='untitled', user=user, category='A')
         if draft:
-
             node = Node(post=post, title=title, category='A', user=user, is_active=False)
         elif anonymous=='true':
             node = Node(post=post, title=title, category='A', user=user, anonymous=True)
         else:
             node = Node(post=post, title=title, category='A', user=user)
         node.save()
-        image0 = request.FILES.get('image0', None)
-        image1 = request.FILES.get('image1', None)
-        image2 = request.FILES.get('image2', None)
-        if image0:
-            i = Images()
-            a = i.upload_image(image=image0, user=user)
-            node.images.add(a)
-        if image1:
-            i = Images()
-            a = i.upload_image(image=image1, user=user)
-            node.images.add(a)
-        if image2:
-            i = Images()
-            a = i.upload_image(image=image2, user=user)
-            node.images.add(a)
+        images = untitled.images.all()
+        for i in images:
+            node.images.add(i)
         node.set_tags(tags)
-        return redirect('/nodes/'+node.slug)
+        untitled.delete()
+        return redirect(reverse('nodes:node', kwargs={'slug': node.slug}))
     else:
+        # new = request.GET.get('new')
+        try:
+            untitled = Node.objects.get(title='untitled', user=user, category='A')
+        except:
+            untitled = None
+        if untitled:
+            untitled.delete()
+        node = Node.objects.create(title='untitled', user=user, category='A')
         return render(request, 'nodes/write.html', locals())
 
 @login_required
@@ -136,7 +152,7 @@ def remove_anonymity(request):
     article.is_active = True
     article.anonymous = False
     article.save()
-    return redirect('/nodes/'+article.slug)
+    return redirect(reverse('nodes:node', kwargs={'slug': node.slug}))
 
 @login_required
 def publish(request):
@@ -390,12 +406,29 @@ def add_image(request):
     if request.is_ajax():
         user = request.user
         image = request.FILES.get('image', None)
+        untitled = Node.objects.get(title='untitled', user=user, category='A')
         file = Image.open(image)
         i = Images()
-        x = i.upload_image_new(file=file, user=user, name=image.name)
-        x.save()
-        link = x.get_full_image()
-        print(link)
+        i.upload_image_new(file=file, user=user, name=image.name)
+        link = i.get_full_image()
+        untitled.images.add(i)
+        # print(len(untitled.images.all()))
+        response = {'link': link, 'success': 'Uploaded'}
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        return HttpResponse()
+
+def change_image(request, id):
+    if request.is_ajax():
+        user = request.user
+        image = request.FILES.get('image', None)
+        node = Node.objects.get(id=id)
+        file = Image.open(image)
+        i = Images()
+        i.upload_image_new(file=file, user=user, name=image.name)
+        link = i.get_full_image()
+        node.images.add(i)
+        # print(len(untitled.images.all()))
         response = {'link': link, 'success': 'Uploaded'}
         return HttpResponse(json.dumps(response), content_type="application/json")
     else:
