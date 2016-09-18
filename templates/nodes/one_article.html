@@ -21,7 +21,7 @@
 		</div>
 		{% endif %}
 		<div class="summary_title">{{ node.title|capfirst|truncatewords:15 }}</div>
-		<div class="summary_body">{{ node.get_summary|truncatewords_html:20|safe }}</div>
+		<div class="summary_body">{{ node.get_summary|truncatewords_html:20|striptags|safe }}</div>
     <div class="continue">Read More ...</div>
 	</a>
   {% include "snippets/joint_person.html" with pic='user' user=node.user time=node.date|naturaltime action="published" %}

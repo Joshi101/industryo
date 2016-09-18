@@ -37,9 +37,7 @@
 				{% if node.category == 'A' %}
 				<h1 class="article_title">{{ node.title }}</h1>
         <div class="published">Published {{node.date|naturaltime}}</div>
-        {% if node.user != request.user %}
         {% include "snippets/joint_person_big.html" with pic='user' user=node.user %}
-				{% endif %}
 				{% endif %}
 				<div class="interaction_top">
 					<div class="text-center vote_box ajax_papa">
@@ -47,15 +45,6 @@
 					</div>
 					<a class="pull-right"><span class="fa fa-comments-o fa-fw"></span><span class="count">{{node.get_all_comments|length}}</span> Comments</a>
 				</div>
-				{% if node.get_images %}
-				<div class="node_fig">
-					{% for image in node.get_images %}
-					<figure>
-						<img src="/images/{{image.image}}" class="call_car pressme" data-toggle='modal' data-target='#figure_modal'>
-					</figure>
-					{% endfor %}
-				</div>
-				{% endif %}
 				{% if node.category == 'A' %}
 				<div class="article_body">{{ node.post|new_tab|safe }}</div>
 				{% else %}

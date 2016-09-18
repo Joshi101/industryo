@@ -1,19 +1,6 @@
 ** fix_texteditor **
 
-- check all places editor is used
-- find more places where it has to be used
-- remove old quill.js
-- add trumbowyg
-- decide ajax and post variants and class them
-- check all places
+- image when removed, stays in the the table node.images
+- the first image is not the first image in summary (its the first image added)
 
 ===
-
-> used at :
-    feed form, ask question
-    write article
-    ask question
-    write answer
-> will extend wherever needed
-> removed old quill.js
-> added trumbowyg

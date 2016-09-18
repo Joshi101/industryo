@@ -1,16 +1,20 @@
 {% extends "base.html" %}
-
-{% load filter %}
-
-{% load staticfiles %}
+{% load filter staticfiles %}
 
 {% block head_css %}
   <link rel="stylesheet" href={% static 'css/form_card.css' %}>
 {% endblock head_css %}
 
-{% block title %}{{product}} | CoreLogs{% endblock title %}
+{% block head_og_prefix %}article: http://ogp.me/ns/product#{% endblock head_og_prefix %}
 
-{% block meta_description %}{{ product.description }}{% endblock meta_description %}
+{% block head_desc %}
+  <title>{{product}} | CoreLogs</title>
+  <meta name="description" content="{{product.description}}">
+  <meta property="og:title" content="{{product}} | CoreLogs">
+  <meta name="og:description" content="{{product.description}}">
+{% endblock head_desc %}
+{% block meta_og_type %}product{% endblock meta_og_type %}
+{% block meta_og_image %}{{product.get_image}}{% endblock meta_og_image %}
 
 {% block page_id %}product{% endblock page_id %}
 
