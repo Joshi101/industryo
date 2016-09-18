@@ -24,11 +24,13 @@
     };
 
     function getDeep(object, propertyParts) {
+        console.log('deep')
         var mainProperty = propertyParts.shift(),
             otherProperties = propertyParts;
 
         if (object !== null) {
             if (otherProperties.length === 0) {
+                console.log(object[mainProperty], mainProperty)
                 return object[mainProperty];
             }
 
@@ -140,6 +142,7 @@
 
                                         success: trumbowyg.o.plugins.upload.success || function (data) {
                                             if (!!getDeep(data, trumbowyg.o.plugins.upload.statusPropertyName.split('.'))) {
+                                                console.log('idhar o=to aao')
                                                 var url = getDeep(data, trumbowyg.o.plugins.upload.urlPropertyName.split('.'));
                                                 trumbowyg.execCmd('insertImage', url);
                                                 $('img[src="' + url + '"]:not([alt])', trumbowyg.$box).attr('alt', values.alt);

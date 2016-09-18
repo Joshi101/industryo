@@ -102,13 +102,22 @@ class Images(models.Model):
         return settings.MEDIA_URL+str(self.image)
 
     def get_image_thumb(self):
-        return settings.MEDIA_URL+str(self.image_thumbnail)
+        if self.image_thumbnail:
+            return settings.MEDIA_URL+str(self.image_thumbnail)
+        else:
+            self.get_full_image()
 
     def get_image_thumb_sm(self):
-        return settings.MEDIA_URL+str(self.image_thumbnail_sm)
+        if self.image_thumbnail_sm:
+            return settings.MEDIA_URL+str(self.image_thumbnail_sm)
+        else:
+            self.get_image_thumb()
 
     def get_image_thumb_xs(self):
-        return settings.MEDIA_URL+str(self.image_thumbnail_xs)
+        if self.image_thumbnail_xs:
+            return settings.MEDIA_URL+str(self.image_thumbnail_xs)
+        else:
+            self.get_image_thumb()
 
 
 class Document(models.Model):

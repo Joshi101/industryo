@@ -28,14 +28,21 @@
   height: 100%;
   fill: #222; }
 
+.trumbowyg-box{
+  overflow: hidden;
+  /* margin: 0 10px; */
+}
+
 .trumbowyg-box,
 .trumbowyg-editor {
   display: block;
   position: relative;
   border: 1px solid #DDD;
   width: 100%;
-  min-height: 300px;
-  margin: 17px auto; }
+  min-height: 350px;
+  /* margin: 17px auto; */
+  background: #fff;
+  }
 
 .trumbowyg-box .trumbowyg-editor {
   margin: 0 auto; }
@@ -48,13 +55,27 @@
 .trumbowyg-textarea {
   position: relative;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 20px 5px;
   min-height: 300px;
   width: 100%;
   border-style: none;
   resize: none;
   outline: none;
-  overflow: auto; }
+  overflow: auto;
+  }
+
+.trumbowyg-editor p:last-of-type{
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.trumbowyg-editor br + p{
+  margin: 0;
+}
+
+.trumbowyg-editor p:not(:last-of-type){
+  margin-bottom: 10px;
+}
 
 .trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-box-blur .trumbowyg-editor::before {
   color: transparent !important;
@@ -104,33 +125,38 @@
   pointer-events: none; }
 
 .trumbowyg-button-pane {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-flow: row wrap;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   width: 100%;
-  min-height: 36px;
-  background: #ecf0f1;
+/*   min-height: 36px; */
+  background: #f6f6f6;
   border-bottom: 1px solid #d7e0e2;
   margin: 0;
-  padding: 0 5px;
+  /* padding: 0 5px; */
   list-style-type: none;
   line-height: 10px;
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden; }
+  backface-visibility: hidden;
+/*   transition: all 0.01s ease-out; */
+  }
+  
   .trumbowyg-button-pane::after {
     content: " ";
     display: block;
     position: absolute;
-    top: 36px;
+    top: 35px;
     left: 0;
     right: 0;
     width: 100%;
     height: 1px;
-    background: #d7e0e2; }
+    background: #eee;
+    }
   .trumbowyg-button-pane .trumbowyg-button-group {
     display: -webkit-box;
     display: -webkit-flex;
@@ -141,26 +167,30 @@
             flex-flow: row wrap; }
     .trumbowyg-button-pane .trumbowyg-button-group .trumbowyg-fullscreen-button svg {
       color: transparent; }
-    .trumbowyg-button-pane .trumbowyg-button-group:not(:empty) + .trumbowyg-button-group::before {
+    .trumbowyg-button-pane .trumbowyg-button-group::after {
       content: " ";
       display: block;
       width: 1px;
       background: #d7e0e2;
-      margin: 0 5px;
+      margin-right: 5px;
       height: 35px; }
+    .trumbowyg-button-pane .trumbowyg-right::after{
+      display: none;
+    }
   .trumbowyg-button-pane button {
     display: block;
     position: relative;
     width: 35px;
     height: 35px;
-    padding: 1px 6px !important;
-    margin-bottom: 1px;
+    padding: 1px 6px;
+    margin-bottom: 0px;
     overflow: hidden;
     border: none;
     cursor: pointer;
     background: none;
     -webkit-transition: background-color 150ms, opacity 150ms;
-            transition: background-color 150ms, opacity 150ms; }
+    transition: background-color 150ms, opacity 150ms;
+    }
   .trumbowyg-button-pane.trumbowyg-disable button:not(.trumbowyg-not-disable):not(.trumbowyg-active),
   .trumbowyg-disabled .trumbowyg-button-pane button:not(.trumbowyg-not-disable):not(.trumbowyg-viewHTML-button) {
     opacity: 0.2;
@@ -190,12 +220,14 @@
 
 .trumbowyg-dropdown {
   width: 200px;
+  margin-top: 1px;
   border: 1px solid #ecf0f1;
-  padding: 5px 0;
+  padding: 0;
   border-top: none;
   background: #FFF;
   margin-left: -1px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 3px; }
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 3px;
+  }
   .trumbowyg-dropdown button {
     display: block;
     width: 100%;
@@ -397,7 +429,9 @@ body.trumbowyg-body-fullscreen {
   .trumbowyg-editor embed,
   .trumbowyg-editor video,
   .trumbowyg-editor img {
-    max-width: 100%; }
+    max-width: 100%;
+    margin: 25px 0;
+    }
   .trumbowyg-editor video,
   .trumbowyg-editor img {
     height: auto; }
@@ -577,3 +611,138 @@ body.trumbowyg-body-fullscreen {
 
 .trumbowyg-dark .trumbowyg-overlay {
   background-color: rgba(15, 15, 15, 0.6); }
+
+/* in the name of trumbowyg */
+
+.trumbowyg-button-group button,
+.trumbowyg-dropdown button{
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.trumbowyg-button-group button:last-child{
+  margin-right: 5px;
+}
+
+.trumbowyg-button-group button:after,
+.trumbowyg-dropdown button:after{
+  font-family: 'Titillium Web';
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.trumbowyg-viewHTML-button:before,
+.trumbowyg-code-dropdown-button:before { content: "\f121"; }
+
+.trumbowyg-undo-button:before { content: "\f0e2"; }
+.trumbowyg-redo-button:before { content: "\f01e"; }
+
+.trumbowyg-formatting-button:before,
+.trumbowyg-p-dropdown-button:before { content: "\f1dd"; }
+.trumbowyg-p-dropdown-button:after { content: "Paragraph"; }
+.trumbowyg-blockquote-dropdown-button:before { content: "\f10d"; }
+.trumbowyg-blockquote-dropdown-button:after { content: "Quote"; }
+.trumbowyg-h1-dropdown-button:before { content: "\f1dc 1"; }
+.trumbowyg-h1-dropdown-button:after { content: "Heading 1"; }
+.trumbowyg-h2-dropdown-button:before { content: "\f1dc 2"; }
+.trumbowyg-h2-dropdown-button:after { content: "Heading 2"; }
+.trumbowyg-h3-dropdown-button:before { content: "\f1dc 3"; }
+.trumbowyg-h3-dropdown-button:after { content: "Heading 3"; }
+.trumbowyg-h4-dropdown-button:before { content: "\f1dc 4"; }
+.trumbowyg-h4-dropdown-button:after { content: "Heading 4"; }
+
+.trumbowyg-bold-button:before,
+.trumbowyg-strong-button:before { content: "\f032"; }
+.trumbowyg-italic-button:before,
+.trumbowyg-em-button:before { content: "\f033"; }
+.trumbowyg-strikethrough-button:before,
+.trumbowyg-del-button:before { content: "\f0cc"; }
+.trumbowyg-underline-button:before { content: "\f0cd"; }
+
+.trumbowyg-superscript-button:before { content: "\f12b"; }
+.trumbowyg-subscript-button:before { content: "\f12c"; }
+
+.trumbowyg-unorderedList-button:before { content: "\f0ca"; }
+.trumbowyg-orderedList-button:before { content: "\f0cb"; }
+
+.trumbowyg-insertImage-button:before,
+.trumbowyg-upload-button:before { content: "\f03e"; }
+.trumbowyg-link-button:before,
+.trumbowyg-createLink-dropdown-button:before { content: "\f0c1"; }
+.trumbowyg-createLink-dropdown-button:after { content: "Add Link"; }
+.trumbowyg-unlink-dropdown-button:before { content: "\f127"; }
+.trumbowyg-unlink-dropdown-button:after { content: "Remove Link"; }
+
+.trumbowyg-justifyLeft-button:before { content: "\f036"; }
+.trumbowyg-justifyCenter-button:before { content: "\f037"; }
+.trumbowyg-justifyRight-button:before { content: "\f038"; }
+.trumbowyg-justifyFull-button:before { content: "\f039"; }
+
+.trumbowyg-horizontalRule-button:before { content: "\f068"; }
+.trumbowyg-removeformat-button:before { content: "\f12d"; }
+
+.trumbowyg-fullscreen-button:before { content: "\f0b2"; }
+
+.trumbowyg-close-button:before { content: "\f00d"; }
+
+.trumbowyg-submit-button:before { content: "\f00c"; }
+.trumbowyg-reset-button:before { content: "\f021"; }
+
+.trumbowyg-required-button:before { content: "\f12a"; }
+.trumbowyg-description-button:before { content: "T"; }
+.trumbowyg-title-button:before { content: "D"; }
+.trumbowyg-text-button:before { content: "T"; }
+.trumbowyg-target-button:before { content: "\f140"; }
+
+
+.trumbowyg-editor[contenteditable=true]:empty::before{
+    content: attr(placeholder);
+    color: #aaa;
+    /* font-size: 18px; */
+}
+
+
+.hide_pane .trumbowyg-button-pane {
+  position: absolute;
+  /* opacity: 0; */
+  background: transparent;
+  cursor: text;
+  z-index: 99;
+  bottom: 0;
+  border-top: 1px solid #d7e0e2;
+  border-bottom: 0;
+}
+
+.hide_pane.see .trumbowyg-button-pane{
+  opacity: 1;
+  background: #f6f6f6;
+  transition: all 0.5s ease-in;
+  cursor: initial;
+}
+
+.hide_pane .trumbowyg-button-pane button{
+  /* height: 0; */
+  padding: 0;
+}
+
+.hide_pane.see .trumbowyg-button-pane button{
+  height: 35px;
+  padding: 0px 6px;
+}
+
+.hide_pane .trumbowyg-box{
+  padding-bottom: 50px;
+}
+
+.hide_pane .trumbowyg-editor{
+  overflow: hidden;
+}
+
+.hide_pane.see .trumbowyg-editor{
+  overflow: auto;
+}

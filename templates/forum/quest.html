@@ -68,34 +68,15 @@
 			</div>
 		</div>
 		{% if user.is_authenticated %}
-		<form class="answer_form ajax_andar text-center" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
+		<form class="answer_form ajax_andar text-center wide_80" action="{% url 'forum:answer' %}" method="POST" enctype="multipart/form-data">
 			<div class="collapse text-left">
-				<div class="form-group">
-			    <div class="advanced-wrapper">
-						{% include "snippets/richtext_toolbar.html" %}
-				    <div class="editor-container">
-				    	<label class="placeholder">Write your answer here ...</label>
-				    </div>
-				    <input id="post" type="hidden" name="answer">
-				  </div>
-				</div>
+        <div class="form-group">
+          <textarea class="form-control qa_wyg" id="post" name="answer" rows="5" required placeholder="Write your answer here..."></textarea>
+        </div>
 				<input type="hidden" name="id" value="{{ q.id }}">
 				<input type="hidden" name="aid" value="" autocomplete="off">
 				<input type="hidden" name="slug" value="{{ q.slug }}">
-				<div class="form-group">
-					<div class="hide">
-		      	<span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file glyphicon glyphicon-camera input-group-addon seamless_r img_pre_in'>
-							<input id="id_image_0" type="file" name="image0">
-		    		</span>
-		  		</div>
-		      <span class='btn btn-default btn-file fake_btn' data-btn='#id_image_0'>
-		      	<span class="glyphicon glyphicon-camera"></span> Add Photo
-		    	</span>
-				</div>
-				<div class="form-group">
-					<div class="img_pre hide" data-index=0>
-					</div>
-				</div>
+				
 				<div class="checkbox">
 				  <label><input type="checkbox" name="anonymous" value="true">Post as Anynonymous</label>
 				</div>
@@ -134,7 +115,4 @@
 		$('.a_detail').find('p').attr('class','');
 		$('.a_detail').find('p').attr('style','');
 	</script>
-
-	<script type="text/javascript" src={% static 'quill/quill.js' %}></script>
-	<script type="text/javascript" src={% static 'quill/advanced.js' %}></script>
 {% endblock body %}

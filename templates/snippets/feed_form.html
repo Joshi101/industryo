@@ -1,15 +1,20 @@
-<div class="shell_container">
-  <div class="shell_input" data-form="#form_feed">
+<div class="shell_container touched">
+  <div class="shell_input open" data-form="#form_feed">
     <span class="fa fa-quote-left"></span>
     <span class="placeholder">Share an Update...</span>
   </div>
+  <!--
+  <div class="seperator">
+    or
+  </div>
+-->
   <div class="shell_input" data-form="#form_ask">
     <span class="fa fa-lightbulb-o"></span>
     <span class="placeholder">Ask a Question...</span>
   </div>
 </div>
 <div class="shell_form_container">
-  <div id="form_feed" class="shell_form">
+  <div id="form_feed" class="shell_form open">
     <form class="ajax_andar" role="form" action="{% url 'nodes:post' %}" method="POST" enctype="multipart/form-data">
       <div class="input-group">
         <span class="input-group-addon">
@@ -18,12 +23,14 @@
           </a>
         </span>
         <input type="hidden" name="tag" value="{{ tag }}">
-        <textarea rows="1" class="form-control" name="post" placeholder="Share your thoughts for the industry, directly to the industry..." required></textarea>
+        <textarea rows="2" class="form-control" name="post" placeholder="Share your thoughts for the industry, directly to the industry..." required></textarea>
         <span class="input-group-addon">
+          {% comment %}
           <span title="Add Image" data-toggle="tooltip" data-placement="left" class='btn btn-default btn-file img_pre_in'>
             <span class="fa fa-camera fa-fw"></span>
             <input id="id_image_0" type="file" name="image0">
           </span>
+          {% endcomment %}
         </span>
       </div>
       <div class="img_pre hide" data-index=0>
@@ -44,7 +51,7 @@
         <label class="control-label">Ask your Question here...</label>
         <input class="form-control" id="id_title" maxlength="255" name="title" type="text" placeholder="Whats your question? Keep it Short and Specific." required/>
       </div>
-      <div class="form-group">
+      <div class="form-group hide_pane">
         <label class="control-label">Provide further details (if any)...</label>
         <textarea class="form-control qa_wyg" id="post" name="question" rows="2"></textarea>
       </div>

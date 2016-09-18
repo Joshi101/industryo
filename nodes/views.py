@@ -1,3 +1,5 @@
+from PIL import Image
+from django.conf import settings
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from nodes.forms import *
@@ -29,8 +31,10 @@ def post(request):
         image2 = request.FILES.get('image2', None)
         if not image0:
             if post:
+                print('a')
                 node = Node.objects.create(post=post, user=user, w_type=type)
         else:
+            print('b')
             node = Node.objects.create(post=post, user=user, w_type=type)
         if image0:
             i = Images()
@@ -382,7 +386,20 @@ def delete_node_image(request):
     question.images.remove(image)
 
 
-# def
+def add_image(request):
+    if request.is_ajax():
+        user = request.user
+        image = request.FILES.get('image', None)
+        file = Image.open(image)
+        i = Images()
+        x = i.upload_image_new(file=file, user=user, name=image.name)
+        x.save()
+        link = x.get_full_image()
+        print(link)
+        response = {'link': link, 'success': 'Uploaded'}
+        return HttpResponse(json.dumps(response), content_type="application/json")
+    else:
+        return HttpResponse()
 
 
 

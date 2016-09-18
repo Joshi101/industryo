@@ -5,11 +5,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--
-  <meta name="keywords" content="{% block meta_keywords %}CoreLogs, Industry, SME, SMEs, Engineers, Baja, Formula, Manufacturing{% endblock meta_keywords %}">
--->
-
-  <!-- og protocol for social sites -->
   <meta property="og:site_name" content="CoreLogs">
   {% block head_desc %}
     <title>{% block title %}Corelogs, Platform for SMEs{% endblock title %}</title>
@@ -39,12 +34,12 @@
   <link rel="icon" href="{% static 'css/icon6.png' %}">
 
   <!-- google fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700|Lora:400,400i,700,700i|Open+Sans:300,400,400i,700,700i|Titillium+Web:300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700|Lora:400,400i,700,700i|Open+Sans:300,400,400i,700,700i|Titillium+Web:300,400,600" rel="stylesheet">
 
   <!-- third party -->
   <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}>
   <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.min.css' %}>
-  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.min.css' %}">
+  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.css' %}">
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
   {% block head_css %}
@@ -58,6 +53,7 @@
 
   <!-- not basic implement at sublevels -->
   <script src="{% static 'trumbowyg/trumbowyg.min.js' %}"></script>
+  <script src="{% static 'trumbowyg/plugins/upload/trumbowyg.upload.js' %}"></script>
   <script type="text/javascript" src={% static 'js/jquery.cropit.js' %}></script>
   <script type="text/javascript" src={% static 'js/autosize.min.js' %}></script>
   {% endcompress %}
