@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^(?P<id>[^/]+)/set_details/$', views.set_details, name='set_details'),
     url(r'^(?P<id>[^/]+)/edit_desc/$', views.edit_desc, name='edit_desc'),
     url(r'^(?P<id>[^/]+)/edit_category/$', views.edit_category, name='edit_category'),
-    # url(r'^(?P<id>[^/]+)/change_image/$', views.change_image, name='change_image'),
     url(r'^(?P<slug>[^/]+)/$', views.product, name='product'),
     url(r'^(?P<slug>[^/]+)/set_tags_short/$', views.set_tags_short, name='set_tags_short'),
 

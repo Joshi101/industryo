@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block head_css %}
-  <link rel="stylesheet" type="text/css" href={% static 'quill/quill.snow.css' %}>
-{% endblock head_css %}
-
 {% block body %}
   <div class="container">
     <div class="col-md-3">
@@ -136,12 +132,12 @@
               {% endfor %}
             </ol>
           {% elif tt == "tt" %}
-          
+
               {% for u in lis %}
                   <li>{{u.id}} : <a href='{% url 'tags:get_tag' u.slug %}' class="">{{u}}</a> : {{u.count}} <a href='{% url 'tags:delete_tag' u.slug %}' class=""> Delete</a></li>
               {% endfor %}
           {% elif tt == "ee" %}
-          
+
               {% for u in lis %}
                   <li>{{u.id}} : {{u.email}} <a href='{% url 'contacts:unsubscribe' %}?email={{u.email}}' class=""> Unsubscribe</a></li>
               {% endfor %}
@@ -169,13 +165,7 @@
                    type="text" placeholder="" required/>
           </div>
           <div class="form-group">
-            <div class="advanced-wrapper">
-              {% include "snippets/richtext_toolbar.html" %}
-              <div class="editor-container">
-                <label class="placeholder">Email body ...</label>
-              </div>
-              <input id="post" type="hidden" name="mail">
-            </div>
+            <textarea class="form-control qa_wyg" id="post" name="mail" rows="5" placeholder="Email body..."></textarea>
           </div>
           <div class="form-group">
             <label class="control-label"><h3>arguments.. Send tuple like (up, up.primary_workplace)</h3>
@@ -199,13 +189,7 @@
                      name="subject" type="text" placeholder="" required/>
             </div>
             <div class="form-group">
-              <div class="advanced-wrapper">
-                {% include "snippets/richtext_toolbar.html" %}
-                <div class="editor-container">
-                  <label class="placeholder">Email body ...</label>
-                </div>
-                <input id="post" type="hidden" name="mail">
-              </div>
+              <textarea class="form-control qa_wyg" id="post" name="mail" rows="5" placeholder="Email body..."></textarea>
             </div>
             <div class="form-group">
               <label class="control-label"><h3>arguments..</h3></label>
