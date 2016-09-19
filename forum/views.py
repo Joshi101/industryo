@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from forum.models import *
@@ -292,7 +293,7 @@ def reply(request):
         response['html'] = r_html
         response['elements'] = r_elements
         response['prepend'] = True
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        return redirect(reverse('forum:question', kwargs={'slug': question.slug}))
     else:
         print('problem hai')
 

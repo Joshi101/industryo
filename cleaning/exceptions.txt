@@ -1,2 +1,18 @@
 ./templates/account/login.html
 ./templates/account/signup.html
+./templates/activities/mail_options.html
+./templates/activities/p/enquire_modal.html
+./templates/activities/p/new_modal.html
+./templates/emails/list_more_products.html
+./templates/emails/no_products_yet.html
+./templates/emails/set_wp_mail - Copy (2).html
+./templates/emails/set_wp_mail.html
+./templates/emails/wp_intro_mail.html
+./templates/snippets/google_analytics.html
+./templates/snippets/google_analytics_local.html
+./templates/socialaccount/authentication_error.html
+./templates/socialaccount/base.html
+./templates/socialaccount/connections.html
+./templates/socialaccount/login_cancelled.html
+./templates/socialaccount/signup.html
+./templates/socialaccount/snippets/provider_list_sm.html
