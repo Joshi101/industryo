@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:site_name" content="CoreLogs">
+
   {% block head_desc %}
     <title>{% block title %}Corelogs, Platform for SMEs{% endblock title %}</title>
     <meta name="description" content="{% block meta_description %}A Business Enabling Platform for SMEs and Manufacturing Industries{% endblock meta_description %}">
@@ -31,7 +32,7 @@
   <!-- microsoft analytics -->
   <meta name="msvalidate.01" content="6848A0595F7485608A2CAB51CBDA4D0F">
 
-
+  <!-- favicons -->
   <link rel="icon" href="{% static 'css/icon6.png' %}">
 
   <!-- google fonts -->
@@ -40,7 +41,7 @@
   <!-- third party -->
   <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}>
   <link rel="stylesheet" href={% static 'fontawesome/css/font-awesome.min.css' %}>
-  <link rel="stylesheet" href="{% static 'trumbowyg/ui/trumbowyg.css' %}">
+  <link rel="stylesheet" href={% static 'trumbowyg/ui/trumbowyg.css' %}>
   <link rel="stylesheet" href={% static 'css/my.css' %}>
   <link rel="stylesheet" href={% static 'css/form_eric.css' %}>
   {% block head_css %}

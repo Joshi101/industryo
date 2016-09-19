@@ -1,8 +1,7 @@
+import csv
 import os
 import django
 import re
-# from bs4 import BeautifulSoup
-
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "industryo.settings")
 django.setup()
@@ -151,7 +150,7 @@ def py_temp_calls():
                 print("** Include call for, "+p+" doesn't exist")
 
 
-def bury_templates():
+def dead_templates():
     for page in HTML.objects.all():
         if not os.path.exists(page.complete_path):
             page.delete()
@@ -183,10 +182,6 @@ def py_templates():
             direct.append(html)
             direct.extend(all_includes(html))
             direct.extend(all_extends(html))
-            # for inc in html.includes.all():
-            #     direct.append(inc)
-            # for ex in html.extends.all():
-            #     direct.append(ex)
     used = set(direct)
     all_temp = set(HTML.objects.all())
     dead = all_temp.difference(used)
