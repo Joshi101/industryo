@@ -1,8 +1,5 @@
   {% if enquiries %}
   <ul class="conversation">
-    {% for enquiry in enquiries %}
-      {% include 'enquiry/partial_enquiry.html' with enquiry=enquiry %}
-    {% endfor %}
     <li class="send-message">
       <div style="margin-top: .3em">
         <form role="form" method="post" action="{% url 'messages:send_message' %}" id="send">

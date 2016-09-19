@@ -1,14 +1,14 @@
 {% load staticfiles %}
-  
+
   {% if request.user.userprofile in members %}
 	<div class="panel info">
 		<div class="panel-body">
 			<p class="detail_body content_about_w" property='description'>
 				{% if request.user.userprofile.primary_workplace.workplace_type == 'C' %}
 				Tell us which Events do you participate in. This will help us suggest you better products and offer you discounts if any.
-				Also, give a little details of your achievements, prizes your team has won and other landmarks. 
+				Also, give a little details of your achievements, prizes your team has won and other landmarks.
 				{% else %}
-				Tell us what operations are being performed in your company, what machineries and what assets your company has. Tell us the details of materials or resources 
+				Tell us what operations are being performed in your company, what machineries and what assets your company has. Tell us the details of materials or resources
 				you work on. Also give a little description of the capabilities of your company. These details will help your company appear in search based on
 				different criterias.
 				{% endif %}
@@ -37,7 +37,7 @@
 	</div>
 	<div class="panel panel-default ajax_andar ajax_papa">
 		<div class="panel-heading">
-			{% include "workplace/set_tags.html" with head='Events (we participate in)' category='mat' type='E' %}
+			
 		</div>
 		<div class="panel-body">
 			<div class="detail_body">
