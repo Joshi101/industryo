@@ -101,14 +101,14 @@ def template_calls():
     finding out the calls to other template files withing a template file
     via 'include' and 'extend'
     """
-    patterns = ['{% include (.*).html', '{% extends (.*).html']
+    patterns = ['{% include (.*\.html)', '{% extends (.*\.html)']
     files = HTML.objects.all()
     for file in files:
         print("> Scanning file : "+file.complete_path)
         found = find_pattern(file.complete_path, patterns)
         for finding in found[0]:
-            p = './templates/'+finding.strip('"\'')+'.html'
-            # print("- Found Include : "+p)
+            p = './templates/'+finding.strip('"\'')
+            print("- Found Include : "+p)
             try:
                 inc = HTML.objects.get(complete_path=p)
                 if inc not in file.includes.all():
@@ -118,8 +118,8 @@ def template_calls():
                 print("** Include call for, "+p+" doesn't exist")
 
         for finding in found[1]:
-            p = './templates/'+finding.strip('"\'')+'.html'
-            # print("- Found Extend : "+p)
+            p = './templates/'+finding.strip('"\'')
+            print("- Found Extend : "+p)
             try:
                 inc = HTML.objects.get(complete_path=p)
                 if inc not in file.extends.all():
@@ -158,18 +158,42 @@ def bury_templates():
             print("-- Deleted "+page.complete_path)
 
 
+def all_includes(html):
+    result = []
+    for p in html.includes.all():
+        if p.includes.all().exists():
+            result.extend(all_includes(p))
+        result.append(p)
+    return result
+
+
+def all_extends(html):
+    result = []
+    for p in html.extends.all():
+        if p.extends.all().exists():
+            result.extend(all_extends(p))
+        result.append(p)
+    return result
+
+
 def py_templates():
     direct = []
     for page in PY.objects.all():
         for html in page.includes_temp.all():
             direct.append(html)
-            for inc in html.includes.all():
-                direct.append(inc)
-            for ex in html.extends.all():
-                direct.append(ex)
+            direct.extend(all_includes(html))
+            direct.extend(all_extends(html))
+            # for inc in html.includes.all():
+            #     direct.append(inc)
+            # for ex in html.extends.all():
+            #     direct.append(ex)
     used = set(direct)
     all_temp = set(HTML.objects.all())
     dead = all_temp.difference(used)
     # new_csv(direct, 'used_templates')
+    dead_names = []
     for i in dead:
-        print(i.complete_path)
+        dead_names.append(i.complete_path)
+    dead_names.sort()
+    for i in dead_names:
+        print(i)

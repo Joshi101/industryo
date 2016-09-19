@@ -1,0 +1,2 @@
+./templates/account/login.html
+./templates/account/signup.html

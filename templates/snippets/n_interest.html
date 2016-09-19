@@ -1,7 +1,0 @@
-{% for t in interest %}
-<div class="alert alert_tag_box">
-	<a class="close delete" data-delete="interest" aria-label="close">&times;</a>
-	<div class="tag_box_title del_id"><a href="{% url 'tags:get_tag' t.slug %}">{{t.tag}}</a></div>
-	<div class="tag_box_body">{{t.description|default:"<i class='text-muted'>No description. Describe it now!</i>"}}</div>
-</div>
-{% endfor %}

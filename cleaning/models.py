@@ -5,8 +5,9 @@ class HTML(models.Model):
     name = models.CharField(max_length=255)
     path = models.CharField(max_length=255)
     complete_path = models.CharField(max_length=255)
-    extends = models.ManyToManyField('self', blank=True)
-    includes = models.ManyToManyField('self', blank=True)
+    extends = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='Child')
+    includes = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='Parent')
+    # includes = models.ManyToManyField('self', through='HTML_Includes', blank=True)
 
     def __str__(self):
         return self.name
