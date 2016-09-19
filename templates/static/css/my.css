@@ -6707,12 +6707,13 @@ and in bootstrap.css
   /* border-bottom: 1px dashed #eee; */
   margin-bottom: 5px;
   /*   margin-top: 5px; */
+  margin-left: -5px;
 }
 
 #question .node_body .joint_name{
   padding-bottom: 10px;
-  border-bottom: 1px dashed #eee;
-  margin-bottom: 5px;
+  /* border-bottom: 1px dashed #eee; */
+  margin-top: 5px;
   font-size: 13px;
 }
 
