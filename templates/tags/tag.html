@@ -6,10 +6,7 @@
   {% include content_head_url %}
 {% endblock head_desc %}
 
-{% comment %}
-{% block title %}{{tag}} | CoreLogs{% endblock title %}
-{% block meta_description %}{{ tag.description }}{% endblock meta_description %}
-{% endcomment %}
+{% block meta_og_url %}http://www.corelogs.com/tags/{{tag.slug}}{% endblock %}
 
 {% block body %}
 {% include "snippets/img_upload_modal.html" with url='nodes:set_tag_logo' url_slug=tag.slug form=tag_logo_form.image %}
