@@ -147,14 +147,8 @@ def set_logo(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
         transformation = request.POST.get('transformation')
-        trans = transformation.split(',')
-        file = Image.open(image)
         i = Images()
-        if len(trans) != 6:
-            trans = None
-        x = i.upload_image_new(file=file, user=user, name=image.name, trans=trans)
-        x.save()
-        workplace.logo = x
+        workplace.logo = i.upload_image_new(image=image, user=user, name=workplace.name, trans=transformation)
         workplace.save()
         return HttpResponse()
     else:

@@ -13,11 +13,13 @@
 
 {% block meta_og_url %}http://www.corelogs.com/workplace/{{workplace.slug}}{% endblock %}
 
-{% block meta_og_image %}{{workplace.logo.get_full_image}}{% endblock meta_og_image %}
-{% block meta_og_image_dim %}
-  <meta property="og:image:width" content="{{workplace.logo.size.0}}">
-  <meta property="og:image:height" content="{{workplace.logo.size.1}}">
-{% endblock meta_og_image_dim %}
+{% if workplace.logo %}
+  {% block meta_og_image %}{{workplace.logo.get_image_thumb}}{% endblock meta_og_image %}
+  {% block meta_og_image_dim %}
+    <meta property="og:image:width" content="{{workplace.logo.image.width}}">
+    <meta property="og:image:height" content="{{workplace.logo.image.height}}">
+  {% endblock meta_og_image_dim %}
+{% endif %}
 
 {% block page_id %}workplace{% endblock page_id %}
 

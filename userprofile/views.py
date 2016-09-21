@@ -227,12 +227,8 @@ def set_logo(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
         transformation = request.POST.get('transformation')
-        trans = transformation.split(',')
-        file = Image.open(image)
         i = Images()
-        x = i.upload_image_new(file=file, user=user, name=image.name, trans=trans)
-        x.save()
-        user.userprofile.profile_image = x
+        user.userprofile.profile_image = i.upload_image_new(image=image, user=user, name=user.name, trans=transformation)
         user.userprofile.save()
         return HttpResponse()
     else:
