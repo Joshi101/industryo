@@ -6,6 +6,12 @@
   {% include content_head_url %}
 {% endblock head_desc %}
 
+{% block meta_og_url %}http://www.corelogs.com/category/{{category.slug}}{% endblock %}
+
+{% block meta_og_image %}{{category.get_image}}{% endblock %}
+{% block meta_og_image_dim %}
+{% endblock meta_og_image_dim %}
+
 {% block body %}
 <div class="container-fluid">
   <ul class="breadcrumb container-fluid">

@@ -11,10 +11,12 @@
   {% include content_head_url %}
 {% endblock head_desc %}
 
-{% block meta_og_image %}{{workplace.get_logo}}{% endblock meta_og_image %}
+{% block meta_og_url %}http://www.corelogs.com/workplace/{{workplace.slug}}{% endblock %}
+
+{% block meta_og_image %}{{workplace.logo.get_full_image}}{% endblock meta_og_image %}
 {% block meta_og_image_dim %}
-  <meta property="og:image:width" content="128">
-  <meta property="og:image:height" content="128">
+  <meta property="og:image:width" content="{{workplace.logo.size.0}}">
+  <meta property="og:image:height" content="{{workplace.logo.size.1}}">
 {% endblock meta_og_image_dim %}
 
 {% block page_id %}workplace{% endblock page_id %}
