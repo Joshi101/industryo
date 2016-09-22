@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^products/(?P<id>[^/]+)/change_image/$', products_views.int_change_image, name='int_change_image'),
     url(r'^products/(?P<slug>[^/]+)/$', products_views.int_product, name='int_product'),
     url(r'^add_product/$', products_views_n.add_product, name='int_add_product'),
+    url(r'^category_all/$', products_views.int_category_all, name='int_category_all'),
     url(r'^category/(?P<slug>[^/]+)/$', products_views.int_category, name='int_category'),
+    url(r'^category/(?P<slug>[^/]+)/add_image$', products_views.int_category_add_image, name='int_category_add_image'),
 ]

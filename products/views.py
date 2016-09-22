@@ -620,6 +620,25 @@ def int_category(request, slug):
     return render(request, 'activities/category.html', locals())
 
 
+def int_category_all(request):
+    categories = Category.objects.all()
+    # products = Products.objects.filter()
+    return render(request, 'activities/all_categories.html', locals())
+
+
+def int_category_add_image(request, slug):
+    category = Category.objects.get(slug=slug)
+    # products = Products.objects.filter()
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        user = request.user
+        transformation = request.POST.get('transformation')
+        i = Images()
+        category.image = i.upload_image_new(image=image, user=user, trans=transformation)
+        category.save()
+    return HttpResponse()
+
+
 def all_category(request):
     cats = Category.objects.all()
     # return render(request, 'activities/category.html', locals())

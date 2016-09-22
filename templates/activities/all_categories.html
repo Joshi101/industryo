@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% comment %}
+{% block head_desc %}
+  {% include content_head_url %}
+{% endblock head_desc %}
+{% endcomment %}
+
+{% block title %}All Categories | CoreLogs{% endblock title %}
+{% block meta_description %}Browse all Categories and find Product and Companies manufacturing &amp; selling them{% endblock meta_description %}
+
+{% block body %}
+<div class="container">
+  <h1 class="text-center">Browse all Categories and find Product and Companies manufacturing &amp; selling them</h1>
+  <div class="ajax_andar all_tags">
+    <div class="text-center">
+      {% for cat in categories %}
+        <div class="cat_card">
+          <div>
+            {% url 'activities:int_category_add_image' cat.slug as add_link %}
+            {% include "snippets/edit_image_box.html" with name="photo" n=1 url=add_link image=cat.image %}
+          </div>
+          <div>
+            <h4><a href="{% url 'activities:int_category' cat.slug %}">{{cat}}</a></h4>
+            <div>
+              Level : {{cat.lvl}}
+            </div>
+            <div>
+              Sub Cats : {{cat.sub_cat.count}}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+	</div>
+</div>
+{% endblock %}
