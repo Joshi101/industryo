@@ -173,7 +173,6 @@ def crawl_images():
                     name = i.image.name
                     if '/' in name:
                         name = name.split('/')[-1]
-
                     f_format = file.format
                     i.image_format = f_format
                     thumb = []
@@ -191,7 +190,7 @@ def crawl_images():
                     i.image_thumbnail_xs.save(name, content=ContentFile(thumb[2].getvalue()))
                     i.save()
                     print('++ Images created for id : '+str(i.id))
-                    print('   '+i.image.name)
+                    print('   '+name)
                 except FileNotFoundError:
                     print('-- File not found for id : '+str(i.id))
             else:

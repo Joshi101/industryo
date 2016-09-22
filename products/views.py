@@ -345,6 +345,7 @@ def home(request):
 
 def all_products(request):
     lvl = 1
+    og_image = None
     q = q1 = q2 = None
     if 'q' in request.GET:
         q = request.GET.get('q')

@@ -213,6 +213,7 @@ def crawl_images():
     for i in images:
         if not i.image:
             print('** Image not available for id : '+str(i.id))
+            i.delete()
         else:
             if not i.image_thumbnail_xs:
                 try:
