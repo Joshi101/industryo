@@ -9,7 +9,7 @@
 {% block meta_og_url %}http://www.corelogs.com/tags/{{tag.slug}}/{% endblock %}
 
 {% if tag.logo %}
-  {% block meta_og_image %}{{tag.logo.image_thumbnail}}{% endblock meta_og_image %}
+  {% block meta_og_image %}{{tag.logo.image_thumbnail.url}}{% endblock meta_og_image %}
 {% endif %}
 
 {% block meta_og_image_dim %}
