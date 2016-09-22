@@ -407,9 +407,8 @@ def add_image(request):
         user = request.user
         image = request.FILES.get('image', None)
         untitled = Node.objects.get(title='untitled', user=user, category='A')
-        file = Image.open(image)
         i = Images()
-        i.upload_image_new(file=file, user=user, name=image.name)
+        i.upload_image_new(image=image, user=user, name=image.name)
         link = i.get_full_image()
         untitled.images.add(i)
         # print(len(untitled.images.all()))
@@ -423,9 +422,8 @@ def change_image(request, id):
         user = request.user
         image = request.FILES.get('image', None)
         node = Node.objects.get(id=id)
-        file = Image.open(image)
         i = Images()
-        i.upload_image_new(file=file, user=user, name=image.name)
+        i.upload_image_new(image=image, user=user, name=image.name)
         link = i.get_full_image()
         node.images.add(i)
         # print(len(untitled.images.all()))

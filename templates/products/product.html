@@ -11,10 +11,16 @@
   <title>{{product}} | CoreLogs</title>
   <meta name="description" content="{{product.description}}">
   <meta property="og:title" content="{{product}} | CoreLogs">
-  <meta name="og:description" content="{{product.description}}">
+  <meta property="og:description" content="{{product.description}}">
 {% endblock head_desc %}
-{% block meta_og_type %}product{% endblock meta_og_type %}
-{% block meta_og_image %}{{product.get_image}}{% endblock meta_og_image %}
+
+{% if product.image %}
+  {% block meta_og_image %}{{product.image.get_image_thumb}}{% endblock meta_og_image %}
+  {% block meta_og_image_dim %}
+    <meta property="og:image:width" content="{{product.image.width}}">
+    <meta property="og:image:height" content="{{product.image.height}}">
+  {% endblock meta_og_image_dim %}
+{% endif %}
 
 {% block page_id %}product{% endblock page_id %}
 

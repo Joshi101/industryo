@@ -349,6 +349,7 @@ def all_products(request):
     if 'q' in request.GET:
         q = request.GET.get('q')
         q = Category.objects.get(id=q)
+        og_image = q.image.get_image_thumb()
         curr_cat = q
         lvl = 2
         p = Products.objects.filter(categories=curr_cat).order_by('-date')
@@ -404,7 +405,7 @@ def all_products(request):
         return render(request, 'marketplace/marketplace.html',
                       {'result_list': result_list, 'c1_all': c1_all,
                        'c1_some': c1_some, 'lvl': lvl, 'q': q, 'q1': q1,
-                       'q2': q2, })
+                       'q2': q2, 'og_image': og_image})
 
 
 def all_products_old(request):

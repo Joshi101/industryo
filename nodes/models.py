@@ -1,4 +1,5 @@
 from PIL import Image
+from django.core.files.images import get_image_dimensions
 from django.db import models
 from django.contrib.auth.models import User
 from tags.models import Tags
@@ -51,21 +52,31 @@ class Images(models.Model):
         return i
 
     # this function needs threading
-    def upload_image_new(self, file, user, name, trans=None):
+    def upload_image_new(self, image, user, name=None, trans=None):
+        file = Image.open(image)
         f_format = file.format
-        if len(name) >= 30:
-            name = name[:25] + '.' + f_format
+        print('>> The image format is : '+f_format)
+        if not name:
+            name = image.name
+        else:
+            name += '.' + f_format.lower()
+        if len(name) >= 70:
+            name = name[:25] + '.' + f_format.lower()
+        print('>> The name is going to be : '+name)
         # crop if trans is set
         if trans:
-            x = float(trans[4])
-            y = float(trans[5])
-            scale = float(trans[0])
-            x1 = -x/scale
-            y1 = -y/scale
-            x2 = (-x+250)/scale
-            y2 = (-y+250)/scale
-            box = (int(x1), int(y1), int(x2), int(y2))
-            file = file.crop(box)
+            trans = trans.split(',')
+            if len(trans) == 6:
+                x = float(trans[4])
+                y = float(trans[5])
+                scale = float(trans[0])
+                x1 = -x/scale
+                y1 = -y/scale
+                x2 = (-x+250)/scale
+                y2 = (-y+250)/scale
+                box = (int(x1), int(y1), int(x2), int(y2))
+                print('-- Image croped at : ', x1, y1, x2,y2)
+                file = file.crop(box)
         file.load()
         image_io = BytesIO()
         file.save(image_io, f_format)
@@ -76,26 +87,19 @@ class Images(models.Model):
         #  any further calculation better be transferred to another thread
         #  because they may get expensive
         thumb = []
-        if len(file.split()) == 4:
-            background = Image.new("RGB", file.size, (255, 255, 255))
-            background.paste(file, mask=file.split()[3])  # 3 is the alpha channel
-            back_io = BytesIO()
-            background.save(back_io, 'JPEG')
-            fc = background
-        else:
-            fc = file
         for size in THUMB_SIZES:
-            f_thumb = fc
+            f_thumb = file
             f_thumb.thumbnail(size, resample=2)
             thumb_io = BytesIO()
-            if size[0] > 50:
-                f_thumb.save(thumb_io, 'JPEG', optimize=True, progressive=True)
+            if f_format == 'JPEG':
+                f_thumb.save(thumb_io, f_format, optimize=True, progressive=True)
             else:
-                f_thumb.save(thumb_io, 'JPEG', optimize=True)
+                f_thumb.save(thumb_io, f_format, optimize=True)
             thumb.append(thumb_io)
         self.image_thumbnail.save(name, content=ContentFile(thumb[0].getvalue()))
         self.image_thumbnail_sm.save(name, content=ContentFile(thumb[1].getvalue()))
         self.image_thumbnail_xs.save(name, content=ContentFile(thumb[2].getvalue()))
+        self.save()
         return self
 
     def get_full_image(self):

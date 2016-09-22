@@ -8,6 +8,18 @@
 
 {% block meta_og_url %}http://www.corelogs.com/tags/{{tag.slug}}{% endblock %}
 
+{% if tag.logo %}
+  {% block meta_og_image %}{{tag.logo.get_image_thumb}}{% endblock meta_og_image %}
+{% endif %}
+
+{% block meta_og_image_dim %}
+  {% if tag.logo %}
+    <meta property="og:image:width" content="{{tag.logo.width}}">
+    <meta property="og:image:height" content="{{tag.logo.height}}">
+  {% endif %}
+{% endblock meta_og_image_dim %}
+
+
 {% block body %}
 {% include "snippets/img_upload_modal.html" with url='nodes:set_tag_logo' url_slug=tag.slug form=tag_logo_form.image %}
 <div class="container-fluid">
