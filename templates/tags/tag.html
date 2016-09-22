@@ -6,7 +6,7 @@
   {% include content_head_url %}
 {% endblock head_desc %}
 
-{% block meta_og_url %}http://www.corelogs.com/tags/{{tag.slug}}{% endblock %}
+{% block meta_og_url %}http://www.corelogs.com/tags/{{tag.slug}}/{% endblock %}
 
 {% if tag.logo %}
   {% block meta_og_image %}{{tag.logo.image_thumbnail}}{% endblock meta_og_image %}

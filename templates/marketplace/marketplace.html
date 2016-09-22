@@ -6,8 +6,6 @@
 
 {% block meta_description %}Marketplace{% endblock meta_description %}
 
-{% block meta_og_url %}{% url 'products:marketplace' %}{% endblock %}
-
 {% if og_image %}
   {% block meta_og_image %}{{og_image.image_thumbnail}}{% endblock %}
   {% block meta_og_image_dim %}

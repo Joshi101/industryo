@@ -11,7 +11,7 @@
   {% include content_head_url %}
 {% endblock head_desc %}
 
-{% block meta_og_url %}http://www.corelogs.com/workplace/{{workplace.slug}}{% endblock %}
+{% block meta_og_url %}http://www.corelogs.com/workplace/{{workplace.slug}}/{% endblock %}
 
 {% if workplace.logo %}
   {% block meta_og_image %}{{workplace.logo.image_thumbnail}}{% endblock meta_og_image %}
