@@ -67,3 +67,4 @@ passwords/
 
 *.sql
 inspections/
+.sass-cache/
