@@ -145,3 +145,60 @@ def manage(request):
 
 # def change_owner(request):
 #
+
+
+THUMB_SIZES = [
+    (233, 233),
+    (89, 89),
+    (34, 34)
+]
+
+from django.core.files.base import ContentFile
+from io import BytesIO
+
+
+def crawl_images():
+    """
+    Crawls the model for all the image files
+    """
+    images = Images.objects.all()
+    for i in images:
+        if not i.image:
+            print('** Image not available for id : '+str(i.id))
+            i.delete()
+        else:
+            if not i.image_thumbnail_xs:
+                try:
+                    file = Image.open(i.image)
+                    name = i.image.name
+                    if '/' in name:
+                        name = name.split('/')[-1]
+
+                    f_format = file.format
+                    i.image_format = f_format
+                    thumb = []
+                    for size in THUMB_SIZES:
+                        f_thumb = file
+                        f_thumb.thumbnail(size, resample=2)
+                        thumb_io = BytesIO()
+                        if f_format == 'JPEG':
+                            f_thumb.save(thumb_io, f_format, optimize=True, progressive=True)
+                        else:
+                            f_thumb.save(thumb_io, f_format, optimize=True)
+                        thumb.append(thumb_io)
+                    i.image_thumbnail.save(name, content=ContentFile(thumb[0].getvalue()))
+                    i.image_thumbnail_sm.save(name, content=ContentFile(thumb[1].getvalue()))
+                    i.image_thumbnail_xs.save(name, content=ContentFile(thumb[2].getvalue()))
+                    i.save()
+                    print('++ Images created for id : '+str(i.id))
+                    print('   '+i.image.name)
+                except FileNotFoundError:
+                    print('-- File not found for id : '+str(i.id))
+            else:
+                print(">> All good for id: "+str(i.id))
+
+
+
+
+
+
