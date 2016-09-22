@@ -17,8 +17,8 @@
 {% if product.image %}
   {% block meta_og_image %}{{product.image.image_thumbnail}}{% endblock meta_og_image %}
   {% block meta_og_image_dim %}
-    <meta property="og:image:width" content="{{product.image_thumbnail.width}}">
-    <meta property="og:image:height" content="{{product.image_thumbnail.height}}">
+    <meta property="og:image:width" content="{{product.image.image_thumbnail.width}}">
+    <meta property="og:image:height" content="{{product.image.image_thumbnail.height}}">
   {% endblock meta_og_image_dim %}
 {% endif %}
 
