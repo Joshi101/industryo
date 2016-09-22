@@ -67,7 +67,7 @@
         {% include "products/small_product.html" with product=product %}
         {% if forloop.last %}
           <li style="padding-left: 39px;">
-            <a href="">See All <span class="fa fa-angle-double-right"></span></a>
+            <a href="{% url 'products:manage' %}">See All <span class="fa fa-angle-double-right"></span></a>
           </li>
         {% endif %}
       {% empty %}
