@@ -3,6 +3,7 @@ from home import data as home_data
 from home import email as home_email
 from workplace import views as workplace_views
 from products import views as products_views
+from products import views_new as products_views_n
 
 urlpatterns = [
     url(r'^workplace_data$', workplace_views.workplace_data, name='workplace_data'),
@@ -21,6 +22,6 @@ urlpatterns = [
     url(r'^(?P<id>[^/]+)/set_details/$', products_views.set_int_details, name='set_int_details'),
     url(r'^products/(?P<id>[^/]+)/change_image/$', products_views.int_change_image, name='int_change_image'),
     url(r'^products/(?P<slug>[^/]+)/$', products_views.int_product, name='int_product'),
-    url(r'^add_product/$', products_views.int_add_product, name='int_add_product'),
+    url(r'^add_product/$', products_views_n.add_product, name='int_add_product'),
     url(r'^category/(?P<slug>[^/]+)/$', products_views.int_category, name='int_category'),
 ]

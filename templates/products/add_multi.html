@@ -78,7 +78,7 @@
     </ul>
     <div class="form_pool">
       {% for i in "12345" %}
-        {% include "products/add_multi_form.html" with n=forloop.counter %}
+        {% include "products/add_multi_form.html" with n=forloop.counter internal=internal %}
       {% endfor %}
       {% include "products/categories_modal.html" %}
     </div>

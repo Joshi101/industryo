@@ -4,7 +4,7 @@
       <div class="col-sm-2">
         <div class="form-group">
           <div class="img_box_container">
-            {% url 'products:add_image' as add_link %}
+            {% url 'products:add_image'  as add_link %}
             {% include "snippets/add_image_box.html" with name="photo" n=n url=add_link %}
           </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="prod_cost_{{n}}">Cost</label>
-            <input id="prod_cost_{{n}}" name="cost" value="" placeholder ='00.00'>
+            <input id="prod_cost_{{n}}" name="cost" value="" placeholder ='Price / unit'>
           </div>
         </div>
       </div>

@@ -18,6 +18,7 @@ THUMB_SIZES = [
     (34, 34)
 ]
 
+
 class Images(models.Model):
     image = models.ImageField(upload_to='main', null=True, blank=True)
     image_thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
