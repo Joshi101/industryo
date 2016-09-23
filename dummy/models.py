@@ -13,7 +13,6 @@ class Company(models.Model):
     paidup_c = models.CharField(max_length=200, null=True, blank=True)
     business = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=500, null=True, blank=True)
-    # category = models.CharField(max_length=100, null=True, blank=True)
     registrar = models.CharField(max_length=200, null=True, blank=True)
     state = models.CharField(max_length=200, null=True, blank=True)
     sub_c = models.CharField(max_length=200, null=True, blank=True)
