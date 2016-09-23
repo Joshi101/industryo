@@ -17,11 +17,12 @@ class Company(models.Model):
     state = models.CharField(max_length=200, null=True, blank=True)
     sub_c = models.CharField(max_length=200, null=True, blank=True)
 
-    # email = models.CharField(max_length=100, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     # about = models.TextField(max_length=5000, null=True, blank=True)
-    # website = models.CharField(max_length=100, null=True, blank=True)
+    website = models.CharField(max_length=100, null=True, blank=True)
     #
-    # scraped = models.BooleanField(default=False)
+    scraped = models.BooleanField(default=False)
+    people = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -37,9 +38,11 @@ class Company(models.Model):
 
 
 class Director(models.Model):
-    din = models.CharField(max_length=10)
-    name = models.CharField(max_length=100)
+    din = models.CharField(max_length=12)
+    name = models.CharField(max_length=200)
+    post = models.CharField(max_length=200, null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True)
+    cin = models.CharField(max_length=15, null=True, blank=True)
 
     def __str__(self):
         return self.name
