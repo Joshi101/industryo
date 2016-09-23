@@ -7,11 +7,10 @@
 {% block meta_description %}{{ tag.description }}{% endblock meta_description %}
 
 {% block left %}
-	<div id="img_profile_box">
-		<img id="img_profile" class="thumbnail" width="120" height="120" src="{{category.get_logo}}" alt="CoreLogs-{{category}}">
-		<a id='img_upload' class="text-center" data-toggle='modal' data-target='#img_upload_modal'>Change Image</a>
-    </div>
-  {% include "snippets/img_upload_modal.html" with url='nodes:set_category_logo' url_slug=category.slug form=tag_logo_form.image %}
+  <div id="img_profile_box">
+    {% url 'activities:int_category_add_image' category.slug as add_link %}
+    {% include "snippets/edit_image_box.html" with name="photo" n=1 url=add_link image=category.image %}
+  </div>
 {% endblock left %}
 
 {% block content %}

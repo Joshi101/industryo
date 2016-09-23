@@ -9,7 +9,7 @@
   <div class="image_preview_box {% if not image %}hide{% endif %}">
     <a class="image_preview file_btn">
       {% if image %}
-      <img src="{{image.get_image_thumb_sm}}" alt="Current Image" />
+      <img src="{{image.image_thumbnail_sm.url}}" alt="Current Image" />
       {% else %}
       <img src={{blank_gif}} alt="product image" />
       {% endif %}
